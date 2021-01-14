@@ -47,6 +47,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Screens\GameScreen.cs" />
+    <Compile Include="Screens\Menus\LoadWorldScreen.cs" />
     <Compile Include="Misc\Config.cs" />
     <Compile Include="Misc\Direction.cs" />
     <Compile Include="Misc\FrameCounter.cs" />
@@ -55,11 +57,17 @@
     <Compile Include="MonoGameWrapper\PrimitivesHelper.cs" />
     <Compile Include="MonoGameWrapper\MonoGameWindow.cs" />
     <Compile Include="Launcher.cs" />
-    <Compile Include="Sector\Sector.cs" />
-    <Compile Include="ScreenManager.cs" />
+    <Compile Include="Screens\Menus\MenuItem.cs" />
+    <Compile Include="Screens\Menus\MenuScreen.cs" />
+    <Compile Include="Screens\Menus\NewWorldScreen.cs" />
+    <Compile Include="Screens\Screen.cs" />
+    <Compile Include="Screens\Menus\TitleScreen.cs" />
+    <Compile Include="World\Sector\Sector.cs" />
+    <Compile Include="Screens\ScreenManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tile\Tile.cs" />
     <Compile Include="World\World.cs" />
+    <Compile Include="World\WorldGen.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, processorArchitecture=MSIL">

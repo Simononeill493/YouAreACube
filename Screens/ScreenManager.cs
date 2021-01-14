@@ -10,21 +10,20 @@ namespace IAmACube
 {
     class ScreenManager
     {
+        public static Screen CurrentScreen;
+
         public ScreenManager()
         {
         }
 
         public void Update(MouseState mouseState, KeyboardState keyboardState)
         {
-
+            CurrentScreen.Update(mouseState, keyboardState);
         }
 
         public void Draw(DrawingInterface drawingInterface)
         {
-            drawingInterface.DrawGrid();
-            drawingInterface.DrawGrass();
+            CurrentScreen.Draw(drawingInterface);
         }
-
-
     }
 }

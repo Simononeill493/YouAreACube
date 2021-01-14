@@ -9,12 +9,12 @@ namespace IAmACube
     public class World
     {
         public Sector Centre;
-        public List<Sector> Regions;
+        public List<Sector> Sectors;
 
         public World(Sector centre)
         {
             Centre = centre;
-            Regions = new List<Sector>() { Centre };
+            Sectors = new List<Sector>() { Centre };
         }
     }
 }

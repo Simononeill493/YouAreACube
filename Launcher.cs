@@ -9,7 +9,7 @@ namespace IAmACube
         [STAThread]
         public static void Main(string[] args)
         {
-            var s = new Sector();
+            //var s = WorldGen.GenerateFreshWorld();
             //Templates.Load();
 
             var game = new MonoGameWindow();

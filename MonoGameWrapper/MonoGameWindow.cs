@@ -40,6 +40,7 @@ namespace IAmACube
 
             _gameDrawingHandler = new DrawingInterface();
             _screenManager = new ScreenManager();
+            ScreenManager.CurrentScreen = new TitleScreen();
         }
 
         protected override void Update(GameTime gameTime)
