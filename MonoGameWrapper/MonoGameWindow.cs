@@ -14,7 +14,10 @@ namespace IAmACube
 {
     public class MonoGameWindow : Microsoft.Xna.Framework.Game
     {
-        private DrawingInterface _gameDrawingHandler;
+        public static int CurrentWidth;
+        public static int CurrentHeight;
+
+        private DrawingInterface _drawingInterface;
         private GraphicsDeviceManager _graphicsDeviceManager;
         private AttachedConsoleManager _attachedConsoleManager;
         private ScreenManager _screenManager;
@@ -38,7 +41,7 @@ namespace IAmACube
             _attachedConsoleManager = new AttachedConsoleManager(GraphicsDevice,Window.Position);
             this.Window.ClientSizeChanged += _attachedConsoleManager.ConsoleMoveEventHandler;
 
-            _gameDrawingHandler = new DrawingInterface();
+            _drawingInterface = new DrawingInterface();
             _screenManager = new ScreenManager();
             ScreenManager.CurrentScreen = new TitleScreen();
         }
@@ -55,22 +58,27 @@ namespace IAmACube
 
         protected override void Draw(GameTime gameTime)
         {
-            _frameCounter.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
+            if(Config.EnableFrameCounter)
+            {
+                _frameCounter.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
+                Console.Write(_frameCounter.CurrentFramesPerSecond);
+                Console.Write((char)13);
+            }
 
-            _gameDrawingHandler.GraphicsDevice = _graphicsDeviceManager.GraphicsDevice;
+            _drawingInterface.graphicsDevice = _graphicsDeviceManager.GraphicsDevice;
+            CurrentWidth = _graphicsDeviceManager.GraphicsDevice.Viewport.Width;
+            CurrentHeight = _graphicsDeviceManager.GraphicsDevice.Viewport.Height;
 
-            _gameDrawingHandler.BeginDrawFrame();
-            _screenManager.Draw(_gameDrawingHandler);
-            _gameDrawingHandler.EndDrawFrame();
+            _drawingInterface.BeginDrawFrame();
+            _screenManager.Draw(_drawingInterface);
+            _drawingInterface.EndDrawFrame();
             base.Draw(gameTime);
 
-            Console.Write(_frameCounter.CurrentFramesPerSecond);
-            Console.Write((char)13);
         }
 
         protected override void LoadContent()
         {
-            _gameDrawingHandler.LoadContent(GraphicsDevice, Content);
+            _drawingInterface.LoadContent(GraphicsDevice, Content);
         }
 
         protected override void UnloadContent()

@@ -16,6 +16,8 @@ namespace IAmACube
 
         public override void Update(MouseState mouseState, KeyboardState keyboardState)
         {
+            this.MenuScreenUpdate(mouseState, keyboardState);
+
             throw new NotImplementedException();
         }
     }

@@ -9,5 +9,6 @@ namespace IAmACube
     class Config
     {
         public const int SectorSize = 64;
+        public const bool EnableFrameCounter = false;
     }
 }

@@ -32,8 +32,9 @@ namespace IAmACube
             var bounds = _graphicsDevice.PresentationParameters.Bounds;
             var p = GetConsoleWindow();
 
-            MoveWindow(p, _lastRecordedPosition.X + bounds.Width, _lastRecordedPosition.Y, 1200, bounds.Height, true);
-            Console.WriteLine("Console Moved");
+            MoveWindow(p, _lastRecordedPosition.X + bounds.Width, _lastRecordedPosition.Y, 400, bounds.Height, true);
+            //MoveWindow(p, _lastRecordedPosition.X, _lastRecordedPosition.Y + bounds.Height, bounds.Width, , true);
+            //Console.WriteLine("Console Moved");
         }
 
         public void CheckWindowPositionAndUpdateConsole(Point currentPosition)

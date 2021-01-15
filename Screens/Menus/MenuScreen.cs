@@ -21,5 +21,22 @@ namespace IAmACube
                 drawingInterface.DrawMenuItem(item);
             }
         }
+
+        public void MenuScreenUpdate(MouseState mouseState, KeyboardState keyboardState)
+        {
+            foreach(var item in MenuItems)
+            {
+                if(_isMouseOverItem(mouseState,item))
+                {
+                    Console.WriteLine("Hovering over " + item.SpriteName);
+                }
+            }
+        }
+
+        private bool _isMouseOverItem(MouseState mouseState,MenuItem menuItem)
+        {
+            var rect = DrawingInterface.GetMenuItemRectangle(menuItem);
+            return rect.Contains(mouseState.X, mouseState.Y);
+        }
     }
 }

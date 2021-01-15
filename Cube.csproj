@@ -47,6 +47,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="MonoGameWrapper\SpriteManager.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\Menus\LoadWorldScreen.cs" />
     <Compile Include="Misc\Config.cs" />

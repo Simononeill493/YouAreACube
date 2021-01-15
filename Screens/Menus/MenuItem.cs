@@ -9,7 +9,9 @@ namespace IAmACube
     public class MenuItem
     {
         public string SpriteName;
-        public int XPos;
-        public int YPos;
+        public string HoverSpriteName;
+        public int XPercentage;
+        public int YPercentage;
+        public int Scale = 1;
     }
 }
