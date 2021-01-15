@@ -24,11 +24,26 @@ namespace IAmACube
 
         public void MenuScreenUpdate(MouseState mouseState, KeyboardState keyboardState)
         {
-            foreach(var item in MenuItems)
+            foreach (var item in MenuItems)
             {
-                if(_isMouseOverItem(mouseState,item))
+                item.Hovering = _isMouseOverItem(mouseState, item);
+
+                if (item.Hovering)
                 {
-                    Console.WriteLine("Hovering over " + item.SpriteName);
+                    if (mouseState.LeftButton == ButtonState.Pressed)
+                    {
+                        item.ClickedOn = true;
+                    }
+                    else if (mouseState.LeftButton == ButtonState.Released & item.ClickedOn & item.Clickable)
+                    {
+                        item.ClickAction();
+
+                    }
+                    else if (!item.Hovering)
+                    {
+                        item.ClickedOn = false;
+                    }
+
                 }
             }
         }

@@ -9,12 +9,35 @@ namespace IAmACube
 {
     class TitleScreen : MenuScreen
     {
-
         public TitleScreen()
         {
             Background = "TitleBackground";
-            var newGameButton = new MenuItem() { SpriteName = "NewGameMenu", XPercentage = 50, YPercentage = 25, Scale = 3};
-            var loadGameButton = new MenuItem() { SpriteName = "LoadGameMenu", XPercentage = 50, YPercentage = 50, Scale = 3 };
+
+            var newGameButton = new MenuItem() 
+            { 
+                SpriteName = "NewGameMenu", 
+                HighlightedSpriteName = "NewGameMenu_Highlight", 
+                XPercentage = 50, 
+                YPercentage = 25, 
+                Scale = 3, 
+                Highlightable = true, 
+
+                Clickable = true,
+                ClickAction = GoToNewGame
+            };
+
+            var loadGameButton = new MenuItem() 
+            { 
+                SpriteName = "LoadGameMenu", 
+                HighlightedSpriteName = "LoadGameMenu_Highlight",
+                XPercentage = 50,
+                YPercentage = 50, 
+                Scale = 3, 
+                Highlightable = true,
+
+                Clickable = true,
+                ClickAction = GoToLoadGame
+            };
 
             MenuItems.Add(newGameButton);
             MenuItems.Add(loadGameButton);
@@ -34,5 +57,16 @@ namespace IAmACube
             this.MenuScreenUpdate(mouseState, keyboardState);
 
         }
+
+        public void GoToNewGame()
+        {
+            ScreenManager.CurrentScreen = new NewGameScreen();
+        }
+
+        public void GoToLoadGame()
+        {
+            ScreenManager.CurrentScreen = new LoadGameScreen();
+        }
+
     }
 }

@@ -7,8 +7,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace IAmACube
 {
-    class LoadWorldScreen : MenuScreen
+    class NewGameScreen : MenuScreen
     {
+        public NewGameScreen()
+        {
+            Background = "Grass";
+        }
+
         public override void Draw(DrawingInterface drawingInterface)
         {
             this.DrawBackgroundAndMenuItems(drawingInterface);
@@ -18,7 +23,11 @@ namespace IAmACube
         {
             this.MenuScreenUpdate(mouseState, keyboardState);
 
-            throw new NotImplementedException();
+            if (keyboardState.IsKeyDown(Keys.Escape))
+            {
+                ScreenManager.CurrentScreen = new TitleScreen();
+            }
+
         }
     }
 }

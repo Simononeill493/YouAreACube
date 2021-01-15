@@ -34,7 +34,10 @@ namespace IAmACube
         public void BeginDrawFrame()
         {
             graphicsDevice.Clear(Color.Black);
-            _spriteBatch.Begin();
+            //_spriteBatch.Begin();
+
+           _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,SamplerState.PointClamp);
+
         }
         public void EndDrawFrame()
         {
@@ -66,7 +69,14 @@ namespace IAmACube
             var (x, y) = _screenPercentageToCoords(item.XPercentage, item.YPercentage);
 
             //All menu items are drawn centered. 
-            DrawSpriteCentered(item.SpriteName, x, y,item.Scale);
+            if(item.Highlightable & item.Hovering)
+            {
+                DrawSpriteCentered(item.HighlightedSpriteName, x, y, item.Scale);
+            }
+            else
+            {
+                DrawSpriteCentered(item.SpriteName, x, y, item.Scale);
+            }
         }
 
         public static Rectangle GetMenuItemRectangle(MenuItem item)

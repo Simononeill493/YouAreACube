@@ -49,7 +49,7 @@
   <ItemGroup>
     <Compile Include="MonoGameWrapper\SpriteManager.cs" />
     <Compile Include="Screens\GameScreen.cs" />
-    <Compile Include="Screens\Menus\LoadWorldScreen.cs" />
+    <Compile Include="Screens\Menus\LoadGameScreen.cs" />
     <Compile Include="Misc\Config.cs" />
     <Compile Include="Misc\Direction.cs" />
     <Compile Include="Misc\FrameCounter.cs" />
@@ -60,7 +60,7 @@
     <Compile Include="Launcher.cs" />
     <Compile Include="Screens\Menus\MenuItem.cs" />
     <Compile Include="Screens\Menus\MenuScreen.cs" />
-    <Compile Include="Screens\Menus\NewWorldScreen.cs" />
+    <Compile Include="Screens\Menus\NewGameScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="Screens\Menus\TitleScreen.cs" />
     <Compile Include="World\Sector\Sector.cs" />
