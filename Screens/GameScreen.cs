@@ -9,14 +9,20 @@ namespace IAmACube
 {
     class GameScreen : Screen
     {
-        public override void Draw(DrawingInterface drawingInterface)
+        public Save Save;
+
+        public GameScreen(Save save)
         {
-            throw new NotImplementedException();
+            Save = save;
         }
 
-        public override void Update(MouseState mouseState, KeyboardState keyboardState)
+        public override void Draw(DrawingInterface drawingInterface)
         {
-            throw new NotImplementedException();
+            drawingInterface.DrawBackground("Grass");
+        }
+
+        public override void Update(MouseState mouseState, KeyboardState keyboardState,List<Keys> keysUp)
+        {
         }
     }
 }

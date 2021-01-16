@@ -41,7 +41,6 @@ namespace IAmACube
 
             MenuItems.Add(newGameButton);
             MenuItems.Add(loadGameButton);
-
         }
 
         public override void Draw(DrawingInterface drawingInterface)
@@ -52,7 +51,7 @@ namespace IAmACube
             //drawingInterface.DrawSprite("grass", 5, 5);
         }
 
-        public override void Update(MouseState mouseState, KeyboardState keyboardState)
+        public override void Update(MouseState mouseState, KeyboardState keyboardState, List<Keys> keysUp)
         {
             this.MenuScreenUpdate(mouseState, keyboardState);
 

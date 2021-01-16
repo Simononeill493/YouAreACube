@@ -24,7 +24,10 @@ namespace IAmACube
         public void LoadContent(GraphicsDevice graphicsDevice, ContentManager contentManager)
         {
             _spriteBatch = new SpriteBatch(graphicsDevice);
-            _spriteFont = contentManager.Load<SpriteFont>("Arial");
+            //_spriteFont = contentManager.Load<SpriteFont>("Connection3");
+            //_spriteFont = contentManager.Load<SpriteFont>("ConnectionSerif");
+            _spriteFont = contentManager.Load<SpriteFont>("PressStart2P");
+            //_spriteFont = contentManager.Load<SpriteFont>("Arial");
 
             _primitivesHelper = new PrimitivesHelper(graphicsDevice, _spriteBatch);
             _contentManager = contentManager;
@@ -51,7 +54,6 @@ namespace IAmACube
             var verticallScale = graphicsDevice.Viewport.Height / (float)backgroundSprite.Height;
             _spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), scale: new Vector2(horizontalScale, verticallScale));
         }
-
         public void DrawSprite(string spriteName, int x, int y, int scale = 1)
         {
             var sprite = SpriteManager.GetSprite(spriteName);
@@ -60,7 +62,7 @@ namespace IAmACube
         public void DrawSpriteCentered(string spriteName, int x, int y, int scale = 1)
         {
             var sprite = SpriteManager.GetSprite(spriteName);
-            var (xOffset, yoffset) = _transformCoordsToCenteredCoords(sprite, x, y, scale);
+            var (xOffset, yoffset) = _transformCoordsToCenteredCoords(sprite.Width,sprite.Height, x, y, scale);
 
             _spriteBatch.Draw(sprite, new Vector2(xOffset, yoffset), scale: new Vector2(scale, scale));
         }
@@ -77,6 +79,21 @@ namespace IAmACube
             {
                 DrawSpriteCentered(item.SpriteName, x, y, item.Scale);
             }
+
+            if(item.HasText)
+            {
+                DrawText(item.Text, item.XPercentage, item.YPercentage, 2);
+            }
+        }
+        public void DrawText(string text,int xPercentage,int yPercentage,int scale)
+        {
+            var (x, y) = _screenPercentageToCoords(xPercentage, yPercentage);
+            var dims = _spriteFont.MeasureString(text);
+            var (xOffs, yOffs) = _transformCoordsToCenteredCoords((int)dims.X, (int)dims.Y, x, y, scale);
+
+            //_spriteBatch.DrawString(_spriteFont, text, new Vector2(xOffs, yOffs),Color.Black);
+            _spriteBatch.DrawString(_spriteFont, text, new Vector2(xOffs, yOffs), Color.Black, 0, Vector2.Zero, scale,SpriteEffects.None,0);
+
         }
 
         public static Rectangle GetMenuItemRectangle(MenuItem item)
@@ -85,7 +102,7 @@ namespace IAmACube
             var sprite = SpriteManager.GetSprite(item.SpriteName);
 
             var (x, y) = _screenPercentageToCoords(item.XPercentage, item.YPercentage);
-            var (x1, y1) = _transformCoordsToCenteredCoords(sprite, x, y, item.Scale);
+            var (x1, y1) = _transformCoordsToCenteredCoords(sprite.Width,sprite.Height, x, y, item.Scale);
 
             var x2 = x1 + sprite.Width * item.Scale;
             var y2 = y1 + sprite.Height * item.Scale;
@@ -93,12 +110,10 @@ namespace IAmACube
             return new Rectangle(x1, y1, sprite.Width * item.Scale, sprite.Height * item.Scale);
             //return (x1, y1, x2, y2);
         }
-
-
-        private static (int xOffset, int yOffset) _transformCoordsToCenteredCoords(Texture2D sprite, int x, int y, int scale)
+        private static (int xOffset, int yOffset) _transformCoordsToCenteredCoords(int width,int height, int x, int y, int scale)
         {
-            var xOffset = x - ((int)((sprite.Width / 2.0) * scale));
-            var yOffset = y - ((int)((sprite.Height / 2.0) * scale));
+            var xOffset = x - ((int)((width / 2.0) * scale));
+            var yOffset = y - ((int)((height/ 2.0) * scale));
 
             return (xOffset, yOffset);
         }

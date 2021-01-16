@@ -18,9 +18,11 @@ namespace IAmACube
         public string HighlightedSpriteName;
         public bool Highlightable = false;
 
-
         public bool Clickable = false;
         public bool ClickedOn = false;
         public Action ClickAction;
+
+        public bool HasText = false;
+        public string Text;
     }
 }

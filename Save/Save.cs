@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class Sector
+    public class Save
     {
-        public Tile[,] Tiles;
+        public Kernel Kernel;
+        public World World;
 
-        public Sector(Tile[,] tiles)
+        public Save(Kernel kernel,World world)
         {
-            Tiles = tiles;
+            Kernel = kernel;
+            World = world;
         }
-
     }
 }

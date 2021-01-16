@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
+    [Serializable()]
     public class Tile
     {
         public Dictionary<Direction, Tile> Adjacent;

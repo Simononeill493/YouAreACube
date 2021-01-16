@@ -10,6 +10,8 @@ using MessageBox = System.Windows.Forms.MessageBox;
 using System.Runtime.InteropServices;
 using System.IO;
 using wf = System.Windows.Forms;
+using System.Collections.Generic;
+
 namespace IAmACube
 {
     public class MonoGameWindow : Microsoft.Xna.Framework.Game
@@ -21,6 +23,8 @@ namespace IAmACube
         private GraphicsDeviceManager _graphicsDeviceManager;
         private AttachedConsoleManager _attachedConsoleManager;
         private ScreenManager _screenManager;
+
+        private KeyboardState _currentKeyboardState;
 
         FrameCounter _frameCounter = new FrameCounter();
 
@@ -44,15 +48,32 @@ namespace IAmACube
             _drawingInterface = new DrawingInterface();
             _screenManager = new ScreenManager();
             ScreenManager.CurrentScreen = new TitleScreen();
+            _currentKeyboardState = Keyboard.GetState();
         }
+
 
         protected override void Update(GameTime gameTime)
         {
             _attachedConsoleManager.CheckWindowPositionAndUpdateConsole(Window.Position);
             var mouseState = Mouse.GetState();
-            var keyState = Keyboard.GetState();
 
-            _screenManager.Update(mouseState, keyState);
+
+            var previouslyPressed = _currentKeyboardState.GetPressedKeys();
+            var newKeyState = Keyboard.GetState();
+            var keysUp = new List<Keys>();
+
+            foreach (var key in previouslyPressed)
+            {
+                if(!newKeyState.IsKeyDown(key))
+                {
+                    keysUp.Add(key);
+                }
+            }
+
+            _currentKeyboardState = newKeyState;
+
+
+            _screenManager.Update(mouseState, _currentKeyboardState,keysUp);
             base.Update(gameTime);
         }
 

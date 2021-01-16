@@ -10,5 +10,9 @@ namespace IAmACube
     {
         public const int SectorSize = 64;
         public const bool EnableFrameCounter = false;
+
+        public const string SaveDirectory = @"C:\Users\Simon\Desktop\Cube\Cube\Saves";
+        public const string SaveExtension = ".cubesave";
+
     }
 }

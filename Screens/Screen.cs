@@ -9,7 +9,7 @@ namespace IAmACube
 {
     abstract class Screen
     {
-        public abstract void Update(MouseState mouseState, KeyboardState keyboardState);
+        public abstract void Update(MouseState mouseState, KeyboardState keyboardState, List<Keys> keysUp);
         public abstract void Draw(DrawingInterface drawingInterface);
     }
 }
