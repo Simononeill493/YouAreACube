@@ -9,5 +9,6 @@ namespace IAmACube
     [Serializable()]
     public class Kernel
     {
+        public Sector CurrentSector;
     }
 }

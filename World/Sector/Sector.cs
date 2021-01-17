@@ -16,5 +16,18 @@ namespace IAmACube
             Tiles = tiles;
         }
 
+        public bool TryGetTile(int x,int y,out Tile tile)
+        {
+            tile = null;
+
+            if(x<Config.SectorSize & y < Config.SectorSize & x>-1 & y>-1)
+            {
+                tile = Tiles[x, y];
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }

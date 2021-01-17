@@ -12,8 +12,20 @@ namespace IAmACube
         {
             var centre = _getEmptySector();
             var world = new World(centre);
+            _setBasicGround(world);
 
             return world;
+        }
+
+        private static void _setBasicGround(World world)
+        {
+            foreach(var sector in world.Sectors)
+            {
+                foreach(var tile in sector.Tiles)
+                {
+                    tile.Ground = new GroundBlock() { Background = "Grass" };
+                }
+            }
         }
 
         private static Sector _getEmptySector()

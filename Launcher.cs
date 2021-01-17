@@ -10,7 +10,7 @@ namespace IAmACube
         public static void Main(string[] args)
         {
             //var s = WorldGen.GenerateFreshWorld();
-            //Templates.Load();
+            Templates.Load();
 
             var game = new MonoGameWindow();
             game.Run();

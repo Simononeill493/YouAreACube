@@ -8,11 +8,12 @@ namespace IAmACube
 {
     class Config
     {
-        public const int SectorSize = 64;
-        public const bool EnableFrameCounter = false;
+        public const int TileSizeActual = 16;
+
+        public const int SectorSize = 32;
+        public const bool EnableFrameCounter = true;
 
         public const string SaveDirectory = @"C:\Users\Simon\Desktop\Cube\Cube\Saves";
         public const string SaveExtension = ".cubesave";
-
     }
 }

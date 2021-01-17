@@ -10,6 +10,7 @@ namespace IAmACube
     public class Tile
     {
         public Dictionary<Direction, Tile> Adjacent;
+        public GroundBlock Ground;
 
         public Tile()
         {

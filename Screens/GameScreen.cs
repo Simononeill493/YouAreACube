@@ -9,20 +9,25 @@ namespace IAmACube
 {
     class GameScreen : Screen
     {
-        public Save Save;
+        public Save LoadedSave;
+        public Camera Camera;
 
         public GameScreen(Save save)
         {
-            Save = save;
+            LoadedSave = save;
+            Camera = new Camera();
         }
 
         public override void Draw(DrawingInterface drawingInterface)
         {
-            drawingInterface.DrawBackground("Grass");
+            Camera.DrawWorld(drawingInterface,LoadedSave.World.Centre);
         }
 
         public override void Update(MouseState mouseState, KeyboardState keyboardState,List<Keys> keysUp)
         {
+            Camera.KeyInput(keyboardState, keysUp);
+
+
         }
     }
 }

@@ -47,7 +47,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Kernel.cs" />
+    <Compile Include="Camera.cs" />
+    <Compile Include="Player\Kernel.cs" />
     <Compile Include="Misc\KeyUtils.cs" />
     <Compile Include="MonoGameWrapper\SpriteManager.cs" />
     <Compile Include="Save\Save.cs" />
@@ -67,6 +68,8 @@
     <Compile Include="Screens\Menus\NewGameScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="Screens\Menus\TitleScreen.cs" />
+    <Compile Include="Templates.cs" />
+    <Compile Include="Tile\GroundBlock.cs" />
     <Compile Include="World\Sector\Sector.cs" />
     <Compile Include="Screens\ScreenManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,9 +102,7 @@
     <None Include="Content\Arial.spritefont" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Player\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <Import Project="packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets')" />
