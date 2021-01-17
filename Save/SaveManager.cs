@@ -13,8 +13,10 @@ namespace IAmACube
     {
         public static Save FreshSave()
         {
+            var seed = new Random(1);
+
             var kernel = new Kernel();
-            var world = WorldGen.GenerateFreshWorld();
+            var world = WorldGen.GenerateFreshWorld(seed);
 
             var save = new Save(kernel, world);
             return save;

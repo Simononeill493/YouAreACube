@@ -11,9 +11,11 @@ namespace IAmACube
         public const int TileSizeActual = 16;
 
         public const int SectorSize = 32;
-        public const bool EnableFrameCounter = true;
+        public const bool EnableFrameCounter = false;
 
         public const string SaveDirectory = @"C:\Users\Simon\Desktop\Cube\Cube\Saves";
         public const string SaveExtension = ".cubesave";
+
+        public const string TemplatesFile = @"C:\Users\Simon\Desktop\Cube\Cube\Templates\Templates.txt";
     }
 }

@@ -8,47 +8,72 @@ namespace IAmACube
 {
     class WorldGen
     {
-        public static World GenerateFreshWorld()
+        public static World GenerateFreshWorld(Random seed)
         {
             var centre = _getEmptySector();
             var world = new World(centre);
+
             _setBasicGround(world);
+            _addRandom(seed,world.Centre,"BasicEnemy",10);
 
             return world;
         }
 
+        private static void _addRandom(Random seed, Sector sector, string blockname,int number)
+        {
+            var emptyTiles = sector.TilesFlattened.Where(t => t.Contents == null).ToList();
+            var emptySize = emptyTiles.Count();
+
+            for (int i = 0; i < number; i++)
+            {
+                if(emptySize==0)
+                {
+                    Console.WriteLine("Warning: Tried to add " + blockname + " but sector is full!");
+                    return;
+                }
+
+                var block = Templates.Generate(blockname);
+                var tileNum = seed.Next(0, emptySize - 1);
+
+                emptyTiles[tileNum].Contents = block;
+                emptyTiles.RemoveAt(tileNum);
+            }
+        }
         private static void _setBasicGround(World world)
         {
             foreach(var sector in world.Sectors)
             {
                 foreach(var tile in sector.Tiles)
                 {
-                    tile.Ground = new GroundBlock() { Background = "Grass" };
+                    tile.Ground = new GroundBlock() { Sprite = "Grass" };
                 }
             }
         }
 
         private static Sector _getEmptySector()
         {
-            var tiles = _getBlankGrid(Config.SectorSize);
+            var (tiles,tilesFlattaned) = _getBlankGrid(Config.SectorSize);
             _setGridAdjacents(tiles,Config.SectorSize);
 
-            var sector = new Sector(tiles);
+            var sector = new Sector(tiles, tilesFlattaned);
             return sector;
         }
-        private static Tile[,] _getBlankGrid(int size)
+        private static (Tile[,],List<Tile>) _getBlankGrid(int size)
         {
             var tiles = new Tile[size, size];
+            var tilesFlattened = new List<Tile>();
 
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
                 {
-                    tiles[i, j] = new Tile();
+                    var tile = new Tile();
+                    tiles[i, j] = tile;
+                    tilesFlattened.Add(tile);
                 }
             }
 
-            return tiles;
+            return (tiles,tilesFlattened);
         }
 
         private static void _setGridAdjacents(Tile[,] tiles,int size)
@@ -78,6 +103,5 @@ namespace IAmACube
                 tile.Adjacent[direction] = tiles[x, y];
             }
         }
-
     }
 }

@@ -10,23 +10,23 @@ namespace IAmACube
     public class Sector
     {
         public Tile[,] Tiles;
+        public List<Tile> TilesFlattened;
 
-        public Sector(Tile[,] tiles)
+        public Sector(Tile[,] tiles, List<Tile> tilesFlattened)
         {
             Tiles = tiles;
+            TilesFlattened = tilesFlattened;
         }
 
-        public bool TryGetTile(int x,int y,out Tile tile)
+        public (Tile tile,bool hasTile) TryGetTile(int x,int y)
         {
-            tile = null;
-
             if(x<Config.SectorSize & y < Config.SectorSize & x>-1 & y>-1)
             {
-                tile = Tiles[x, y];
-                return true;
+                var tile = Tiles[x, y];
+                return (tile,true);
             }
 
-            return false;
+            return (null,false);
         }
 
     }

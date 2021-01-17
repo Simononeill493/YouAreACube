@@ -11,6 +11,7 @@ namespace IAmACube
     {
         public Dictionary<Direction, Tile> Adjacent;
         public GroundBlock Ground;
+        public Block Contents;
 
         public Tile()
         {
