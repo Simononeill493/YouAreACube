@@ -19,18 +19,45 @@ namespace IAmACube
         private int _visibleGridWidth;
         private int _visibleGridHeight;
 
-        public void DrawWorld(DrawingInterface drawingInterface,Sector sector)
+        public void Update(UserInput input)
+        {
+            if (input.IsKeyDown(Keys.Up))
+            {
+                CameraYPosition--;
+            }
+            if (input.IsKeyDown(Keys.Down))
+            {
+                CameraYPosition++;
+            }
+            if (input.IsKeyDown(Keys.Left))
+            {
+                CameraXPosition--;
+            }
+            if (input.IsKeyDown(Keys.Right))
+            {
+                CameraXPosition++;
+            }
+            if (input.IsKeyJustPressed(Keys.P))
+            {
+                Scale++;
+            }
+            if (input.IsKeyJustPressed(Keys.O))
+            {
+                if (Scale > 1) { Scale--; }
+            }
+
+            //Console.WriteLine(XGridPos + " " + YGridPos + " " + Scale);
+        }
+        
+        public void Draw(DrawingInterface drawingInterface,Sector sector)
         {
             _drawingInterface = drawingInterface;
+            _setScreenScaling();
 
-            _tileSizeScaled = Config.TileSizeActual * Scale;
-            _visibleGridWidth = (MonoGameWindow.CurrentWidth / _tileSizeScaled) + 1;
-            _visibleGridHeight = (MonoGameWindow.CurrentHeight / _tileSizeScaled) + 1;
-
-            DrawTiles(sector);
+            _drawTiles(sector);
         }
 
-        public void DrawTiles(Sector sector)
+        public void _drawTiles(Sector sector)
         {
             for (int i = 0; i < _visibleGridWidth; i++)
             {
@@ -50,7 +77,6 @@ namespace IAmACube
                 }
             }
         }
-
         private void _drawTile(Tile tile,int xDrawOffset, int yDrawOffset)
         {
             _drawTileSprite(tile.Ground.Sprite, xDrawOffset, yDrawOffset);
@@ -66,34 +92,16 @@ namespace IAmACube
             _drawingInterface.DrawSprite(spriteName, x, y, Scale);
         }
 
-        public void KeyInput(KeyboardState keyboardState, List<Keys> keysUp)
+        private void _setScreenScaling()
         {
-            if (keyboardState.IsKeyDown(Keys.Up))
+            if(Scale<1)
             {
-                CameraYPosition--;
-            }
-            if (keyboardState.IsKeyDown(Keys.Down))
-            {
-                CameraYPosition++;
-            }
-            if (keyboardState.IsKeyDown(Keys.Left))
-            {
-                CameraXPosition--;
-            }
-            if (keyboardState.IsKeyDown(Keys.Right))
-            {
-               CameraXPosition++;
-            }
-            if (keysUp.Contains(Keys.P))
-            {
-                Scale++;
-            }
-            if (keysUp.Contains(Keys.O))
-            {
-                if (Scale > 1) { Scale--; }
+                Console.WriteLine("Warning: Camera scale is set to less than 1 (" + Scale + ").");
             }
 
-            //Console.WriteLine(XGridPos + " " + YGridPos + " " + Scale);
+            _tileSizeScaled = Config.TileSizeActual * Scale;
+            _visibleGridWidth = (MonoGameWindow.CurrentWidth / _tileSizeScaled) + 1;
+            _visibleGridHeight = (MonoGameWindow.CurrentHeight / _tileSizeScaled) + 1;
         }
     }
 }

@@ -50,6 +50,7 @@
     <Compile Include="Blocks\Block.cs" />
     <Compile Include="Blocks\BlockTemplate.cs" />
     <Compile Include="Camera\Camera.cs" />
+    <Compile Include="Misc\UserInput.cs" />
     <Compile Include="Player\Kernel.cs" />
     <Compile Include="Misc\KeyUtils.cs" />
     <Compile Include="MonoGameWrapper\SpriteManager.cs" />

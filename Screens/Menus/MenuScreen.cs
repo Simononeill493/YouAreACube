@@ -22,19 +22,19 @@ namespace IAmACube
             }
         }
 
-        public void MenuScreenUpdate(MouseState mouseState, KeyboardState keyboardState)
+        public void MenuScreenUpdate(UserInput input)
         {
             foreach (var item in MenuItems)
             {
-                item.Hovering = _isMouseOverItem(mouseState, item);
+                item.Hovering = _isMouseOverItem(input, item);
 
                 if (item.Hovering)
                 {
-                    if (mouseState.LeftButton == ButtonState.Pressed)
+                    if (input.LeftButton == ButtonState.Pressed)
                     {
                         item.ClickedOn = true;
                     }
-                    else if (mouseState.LeftButton == ButtonState.Released & item.ClickedOn & item.Clickable)
+                    else if (input.LeftButton == ButtonState.Released & item.ClickedOn & item.Clickable)
                     {
                         item.ClickAction();
 
@@ -48,10 +48,10 @@ namespace IAmACube
             }
         }
 
-        private bool _isMouseOverItem(MouseState mouseState,MenuItem menuItem)
+        private bool _isMouseOverItem(UserInput input,MenuItem menuItem)
         {
             var rect = DrawingInterface.GetMenuItemRectangle(menuItem);
-            return rect.Contains(mouseState.X, mouseState.Y);
+            return rect.Contains(input.MouseX, input.MouseY);
         }
     }
 }

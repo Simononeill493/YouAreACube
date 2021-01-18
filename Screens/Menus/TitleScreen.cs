@@ -51,9 +51,9 @@ namespace IAmACube
             //drawingInterface.DrawSprite("grass", 5, 5);
         }
 
-        public override void Update(MouseState mouseState, KeyboardState keyboardState, List<Keys> keysUp)
+        public override void Update(UserInput input)
         {
-            this.MenuScreenUpdate(mouseState, keyboardState);
+            this.MenuScreenUpdate(input);
 
         }
 

@@ -25,6 +25,7 @@ namespace IAmACube
         private ScreenManager _screenManager;
 
         private KeyboardState _currentKeyboardState;
+        private IEnumerable<Keys> _allKeys;
 
         FrameCounter _frameCounter = new FrameCounter();
 
@@ -49,6 +50,8 @@ namespace IAmACube
             _screenManager = new ScreenManager();
             ScreenManager.CurrentScreen = new TitleScreen();
             _currentKeyboardState = Keyboard.GetState();
+
+            _allKeys = typeof(Keys).GetEnumValues().Cast<Keys>();
         }
 
 
@@ -56,11 +59,14 @@ namespace IAmACube
         {
             _attachedConsoleManager.CheckWindowPositionAndUpdateConsole(Window.Position);
             var mouseState = Mouse.GetState();
+            var newKeyState = Keyboard.GetState();
 
 
             var previouslyPressed = _currentKeyboardState.GetPressedKeys();
-            var newKeyState = Keyboard.GetState();
+            var currentlyPressed = newKeyState.GetPressedKeys();
+
             var keysUp = new List<Keys>();
+            var keysDown = new List<Keys>();
 
             foreach (var key in previouslyPressed)
             {
@@ -69,11 +75,18 @@ namespace IAmACube
                     keysUp.Add(key);
                 }
             }
+            foreach (var key in currentlyPressed)
+            {
+                if (!_currentKeyboardState.IsKeyDown(key))
+                {
+                    keysDown.Add(key);
+                }
+            }
 
             _currentKeyboardState = newKeyState;
+            var input = new UserInput(mouseState, _currentKeyboardState, keysDown, keysUp);
 
-
-            _screenManager.Update(mouseState, _currentKeyboardState,keysUp);
+            _screenManager.Update(input);
             base.Update(gameTime);
         }
 

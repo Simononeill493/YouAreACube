@@ -17,9 +17,9 @@ namespace IAmACube
         }
 
 
-        public void Update(MouseState mouseState, KeyboardState keyboardState,List<Keys> keysUp)
+        public void Update(UserInput input)
         {
-            CurrentScreen.Update(mouseState, keyboardState, keysUp);
+            CurrentScreen.Update(input);
         }
 
         public void Draw(DrawingInterface drawingInterface)

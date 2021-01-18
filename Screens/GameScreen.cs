@@ -20,14 +20,12 @@ namespace IAmACube
 
         public override void Draw(DrawingInterface drawingInterface)
         {
-            Camera.DrawWorld(drawingInterface,LoadedSave.World.Centre);
+            Camera.Draw(drawingInterface,LoadedSave.World.Centre);
         }
 
-        public override void Update(MouseState mouseState, KeyboardState keyboardState,List<Keys> keysUp)
+        public override void Update(UserInput input)
         {
-            Camera.KeyInput(keyboardState, keysUp);
-
-
+            Camera.Update(input);
         }
     }
 }

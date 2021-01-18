@@ -51,11 +51,11 @@ namespace IAmACube
             this.DrawBackgroundAndMenuItems(drawingInterface);
         }
 
-        public override void Update(MouseState mouseState, KeyboardState keyboardState, List<Keys> keysUp)
+        public override void Update(UserInput input)
         {
-            this.MenuScreenUpdate(mouseState, keyboardState);
+            this.MenuScreenUpdate(input);
 
-            if (keyboardState.IsKeyDown(Keys.Escape))
+            if (input.IsKeyDown(Keys.Escape))
             {
                 ScreenManager.CurrentScreen = new TitleScreen();
             }

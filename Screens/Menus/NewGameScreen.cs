@@ -60,23 +60,23 @@ namespace IAmACube
             drawingInterface.DrawText(WorldName, 50, 40, 2);
         }
 
-        public override void Update(MouseState mouseState, KeyboardState keyboardState, List<Keys> keysUp)
+        public override void Update(UserInput input)
         {
-            this.MenuScreenUpdate(mouseState, keyboardState);
+            this.MenuScreenUpdate(input);
 
-            foreach(var key in keysUp)
+            foreach(var key in input.KeysJustPressed)
             {
-                if (KeyUtils.IsAlphanumeric(key) && WorldName.Length < 9)
+                if (_doTypeChar(key))
                 {
                     WorldName = WorldName + KeyUtils.KeyToChar(key);
                 }
-                else if (key == Keys.Back && WorldName.Length > 0)
+                else if (_doBackspace(key))
                 {
                     WorldName = WorldName.Substring(0, WorldName.Length - 1);
                 }
             }
 
-            if (keyboardState.IsKeyDown(Keys.Escape))
+            if (input.IsKeyDown(Keys.Escape))
             {
                 BackToTitleScreen();
             }
@@ -94,5 +94,8 @@ namespace IAmACube
         {
             ScreenManager.CurrentScreen = new TitleScreen();
         }
+
+        private bool _doTypeChar(Keys key) => (KeyUtils.IsAlphanumeric(key) && WorldName.Length < 9);
+        private bool _doBackspace(Keys key) => (key == Keys.Back && WorldName.Length > 0);
     }
 }
