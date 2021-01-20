@@ -10,17 +10,21 @@ namespace IAmACube
     public class BlockTemplate
     {
         public string Name;
-        private Block _template;
+        public string Sprite;
+        public bool Active;
+        public int Speed;
+        public IChip RootChip;
 
-        public BlockTemplate(string name,Block template)
+        public BlockTemplate(string name)
         {
             Name = name;
-            _template = template;
         }
 
         public Block Generate()
         {
-            return _template.Clone();
+            var block = new Block(this);
+            //todo set any dynamic data here
+            return block;
         }
     }
 }

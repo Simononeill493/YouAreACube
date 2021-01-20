@@ -8,6 +8,7 @@ namespace IAmACube
 {
     class Config
     {
+        public const int TickCycleLength = 60;
         public const int TileSizeActual = 16;
 
         public const int SectorSize = 32;

@@ -11,15 +11,11 @@ namespace IAmACube
 {
     class Templates
     {
-        public static GroundBlock VoidBlock;
-
         private static Dictionary<string, BlockTemplate> _blocks;
 
         public static void Load() 
         {
             _blocks = new Dictionary<string, BlockTemplate>();
-
-            VoidBlock = new GroundBlock() { Sprite = "Black" };
 
             var data = File.ReadAllText(Config.TemplatesFile);
             JObject result = (JObject)JsonConvert.DeserializeObject(data);
@@ -33,11 +29,11 @@ namespace IAmACube
 
         private static BlockTemplate ParseBlock(JToken token)
         {
-            var block = new Block();
-            block.Sprite = token["sprite"].ToString();
-
             var name = token["name"].ToString();
-            return new BlockTemplate(name,block);
+            var template = new BlockTemplate(name);
+            template.Sprite = token["sprite"].ToString();
+
+            return template;
         }
 
         public static Block Generate(string name)

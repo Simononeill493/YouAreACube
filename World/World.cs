@@ -9,6 +9,7 @@ namespace IAmACube
     [Serializable()]
     public class World
     {
+        public Sector Current;
         public Sector Centre;
         public List<Sector> Sectors;
 
@@ -16,6 +17,13 @@ namespace IAmACube
         {
             Centre = centre;
             Sectors = new List<Sector>() { Centre };
+
+            Current = Centre;
+        }
+
+        public void Update(UserInput input,TickCounter tickCounter)
+        {
+            Current.Update(input,tickCounter);
         }
     }
 }

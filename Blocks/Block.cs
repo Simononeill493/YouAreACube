@@ -9,15 +9,21 @@ namespace IAmACube
     [Serializable()]
     public class Block
     {
-        public string Sprite;
+        public Tile Location;
 
-        public Block Clone()
+        public string Sprite => _template.Sprite;
+        public bool Active => _template.Active;
+        public int Speed => _template.Speed;
+        private BlockTemplate _template;
+        
+        public Block(BlockTemplate template)
         {
-            var clone = (Block)this.MemberwiseClone();
+            _template = template;
+        }
 
-            //manually clone all subobjects
-
-            return clone;
+        public void Update(UserInput input)
+        {
+            _template.RootChip.Process(this, input);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace IAmACube
     {
         public static World GenerateFreshWorld(Random seed)
         {
-            var centre = _getEmptySector();
+            var centre = _getInitializedSector();
             var world = new World(centre);
 
             _setBasicGround(world);
@@ -21,7 +21,7 @@ namespace IAmACube
 
         private static void _addRandom(Random seed, Sector sector, string blockname,int number)
         {
-            var emptyTiles = sector.TilesFlattened.Where(t => t.Contents == null).ToList();
+            var emptyTiles = sector._tilesFlattened.Where(t => t.Contents == null).ToList();
             var emptySize = emptyTiles.Count();
 
             for (int i = 0; i < number; i++)
@@ -35,7 +35,7 @@ namespace IAmACube
                 var block = Templates.Generate(blockname);
                 var tileNum = seed.Next(0, emptySize - 1);
 
-                emptyTiles[tileNum].Contents = block;
+                sector.AddBlockToSector(block, emptyTiles[tileNum]);
                 emptyTiles.RemoveAt(tileNum);
             }
         }
@@ -45,20 +45,21 @@ namespace IAmACube
             {
                 foreach(var tile in sector.Tiles)
                 {
-                    tile.Ground = new GroundBlock() { Sprite = "Grass" };
+                    var ground = new GroundBlock() { Sprite = "Grass" };
+                    sector.AddGroundToSector(ground, tile);
                 }
             }
         }
 
-        private static Sector _getEmptySector()
+        private static Sector _getInitializedSector()
         {
-            var (tiles,tilesFlattaned) = _getBlankGrid(Config.SectorSize);
+            var (tiles,tilesFlattaned) = _getInitializedGrid(Config.SectorSize);
             _setGridAdjacents(tiles,Config.SectorSize);
 
             var sector = new Sector(tiles, tilesFlattaned);
             return sector;
         }
-        private static (Tile[,],List<Tile>) _getBlankGrid(int size)
+        private static (Tile[,],List<Tile>) _getInitializedGrid(int size)
         {
             var tiles = new Tile[size, size];
             var tilesFlattened = new List<Tile>();

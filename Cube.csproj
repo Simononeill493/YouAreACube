@@ -50,6 +50,10 @@
     <Compile Include="Blocks\Block.cs" />
     <Compile Include="Blocks\BlockTemplate.cs" />
     <Compile Include="Camera\Camera.cs" />
+    <Compile Include="Chips\ChipMaker.cs" />
+    <Compile Include="Chips\IChip.cs" />
+    <Compile Include="Chips\IEvaluatedChip.cs" />
+    <Compile Include="Chips\IfChip.cs" />
     <Compile Include="Misc\UserInput.cs" />
     <Compile Include="Player\Kernel.cs" />
     <Compile Include="Misc\KeyUtils.cs" />
@@ -58,7 +62,7 @@
     <Compile Include="Save\SaveManager.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\Menus\LoadGameScreen.cs" />
-    <Compile Include="Misc\Config.cs" />
+    <Compile Include="Config\Config.cs" />
     <Compile Include="Misc\Direction.cs" />
     <Compile Include="Misc\FrameCounter.cs" />
     <Compile Include="MonoGameWrapper\AttachedConsoleManager.cs" />
@@ -72,7 +76,8 @@
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="Screens\Menus\TitleScreen.cs" />
     <Compile Include="Templates\Templates.cs" />
-    <Compile Include="Tile\GroundBlock.cs" />
+    <Compile Include="Tick\TickCounter.cs" />
+    <Compile Include="Blocks\GroundBlock.cs" />
     <Compile Include="World\Sector\Sector.cs" />
     <Compile Include="Screens\ScreenManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
