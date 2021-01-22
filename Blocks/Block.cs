@@ -23,7 +23,21 @@ namespace IAmACube
 
         public void Update(UserInput input)
         {
-            _template.RootChip.Process(this, input);
+            _template.Chips.Execute(this, input);
+        }
+
+        public void Move(Direction direction)
+        {
+            if(Location.Adjacent.ContainsKey(direction))
+            {
+                var destination = Location.Adjacent[direction];
+                if (destination.Contents == null)
+                {
+                    Location.Contents = null;
+                    destination.Contents = this;
+                    this.Location = destination;
+                }
+            }
         }
     }
 }

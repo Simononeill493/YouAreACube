@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public interface IEvaluatedChip
+    public interface IControlChip
     {
-        bool Evaluate(Block block, UserInput userInput);
+        ChipBlock Result { get; set; }
     }
 }

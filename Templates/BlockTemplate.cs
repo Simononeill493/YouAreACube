@@ -13,7 +13,8 @@ namespace IAmACube
         public string Sprite;
         public bool Active;
         public int Speed;
-        public IChip RootChip;
+
+        public ChipBlock Chips;
 
         public BlockTemplate(string name)
         {

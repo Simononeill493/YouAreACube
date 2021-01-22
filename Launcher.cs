@@ -9,11 +9,19 @@ namespace IAmACube
         [STAThread]
         public static void Main(string[] args)
         {
-            //var s = WorldGen.GenerateFreshWorld();
+            TestCode();
+
+            DirectionUtils.Init();
+            RandomUtils.Init(1);
             Templates.Load();
 
             var game = new MonoGameWindow();
             game.Run();
+        }
+
+        public static void TestCode()
+        {
+            ChipMaker.Go();
         }
     }
 }

@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Sprites/BasicEnemy.png;BasicEnemy.png
 
+#begin ../Simon_Sprites/BasicPlayer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Sprites/BasicPlayer.png;BasicPlayer.png
+
 #begin ../Simon_Sprites/Black.png
 /importer:TextureImporter
 /processor:TextureProcessor

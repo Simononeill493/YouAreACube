@@ -38,8 +38,8 @@ namespace IAmACube
             Window.AllowUserResizing = true;
 
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
-            _graphicsDeviceManager.PreferredBackBufferWidth = 500; //Set the screen size.
-            _graphicsDeviceManager.PreferredBackBufferHeight = 500;
+            _graphicsDeviceManager.PreferredBackBufferWidth = 512; //Set the screen size.
+            _graphicsDeviceManager.PreferredBackBufferHeight = 512;
             _graphicsDeviceManager.ApplyChanges();
             #endregion
 

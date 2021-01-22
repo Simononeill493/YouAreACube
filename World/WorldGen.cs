@@ -14,7 +14,8 @@ namespace IAmACube
             var world = new World(centre);
 
             _setBasicGround(world);
-            _addRandom(seed,world.Centre,"BasicEnemy",10);
+            _addRandom(seed,world.Centre,"BasicEnemy",50);
+            _addRandom(seed,world.Centre, "ScaredEnemy", 50);
 
             return world;
         }
@@ -37,6 +38,7 @@ namespace IAmACube
 
                 sector.AddBlockToSector(block, emptyTiles[tileNum]);
                 emptyTiles.RemoveAt(tileNum);
+                emptySize--;
             }
         }
         private static void _setBasicGround(World world)
@@ -68,7 +70,7 @@ namespace IAmACube
             {
                 for (int j = 0; j < size; j++)
                 {
-                    var tile = new Tile();
+                    var tile = new Tile(i,j);
                     tiles[i, j] = tile;
                     tilesFlattened.Add(tile);
                 }

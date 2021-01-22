@@ -25,6 +25,9 @@ namespace IAmACube
                 var blockTemplate = ParseBlock(token);
                 _blocks[blockTemplate.Name] = blockTemplate;
             }
+
+            _blocks["BasicEnemy"].Chips = ChipMaker.TestEnemyBlock;
+            _blocks["ScaredEnemy"].Chips = ChipMaker.TestFleeBlock;
         }
 
         private static BlockTemplate ParseBlock(JToken token)
@@ -32,6 +35,12 @@ namespace IAmACube
             var name = token["name"].ToString();
             var template = new BlockTemplate(name);
             template.Sprite = token["sprite"].ToString();
+            template.Speed = int.Parse(token["speed"].ToString());
+
+            if (template.Speed != 0)
+            {
+                template.Active = true;
+            }
 
             return template;
         }

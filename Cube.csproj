@@ -48,12 +48,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Blocks\Block.cs" />
-    <Compile Include="Blocks\BlockTemplate.cs" />
+    <Compile Include="Chips\FleeDirectionChip.cs" />
+    <Compile Include="Misc\DirectionUtils.cs" />
+    <Compile Include="Templates\BlockTemplate.cs" />
     <Compile Include="Camera\Camera.cs" />
+    <Compile Include="Chips\BlockLocationChip.cs" />
+    <Compile Include="Chips\ChipGenerics\ChipBlock.cs" />
+    <Compile Include="Chips\ChipGenerics\IChip.cs" />
+    <Compile Include="Chips\ChipGenerics\OutputPin.cs" />
     <Compile Include="Chips\ChipMaker.cs" />
-    <Compile Include="Chips\IChip.cs" />
-    <Compile Include="Chips\IEvaluatedChip.cs" />
-    <Compile Include="Chips\IfChip.cs" />
+    <Compile Include="Chips\ControlChips\IControlChip.cs" />
+    <Compile Include="Chips\FirstOfListChip.cs" />
+    <Compile Include="Chips\GetNeighboursChip.cs" />
+    <Compile Include="Chips\ControlChips\IfChip.cs" />
+    <Compile Include="Chips\ChipGenerics\InputPin.cs" />
+    <Compile Include="Chips\IsListEmptyChip.cs" />
+    <Compile Include="Chips\MoveChip.cs" />
+    <Compile Include="Chips\RandDirChip.cs" />
+    <Compile Include="Chips\ApproachDirectionChip.cs" />
+    <Compile Include="Misc\RandomUtils.cs" />
     <Compile Include="Misc\UserInput.cs" />
     <Compile Include="Player\Kernel.cs" />
     <Compile Include="Misc\KeyUtils.cs" />
