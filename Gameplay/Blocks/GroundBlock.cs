@@ -9,8 +9,7 @@ namespace IAmACube
     [Serializable()]
     public class GroundBlock : Block
     {
-        public GroundBlock(BlockTemplate template)
-            : base(template)
+        public GroundBlock(BlockTemplate template) : base(template)
         {
             BlockType = BlockType.Ground;
         }

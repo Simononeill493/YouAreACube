@@ -10,15 +10,15 @@ namespace IAmACube
     public class Sector
     {
         public Tile[,] Tiles;
-        public List<Tile> _tilesFlattened;
+        public List<Tile> TilesFlattened;
 
         private List<Block> _activeBlocks;
 
         public Sector(Tile[,] tiles, List<Tile> tilesFlattened)
         {
             Tiles = tiles;
+            TilesFlattened = tilesFlattened;
 
-            _tilesFlattened = tilesFlattened;
             _activeBlocks = new List<Block>();
         }
 
@@ -63,7 +63,6 @@ namespace IAmACube
             tile.Ground= block;
             _addBlockToSector(block, tile);
         }
-
         private void _addBlockToSector(Block block,Tile tile)
         {
             block.Location = tile;
@@ -77,7 +76,7 @@ namespace IAmACube
 
         private IEnumerable<Block> _getUpdatingBlocks(TickCounter tickCounter)
         {
-            return _activeBlocks.Where(b => tickCounter.TotalTicks % b.Speed == 0);
+            return _activeBlocks.Where(b => (tickCounter.TotalTicks+b.SpeedOffset) % b.Speed == 0);
         }
     }
 

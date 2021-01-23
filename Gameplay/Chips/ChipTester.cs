@@ -10,11 +10,13 @@ namespace IAmACube
     {
         public static ChipBlock TestEnemyBlock;
         public static ChipBlock TestFleeBlock;
+        public static ChipBlock TestPlayerBlock;
 
         public static void Go()
         {
             MakeEnemyBlock();
             MakeFleeBlock();
+            MakePlayerBlock();
         }
 
         public static void MakeEnemyBlock()
@@ -81,6 +83,51 @@ namespace IAmACube
             ifChip.No = fleeBlock;
 
             TestFleeBlock = initialBlock;
+        }
+
+        public static void MakePlayerBlock()
+        {
+            var ifWPressed = new IfChip();
+            var ifAPressed = new IfChip();
+            var ifSPressed = new IfChip();
+            var ifDPressed = new IfChip();
+
+            var isWPressedChip = new IsKeyPressedChip();
+            var isAPressedChip = new IsKeyPressedChip();
+            var isSPressedChip = new IsKeyPressedChip();
+            var isDPressedChip = new IsKeyPressedChip();
+
+            var moveUp = new MoveChip();
+            var moveDown = new MoveChip();
+            var moveLeft = new MoveChip();
+            var moveRight = new MoveChip();
+
+            isWPressedChip.ChipInput = Microsoft.Xna.Framework.Input.Keys.W;
+            isAPressedChip.ChipInput = Microsoft.Xna.Framework.Input.Keys.A;
+            isSPressedChip.ChipInput = Microsoft.Xna.Framework.Input.Keys.S;
+            isDPressedChip.ChipInput = Microsoft.Xna.Framework.Input.Keys.D;
+
+            moveUp.ChipInput = Direction.Top;
+            moveDown.ChipInput = Direction.Bottom;
+            moveLeft.ChipInput = Direction.Left;
+            moveRight.ChipInput = Direction.Right;
+
+            isWPressedChip.Targets.Add(ifWPressed);
+            isAPressedChip.Targets.Add(ifAPressed);
+            isSPressedChip.Targets.Add(ifSPressed);
+            isDPressedChip.Targets.Add(ifDPressed);
+
+            ifWPressed.Yes = new ChipBlock(moveUp);
+            ifAPressed.Yes = new ChipBlock(moveLeft);
+            ifSPressed.Yes = new ChipBlock(moveDown);
+            ifDPressed.Yes = new ChipBlock(moveRight);
+
+            ifWPressed.No = new ChipBlock(isAPressedChip, ifAPressed);
+            ifAPressed.No = new ChipBlock(isSPressedChip, ifSPressed);
+            ifSPressed.No = new ChipBlock(isDPressedChip, ifDPressed);
+            ifDPressed.No = ChipBlock.NoAction;
+
+            TestPlayerBlock = new ChipBlock(isWPressedChip, ifWPressed);
         }
     }
 }

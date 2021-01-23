@@ -15,14 +15,14 @@ namespace IAmACube
 
             _setBasicGround(world);
             _addRandom(seed,world.Centre,"BasicEnemy",50);
-            _addRandom(seed,world.Centre, "ScaredEnemy", 50);
+            _addRandom(seed,world.Centre, "BasicPlayer", 1);
 
             return world;
         }
 
         private static void _addRandom(Random seed, Sector sector, string blockname,int number)
         {
-            var emptyTiles = sector._tilesFlattened.Where(t => t.Contents == null).ToList();
+            var emptyTiles = sector.TilesFlattened.Where(t => t.Contents == null).ToList();
             var emptySize = emptyTiles.Count();
 
             for (int i = 0; i < number; i++)

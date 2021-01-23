@@ -47,31 +47,32 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Blocks\BaseBlockData\Block.cs" />
-    <Compile Include="Blocks\BaseBlockData\BlockType.cs" />
-    <Compile Include="Blocks\SurfaceBlock.cs" />
-    <Compile Include="Chips\FleeDirectionChip.cs" />
+    <Compile Include="Gameplay\Blocks\BaseBlockData\Block.cs" />
+    <Compile Include="Gameplay\Blocks\BaseBlockData\BlockType.cs" />
+    <Compile Include="Gameplay\Blocks\SurfaceBlock.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\IsKeyPressedChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\PipelineChips\FleeDirectionChip.cs" />
     <Compile Include="Utils\DirectionUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
-    <Compile Include="Templates\BlockTemplate.cs" />
-    <Compile Include="Camera\Camera.cs" />
-    <Compile Include="Chips\BlockLocationChip.cs" />
-    <Compile Include="Chips\ChipGenerics\ChipBlock.cs" />
-    <Compile Include="Chips\ChipGenerics\IChip.cs" />
-    <Compile Include="Chips\ChipGenerics\OutputPin.cs" />
-    <Compile Include="Chips\ChipMaker.cs" />
-    <Compile Include="Chips\ControlChips\IControlChip.cs" />
-    <Compile Include="Chips\FirstOfListChip.cs" />
-    <Compile Include="Chips\GetNeighboursChip.cs" />
-    <Compile Include="Chips\ControlChips\IfChip.cs" />
-    <Compile Include="Chips\ChipGenerics\InputPin.cs" />
-    <Compile Include="Chips\IsListEmptyChip.cs" />
-    <Compile Include="Chips\MoveChip.cs" />
-    <Compile Include="Chips\RandDirChip.cs" />
-    <Compile Include="Chips\ApproachDirectionChip.cs" />
+    <Compile Include="Gameplay\Templates\BlockTemplate.cs" />
+    <Compile Include="Gameplay\Camera\Camera.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\PipelineChips\BlockLocationChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipGenerics\ChipBlock.cs" />
+    <Compile Include="Gameplay\Chips\ChipGenerics\IChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipGenerics\OutputPin.cs" />
+    <Compile Include="Gameplay\Chips\ChipTester.cs" />
+    <Compile Include="Gameplay\Chips\ChipGenerics\IControlChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\PipelineChips\FirstOfListChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\GetNeighboursChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\ControlChips\IfChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipGenerics\InputPin.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\PipelineChips\IsListEmptyChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\ActionChips\MoveChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\RandDirChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\PipelineChips\ApproachDirectionChip.cs" />
     <Compile Include="Utils\RandomUtils.cs" />
     <Compile Include="Misc\UserInput.cs" />
-    <Compile Include="Player\Kernel.cs" />
+    <Compile Include="Gameplay\Player\Kernel.cs" />
     <Compile Include="Utils\KeyUtils.cs" />
     <Compile Include="MonoGameWrapper\SpriteManager.cs" />
     <Compile Include="Save\Save.cs" />
@@ -91,15 +92,15 @@
     <Compile Include="Screens\Menus\NewGameScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="Screens\Menus\TitleScreen.cs" />
-    <Compile Include="Templates\Templates.cs" />
-    <Compile Include="Tick\TickCounter.cs" />
-    <Compile Include="Blocks\GroundBlock.cs" />
-    <Compile Include="World\Sector\Sector.cs" />
+    <Compile Include="Gameplay\Templates\Templates.cs" />
+    <Compile Include="Gameplay\Tick\TickCounter.cs" />
+    <Compile Include="Gameplay\Blocks\GroundBlock.cs" />
+    <Compile Include="Gameplay\World\Sector\Sector.cs" />
     <Compile Include="Screens\ScreenManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tile\Tile.cs" />
-    <Compile Include="World\World.cs" />
-    <Compile Include="World\WorldGen.cs" />
+    <Compile Include="Gameplay\Tile\Tile.cs" />
+    <Compile Include="Gameplay\World\World.cs" />
+    <Compile Include="Gameplay\World\WorldGen.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, processorArchitecture=MSIL">

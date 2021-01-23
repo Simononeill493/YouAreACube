@@ -4,7 +4,7 @@
     {
       "name":"BasicEnemy",
       "sprite":"BasicEnemy",
-      "speed":5
+      "speed":30
     },
 	{
       "name":"ScaredEnemy",
@@ -14,7 +14,7 @@
     {
       "name":"BasicPlayer",
       "sprite":"BasicPlayer",
-      "speed":0
+      "speed":8
     },
 	{
       "name":"grassPatch",

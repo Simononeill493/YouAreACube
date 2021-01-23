@@ -17,6 +17,6 @@ namespace IAmACube
         public const string SaveDirectory = @"C:\Users\Simon\Desktop\Cube\Cube\Saves";
         public const string SaveExtension = ".cubesave";
 
-        public const string TemplatesFile = @"C:\Users\Simon\Desktop\Cube\Cube\Templates\Templates.txt";
+        public const string TemplatesFile = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Sprites\templates.txt";
     }
 }

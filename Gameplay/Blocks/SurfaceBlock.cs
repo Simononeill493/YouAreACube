@@ -9,8 +9,7 @@ namespace IAmACube
     [Serializable()]
     public class SurfaceBlock : Block
     {        
-        public SurfaceBlock(BlockTemplate template)
-            : base(template)
+        public SurfaceBlock(BlockTemplate template): base(template)
         {
             BlockType = BlockType.Surface;
         }
@@ -20,13 +19,21 @@ namespace IAmACube
             if(Location.Adjacent.ContainsKey(direction))
             {
                 var destination = Location.Adjacent[direction];
-                if (destination.Contents == null)
-                {
-                    Location.Contents = null;
-                    destination.Contents = this;
-                    this.Location = destination;
-                }
+                _tryMoveTo(destination);
             }
+        }
+
+        private bool _tryMoveTo(Tile destination)
+        {
+            if (destination.Contents == null)
+            {
+                Location.Contents = null;
+                destination.Contents = this;
+                this.Location = destination;
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -20,8 +20,10 @@ namespace IAmACube
             _blockTemplates = _parseBlocks(data["blocks"]);
 
             //todo this is temporary
-            _blockTemplates["BasicEnemy"].Chips = ChipTester.TestEnemyBlock;
+            _blockTemplates["BasicEnemy"].Chips = ChipTester.TestFleeBlock;
             _blockTemplates["ScaredEnemy"].Chips = ChipTester.TestFleeBlock;
+            _blockTemplates["BasicPlayer"].Chips = ChipTester.TestPlayerBlock;
+
         }
 
         private static Dictionary<string,BlockTemplate> _parseBlocks(JToken input)

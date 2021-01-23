@@ -9,7 +9,7 @@ namespace IAmACube
     {
         public override void Run(Block actor, UserInput input)
         {
-            var neighbours = actor.Location.Adjacent.Values.Where(l => l.Contents != null).Select(l => l.Contents);
+            var neighbours = actor.Location.Adjacent.Values.Where(l => (l.Contents != null)).Select(l => l.Contents);
             SetOutput(neighbours);
         }
     }

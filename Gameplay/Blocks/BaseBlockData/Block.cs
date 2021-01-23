@@ -12,6 +12,8 @@ namespace IAmACube
         public Tile Location;
         public BlockType BlockType;
 
+        public int SpeedOffset;
+
         public string Sprite => _template.Sprite;
         public bool Active => _template.Active;
         public int Speed => _template.Speed;
@@ -20,6 +22,7 @@ namespace IAmACube
         public Block(BlockTemplate template)
         {
             _template = template;
+            SpeedOffset = RandomUtils.R.Next(0, Config.TickCycleLength);
         }
 
         public void Update(UserInput input)
