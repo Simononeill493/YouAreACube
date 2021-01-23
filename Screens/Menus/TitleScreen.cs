@@ -46,15 +46,11 @@ namespace IAmACube
         public override void Draw(DrawingInterface drawingInterface)
         {
             this.DrawBackgroundAndMenuItems(drawingInterface);
-
-            //drawingInterface.DrawSprite("grass",0,0);
-            //drawingInterface.DrawSprite("grass", 5, 5);
         }
 
         public override void Update(UserInput input)
         {
             this.MenuScreenUpdate(input);
-
         }
 
         public void GoToNewGame()

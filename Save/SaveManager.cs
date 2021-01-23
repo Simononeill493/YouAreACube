@@ -24,24 +24,11 @@ namespace IAmACube
 
         public static void SaveToFile(Save save,string name)
         {
-            var savePath = Path.Combine(Config.SaveDirectory, name) + Config.SaveExtension;
-
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream(savePath, FileMode.Create, FileAccess.Write);
-
-            formatter.Serialize(stream, save);
-            stream.Close();
+            FileUtils.SaveBinary(save, Config.SaveDirectory, name, Config.SaveExtension);
         }
-
         public static Save LoadFromFile(string name)
         {
-            var savePath = Path.Combine(Config.SaveDirectory, name);
-            IFormatter formatter = new BinaryFormatter();
-
-            var stream = new FileStream(savePath, FileMode.Open, FileAccess.Read);
-            Save save = (Save)formatter.Deserialize(stream);
-            stream.Close();
-
+            var save = FileUtils.LoadBinary<Save>(Config.SaveDirectory, name);
             return save;
         }
     }

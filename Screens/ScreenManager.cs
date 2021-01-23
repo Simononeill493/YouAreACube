@@ -12,11 +12,6 @@ namespace IAmACube
     {
         public static Screen CurrentScreen;
 
-        public ScreenManager()
-        {
-        }
-
-
         public void Update(UserInput input)
         {
             CurrentScreen.Update(input);

@@ -42,7 +42,6 @@ namespace IAmACube
                 }
 
                 MenuItems.Add(fileSlot);
-                //_slots[i] = fileSlot;
             }
         }
 

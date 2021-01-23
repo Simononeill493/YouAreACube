@@ -11,8 +11,8 @@ namespace IAmACube
         {
             TestCode();
 
-            DirectionUtils.Init();
             RandomUtils.Init(1);
+            DirectionUtils.Init();
             Templates.Load();
 
             var game = new MonoGameWindow();
@@ -21,7 +21,7 @@ namespace IAmACube
 
         public static void TestCode()
         {
-            ChipMaker.Go();
+            ChipTester.Go();
         }
     }
 }

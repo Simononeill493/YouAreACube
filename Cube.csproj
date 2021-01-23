@@ -47,9 +47,12 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Blocks\Block.cs" />
+    <Compile Include="Blocks\BaseBlockData\Block.cs" />
+    <Compile Include="Blocks\BaseBlockData\BlockType.cs" />
+    <Compile Include="Blocks\SurfaceBlock.cs" />
     <Compile Include="Chips\FleeDirectionChip.cs" />
-    <Compile Include="Misc\DirectionUtils.cs" />
+    <Compile Include="Utils\DirectionUtils.cs" />
+    <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Templates\BlockTemplate.cs" />
     <Compile Include="Camera\Camera.cs" />
     <Compile Include="Chips\BlockLocationChip.cs" />
@@ -66,10 +69,10 @@
     <Compile Include="Chips\MoveChip.cs" />
     <Compile Include="Chips\RandDirChip.cs" />
     <Compile Include="Chips\ApproachDirectionChip.cs" />
-    <Compile Include="Misc\RandomUtils.cs" />
+    <Compile Include="Utils\RandomUtils.cs" />
     <Compile Include="Misc\UserInput.cs" />
     <Compile Include="Player\Kernel.cs" />
-    <Compile Include="Misc\KeyUtils.cs" />
+    <Compile Include="Utils\KeyUtils.cs" />
     <Compile Include="MonoGameWrapper\SpriteManager.cs" />
     <Compile Include="Save\Save.cs" />
     <Compile Include="Save\SaveManager.cs" />

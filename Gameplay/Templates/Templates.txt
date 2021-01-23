@@ -1,0 +1,25 @@
+{
+  "blocks":
+  [
+    {
+      "name":"BasicEnemy",
+      "sprite":"BasicEnemy",
+      "speed":5
+    },
+	{
+      "name":"ScaredEnemy",
+      "sprite":"BasicPlayer",
+      "speed":15
+    },
+    {
+      "name":"BasicPlayer",
+      "sprite":"BasicPlayer",
+      "speed":0
+    },
+	{
+      "name":"grassPatch",
+      "sprite":"grass",
+      "speed":0
+    }
+  ]
+}

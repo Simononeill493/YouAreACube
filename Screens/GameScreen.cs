@@ -21,17 +21,18 @@ namespace IAmACube
             _tickCounter = new TickCounter();
         }
 
-        public override void Draw(DrawingInterface drawingInterface)
-        {
-            _camera.Draw(drawingInterface,_save.World.Current);
-        }
 
         public override void Update(UserInput input)
         {
             _tickCounter.Tick();
 
-            _save.World.Update(input,_tickCounter);
+            _save.World.Update(input, _tickCounter);
             _camera.Update(input);
+        }
+
+        public override void Draw(DrawingInterface drawingInterface)
+        {
+            _camera.Draw(drawingInterface,_save.World.Current);
         }
     }
 }
