@@ -7,9 +7,9 @@ namespace IAmACube
     {
         public Direction ChipInput { get; set; }
 
-        public void Run(Block actor, UserInput userInput)
+        public void Run(Block actor, UserInput userInput,EffectsList effects)
         {
-            actor.Move(ChipInput);
+            effects.StartMove(actor, ChipInput);
         }
     }
 }

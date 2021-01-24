@@ -49,13 +49,17 @@
   <ItemGroup>
     <Compile Include="Gameplay\Blocks\BaseBlockData\Block.cs" />
     <Compile Include="Gameplay\Blocks\BaseBlockData\BlockType.cs" />
+    <Compile Include="Gameplay\Blocks\BlockMovementData.cs" />
     <Compile Include="Gameplay\Blocks\SurfaceBlock.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\IsKeyPressedChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\PipelineChips\FleeDirectionChip.cs" />
+    <Compile Include="Gameplay\Effects\EffectsList.cs" />
+    <Compile Include="Gameplay\Game.cs" />
+    <Compile Include="Gameplay\Movement\MoveManager.cs" />
     <Compile Include="Utils\DirectionUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Gameplay\Templates\BlockTemplate.cs" />
-    <Compile Include="Gameplay\Camera\Camera.cs" />
+    <Compile Include="Camera\Camera.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\PipelineChips\BlockLocationChip.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\ChipBlock.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\IChip.cs" />

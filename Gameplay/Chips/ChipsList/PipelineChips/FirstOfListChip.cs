@@ -9,7 +9,7 @@ namespace IAmACube
     {
         public IEnumerable<T> ChipInput { get; set; }
 
-        public override void Run(Block actor, UserInput input)
+        public override void Run(Block actor, UserInput input, EffectsList effects)
         {
             SetOutput(ChipInput.FirstOrDefault());
         }

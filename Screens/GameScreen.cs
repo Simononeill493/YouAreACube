@@ -9,30 +9,24 @@ namespace IAmACube
 {
     class GameScreen : Screen
     {
-        private Save _save;
         private Camera _camera;
-        private TickCounter _tickCounter;
+        private Game _game;
 
         public GameScreen(Save save)
         {
-            _save = save;
-
-            _camera = new Camera();
-            _tickCounter = new TickCounter();
+            _camera = new Camera(save.World);
+            _game = new Game(save);
         }
-
 
         public override void Update(UserInput input)
         {
-            _tickCounter.Tick();
-
-            _save.World.Update(input, _tickCounter);
+            _game.Update(input);
             _camera.Update(input);
         }
 
         public override void Draw(DrawingInterface drawingInterface)
         {
-            _camera.Draw(drawingInterface,_save.World.Current);
+            _camera.Draw(drawingInterface);
         }
     }
 }

@@ -21,9 +21,13 @@ namespace IAmACube
             Current = Centre;
         }
 
-        public void Update(UserInput input,TickCounter tickCounter)
+        public EffectsList Update(UserInput input,TickCounter tickCounter)
         {
-            Current.Update(input,tickCounter);
+            var effects = new EffectsList();
+
+            Current.Update(input, effects,tickCounter);
+
+            return effects;
         }
     }
 }

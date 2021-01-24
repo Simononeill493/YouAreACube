@@ -11,7 +11,7 @@ namespace IAmACube
     {
         public List<InputPin<TOutputType>> Targets = new List<InputPin<TOutputType>>();
 
-        public abstract void Run(Block actor, UserInput input);
+        public abstract void Run(Block actor, UserInput input,EffectsList effects);
 
         public void SetOutput(TOutputType output)
         {

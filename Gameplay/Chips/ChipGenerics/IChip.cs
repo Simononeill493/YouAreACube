@@ -2,6 +2,6 @@
 {
     public interface IChip
     {
-        void Run(Block actor,UserInput userInput);
+        void Run(Block actor,UserInput userInput,EffectsList effects);
     }
 }

@@ -39,7 +39,7 @@ namespace IAmACube
             graphicsDevice.Clear(Color.Black);
             //_spriteBatch.Begin();
 
-           _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,SamplerState.PointClamp);
+           _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend,SamplerState.PointClamp);
 
         }
         public void EndDrawFrame()
@@ -54,10 +54,10 @@ namespace IAmACube
             var verticallScale = graphicsDevice.Viewport.Height / (float)backgroundSprite.Height;
             _spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), scale: new Vector2(horizontalScale, verticallScale));
         }
-        public void DrawSprite(string spriteName, int x, int y, int scale = 1)
+        public void DrawSprite(string spriteName, int x, int y,int layer,int scale = 1)
         {
             var sprite = SpriteManager.GetSprite(spriteName);
-            _spriteBatch.Draw(sprite, new Vector2(x, y), scale: new Vector2(scale, scale));
+            _spriteBatch.Draw(sprite, new Vector2(x, y), scale: new Vector2(scale, scale),layerDepth: layer);
         }
         public void DrawSpriteCentered(string spriteName, int x, int y, int scale = 1)
         {

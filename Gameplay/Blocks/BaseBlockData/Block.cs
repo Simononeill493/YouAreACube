@@ -11,8 +11,10 @@ namespace IAmACube
     {
         public Tile Location;
         public BlockType BlockType;
-
         public int SpeedOffset;
+
+        public bool IsMoving;
+        public BlockMovementData MovementData;
 
         public string Sprite => _template.Sprite;
         public bool Active => _template.Active;
@@ -25,9 +27,9 @@ namespace IAmACube
             SpeedOffset = RandomUtils.R.Next(0, Config.TickCycleLength);
         }
 
-        public void Update(UserInput input)
+        public void Update(UserInput input,EffectsList effects)
         {
-            _template.Chips.Execute(this, input);
+            _template.Chips.Execute(this, input,effects);
         }
 
         public abstract void Move(Direction direction);

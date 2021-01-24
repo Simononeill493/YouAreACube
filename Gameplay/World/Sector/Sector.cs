@@ -22,12 +22,12 @@ namespace IAmACube
             _activeBlocks = new List<Block>();
         }
 
-        public void Update(UserInput input,TickCounter tickCounter)
+        public void Update(UserInput input,EffectsList effects,TickCounter tickCounter)
         {
             var toUpdate = _getUpdatingBlocks(tickCounter);
             foreach(var block in toUpdate)
             {
-                block.Update(input);
+                block.Update(input,effects);
             }
         }
 

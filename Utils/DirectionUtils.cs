@@ -9,6 +9,7 @@ namespace IAmACube
     class DirectionUtils
     {
         public static Dictionary<Direction,Direction> Reverse;
+        public static Dictionary<Direction, Tuple<int,int>> XYOffset;
 
         public static void Init()
         {
@@ -21,6 +22,16 @@ namespace IAmACube
             Reverse[Direction.BottomRight] = Direction.TopLeft;
             Reverse[Direction.TopLeft] = Direction.BottomRight;
             Reverse[Direction.BottomLeft] = Direction.TopRight;
+
+            XYOffset = new Dictionary<Direction, Tuple<int, int>>();
+            XYOffset[Direction.Top] = new Tuple<int, int>(0, -1);
+            XYOffset[Direction.Bottom] = new Tuple<int, int>(0, 1);
+            XYOffset[Direction.Left] = new Tuple<int, int>(-1, 0);
+            XYOffset[Direction.Right] = new Tuple<int, int>(1, 0);
+            XYOffset[Direction.TopRight] = new Tuple<int, int>(1, -1);
+            XYOffset[Direction.BottomRight] = new Tuple<int, int>(1, 1);
+            XYOffset[Direction.TopLeft] = new Tuple<int, int>(-1, -1);
+            XYOffset[Direction.BottomLeft] = new Tuple<int, int>(-1, 1);
         }
     }
 }

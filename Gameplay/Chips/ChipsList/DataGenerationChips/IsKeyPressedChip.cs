@@ -12,7 +12,7 @@ namespace IAmACube
     {
         public Keys ChipInput { get; set; }
 
-        public override void Run(Block actor, UserInput input)
+        public override void Run(Block actor, UserInput input, EffectsList effects)
         {
             SetOutput(input.KeyboardState.IsKeyDown(ChipInput));
         }

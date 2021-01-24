@@ -11,7 +11,7 @@ namespace IAmACube
         public ChipBlock Yes;
         public ChipBlock No;
 
-        public void Run(Block actor,UserInput input)
+        public void Run(Block actor,UserInput input,EffectsList effects)
         {
             if(ChipInput)
             {

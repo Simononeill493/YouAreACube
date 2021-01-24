@@ -9,6 +9,8 @@ namespace IAmACube
 {
     public class Camera
     {
+        private World _world;
+
         public int Scale = 1;
         public int CameraXPosition;
         public int CameraYPosition;
@@ -18,6 +20,11 @@ namespace IAmACube
         private int _tileSizeScaled;
         private int _visibleGridWidth;
         private int _visibleGridHeight;
+
+        public Camera(World world)
+        {
+            _world = world;
+        }
 
         public void Update(UserInput input)
         {
@@ -49,8 +56,10 @@ namespace IAmACube
             //Console.WriteLine(XGridPos + " " + YGridPos + " " + Scale);
         }
         
-        public void Draw(DrawingInterface drawingInterface,Sector sector)
+        public void Draw(DrawingInterface drawingInterface)
         {
+            var sector = _world.Current;
+
             _drawingInterface = drawingInterface;
             _setScreenScaling();
 
@@ -69,7 +78,7 @@ namespace IAmACube
                     var (tile, hasTile) = sector.TryGetTile(i + CameraXPosition, j + CameraYPosition);
                     if (!hasTile)
                     {
-                        _drawTileSprite("Black", xDrawOffset, yDrawOffset);
+                        _drawingInterface.DrawSprite("Black", xDrawOffset, yDrawOffset, Scale);
                         continue;
                     }
 
@@ -79,18 +88,28 @@ namespace IAmACube
         }
         private void _drawTile(Tile tile,int xDrawOffset, int yDrawOffset)
         {
-            _drawTileSprite(tile.Ground.Sprite, xDrawOffset, yDrawOffset);
+            _drawTileSprite(tile.Ground, xDrawOffset, yDrawOffset,1);
 
             if (tile.Contents != null)
             {
-                _drawTileSprite(tile.Contents.Sprite, xDrawOffset, yDrawOffset);
+                _drawTileSprite(tile.Contents, xDrawOffset, yDrawOffset,0);
+            }
+        }
+
+        private void _drawTileSprite(Block block,int xOffset,int yOffset,int layer)
+        {
+            if(block.IsMoving)
+            {
+                var data = block.MovementData;
+                var movingOffset = ((float)data.MovementPosition / block.Speed) * _tileSizeScaled;
+
+                xOffset += (int)(data.XOffset * movingOffset);
+                yOffset += (int)(data.YOffset * movingOffset);
             }
 
+            _drawingInterface.DrawSprite(block.Sprite, xOffset, yOffset, layer,Scale);
         }
-        private void _drawTileSprite(string spriteName,int x,int y)
-        {
-            _drawingInterface.DrawSprite(spriteName, x, y, Scale);
-        }
+
 
         private void _setScreenScaling()
         {
