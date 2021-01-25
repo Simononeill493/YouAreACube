@@ -16,24 +16,13 @@ namespace IAmACube
 
         public override void Move(Direction direction)
         {
-            if(Location.Adjacent.ContainsKey(direction))
-            {
-                var destination = Location.Adjacent[direction];
-                _tryMoveTo(destination);
-            }
-        }
-
-        private bool _tryMoveTo(Tile destination)
-        {
+            var destination = Location.Adjacent[direction];
             if (destination.Contents == null)
             {
                 Location.Contents = null;
                 destination.Contents = this;
                 this.Location = destination;
-                return true;
             }
-
-            return false;
         }
     }
 }

@@ -7,75 +7,70 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class Camera
+    public abstract class Camera
     {
-        private World _world;
-
         public int Scale = 1;
-        public int CameraXPosition;
-        public int CameraYPosition;
+        public int CameraXGridPosition;
+        public int CameraXGridOffset;
 
-        private DrawingInterface _drawingInterface;
+        public int CameraYGridPosition;
+        public int CameraYGridOffset;
 
-        private int _tileSizeScaled;
-        private int _visibleGridWidth;
-        private int _visibleGridHeight;
+        protected DrawingInterface _drawingInterface;
 
-        public Camera(World world)
-        {
-            _world = world;
-        }
+        protected int _tileSizeScaled;
+        protected int _visibleGridWidth;
+        protected int _visibleGridHeight;
 
         public void Update(UserInput input)
         {
-            if (input.IsKeyDown(Keys.Up))
+            if(CameraXGridOffset>_tileSizeScaled)
             {
-                CameraYPosition--;
+                CameraXGridPosition += (CameraXGridOffset / _tileSizeScaled);
+                CameraXGridOffset = CameraXGridOffset%_tileSizeScaled;
             }
-            if (input.IsKeyDown(Keys.Down))
+            if (CameraYGridOffset > _tileSizeScaled)
             {
-                CameraYPosition++;
+                CameraYGridPosition += (CameraYGridOffset / _tileSizeScaled);
+                CameraYGridOffset = CameraYGridOffset % _tileSizeScaled;
             }
-            if (input.IsKeyDown(Keys.Left))
+            if (CameraXGridOffset < 0)
             {
-                CameraXPosition--;
+                CameraXGridPosition-= ((-CameraXGridOffset / _tileSizeScaled)+1);
+                CameraXGridOffset = _tileSizeScaled - ((-CameraXGridOffset%_tileSizeScaled));
             }
-            if (input.IsKeyDown(Keys.Right))
+            if (CameraYGridOffset < 0)
             {
-                CameraXPosition++;
-            }
-            if (input.IsKeyJustPressed(Keys.P))
-            {
-                Scale++;
-            }
-            if (input.IsKeyJustPressed(Keys.O))
-            {
-                if (Scale > 1) { Scale--; }
+                CameraYGridPosition -= ((-CameraYGridOffset / _tileSizeScaled) + 1);
+                CameraYGridOffset = _tileSizeScaled - ((-CameraYGridOffset % _tileSizeScaled));
             }
 
-            //Console.WriteLine(XGridPos + " " + YGridPos + " " + Scale);
+            Console.WriteLine(CameraXGridOffset);
+            _update(input);
         }
-        
-        public void Draw(DrawingInterface drawingInterface)
-        {
-            var sector = _world.Current;
 
+        public void Draw(DrawingInterface drawingInterface, World world)
+        {
             _drawingInterface = drawingInterface;
             _setScreenScaling();
 
-            _drawTiles(sector);
+            _draw(drawingInterface,world);
         }
 
-        private void _drawTiles(Sector sector)
-        {
-            for (int i = 0; i < _visibleGridWidth; i++)
-            {
-                for (int j = 0; j < _visibleGridHeight; j++)
-                {
-                    int xDrawOffset = i * _tileSizeScaled;
-                    int yDrawOffset = j * _tileSizeScaled;
+        protected abstract void _update(UserInput input);
+        protected abstract void _draw(DrawingInterface drawingInterface, World world);
 
-                    var (tile, hasTile) = sector.TryGetTile(i + CameraXPosition, j + CameraYPosition);
+
+        protected void _drawTiles(Sector sector)
+        {
+            for (int i = -1; i < _visibleGridWidth+1; i++)
+            {
+                for (int j = -1; j < _visibleGridHeight+1; j++)
+                {
+                    int xDrawOffset = (i * _tileSizeScaled) - CameraXGridOffset;
+                    int yDrawOffset = (j * _tileSizeScaled) - CameraYGridOffset;
+
+                    var (tile, hasTile) = sector.TryGetTile(i + CameraXGridPosition, j + CameraYGridPosition);
                     if (!hasTile)
                     {
                         _drawingInterface.DrawSprite("Black", xDrawOffset, yDrawOffset, Scale);
@@ -86,7 +81,7 @@ namespace IAmACube
                 }
             }
         }
-        private void _drawTile(Tile tile,int xDrawOffset, int yDrawOffset)
+        protected void _drawTile(Tile tile,int xDrawOffset, int yDrawOffset)
         {
             _drawTileSprite(tile.Ground, xDrawOffset, yDrawOffset,1);
 
@@ -95,8 +90,7 @@ namespace IAmACube
                 _drawTileSprite(tile.Contents, xDrawOffset, yDrawOffset,0);
             }
         }
-
-        private void _drawTileSprite(Block block,int xOffset,int yOffset,int layer)
+        protected void _drawTileSprite(Block block,int xOffset,int yOffset,int layer)
         {
             if(block.IsMoving)
             {
@@ -111,7 +105,7 @@ namespace IAmACube
         }
 
 
-        private void _setScreenScaling()
+        protected void _setScreenScaling()
         {
             if(Scale<1)
             {

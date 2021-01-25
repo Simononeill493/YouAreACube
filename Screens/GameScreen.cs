@@ -12,21 +12,47 @@ namespace IAmACube
         private Camera _camera;
         private Game _game;
 
+        private GridCamera _adminCamera;
+        private OffsetCamera _offsetCamera;
+        private ClampToKernelCamera _kernelCamera;
+
         public GameScreen(Save save)
         {
-            _camera = new Camera(save.World);
+            _adminCamera = new GridCamera();
+            _offsetCamera = new OffsetCamera();
+            _kernelCamera = new ClampToKernelCamera(save.Kernel);
+
+            _camera = new GridCamera();
             _game = new Game(save);
         }
 
         public override void Update(UserInput input)
         {
+            _readKeys(input);
+
             _game.Update(input);
             _camera.Update(input);
         }
 
         public override void Draw(DrawingInterface drawingInterface)
         {
-            _camera.Draw(drawingInterface);
+            _camera.Draw(drawingInterface,_game.World);
+        }
+
+        private void _readKeys(UserInput input)
+        {
+            if(input.IsKeyJustPressed(Keys.M))
+            {
+                _camera = _adminCamera;
+            }
+            if (input.IsKeyJustPressed(Keys.N))
+            {
+                _camera = _offsetCamera;
+            }
+            if (input.IsKeyJustPressed(Keys.B))
+            {
+                _camera = _kernelCamera;
+            }
         }
     }
 }

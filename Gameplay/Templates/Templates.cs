@@ -20,7 +20,7 @@ namespace IAmACube
             _blockTemplates = _parseBlocks(data["blocks"]);
 
             //todo this is temporary
-            _blockTemplates["BasicEnemy"].Chips = ChipTester.TestFleeBlock;
+            _blockTemplates["BasicEnemy"].Chips = ChipTester.TestEnemyBlock;
             _blockTemplates["ScaredEnemy"].Chips = ChipTester.TestFleeBlock;
             _blockTemplates["BasicPlayer"].Chips = ChipTester.TestPlayerBlock;
 

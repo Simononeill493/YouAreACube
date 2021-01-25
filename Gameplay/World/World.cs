@@ -13,12 +13,17 @@ namespace IAmACube
         public Sector Centre;
         public List<Sector> Sectors;
 
-        public World(Sector centre)
-        {
-            Centre = centre;
-            Sectors = new List<Sector>() { Centre };
+        public Random Random;
+        private int _seed;
 
-            Current = Centre;
+        public World(int seed,Sector centre)
+        {
+            _seed = seed;
+            Random = new Random(_seed);
+
+            Centre = centre;
+            Current = centre;
+            Sectors = new List<Sector>() { centre };
         }
 
         public EffectsList Update(UserInput input,TickCounter tickCounter)

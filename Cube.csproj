@@ -47,6 +47,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Camera\GridCamera.cs" />
+    <Compile Include="Camera\ClampToKernelCamera.cs" />
+    <Compile Include="Camera\OffsetCamera.cs" />
     <Compile Include="Gameplay\Blocks\BaseBlockData\Block.cs" />
     <Compile Include="Gameplay\Blocks\BaseBlockData\BlockType.cs" />
     <Compile Include="Gameplay\Blocks\BlockMovementData.cs" />

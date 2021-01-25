@@ -8,8 +8,8 @@ namespace IAmACube
 {
     public class Game
     {
+        public World World => _save.World;
         private Save _save;
-        private World _world => _save.World;
 
         private TickCounter _tickCounter;
         private MoveManager _moveManager;
@@ -23,7 +23,7 @@ namespace IAmACube
 
         public void Update(UserInput input)
         {
-            var effects = _world.Update(input, _tickCounter);
+            var effects = World.Update(input, _tickCounter);
             _moveManager.ProcessMoves(effects.ToMove);
 
             _tickCounter.Tick();

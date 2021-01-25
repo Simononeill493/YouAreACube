@@ -49,7 +49,7 @@ namespace IAmACube
             ifChip.Yes = randomWalkBlock;
             ifChip.No = approachBlock;
 
-            TestEnemyBlock = initialBlock;
+            TestEnemyBlock = randomWalkBlock;
         }
 
         public static void MakeFleeBlock()

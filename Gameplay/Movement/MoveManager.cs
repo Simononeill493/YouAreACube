@@ -21,28 +21,26 @@ namespace IAmACube
 
             foreach (var move in toMove)
             {
-                if(!move.Item1.IsMoving)
-                {
-                    _startMoving(move.Item1, move.Item2);
-                }
+                _tryStartMoving(move.Item1, move.Item2);
             }
         }
 
-        private void _removeFinishedBlocks()
+        private void _tryStartMoving(Block block,Direction direction)
         {
-            Moving.RemoveAll(b => !b.IsMoving);
+            if (block.Location.Adjacent.ContainsKey(direction) & !block.IsMoving)
+            {
+                _startMoving(block, direction);
+            }
         }
 
         private void _processMovingBlock(Block block)
         {
             var data = block.MovementData;
             data.MovementPosition++;
-            data.TestLength++;
 
-            if (data.MovementPosition == 0)
+            if (data.MovementPosition == 0 | (!data.PastMidpoint & data.Destination.Contents!=null))
             {
-                block.IsMoving = false;
-                Console.WriteLine(data.TestLength);
+                _resetBlockMovement(block);
             }
             else
             {
@@ -55,6 +53,12 @@ namespace IAmACube
             }
         }
 
+        private void _resetBlockMovement(Block block)
+        {
+            block.IsMoving = false;
+            block.MovementData = null;
+        }
+
         private void _startMoving(Block block,Direction direction)
         {
             var movementData = new BlockMovementData();
@@ -62,6 +66,7 @@ namespace IAmACube
             movementData.Midpoint = ((block.Speed + 1) / 2);
             movementData.PastMidpoint = false;
             movementData.MovementPosition = 0;
+            movementData.Destination = block.Location.Adjacent[direction];
 
             var offs = DirectionUtils.XYOffset[direction];
             movementData.XOffset = offs.Item1;
@@ -70,6 +75,12 @@ namespace IAmACube
             block.MovementData = movementData;
             block.IsMoving = true;
             Moving.Add(block);
+        }
+
+
+        private void _removeFinishedBlocks()
+        {
+            Moving.RemoveAll(b => !b.IsMoving);
         }
     }
 }

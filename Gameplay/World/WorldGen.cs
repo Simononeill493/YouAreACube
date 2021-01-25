@@ -8,19 +8,30 @@ namespace IAmACube
 {
     class WorldGen
     {
-        public static World GenerateFreshWorld(Random seed)
+        public static World GenerateEmptyWorld(int seed)
         {
             var centre = _getInitializedSector();
-            var world = new World(centre);
+            var world = new World(seed,centre);
 
             _setBasicGround(world);
-            _addRandom(seed,world.Centre,"BasicEnemy",50);
-            _addRandom(seed,world.Centre, "BasicPlayer", 1);
 
             return world;
         }
 
-        private static void _addRandom(Random seed, Sector sector, string blockname,int number)
+        public static void AddPlayer(World world,SurfaceBlock player)
+        {
+            var centre = world.Centre;
+            var tile = centre.Tiles[0, 0];
+
+            centre.AddSurfaceToSector(player, tile);
+        }
+
+        public static void AddEntities(World world)
+        {
+            _addRandom(world.Random, world.Centre, "BasicEnemy", 64);
+        }
+
+        private static void _addRandom(Random r, Sector sector, string blockname,int number)
         {
             var emptyTiles = sector.TilesFlattened.Where(t => t.Contents == null).ToList();
             var emptySize = emptyTiles.Count();
@@ -34,7 +45,7 @@ namespace IAmACube
                 }
 
                 var block = Templates.GenerateSurfaceFromTemplate(blockname);
-                var tileNum = seed.Next(0, emptySize - 1);
+                var tileNum = r.Next(0, emptySize - 1);
 
                 sector.AddSurfaceToSector(block, emptyTiles[tileNum]);
                 emptyTiles.RemoveAt(tileNum);

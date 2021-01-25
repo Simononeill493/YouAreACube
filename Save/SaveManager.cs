@@ -13,12 +13,15 @@ namespace IAmACube
     {
         public static Save FreshSave()
         {
-            var seed = new Random(1);
+            var player = Templates.GenerateSurfaceFromTemplate("BasicPlayer");
 
-            var kernel = new Kernel();
-            var world = WorldGen.GenerateFreshWorld(seed);
+            var world = WorldGen.GenerateEmptyWorld(0);
+            WorldGen.AddPlayer(world, player);
+            WorldGen.AddEntities(world);
 
+            var kernel = new Kernel() { Host = player };
             var save = new Save(kernel, world);
+
             return save;
         }
 
