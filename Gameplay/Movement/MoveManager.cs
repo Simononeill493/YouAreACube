@@ -56,7 +56,6 @@ namespace IAmACube
         private void _resetBlockMovement(Block block)
         {
             block.IsMoving = false;
-            block.MovementData = null;
         }
 
         private void _startMoving(Block block,Direction direction)

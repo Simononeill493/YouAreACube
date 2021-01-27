@@ -20,19 +20,19 @@ namespace IAmACube
         {
             if (input.IsKeyDown(Keys.Up))
             {
-                CameraYGridOffset -= _cameraSpeed;
+                CameraYPartialGridOffset -= _cameraSpeed;
             }
             if (input.IsKeyDown(Keys.Down))
             {
-                CameraYGridOffset += _cameraSpeed;
+                CameraYPartialGridOffset += _cameraSpeed;
             }
             if (input.IsKeyDown(Keys.Left))
             {
-                CameraXGridOffset -= _cameraSpeed;
+                CameraXPartialGridOffset -= _cameraSpeed;
             }
             if (input.IsKeyDown(Keys.Right))
             {
-                CameraXGridOffset += _cameraSpeed;
+                CameraXPartialGridOffset += _cameraSpeed;
             }
             if (input.IsKeyJustPressed(Keys.P))
             {

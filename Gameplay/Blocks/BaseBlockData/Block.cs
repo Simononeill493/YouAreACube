@@ -25,6 +25,7 @@ namespace IAmACube
         {
             _template = template;
             SpeedOffset = RandomUtils.R.Next(0, Config.TickCycleLength);
+            MovementData = new BlockMovementData();
         }
 
         public void Update(UserInput input,EffectsList effects)
