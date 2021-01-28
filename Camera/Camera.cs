@@ -28,9 +28,22 @@ namespace IAmACube
 
         public void Update(UserInput input)
         {
+            _readKeys(input);
+
             _setScreenScaling();
             _update(input);
-            _resolvePartialGridOffset();
+            _rollOverPartialOffsets();
+        }
+        private void _readKeys(UserInput input)
+        {
+            if (input.IsKeyJustPressed(Keys.P))
+            {
+                Scale++;
+            }
+            if (input.IsKeyJustPressed(Keys.O))
+            {
+                if (Scale > 1) { Scale--; }
+            }
         }
 
         public void Draw(DrawingInterface drawingInterface, World world)
@@ -78,7 +91,7 @@ namespace IAmACube
             _drawingInterface.DrawSprite(block.Sprite, xDrawPos + offsetX, yDrawPos + offsetY, layer, Scale);
         }
 
-        protected void _resolvePartialGridOffset()
+        protected void _rollOverPartialOffsets()
         {
             if (CameraXPartialGridOffset > _tileSizeScaled)
             {
@@ -112,14 +125,34 @@ namespace IAmACube
             _visibleGridWidth = (MonoGameWindow.CurrentWidth / _tileSizeScaled) + 1;
             _visibleGridHeight = (MonoGameWindow.CurrentHeight / _tileSizeScaled) + 1;
         }
-    
-        protected (int x,int y) _getPosOnScreen(Block block)
+
+        protected bool _isOnScreen(Block block)
+        {
+            var pos = _getPosOnScreen(block);
+            return _isOnScreen(pos.x, pos.y);
+        }
+        protected bool _isOnScreen(int x,int y)
+        {
+            return (
+            x >= 0 &
+            y >= 0 &
+            x <= (MonoGameWindow.CurrentWidth) &
+            y <= (MonoGameWindow.CurrentHeight));
+
+        }
+
+        protected (int x, int y) _getScaledPosInSector(Block block)
         {
             var (offsetX, offsetY) = _getMovementOffsets(block);
 
             var XPos = (block.Location.X * _tileSizeScaled) + offsetX;
             var YPos = (block.Location.Y * _tileSizeScaled) + offsetY;
 
+            return (XPos, YPos);
+        }
+        protected (int x,int y) _getPosOnScreen(Block block)
+        {
+            var (XPos, YPos) = _getScaledPosInSector(block);
             return (XPos-CameraXOffsetTrue, YPos-CameraYOffsetTrue);
         }
         protected (int x,int y) _getMovementOffsets(Block block)

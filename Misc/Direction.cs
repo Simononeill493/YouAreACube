@@ -9,14 +9,14 @@ namespace IAmACube
     [Serializable()]
     public enum Direction
     {
-        Top,
-        TopRight,
-        Right,
-        BottomRight,
-        Bottom,
-        BottomLeft,
-        Left,
-        TopLeft
+        Top         =0,
+        TopRight    =1,
+        Right       =2,
+        BottomRight =3,
+        Bottom      =4,
+        BottomLeft  =5,
+        Left        =6,
+        TopLeft     =7
     }
 
     

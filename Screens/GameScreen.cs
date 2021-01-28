@@ -14,17 +14,15 @@ namespace IAmACube
 
         private GridCamera _adminCamera;
         private OffsetCamera _offsetCamera;
-        private ClampToKernelCamera _kernelCamera;
         private DynamicCamera _dynamicCamera;
 
         public GameScreen(Save save)
         {
             _adminCamera = new GridCamera();
             _offsetCamera = new OffsetCamera();
-            _kernelCamera = new ClampToKernelCamera(save.Kernel);
             _dynamicCamera = new DynamicCamera(save.Kernel);
 
-            _camera = new GridCamera();
+            _camera = _dynamicCamera;
             _game = new Game(save);
         }
 
@@ -53,13 +51,8 @@ namespace IAmACube
             }
             if (input.IsKeyJustPressed(Keys.B))
             {
-                _camera = _kernelCamera;
-            }
-            if (input.IsKeyJustPressed(Keys.V))
-            {
                 _camera = _dynamicCamera;
             }
-
         }
     }
 }

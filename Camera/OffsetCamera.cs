@@ -34,14 +34,6 @@ namespace IAmACube
             {
                 CameraXPartialGridOffset += _cameraSpeed;
             }
-            if (input.IsKeyJustPressed(Keys.P))
-            {
-                Scale++;
-            }
-            if (input.IsKeyJustPressed(Keys.O))
-            {
-                if (Scale > 1) { Scale--; }
-            }
             if (input.IsKeyJustPressed(Keys.L))
             {
                 _cameraSpeed++;
