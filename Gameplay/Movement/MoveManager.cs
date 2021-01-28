@@ -10,22 +10,27 @@ namespace IAmACube
     {
         public List<Block> Moving = new List<Block>();
 
-        public void ProcessMoves(List<Tuple<Block,Direction>> toMove)
+        public void TickCurrentMoves()
         {
-            foreach(var movingBlock in Moving)
+            foreach (var movingBlock in Moving)
             {
                 _processMovingBlock(movingBlock);
             }
 
             _removeFinishedBlocks();
-
-            foreach (var move in toMove)
-            {
-                _tryStartMoving(move.Item1, move.Item2);
-            }
         }
 
-        private void _tryStartMoving(Block block,Direction direction)
+        public void ProcessNewMoveRequest(Block block, MovementDirection direction)
+        {
+            var cardinal = DirectionUtils.ToCardinal(block.Orientation, direction);
+            ProcessNewMoveRequest(block, cardinal);
+        }
+        public void ProcessNewMoveRequest(Block block,CardinalDirection direction)
+        {
+            _tryStartMoving(block, direction);
+        }
+
+        private void _tryStartMoving(Block block,CardinalDirection direction)
         {
             if (block.Location.Adjacent.ContainsKey(direction) & !block.IsMoving)
             {
@@ -58,7 +63,7 @@ namespace IAmACube
             block.IsMoving = false;
         }
 
-        private void _startMoving(Block block,Direction direction)
+        private void _startMoving(Block block,CardinalDirection direction)
         {
             var movementData = new BlockMovementData();
             movementData.Direction = direction;

@@ -8,11 +8,24 @@ namespace IAmACube
 {
     public class EffectsList
     {
-        public List<Tuple<Block, Direction>> ToMove = new List<Tuple<Block, Direction>>();
+        public List<Effect> Effects = new List<Effect>();
 
-        public void StartMove(Block block,Direction direction)
+        public void StartMove(Block block,CardinalDirection direction)
         {
-            ToMove.Add(new Tuple<Block, Direction>(block, direction));
+            var moveCardinalEffect = new Effect(block, EffectType.CardinalMovement) { CardinalDir = direction };
+            Effects.Add(moveCardinalEffect);
+        }
+
+        public void StartMove(Block block, MovementDirection direction)
+        {
+            var moveRelativeEffect = new Effect(block, EffectType.RelativeMovement) { RelativeDir = direction };
+            Effects.Add(moveRelativeEffect);
+        }
+
+        public void StartRotation(Block block, int rotation)
+        {
+            var rotationEffect = new Effect(block, EffectType.Rotation) { Rotation = rotation };
+            Effects.Add(rotationEffect);
         }
     }
 }

@@ -27,7 +27,6 @@ namespace IAmACube
 
             _setScreenScaling();
             _clamptoKernel();
-
         }
 
         protected override void _kernelCameraUpdate(UserInput input)

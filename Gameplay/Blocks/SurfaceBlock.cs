@@ -14,7 +14,7 @@ namespace IAmACube
             BlockType = BlockType.Surface;
         }
 
-        public override void Move(Direction direction)
+        public override void Move(CardinalDirection direction)
         {
             var destination = Location.Adjacent[direction];
             if (destination.Contents == null)

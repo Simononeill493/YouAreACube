@@ -3,9 +3,9 @@
 namespace IAmACube
 {
     [Serializable()]
-    internal class MoveChip : InputPin<Direction>
+    internal class MoveCardinalChip : InputPin<CardinalDirection>
     {
-        public Direction ChipInput { get; set; }
+        public CardinalDirection ChipInput { get; set; }
 
         public void Run(Block actor, UserInput userInput,EffectsList effects)
         {

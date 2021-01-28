@@ -18,7 +18,7 @@ namespace IAmACube
 
         protected override void _update(UserInput input)
         {
-            if (input.IsKeyDown(Keys.Up))
+            /*if (input.IsKeyDown(Keys.Up))
             {
                 CameraYPartialGridOffset -= _cameraSpeed;
             }
@@ -41,7 +41,7 @@ namespace IAmACube
             if (input.IsKeyJustPressed(Keys.K))
             {
                 if (_cameraSpeed > 1) { _cameraSpeed--; }
-            }
+            }*/
         }
 
         protected override void _draw(DrawingInterface drawingInterface, World world)

@@ -36,6 +36,23 @@ namespace IAmACube
         }
         private void _readKeys(UserInput input)
         {
+            if (input.IsKeyDown(Keys.Up))
+            {
+                CameraYPartialGridOffset -= 15;
+            }
+            if (input.IsKeyDown(Keys.Down))
+            {
+                CameraYPartialGridOffset += 15;
+            }
+            if (input.IsKeyDown(Keys.Left))
+            {
+                CameraXPartialGridOffset -= 15;
+            }
+            if (input.IsKeyDown(Keys.Right))
+            {
+                CameraXPartialGridOffset += 15;
+            }
+
             if (input.IsKeyJustPressed(Keys.P))
             {
                 Scale++;

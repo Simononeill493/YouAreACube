@@ -9,7 +9,7 @@ namespace IAmACube
     [Serializable()]
     public class BlockMovementData
     {
-        public Direction Direction;
+        public CardinalDirection Direction;
         public Tile Destination;
 
         public int Midpoint;

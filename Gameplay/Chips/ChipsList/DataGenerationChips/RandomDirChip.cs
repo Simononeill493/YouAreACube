@@ -3,7 +3,7 @@
 namespace IAmACube
 {
     [Serializable()]
-    internal class RandDirChip : OutputPin<Direction>
+    internal class RandomDirChip : OutputPin<CardinalDirection>
     {
         public override void Run(Block actor, UserInput userInput, EffectsList effects)
         {

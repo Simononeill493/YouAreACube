@@ -16,6 +16,8 @@ namespace IAmACube
         public bool IsMoving;
         public BlockMovementData MovementData;
 
+        public Orientation Orientation;
+
         public string Sprite => _template.Sprite;
         public bool Active => _template.Active;
         public int Speed => _template.Speed;
@@ -26,6 +28,8 @@ namespace IAmACube
             _template = template;
             SpeedOffset = RandomUtils.R.Next(0, Config.TickCycleLength);
             MovementData = new BlockMovementData();
+
+            Orientation = Orientation.Top;
         }
 
         public void Update(UserInput input,EffectsList effects)
@@ -33,6 +37,15 @@ namespace IAmACube
             _template.Chips.Execute(this, input,effects);
         }
 
-        public abstract void Move(Direction direction);
+        public void Rotate(int rotation)
+        {
+            Orientation = DirectionUtils.Rotate(Orientation, rotation);
+        }
+
+        public void Move(MovementDirection movementDirection)
+        {
+            Move(DirectionUtils.ToCardinal(Orientation, movementDirection));
+        }
+        public abstract void Move(CardinalDirection direction);
     }
 }

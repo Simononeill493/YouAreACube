@@ -11,7 +11,7 @@ namespace IAmACube
         public static Random R;
 
         private const int _numDirections = 8;
-        private static Direction[] _directions;
+        private static CardinalDirection[] _directions;
 
         public static void Init()
         {
@@ -25,12 +25,18 @@ namespace IAmACube
         }
         private static void _setLookups()
         {
-            _directions = typeof(Direction).GetEnumValues().Cast<Direction>().ToArray();
+            _directions = typeof(CardinalDirection).GetEnumValues().Cast<CardinalDirection>().ToArray();
         }
 
-        public static Direction RandomDirection()
+        public static CardinalDirection RandomDirection()
         {
-            return (Direction)R.Next(0, _numDirections);
+            return (CardinalDirection)R.Next(0, _numDirections);
         }
+
+        public static int RandomNumber(int upperBoundExclusive)
+        {
+            return R.Next(0, upperBoundExclusive);
+        }
+
     }
 }

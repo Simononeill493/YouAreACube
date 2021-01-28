@@ -11,7 +11,7 @@ namespace IAmACube
     {
         public int X;
         public int Y;
-        public Dictionary<Direction, Tile> Adjacent;
+        public Dictionary<CardinalDirection, Tile> Adjacent;
         public GroundBlock Ground;
         public SurfaceBlock Contents;
 
@@ -19,45 +19,45 @@ namespace IAmACube
         {
             X = x;
             Y = y;
-            Adjacent = new Dictionary<Direction, Tile>();
+            Adjacent = new Dictionary<CardinalDirection, Tile>();
         }
 
-        public Direction ApproachDirection(Tile other)
+        public CardinalDirection ApproachDirection(Tile other)
         {
             if(other.X>X)
             {
                 if(other.Y>Y)
                 {
-                    return Direction.BottomRight;
+                    return CardinalDirection.SouthEast;
                 }
                 else if(other.Y<Y)
                 {
-                    return Direction.TopRight;
+                    return CardinalDirection.NorthEast;
                 }
 
-                return Direction.Right;
+                return CardinalDirection.East;
             }
             else if(other.X<X)
             {
                 if (other.Y > Y)
                 {
-                    return Direction.BottomLeft;
+                    return CardinalDirection.SouthWest;
                 }
                 else if (other.Y < Y)
                 {
-                    return Direction.TopLeft ;
+                    return CardinalDirection.NorthWest ;
                 }
 
-                return Direction.Left;
+                return CardinalDirection.West;
             }
             else if(other.Y>Y)
             {
-                return Direction.Bottom;
+                return CardinalDirection.South;
             }
 
-            return Direction.Top;
+            return CardinalDirection.North;
         }
-        public Direction FleeDirection(Tile other)
+        public CardinalDirection FleeDirection(Tile other)
         {
             return DirectionUtils.Reverse[ApproachDirection(other)];
         }

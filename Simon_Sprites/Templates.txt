@@ -14,12 +14,17 @@
     {
       "name":"BasicPlayer",
       "sprite":"BasicPlayer",
-      "speed":8
+      "speed":5
     },
 	{
       "name":"grassPatch",
       "sprite":"grass",
       "speed":0
+    },
+	{
+      "name":"Spinner",
+      "sprite":"Spinner",
+      "speed":7
     }
   ]
 }

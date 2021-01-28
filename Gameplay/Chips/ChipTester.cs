@@ -11,18 +11,20 @@ namespace IAmACube
         public static ChipBlock TestEnemyBlock;
         public static ChipBlock TestFleeBlock;
         public static ChipBlock TestPlayerBlock;
+        public static ChipBlock TestSpinBlock;
 
         public static void Go()
         {
             MakeEnemyBlock();
             MakeFleeBlock();
             MakePlayerBlock();
+            MakeSpinBlock();
         }
 
         public static void MakeEnemyBlock()
         {
             var getNeighboursChip = new GetNeighboursChip();
-            var randDirChip = new RandDirChip();
+            var randDirChip = new RandomDirChip();
 
             var ifChip = new IfChip();
 
@@ -30,8 +32,8 @@ namespace IAmACube
             var firstOfListChip = new FirstOfListChip<SurfaceBlock>();
             var blockLocationChip = new BlockLocationChip();
             var stepToChip = new ApproachDirectionChip();
-            var moveRandChip = new MoveChip();
-            var moveToAdjChip = new MoveChip();
+            var moveRandChip = new MoveCardinalChip();
+            var moveToAdjChip = new MoveCardinalChip();
 
             getNeighboursChip.Targets.Add(isListEmptyChip);
             getNeighboursChip.Targets.Add(firstOfListChip);
@@ -55,7 +57,7 @@ namespace IAmACube
         public static void MakeFleeBlock()
         {
             var getNeighboursChip = new GetNeighboursChip();
-            var randDirChip = new RandDirChip();
+            var randDirChip = new RandomDirChip();
 
             var ifChip = new IfChip();
 
@@ -63,8 +65,8 @@ namespace IAmACube
             var firstOfListChip = new FirstOfListChip<SurfaceBlock>();
             var blockLocationChip = new BlockLocationChip();
             var fleeChip = new FleeDirectionChip();
-            var moveRandChip = new MoveChip();
-            var moveToAdjChip = new MoveChip();
+            var moveRandChip = new MoveCardinalChip();
+            var moveToAdjChip = new MoveCardinalChip();
 
             getNeighboursChip.Targets.Add(isListEmptyChip);
             getNeighboursChip.Targets.Add(firstOfListChip);
@@ -97,20 +99,20 @@ namespace IAmACube
             var isSPressedChip = new IsKeyPressedChip();
             var isDPressedChip = new IsKeyPressedChip();
 
-            var moveUp = new MoveChip();
-            var moveDown = new MoveChip();
-            var moveLeft = new MoveChip();
-            var moveRight = new MoveChip();
+            var moveUp = new MoveCardinalChip();
+            var moveDown = new MoveCardinalChip();
+            var moveLeft = new MoveCardinalChip();
+            var moveRight = new MoveCardinalChip();
 
             isWPressedChip.ChipInput = Microsoft.Xna.Framework.Input.Keys.W;
             isAPressedChip.ChipInput = Microsoft.Xna.Framework.Input.Keys.A;
             isSPressedChip.ChipInput = Microsoft.Xna.Framework.Input.Keys.S;
             isDPressedChip.ChipInput = Microsoft.Xna.Framework.Input.Keys.D;
 
-            moveUp.ChipInput = Direction.Top;
-            moveDown.ChipInput = Direction.Bottom;
-            moveLeft.ChipInput = Direction.Left;
-            moveRight.ChipInput = Direction.Right;
+            moveUp.ChipInput = CardinalDirection.North;
+            moveDown.ChipInput = CardinalDirection.South;
+            moveLeft.ChipInput = CardinalDirection.West;
+            moveRight.ChipInput = CardinalDirection.East;
 
             isWPressedChip.Targets.Add(ifWPressed);
             isAPressedChip.Targets.Add(ifAPressed);
@@ -128,6 +130,20 @@ namespace IAmACube
             ifDPressed.No = ChipBlock.NoAction;
 
             TestPlayerBlock = new ChipBlock(isWPressedChip, ifWPressed);
+        }
+
+        public static void MakeSpinBlock()
+        {
+            var getRotationAmountChip = new RandomNumChip();
+            getRotationAmountChip.ChipInput = 3;
+
+            var rotateRightChip = new RotationChip();
+            getRotationAmountChip.Targets.Add(rotateRightChip);
+
+            var moveForwardChip = new MoveRelativeChip();
+            moveForwardChip.ChipInput = MovementDirection.Forward;
+
+            TestSpinBlock = new ChipBlock(getRotationAmountChip,rotateRightChip, moveForwardChip);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace IAmACube
     {
         protected override void _update(UserInput input)
         {
-            if (input.IsKeyDown(Keys.Up))
+            /*if (input.IsKeyDown(Keys.Up))
             {
                 CameraYGridPosition--;
             }
@@ -26,7 +26,7 @@ namespace IAmACube
             if (input.IsKeyDown(Keys.Right))
             {
                 CameraXGridPosition++;
-            }
+            }*/
         }
 
         protected override void _draw(DrawingInterface drawingInterface,World world)

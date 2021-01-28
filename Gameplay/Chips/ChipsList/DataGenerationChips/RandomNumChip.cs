@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class FleeDirectionChip : OutputPin<CardinalDirection>, InputPin<Tile>
+    public class RandomNumChip : OutputPin<int>, InputPin<int>
     {
-        public Tile ChipInput { get; set; }
+        public int ChipInput { get; set; }
 
         public override void Run(Block actor, UserInput userInput, EffectsList effects)
         {
-            SetOutput(actor.Location.FleeDirection(ChipInput));
+            SetOutput(RandomUtils.RandomNumber(ChipInput));
         }
     }
 }

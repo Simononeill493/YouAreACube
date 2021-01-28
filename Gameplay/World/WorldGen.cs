@@ -28,7 +28,8 @@ namespace IAmACube
 
         public static void AddEntities(World world)
         {
-            _addRandom(world.Random, world.Centre, "BasicEnemy", 64);
+            _addRandom(world.Random, world.Centre, "BasicEnemy", 32);
+            _addRandom(world.Random, world.Centre, "Spinner", 32);
         }
 
         private static void _addRandom(Random r, Sector sector, string blockname,int number)
@@ -97,20 +98,20 @@ namespace IAmACube
                 for (int j = 0; j < size; j++)
                 {
                     var tile = tiles[i, j];
-                    _setAdjIfValid(tiles,tile, size, i, j - 1, Direction.Top);
-                    _setAdjIfValid(tiles,tile, size, i + 1, j - 1, Direction.TopRight);
-                    _setAdjIfValid(tiles,tile, size, i + 1, j, Direction.Right);
-                    _setAdjIfValid(tiles,tile, size, i + 1, j + 1, Direction.BottomRight);
-                    _setAdjIfValid(tiles,tile, size, i, j + 1, Direction.Bottom);
-                    _setAdjIfValid(tiles,tile, size, i - 1, j + 1, Direction.BottomLeft);
-                    _setAdjIfValid(tiles,tile, size, i - 1, j, Direction.Left);
-                    _setAdjIfValid(tiles,tile, size, i - 1, j - 1, Direction.TopLeft);
+                    _setAdjIfValid(tiles,tile, size, i, j - 1, CardinalDirection.North);
+                    _setAdjIfValid(tiles,tile, size, i + 1, j - 1, CardinalDirection.NorthEast);
+                    _setAdjIfValid(tiles,tile, size, i + 1, j, CardinalDirection.East);
+                    _setAdjIfValid(tiles,tile, size, i + 1, j + 1, CardinalDirection.SouthEast);
+                    _setAdjIfValid(tiles,tile, size, i, j + 1, CardinalDirection.South);
+                    _setAdjIfValid(tiles,tile, size, i - 1, j + 1, CardinalDirection.SouthWest);
+                    _setAdjIfValid(tiles,tile, size, i - 1, j, CardinalDirection.West);
+                    _setAdjIfValid(tiles,tile, size, i - 1, j - 1, CardinalDirection.NorthWest);
 
                 }
             }
 
         }
-        private static void _setAdjIfValid(Tile[,] tiles,Tile tile, int size, int x, int y, Direction direction)
+        private static void _setAdjIfValid(Tile[,] tiles,Tile tile, int size, int x, int y, CardinalDirection direction)
         {
             if (x > -1 & y > -1 & x < size & y < size)
             {

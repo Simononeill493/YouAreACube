@@ -12,19 +12,19 @@ namespace IAmACube
         private Save _save;
 
         private TickCounter _tickCounter;
-        private MoveManager _moveManager;
+        private EffectManager _effectManager;
 
         public Game(Save save)
         {
             _save = save;
             _tickCounter = new TickCounter();
-            _moveManager = new MoveManager();
+            _effectManager = new EffectManager();
         }
 
         public void Update(UserInput input)
         {
             var effects = World.Update(input, _tickCounter);
-            _moveManager.ProcessMoves(effects.ToMove);
+            _effectManager.ProcessEffects(effects);
 
             _tickCounter.Tick();
         }

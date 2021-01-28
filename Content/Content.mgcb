@@ -166,6 +166,18 @@
 /processorParam:TextureFormat=Compressed
 /build:../Simon_Sprites/SimonFonts/PressStart2P.spritefont;PressStart2P.spritefont
 
+#begin ../Simon_Sprites/Spinner.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Sprites/Spinner.png;Spinner.png
+
 #begin ../Simon_Sprites/TitleBackground.png
 /importer:TextureImporter
 /processor:TextureProcessor
