@@ -15,6 +15,9 @@ namespace IAmACube
         public MovementDirection RelativeDir;
         public int Rotation;
 
+        public BlockType BlockType;
+        public BlockTemplate BlockTemplate;
+
         public Effect(Block actor,EffectType effectType)
         {
             EffectType = effectType;

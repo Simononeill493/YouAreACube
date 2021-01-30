@@ -9,11 +9,11 @@ namespace IAmACube
         [STAThread]
         public static void Main(string[] args)
         {
-            TestCode();
-
             RandomUtils.Init(1);
             DirectionUtils.Init();
             Templates.Load();
+
+            //TestCode();
 
             var game = new MonoGameWindow();
             game.Run();
@@ -21,7 +21,7 @@ namespace IAmACube
 
         public static void TestCode()
         {
-            ChipTester.Go();
+            //ChipTester.Go();
         }
     }
 }

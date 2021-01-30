@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public interface IControlChip
+    public interface InputPin2<TInputType> : IChip
     {
-        void ExecuteOutput(Block actor, UserInput input, EffectsList effects);
+        TInputType ChipInput2 { get; set; }
     }
 }

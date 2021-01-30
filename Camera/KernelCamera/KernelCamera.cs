@@ -18,22 +18,10 @@ namespace IAmACube
 
         protected override void _update(UserInput input)
         {
-            kernelScreenPos = _getPosOnScreen(_kernel.Host);
+            kernelScreenPos = _config.GetPosOnScreen(_kernel.Host);
             _kernelCameraUpdate(input);
         }
+
         protected abstract void _kernelCameraUpdate(UserInput input);
-
-        protected void _clamptoKernel(int xOffset=0,int yOffset=0)
-        {
-            var host = _kernel.Host;
-
-            CameraXGridPosition = host.Location.X - (this._visibleGridWidth / 2);
-            CameraYGridPosition = host.Location.Y - (this._visibleGridHeight / 2);
-
-            (CameraXPartialGridOffset, CameraYPartialGridOffset) = _getMovementOffsets(host);
-
-            CameraXPartialGridOffset += xOffset;
-            CameraYPartialGridOffset += yOffset; 
-        }
     }
 }

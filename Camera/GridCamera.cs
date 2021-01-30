@@ -28,11 +28,5 @@ namespace IAmACube
                 CameraXGridPosition++;
             }*/
         }
-
-        protected override void _draw(DrawingInterface drawingInterface,World world)
-        {
-            var sector = world.Current;
-            _drawTiles(sector);
-        }
     }
 }

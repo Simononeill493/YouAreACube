@@ -27,5 +27,11 @@ namespace IAmACube
             var rotationEffect = new Effect(block, EffectType.Rotation) { Rotation = rotation };
             Effects.Add(rotationEffect);
         }
+
+        public void CreateBlock(Block block, BlockTemplate toCreate, BlockType blockType,CardinalDirection direction)
+        {
+            var creationEffect = new Effect(block, EffectType.CardinalCreation) { BlockTemplate = toCreate, BlockType = blockType, CardinalDir = direction };
+            Effects.Add(creationEffect);
+        }
     }
 }

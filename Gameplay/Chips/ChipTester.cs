@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,20 +9,12 @@ namespace IAmACube
 {
     class ChipTester
     {
-        public static ChipBlock TestEnemyBlock;
-        public static ChipBlock TestFleeBlock;
-        public static ChipBlock TestPlayerBlock;
-        public static ChipBlock TestSpinBlock;
+        public static ChipBlock TestEnemyBlock=> MakeEnemyBlock();
+        public static ChipBlock TestFleeBlock => MakeFleeBlock();
+        public static ChipBlock TestPlayerBlock => MakePlayerBlock();
+        public static ChipBlock TestSpinBlock => MakeSpinBlock();
 
-        public static void Go()
-        {
-            MakeEnemyBlock();
-            MakeFleeBlock();
-            MakePlayerBlock();
-            MakeSpinBlock();
-        }
-
-        public static void MakeEnemyBlock()
+        public static ChipBlock MakeEnemyBlock()
         {
             var getNeighboursChip = new GetNeighboursChip();
             var randDirChip = new RandomDirChip();
@@ -43,18 +36,18 @@ namespace IAmACube
             blockLocationChip.Targets.Add(stepToChip);
             stepToChip.Targets.Add(moveToAdjChip);
 
-            var initialBlock = new ChipBlock(new List<IChip> { getNeighboursChip, isListEmptyChip, ifChip });
-            var randomWalkBlock = new ChipBlock(new List<IChip> { randDirChip, moveRandChip });
-            var approachBlock = new ChipBlock(new List<IChip> { getNeighboursChip, firstOfListChip, blockLocationChip, stepToChip, moveToAdjChip });
+            var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip, ifChip);
+            var randomWalkBlock = new ChipBlock(randDirChip, moveRandChip);
+            var approachBlock = new ChipBlock(getNeighboursChip, firstOfListChip, blockLocationChip, stepToChip, moveToAdjChip);
 
             isListEmptyChip.Targets.Add(ifChip);
             ifChip.Yes = randomWalkBlock;
             ifChip.No = approachBlock;
 
-            TestEnemyBlock = randomWalkBlock;
+            return randomWalkBlock;
         }
 
-        public static void MakeFleeBlock()
+        public static ChipBlock MakeFleeBlock()
         {
             var getNeighboursChip = new GetNeighboursChip();
             var randDirChip = new RandomDirChip();
@@ -76,63 +69,41 @@ namespace IAmACube
             blockLocationChip.Targets.Add(fleeChip);
             fleeChip.Targets.Add(moveToAdjChip);
 
-            var initialBlock = new ChipBlock(new List<IChip> { getNeighboursChip, isListEmptyChip, ifChip });
-            var randomWalkBlock = new ChipBlock(new List<IChip> { randDirChip, moveRandChip });
-            var fleeBlock = new ChipBlock(new List<IChip> { getNeighboursChip, firstOfListChip, blockLocationChip, fleeChip, moveToAdjChip });
+            var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip);
+            var randomWalkBlock = new ChipBlock(randDirChip, moveRandChip);
+            var fleeBlock = new ChipBlock(getNeighboursChip, firstOfListChip, blockLocationChip, fleeChip, moveToAdjChip);
 
             isListEmptyChip.Targets.Add(ifChip);
             ifChip.Yes = randomWalkBlock;
             ifChip.No = fleeBlock;
 
-            TestFleeBlock = initialBlock;
+            return initialBlock;
         }
 
-        public static void MakePlayerBlock()
+        public static ChipBlock MakePlayerBlock()
         {
-            var ifWPressed = new IfChip();
-            var ifAPressed = new IfChip();
-            var ifSPressed = new IfChip();
-            var ifDPressed = new IfChip();
+            var moveUp = new MoveCardinalChip() { ChipInput = CardinalDirection.North };
+            var moveDown = new MoveCardinalChip() { ChipInput = CardinalDirection.South };
+            var moveLeft = new MoveCardinalChip() { ChipInput = CardinalDirection.West };
+            var moveRight = new MoveCardinalChip() { ChipInput = CardinalDirection.East };
 
-            var isWPressedChip = new IsKeyPressedChip();
-            var isAPressedChip = new IsKeyPressedChip();
-            var isSPressedChip = new IsKeyPressedChip();
-            var isDPressedChip = new IsKeyPressedChip();
+            var keySwitch = new KeySwitchChip();
+            keySwitch.AddKeyEffect(Keys.W, new ChipBlock(moveUp));
+            keySwitch.AddKeyEffect(Keys.A, new ChipBlock(moveLeft));
+            keySwitch.AddKeyEffect(Keys.S, new ChipBlock(moveDown));
+            keySwitch.AddKeyEffect(Keys.D, new ChipBlock(moveRight));
 
-            var moveUp = new MoveCardinalChip();
-            var moveDown = new MoveCardinalChip();
-            var moveLeft = new MoveCardinalChip();
-            var moveRight = new MoveCardinalChip();
 
-            isWPressedChip.ChipInput = Microsoft.Xna.Framework.Input.Keys.W;
-            isAPressedChip.ChipInput = Microsoft.Xna.Framework.Input.Keys.A;
-            isSPressedChip.ChipInput = Microsoft.Xna.Framework.Input.Keys.S;
-            isDPressedChip.ChipInput = Microsoft.Xna.Framework.Input.Keys.D;
+            var createEnemy = new CreateSurfaceCardinalChip();
+            createEnemy.ChipInput = CardinalDirection.North;
+            createEnemy.ChipInput2 = Templates.BlockTemplates["BasicEnemy"];
 
-            moveUp.ChipInput = CardinalDirection.North;
-            moveDown.ChipInput = CardinalDirection.South;
-            moveLeft.ChipInput = CardinalDirection.West;
-            moveRight.ChipInput = CardinalDirection.East;
+            keySwitch.AddKeyEffect(Keys.Space, new ChipBlock(createEnemy));
 
-            isWPressedChip.Targets.Add(ifWPressed);
-            isAPressedChip.Targets.Add(ifAPressed);
-            isSPressedChip.Targets.Add(ifSPressed);
-            isDPressedChip.Targets.Add(ifDPressed);
-
-            ifWPressed.Yes = new ChipBlock(moveUp);
-            ifAPressed.Yes = new ChipBlock(moveLeft);
-            ifSPressed.Yes = new ChipBlock(moveDown);
-            ifDPressed.Yes = new ChipBlock(moveRight);
-
-            ifWPressed.No = new ChipBlock(isAPressedChip, ifAPressed);
-            ifAPressed.No = new ChipBlock(isSPressedChip, ifSPressed);
-            ifSPressed.No = new ChipBlock(isDPressedChip, ifDPressed);
-            ifDPressed.No = ChipBlock.NoAction;
-
-            TestPlayerBlock = new ChipBlock(isWPressedChip, ifWPressed);
+            return new ChipBlock(keySwitch);
         }
 
-        public static void MakeSpinBlock()
+        public static ChipBlock MakeSpinBlock()
         {
             var getRotationAmountChip = new RandomNumChip();
             getRotationAmountChip.ChipInput = 3;
@@ -143,7 +114,7 @@ namespace IAmACube
             var moveForwardChip = new MoveRelativeChip();
             moveForwardChip.ChipInput = MovementDirection.Forward;
 
-            TestSpinBlock = new ChipBlock(getRotationAmountChip,rotateRightChip, moveForwardChip);
+            return new ChipBlock(getRotationAmountChip,rotateRightChip, moveForwardChip);
         }
     }
 }

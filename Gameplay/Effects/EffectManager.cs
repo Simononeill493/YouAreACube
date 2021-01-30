@@ -9,14 +9,17 @@ namespace IAmACube
     class EffectManager
     {
         private MoveManager _moveManager;
+        private CreationManager _creationManager;
 
         public EffectManager()
         {
             _moveManager = new MoveManager();
+            _creationManager = new CreationManager();
         }
 
-        public void ProcessEffects(EffectsList effects)
+        public void ProcessEffects(Sector sectorToProcess,EffectsList effects)
         {
+            _creationManager.SetSector(sectorToProcess);
             _moveManager.TickCurrentMoves();
 
             foreach(var effect in effects.Effects)
@@ -31,6 +34,9 @@ namespace IAmACube
                         break;
                     case EffectType.Rotation:
                         effect.Actor.Rotate(effect.Rotation);
+                        break;
+                    case EffectType.CardinalCreation:
+                        _creationManager.TryCreate(effect.Actor, effect.BlockTemplate, effect.BlockType, effect.CardinalDir);
                         break;
                 }
             }

@@ -11,20 +11,20 @@ namespace IAmACube
 {
     class Templates
     {
-        private static Dictionary<string, BlockTemplate> _blockTemplates;
+        public static Dictionary<string, BlockTemplate> BlockTemplates;
 
         public static void Load() 
         {
             var data = FileUtils.LoadJson(Config.TemplatesFile);
 
-            _blockTemplates = _parseBlocks(data["blocks"]);
+            BlockTemplates = _parseBlocks(data["blocks"]);
 
             //todo this is temporary
-            _blockTemplates["BasicEnemy"].Chips = ChipTester.TestEnemyBlock;
-            _blockTemplates["ScaredEnemy"].Chips = ChipTester.TestFleeBlock;
-            _blockTemplates["BasicPlayer"].Chips = ChipTester.TestPlayerBlock;
-            _blockTemplates["Spinner"].Chips = ChipTester.TestSpinBlock;
+            BlockTemplates["BasicEnemy"].Chips = ChipTester.TestEnemyBlock;
+            BlockTemplates["ScaredEnemy"].Chips = ChipTester.TestFleeBlock;
+            BlockTemplates["Spinner"].Chips = ChipTester.TestSpinBlock;
 
+            BlockTemplates["BasicPlayer"].Chips = ChipTester.TestPlayerBlock;
         }
 
         private static Dictionary<string,BlockTemplate> _parseBlocks(JToken input)
@@ -59,11 +59,11 @@ namespace IAmACube
 
         public static SurfaceBlock GenerateSurfaceFromTemplate(string name)
         {
-            return _blockTemplates[name].GenerateSurface();
+            return BlockTemplates[name].GenerateSurface();
         }
         public static GroundBlock GenerateGroundFromTemplate(string name)
         {
-            return _blockTemplates[name].GenerateGround();
+            return BlockTemplates[name].GenerateGround();
         }
     }
 }

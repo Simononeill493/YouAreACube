@@ -11,11 +11,6 @@ namespace IAmACube
     {
         private int _cameraSpeed = 1;
 
-        public OffsetCamera()
-        {
-            Scale = 2;
-        }
-
         protected override void _update(UserInput input)
         {
             /*if (input.IsKeyDown(Keys.Up))
@@ -42,12 +37,6 @@ namespace IAmACube
             {
                 if (_cameraSpeed > 1) { _cameraSpeed--; }
             }*/
-        }
-
-        protected override void _draw(DrawingInterface drawingInterface, World world)
-        {
-            var sector = world.Current;
-            _drawTiles(sector);
         }
     }
 }

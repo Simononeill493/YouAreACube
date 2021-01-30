@@ -10,6 +10,7 @@ namespace IAmACube
     public enum BlockType
     {
         Surface,
-        Ground
+        Ground,
+        Ephemeral
     }
 }

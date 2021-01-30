@@ -26,13 +26,9 @@ namespace IAmACube
             Sectors = new List<Sector>() { centre };
         }
 
-        public EffectsList Update(UserInput input,TickCounter tickCounter)
+        public List<Sector> GetUpdatingSectors(TickCounter tickCounter)
         {
-            var effects = new EffectsList();
-
-            Current.Update(input, effects,tickCounter);
-
-            return effects;
+            return new List<Sector> { Current };
         }
     }
 }

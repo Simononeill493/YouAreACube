@@ -24,7 +24,7 @@
 	{
       "name":"Spinner",
       "sprite":"Spinner",
-      "speed":7
+      "speed":15
     }
   ]
 }

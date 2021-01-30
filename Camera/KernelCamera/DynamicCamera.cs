@@ -14,19 +14,19 @@ namespace IAmACube
         private int clampOffsetY;
 
         private int _scrollEdge;
-        private int _cameraScrollBoundary => _tileSizeScaled * _scrollEdge;
-        private int _scrollBoundaryTop => _cameraScrollBoundary - _tileSizeScaled;
+        private int _cameraScrollBoundary => _config.TileSizeScaled * _scrollEdge;
+        private int _scrollBoundaryTop => _cameraScrollBoundary - _config.TileSizeScaled;
         private int _scrollBoundaryBottom => (MonoGameWindow.CurrentHeight - _cameraScrollBoundary);
-        private int _scrollBoundaryLeft => _cameraScrollBoundary - _tileSizeScaled;
+        private int _scrollBoundaryLeft => _cameraScrollBoundary - _config.TileSizeScaled;
         private int _scrollBoundaryRight => (MonoGameWindow.CurrentWidth - _cameraScrollBoundary);
 
         public DynamicCamera(Kernel kernel) : base(kernel)
         {
-            Scale = 2;
+            _config.Scale = 2;
             _scrollEdge = 4;
 
-            _setScreenScaling();
-            _clamptoKernel();
+            _config.SetScreenScaling();
+            _config.ClampToBlock(kernel.Host);
         }
 
         protected override void _kernelCameraUpdate(UserInput input)
@@ -35,7 +35,7 @@ namespace IAmACube
             {
                 if (!IsScrolling)
                 {
-                    _startScrolling();
+                    _startScrollingWithPlayerMovement();
                 }
             }
             else
@@ -45,17 +45,16 @@ namespace IAmACube
 
             if (IsScrolling)
             {
-                _clamptoKernel(-clampOffsetX, -clampOffsetY);
+                _config.ClampToBlock(_kernel.Host,clampOffsetX,clampOffsetY);
             }
         }
 
-        protected void _startScrolling()
+        protected void _startScrollingWithPlayerMovement()
         {
-            var xMidPoint = ((_visibleGridWidth / 2 * _tileSizeScaled));
-            var yMidPoint = ((_visibleGridHeight / 2 * _tileSizeScaled));
+            var centre = _config.GetCameraCentre();
 
-            clampOffsetX = kernelScreenPos.x - xMidPoint;
-            clampOffsetY = kernelScreenPos.y - yMidPoint;
+            clampOffsetX = centre.x - kernelScreenPos.x;
+            clampOffsetY = centre.y - kernelScreenPos.y;
 
             IsScrolling = true;
 
@@ -67,24 +66,25 @@ namespace IAmACube
             if (kernelScreenPos.x <= _scrollBoundaryLeft)
             {
                 var difference = (_scrollBoundaryLeft - kernelScreenPos.x);
-                clampOffsetX += (difference);
+                clampOffsetX -= (difference);
             }
             if (kernelScreenPos.x >= _scrollBoundaryRight)
             {
                 var difference = (kernelScreenPos.x - _scrollBoundaryRight);
-                clampOffsetX -= (difference);
+                clampOffsetX += (difference);
             }
             if (kernelScreenPos.y <= _scrollBoundaryTop)
             {
                 var difference = (_scrollBoundaryTop - kernelScreenPos.y);
-                clampOffsetY += (difference);
+                clampOffsetY -= (difference);
             }
             if (kernelScreenPos.y >= _scrollBoundaryBottom)
             {
                 var difference = (kernelScreenPos.y - _scrollBoundaryBottom);
-                clampOffsetY -= (difference);
+                clampOffsetY += (difference);
             }
         }
+
         private bool _isKernelOutOfCameraBounds()
         {
             var isOutOfBounds =
@@ -96,12 +96,6 @@ namespace IAmACube
             );
 
             return isOutOfBounds;
-        }
-
-        protected override void _draw(DrawingInterface drawingInterface, World world)
-        {
-            var sector = world.Current;
-            _drawTiles(sector);
         }
     }
 }

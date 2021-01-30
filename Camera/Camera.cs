@@ -9,82 +9,78 @@ namespace IAmACube
 {
     public abstract class Camera
     {
-        public int Scale = 1;
-
-        public int CameraXGridPosition;
-        public int CameraYGridPosition;
-
-        public int CameraXPartialGridOffset;
-        public int CameraYPartialGridOffset;
-
-        public int CameraXOffsetTrue => (_tileSizeScaled * CameraXGridPosition) + CameraXPartialGridOffset;
-        public int CameraYOffsetTrue => (_tileSizeScaled * CameraYGridPosition) + CameraYPartialGridOffset;
-
-        protected int _tileSizeScaled;
-        protected int _visibleGridWidth;
-        protected int _visibleGridHeight;
-
+        protected CameraConfiguration _config;
         protected DrawingInterface _drawingInterface;
+
+        public Camera()
+        {
+            _config = new CameraConfiguration();
+        }
 
         public void Update(UserInput input)
         {
             _readKeys(input);
 
-            _setScreenScaling();
+            _config.SetScreenScaling();
             _update(input);
-            _rollOverPartialOffsets();
+            _config.RollOverPartialOffsets();
         }
+
         private void _readKeys(UserInput input)
         {
             if (input.IsKeyDown(Keys.Up))
             {
-                CameraYPartialGridOffset -= 15;
+                _config.YPartialGridOffset -= 15;
             }
             if (input.IsKeyDown(Keys.Down))
             {
-                CameraYPartialGridOffset += 15;
+                _config.YPartialGridOffset += 15;
             }
             if (input.IsKeyDown(Keys.Left))
             {
-                CameraXPartialGridOffset -= 15;
+                _config.XPartialGridOffset -= 15;
             }
             if (input.IsKeyDown(Keys.Right))
             {
-                CameraXPartialGridOffset += 15;
+                _config.XPartialGridOffset += 15;
             }
 
             if (input.IsKeyJustPressed(Keys.P))
             {
-                Scale++;
+                _config.Scale++;
             }
             if (input.IsKeyJustPressed(Keys.O))
             {
-                if (Scale > 1) { Scale--; }
+                if (_config.Scale > 1) { _config.Scale--; }
             }
         }
 
         public void Draw(DrawingInterface drawingInterface, World world)
         {
             _drawingInterface = drawingInterface;
-            _draw(drawingInterface,world);
+            _draw(world);
         }
 
         protected abstract void _update(UserInput input);
-        protected abstract void _draw(DrawingInterface drawingInterface, World world);
+        protected virtual void _draw(World world)
+        {
+            var sector = world.Current;
+            _drawTiles(sector);
+        }
 
         protected void _drawTiles(Sector sector)
         {
-            for (int i = -1; i < _visibleGridWidth+1; i++)
+            for (int i = -1; i < _config.VisibleGridWidth+1; i++)
             {
-                for (int j = -1; j < _visibleGridHeight+1; j++)
+                for (int j = -1; j < _config.VisibleGridHeight + 1; j++)
                 {
-                    int xDrawPos = (i * _tileSizeScaled) - CameraXPartialGridOffset;
-                    int yDrawPos = (j * _tileSizeScaled) - CameraYPartialGridOffset;
+                    int xDrawPos = (i * _config.TileSizeScaled) - _config.XPartialGridOffset;
+                    int yDrawPos = (j * _config.TileSizeScaled) - _config.YPartialGridOffset;
 
-                    var (tile, hasTile) = sector.TryGetTile(i + CameraXGridPosition, j + CameraYGridPosition);
+                    var (tile, hasTile) = sector.TryGetTile(i + _config.XGridPosition, j + _config.YGridPosition);
                     if (!hasTile)
                     {
-                        _drawingInterface.DrawSprite("Black", xDrawPos, yDrawPos, Scale);
+                        _drawingInterface.DrawSprite("Black", xDrawPos, yDrawPos, _config.Scale);
                         continue;
                     }
 
@@ -96,95 +92,16 @@ namespace IAmACube
         {
             _drawTileSprite(tile.Ground, xDrawPos, yDrawPos,1);
 
-            if (tile.Contents != null)
+            if (tile.HasSurface)
             {
                 _drawTileSprite(tile.Contents, xDrawPos, yDrawPos,0);
             }
         }
         protected void _drawTileSprite(Block block,int xDrawPos,int yDrawPos,int layer)
         {
-            var (offsetX,offsetY) = _getMovementOffsets(block);
+            var (offsetX,offsetY) = CameraUtils.GetMovementOffsets(block,_config.TileSizeScaled);
 
-            _drawingInterface.DrawSprite(block.Sprite, xDrawPos + offsetX, yDrawPos + offsetY, layer, Scale);
-        }
-
-        protected void _rollOverPartialOffsets()
-        {
-            if (CameraXPartialGridOffset > _tileSizeScaled)
-            {
-                CameraXGridPosition += (CameraXPartialGridOffset / _tileSizeScaled);
-                CameraXPartialGridOffset = CameraXPartialGridOffset % _tileSizeScaled;
-            }
-            if (CameraYPartialGridOffset > _tileSizeScaled)
-            {
-                CameraYGridPosition += (CameraYPartialGridOffset / _tileSizeScaled);
-                CameraYPartialGridOffset = CameraYPartialGridOffset % _tileSizeScaled;
-            }
-            if (CameraXPartialGridOffset < 0)
-            {
-                CameraXGridPosition -= ((-CameraXPartialGridOffset / _tileSizeScaled) + 1);
-                CameraXPartialGridOffset = _tileSizeScaled - ((-CameraXPartialGridOffset % _tileSizeScaled));
-            }
-            if (CameraYPartialGridOffset < 0)
-            {
-                CameraYGridPosition -= ((-CameraYPartialGridOffset / _tileSizeScaled) + 1);
-                CameraYPartialGridOffset = _tileSizeScaled - ((-CameraYPartialGridOffset % _tileSizeScaled));
-            }
-        }
-        protected void _setScreenScaling()
-        {
-            if(Scale<1)
-            {
-                Console.WriteLine("Warning: Camera scale is set to less than 1 (" + Scale + ").");
-            }
-
-            _tileSizeScaled = Config.TileSizeActual * Scale;
-            _visibleGridWidth = (MonoGameWindow.CurrentWidth / _tileSizeScaled) + 1;
-            _visibleGridHeight = (MonoGameWindow.CurrentHeight / _tileSizeScaled) + 1;
-        }
-
-        protected bool _isOnScreen(Block block)
-        {
-            var pos = _getPosOnScreen(block);
-            return _isOnScreen(pos.x, pos.y);
-        }
-        protected bool _isOnScreen(int x,int y)
-        {
-            return (
-            x >= 0 &
-            y >= 0 &
-            x <= (MonoGameWindow.CurrentWidth) &
-            y <= (MonoGameWindow.CurrentHeight));
-
-        }
-
-        protected (int x, int y) _getScaledPosInSector(Block block)
-        {
-            var (offsetX, offsetY) = _getMovementOffsets(block);
-
-            var XPos = (block.Location.X * _tileSizeScaled) + offsetX;
-            var YPos = (block.Location.Y * _tileSizeScaled) + offsetY;
-
-            return (XPos, YPos);
-        }
-        protected (int x,int y) _getPosOnScreen(Block block)
-        {
-            var (XPos, YPos) = _getScaledPosInSector(block);
-            return (XPos-CameraXOffsetTrue, YPos-CameraYOffsetTrue);
-        }
-        protected (int x,int y) _getMovementOffsets(Block block)
-        {
-            var offset = _getMovementOffset(block);
-            return (block.MovementData.XOffset * offset, block.MovementData.YOffset * offset);
-        }
-        protected int _getMovementOffset(Block block)
-        {
-            if (block.IsMoving)
-            {
-                return (int)(((block.MovementData.MovementPosition) / (float)(block.Speed)) * _tileSizeScaled);
-            }
-
-            return 0;
+            _drawingInterface.DrawSprite(block.Sprite, xDrawPos + offsetX, yDrawPos + offsetY, layer, _config.Scale);
         }
     }
 }

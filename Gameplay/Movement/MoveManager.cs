@@ -32,7 +32,7 @@ namespace IAmACube
 
         private void _tryStartMoving(Block block,CardinalDirection direction)
         {
-            if (block.Location.Adjacent.ContainsKey(direction) & !block.IsMoving)
+            if (block.Location.DirectionIsValid(direction) & !block.IsMoving)
             {
                 _startMoving(block, direction);
             }

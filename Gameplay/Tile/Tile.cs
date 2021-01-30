@@ -12,14 +12,22 @@ namespace IAmACube
         public int X;
         public int Y;
         public Dictionary<CardinalDirection, Tile> Adjacent;
-        public GroundBlock Ground;
-        public SurfaceBlock Contents;
 
-        public Tile(int x,int y)
+        public bool HasSurface => (Contents != null);
+
+        public GroundBlock Ground { get; set; }
+        public SurfaceBlock Contents { get; set; }
+
+        public Tile(int x, int y)
         {
             X = x;
             Y = y;
             Adjacent = new Dictionary<CardinalDirection, Tile>();
+        }
+
+        public bool DirectionIsValid(CardinalDirection direction)
+        {
+            return Adjacent.ContainsKey(direction);
         }
 
         public CardinalDirection ApproachDirection(Tile other)

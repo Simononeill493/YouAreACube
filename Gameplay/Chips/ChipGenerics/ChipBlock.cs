@@ -38,7 +38,7 @@ namespace IAmACube
 
             foreach(var controlChip in _controlChips)
             {
-                controlChip.Result.Execute(actor, input,effects);
+                controlChip.ExecuteOutput(actor, input,effects);
             }
         }
     }

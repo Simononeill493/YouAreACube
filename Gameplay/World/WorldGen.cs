@@ -67,10 +67,10 @@ namespace IAmACube
 
         private static Sector _getInitializedSector()
         {
-            var (tiles,tilesFlattaned) = _getInitializedGrid(Config.SectorSize);
+            var (tiles,tilesFlattened) = _getInitializedGrid(Config.SectorSize);
             _setGridAdjacents(tiles,Config.SectorSize);
 
-            var sector = new Sector(tiles, tilesFlattaned);
+            var sector = new Sector(tiles, tilesFlattened);
             return sector;
         }
         private static (Tile[,],List<Tile>) _getInitializedGrid(int size)

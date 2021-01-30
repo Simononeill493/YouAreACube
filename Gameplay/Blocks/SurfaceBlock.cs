@@ -17,7 +17,7 @@ namespace IAmACube
         public override void Move(CardinalDirection direction)
         {
             var destination = Location.Adjacent[direction];
-            if (destination.Contents == null)
+            if (!destination.HasSurface)
             {
                 Location.Contents = null;
                 destination.Contents = this;
