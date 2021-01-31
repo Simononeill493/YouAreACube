@@ -21,7 +21,11 @@ namespace IAmACube
         public string Sprite => _template.Sprite;
         public bool Active => _template.Active;
         public int Speed => _template.Speed;
+        public int EnergyCap => _template.EnergyCap;
+
         protected BlockTemplate _template;
+
+        public int Energy;
 
         public Block(BlockTemplate template)
         {
@@ -30,6 +34,7 @@ namespace IAmACube
             MovementData = new BlockMovementData();
 
             Orientation = Orientation.Top;
+            Energy = template.EnergyCap;
         }
 
         public void Update(UserInput input,EffectsList effects)
@@ -46,6 +51,19 @@ namespace IAmACube
         {
             Move(DirectionUtils.ToCardinal(Orientation, movementDirection));
         }
-        public abstract void Move(CardinalDirection direction);
+        public void Move(CardinalDirection direction)
+        {
+            var destination = Location.Adjacent[direction];
+            _move(destination);
+            Energy--;
+        }
+
+        protected abstract void _move(Tile destination);
+
+        public bool CanStartMoving()
+        {
+            return (!IsMoving) & (Energy > 0);
+        }
+        public abstract bool CanOccupyDestination(Tile destination);
     }
 }

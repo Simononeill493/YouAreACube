@@ -14,6 +14,8 @@ namespace IAmACube
         public bool Active;
         public int Speed;
 
+        public int EnergyCap;
+
         public ChipBlock Chips;
 
         public BlockTemplate(string name)
@@ -21,6 +23,20 @@ namespace IAmACube
             Name = name;
         }
 
+        public Block Generate(BlockType blockType)
+        {
+            switch (blockType)
+            {
+                case BlockType.Surface:
+                    return GenerateSurface();
+                case BlockType.Ground:
+                    return GenerateGround();
+                case BlockType.Ephemeral:
+                    return GenerateEphemeral();
+            }
+
+            throw new Exception("Tried to generate an unhandled block type");
+        }
         public SurfaceBlock GenerateSurface()
         {
             var block = new SurfaceBlock(this);
@@ -30,6 +46,12 @@ namespace IAmACube
         public GroundBlock GenerateGround()
         {
             var block = new GroundBlock(this);
+            //todo set any dynamic data here
+            return block;
+        }
+        public EphemeralBlock GenerateEphemeral()
+        {
+            var block = new EphemeralBlock(this);
             //todo set any dynamic data here
             return block;
         }

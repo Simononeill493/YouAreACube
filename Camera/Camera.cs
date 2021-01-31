@@ -90,11 +90,15 @@ namespace IAmACube
         }
         protected void _drawTile(Tile tile,int xDrawPos, int yDrawPos)
         {
-            _drawTileSprite(tile.Ground, xDrawPos, yDrawPos,1);
+            _drawTileSprite(tile.Ground, xDrawPos, yDrawPos,CameraDrawLayer.GroundLayer);
 
             if (tile.HasSurface)
             {
-                _drawTileSprite(tile.Contents, xDrawPos, yDrawPos,0);
+                _drawTileSprite(tile.Surface, xDrawPos, yDrawPos, CameraDrawLayer.SurfaceLayer);
+            }
+            if (tile.HasEphemeral)
+            {
+                _drawTileSprite(tile.Ephemeral, xDrawPos, yDrawPos, CameraDrawLayer.SurfaceLayer);
             }
         }
         protected void _drawTileSprite(Block block,int xDrawPos,int yDrawPos,int layer)

@@ -20,9 +20,10 @@ namespace IAmACube
             BlockTemplates = _parseBlocks(data["blocks"]);
 
             //todo this is temporary
-            BlockTemplates["BasicEnemy"].Chips = ChipTester.TestEnemyBlock;
+            BlockTemplates["BasicEnemy"].Chips = ChipTester.TestFleeBlock;
             BlockTemplates["ScaredEnemy"].Chips = ChipTester.TestFleeBlock;
             BlockTemplates["Spinner"].Chips = ChipTester.TestSpinBlock;
+            BlockTemplates["Bullet"].Chips = ChipTester.TestSpinBlock;
 
             BlockTemplates["BasicPlayer"].Chips = ChipTester.TestPlayerBlock;
         }
@@ -44,11 +45,14 @@ namespace IAmACube
             var name = token["name"].ToString();
             var sprite = token["sprite"].ToString();
             var speed = int.Parse(token["speed"].ToString());
+            var energyCap = token["energyCap"] == null ? 30 : int.Parse(token["energyCap"].ToString());
 
             var template = new BlockTemplate(name);
 
             template.Sprite = sprite;
             template.Speed = speed;
+            template.EnergyCap = energyCap;
+
             if (template.Speed != 0)
             {
                 template.Active = true;
@@ -57,13 +61,9 @@ namespace IAmACube
             return template;
         }
 
-        public static SurfaceBlock GenerateSurfaceFromTemplate(string name)
-        {
-            return BlockTemplates[name].GenerateSurface();
-        }
-        public static GroundBlock GenerateGroundFromTemplate(string name)
-        {
-            return BlockTemplates[name].GenerateGround();
-        }
+        public static Block Generate(string name,BlockType blockType) => BlockTemplates[name].Generate(blockType);
+        public static SurfaceBlock GenerateSurface(string name) => BlockTemplates[name].GenerateSurface();
+        public static GroundBlock GenerateGround(string name) => BlockTemplates[name].GenerateGround();
+        public static EphemeralBlock GenerateEphemeral(string name) => BlockTemplates[name].GenerateEphemeral();
     }
 }

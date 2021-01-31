@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class CreateSurfaceCardinalChip : InputPin<CardinalDirection>, InputPin2<BlockTemplate>
+    internal class CreateCardinalChip : InputPin<CardinalDirection>, InputPin2<BlockTemplate>, InputPin3<BlockType>
     {
         public CardinalDirection ChipInput { get; set; }
         public BlockTemplate ChipInput2 { get; set; }
+        public BlockType ChipInput3 { get; set; }
 
         public void Run(Block actor, UserInput userInput, EffectsList effects)
         {
-            effects.CreateBlock(actor, ChipInput2, BlockType.Surface, ChipInput);
+            effects.CreateBlock(actor, ChipInput2, ChipInput3, ChipInput);
         }
     }
 }

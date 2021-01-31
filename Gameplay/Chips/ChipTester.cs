@@ -13,6 +13,7 @@ namespace IAmACube
         public static ChipBlock TestFleeBlock => MakeFleeBlock();
         public static ChipBlock TestPlayerBlock => MakePlayerBlock();
         public static ChipBlock TestSpinBlock => MakeSpinBlock();
+        public static ChipBlock TestBulletBlock => MakeBulletBlock();
 
         public static ChipBlock MakeEnemyBlock()
         {
@@ -44,7 +45,7 @@ namespace IAmACube
             ifChip.Yes = randomWalkBlock;
             ifChip.No = approachBlock;
 
-            return randomWalkBlock;
+            return initialBlock;
         }
 
         public static ChipBlock MakeFleeBlock()
@@ -69,7 +70,7 @@ namespace IAmACube
             blockLocationChip.Targets.Add(fleeChip);
             fleeChip.Targets.Add(moveToAdjChip);
 
-            var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip);
+            var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip,ifChip);
             var randomWalkBlock = new ChipBlock(randDirChip, moveRandChip);
             var fleeBlock = new ChipBlock(getNeighboursChip, firstOfListChip, blockLocationChip, fleeChip, moveToAdjChip);
 
@@ -94,9 +95,10 @@ namespace IAmACube
             keySwitch.AddKeyEffect(Keys.D, new ChipBlock(moveRight));
 
 
-            var createEnemy = new CreateSurfaceCardinalChip();
+            var createEnemy = new CreateCardinalChip();
             createEnemy.ChipInput = CardinalDirection.North;
-            createEnemy.ChipInput2 = Templates.BlockTemplates["BasicEnemy"];
+            createEnemy.ChipInput2 = Templates.BlockTemplates["Bullet"];
+            createEnemy.ChipInput3 = BlockType.Ephemeral;
 
             keySwitch.AddKeyEffect(Keys.Space, new ChipBlock(createEnemy));
 
@@ -115,6 +117,14 @@ namespace IAmACube
             moveForwardChip.ChipInput = MovementDirection.Forward;
 
             return new ChipBlock(getRotationAmountChip,rotateRightChip, moveForwardChip);
+        }
+
+        public static ChipBlock MakeBulletBlock()
+        {
+            var moveForwardChip = new MoveRelativeChip();
+            moveForwardChip.ChipInput = MovementDirection.Forward;
+
+            return new ChipBlock(moveForwardChip);
         }
     }
 }

@@ -28,13 +28,14 @@ namespace IAmACube
 
         public static void AddEntities(World world)
         {
-            _addRandom(world.Random, world.Centre, "BasicEnemy", 32);
-            _addRandom(world.Random, world.Centre, "Spinner", 32);
+            //_addRandom(world.Random, world.Centre, "BasicEnemy", 32);
+            //_addRandom(world.Random, world.Centre, "Spinner", 32);
+            _addRandom(world.Random, world.Centre, BlockType.Ephemeral,"Bullet", 32);
         }
 
-        private static void _addRandom(Random r, Sector sector, string blockname,int number)
+        private static void _addRandom(Random r, Sector sector,BlockType blockType, string blockname,int number)
         {
-            var emptyTiles = sector.TilesFlattened.Where(t => t.Contents == null).ToList();
+            var emptyTiles = sector.TilesFlattened.Where(t => t.Surface == null).ToList();
             var emptySize = emptyTiles.Count();
 
             for (int i = 0; i < number; i++)
@@ -45,10 +46,10 @@ namespace IAmACube
                     return;
                 }
 
-                var block = Templates.GenerateSurfaceFromTemplate(blockname);
+                var block = Templates.Generate(blockname,blockType);
                 var tileNum = r.Next(0, emptySize - 1);
 
-                sector.AddSurfaceToSector(block, emptyTiles[tileNum]);
+                sector.AddBlockToSector(block, emptyTiles[tileNum]);
                 emptyTiles.RemoveAt(tileNum);
                 emptySize--;
             }
@@ -59,7 +60,7 @@ namespace IAmACube
             {
                 foreach(var tile in sector.Tiles)
                 {
-                    var ground = Templates.GenerateGroundFromTemplate("grassPatch");
+                    var ground = Templates.GenerateGround("grassPatch");
                     sector.AddGroundToSector(ground, tile);
                 }
             }

@@ -8,7 +8,7 @@ namespace IAmACube
 {
     public class TickCounter
     {
-        public int CurrentTick;
+        public int TickInCycle;
         public int TotalTicks;
 
         public TickCounter()
@@ -19,7 +19,7 @@ namespace IAmACube
         public void Tick()
         {
             TotalTicks++;
-            CurrentTick = TotalTicks % Config.TickCycleLength;
+            TickInCycle = TotalTicks % Config.TickCycleLength;
         }
     }
 }

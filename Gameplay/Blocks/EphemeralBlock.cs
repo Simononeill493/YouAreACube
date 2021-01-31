@@ -7,26 +7,26 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class SurfaceBlock : Block
-    {        
-        public SurfaceBlock(BlockTemplate template): base(template)
+    public class EphemeralBlock : Block
+    {
+        public EphemeralBlock(BlockTemplate template) : base(template)
         {
-            BlockType = BlockType.Surface;
+            BlockType = BlockType.Ephemeral;
         }
 
         protected override void _move(Tile destination)
         {
             if (CanOccupyDestination(destination))
             {
-                Location.Surface = null;
-                destination.Surface = this;
+                Location.Ephemeral = null;
+                destination.Ephemeral = this;
                 this.Location = destination;
             }
         }
 
         public override bool CanOccupyDestination(Tile destination)
         {
-            return !destination.HasSurface;
+            return !destination.HasEphemeral;
         }
     }
 }

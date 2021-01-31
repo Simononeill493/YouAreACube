@@ -14,9 +14,15 @@ namespace IAmACube
             BlockType = BlockType.Ground;
         }
 
-        public override void Move(CardinalDirection direction)
+        protected override void _move(Tile destination)
         {
             throw new NotImplementedException();
         }
+
+        public override bool CanOccupyDestination(Tile destination)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

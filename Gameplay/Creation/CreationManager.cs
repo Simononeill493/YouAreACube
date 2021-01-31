@@ -53,7 +53,11 @@ namespace IAmACube
 
         public void TryCreateEphemeral(Block creator, BlockTemplate template, Tile targetPosition)
         {
-            throw new NotImplementedException();
+            if (!targetPosition.HasEphemeral)
+            {
+                var newBLock = template.GenerateEphemeral();
+                _currentSector.AddEphemeralToSector(newBLock, targetPosition);
+            }
         }
 
         public void TryCreateGround(Block creator, BlockTemplate template, Tile targetPosition)

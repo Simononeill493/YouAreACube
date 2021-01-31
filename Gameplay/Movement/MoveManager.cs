@@ -32,7 +32,7 @@ namespace IAmACube
 
         private void _tryStartMoving(Block block,CardinalDirection direction)
         {
-            if (block.Location.DirectionIsValid(direction) & !block.IsMoving)
+            if (block.Location.DirectionIsValid(direction) & block.CanStartMoving())
             {
                 _startMoving(block, direction);
             }
@@ -43,7 +43,7 @@ namespace IAmACube
             var data = block.MovementData;
             data.MovementPosition++;
 
-            if (data.MovementPosition == 0 | (!data.PastMidpoint & data.Destination.Contents!=null))
+            if (data.MovementPosition == 0 | (!data.PastMidpoint & !block.CanOccupyDestination(data.Destination)))
             {
                 _resetBlockMovement(block);
             }

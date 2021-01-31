@@ -48,6 +48,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Camera\CameraConfiguration.cs" />
+    <Compile Include="Camera\CameraDrawLayer.cs" />
     <Compile Include="Camera\CameraUtils.cs" />
     <Compile Include="Camera\GridCamera.cs" />
     <Compile Include="Camera\KernelCamera\DynamicCamera.cs" />
@@ -56,8 +57,10 @@
     <Compile Include="Gameplay\Blocks\BaseBlockData\Block.cs" />
     <Compile Include="Gameplay\Blocks\BaseBlockData\BlockType.cs" />
     <Compile Include="Gameplay\Blocks\BlockMovementData.cs" />
+    <Compile Include="Gameplay\Blocks\EphemeralBlock.cs" />
     <Compile Include="Gameplay\Blocks\SurfaceBlock.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\InputPin2.cs" />
+    <Compile Include="Gameplay\Chips\ChipGenerics\InputPin3.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\CreateCardinalChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\MoveRelativeChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\RotationChip.cs" />

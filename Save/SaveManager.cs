@@ -13,7 +13,7 @@ namespace IAmACube
     {
         public static Save FreshSave()
         {
-            var player = Templates.GenerateSurfaceFromTemplate("BasicPlayer");
+            var player = Templates.GenerateSurface("BasicPlayer");
 
             var world = WorldGen.GenerateEmptyWorld(0);
             WorldGen.AddPlayer(world, player);

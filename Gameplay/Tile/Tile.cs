@@ -13,10 +13,12 @@ namespace IAmACube
         public int Y;
         public Dictionary<CardinalDirection, Tile> Adjacent;
 
-        public bool HasSurface => (Contents != null);
+        public bool HasSurface => (Surface != null);
+        public bool HasEphemeral => (Ephemeral != null);
 
         public GroundBlock Ground { get; set; }
-        public SurfaceBlock Contents { get; set; }
+        public SurfaceBlock Surface { get; set; }
+        public EphemeralBlock Ephemeral { get; set; }
 
         public Tile(int x, int y)
         {

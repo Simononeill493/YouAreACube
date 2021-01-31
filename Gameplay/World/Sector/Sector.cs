@@ -42,16 +42,40 @@ namespace IAmACube
             return (null,false);
         }
 
+        public void AddBlockToSector(Block block, Tile tile)
+        {
+            switch (block.BlockType)
+            {
+                case BlockType.Surface:
+                    AddSurfaceToSector((SurfaceBlock)block, tile);
+                    break;
+                case BlockType.Ground:
+                    AddGroundToSector((GroundBlock)block, tile);
+                    break;
+                case BlockType.Ephemeral:
+                    AddEphemeralToSector((EphemeralBlock)block, tile);
+                    break;
+            }
+        }
         public void AddSurfaceToSector(SurfaceBlock block,Tile tile)
         {
-            if(tile.Contents!=null)
+            if(tile.HasSurface)
             {
                 Console.WriteLine("Warning: adding a surface block to a sector at a tile that has already been filled.");
             }
 
-            tile.Contents = block;
+            tile.Surface = block;
             _addBlockToSector(block, tile);
+        }
+        public void AddEphemeralToSector(EphemeralBlock block, Tile tile)
+        {
+            if (tile.HasEphemeral)
+            {
+                Console.WriteLine("Warning: adding a surface block to a sector at a tile that has already been filled.");
+            }
 
+            tile.Ephemeral = block;
+            _addBlockToSector(block, tile);
         }
         public void AddGroundToSector(GroundBlock block, Tile tile)
         {
@@ -79,5 +103,4 @@ namespace IAmACube
             return _activeBlocks.Where(b => (tickCounter.TotalTicks+b.SpeedOffset) % b.Speed == 0);
         }
     }
-
 }

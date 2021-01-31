@@ -22,7 +22,7 @@ namespace IAmACube
 
         public DynamicCamera(Kernel kernel) : base(kernel)
         {
-            _config.Scale = 2;
+            _config.Scale = 4;
             _scrollEdge = 4;
 
             _config.SetScreenScaling();

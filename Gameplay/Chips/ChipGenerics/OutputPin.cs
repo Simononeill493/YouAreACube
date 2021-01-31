@@ -11,6 +11,7 @@ namespace IAmACube
     {
         public List<InputPin<TOutputType>> Targets = new List<InputPin<TOutputType>>();
         public List<InputPin2<TOutputType>> Targets2 = new List<InputPin2<TOutputType>>();
+        public List<InputPin3<TOutputType>> Targets3 = new List<InputPin3<TOutputType>>();
 
         public abstract void Run(Block actor, UserInput input,EffectsList effects);
 
@@ -24,6 +25,11 @@ namespace IAmACube
             foreach(var t2 in Targets2)
             {
                 t2.ChipInput2 = output;
+            }
+
+            foreach (var t2 in Targets3)
+            {
+                t2.ChipInput3 = output;
             }
         }
     }
