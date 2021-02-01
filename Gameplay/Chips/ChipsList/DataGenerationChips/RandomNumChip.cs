@@ -11,7 +11,7 @@ namespace IAmACube
     {
         public int ChipInput { get; set; }
 
-        public override void Run(Block actor, UserInput userInput, EffectsList effects)
+        public override void Run(Block actor, UserInput userInput, ActionsList actions)
         {
             SetOutput(RandomUtils.RandomNumber(ChipInput));
         }

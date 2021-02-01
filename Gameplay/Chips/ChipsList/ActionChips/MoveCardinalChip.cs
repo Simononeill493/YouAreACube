@@ -7,9 +7,9 @@ namespace IAmACube
     {
         public CardinalDirection ChipInput { get; set; }
 
-        public void Run(Block actor, UserInput userInput,EffectsList effects)
+        public void Run(Block actor, UserInput userInput,ActionsList actions)
         {
-            effects.StartMove(actor, ChipInput);
+            actions.StartMove(actor, ChipInput);
         }
     }
 }

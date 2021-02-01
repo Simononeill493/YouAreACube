@@ -16,12 +16,9 @@ namespace IAmACube
 
         protected override void _move(Tile destination)
         {
-            if (CanOccupyDestination(destination))
-            {
-                Location.Surface = null;
-                destination.Surface = this;
-                this.Location = destination;
-            }
+            Location.Surface = null;
+            destination.Surface = this;
+            this.Location = destination;
         }
 
         public override bool CanOccupyDestination(Tile destination)

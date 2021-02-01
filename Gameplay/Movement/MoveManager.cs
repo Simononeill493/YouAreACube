@@ -20,21 +20,16 @@ namespace IAmACube
             _removeFinishedBlocks();
         }
 
-        public void ProcessNewMoveRequest(Block block, MovementDirection direction)
+        public void TryStartMoving(Block block, RelativeDirection direction,int moveSpeed)
         {
             var cardinal = DirectionUtils.ToCardinal(block.Orientation, direction);
-            ProcessNewMoveRequest(block, cardinal);
+            TryStartMoving(block, cardinal,moveSpeed);
         }
-        public void ProcessNewMoveRequest(Block block,CardinalDirection direction)
-        {
-            _tryStartMoving(block, direction);
-        }
-
-        private void _tryStartMoving(Block block,CardinalDirection direction)
+        public void TryStartMoving(Block block,CardinalDirection direction, int moveSpeed)
         {
             if (block.Location.DirectionIsValid(direction) & block.CanStartMoving())
             {
-                _startMoving(block, direction);
+                _startMovement(block, direction,moveSpeed);
             }
         }
 
@@ -43,45 +38,39 @@ namespace IAmACube
             var data = block.MovementData;
             data.MovementPosition++;
 
-            if (data.MovementPosition == 0 | (!data.PastMidpoint & !block.CanOccupyDestination(data.Destination)))
+            if (_shouldCancelMovementEarly(block) | data.MovementComplete)
             {
-                _resetBlockMovement(block);
+                _endMovement(block);
             }
-            else
+            else if (data.AtMidpoint)
             {
-                if (data.MovementPosition == data.Midpoint)
+                if(block.TryMove(block.MovementData.Direction))
                 {
-                    block.Move(block.MovementData.Direction);
-                    data.PastMidpoint = true;
-                    data.MovementPosition = (-data.MovementPosition)+(block.Speed%2);
+                    data.MovePastMidpoint();
+                }
+                else
+                {
+                    _endMovement(block);
                 }
             }
         }
 
-        private void _resetBlockMovement(Block block)
+        private void _startMovement(Block block, CardinalDirection direction, int moveSpeed)
+        {
+            block.IsMoving = true;
+
+            block.MovementData = new BlockMovementData(block, direction, moveSpeed);
+            Moving.Add(block);
+        }
+        private void _endMovement(Block block)
         {
             block.IsMoving = false;
         }
 
-        private void _startMoving(Block block,CardinalDirection direction)
+        private bool _shouldCancelMovementEarly(Block block)
         {
-            var movementData = new BlockMovementData();
-            movementData.Direction = direction;
-            movementData.Midpoint = ((block.Speed + 1) / 2);
-            movementData.PastMidpoint = false;
-            movementData.MovementPosition = 0;
-            movementData.Destination = block.Location.Adjacent[direction];
-
-            var offs = DirectionUtils.XYOffset[direction];
-            movementData.XOffset = offs.Item1;
-            movementData.YOffset = offs.Item2;
-
-            block.MovementData = movementData;
-            block.IsMoving = true;
-            Moving.Add(block);
+            return !block.MovementData.PastMidpoint & !block.CanOccupyDestination(block.MovementData.Destination);
         }
-
-
         private void _removeFinishedBlocks()
         {
             Moving.RemoveAll(b => !b.IsMoving);

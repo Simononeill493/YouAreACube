@@ -6,56 +6,55 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class DirectionUtils
+    static class DirectionUtils
     {
-        public static Dictionary<CardinalDirection,CardinalDirection> Reverse;
-        public static Dictionary<CardinalDirection, Tuple<int,int>> XYOffset;
+        private static Dictionary<CardinalDirection,CardinalDirection> _reverseDict;
+        private static Dictionary<CardinalDirection, (int,int)> _XYOffsetDict;
 
         public static void Init()
         {
-            Reverse = new Dictionary<CardinalDirection, CardinalDirection>();
-            Reverse[CardinalDirection.North] = CardinalDirection.South;
-            Reverse[CardinalDirection.South] = CardinalDirection.North;
-            Reverse[CardinalDirection.West] = CardinalDirection.East;
-            Reverse[CardinalDirection.East] = CardinalDirection.West;
-            Reverse[CardinalDirection.NorthEast] = CardinalDirection.SouthWest;
-            Reverse[CardinalDirection.SouthEast] = CardinalDirection.NorthWest;
-            Reverse[CardinalDirection.NorthWest] = CardinalDirection.SouthEast;
-            Reverse[CardinalDirection.SouthWest] = CardinalDirection.NorthEast;
+            _reverseDict = new Dictionary<CardinalDirection, CardinalDirection>();
+            _reverseDict[CardinalDirection.North] = CardinalDirection.South;
+            _reverseDict[CardinalDirection.South] = CardinalDirection.North;
+            _reverseDict[CardinalDirection.West] = CardinalDirection.East;
+            _reverseDict[CardinalDirection.East] = CardinalDirection.West;
+            _reverseDict[CardinalDirection.NorthEast] = CardinalDirection.SouthWest;
+            _reverseDict[CardinalDirection.SouthEast] = CardinalDirection.NorthWest;
+            _reverseDict[CardinalDirection.NorthWest] = CardinalDirection.SouthEast;
+            _reverseDict[CardinalDirection.SouthWest] = CardinalDirection.NorthEast;
 
-            XYOffset = new Dictionary<CardinalDirection, Tuple<int, int>>();
-            XYOffset[CardinalDirection.North] = new Tuple<int, int>(0, -1);
-            XYOffset[CardinalDirection.South] = new Tuple<int, int>(0, 1);
-            XYOffset[CardinalDirection.West] = new Tuple<int, int>(-1, 0);
-            XYOffset[CardinalDirection.East] = new Tuple<int, int>(1, 0);
-            XYOffset[CardinalDirection.NorthEast] = new Tuple<int, int>(1, -1);
-            XYOffset[CardinalDirection.SouthEast] = new Tuple<int, int>(1, 1);
-            XYOffset[CardinalDirection.NorthWest] = new Tuple<int, int>(-1, -1);
-            XYOffset[CardinalDirection.SouthWest] = new Tuple<int, int>(-1, 1);
-
+            _XYOffsetDict = new Dictionary<CardinalDirection, (int, int)>();
+            _XYOffsetDict[CardinalDirection.North] = (0, -1);
+            _XYOffsetDict[CardinalDirection.South] = (0, 1);
+            _XYOffsetDict[CardinalDirection.West] = (-1, 0);
+            _XYOffsetDict[CardinalDirection.East] = (1, 0);
+            _XYOffsetDict[CardinalDirection.NorthEast] = (1, -1);
+            _XYOffsetDict[CardinalDirection.SouthEast] = (1, 1);
+            _XYOffsetDict[CardinalDirection.NorthWest] = (-1, -1);
+            _XYOffsetDict[CardinalDirection.SouthWest] = (-1, 1);
         }
 
-        public static CardinalDirection ToCardinal(Orientation orientation, MovementDirection movementDirection)
+        public static CardinalDirection ToCardinal(Orientation orientation, RelativeDirection relativeDirection)
         {
-            var res = _underflowMod((int)orientation, (int)movementDirection);
+            var res = _underflowMod((int)orientation, (int)relativeDirection);
             return (CardinalDirection)res;
         }
-
-        public static Orientation Rotate(Orientation orientation, int rotation)
+        public static Orientation Rotate(this Orientation orientation, int rotation)
         {
-            var res = _underflowMod((int)orientation+rotation, 8);
+            var res = _underflowMod((int)orientation + rotation, 8);
             return (Orientation)res;
         }
 
-        public static (CardinalDirection left,CardinalDirection right) Parallel(CardinalDirection dir)
+        public static CardinalDirection Reverse(this CardinalDirection direction) => _reverseDict[direction];
+        public static (int x,int y) XYOffset(this CardinalDirection direction) => _XYOffsetDict[direction];
+        public static (CardinalDirection left,CardinalDirection right) Parallel(this CardinalDirection dir)
         {
             var left = _underflowMod(((int)dir - 2), 8);
             var right = _underflowMod(((int)dir + 2), 8);
 
             return ((CardinalDirection)left, (CardinalDirection)right);
         }
-
-        public static bool IsDiagonal(CardinalDirection dir)
+        public static bool IsDiagonal(this CardinalDirection dir)
         {
             return !((int)dir % 2 == 0);
         }

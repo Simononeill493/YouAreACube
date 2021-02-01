@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class MoveRelativeChip : InputPin<MovementDirection>
+    internal class MoveRelativeChip : InputPin<RelativeDirection>
     {
-        public MovementDirection ChipInput { get; set; }
+        public RelativeDirection ChipInput { get; set; }
 
-        public void Run(Block actor, UserInput userInput, EffectsList effects)
+        public void Run(Block actor, UserInput userInput, ActionsList actions)
         {
-            effects.StartMove(actor, ChipInput);
+            actions.StartMove(actor, ChipInput);
         }
     }
 }

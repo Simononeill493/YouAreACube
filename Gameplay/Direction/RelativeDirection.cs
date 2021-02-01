@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public enum MovementDirection
+    public enum RelativeDirection
     {
         Forward = 0,
         ForwardRight = 1,

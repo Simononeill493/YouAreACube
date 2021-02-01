@@ -11,14 +11,14 @@ namespace IAmACube
         public static (int x, int y) GetMovementOffsets(Block block,int tileSize)
         {
             var offset = GetMovementOffset(block,tileSize);
-            return (block.MovementData.XOffset * offset, block.MovementData.YOffset * offset);
+            return (block.MovementData.Offset.X * offset, block.MovementData.Offset.Y * offset);
         }
 
         public static int GetMovementOffset(Block block, int tileSize)
         {
             if (block.IsMoving)
             {
-                return (int)(((block.MovementData.MovementPosition) / (float)(block.Speed)) * tileSize);
+                return (int)(((block.MovementData.MovementPosition) / (float)(block.MovementData.MoveSpeed)) * tileSize);
             }
 
             return 0;

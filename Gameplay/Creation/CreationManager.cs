@@ -14,55 +14,28 @@ namespace IAmACube
             _currentSector = sector;
         }
 
-        public void TryCreate(Block creator,BlockTemplate template,BlockType blockType,CardinalDirection direction)
+        public bool TryCreate(Block creator,BlockTemplate template,BlockType blockType,CardinalDirection direction)
         {
             if(!creator.Location.DirectionIsValid(direction))
             {
-                return;
+                return false;
             }
 
             //TODO - sector management here
             var targetPos = creator.Location.Adjacent[direction];
-            TryCreate(creator, template, blockType, targetPos);
+            return TryCreate(creator, template, blockType, targetPos);
         }
 
-        public void TryCreate(Block creator, BlockTemplate template, BlockType blockType, Tile targetPosition)
+        public bool TryCreate(Block creator, BlockTemplate template, BlockType blockType, Tile targetPosition)
         {
-            switch (blockType)
+            if(!targetPosition.ContainsBlock(blockType))
             {
-                case BlockType.Surface:
-                    TryCreateSurface(creator, template, targetPosition);
-                    break;
-                case BlockType.Ground:
-                    TryCreateGround(creator, template, targetPosition);
-                    break;
-                case BlockType.Ephemeral:
-                    TryCreateEphemeral(creator, template, targetPosition);
-                    break;
+                var newBlock = template.Generate(blockType);
+                _currentSector.AddBlockToSector(newBlock, targetPosition);
+                return true;
             }
-        }
 
-        public void TryCreateSurface(Block creator,BlockTemplate template,Tile targetPosition)
-        {
-            if(!targetPosition.HasSurface)
-            {
-                var newBLock = template.GenerateSurface();
-                _currentSector.AddSurfaceToSector(newBLock, targetPosition);
-            }
-        }
-
-        public void TryCreateEphemeral(Block creator, BlockTemplate template, Tile targetPosition)
-        {
-            if (!targetPosition.HasEphemeral)
-            {
-                var newBLock = template.GenerateEphemeral();
-                _currentSector.AddEphemeralToSector(newBLock, targetPosition);
-            }
-        }
-
-        public void TryCreateGround(Block creator, BlockTemplate template, Tile targetPosition)
-        {
-            throw new NotImplementedException();
+            return false;
         }
     }
 }

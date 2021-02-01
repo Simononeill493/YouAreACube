@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public enum EffectType
+    public enum ActionType
     {
         CardinalMovement,
         RelativeMovement,

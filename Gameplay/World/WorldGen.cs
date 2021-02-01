@@ -28,9 +28,9 @@ namespace IAmACube
 
         public static void AddEntities(World world)
         {
-            //_addRandom(world.Random, world.Centre, "BasicEnemy", 32);
-            //_addRandom(world.Random, world.Centre, "Spinner", 32);
-            _addRandom(world.Random, world.Centre, BlockType.Ephemeral,"Bullet", 32);
+            _addRandom(world.Random, world.Centre, BlockType.Surface, "BasicEnemy", 16);
+            _addRandom(world.Random, world.Centre, BlockType.Surface, "Spinner", 16);
+            _addRandom(world.Random, world.Centre, BlockType.Ephemeral,"Bullet", 16);
         }
 
         private static void _addRandom(Random r, Sector sector,BlockType blockType, string blockname,int number)

@@ -13,9 +13,9 @@ namespace IAmACube
         public BlockTemplate ChipInput2 { get; set; }
         public BlockType ChipInput3 { get; set; }
 
-        public void Run(Block actor, UserInput userInput, EffectsList effects)
+        public void Run(Block actor, UserInput userInput, ActionsList actions)
         {
-            effects.CreateBlock(actor, ChipInput2, ChipInput3, ChipInput);
+            actions.CreateBlock(actor, ChipInput2, ChipInput3, ChipInput);
         }
     }
 }

@@ -37,25 +37,32 @@ namespace IAmACube
             Energy = template.EnergyCap;
         }
 
-        public void Update(UserInput input,EffectsList effects)
+        public virtual void Update(UserInput input,ActionsList actions)
         {
-            _template.Chips.Execute(this, input,effects);
+            _template.Chips.Execute(this, input,actions);
         }
 
         public void Rotate(int rotation)
         {
-            Orientation = DirectionUtils.Rotate(Orientation, rotation);
+            Orientation = Orientation.Rotate(rotation);
         }
 
-        public void Move(MovementDirection movementDirection)
+        public bool TryMove(RelativeDirection movementDirection)
         {
-            Move(DirectionUtils.ToCardinal(Orientation, movementDirection));
+            return TryMove(DirectionUtils.ToCardinal(Orientation, movementDirection));
         }
-        public void Move(CardinalDirection direction)
+        public bool TryMove(CardinalDirection direction)
         {
             var destination = Location.Adjacent[direction];
-            _move(destination);
-            Energy--;
+
+            if(CanOccupyDestination(destination))
+            {
+                _move(destination);
+                Energy--;
+                return true;
+            }
+
+            return false;
         }
 
         protected abstract void _move(Tile destination);

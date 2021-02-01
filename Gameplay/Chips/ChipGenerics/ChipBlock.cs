@@ -29,16 +29,16 @@ namespace IAmACube
             _controlChips = chips.Where(c => typeof(IControlChip).IsAssignableFrom(c.GetType())).Cast<IControlChip>().ToList();
         }
 
-        public void Execute(Block actor,UserInput input,EffectsList effects) 
+        public void Execute(Block actor,UserInput input,ActionsList actions) 
         { 
             foreach(var chip in Chips)
             {
-                chip.Run(actor,input,effects);
+                chip.Run(actor,input,actions);
             }
 
             foreach(var controlChip in _controlChips)
             {
-                controlChip.ExecuteOutput(actor, input,effects);
+                controlChip.ExecuteOutput(actor, input,actions);
             }
         }
     }

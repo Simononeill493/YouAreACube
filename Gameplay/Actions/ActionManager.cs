@@ -6,36 +6,36 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class EffectManager
+    class ActionManager
     {
         private MoveManager _moveManager;
         private CreationManager _creationManager;
 
-        public EffectManager()
+        public ActionManager()
         {
             _moveManager = new MoveManager();
             _creationManager = new CreationManager();
         }
 
-        public void ProcessEffects(Sector sectorToProcess,EffectsList effects)
+        public void ProcessActions(Sector sectorToProcess,ActionsList effects)
         {
             _creationManager.SetSector(sectorToProcess);
             _moveManager.TickCurrentMoves();
 
-            foreach(var effect in effects.Effects)
+            foreach(var effect in effects.Actions)
             {
-                switch (effect.EffectType)
+                switch (effect.ActionType)
                 {
-                    case EffectType.CardinalMovement:
-                        _moveManager.ProcessNewMoveRequest(effect.Actor, effect.CardinalDir);
+                    case ActionType.CardinalMovement:
+                        _moveManager.TryStartMoving(effect.Actor, effect.CardinalDir,effect.MoveSpeed);
                         break;
-                    case EffectType.RelativeMovement:
-                        _moveManager.ProcessNewMoveRequest(effect.Actor, effect.RelativeDir);
+                    case ActionType.RelativeMovement:
+                        _moveManager.TryStartMoving(effect.Actor, effect.RelativeDir,effect.MoveSpeed);
                         break;
-                    case EffectType.Rotation:
+                    case ActionType.Rotation:
                         effect.Actor.Rotate(effect.Rotation);
                         break;
-                    case EffectType.CardinalCreation:
+                    case ActionType.CardinalCreation:
                         _creationManager.TryCreate(effect.Actor, effect.BlockTemplate, effect.BlockType, effect.CardinalDir);
                         break;
                 }

@@ -22,13 +22,17 @@ namespace IAmACube
             _activeBlocks = new List<Block>();
         }
 
-        public void Update(UserInput input,EffectsList effects,TickCounter tickCounter)
+        public ActionsList UpdateBlocks(UserInput input,TickCounter tickCounter)
         {
-            var toUpdate = _getUpdatingBlocks(tickCounter);
+            var actions = new ActionsList();
+            var toUpdate = _getBlocksUpdatingOnThisTick(tickCounter);
+
             foreach(var block in toUpdate)
             {
-                block.Update(input,effects);
+                block.Update(input,actions);
             }
+
+            return actions;
         }
 
         public (Tile tile,bool hasTile) TryGetTile(int x,int y)
@@ -98,7 +102,7 @@ namespace IAmACube
             }
         }
 
-        private IEnumerable<Block> _getUpdatingBlocks(TickCounter tickCounter)
+        private IEnumerable<Block> _getBlocksUpdatingOnThisTick(TickCounter tickCounter)
         {
             return _activeBlocks.Where(b => (tickCounter.TotalTicks+b.SpeedOffset) % b.Speed == 0);
         }

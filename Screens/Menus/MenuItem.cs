@@ -20,7 +20,7 @@ namespace IAmACube
 
         public bool Clickable = false;
         public bool ClickedOn = false;
-        public Action ClickAction;
+        public System.Action ClickAction;
 
         public bool HasText = false;
         public string Text;

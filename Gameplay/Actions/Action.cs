@@ -6,21 +6,22 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class Effect
+    public class Action
     {
-        public EffectType EffectType;
+        public ActionType ActionType;
         public Block Actor;
 
         public CardinalDirection CardinalDir;
-        public MovementDirection RelativeDir;
+        public RelativeDirection RelativeDir;
         public int Rotation;
+        public int MoveSpeed;
 
         public BlockType BlockType;
         public BlockTemplate BlockTemplate;
 
-        public Effect(Block actor,EffectType effectType)
+        public Action(Block actor,ActionType actionType)
         {
-            EffectType = effectType;
+            ActionType = actionType;
             Actor = actor;
         }
     }

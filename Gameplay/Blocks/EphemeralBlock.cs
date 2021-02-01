@@ -14,14 +14,17 @@ namespace IAmACube
             BlockType = BlockType.Ephemeral;
         }
 
+        public override void Update(UserInput input, ActionsList actions)
+        {
+            base.Update(input, actions);
+            Energy--;
+        }
+
         protected override void _move(Tile destination)
         {
-            if (CanOccupyDestination(destination))
-            {
-                Location.Ephemeral = null;
-                destination.Ephemeral = this;
-                this.Location = destination;
-            }
+            Location.Ephemeral = null;
+            destination.Ephemeral = this;
+            this.Location = destination;
         }
 
         public override bool CanOccupyDestination(Tile destination)

@@ -32,6 +32,22 @@ namespace IAmACube
             return Adjacent.ContainsKey(direction);
         }
 
+        public bool ContainsBlock(BlockType blockType)
+        {
+            switch (blockType)
+            {
+                case BlockType.Surface:
+                    return HasSurface;
+                case BlockType.Ground:
+                    return true;
+                case BlockType.Ephemeral:
+                    return HasEphemeral;
+            }
+
+            Console.WriteLine("Warning: tried to scan a tile for  an unrecognized block type: " + blockType);
+            return false;
+        }
+
         public CardinalDirection ApproachDirection(Tile other)
         {
             if(other.X>X)
@@ -69,7 +85,7 @@ namespace IAmACube
         }
         public CardinalDirection FleeDirection(Tile other)
         {
-            return DirectionUtils.Reverse[ApproachDirection(other)];
+            return ApproachDirection(other).Reverse();
         }
     }
 }

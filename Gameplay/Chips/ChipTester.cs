@@ -114,7 +114,7 @@ namespace IAmACube
             getRotationAmountChip.Targets.Add(rotateRightChip);
 
             var moveForwardChip = new MoveRelativeChip();
-            moveForwardChip.ChipInput = MovementDirection.Forward;
+            moveForwardChip.ChipInput = RelativeDirection.Forward;
 
             return new ChipBlock(getRotationAmountChip,rotateRightChip, moveForwardChip);
         }
@@ -122,7 +122,7 @@ namespace IAmACube
         public static ChipBlock MakeBulletBlock()
         {
             var moveForwardChip = new MoveRelativeChip();
-            moveForwardChip.ChipInput = MovementDirection.Forward;
+            moveForwardChip.ChipInput = RelativeDirection.Forward;
 
             return new ChipBlock(moveForwardChip);
         }

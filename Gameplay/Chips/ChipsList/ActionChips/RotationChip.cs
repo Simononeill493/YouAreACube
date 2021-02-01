@@ -11,9 +11,9 @@ namespace IAmACube
     {
         public int ChipInput { get; set; }
 
-        public void Run(Block actor, UserInput userInput, EffectsList effects)
+        public void Run(Block actor, UserInput userInput, ActionsList actions)
         {
-            effects.StartRotation(actor, ChipInput);
+            actions.StartRotation(actor, ChipInput);
         }
     }
 }

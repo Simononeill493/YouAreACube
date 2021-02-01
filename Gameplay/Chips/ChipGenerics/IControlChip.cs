@@ -8,6 +8,6 @@ namespace IAmACube
 {
     public interface IControlChip
     {
-        void ExecuteOutput(Block actor, UserInput input, EffectsList effects);
+        void ExecuteOutput(Block actor, UserInput input, ActionsList actions);
     }
 }

@@ -12,18 +12,18 @@ namespace IAmACube
         private Save _save;
 
         private TickCounter _tickCounter;
-        private WorldUpdater _updater;
+        private WorldTicker _updater;
 
         public Game(Save save)
         {
             _save = save;
             _tickCounter = new TickCounter();
-            _updater = new WorldUpdater();
+            _updater = new WorldTicker();
         }
 
         public void Update(UserInput input)
         {
-            _updater.UpdateWorld(World, input, _tickCounter);
+            _updater.TickWorld(World, input, _tickCounter);
             _tickCounter.Tick();
         }
     }

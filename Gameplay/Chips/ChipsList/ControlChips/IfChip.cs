@@ -10,7 +10,7 @@ namespace IAmACube
         public ChipBlock Yes;
         public ChipBlock No;
 
-        public void Run(Block actor,UserInput input,EffectsList effects)
+        public void Run(Block actor,UserInput input,ActionsList actions)
         {
             if(ChipInput)
             {
@@ -21,9 +21,9 @@ namespace IAmACube
             Result = No;
         }
 
-        public void ExecuteOutput(Block actor, UserInput input, EffectsList effects)
+        public void ExecuteOutput(Block actor, UserInput input, ActionsList actions)
         {
-            Result.Execute(actor, input, effects);
+            Result.Execute(actor, input, actions);
         }
     }
 }

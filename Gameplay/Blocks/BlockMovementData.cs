@@ -11,11 +11,34 @@ namespace IAmACube
     {
         public CardinalDirection Direction;
         public Tile Destination;
+        public int MoveSpeed;
+
+        public int MovementPosition;
+        public (int X, int Y) Offset;
 
         public int Midpoint;
-        public int MovementPosition;
-        public int XOffset;
-        public int YOffset;
         public bool PastMidpoint;
+        public bool AtMidpoint => (MovementPosition == Midpoint);
+        public bool MovementComplete => (PastMidpoint & (MovementPosition == 0));
+
+        public BlockMovementData() { }
+        public BlockMovementData(Block block,CardinalDirection direction,int moveSpeed)
+        {
+            Direction = direction;
+            PastMidpoint = false;
+            MovementPosition = 0;
+            MoveSpeed = moveSpeed;
+
+            Destination = block.Location.Adjacent[direction];
+            Offset = direction.XYOffset();
+
+            Midpoint = ((moveSpeed + 1) / 2);
+        }
+
+        public void MovePastMidpoint()
+        {
+            PastMidpoint = true;
+            MovementPosition = (-MovementPosition) + (MoveSpeed % 2);
+        }
     }
 }

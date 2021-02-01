@@ -7,7 +7,7 @@ namespace IAmACube
     {
         public Tile ChipInput { get; set; }
 
-        public override void Run(Block actor,UserInput userInput, EffectsList effects)
+        public override void Run(Block actor,UserInput userInput, ActionsList actions)
         {
             SetOutput(actor.Location.ApproachDirection(ChipInput));
         }
