@@ -31,6 +31,8 @@ namespace IAmACube
             if(!targetPosition.ContainsBlock(blockType))
             {
                 var newBlock = template.Generate(blockType);
+                newBlock.SpeedOffset = creator.SpeedOffset+1;
+
                 _currentSector.AddBlockToSector(newBlock, targetPosition);
                 return true;
             }

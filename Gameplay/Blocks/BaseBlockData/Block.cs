@@ -22,6 +22,7 @@ namespace IAmACube
         public bool Active => _template.Active;
         public int Speed => _template.Speed;
         public int EnergyCap => _template.EnergyCap;
+        public float EnergyRemainingPercentage => ((float)Energy) / EnergyCap;
 
         protected BlockTemplate _template;
 

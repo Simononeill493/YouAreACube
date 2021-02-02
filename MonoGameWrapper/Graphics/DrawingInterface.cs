@@ -54,7 +54,7 @@ namespace IAmACube
             var verticallScale = graphicsDevice.Viewport.Height / (float)backgroundSprite.Height;
             _spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), scale: new Vector2(horizontalScale, verticallScale));
         }
-        public void DrawSprite(string spriteName, int x, int y,int layer,int scale = 1)
+        public void DrawSprite(string spriteName, int x, int y,float layer,int scale = 1)
         {
             var sprite = SpriteManager.GetSprite(spriteName);
             _spriteBatch.Draw(sprite, new Vector2(x, y), scale: new Vector2(scale, scale),layerDepth: layer);
@@ -95,6 +95,14 @@ namespace IAmACube
             _spriteBatch.DrawString(_spriteFont, text, new Vector2(xOffs, yOffs), Color.Black, 0, Vector2.Zero, scale,SpriteEffects.None,0);
 
         }
+
+        public void DrawHUD(Kernel kernel,int x,int y)
+        {
+            var host = kernel.Host;
+            _primitivesHelper.DrawRectangle(x-2, y-2, 204, 54, Color.Black);
+            _primitivesHelper.DrawRectangle(x, y, (int)(200.0 * (host.EnergyRemainingPercentage)), 50, Color.Blue);
+        }
+
 
         public static Rectangle GetMenuItemRectangle(MenuItem item)
         //public static (int x1, int y1, int x2, int y2) GetMenuItemRectangle(MenuItem item)

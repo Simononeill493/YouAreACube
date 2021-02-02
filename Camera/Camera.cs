@@ -98,10 +98,10 @@ namespace IAmACube
             }
             if (tile.HasEphemeral)
             {
-                _drawTileSprite(tile.Ephemeral, xDrawPos, yDrawPos, CameraDrawLayer.SurfaceLayer);
+                _drawTileSprite(tile.Ephemeral, xDrawPos, yDrawPos, CameraDrawLayer.EphemeralLayer);
             }
         }
-        protected void _drawTileSprite(Block block,int xDrawPos,int yDrawPos,int layer)
+        protected void _drawTileSprite(Block block,int xDrawPos,int yDrawPos,float layer)
         {
             var (offsetX,offsetY) = CameraUtils.GetMovementOffsets(block,_config.TileSizeScaled);
 

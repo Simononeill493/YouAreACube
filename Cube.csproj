@@ -101,7 +101,7 @@
     <Compile Include="Misc\UserInput.cs" />
     <Compile Include="Gameplay\Player\Kernel.cs" />
     <Compile Include="Utils\KeyUtils.cs" />
-    <Compile Include="MonoGameWrapper\SpriteManager.cs" />
+    <Compile Include="MonoGameWrapper\Graphics\SpriteManager.cs" />
     <Compile Include="Save\Save.cs" />
     <Compile Include="Save\SaveManager.cs" />
     <Compile Include="Screens\GameScreen.cs" />
@@ -110,8 +110,8 @@
     <Compile Include="Gameplay\Direction\CardinalDirection.cs" />
     <Compile Include="Misc\FrameCounter.cs" />
     <Compile Include="MonoGameWrapper\AttachedConsoleManager.cs" />
-    <Compile Include="MonoGameWrapper\DrawingInterface.cs" />
-    <Compile Include="MonoGameWrapper\PrimitivesHelper.cs" />
+    <Compile Include="MonoGameWrapper\Graphics\DrawingInterface.cs" />
+    <Compile Include="MonoGameWrapper\Graphics\PrimitivesHelper.cs" />
     <Compile Include="MonoGameWrapper\MonoGameWindow.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="Screens\Menus\MenuItem.cs" />

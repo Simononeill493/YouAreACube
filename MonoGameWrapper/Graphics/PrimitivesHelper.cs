@@ -34,6 +34,11 @@ namespace IAmACube
             _spriteBatch.Draw(_myBasicTexture, new Rectangle(x1, y1, 1, length), null, Color.Green);
         }
 
+        public void DrawRectangle(int x, int y, int width, int height, Color color)
+        {
+            _spriteBatch.Draw(_myBasicTexture,destinationRectangle: new Rectangle(x, y, width, height),color: color, layerDepth: CameraDrawLayer.MenuLayer);
+        }
+
         public void DrawGrid(int width, int height, int squareSize)
         {
             for(int i=0;i<width+1;i++)

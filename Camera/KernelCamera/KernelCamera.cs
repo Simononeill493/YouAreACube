@@ -22,6 +22,17 @@ namespace IAmACube
             _kernelCameraUpdate(input);
         }
 
+        protected override void _draw(World world)
+        {
+            base._draw(world);
+            _drawHUD();
+        }
+
+        protected void _drawHUD()
+        {
+            _drawingInterface.DrawHUD(_kernel,MonoGameWindow.CurrentWidth/16, MonoGameWindow.CurrentHeight / 16);
+        }
+
         protected abstract void _kernelCameraUpdate(UserInput input);
     }
 }
