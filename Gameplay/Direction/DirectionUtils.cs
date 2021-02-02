@@ -13,25 +13,29 @@ namespace IAmACube
 
         public static void Init()
         {
-            _reverseDict = new Dictionary<CardinalDirection, CardinalDirection>();
-            _reverseDict[CardinalDirection.North] = CardinalDirection.South;
-            _reverseDict[CardinalDirection.South] = CardinalDirection.North;
-            _reverseDict[CardinalDirection.West] = CardinalDirection.East;
-            _reverseDict[CardinalDirection.East] = CardinalDirection.West;
-            _reverseDict[CardinalDirection.NorthEast] = CardinalDirection.SouthWest;
-            _reverseDict[CardinalDirection.SouthEast] = CardinalDirection.NorthWest;
-            _reverseDict[CardinalDirection.NorthWest] = CardinalDirection.SouthEast;
-            _reverseDict[CardinalDirection.SouthWest] = CardinalDirection.NorthEast;
+            _reverseDict = new Dictionary<CardinalDirection, CardinalDirection>
+            {
+                [CardinalDirection.North] = CardinalDirection.South,
+                [CardinalDirection.South] = CardinalDirection.North,
+                [CardinalDirection.West] = CardinalDirection.East,
+                [CardinalDirection.East] = CardinalDirection.West,
+                [CardinalDirection.NorthEast] = CardinalDirection.SouthWest,
+                [CardinalDirection.SouthEast] = CardinalDirection.NorthWest,
+                [CardinalDirection.NorthWest] = CardinalDirection.SouthEast,
+                [CardinalDirection.SouthWest] = CardinalDirection.NorthEast
+            };
 
-            _XYOffsetDict = new Dictionary<CardinalDirection, (int, int)>();
-            _XYOffsetDict[CardinalDirection.North] = (0, -1);
-            _XYOffsetDict[CardinalDirection.South] = (0, 1);
-            _XYOffsetDict[CardinalDirection.West] = (-1, 0);
-            _XYOffsetDict[CardinalDirection.East] = (1, 0);
-            _XYOffsetDict[CardinalDirection.NorthEast] = (1, -1);
-            _XYOffsetDict[CardinalDirection.SouthEast] = (1, 1);
-            _XYOffsetDict[CardinalDirection.NorthWest] = (-1, -1);
-            _XYOffsetDict[CardinalDirection.SouthWest] = (-1, 1);
+            _XYOffsetDict = new Dictionary<CardinalDirection, (int, int)>
+            {
+                [CardinalDirection.North] = (0, -1),
+                [CardinalDirection.South] = (0, 1),
+                [CardinalDirection.West] = (-1, 0),
+                [CardinalDirection.East] = (1, 0),
+                [CardinalDirection.NorthEast] = (1, -1),
+                [CardinalDirection.SouthEast] = (1, 1),
+                [CardinalDirection.NorthWest] = (-1, -1),
+                [CardinalDirection.SouthWest] = (-1, 1)
+            };
         }
 
         public static CardinalDirection ToCardinal(Orientation orientation, RelativeDirection relativeDirection)

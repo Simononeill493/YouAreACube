@@ -24,5 +24,9 @@ namespace IAmACube
             throw new NotImplementedException();
         }
 
+        public override bool ShouldBeDestroyed()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

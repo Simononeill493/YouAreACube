@@ -13,6 +13,7 @@ namespace IAmACube
         public List<Tile> TilesFlattened;
 
         private List<Block> _activeBlocks;
+        private List<Block> _destructibleBlocks;
 
         public Sector(Tile[,] tiles, List<Tile> tilesFlattened)
         {
@@ -20,6 +21,7 @@ namespace IAmACube
             TilesFlattened = tilesFlattened;
 
             _activeBlocks = new List<Block>();
+            _destructibleBlocks = new List<Block>();
         }
 
         public ActionsList UpdateBlocks(UserInput input,TickCounter tickCounter)
@@ -96,15 +98,66 @@ namespace IAmACube
             block.Location = tile;
             //todo ensure EVERY time a block is added that this is set 
 
+            if(block.BlockType!=BlockType.Ground)
+            {
+                _destructibleBlocks.Add(block);
+            }
             if (block.Active)
             {
                 _activeBlocks.Add(block);
             }
         }
 
-        private IEnumerable<Block> _getBlocksUpdatingOnThisTick(TickCounter tickCounter)
+        public void RemoveBlockFromSector(Block block)
         {
-            return _activeBlocks.Where(b => (tickCounter.TotalTicks+b.SpeedOffset) % b.Speed == 0);
+            switch (block.BlockType)
+            {
+                case BlockType.Surface:
+                    RemoveSurfaceFromSector((SurfaceBlock)block);
+                    break;
+                case BlockType.Ground:
+                    RemoveGroundFromToSector((GroundBlock)block);
+                    break;
+                case BlockType.Ephemeral:
+                    RemoveEphemeralFromSector((EphemeralBlock)block);
+                    break;
+            }
+        }
+        public void RemoveSurfaceFromSector(SurfaceBlock block)
+        {
+            block.Location.Surface = null;
+            _removeBlockFromSector(block);
+        }
+        public void RemoveGroundFromToSector(GroundBlock block)
+        {
+            throw new NotImplementedException();
+        }
+        public void RemoveEphemeralFromSector(EphemeralBlock block)
+        {
+            block.Location.Ephemeral = null;
+            _removeBlockFromSector(block);
+        }
+        private void _removeBlockFromSector(Block block)
+        {
+            block.Location = null;
+
+            if (block.BlockType != BlockType.Ground)
+            {
+                _destructibleBlocks.Remove(block);
+            }
+            if (block.Active)
+            {
+                _activeBlocks.Remove(block);
+            }
+        }
+
+        private List<Block> _getBlocksUpdatingOnThisTick(TickCounter tickCounter)
+        {
+            return _activeBlocks.Where(b => (tickCounter.TotalTicks+b.SpeedOffset) % b.Speed == 0).ToList();
+        }
+        public List<Block> GetDoomedBlocks()
+        {
+            return _destructibleBlocks.Where(b => b.ShouldBeDestroyed()).ToList();
         }
     }
 }

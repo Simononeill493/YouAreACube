@@ -7,10 +7,16 @@ namespace IAmACube
 {
     public class WorldTicker
     {
-        private ActionManager _effectManager;
+        private ActionManager _actionManager;
+        private DestructionManager _destructionManager;
+
         public WorldTicker()
         {
-            _effectManager = new ActionManager();
+            var moveManager = new MoveManager();
+            var creationManager = new CreationManager();
+
+            _actionManager = new ActionManager(moveManager,creationManager);
+            _destructionManager = new DestructionManager(moveManager);
         }
 
         public void TickWorld(World world,UserInput input,TickCounter tickCounter)
@@ -25,7 +31,8 @@ namespace IAmACube
         public void TickSector(Sector sector,UserInput input,TickCounter tickCounter)
         {
             var actions = sector.UpdateBlocks(input, tickCounter);
-            _effectManager.ProcessActions(sector, actions);
+            _actionManager.ProcessActions(sector, actions);
+            _destructionManager.DestroyDoomedBlocks(sector);
         }
     }
 }

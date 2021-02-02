@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class MoveManager
+    public class MoveManager
     {
         public List<Block> Moving = new List<Block>();
 
@@ -30,6 +30,14 @@ namespace IAmACube
             if (block.Location.DirectionIsValid(direction) & block.CanStartMoving())
             {
                 _startMovement(block, direction,moveSpeed);
+            }
+        }
+
+        public void ManuallyCancelMovement(Block block)
+        {
+            if(block.IsMoving)
+            {
+                Moving.Remove(block);
             }
         }
 

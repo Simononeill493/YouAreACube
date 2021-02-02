@@ -72,5 +72,6 @@ namespace IAmACube
             return (!IsMoving) & (Energy > 0);
         }
         public abstract bool CanOccupyDestination(Tile destination);
+        public abstract bool ShouldBeDestroyed();
     }
 }

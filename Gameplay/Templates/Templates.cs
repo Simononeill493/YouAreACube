@@ -23,7 +23,7 @@ namespace IAmACube
             BlockTemplates["BasicEnemy"].Chips = ChipTester.TestFleeBlock;
             BlockTemplates["ScaredEnemy"].Chips = ChipTester.TestFleeBlock;
             BlockTemplates["Spinner"].Chips = ChipTester.TestSpinBlock;
-            BlockTemplates["Bullet"].Chips = ChipTester.TestSpinBlock;
+            BlockTemplates["Bullet"].Chips = ChipTester.TestBulletBlock;
 
             BlockTemplates["BasicPlayer"].Chips = ChipTester.TestPlayerBlock;
         }

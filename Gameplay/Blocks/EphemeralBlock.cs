@@ -31,5 +31,10 @@ namespace IAmACube
         {
             return !destination.HasEphemeral;
         }
+
+        public override bool ShouldBeDestroyed()
+        {
+            return Energy<1;
+        }
     }
 }

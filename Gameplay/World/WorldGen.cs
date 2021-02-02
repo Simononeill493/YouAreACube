@@ -25,7 +25,6 @@ namespace IAmACube
 
             centre.AddSurfaceToSector(player, tile);
         }
-
         public static void AddEntities(World world)
         {
             _addRandom(world.Random, world.Centre, BlockType.Surface, "BasicEnemy", 16);
@@ -74,7 +73,7 @@ namespace IAmACube
             var sector = new Sector(tiles, tilesFlattened);
             return sector;
         }
-        private static (Tile[,],List<Tile>) _getInitializedGrid(int size)
+        private static (Tile[,] tiles, List<Tile> tilesFlattened) _getInitializedGrid(int size)
         {
             var tiles = new Tile[size, size];
             var tilesFlattened = new List<Tile>();

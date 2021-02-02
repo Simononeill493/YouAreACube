@@ -25,5 +25,10 @@ namespace IAmACube
         {
             return !destination.HasSurface;
         }
+
+        public override bool ShouldBeDestroyed()
+        {
+            return false;
+        }
     }
 }

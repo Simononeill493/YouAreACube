@@ -11,10 +11,10 @@ namespace IAmACube
         private MoveManager _moveManager;
         private CreationManager _creationManager;
 
-        public ActionManager()
+        public ActionManager(MoveManager moveManager,CreationManager creationManager)
         {
-            _moveManager = new MoveManager();
-            _creationManager = new CreationManager();
+            _moveManager =  moveManager;
+            _creationManager =  creationManager;
         }
 
         public void ProcessActions(Sector sectorToProcess,ActionsList effects)
