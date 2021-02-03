@@ -21,7 +21,6 @@ namespace IAmACube
             kernelScreenPos = _config.GetPosOnScreen(_kernel.Host);
             _kernelCameraUpdate(input);
         }
-
         protected override void _draw(World world)
         {
             base._draw(world);
@@ -32,7 +31,6 @@ namespace IAmACube
         {
             _drawingInterface.DrawHUD(_kernel,MonoGameWindow.CurrentWidth/16, MonoGameWindow.CurrentHeight / 16);
         }
-
         protected abstract void _kernelCameraUpdate(UserInput input);
     }
 }

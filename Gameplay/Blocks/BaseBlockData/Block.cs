@@ -14,6 +14,8 @@ namespace IAmACube
         public int SpeedOffset;
 
         public bool IsMoving;
+        public bool IsInCentreOfBlock => MovementData.IsInCentreOfBlock;
+
         public BlockMovementData MovementData;
 
         public Orientation Orientation;
@@ -21,12 +23,26 @@ namespace IAmACube
         public string Sprite => _template.Sprite;
         public bool Active => _template.Active;
         public int Speed => _template.Speed;
-        public int EnergyCap => _template.EnergyCap;
+        public int EnergyCap => _template.InitialEnergy;
         public float EnergyRemainingPercentage => ((float)Energy) / EnergyCap;
 
         protected BlockTemplate _template;
 
-        public int Energy;
+        public int Energy { get; private set; }
+        public void AddEnergy(int amount)
+        {
+            Energy += amount;
+            if(Energy>EnergyCap) { Energy = EnergyCap; }
+        }
+        public void TakeEnergy(int amount)
+        {
+            Energy -= amount;
+            if (Energy < 0) 
+            {
+                Console.WriteLine("Warning: energy has gone negative.");
+            }
+
+        }
 
         public Block(BlockTemplate template)
         {
@@ -35,7 +51,7 @@ namespace IAmACube
             MovementData = new BlockMovementData();
 
             Orientation = Orientation.Top;
-            Energy = template.EnergyCap;
+            Energy = template.InitialEnergy;
         }
 
         public virtual void Update(UserInput input,ActionsList actions)
@@ -74,5 +90,10 @@ namespace IAmACube
         }
         public abstract bool CanOccupyDestination(Tile destination);
         public abstract bool ShouldBeDestroyed();
+
+        public virtual void BeCreatedBy(Block creator)
+        {
+            this.SpeedOffset = creator.SpeedOffset + 1;
+        }
     }
 }

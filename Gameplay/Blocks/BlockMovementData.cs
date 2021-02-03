@@ -14,6 +14,8 @@ namespace IAmACube
         public int MoveSpeed;
 
         public int MovementPosition;
+        public bool IsInCentreOfBlock => (MovementPosition == 0);
+
         public (int X, int Y) Offset;
 
         public int Midpoint;

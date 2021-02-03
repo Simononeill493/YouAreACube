@@ -51,7 +51,7 @@ namespace IAmACube
 
             template.Sprite = sprite;
             template.Speed = speed;
-            template.EnergyCap = energyCap;
+            template.InitialEnergy = energyCap;
 
             if (template.Speed != 0)
             {

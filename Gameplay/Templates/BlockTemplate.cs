@@ -14,7 +14,7 @@ namespace IAmACube
         public bool Active;
         public int Speed;
 
-        public int EnergyCap;
+        public int InitialEnergy;
 
         public ChipBlock Chips;
 

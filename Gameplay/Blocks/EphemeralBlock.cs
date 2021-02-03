@@ -17,24 +17,42 @@ namespace IAmACube
         public override void Update(UserInput input, ActionsList actions)
         {
             base.Update(input, actions);
-            Energy--;
+            TakeEnergy(1);
         }
 
         protected override void _move(Tile destination)
         {
+            if(destination.HasEphemeral)
+            {
+                AbsorbInto(destination.Ephemeral);
+                return;
+            }
+
             Location.Ephemeral = null;
             destination.Ephemeral = this;
             this.Location = destination;
         }
 
+        private void AbsorbInto(EphemeralBlock destination)
+        {
+            destination.AddEnergy(this.Energy);
+            this.TakeEnergy(this.Energy);
+        }
+
         public override bool CanOccupyDestination(Tile destination)
         {
-            return !destination.HasEphemeral;
+            return true;
         }
 
         public override bool ShouldBeDestroyed()
         {
-            return Energy<1;
+            return (Energy<1);
+        }
+
+        public override void BeCreatedBy(Block creator)
+        {
+            base.BeCreatedBy(creator);
+            creator.TakeEnergy(_template.InitialEnergy);
         }
     }
 }

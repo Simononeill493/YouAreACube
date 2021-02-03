@@ -10,5 +10,10 @@ namespace IAmACube
     public class Kernel
     {
         public SurfaceBlock Host;
+
+        public void SupplyPowerToHost()
+        {
+            Host.AddEnergy(1);
+        }
     }
 }

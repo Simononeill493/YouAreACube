@@ -8,7 +8,9 @@ namespace IAmACube
 {
     public class Game
     {
+        public Kernel Kernel => _save.Kernel;
         public World World => _save.World;
+
         private Save _save;
 
         private TickCounter _tickCounter;
@@ -23,6 +25,7 @@ namespace IAmACube
 
         public void Update(UserInput input)
         {
+            Kernel.SupplyPowerToHost();
             _updater.TickWorld(World, input, _tickCounter);
             _tickCounter.Tick();
         }
