@@ -14,7 +14,7 @@
     {
       "name":"BasicPlayer",
       "sprite":"BasicPlayer",
-	  "energyCap":1000,
+	  "energyCap":10000,
       "speed":5
     },
 	{

@@ -18,5 +18,7 @@ namespace IAmACube
         public const string SaveExtension = ".cubesave";
 
         public const string TemplatesFile = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Sprites\templates.txt";
+
+        public static bool KernelUnlimitedEnergy = true;
     }
 }

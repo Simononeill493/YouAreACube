@@ -28,19 +28,19 @@ namespace IAmACube
 
         private void _readKeys(UserInput input)
         {
-            if (input.IsKeyDown(Keys.Up))
+            if (input.IsKeyDown(Keys.Home))//up
             {
                 _config.YPartialGridOffset -= 15;
             }
-            if (input.IsKeyDown(Keys.Down))
+            if (input.IsKeyDown(Keys.End))//down
             {
                 _config.YPartialGridOffset += 15;
             }
-            if (input.IsKeyDown(Keys.Left))
+            if (input.IsKeyDown(Keys.Delete))//left
             {
                 _config.XPartialGridOffset -= 15;
             }
-            if (input.IsKeyDown(Keys.Right))
+            if (input.IsKeyDown(Keys.PageDown))//right
             {
                 _config.XPartialGridOffset += 15;
             }

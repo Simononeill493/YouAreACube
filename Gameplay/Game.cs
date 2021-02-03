@@ -28,6 +28,11 @@ namespace IAmACube
             Kernel.SupplyPowerToHost();
             _updater.TickWorld(World, input, _tickCounter);
             _tickCounter.Tick();
+
+            if(Config.KernelUnlimitedEnergy)
+            {
+                Kernel.Host.AddEnergy(Kernel.Host.EnergyCap);
+            }
         }
     }
 }

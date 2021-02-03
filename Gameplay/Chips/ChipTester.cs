@@ -83,24 +83,26 @@ namespace IAmACube
 
         public static ChipBlock MakePlayerBlock()
         {
+            var keySwitch = new KeySwitchChip();
+            var bullet = Templates.BlockTemplates["Bullet"];
+
             var moveUp = new MoveCardinalChip() { ChipInput = CardinalDirection.North };
             var moveDown = new MoveCardinalChip() { ChipInput = CardinalDirection.South };
             var moveLeft = new MoveCardinalChip() { ChipInput = CardinalDirection.West };
             var moveRight = new MoveCardinalChip() { ChipInput = CardinalDirection.East };
+            var createEnemyNorth = new CreateCardinalChip() { ChipInput = CardinalDirection.North, ChipInput2 = bullet, ChipInput3 = BlockType.Ephemeral };
+            var createEnemySouth = new CreateCardinalChip() { ChipInput = CardinalDirection.South, ChipInput2 = bullet, ChipInput3 = BlockType.Ephemeral };
+            var createEnemyWest = new CreateCardinalChip() { ChipInput = CardinalDirection.West, ChipInput2 = bullet, ChipInput3 = BlockType.Ephemeral };
+            var createEnemyEast = new CreateCardinalChip() { ChipInput = CardinalDirection.East, ChipInput2 = bullet, ChipInput3 = BlockType.Ephemeral };
 
-            var keySwitch = new KeySwitchChip();
             keySwitch.AddKeyEffect(Keys.W, new ChipBlock(moveUp));
             keySwitch.AddKeyEffect(Keys.A, new ChipBlock(moveLeft));
             keySwitch.AddKeyEffect(Keys.S, new ChipBlock(moveDown));
             keySwitch.AddKeyEffect(Keys.D, new ChipBlock(moveRight));
-
-
-            var createEnemy = new CreateCardinalChip();
-            createEnemy.ChipInput = CardinalDirection.North;
-            createEnemy.ChipInput2 = Templates.BlockTemplates["Bullet"];
-            createEnemy.ChipInput3 = BlockType.Ephemeral;
-
-            keySwitch.AddKeyEffect(Keys.Space, new ChipBlock(createEnemy));
+            keySwitch.AddKeyEffect(Keys.Up, new ChipBlock(createEnemyNorth));
+            keySwitch.AddKeyEffect(Keys.Down, new ChipBlock(createEnemySouth));
+            keySwitch.AddKeyEffect(Keys.Left, new ChipBlock(createEnemyWest));
+            keySwitch.AddKeyEffect(Keys.Right, new ChipBlock(createEnemyEast));
 
             return new ChipBlock(keySwitch);
         }

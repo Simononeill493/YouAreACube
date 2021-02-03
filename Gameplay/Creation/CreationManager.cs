@@ -23,23 +23,24 @@ namespace IAmACube
 
             //TODO - sector management here
             var targetPos = creator.Location.Adjacent[direction];
-            return TryCreate(creator, template, blockType, targetPos);
+            return TryCreate(creator, template, blockType, targetPos, direction);
         }
-        public bool TryCreate(Block creator, BlockTemplate template, BlockType blockType, Tile targetPosition)
+        public bool TryCreate(Block creator, BlockTemplate template, BlockType blockType, Tile targetPosition,CardinalDirection direction)
         {
             if(_canThisBlockBeCreated(creator, template,blockType, targetPosition))
             {
-                _create(creator, template, blockType, targetPosition);                    
+                _create(creator, template, blockType, targetPosition,direction);                    
                 return true;                
             }
 
             return false;
         }
 
-        private void _create(Block creator, BlockTemplate template, BlockType blockType, Tile targetPosition)
+        private void _create(Block creator, BlockTemplate template, BlockType blockType, Tile targetPosition, CardinalDirection direction)
         {
             var newBlock = template.Generate(blockType);
             newBlock.BeCreatedBy(creator);
+            newBlock.Orientation = (Orientation)direction;
 
             _currentSector.AddBlockToSector(newBlock, targetPosition);
         }
