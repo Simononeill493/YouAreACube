@@ -39,18 +39,13 @@ namespace IAmACube
             return actions;
         }
 
-        public (Tile tile,bool hasTile) TryGetTile(int x,int y)
+        public Tile GetTile(Point point)
         {
-            if(x<Config.SectorSize & y < Config.SectorSize & x>-1 & y>-1)
-            {
-                var tile = Tiles[x, y];
-                return (tile,true);
-            }
-
-            return (null,false);
+            var tile = Tiles[point.X, point.Y];
+            return tile;
         }
 
-        public void AddBlockToSector(Block block, Tile tile)
+        public void AddToSector(Block block, Tile tile)
         {
             switch (block.BlockType)
             {
@@ -65,42 +60,12 @@ namespace IAmACube
                     break;
             }
         }
-        public void AddSurfaceToSector(SurfaceBlock block,Tile tile)
-        {
-            if(tile.HasSurface)
-            {
-                Console.WriteLine("Warning: adding a surface block to a sector at a tile that has already been filled.");
-            }
-
-            tile.Surface = block;
-            _addBlockToSector(block, tile);
-        }
-        public void AddEphemeralToSector(EphemeralBlock block, Tile tile)
-        {
-            if (tile.HasEphemeral)
-            {
-                Console.WriteLine("Warning: adding a surface block to a sector at a tile that has already been filled.");
-            }
-
-            tile.Ephemeral = block;
-            _addBlockToSector(block, tile);
-        }
-        public void AddGroundToSector(GroundBlock block, Tile tile)
-        {
-            if (tile.Ground != null)
-            {
-                Console.WriteLine("Warning: adding ground to a sector at a tile that has already been filled.");
-            }
-
-            tile.Ground= block;
-            _addBlockToSector(block, tile);
-        }
-        private void _addBlockToSector(Block block,Tile tile)
+        private void _addToSector(Block block, Tile tile)
         {
             block.Location = tile;
             //todo ensure EVERY time a block is added that this is set 
 
-            if(block.BlockType!=BlockType.Ground)
+            if (block.BlockType != BlockType.Ground)
             {
                 _destructibleBlocks.Add(block);
             }
@@ -109,7 +74,7 @@ namespace IAmACube
                 _activeBlocks.Add(block);
             }
         }
-        public void RemoveBlockFromSector(Block block)
+        public void RemoveFromSector(Block block)
         {
             block.Location.ClearBlock(block.BlockType);
             block.Location = null;
@@ -122,6 +87,37 @@ namespace IAmACube
             {
                 _activeBlocks.Remove(block);
             }
+        }
+
+        public void AddSurfaceToSector(SurfaceBlock block,Tile tile)
+        {
+            if(tile.HasSurface)
+            {
+                Console.WriteLine("Warning: adding a surface block to a sector at a tile that has already been filled.");
+            }
+
+            tile.Surface = block;
+            _addToSector(block, tile);
+        }
+        public void AddEphemeralToSector(EphemeralBlock block, Tile tile)
+        {
+            if (tile.HasEphemeral)
+            {
+                Console.WriteLine("Warning: adding a surface block to a sector at a tile that has already been filled.");
+            }
+
+            tile.Ephemeral = block;
+            _addToSector(block, tile);
+        }
+        public void AddGroundToSector(GroundBlock block, Tile tile)
+        {
+            if (tile.Ground != null)
+            {
+                Console.WriteLine("Warning: adding ground to a sector at a tile that has already been filled.");
+            }
+
+            tile.Ground= block;
+            _addToSector(block, tile);
         }
     }
 }

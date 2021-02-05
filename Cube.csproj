@@ -50,10 +50,10 @@
     <Compile Include="Camera\CameraConfiguration.cs" />
     <Compile Include="Camera\CameraDrawLayer.cs" />
     <Compile Include="Camera\CameraUtils.cs" />
-    <Compile Include="Camera\GridCamera.cs" />
+    <Compile Include="Camera\AdminCamera.cs" />
+    <Compile Include="Camera\DrawManager.cs" />
     <Compile Include="Camera\KernelCamera\DynamicCamera.cs" />
     <Compile Include="Camera\KernelCamera\KernelCamera.cs" />
-    <Compile Include="Camera\OffsetCamera.cs" />
     <Compile Include="Gameplay\Blocks\BaseBlockData\Block.cs" />
     <Compile Include="Gameplay\Blocks\BaseBlockData\BlockType.cs" />
     <Compile Include="Gameplay\Blocks\BlockMovementData.cs" />

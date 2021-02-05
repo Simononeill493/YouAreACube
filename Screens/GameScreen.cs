@@ -9,21 +9,19 @@ namespace IAmACube
 {
     class GameScreen : Screen
     {
-        private Camera _camera;
         private Game _game;
+        private Camera _currentCamera;
 
-        private GridCamera _adminCamera;
-        private OffsetCamera _offsetCamera;
+        private AdminCamera _adminCamera;
         private DynamicCamera _dynamicCamera;
 
         public GameScreen(Save save)
         {
-            _adminCamera = new GridCamera();
-            _offsetCamera = new OffsetCamera();
-            _dynamicCamera = new DynamicCamera(save.Kernel);
-
-            _camera = _dynamicCamera;
             _game = new Game(save);
+
+            _adminCamera = new AdminCamera();
+            _dynamicCamera = new DynamicCamera(save.Kernel);
+            _currentCamera = _dynamicCamera;
         }
 
         public override void Update(UserInput input)
@@ -31,27 +29,20 @@ namespace IAmACube
             _readKeys(input);
 
             _game.Update(input);
-            _camera.Update(input);
+            _currentCamera.Update(input);
         }
 
-        public override void Draw(DrawingInterface drawingInterface)
-        {
-            _camera.Draw(drawingInterface,_game.World);
-        }
+        public override void Draw(DrawingInterface drawingInterface) => _currentCamera.Draw(drawingInterface,_game.World); 
 
         private void _readKeys(UserInput input)
         {
             if(input.IsKeyJustPressed(Keys.M))
             {
-                _camera = _adminCamera;
+                _currentCamera = _adminCamera;
             }
             if (input.IsKeyJustPressed(Keys.N))
             {
-                _camera = _offsetCamera;
-            }
-            if (input.IsKeyJustPressed(Keys.B))
-            {
-                _camera = _dynamicCamera;
+                _currentCamera = _dynamicCamera;
             }
         }
     }

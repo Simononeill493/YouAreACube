@@ -12,13 +12,12 @@ namespace IAmACube
     {
         public Point LocationInSector;
 
-        public bool HasSurface => (Surface != null);
-        public bool HasEphemeral => (Ephemeral != null);
-
         public GroundBlock Ground { get; set; }
         public SurfaceBlock Surface { get; set; }
         public EphemeralBlock Ephemeral { get; set; }
 
+        public bool HasSurface => (Surface != null);
+        public bool HasEphemeral => (Ephemeral != null);
         public bool IsEdge => ((LocationInSector.X == 0) | (LocationInSector.X == Config.SectorSize-1) | (LocationInSector.Y == 0) | (LocationInSector.Y == Config.SectorSize-1));
         public bool IsCorner => (((LocationInSector.X == 0) | (LocationInSector.X == Config.SectorSize - 1)) & ((LocationInSector.Y == 0) | (LocationInSector.Y == Config.SectorSize - 1)));
 

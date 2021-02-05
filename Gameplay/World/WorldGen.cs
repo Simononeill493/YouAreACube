@@ -66,7 +66,7 @@ namespace IAmACube
                 var block = Templates.Generate(blockname,blockType);
                 var tileNum = r.Next(0, emptySize - 1);
 
-                sector.AddBlockToSector(block, emptyTiles[tileNum]);
+                sector.AddToSector(block, emptyTiles[tileNum]);
                 emptyTiles.RemoveAt(tileNum);
                 emptySize--;
             }

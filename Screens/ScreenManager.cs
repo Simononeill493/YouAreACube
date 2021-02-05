@@ -12,12 +12,12 @@ namespace IAmACube
     {
         public static Screen CurrentScreen;
 
-        public void Update(UserInput input)
+        public static void Update(UserInput input)
         {
             CurrentScreen.Update(input);
         }
 
-        public void Draw(DrawingInterface drawingInterface)
+        public static void Draw(DrawingInterface drawingInterface)
         {
             CurrentScreen.Draw(drawingInterface);
         }

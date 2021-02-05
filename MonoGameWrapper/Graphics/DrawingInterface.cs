@@ -99,8 +99,8 @@ namespace IAmACube
         public void DrawHUD(Kernel kernel,int x,int y)
         {
             var host = kernel.Host;
-            _primitivesHelper.DrawRectangle(x-2, y-2, 204, 54, Color.Black);
-            _primitivesHelper.DrawRectangle(x, y, (int)(200.0 * (host.EnergyRemainingPercentage)), 50, Color.Blue);
+            _primitivesHelper.DrawRectangle(x-2, y-2, 204, 29, Color.Black);
+            _primitivesHelper.DrawRectangle(x, y, (int)(200.0 * (host.EnergyRemainingPercentage)), 25, Color.Blue);
         }
 
 

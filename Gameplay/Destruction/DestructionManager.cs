@@ -18,7 +18,7 @@ namespace IAmACube
         {
             foreach(var block in sector.DoomedBlocks.ToList())
             {
-                sector.RemoveBlockFromSector(block);
+                sector.RemoveFromSector(block);
                 _moveManager.ManuallyCancelMovement(block);
             }
         }

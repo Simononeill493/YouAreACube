@@ -9,9 +9,9 @@ namespace IAmACube
     abstract class KernelCamera : Camera
     {
         protected Kernel _kernel;
-        protected (int x, int y) kernelScreenPos;
+        protected Point kernelScreenPos;
 
-        public KernelCamera(Kernel kernel)
+        public KernelCamera(Kernel kernel) : base()
         {
             _kernel = kernel;
         }
@@ -21,16 +21,13 @@ namespace IAmACube
             kernelScreenPos = _config.GetPosOnScreen(_kernel.Host);
             _kernelCameraUpdate(input);
         }
-        protected override void _draw(World world)
+
+        public override void Draw(DrawingInterface drawingInterface, World world)
         {
-            base._draw(world);
-            _drawHUD();
+            base.Draw(drawingInterface, world);
+            _drawManager.DrawHUD(_kernel);
         }
 
-        protected void _drawHUD()
-        {
-            _drawingInterface.DrawHUD(_kernel,MonoGameWindow.CurrentWidth/16, MonoGameWindow.CurrentHeight / 16);
-        }
         protected abstract void _kernelCameraUpdate(UserInput input);
     }
 }

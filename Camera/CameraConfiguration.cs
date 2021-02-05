@@ -10,14 +10,9 @@ namespace IAmACube
     {
         public int Scale = 1;
 
-        public int XGridPosition;
-        public int YGridPosition;
-
-        public int XPartialGridOffset;
-        public int YPartialGridOffset;
-
-        public int XOffsetTrue => (TileSizeScaled * XGridPosition) + XPartialGridOffset;
-        public int YOffsetTrue => (TileSizeScaled * YGridPosition) + YPartialGridOffset;
+        public Point GridPosition;
+        public Point PartialGridOffset;
+        public Point OffsetTrue => (GridPosition * TileSizeScaled) + PartialGridOffset;
 
         public int TileSizeScaled;
         public int VisibleGridWidth;
@@ -36,32 +31,31 @@ namespace IAmACube
         }
         public void RollOverPartialOffsets()
         {
-            if (XPartialGridOffset > TileSizeScaled)
+            if (PartialGridOffset.X > TileSizeScaled)
             {
-                XGridPosition += (XPartialGridOffset / TileSizeScaled);
-                XPartialGridOffset = XPartialGridOffset % TileSizeScaled;
+                GridPosition.X += (PartialGridOffset.X / TileSizeScaled);
+                PartialGridOffset.X = PartialGridOffset.X % TileSizeScaled;
             }
-            if (YPartialGridOffset > TileSizeScaled)
+            if (PartialGridOffset.Y > TileSizeScaled)
             {
-                YGridPosition += (YPartialGridOffset / TileSizeScaled);
-                YPartialGridOffset = YPartialGridOffset % TileSizeScaled;
+                GridPosition.Y += (PartialGridOffset.Y / TileSizeScaled);
+                PartialGridOffset.Y = PartialGridOffset.Y % TileSizeScaled;
             }
-            if (XPartialGridOffset < 0)
+            if (PartialGridOffset.X < 0)
             {
-                XGridPosition -= ((-XPartialGridOffset / TileSizeScaled) + 1);
-                XPartialGridOffset = TileSizeScaled - ((-XPartialGridOffset % TileSizeScaled));
+                GridPosition.X -= ((-PartialGridOffset.X / TileSizeScaled) + 1);
+                PartialGridOffset.X = TileSizeScaled - ((-PartialGridOffset.X % TileSizeScaled));
             }
-            if (YPartialGridOffset < 0)
+            if (PartialGridOffset.Y < 0)
             {
-                YGridPosition -= ((-YPartialGridOffset / TileSizeScaled) + 1);
-                YPartialGridOffset = TileSizeScaled - ((-YPartialGridOffset % TileSizeScaled));
+                GridPosition.Y -= ((-PartialGridOffset.Y / TileSizeScaled) + 1);
+                PartialGridOffset.Y = TileSizeScaled - ((-PartialGridOffset.Y % TileSizeScaled));
             }
         }
 
-        public (int x, int y) GetPosOnScreen(Block block)
+        public Point GetPosOnScreen(Block block)
         {
-            var (XPos, YPos) = CameraUtils.GetBlockOffsetFromOrigin(block,TileSizeScaled);
-            return (XPos - XOffsetTrue, YPos - YOffsetTrue);
+            return CameraUtils.GetBlockOffsetFromOrigin(block, TileSizeScaled) - OffsetTrue;
         }
 
         public (int x,int y) GetCameraCentre()
@@ -72,15 +66,14 @@ namespace IAmACube
             return (xMidPoint, yMidPoint);
         }
 
-        public void ClampToBlock(Block block,int xOffset = 0, int yOffset = 0)
+        public void ClampToBlock(Block block,Point offset)
         {
-            XGridPosition = block.Location.LocationInSector.X - (VisibleGridWidth / 2);
-            YGridPosition = block.Location.LocationInSector.Y - (VisibleGridHeight / 2);
+            GridPosition.X = block.Location.AbsoluteLocation.X - (VisibleGridWidth / 2);
+            GridPosition.Y = block.Location.AbsoluteLocation.Y - (VisibleGridHeight / 2);
 
-            (XPartialGridOffset, YPartialGridOffset) = CameraUtils.GetMovementOffsets(block,TileSizeScaled);
+            (PartialGridOffset) = CameraUtils.GetMovementOffsets(block,TileSizeScaled);
 
-            XPartialGridOffset += xOffset;
-            YPartialGridOffset += yOffset;
+            PartialGridOffset += offset;
         }
     }
 }

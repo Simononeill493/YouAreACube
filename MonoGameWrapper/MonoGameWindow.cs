@@ -22,7 +22,7 @@ namespace IAmACube
         private DrawingInterface _drawingInterface;
         private GraphicsDeviceManager _graphicsDeviceManager;
         private AttachedConsoleManager _attachedConsoleManager;
-        private ScreenManager _screenManager;
+        //private ScreenManager _screenManager;
 
         private KeyboardState _currentKeyboardState;
         private IEnumerable<Keys> _allKeys;
@@ -47,7 +47,7 @@ namespace IAmACube
             this.Window.ClientSizeChanged += _attachedConsoleManager.ConsoleMoveEventHandler;
 
             _drawingInterface = new DrawingInterface();
-            _screenManager = new ScreenManager();
+
             ScreenManager.CurrentScreen = new TitleScreen();
             _currentKeyboardState = Keyboard.GetState();
 
@@ -60,7 +60,6 @@ namespace IAmACube
             _attachedConsoleManager.CheckWindowPositionAndUpdateConsole(Window.Position);
             var mouseState = Mouse.GetState();
             var newKeyState = Keyboard.GetState();
-
 
             var previouslyPressed = _currentKeyboardState.GetPressedKeys();
             var currentlyPressed = newKeyState.GetPressedKeys();
@@ -86,7 +85,7 @@ namespace IAmACube
             _currentKeyboardState = newKeyState;
             var input = new UserInput(mouseState, _currentKeyboardState, keysDown, keysUp);
 
-            _screenManager.Update(input);
+            ScreenManager.Update(input);
             base.Update(gameTime);
         }
 
@@ -104,10 +103,10 @@ namespace IAmACube
             CurrentHeight = _graphicsDeviceManager.GraphicsDevice.Viewport.Height;
 
             _drawingInterface.BeginDrawFrame();
-            _screenManager.Draw(_drawingInterface);
+            ScreenManager.Draw(_drawingInterface);
             _drawingInterface.EndDrawFrame();
-            base.Draw(gameTime);
 
+            base.Draw(gameTime);
         }
 
         protected override void LoadContent()
@@ -117,6 +116,7 @@ namespace IAmACube
 
         protected override void UnloadContent()
         {
+
         }
 
         private void WhenGameClosed(object sender, EventArgs e)

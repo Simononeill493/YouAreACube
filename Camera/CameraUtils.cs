@@ -8,10 +8,10 @@ namespace IAmACube
 {
     class CameraUtils
     {
-        public static (int x, int y) GetMovementOffsets(Block block,int tileSize)
+        public static Point GetMovementOffsets(Block block,int tileSize)
         {
             var offset = GetMovementOffset(block,tileSize);
-            return (block.MovementData.Offset.X * offset, block.MovementData.Offset.Y * offset);
+            return (block.MovementData.Offset * offset);
         }
 
         public static int GetMovementOffset(Block block, int tileSize)
@@ -24,14 +24,12 @@ namespace IAmACube
             return 0;
         }
 
-        public static (int x, int y) GetBlockOffsetFromOrigin(Block block,int tileSize)
+        public static Point GetBlockOffsetFromOrigin(Block block,int tileSize)
         {
-            var (offsetX, offsetY) = GetMovementOffsets(block, tileSize);
+            var offset = GetMovementOffsets(block, tileSize);
+            var pos = (block.Location.AbsoluteLocation * tileSize) + offset;
 
-            var XPos = (block.Location.LocationInSector.X * tileSize) + offsetX;
-            var YPos = (block.Location.LocationInSector.Y * tileSize) + offsetY;
-
-            return (XPos, YPos);
+            return pos;
         }
     }
 }

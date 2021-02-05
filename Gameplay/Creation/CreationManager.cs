@@ -42,7 +42,7 @@ namespace IAmACube
             newBlock.BeCreatedBy(creator);
             newBlock.Orientation = (Orientation)direction;
 
-            _currentSector.AddBlockToSector(newBlock, targetPosition);
+            _currentSector.AddToSector(newBlock, targetPosition);
         }
 
         private bool _canThisBlockBeCreated(Block creator, BlockTemplate template, BlockType blockType, Tile targetPosition)

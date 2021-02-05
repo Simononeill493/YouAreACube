@@ -4,7 +4,8 @@
     {
       "name":"BasicEnemy",
       "sprite":"BasicEnemy",
-      "speed":30
+      "speed":15,
+	  "energyCap":10000
     },
 	{
       "name":"ScaredEnemy",
@@ -25,7 +26,8 @@
 	{
       "name":"Spinner",
       "sprite":"Spinner",
-      "speed":15
+      "speed":10,
+	  "energyCap":10000
     },
 	{
       "name":"Bullet",

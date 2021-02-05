@@ -9,6 +9,8 @@ namespace IAmACube
     [Serializable()]
     public struct Point
     {
+        public static Point Zero => new Point(0, 0);
+
         public int X;
         public int Y;
 
@@ -20,8 +22,12 @@ namespace IAmACube
 
         public static Point operator +(Point p) => p;
         public static Point operator -(Point p) => new Point(-p.X,-p.Y);
+
         public static Point operator +(Point a, Point b) => new Point(a.X+b.X,a.Y+b.Y);
         public static Point operator -(Point a, Point b) => new Point(a.X - b.X, a.Y - b.Y);
+
+        public static Point operator *(Point p,int i) => new Point(p.X*i, p.Y*i);
+        public static Point operator /(Point p, int i) => new Point(p.X / i, p.Y / i);
 
         public static bool operator ==(Point a, Point b)
         {
@@ -94,5 +100,7 @@ namespace IAmACube
         {
             return ApproachDirection(other).Reverse();
         }
+
+        public bool WithinSectorBounds() => (X < Config.SectorSize & Y < Config.SectorSize & X > -1 & Y > -1);
     }
 }

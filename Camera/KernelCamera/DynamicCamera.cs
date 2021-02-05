@@ -10,8 +10,7 @@ namespace IAmACube
     class DynamicCamera : KernelCamera
     {
         private bool IsScrolling;
-        private int clampOffsetX;
-        private int clampOffsetY;
+        private Point clampOffset;
 
         private int _scrollEdge;
         private int _cameraScrollBoundary => _config.TileSizeScaled * _scrollEdge;
@@ -26,7 +25,7 @@ namespace IAmACube
             _scrollEdge = 4;
 
             _config.SetScreenScaling();
-            _config.ClampToBlock(kernel.Host);
+            _config.ClampToBlock(kernel.Host,new Point(0,0));
         }
 
         protected override void _kernelCameraUpdate(UserInput input)
@@ -45,7 +44,7 @@ namespace IAmACube
 
             if (IsScrolling)
             {
-                _config.ClampToBlock(_kernel.Host,clampOffsetX,clampOffsetY);
+                _config.ClampToBlock(_kernel.Host,clampOffset);
             }
         }
 
@@ -53,8 +52,8 @@ namespace IAmACube
         {
             var centre = _config.GetCameraCentre();
 
-            clampOffsetX = centre.x - kernelScreenPos.x;
-            clampOffsetY = centre.y - kernelScreenPos.y;
+            clampOffset.X = centre.x - kernelScreenPos.X;
+            clampOffset.Y = centre.y - kernelScreenPos.Y;
 
             IsScrolling = true;
 
@@ -63,25 +62,25 @@ namespace IAmACube
 
         private void _moveBackFromCameraBounds()
         {
-            if (kernelScreenPos.x <= _scrollBoundaryLeft)
+            if (kernelScreenPos.X <= _scrollBoundaryLeft)
             {
-                var difference = (_scrollBoundaryLeft - kernelScreenPos.x);
-                clampOffsetX -= (difference);
+                var difference = (_scrollBoundaryLeft - kernelScreenPos.X);
+                clampOffset.X -= (difference);
             }
-            if (kernelScreenPos.x >= _scrollBoundaryRight)
+            if (kernelScreenPos.X >= _scrollBoundaryRight)
             {
-                var difference = (kernelScreenPos.x - _scrollBoundaryRight);
-                clampOffsetX += (difference);
+                var difference = (kernelScreenPos.X - _scrollBoundaryRight);
+                clampOffset.X += (difference);
             }
-            if (kernelScreenPos.y <= _scrollBoundaryTop)
+            if (kernelScreenPos.Y <= _scrollBoundaryTop)
             {
-                var difference = (_scrollBoundaryTop - kernelScreenPos.y);
-                clampOffsetY -= (difference);
+                var difference = (_scrollBoundaryTop - kernelScreenPos.Y);
+                clampOffset.Y -= (difference);
             }
-            if (kernelScreenPos.y >= _scrollBoundaryBottom)
+            if (kernelScreenPos.Y >= _scrollBoundaryBottom)
             {
-                var difference = (kernelScreenPos.y - _scrollBoundaryBottom);
-                clampOffsetY += (difference);
+                var difference = (kernelScreenPos.Y - _scrollBoundaryBottom);
+                clampOffset.Y += (difference);
             }
         }
 
@@ -89,10 +88,10 @@ namespace IAmACube
         {
             var isOutOfBounds =
             (
-                kernelScreenPos.x < _scrollBoundaryLeft |
-                kernelScreenPos.y < _scrollBoundaryTop |
-                kernelScreenPos.x > _scrollBoundaryRight |
-                kernelScreenPos.y > _scrollBoundaryBottom
+                kernelScreenPos.X < _scrollBoundaryLeft |
+                kernelScreenPos.Y < _scrollBoundaryTop |
+                kernelScreenPos.X > _scrollBoundaryRight |
+                kernelScreenPos.Y > _scrollBoundaryBottom
             );
 
             return isOutOfBounds;
