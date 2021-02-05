@@ -13,7 +13,7 @@ namespace IAmACube
             DirectionUtils.Init();
             Templates.Load();
 
-            //TestCode();
+            TestCode();
 
             var game = new MonoGameWindow();
             game.Run();
@@ -21,7 +21,7 @@ namespace IAmACube
 
         public static void TestCode()
         {
-            //ChipTester.Go();
+            var world = WorldGen.GenerateEmptyWorld(59);
         }
     }
 }

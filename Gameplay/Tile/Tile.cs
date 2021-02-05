@@ -9,8 +9,9 @@ namespace IAmACube
     [Serializable()]
     public class Tile
     {
-        public int X;
-        public int Y;
+        public (int X,int Y) WorldOffset;
+        public (int X, int Y) SectorOffset;
+
         public Dictionary<CardinalDirection, Tile> Adjacent;
 
         public bool HasSurface => (Surface != null);
@@ -20,10 +21,14 @@ namespace IAmACube
         public SurfaceBlock Surface { get; set; }
         public EphemeralBlock Ephemeral { get; set; }
 
-        public Tile(int x, int y)
+        public bool IsEdge => ((SectorOffset.X == 0) | (SectorOffset.X == Config.SectorSize-1) | (SectorOffset.Y == 0) | (SectorOffset.Y == Config.SectorSize-1));
+        public bool IsCorner => (((SectorOffset.X == 0) | (SectorOffset.X == Config.SectorSize - 1)) & ((SectorOffset.Y == 0) | (SectorOffset.Y == Config.SectorSize - 1)));
+
+        public Tile(int sectorX, int sectorY,int worldX,int worldY)
         {
-            X = x;
-            Y = y;
+            SectorOffset = (sectorX, sectorY);
+            WorldOffset = (worldX, worldY);
+
             Adjacent = new Dictionary<CardinalDirection, Tile>();
         }
 
@@ -50,33 +55,33 @@ namespace IAmACube
 
         public CardinalDirection ApproachDirection(Tile other)
         {
-            if(other.X>X)
+            if(other.WorldOffset.X> WorldOffset.X)
             {
-                if(other.Y>Y)
+                if(other.WorldOffset.Y > WorldOffset.Y)
                 {
                     return CardinalDirection.SouthEast;
                 }
-                else if(other.Y<Y)
+                else if(other.WorldOffset.Y < WorldOffset.Y)
                 {
                     return CardinalDirection.NorthEast;
                 }
 
                 return CardinalDirection.East;
             }
-            else if(other.X<X)
+            else if(other.WorldOffset.X < WorldOffset.X)
             {
-                if (other.Y > Y)
+                if (other.WorldOffset.Y > WorldOffset.Y)
                 {
                     return CardinalDirection.SouthWest;
                 }
-                else if (other.Y < Y)
+                else if (other.WorldOffset.Y < WorldOffset.Y)
                 {
                     return CardinalDirection.NorthWest ;
                 }
 
                 return CardinalDirection.West;
             }
-            else if(other.Y>Y)
+            else if(other.WorldOffset.Y > WorldOffset.Y)
             {
                 return CardinalDirection.South;
             }
@@ -86,6 +91,17 @@ namespace IAmACube
         public CardinalDirection FleeDirection(Tile other)
         {
             return ApproachDirection(other).Reverse();
+        }
+
+
+        public bool HasNeighbour(CardinalDirection direction)
+        {
+            return Adjacent.ContainsKey(direction);
+        }
+
+        public override string ToString()
+        {
+            return "(" + WorldOffset.X + " " + WorldOffset.Y + ")" + " " + Adjacent.Count;
         }
     }
 }

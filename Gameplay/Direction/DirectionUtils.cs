@@ -8,11 +8,15 @@ namespace IAmACube
 {
     static class DirectionUtils
     {
+        public static List<CardinalDirection> Cardinals;
+
         private static Dictionary<CardinalDirection,CardinalDirection> _reverseDict;
         private static Dictionary<CardinalDirection, (int,int)> _XYOffsetDict;
 
         public static void Init()
         {
+            Cardinals = typeof(CardinalDirection).GetEnumValues().Cast<CardinalDirection>().ToList();
+
             _reverseDict = new Dictionary<CardinalDirection, CardinalDirection>
             {
                 [CardinalDirection.North] = CardinalDirection.South,
@@ -69,6 +73,27 @@ namespace IAmACube
             int res = x % m;
 
             return res >= 0 ? res : res + m; 
+        }
+    
+        public static (int x,int y) GetCoords((int X,int Y) coord,CardinalDirection direction)
+        {
+            var offs = _XYOffsetDict[direction];
+            return (coord.X + offs.Item1, coord.Y + offs.Item2);
+        }
+
+        public static List<(CardinalDirection,int, int)> GetAdjacentCoords((int X, int Y) coord)
+        {
+            return new List<(CardinalDirection,int, int)>()
+            {
+                (CardinalDirection.North,coord.X+0,coord.Y-1),
+                (CardinalDirection.South,coord.X+0,coord.Y+1),
+                (CardinalDirection.West,coord.X-1,coord.Y+0),
+                (CardinalDirection.East,coord.X+1,coord.Y+0),
+                (CardinalDirection.NorthEast,coord.X+1,coord.Y-1),
+                (CardinalDirection.SouthEast,coord.X+1,coord.Y+1),
+                (CardinalDirection.NorthWest,coord.X-1,coord.Y-1),
+                (CardinalDirection.SouthWest,coord.X-1,coord.Y+1),
+            };
         }
     }
 }

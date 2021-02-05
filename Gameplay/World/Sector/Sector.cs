@@ -9,19 +9,31 @@ namespace IAmACube
     [Serializable()]
     public class Sector
     {
+        public int Attached => TilesFlattened.Sum(e => e.Adjacent.Keys.Count());
+
         public Tile[,] Tiles;
         public List<Tile> TilesFlattened;
+        public List<Tile> Edges;
+        public List<Tile> Corners;
 
         private List<Block> _activeBlocks;
         private List<Block> _destructibleBlocks;
 
-        public Sector(Tile[,] tiles, List<Tile> tilesFlattened)
+        public (int X, int Y) SectorOffset;
+        public Dictionary<CardinalDirection, Sector> Adjacent;
+
+        public Sector(int xOffset,int yOffset,Tile[,] tiles, List<Tile> tilesFlattened)
         {
+            SectorOffset = (xOffset, yOffset);
             Tiles = tiles;
             TilesFlattened = tilesFlattened;
+            Edges = TilesFlattened.Where(t => t.IsEdge).ToList();
+            Corners = TilesFlattened.Where(t => t.IsCorner).ToList();
 
             _activeBlocks = new List<Block>();
             _destructibleBlocks = new List<Block>();
+
+            Adjacent = new Dictionary<CardinalDirection, Sector>();
         }
 
         public ActionsList UpdateBlocks(UserInput input,TickCounter tickCounter)
@@ -158,6 +170,12 @@ namespace IAmACube
         public List<Block> GetDoomedBlocks()
         {
             return _destructibleBlocks.Where(b => b.ShouldBeDestroyed()).ToList();
+        }
+
+
+        public bool HasNeighbour(CardinalDirection direction)
+        {
+            return Adjacent.ContainsKey(direction);
         }
     }
 }

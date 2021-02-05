@@ -80,6 +80,7 @@
     <Compile Include="Gameplay\Movement\MoveManager.cs" />
     <Compile Include="Gameplay\Direction\DirectionUtils.cs" />
     <Compile Include="Gameplay\Tick\WorldTicker.cs" />
+    <Compile Include="Gameplay\World\AttachmentUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Gameplay\Templates\BlockTemplate.cs" />
     <Compile Include="Camera\Camera.cs" />

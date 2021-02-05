@@ -10,12 +10,31 @@ namespace IAmACube
     {
         public static World GenerateEmptyWorld(int seed)
         {
-            var centre = _getInitializedSector();
+            var centre = GetTestSector(0,0);
             var world = new World(seed,centre);
-
-            _setBasicGround(world);
+            AttachmentUtils.AddOuterSectors(world);
 
             return world;
+        }
+
+
+
+
+
+        public static Sector GetTestSector(int xOffs, int yOffs)
+        {
+            var sector = _getInitializedSector(xOffs, yOffs);
+            _setBasicGround(sector);
+
+            return sector;
+        }
+        private static void _setBasicGround(Sector sector)
+        {
+            foreach (var tile in sector.Tiles)
+            {
+                var ground = Templates.GenerateGround("grassPatch");
+                sector.AddGroundToSector(ground, tile);
+            }
         }
 
         public static void AddPlayer(World world,SurfaceBlock player)
@@ -53,27 +72,15 @@ namespace IAmACube
                 emptySize--;
             }
         }
-        private static void _setBasicGround(World world)
+        private static Sector _getInitializedSector(int xOrigin,int yOrigin)
         {
-            foreach(var sector in world.Sectors)
-            {
-                foreach(var tile in sector.Tiles)
-                {
-                    var ground = Templates.GenerateGround("grassPatch");
-                    sector.AddGroundToSector(ground, tile);
-                }
-            }
-        }
+            var (tiles,tilesFlattened) = _getInitializedGrid(Config.SectorSize,xOrigin * Config.SectorSize,yOrigin * Config.SectorSize);
+            AttachmentUtils.AttachTileGridToSelf(tiles,Config.SectorSize);
 
-        private static Sector _getInitializedSector()
-        {
-            var (tiles,tilesFlattened) = _getInitializedGrid(Config.SectorSize);
-            _setGridAdjacents(tiles,Config.SectorSize);
-
-            var sector = new Sector(tiles, tilesFlattened);
+            var sector = new Sector(xOrigin,yOrigin,tiles, tilesFlattened);
             return sector;
         }
-        private static (Tile[,] tiles, List<Tile> tilesFlattened) _getInitializedGrid(int size)
+        private static (Tile[,] tiles, List<Tile> tilesFlattened) _getInitializedGrid(int size, int xOrigin, int yOrigin)
         {
             var tiles = new Tile[size, size];
             var tilesFlattened = new List<Tile>();
@@ -82,8 +89,12 @@ namespace IAmACube
             {
                 for (int j = 0; j < size; j++)
                 {
-                    var tile = new Tile(i,j);
+                    var xOffs = i + xOrigin;
+                    var yOffs = j + yOrigin;
+
+                    var tile = new Tile(i,j,xOffs, yOffs);
                     tiles[i, j] = tile;
+
                     tilesFlattened.Add(tile);
                 }
             }
@@ -91,32 +102,6 @@ namespace IAmACube
             return (tiles,tilesFlattened);
         }
 
-        private static void _setGridAdjacents(Tile[,] tiles,int size)
-        {
-            for (int i = 0; i < size; i++)
-            {
-                for (int j = 0; j < size; j++)
-                {
-                    var tile = tiles[i, j];
-                    _setAdjIfValid(tiles,tile, size, i, j - 1, CardinalDirection.North);
-                    _setAdjIfValid(tiles,tile, size, i + 1, j - 1, CardinalDirection.NorthEast);
-                    _setAdjIfValid(tiles,tile, size, i + 1, j, CardinalDirection.East);
-                    _setAdjIfValid(tiles,tile, size, i + 1, j + 1, CardinalDirection.SouthEast);
-                    _setAdjIfValid(tiles,tile, size, i, j + 1, CardinalDirection.South);
-                    _setAdjIfValid(tiles,tile, size, i - 1, j + 1, CardinalDirection.SouthWest);
-                    _setAdjIfValid(tiles,tile, size, i - 1, j, CardinalDirection.West);
-                    _setAdjIfValid(tiles,tile, size, i - 1, j - 1, CardinalDirection.NorthWest);
 
-                }
-            }
-
-        }
-        private static void _setAdjIfValid(Tile[,] tiles,Tile tile, int size, int x, int y, CardinalDirection direction)
-        {
-            if (x > -1 & y > -1 & x < size & y < size)
-            {
-                tile.Adjacent[direction] = tiles[x, y];
-            }
-        }
     }
 }

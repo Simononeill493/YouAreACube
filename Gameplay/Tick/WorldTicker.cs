@@ -21,14 +21,30 @@ namespace IAmACube
 
         public void TickWorld(World world,UserInput input,TickCounter tickCounter)
         {
+            _tickSectors(world, input, tickCounter);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private void _tickSectors(World world, UserInput input, TickCounter tickCounter)
+        {
             var sectorsToUpdate = world.GetUpdatingSectors(tickCounter);
             foreach (var sector in sectorsToUpdate)
             {
-                TickSector(sector,input, tickCounter);
+                _tickSector(sector, input, tickCounter);
             }
         }
-
-        public void TickSector(Sector sector,UserInput input,TickCounter tickCounter)
+        private void _tickSector(Sector sector,UserInput input,TickCounter tickCounter)
         {
             var actions = sector.UpdateBlocks(input, tickCounter);
             _actionManager.ProcessActions(sector, actions);

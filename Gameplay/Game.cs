@@ -26,6 +26,8 @@ namespace IAmACube
         public void Update(UserInput input)
         {
             Kernel.SupplyPowerToHost();
+            //World.Focus = World.GetContainingSector(Kernel.Host.Location);
+
             _updater.TickWorld(World, input, _tickCounter);
             _tickCounter.Tick();
 

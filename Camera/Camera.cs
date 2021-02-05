@@ -64,11 +64,11 @@ namespace IAmACube
         protected abstract void _update(UserInput input);
         protected virtual void _draw(World world)
         {
-            var sector = world.Current;
-            _drawTiles(sector);
+            var sector = world.Centre;
+            _drawTiles(world,world.Centre);
         }
 
-        protected void _drawTiles(Sector sector)
+        protected void _drawTiles(World world,Sector sector)
         {
             for (int i = -1; i < _config.VisibleGridWidth+1; i++)
             {
@@ -80,7 +80,15 @@ namespace IAmACube
                     var (tile, hasTile) = sector.TryGetTile(i + _config.XGridPosition, j + _config.YGridPosition);
                     if (!hasTile)
                     {
-                        _drawingInterface.DrawSprite("Black", xDrawPos, yDrawPos, _config.Scale);
+                        if(world.HasTile(i + _config.XGridPosition, j + _config.YGridPosition))
+                        {
+                            var outerTile = world.GetTile(i + _config.XGridPosition, j + _config.YGridPosition);
+                            _drawTile(outerTile, xDrawPos, yDrawPos);
+                        }
+                        else
+                        {
+                            _drawingInterface.DrawSprite("Black", xDrawPos, yDrawPos, _config.Scale);
+                        }
                         continue;
                     }
 
