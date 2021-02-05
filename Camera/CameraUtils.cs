@@ -28,8 +28,8 @@ namespace IAmACube
         {
             var (offsetX, offsetY) = GetMovementOffsets(block, tileSize);
 
-            var XPos = (block.Location.SectorOffset.X * tileSize) + offsetX;
-            var YPos = (block.Location.SectorOffset.Y * tileSize) + offsetY;
+            var XPos = (block.Location.LocationInSector.X * tileSize) + offsetX;
+            var YPos = (block.Location.LocationInSector.Y * tileSize) + offsetY;
 
             return (XPos, YPos);
         }

@@ -8,35 +8,28 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class Sector
+    public class Sector : LocationWithNeighbors<Sector>
     {
         public Tile[,] Tiles;
         public List<Tile> TilesFlattened;
-        public List<Tile> Edges;
+        public IEnumerable<Block> DoomedBlocks => _destructibleBlocks.Where(b => b.ShouldBeDestroyed());
 
         private List<Block> _activeBlocks;
         private List<Block> _destructibleBlocks;
 
-        public Point Location;
-        public Dictionary<CardinalDirection, Sector> Adjacent;
-
-        public Sector(Point location,Tile[,] tiles, List<Tile> tilesFlattened)
+        public Sector(Point location,Tile[,] tiles, List<Tile> tilesFlattened) : base(location)
         {
-            Location = location;
             Tiles = tiles;
             TilesFlattened = tilesFlattened;
 
             _activeBlocks = new List<Block>();
             _destructibleBlocks = new List<Block>();
-            Adjacent = new Dictionary<CardinalDirection, Sector>();
-
-            Edges = TilesFlattened.Where(t => t.IsEdge).ToList();
         }
 
-        public ActionsList UpdateBlocks(UserInput input,TickCounter tickCounter)
+        public ActionsList UpdateBlocks(UserInput input,TickManager tickCounter)
         {
             var actions = new ActionsList();
-            var toUpdate = _getBlocksUpdatingOnThisTick(tickCounter);
+            var toUpdate = tickCounter.GetUpdatingBlocks(_activeBlocks);
 
             foreach(var block in toUpdate)
             {
@@ -116,7 +109,6 @@ namespace IAmACube
                 _activeBlocks.Add(block);
             }
         }
-
         public void RemoveBlockFromSector(Block block)
         {
             block.Location.ClearBlock(block.BlockType);
@@ -130,20 +122,6 @@ namespace IAmACube
             {
                 _activeBlocks.Remove(block);
             }
-        }
-
-        private List<Block> _getBlocksUpdatingOnThisTick(TickCounter tickCounter)
-        {
-            return _activeBlocks.Where(b => (tickCounter.TotalTicks+b.SpeedOffset) % b.Speed == 0).ToList();
-        }
-        public List<Block> GetDoomedBlocks()
-        {
-            return _destructibleBlocks.Where(b => b.ShouldBeDestroyed()).ToList();
-        }
-
-        public bool HasNeighbour(CardinalDirection direction)
-        {
-            return Adjacent.ContainsKey(direction);
         }
     }
 }

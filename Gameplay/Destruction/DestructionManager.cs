@@ -16,9 +16,7 @@ namespace IAmACube
 
         public void DestroyDoomedBlocks(Sector sector)
         {
-            var toDestroy = sector.GetDoomedBlocks();
-
-            foreach(var block in toDestroy)
+            foreach(var block in sector.DoomedBlocks.ToList())
             {
                 sector.RemoveBlockFromSector(block);
                 _moveManager.ManuallyCancelMovement(block);

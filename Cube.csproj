@@ -81,6 +81,7 @@
     <Compile Include="Gameplay\Direction\DirectionUtils.cs" />
     <Compile Include="Gameplay\Tick\WorldTicker.cs" />
     <Compile Include="Gameplay\World\AttachmentUtils.cs" />
+    <Compile Include="Misc\LocationWithNeighbors.cs" />
     <Compile Include="Misc\Point.cs" />
     <Compile Include="Utils\WorldUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
@@ -123,7 +124,7 @@
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="Screens\Menus\TitleScreen.cs" />
     <Compile Include="Gameplay\Templates\Templates.cs" />
-    <Compile Include="Gameplay\Tick\TickCounter.cs" />
+    <Compile Include="Gameplay\Tick\TickManager.cs" />
     <Compile Include="Gameplay\Blocks\GroundBlock.cs" />
     <Compile Include="Gameplay\World\Sector\Sector.cs" />
     <Compile Include="Screens\ScreenManager.cs" />

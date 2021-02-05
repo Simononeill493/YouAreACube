@@ -54,5 +54,45 @@ namespace IAmACube
         {
             return "(" + X + " " + Y + ")";
         }
+
+        public CardinalDirection ApproachDirection(Point other)
+        {
+            if (other.X > X)
+            {
+                if (other.Y > Y)
+                {
+                    return CardinalDirection.SouthEast;
+                }
+                else if (other.Y < Y)
+                {
+                    return CardinalDirection.NorthEast;
+                }
+
+                return CardinalDirection.East;
+            }
+            else if (other.X < X)
+            {
+                if (other.Y > Y)
+                {
+                    return CardinalDirection.SouthWest;
+                }
+                else if (other.Y < Y)
+                {
+                    return CardinalDirection.NorthWest;
+                }
+
+                return CardinalDirection.West;
+            }
+            else if (other.Y > Y)
+            {
+                return CardinalDirection.South;
+            }
+
+            return CardinalDirection.North;
+        }
+        public CardinalDirection FleeDirection(Point other)
+        {
+            return ApproachDirection(other).Reverse();
+        }
     }
 }

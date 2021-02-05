@@ -13,7 +13,7 @@ namespace IAmACube
 
         public override void Run(Block actor, UserInput userInput, ActionsList actions)
         {
-            SetOutput(actor.Location.FleeDirection(ChipInput));
+            SetOutput(actor.Location.AbsoluteLocation.FleeDirection(ChipInput.AbsoluteLocation));
         }
     }
 }

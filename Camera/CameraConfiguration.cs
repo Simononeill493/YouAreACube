@@ -74,8 +74,8 @@ namespace IAmACube
 
         public void ClampToBlock(Block block,int xOffset = 0, int yOffset = 0)
         {
-            XGridPosition = block.Location.SectorOffset.X - (VisibleGridWidth / 2);
-            YGridPosition = block.Location.SectorOffset.Y - (VisibleGridHeight / 2);
+            XGridPosition = block.Location.LocationInSector.X - (VisibleGridWidth / 2);
+            YGridPosition = block.Location.LocationInSector.Y - (VisibleGridHeight / 2);
 
             (XPartialGridOffset, YPartialGridOffset) = CameraUtils.GetMovementOffsets(block,TileSizeScaled);
 

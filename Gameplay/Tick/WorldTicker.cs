@@ -19,7 +19,7 @@ namespace IAmACube
             _destructionManager = new DestructionManager(moveManager);
         }
 
-        public void TickWorld(World world,UserInput input,TickCounter tickCounter)
+        public void TickWorld(World world,UserInput input,TickManager tickCounter)
         {
             _tickSectors(world, input, tickCounter);
         }
@@ -36,7 +36,7 @@ namespace IAmACube
 
 
 
-        private void _tickSectors(World world, UserInput input, TickCounter tickCounter)
+        private void _tickSectors(World world, UserInput input, TickManager tickCounter)
         {
             var sectorsToUpdate = world.GetUpdatingSectors(tickCounter);
             foreach (var sector in sectorsToUpdate)
@@ -44,7 +44,7 @@ namespace IAmACube
                 _tickSector(sector, input, tickCounter);
             }
         }
-        private void _tickSector(Sector sector,UserInput input,TickCounter tickCounter)
+        private void _tickSector(Sector sector,UserInput input,TickManager tickCounter)
         {
             var actions = sector.UpdateBlocks(input, tickCounter);
             _actionManager.ProcessActions(sector, actions);

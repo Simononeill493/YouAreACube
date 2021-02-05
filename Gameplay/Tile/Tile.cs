@@ -8,12 +8,9 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class Tile
+    public class Tile : LocationWithNeighbors<Tile>
     {
-        public Point WorldOffset;
-        public Point SectorOffset;
-
-        public Dictionary<CardinalDirection, Tile> Adjacent;
+        public Point LocationInSector;
 
         public bool HasSurface => (Surface != null);
         public bool HasEphemeral => (Ephemeral != null);
@@ -22,20 +19,12 @@ namespace IAmACube
         public SurfaceBlock Surface { get; set; }
         public EphemeralBlock Ephemeral { get; set; }
 
-        public bool IsEdge => ((SectorOffset.X == 0) | (SectorOffset.X == Config.SectorSize-1) | (SectorOffset.Y == 0) | (SectorOffset.Y == Config.SectorSize-1));
-        public bool IsCorner => (((SectorOffset.X == 0) | (SectorOffset.X == Config.SectorSize - 1)) & ((SectorOffset.Y == 0) | (SectorOffset.Y == Config.SectorSize - 1)));
+        public bool IsEdge => ((LocationInSector.X == 0) | (LocationInSector.X == Config.SectorSize-1) | (LocationInSector.Y == 0) | (LocationInSector.Y == Config.SectorSize-1));
+        public bool IsCorner => (((LocationInSector.X == 0) | (LocationInSector.X == Config.SectorSize - 1)) & ((LocationInSector.Y == 0) | (LocationInSector.Y == Config.SectorSize - 1)));
 
-        public Tile(Point sectorOffs,Point worldOffs)
+        public Tile(Point sectorOffs,Point worldOffs) : base(worldOffs)
         {
-            SectorOffset = sectorOffs;
-            WorldOffset = worldOffs;
-
-            Adjacent = new Dictionary<CardinalDirection, Tile>();
-        }
-
-        public bool DirectionIsValid(CardinalDirection direction)
-        {
-            return Adjacent.ContainsKey(direction);
+            LocationInSector = sectorOffs;
         }
 
         public bool ContainsBlock(BlockType blockType)
@@ -67,57 +56,6 @@ namespace IAmACube
                     Ephemeral = null;
                     break;
             }
-        }
-
-        public CardinalDirection ApproachDirection(Tile other)
-        {
-            if(other.WorldOffset.X> WorldOffset.X)
-            {
-                if(other.WorldOffset.Y > WorldOffset.Y)
-                {
-                    return CardinalDirection.SouthEast;
-                }
-                else if(other.WorldOffset.Y < WorldOffset.Y)
-                {
-                    return CardinalDirection.NorthEast;
-                }
-
-                return CardinalDirection.East;
-            }
-            else if(other.WorldOffset.X < WorldOffset.X)
-            {
-                if (other.WorldOffset.Y > WorldOffset.Y)
-                {
-                    return CardinalDirection.SouthWest;
-                }
-                else if (other.WorldOffset.Y < WorldOffset.Y)
-                {
-                    return CardinalDirection.NorthWest ;
-                }
-
-                return CardinalDirection.West;
-            }
-            else if(other.WorldOffset.Y > WorldOffset.Y)
-            {
-                return CardinalDirection.South;
-            }
-
-            return CardinalDirection.North;
-        }
-        public CardinalDirection FleeDirection(Tile other)
-        {
-            return ApproachDirection(other).Reverse();
-        }
-
-
-        public bool HasNeighbour(CardinalDirection direction)
-        {
-            return Adjacent.ContainsKey(direction);
-        }
-
-        public override string ToString()
-        {
-            return "(" + WorldOffset.X + " " + WorldOffset.Y + ")" + " " + Adjacent.Count;
         }
     }
 }

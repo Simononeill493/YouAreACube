@@ -18,7 +18,7 @@ namespace IAmACube
                 {
                     if (!sector.HasNeighbour(cardinal))
                     {
-                        var coord = DirectionUtils.GetCoords(sector.Location, cardinal);
+                        var coord = DirectionUtils.GetCoords(sector.AbsoluteLocation, cardinal);
                         var newSector = WorldGen.GetTestSector(coord);
                         world.AddSector(newSector);
                     }
@@ -28,7 +28,7 @@ namespace IAmACube
 
         public static void AttachToWorld(World world, Sector sector)
         {
-            foreach (var coord in DirectionUtils.GetAdjacentCoords(sector.Location))
+            foreach (var coord in DirectionUtils.GetAdjacentCoords(sector.AbsoluteLocation))
             {
                 if (world.HasSector(coord.Item2))
                 {
@@ -44,13 +44,13 @@ namespace IAmACube
 
         private static void _attachTiles(World world, Sector sector)
         {
-            foreach (var edge in sector.Edges)
+            foreach (var edge in _getEdges(sector))
             {
                 foreach (var cardinal in DirectionUtils.Cardinals)
                 {
                     if (!edge.HasNeighbour(cardinal))
                     {
-                        var offs = DirectionUtils.GetCoords(edge.WorldOffset, cardinal);
+                        var offs = DirectionUtils.GetCoords(edge.AbsoluteLocation, cardinal);
                         if (world.HasTile(offs))
                         {
                             var tileToAttach = world.GetTile(offs);
@@ -87,6 +87,11 @@ namespace IAmACube
             {
                 tile.Adjacent[direction] = tiles[x, y];
             }
+        }
+
+        private static IEnumerable<Tile> _getEdges(Sector sector)
+        {
+            return sector.TilesFlattened.Where(t => t.IsEdge);
         }
     }
 }

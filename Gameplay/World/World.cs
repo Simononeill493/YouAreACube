@@ -27,7 +27,7 @@ namespace IAmACube
             SectorGrid[new Point(0, 0)] = Centre;
         }
 
-        public List<Sector> GetUpdatingSectors(TickCounter tickCounter)
+        public List<Sector> GetUpdatingSectors(TickManager tickCounter)
         {
             return new List<Sector> { Centre };
         }
@@ -50,7 +50,7 @@ namespace IAmACube
 
         public void AddSector(Sector sector)
         {
-            var location = sector.Location;
+            var location = sector.AbsoluteLocation;
             if(HasSector(location))
             {
                 throw new Exception("Sector already exists at this location");
@@ -69,7 +69,7 @@ namespace IAmACube
         }
         public Sector GetSector(Tile tile)
         {
-            var secCoords = WorldUtils.GetLocationOfSector(tile.WorldOffset);
+            var secCoords = WorldUtils.GetLocationOfSector(tile.AbsoluteLocation);
             var sector = SectorGrid[secCoords];
             return sector;
         }

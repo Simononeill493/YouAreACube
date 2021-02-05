@@ -13,13 +13,13 @@ namespace IAmACube
 
         private Save _save;
 
-        private TickCounter _tickCounter;
+        private TickManager _tickCounter;
         private WorldTicker _updater;
 
         public Game(Save save)
         {
             _save = save;
-            _tickCounter = new TickCounter();
+            _tickCounter = new TickManager();
             _updater = new WorldTicker();
         }
 
