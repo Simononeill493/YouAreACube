@@ -18,9 +18,9 @@ namespace IAmACube
                 {
                     if (!sector.HasNeighbour(cardinal))
                     {
-                        var coord = DirectionUtils.GetCoords(sector.SectorOffset, cardinal);
-                        var newSector = WorldGen.GetTestSector(coord.x, coord.y);
-                        world.AddSector(coord.x, coord.y, newSector);
+                        var coord = DirectionUtils.GetCoords(sector.Location, cardinal);
+                        var newSector = WorldGen.GetTestSector(coord);
+                        world.AddSector(newSector);
                     }
                 }
             }
@@ -28,11 +28,11 @@ namespace IAmACube
 
         public static void AttachToWorld(World world, Sector sector)
         {
-            foreach (var coord in DirectionUtils.GetAdjacentCoords(sector.SectorOffset))
+            foreach (var coord in DirectionUtils.GetAdjacentCoords(sector.Location))
             {
-                if (world.HasSector(coord.Item2, coord.Item3))
+                if (world.HasSector(coord.Item2))
                 {
-                    var toAttach = world.GetSector(coord.Item2, coord.Item3);
+                    var toAttach = world.GetSector(coord.Item2);
 
                     sector.Adjacent[coord.Item1] = toAttach;
                     toAttach.Adjacent[DirectionUtils.Reverse(coord.Item1)] = sector;
@@ -51,9 +51,9 @@ namespace IAmACube
                     if (!edge.HasNeighbour(cardinal))
                     {
                         var offs = DirectionUtils.GetCoords(edge.WorldOffset, cardinal);
-                        if (world.HasTile(offs.x, offs.y))
+                        if (world.HasTile(offs))
                         {
-                            var tileToAttach = world.GetTile(offs.x, offs.y);
+                            var tileToAttach = world.GetTile(offs);
                             edge.Adjacent[cardinal] = tileToAttach;
                             tileToAttach.Adjacent[DirectionUtils.Reverse(cardinal)] = edge;
                         }

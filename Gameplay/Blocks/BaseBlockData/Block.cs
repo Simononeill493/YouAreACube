@@ -91,6 +91,7 @@ namespace IAmACube
         public abstract bool CanOccupyDestination(Tile destination);
         public abstract bool ShouldBeDestroyed();
 
+
         public virtual void BeCreatedBy(Block creator)
         {
             this.SpeedOffset = creator.SpeedOffset + 1;

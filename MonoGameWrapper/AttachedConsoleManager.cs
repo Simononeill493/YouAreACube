@@ -5,16 +5,15 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using Point = Microsoft.Xna.Framework.Point;
 
 namespace IAmACube
 {
     public class AttachedConsoleManager
     {
         private GraphicsDevice _graphicsDevice;
-        private Point _lastRecordedPosition;
+        private Microsoft.Xna.Framework.Point _lastRecordedPosition;
 
-        public AttachedConsoleManager(GraphicsDevice graphicsDevice,Point firstPosition)
+        public AttachedConsoleManager(GraphicsDevice graphicsDevice, Microsoft.Xna.Framework.Point firstPosition)
         {
             _graphicsDevice = graphicsDevice;
             _lastRecordedPosition = firstPosition;
@@ -37,7 +36,7 @@ namespace IAmACube
             //Console.WriteLine("Console Moved");
         }
 
-        public void CheckWindowPositionAndUpdateConsole(Point currentPosition)
+        public void CheckWindowPositionAndUpdateConsole(Microsoft.Xna.Framework.Point currentPosition)
         {
             if(currentPosition!=_lastRecordedPosition)
             {

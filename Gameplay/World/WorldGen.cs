@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace IAmACube
     {
         public static World GenerateEmptyWorld(int seed)
         {
-            var centre = GetTestSector(0,0);
+            var centre = GetTestSector(new Point(0,0));
             var world = new World(seed,centre);
             AttachmentUtils.AddOuterSectors(world);
 
@@ -19,11 +20,9 @@ namespace IAmACube
 
 
 
-
-
-        public static Sector GetTestSector(int xOffs, int yOffs)
+        public static Sector GetTestSector(Point coords)
         {
-            var sector = _getInitializedSector(xOffs, yOffs);
+            var sector = _getInitializedSector(coords);
             _setBasicGround(sector);
 
             return sector;
@@ -72,12 +71,12 @@ namespace IAmACube
                 emptySize--;
             }
         }
-        private static Sector _getInitializedSector(int xOrigin,int yOrigin)
+        private static Sector _getInitializedSector(Point originCoords)
         {
-            var (tiles,tilesFlattened) = _getInitializedGrid(Config.SectorSize,xOrigin * Config.SectorSize,yOrigin * Config.SectorSize);
+            var (tiles,tilesFlattened) = _getInitializedGrid(Config.SectorSize,originCoords.X * Config.SectorSize,originCoords.Y * Config.SectorSize);
             AttachmentUtils.AttachTileGridToSelf(tiles,Config.SectorSize);
 
-            var sector = new Sector(xOrigin,yOrigin,tiles, tilesFlattened);
+            var sector = new Sector(originCoords, tiles, tilesFlattened);
             return sector;
         }
         private static (Tile[,] tiles, List<Tile> tilesFlattened) _getInitializedGrid(int size, int xOrigin, int yOrigin)
@@ -92,7 +91,7 @@ namespace IAmACube
                     var xOffs = i + xOrigin;
                     var yOffs = j + yOrigin;
 
-                    var tile = new Tile(i,j,xOffs, yOffs);
+                    var tile = new Tile(new Point(i,j),new Point(xOffs, yOffs));
                     tiles[i, j] = tile;
 
                     tilesFlattened.Add(tile);

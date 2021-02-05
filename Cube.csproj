@@ -81,6 +81,8 @@
     <Compile Include="Gameplay\Direction\DirectionUtils.cs" />
     <Compile Include="Gameplay\Tick\WorldTicker.cs" />
     <Compile Include="Gameplay\World\AttachmentUtils.cs" />
+    <Compile Include="Misc\Point.cs" />
+    <Compile Include="Utils\WorldUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Gameplay\Templates\BlockTemplate.cs" />
     <Compile Include="Camera\Camera.cs" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace IAmACube
         public static List<CardinalDirection> Cardinals;
 
         private static Dictionary<CardinalDirection,CardinalDirection> _reverseDict;
-        private static Dictionary<CardinalDirection, (int,int)> _XYOffsetDict;
+        private static Dictionary<CardinalDirection, Point> _XYOffsetDict;
 
         public static void Init()
         {
@@ -29,16 +30,16 @@ namespace IAmACube
                 [CardinalDirection.SouthWest] = CardinalDirection.NorthEast
             };
 
-            _XYOffsetDict = new Dictionary<CardinalDirection, (int, int)>
+            _XYOffsetDict = new Dictionary<CardinalDirection, Point>
             {
-                [CardinalDirection.North] = (0, -1),
-                [CardinalDirection.South] = (0, 1),
-                [CardinalDirection.West] = (-1, 0),
-                [CardinalDirection.East] = (1, 0),
-                [CardinalDirection.NorthEast] = (1, -1),
-                [CardinalDirection.SouthEast] = (1, 1),
-                [CardinalDirection.NorthWest] = (-1, -1),
-                [CardinalDirection.SouthWest] = (-1, 1)
+                [CardinalDirection.North] = new Point(0, -1),
+                [CardinalDirection.South] = new Point(0, 1),
+                [CardinalDirection.West] = new Point(-1, 0),
+                [CardinalDirection.East] = new Point(1, 0),
+                [CardinalDirection.NorthEast] = new Point(1, -1),
+                [CardinalDirection.SouthEast] = new Point(1, 1),
+                [CardinalDirection.NorthWest] = new Point(-1, -1),
+                [CardinalDirection.SouthWest] = new Point(-1, 1)
             };
         }
 
@@ -54,7 +55,7 @@ namespace IAmACube
         }
 
         public static CardinalDirection Reverse(this CardinalDirection direction) => _reverseDict[direction];
-        public static (int x,int y) XYOffset(this CardinalDirection direction) => _XYOffsetDict[direction];
+        public static Point XYOffset(this CardinalDirection direction) => _XYOffsetDict[direction];
         public static (CardinalDirection left,CardinalDirection right) Parallel(this CardinalDirection dir)
         {
             var left = _underflowMod(((int)dir - 2), 8);
@@ -75,24 +76,24 @@ namespace IAmACube
             return res >= 0 ? res : res + m; 
         }
     
-        public static (int x,int y) GetCoords((int X,int Y) coord,CardinalDirection direction)
+        public static Point GetCoords(Point coord,CardinalDirection direction)
         {
             var offs = _XYOffsetDict[direction];
-            return (coord.X + offs.Item1, coord.Y + offs.Item2);
+            return coord + offs;
         }
 
-        public static List<(CardinalDirection,int, int)> GetAdjacentCoords((int X, int Y) coord)
+        public static List<(CardinalDirection,Point)> GetAdjacentCoords(Point coord)
         {
-            return new List<(CardinalDirection,int, int)>()
+            return new List<(CardinalDirection, Point)>()
             {
-                (CardinalDirection.North,coord.X+0,coord.Y-1),
-                (CardinalDirection.South,coord.X+0,coord.Y+1),
-                (CardinalDirection.West,coord.X-1,coord.Y+0),
-                (CardinalDirection.East,coord.X+1,coord.Y+0),
-                (CardinalDirection.NorthEast,coord.X+1,coord.Y-1),
-                (CardinalDirection.SouthEast,coord.X+1,coord.Y+1),
-                (CardinalDirection.NorthWest,coord.X-1,coord.Y-1),
-                (CardinalDirection.SouthWest,coord.X-1,coord.Y+1),
+                (CardinalDirection.North,new Point(coord.X+0,coord.Y-1)),
+                (CardinalDirection.South,new Point(coord.X+0,coord.Y+1)),
+                (CardinalDirection.West,new Point(coord.X-1,coord.Y+0)),
+                (CardinalDirection.East,new Point(coord.X+1,coord.Y+0)),
+                (CardinalDirection.NorthEast,new Point(coord.X+1,coord.Y-1)),
+                (CardinalDirection.SouthEast,new Point(coord.X+1,coord.Y+1)),
+                (CardinalDirection.NorthWest,new Point(coord.X-1,coord.Y-1)),
+                (CardinalDirection.SouthWest,new Point(coord.X-1,coord.Y+1))
             };
         }
     }

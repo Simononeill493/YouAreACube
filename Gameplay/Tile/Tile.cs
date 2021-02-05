@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +10,8 @@ namespace IAmACube
     [Serializable()]
     public class Tile
     {
-        public (int X,int Y) WorldOffset;
-        public (int X, int Y) SectorOffset;
+        public Point WorldOffset;
+        public Point SectorOffset;
 
         public Dictionary<CardinalDirection, Tile> Adjacent;
 
@@ -24,10 +25,10 @@ namespace IAmACube
         public bool IsEdge => ((SectorOffset.X == 0) | (SectorOffset.X == Config.SectorSize-1) | (SectorOffset.Y == 0) | (SectorOffset.Y == Config.SectorSize-1));
         public bool IsCorner => (((SectorOffset.X == 0) | (SectorOffset.X == Config.SectorSize - 1)) & ((SectorOffset.Y == 0) | (SectorOffset.Y == Config.SectorSize - 1)));
 
-        public Tile(int sectorX, int sectorY,int worldX,int worldY)
+        public Tile(Point sectorOffs,Point worldOffs)
         {
-            SectorOffset = (sectorX, sectorY);
-            WorldOffset = (worldX, worldY);
+            SectorOffset = sectorOffs;
+            WorldOffset = worldOffs;
 
             Adjacent = new Dictionary<CardinalDirection, Tile>();
         }
@@ -51,6 +52,21 @@ namespace IAmACube
 
             Console.WriteLine("Warning: tried to scan a tile for  an unrecognized block type: " + blockType);
             return false;
+        }
+        public void ClearBlock(BlockType blockType)
+        {
+            switch (blockType)
+            {
+                case BlockType.Surface:
+                    Surface = null;
+                    break;
+                case BlockType.Ground:
+                    Console.WriteLine("Warning: you can't clear the ground!");
+                    break;
+                case BlockType.Ephemeral:
+                    Ephemeral = null;
+                    break;
+            }
         }
 
         public CardinalDirection ApproachDirection(Tile other)

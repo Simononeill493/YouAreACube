@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,31 +10,27 @@ namespace IAmACube
     [Serializable()]
     public class Sector
     {
-        public int Attached => TilesFlattened.Sum(e => e.Adjacent.Keys.Count());
-
         public Tile[,] Tiles;
         public List<Tile> TilesFlattened;
         public List<Tile> Edges;
-        public List<Tile> Corners;
 
         private List<Block> _activeBlocks;
         private List<Block> _destructibleBlocks;
 
-        public (int X, int Y) SectorOffset;
+        public Point Location;
         public Dictionary<CardinalDirection, Sector> Adjacent;
 
-        public Sector(int xOffset,int yOffset,Tile[,] tiles, List<Tile> tilesFlattened)
+        public Sector(Point location,Tile[,] tiles, List<Tile> tilesFlattened)
         {
-            SectorOffset = (xOffset, yOffset);
+            Location = location;
             Tiles = tiles;
             TilesFlattened = tilesFlattened;
-            Edges = TilesFlattened.Where(t => t.IsEdge).ToList();
-            Corners = TilesFlattened.Where(t => t.IsCorner).ToList();
 
             _activeBlocks = new List<Block>();
             _destructibleBlocks = new List<Block>();
-
             Adjacent = new Dictionary<CardinalDirection, Sector>();
+
+            Edges = TilesFlattened.Where(t => t.IsEdge).ToList();
         }
 
         public ActionsList UpdateBlocks(UserInput input,TickCounter tickCounter)
@@ -122,35 +119,7 @@ namespace IAmACube
 
         public void RemoveBlockFromSector(Block block)
         {
-            switch (block.BlockType)
-            {
-                case BlockType.Surface:
-                    RemoveSurfaceFromSector((SurfaceBlock)block);
-                    break;
-                case BlockType.Ground:
-                    RemoveGroundFromToSector((GroundBlock)block);
-                    break;
-                case BlockType.Ephemeral:
-                    RemoveEphemeralFromSector((EphemeralBlock)block);
-                    break;
-            }
-        }
-        public void RemoveSurfaceFromSector(SurfaceBlock block)
-        {
-            block.Location.Surface = null;
-            _removeBlockFromSector(block);
-        }
-        public void RemoveGroundFromToSector(GroundBlock block)
-        {
-            throw new NotImplementedException();
-        }
-        public void RemoveEphemeralFromSector(EphemeralBlock block)
-        {
-            block.Location.Ephemeral = null;
-            _removeBlockFromSector(block);
-        }
-        private void _removeBlockFromSector(Block block)
-        {
+            block.Location.ClearBlock(block.BlockType);
             block.Location = null;
 
             if (block.BlockType != BlockType.Ground)
@@ -171,7 +140,6 @@ namespace IAmACube
         {
             return _destructibleBlocks.Where(b => b.ShouldBeDestroyed()).ToList();
         }
-
 
         public bool HasNeighbour(CardinalDirection direction)
         {

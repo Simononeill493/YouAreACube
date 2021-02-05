@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace IAmACube
         public int MovementPosition;
         public bool IsInCentreOfBlock => (MovementPosition == 0);
 
-        public (int X, int Y) Offset;
+        public Point Offset;
 
         public int Midpoint;
         public bool PastMidpoint;

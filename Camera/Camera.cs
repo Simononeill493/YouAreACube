@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,9 +81,9 @@ namespace IAmACube
                     var (tile, hasTile) = sector.TryGetTile(i + _config.XGridPosition, j + _config.YGridPosition);
                     if (!hasTile)
                     {
-                        if(world.HasTile(i + _config.XGridPosition, j + _config.YGridPosition))
+                        if(world.HasTile(new Point(i + _config.XGridPosition, j + _config.YGridPosition)))
                         {
-                            var outerTile = world.GetTile(i + _config.XGridPosition, j + _config.YGridPosition);
+                            var outerTile = world.GetTile(new Point(i + _config.XGridPosition, j + _config.YGridPosition));
                             _drawTile(outerTile, xDrawPos, yDrawPos);
                         }
                         else
