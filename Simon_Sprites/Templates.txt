@@ -4,7 +4,7 @@
     {
       "name":"BasicEnemy",
       "sprite":"BasicEnemy",
-      "speed":15,
+      "speed":9,
 	  "energyCap":10000
     },
 	{
@@ -16,7 +16,7 @@
       "name":"BasicPlayer",
       "sprite":"BasicPlayer",
 	  "energyCap":10000,
-      "speed":5
+      "speed":4
     },
 	{
       "name":"grassPatch",

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class ActionManager
+    [Serializable()]
+    public class ActionManager
     {
         private MoveManager _moveManager;
         private CreationManager _creationManager;
@@ -17,12 +18,11 @@ namespace IAmACube
             _creationManager =  creationManager;
         }
 
-        public void ProcessActions(Sector sectorToProcess,ActionsList effects)
+        public void ProcessActions(ActionsList actions)
         {
-            _creationManager.SetSector(sectorToProcess);
             _moveManager.TickCurrentMoves();
 
-            foreach(var effect in effects.Actions)
+            foreach(var effect in actions.Actions)
             {
                 switch (effect.ActionType)
                 {

@@ -6,9 +6,19 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
+    [Serializable()]
     public class MoveManager
     {
+        public Sector _sector;
+
         public List<Block> Moving = new List<Block>();
+        public List<(Block,Point)> _toMoveFromSector = new List<(Block, Point)>();
+        public List<(Block, Point)> MovedOutOfSector = new List<(Block, Point)>();
+
+        public MoveManager(Sector sector)
+        {
+            _sector = sector;
+        }
 
         public void TickCurrentMoves()
         {
@@ -17,7 +27,26 @@ namespace IAmACube
                 _processMovingBlock(movingBlock);
             }
 
+            _moveBlocksFromSector();
             _removeFinishedBlocks();
+        }
+
+        public void AddMovingBlockFromOtherSector(Block block)
+        {
+            Moving.Add(block);
+        }
+
+        public void _moveBlocksFromSector()
+        {
+            foreach(var toMove in _toMoveFromSector)
+            {
+                _sector.RemoveFromSectorLists(toMove.Item1);
+
+                Moving.Remove(toMove.Item1);
+                MovedOutOfSector.Add(toMove);
+            }
+
+            _toMoveFromSector.Clear();
         }
 
         public void TryStartMoving(Block block, RelativeDirection direction,int moveSpeed)
@@ -55,6 +84,11 @@ namespace IAmACube
                 if(block.TryMove(block.MovementData.Direction))
                 {
                     data.MovePastMidpoint();
+
+                    if(!block.InSector(_sector))
+                    {
+                        _toMoveFromSector.Add((block,block.Location.SectorID));
+                    }
                 }
                 else
                 {
@@ -62,6 +96,7 @@ namespace IAmACube
                 }
             }
         }
+
 
         private void _startMovement(Block block, CardinalDirection direction, int moveSpeed)
         {

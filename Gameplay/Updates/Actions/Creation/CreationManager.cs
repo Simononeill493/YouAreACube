@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
+    [Serializable()]
     public class CreationManager
     {
-        private Sector _currentSector;
-        public void SetSector(Sector sector)
+        private Sector _sector;
+        public List<(Block, Point)> CreatedOutOfSector = new List<(Block, Point)>();
+
+        public CreationManager (Sector sector)
         {
-            _currentSector = sector;
+            _sector = sector;
         }
 
         public bool TryCreate(Block creator,BlockTemplate template,BlockType blockType,CardinalDirection direction)
@@ -42,7 +45,16 @@ namespace IAmACube
             newBlock.BeCreatedBy(creator);
             newBlock.Orientation = (Orientation)direction;
 
-            _currentSector.AddToSector(newBlock, targetPosition);
+            targetPosition.AddBlock(newBlock);
+
+            if(targetPosition.InSector(_sector))
+            {
+                _sector.AddToSector(newBlock);
+            }
+            else
+            {
+                CreatedOutOfSector.Add((newBlock, targetPosition.SectorID));
+            }
         }
 
         private bool _canThisBlockBeCreated(Block creator, BlockTemplate template, BlockType blockType, Tile targetPosition)

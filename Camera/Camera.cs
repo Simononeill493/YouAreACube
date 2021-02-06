@@ -26,8 +26,6 @@ namespace IAmACube
             _config.SetScreenScaling();
             _update(input);
             _config.RollOverPartialOffsets();
-
-            Console.WriteLine(_config.GridPosition);
         }
 
         public virtual void Draw(DrawingInterface drawingInterface, World world)

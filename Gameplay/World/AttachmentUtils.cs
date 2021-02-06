@@ -91,7 +91,7 @@ namespace IAmACube
 
         private static IEnumerable<Tile> _getEdges(Sector sector)
         {
-            return sector.TilesFlattened.Where(t => t.IsEdge);
+            return sector.Tiles.Where(t => t.IsEdge);
         }
     }
 }

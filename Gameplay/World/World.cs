@@ -29,7 +29,24 @@ namespace IAmACube
 
         public List<Sector> GetUpdatingSectors(TickManager tickCounter)
         {
-            return new List<Sector> { Centre };
+            var list = new List<Sector> { SectorGrid[Kernel.HostStatic.Location.SectorID] };
+            return list;
+            //var list =  new List<Sector> { SectorGrid[new Point(0,0)] };
+
+            if(tickCounter.WorldTicks% 2==0)
+            {
+                list.Add(SectorGrid[new Point(-1, 0)]);
+            }
+            if (tickCounter.WorldTicks% 3 == 0)
+            {
+                list.Add(SectorGrid[new Point(-2, 0)]);
+            }
+            if (tickCounter.WorldTicks % 4 == 0)
+            {
+                list.Add(SectorGrid[new Point(-3, 0)]);
+            }
+
+            return list;
         }
 
         public bool HasTile(Point worldCoords)
@@ -43,7 +60,7 @@ namespace IAmACube
             var sector = GetSector(sectorLocation);
 
             var sectorTileCoords = WorldUtils.ConvertToSectorCoords(worldCoords);
-            var tile = sector.Tiles[sectorTileCoords.X, sectorTileCoords.Y];
+            var tile = sector.TileGrid[sectorTileCoords.X, sectorTileCoords.Y];
 
             return tile;
         }

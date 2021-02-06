@@ -40,6 +40,7 @@ namespace IAmACube
             if (Energy < 0) 
             {
                 Console.WriteLine("Warning: energy has gone negative.");
+                Energy = 0;
             }
 
         }
@@ -95,6 +96,11 @@ namespace IAmACube
         public virtual void BeCreatedBy(Block creator)
         {
             this.SpeedOffset = creator.SpeedOffset + 1;
+        }
+
+        public bool InSector(Sector sector)
+        {
+            return Location.InSector(sector);
         }
     }
 }

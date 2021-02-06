@@ -11,7 +11,7 @@ namespace IAmACube
         public const int TickCycleLength = 60;
         public const int TileSizeActual = 16;
 
-        public const int SectorSize = 32;
+        public const int SectorSize = 12;
         public const bool EnableFrameCounter = false;
 
         public const string SaveDirectory = @"C:\Users\Simon\Desktop\Cube\Cube\Saves";
