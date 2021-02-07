@@ -13,22 +13,17 @@ namespace IAmACube
         public WorldTicker _ticker;
 
         public Dictionary<Point, Sector> SectorGrid;
-        public Sector Centre;
         public Sector Focus;
 
         public Random Random;
         private int _seed;
 
-        public World(int seed,Sector centre)
+        public World(int seed)
         {
             _seed = seed;
             Random = new Random(_seed);
 
-            Centre = centre;
-
             SectorGrid = new Dictionary<Point, Sector>();
-            SectorGrid[new Point(0, 0)] = Centre;
-
             _ticker = new WorldTicker();
         }
 

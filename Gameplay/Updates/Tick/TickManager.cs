@@ -9,15 +9,15 @@ namespace IAmACube
     [Serializable()]
     public class TickManager
     {
-        public Dictionary<Point, int> SectorTicks;
-
-        public int TickInCycle;
         public int WorldTicks;
+        public int TickInCycle;
+
+        public Dictionary<Point, int> SectorTicks;
 
         public TickManager()
         {
             WorldTicks = 0;
-            SectorTicks = new Dictionary<Point, int>() { [new Point(0, 0)] = 0 };
+            SectorTicks = new Dictionary<Point, int>();
         }
 
         public void IncrementWorldTimer()

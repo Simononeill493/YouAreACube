@@ -11,7 +11,9 @@ namespace IAmACube
     {
         public Point AbsoluteLocation;
         public Dictionary<CardinalDirection, TContents> Adjacent;
+
         public List<TContents> Neighbours => Adjacent.Values.ToList();
+        public IEnumerable<CardinalDirection> EmptyAdjacents => DirectionUtils.Cardinals.Where(c => !Adjacent.ContainsKey(c));
 
         public LocationWithNeighbors(Point location)
         {
@@ -24,6 +26,7 @@ namespace IAmACube
             return Adjacent.ContainsKey(direction);
         }
 
+        
 
         public bool DirectionIsValid(CardinalDirection direction)
         {

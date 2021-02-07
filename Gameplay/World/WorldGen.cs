@@ -11,8 +11,9 @@ namespace IAmACube
     {
         public static World GenerateEmptyWorld(int seed)
         {
-            var centre = GetTestSector(new Point(0,0));
-            var world = new World(seed,centre);
+            var world = new World(seed);
+            var centre = GetTestSector(new Point(0, 0));
+            world.AddSector(centre);
 
             AttachmentUtils.AddOuterSectors(world);
             AttachmentUtils.AddOuterSectors(world);
@@ -54,7 +55,7 @@ namespace IAmACube
 
         public static void AddPlayer(World world,SurfaceBlock player)
         {
-            var centre = world.Centre;
+            var centre = world.GetSector(new Point(0,0));
             var tile = centre.TileGrid[0, 0];
 
             tile.AddSurface(player);
@@ -62,8 +63,10 @@ namespace IAmACube
         }
         public static void AddEntities(World world)
         {
-            _addRandom(world.Random, world.Centre, BlockType.Surface, "BasicEnemy", 32);
-            _addRandom(world.Random, world.Centre, BlockType.Surface, "Spinner", 32);
+            var centre = world.GetSector(new Point(0, 0));
+
+            _addRandom(world.Random, centre, BlockType.Surface, "BasicEnemy", 32);
+            _addRandom(world.Random, centre, BlockType.Surface, "Spinner", 32);
             //_addRandom(world.Random, world.Centre, BlockType.Ephemeral,"Bullet", 16);
         }
 

@@ -12,9 +12,12 @@ namespace IAmACube
         public Kernel Kernel => _save.Kernel;
         public World World => _save.World;
 
+        private SectorGenerator _sectorGenerator;
+
         public Game(Save save)
         {
             _save = save;
+            _sectorGenerator = new SectorGenerator();
         }
 
         public void Update(UserInput input)
@@ -23,6 +26,8 @@ namespace IAmACube
 
             World.FocusOn(Kernel.Host);
             World.Tick(input);
+
+            _sectorGenerator.GenerateAdjacentSectors(World);
 
             if(Config.KernelUnlimitedEnergy)
             {
