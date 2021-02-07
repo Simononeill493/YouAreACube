@@ -82,6 +82,7 @@
     <Compile Include="Gameplay\Updates\SectorUpdateManager.cs" />
     <Compile Include="Gameplay\Updates\Tick\WorldTicker.cs" />
     <Compile Include="Gameplay\World\AttachmentUtils.cs" />
+    <Compile Include="Gameplay\World\Sector\SectorGenerator.cs" />
     <Compile Include="Misc\LocationWithNeighbors.cs" />
     <Compile Include="Misc\Point.cs" />
     <Compile Include="Utils\WorldUtils.cs" />

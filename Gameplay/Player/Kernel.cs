@@ -9,13 +9,10 @@ namespace IAmACube
     [Serializable()]
     public class Kernel
     {
-        public static SurfaceBlock HostStatic;
-
         public SurfaceBlock Host;
 
         public void SupplyPowerToHost()
         {
-            HostStatic = Host;
             Host.AddEnergy(1);
         }
     }

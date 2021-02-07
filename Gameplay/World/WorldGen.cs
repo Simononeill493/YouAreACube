@@ -14,25 +14,20 @@ namespace IAmACube
             var centre = GetTestSector(new Point(0,0));
             var world = new World(seed,centre);
 
-            world.AddSector(GetTestSector(new Point(1, 0)));
-            world.AddSector(GetTestSector(new Point(2, 0)));
-            world.AddSector(GetTestSector(new Point(3, 0)));
-            world.AddSector(GetTestSector(new Point(3, 1)));
-            world.AddSector(GetTestSector(new Point(3, 2)));
-            world.AddSector(GetTestSector(new Point(3, 3)));
-            world.AddSector(GetTestSector(new Point(3, 4)));
-            world.AddSector(GetTestSector(new Point(2, 4)));
-            world.AddSector(GetTestSector(new Point(1, 4)));
-            world.AddSector(GetTestSector(new Point(0, 4)));
-            world.AddSector(GetTestSector(new Point(-1, 4)));
-            world.AddSector(GetTestSector(new Point(-2, 4)));
-            world.AddSector(GetTestSector(new Point(-3, 4)));
-            world.AddSector(GetTestSector(new Point(-3, 3)));
-            world.AddSector(GetTestSector(new Point(-3, 2)));
-            world.AddSector(GetTestSector(new Point(-3, 1)));
-            world.AddSector(GetTestSector(new Point(-3, 0)));
+            AttachmentUtils.AddOuterSectors(world);
+            AttachmentUtils.AddOuterSectors(world);
+
+            //world.AddSector(GetTestSector(new Point(1, 0)));
+            /*world.AddSector(GetTestSector(new Point(2, 0)));
+            world.AddSector(GetTestSector(new Point(2, 1)));
+            world.AddSector(GetTestSector(new Point(2, 2)));
+            world.AddSector(GetTestSector(new Point(1, 2)));
+            world.AddSector(GetTestSector(new Point(0, 2)));
+            world.AddSector(GetTestSector(new Point(-1, 2)));
+            world.AddSector(GetTestSector(new Point(-2, 2)));
+            world.AddSector(GetTestSector(new Point(-2, 1)));
             world.AddSector(GetTestSector(new Point(-2, 0)));
-            world.AddSector(GetTestSector(new Point(-1, 0)));
+            world.AddSector(GetTestSector(new Point(-1, 0)));*/
 
             //AttachmentUtils.AddOuterSectors(world);
 
@@ -67,8 +62,8 @@ namespace IAmACube
         }
         public static void AddEntities(World world)
         {
-            //_addRandom(world.Random, world.Centre, BlockType.Surface, "BasicEnemy", 16);
-            //_addRandom(world.Random, world.Centre, BlockType.Surface, "Spinner", 16);
+            _addRandom(world.Random, world.Centre, BlockType.Surface, "BasicEnemy", 32);
+            _addRandom(world.Random, world.Centre, BlockType.Surface, "Spinner", 32);
             //_addRandom(world.Random, world.Centre, BlockType.Ephemeral,"Bullet", 16);
         }
 

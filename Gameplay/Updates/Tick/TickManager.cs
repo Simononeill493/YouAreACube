@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
+    [Serializable()]
     public class TickManager
     {
         public Dictionary<Point, int> SectorTicks;
@@ -16,25 +17,23 @@ namespace IAmACube
         public TickManager()
         {
             WorldTicks = 0;
-            SectorTicks = new Dictionary<Point, int>();
+            SectorTicks = new Dictionary<Point, int>() { [new Point(0, 0)] = 0 };
         }
 
-        public void WorldTick()
+        public void IncrementWorldTimer()
         {
             WorldTicks++;
             TickInCycle = WorldTicks % Config.TickCycleLength;
         }
 
-        public void SectorTick(Sector sector)
+        public void IncrementSectorTimer(Sector sector)
         {
-            if(SectorTicks.ContainsKey(sector.AbsoluteLocation))
-            {
-                SectorTicks[sector.AbsoluteLocation]++;
-            }
-            else
-            {
-                SectorTicks[sector.AbsoluteLocation] = 1;
-            }
+            SectorTicks[sector.AbsoluteLocation]++;
+        }
+
+        public void AddSector(Sector sector)
+        {
+            SectorTicks[sector.AbsoluteLocation] = 0;
         }
 
         public IEnumerable<Block> GetUpdatingBlocks(Sector sector,List<Block> blocks)

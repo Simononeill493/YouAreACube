@@ -10,8 +10,11 @@ namespace IAmACube
     [Serializable()]
     public class World
     {
+        public WorldTicker _ticker;
+
         public Dictionary<Point, Sector> SectorGrid;
         public Sector Centre;
+        public Sector Focus;
 
         public Random Random;
         private int _seed;
@@ -25,28 +28,25 @@ namespace IAmACube
 
             SectorGrid = new Dictionary<Point, Sector>();
             SectorGrid[new Point(0, 0)] = Centre;
+
+            _ticker = new WorldTicker();
         }
+
+        public void Tick(UserInput input) => _ticker.TickWorld(this, input);
 
         public List<Sector> GetUpdatingSectors(TickManager tickCounter)
         {
-            var list = new List<Sector> { SectorGrid[Kernel.HostStatic.Location.SectorID] };
-            return list;
-            //var list =  new List<Sector> { SectorGrid[new Point(0,0)] };
+            var list = new List<Sector>();
 
-            if(tickCounter.WorldTicks% 2==0)
-            {
-                list.Add(SectorGrid[new Point(-1, 0)]);
-            }
-            if (tickCounter.WorldTicks% 3 == 0)
-            {
-                list.Add(SectorGrid[new Point(-2, 0)]);
-            }
-            if (tickCounter.WorldTicks % 4 == 0)
-            {
-                list.Add(SectorGrid[new Point(-3, 0)]);
-            }
+            list.Add(Focus);
+            list.AddRange(Focus.Neighbours);
 
             return list;
+        }
+
+        public void FocusOn(Block block)
+        {
+            Focus = GetSector(block.Location.SectorID);
         }
 
         public bool HasTile(Point worldCoords)
@@ -74,11 +74,13 @@ namespace IAmACube
             }
 
             SectorGrid[location] = sector;
+            _ticker.AddSector(sector);
+
             AttachmentUtils.AttachToWorld(this, sector);
         }
-        public bool HasSector(Point coords)
+        public bool HasSector(Point sectorCoords)
         {
-            return SectorGrid.ContainsKey(coords);
+            return SectorGrid.ContainsKey(sectorCoords);
         }
         public Sector GetSector(Point coord)
         {

@@ -9,23 +9,45 @@ namespace IAmACube
     [Serializable()]
     public class SectorUpdateManager
     {
-        public ActionManager ActionManager;
-        public MoveManager MoveManager;
-        public CreationManager CreationManager;
-        public DestructionManager DestructionManager;
+        private ActionManager _actionManager;
+        private MoveManager _moveManager;
+        private CreationManager _creationManager;
+        private DestructionManager _destructionManager;
 
         public SectorUpdateManager(Sector sector)
         {
-            MoveManager = new MoveManager(sector);
-            CreationManager = new CreationManager(sector);
-            DestructionManager = new DestructionManager(sector,MoveManager);
-            ActionManager = new ActionManager(MoveManager,CreationManager);
+            _moveManager = new MoveManager(sector);
+            _creationManager = new CreationManager(sector);
+            _destructionManager = new DestructionManager(sector,_moveManager);
+            _actionManager = new ActionManager(_moveManager,_creationManager);
         }
 
         public void Update(ActionsList actions)
         {
-            ActionManager.ProcessActions(actions);
-            DestructionManager.DestroyDoomedBlocks();
+            _actionManager.ProcessActions(actions);
+            _destructionManager.DestroyDoomedBlocks();
+        }
+
+        public void AddToTracking(Block block)
+        {
+            if (block.IsMoving)
+            {
+                _moveManager.AddMovingBlockFromOtherSector(block);
+            }
+        }
+
+        public List<(Block, Point)> GetSectorEmmigrants()
+        {
+            var list = new List<(Block, Point)>();
+            list.AddRange(_moveManager.MovedOutOfSector);
+            list.AddRange(_creationManager.CreatedOutOfSector);
+
+            return list;
+        }
+        public void ClearSectorEmmigrants()
+        {
+            _moveManager.MovedOutOfSector.Clear();
+            _creationManager.CreatedOutOfSector.Clear();
         }
     }
 }

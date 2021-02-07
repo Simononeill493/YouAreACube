@@ -8,28 +8,21 @@ namespace IAmACube
 {
     public class Game
     {
+        private Save _save;
         public Kernel Kernel => _save.Kernel;
         public World World => _save.World;
-
-        private Save _save;
-
-        private TickManager _tickCounter;
-        private WorldTicker _updater;
 
         public Game(Save save)
         {
             _save = save;
-            _tickCounter = new TickManager();
-            _updater = new WorldTicker();
         }
 
         public void Update(UserInput input)
         {
             Kernel.SupplyPowerToHost();
-            //World.Focus = World.GetContainingSector(Kernel.Host.Location);
 
-            _updater.TickWorld(World, input, _tickCounter);
-            _tickCounter.WorldTick();
+            World.FocusOn(Kernel.Host);
+            World.Tick(input);
 
             if(Config.KernelUnlimitedEnergy)
             {

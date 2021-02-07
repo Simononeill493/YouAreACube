@@ -10,8 +10,6 @@ namespace IAmACube
     [Serializable()]
     public class Sector : LocationWithNeighbors<Sector>
     {
-        public SectorUpdateManager UpdateManager;
-
         public Tile[,] TileGrid;
         public List<Tile> Tiles;
         public IEnumerable<Block> DoomedBlocks => _destructibleBlocks.Where(b => b.ShouldBeDestroyed());
@@ -19,9 +17,11 @@ namespace IAmACube
         private List<Block> _activeBlocks;
         private List<Block> _destructibleBlocks;
 
+        private SectorUpdateManager _updateManager;
+
         public Sector(Point location,Tile[,] tileGrid, List<Tile> tiles) : base(location)
         {
-            UpdateManager = new SectorUpdateManager(this);
+            _updateManager = new SectorUpdateManager(this);
 
             TileGrid = tileGrid;
             Tiles = tiles;
@@ -43,6 +43,8 @@ namespace IAmACube
             return actions;
         }
 
+        public void Update(ActionsList actions) => _updateManager.Update(actions);
+
         public Tile GetTile(Point point)
         {
             var tile = TileGrid[point.X, point.Y];
@@ -59,6 +61,8 @@ namespace IAmACube
             {
                 _activeBlocks.Add(block);
             }
+
+            _updateManager.AddToTracking(block);
         }
 
         public void RemoveFromSectorLists(Block block)
@@ -71,6 +75,14 @@ namespace IAmACube
             {
                 _activeBlocks.Remove(block);
             }
+        }
+
+        public List<(Block, Point)> FetchSectorEmmigrants()
+        {
+            var list = _updateManager.GetSectorEmmigrants();
+            _updateManager.ClearSectorEmmigrants();
+
+            return list;
         }
     }
 }
