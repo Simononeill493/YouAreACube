@@ -52,19 +52,19 @@ namespace IAmACube
             var backgroundSprite = SpriteManager.GetSprite(background);
             var horizontalScale = graphicsDevice.Viewport.Width / (float)backgroundSprite.Width;
             var verticallScale = graphicsDevice.Viewport.Height / (float)backgroundSprite.Height;
-            _spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), scale: new Vector2(horizontalScale, verticallScale));
+            _spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), scale: new Vector2(horizontalScale, verticallScale), layerDepth: MenuDrawLayer.BackgroundLayer);
         }
         public void DrawSprite(string spriteName, int x, int y,float layer,int scale = 1)
         {
             var sprite = SpriteManager.GetSprite(spriteName);
             _spriteBatch.Draw(sprite, new Vector2(x, y), scale: new Vector2(scale, scale),layerDepth: layer);
         }
-        public void DrawSpriteCentered(string spriteName, int x, int y, int scale = 1)
+        public void DrawSpriteCentered(string spriteName, int x, int y, int scale = 1,float layer = 1)
         {
             var sprite = SpriteManager.GetSprite(spriteName);
             var (xOffset, yoffset) = _transformCoordsToCenteredCoords(sprite.Width,sprite.Height, x, y, scale);
 
-            _spriteBatch.Draw(sprite, new Vector2(xOffset, yoffset), scale: new Vector2(scale, scale));
+            _spriteBatch.Draw(sprite, new Vector2(xOffset, yoffset), scale: new Vector2(scale, scale),layerDepth: layer);
         }
         public void DrawMenuItem(MenuItem item)
         {
@@ -73,26 +73,29 @@ namespace IAmACube
             //All menu items are drawn centered. 
             if(item.Highlightable & item.Hovering)
             {
-                DrawSpriteCentered(item.HighlightedSpriteName, x, y, item.Scale);
+                DrawSpriteCentered(item.HighlightedSpriteName, x, y, item.Scale, layer: MenuDrawLayer.MenuItemLayer);
             }
             else
             {
-                DrawSpriteCentered(item.SpriteName, x, y, item.Scale);
+                DrawSpriteCentered(item.SpriteName, x, y, item.Scale, layer: MenuDrawLayer.MenuItemLayer);
             }
 
             if(item.HasText)
             {
-                DrawText(item.Text, item.XPercentage, item.YPercentage, 2);
+                //if(item.Text.Contains("test"))
+                //{
+                    DrawText(item.Text, item.XPercentage, item.YPercentage, 2, layer: MenuDrawLayer.MenuTextLayer);
+                //}
             }
         }
-        public void DrawText(string text,int xPercentage,int yPercentage,int scale)
+        public void DrawText(string text,int xPercentage,int yPercentage,int scale,float layer)
         {
             var (x, y) = _screenPercentageToCoords(xPercentage, yPercentage);
             var dims = _spriteFont.MeasureString(text);
             var (xOffs, yOffs) = _transformCoordsToCenteredCoords((int)dims.X, (int)dims.Y, x, y, scale);
 
             //_spriteBatch.DrawString(_spriteFont, text, new Vector2(xOffs, yOffs),Color.Black);
-            _spriteBatch.DrawString(_spriteFont, text, new Vector2(xOffs, yOffs), Color.Black, 0, Vector2.Zero, scale,SpriteEffects.None,0);
+            _spriteBatch.DrawString(_spriteFont, text, new Vector2(xOffs, yOffs), Color.Black, 0, Vector2.Zero, scale,SpriteEffects.None,layer);
 
         }
 

@@ -9,6 +9,12 @@ namespace IAmACube
 {
     abstract class Screen
     {
+        protected Action<ScreenType> SwitchScreen;
+        public Screen(Action<ScreenType> switchScreen)
+        {
+            SwitchScreen = switchScreen;
+        }
+
         public abstract void Update(UserInput input);
         public abstract void Draw(DrawingInterface drawingInterface);
     }

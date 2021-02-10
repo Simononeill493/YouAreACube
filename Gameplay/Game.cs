@@ -34,5 +34,10 @@ namespace IAmACube
                 Kernel.Host.AddEnergy(Kernel.Host.EnergyCap);
             }
         }
+
+        public Save SaveAndQuit()
+        {
+            return _save;
+        }
     }
 }

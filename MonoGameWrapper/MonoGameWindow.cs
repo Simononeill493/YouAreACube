@@ -22,6 +22,7 @@ namespace IAmACube
         private DrawingInterface _drawingInterface;
         private GraphicsDeviceManager _graphicsDeviceManager;
         private AttachedConsoleManager _attachedConsoleManager;
+        private ScreenManager _screenManager;
 
         private KeyboardState _currentKeyboardState;
         private IEnumerable<Keys> _allKeys;
@@ -47,7 +48,8 @@ namespace IAmACube
 
             _drawingInterface = new DrawingInterface();
 
-            ScreenManager.CurrentScreen = new TitleScreen();
+            _screenManager = new ScreenManager();
+
             _currentKeyboardState = Keyboard.GetState();
 
             _allKeys = typeof(Keys).GetEnumValues().Cast<Keys>();
@@ -86,7 +88,7 @@ namespace IAmACube
             _currentKeyboardState = newKeyState;
             var input = new UserInput(mouseState, _currentKeyboardState, keysDown, keysUp);
 
-            ScreenManager.Update(input);
+            _screenManager.Update(input);
             base.Update(gameTime);
         }
 
@@ -104,7 +106,7 @@ namespace IAmACube
             CurrentHeight = _graphicsDeviceManager.GraphicsDevice.Viewport.Height;
 
             _drawingInterface.BeginDrawFrame();
-            ScreenManager.Draw(_drawingInterface);
+            _screenManager.Draw(_drawingInterface);
             _drawingInterface.EndDrawFrame();
 
             base.Draw(gameTime);

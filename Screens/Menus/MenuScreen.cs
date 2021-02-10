@@ -12,11 +12,16 @@ namespace IAmACube
         public string Background;
         public List<MenuItem> MenuItems = new List<MenuItem>();
 
+        public MenuScreen(Action<ScreenType> switchScreen) : base(switchScreen) { }
+
         public override void Draw(DrawingInterface drawingInterface)
         {
-            drawingInterface.DrawBackground(Background);
+            if(Background!=null)
+            {
+                drawingInterface.DrawBackground(Background);
+            }
 
-            foreach(var item in MenuItems)
+            foreach (var item in MenuItems)
             {
                 drawingInterface.DrawMenuItem(item);
             }

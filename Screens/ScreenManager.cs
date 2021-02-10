@@ -10,16 +10,59 @@ namespace IAmACube
 {
     class ScreenManager
     {
-        public static Screen CurrentScreen;
+        public Screen CurrentScreen;
+        public GameScreen CurrentGame;
 
-        public static void Update(UserInput input)
+        public ScreenManager()
+        {
+            CurrentScreen = new TitleScreen(SwitchScreen);
+        }
+
+        public void SwitchScreen(ScreenType screenType)
+        {
+            switch (screenType)
+            {
+                case ScreenType.Title:
+                    CurrentScreen = new TitleScreen(SwitchScreen);
+                    break;
+                case ScreenType.NewGame:
+                    CurrentScreen = new NewGameScreen(SwitchScreen);
+                    break;
+                case ScreenType.LoadGame:
+                    CurrentScreen = new LoadGameScreen(SwitchScreen, LoadSaveToScreen);
+                    break;
+                case ScreenType.Game:
+                    CurrentScreen = CurrentGame;
+                    break;
+                case ScreenType.TemplateExplorer:
+                    CurrentScreen = new TemplateExplorerScreen(SwitchScreen,CurrentGame);
+                    break;
+            }
+        }
+
+        public void LoadSaveToScreen(Save save) 
+        {
+            CurrentGame = new GameScreen(SwitchScreen,save);
+        }
+
+        public void Update(UserInput input)
         {
             CurrentScreen.Update(input);
         }
 
-        public static void Draw(DrawingInterface drawingInterface)
+        public void Draw(DrawingInterface drawingInterface)
         {
             CurrentScreen.Draw(drawingInterface);
         }
     }
+
+    public enum ScreenType
+    {
+        Title,
+        NewGame,
+        LoadGame,
+        Game,
+        TemplateExplorer
+    }
+    
 }

@@ -86,6 +86,8 @@
     <Compile Include="Gameplay\World\Sector\SectorGenerator.cs" />
     <Compile Include="Misc\LocationWithNeighbors.cs" />
     <Compile Include="Misc\Point.cs" />
+    <Compile Include="Screens\InGameScreens\TemplateExplorerScreen.cs" />
+    <Compile Include="Screens\Menus\MenuDrawLayer.cs" />
     <Compile Include="Utils\WorldUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Gameplay\Templates\BlockTemplate.cs" />
@@ -111,8 +113,8 @@
     <Compile Include="MonoGameWrapper\Graphics\SpriteManager.cs" />
     <Compile Include="Save\Save.cs" />
     <Compile Include="Save\SaveManager.cs" />
-    <Compile Include="Screens\GameScreen.cs" />
-    <Compile Include="Screens\LoadGameScreen.cs" />
+    <Compile Include="Screens\InGameScreens\GameScreen.cs" />
+    <Compile Include="Screens\PreGameScreens\LoadGameScreen.cs" />
     <Compile Include="Config\Config.cs" />
     <Compile Include="Gameplay\Direction\CardinalDirection.cs" />
     <Compile Include="Misc\FrameCounter.cs" />
@@ -123,9 +125,9 @@
     <Compile Include="Launcher.cs" />
     <Compile Include="Screens\Menus\MenuItem.cs" />
     <Compile Include="Screens\Menus\MenuScreen.cs" />
-    <Compile Include="Screens\NewGameScreen.cs" />
+    <Compile Include="Screens\PreGameScreens\NewGameScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
-    <Compile Include="Screens\TitleScreen.cs" />
+    <Compile Include="Screens\PreGameScreens\TitleScreen.cs" />
     <Compile Include="Gameplay\Templates\Templates.cs" />
     <Compile Include="Gameplay\Updates\Tick\TickManager.cs" />
     <Compile Include="Gameplay\Blocks\GroundBlock.cs" />
