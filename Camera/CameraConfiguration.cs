@@ -12,7 +12,7 @@ namespace IAmACube
 
         public Point GridPosition;
         public Point PartialGridOffset;
-        public Point OffsetTrue => (GridPosition * TileSizeScaled) + PartialGridOffset;
+        public Point ActualOffset;
 
         public int TileSizeScaled;
         public int VisibleGridWidth;
@@ -28,6 +28,8 @@ namespace IAmACube
             TileSizeScaled = Config.TileSizeActual * Scale;
             VisibleGridWidth = (MonoGameWindow.CurrentWidth / TileSizeScaled) + 1;
             VisibleGridHeight = (MonoGameWindow.CurrentHeight / TileSizeScaled) + 1;
+
+            ActualOffset = (GridPosition * TileSizeScaled) + PartialGridOffset;
         }
         public void RollOverPartialOffsets()
         {
@@ -55,7 +57,7 @@ namespace IAmACube
 
         public Point GetPosOnScreen(Block block)
         {
-            return CameraUtils.GetBlockOffsetFromOrigin(block, TileSizeScaled) - OffsetTrue;
+            return CameraUtils.GetBlockOffsetFromOrigin(block, TileSizeScaled) - ActualOffset;
         }
 
         public (int x,int y) GetCameraCentre()
@@ -66,7 +68,7 @@ namespace IAmACube
             return (xMidPoint, yMidPoint);
         }
 
-        public void ClampToBlock(Block block,Point offset)
+        public void SnapToBlock(Block block,Point offset)
         {
             GridPosition.X = block.Location.AbsoluteLocation.X - (VisibleGridWidth / 2);
             GridPosition.Y = block.Location.AbsoluteLocation.Y - (VisibleGridHeight / 2);

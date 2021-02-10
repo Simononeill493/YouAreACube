@@ -20,7 +20,7 @@ namespace IAmACube
         }
         public void DrawVoid(Point drawPos, CameraConfiguration cameraConfig)
         {
-            _drawingInterface.DrawSprite("Black", drawPos.X, drawPos.Y, cameraConfig.Scale);
+            _drawingInterface.DrawSprite("Black", drawPos.X, drawPos.Y, CameraDrawLayer.GroundLayer, cameraConfig.Scale);
         }
         public void DrawTile(Tile tile, Point drawPos,CameraConfiguration cameraConfig)
         {

@@ -54,6 +54,7 @@
     <Compile Include="Camera\DrawManager.cs" />
     <Compile Include="Camera\KernelCamera\DynamicCamera.cs" />
     <Compile Include="Camera\KernelCamera\KernelCamera.cs" />
+    <Compile Include="Camera\KernelCamera\ScrollBoundaries.cs" />
     <Compile Include="Gameplay\Blocks\BaseBlockData\Block.cs" />
     <Compile Include="Gameplay\Blocks\BaseBlockData\BlockType.cs" />
     <Compile Include="Gameplay\Blocks\BlockMovementData.cs" />
@@ -111,7 +112,7 @@
     <Compile Include="Save\Save.cs" />
     <Compile Include="Save\SaveManager.cs" />
     <Compile Include="Screens\GameScreen.cs" />
-    <Compile Include="Screens\Menus\LoadGameScreen.cs" />
+    <Compile Include="Screens\LoadGameScreen.cs" />
     <Compile Include="Config\Config.cs" />
     <Compile Include="Gameplay\Direction\CardinalDirection.cs" />
     <Compile Include="Misc\FrameCounter.cs" />
@@ -122,9 +123,9 @@
     <Compile Include="Launcher.cs" />
     <Compile Include="Screens\Menus\MenuItem.cs" />
     <Compile Include="Screens\Menus\MenuScreen.cs" />
-    <Compile Include="Screens\Menus\NewGameScreen.cs" />
+    <Compile Include="Screens\NewGameScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
-    <Compile Include="Screens\Menus\TitleScreen.cs" />
+    <Compile Include="Screens\TitleScreen.cs" />
     <Compile Include="Gameplay\Templates\Templates.cs" />
     <Compile Include="Gameplay\Updates\Tick\TickManager.cs" />
     <Compile Include="Gameplay\Blocks\GroundBlock.cs" />

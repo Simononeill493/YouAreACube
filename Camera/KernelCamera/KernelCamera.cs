@@ -9,7 +9,7 @@ namespace IAmACube
     abstract class KernelCamera : Camera
     {
         protected Kernel _kernel;
-        protected Point kernelScreenPos;
+        protected Point _kernelScreenPos;
 
         public KernelCamera(Kernel kernel) : base()
         {
@@ -18,7 +18,7 @@ namespace IAmACube
 
         protected override void _update(UserInput input)
         {
-            kernelScreenPos = _config.GetPosOnScreen(_kernel.Host);
+            _kernelScreenPos = _config.GetPosOnScreen(_kernel.Host);
             _kernelCameraUpdate(input);
         }
 

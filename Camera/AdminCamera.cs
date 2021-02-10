@@ -9,9 +9,6 @@ namespace IAmACube
 {
     public class AdminCamera : Camera
     {
-        protected override void _update(UserInput input)
-        {
-
-        }
+        protected override void _update(UserInput input) {}
     }
 }

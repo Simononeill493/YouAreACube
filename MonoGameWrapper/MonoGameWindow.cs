@@ -22,7 +22,6 @@ namespace IAmACube
         private DrawingInterface _drawingInterface;
         private GraphicsDeviceManager _graphicsDeviceManager;
         private AttachedConsoleManager _attachedConsoleManager;
-        //private ScreenManager _screenManager;
 
         private KeyboardState _currentKeyboardState;
         private IEnumerable<Keys> _allKeys;
@@ -38,8 +37,8 @@ namespace IAmACube
             Window.AllowUserResizing = true;
 
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
-            _graphicsDeviceManager.PreferredBackBufferWidth = 512; //Set the screen size.
-            _graphicsDeviceManager.PreferredBackBufferHeight = 512;
+            _graphicsDeviceManager.PreferredBackBufferWidth = 1024; //Set the screen size.
+            _graphicsDeviceManager.PreferredBackBufferHeight = 768;
             _graphicsDeviceManager.ApplyChanges();
             #endregion
 
@@ -52,6 +51,8 @@ namespace IAmACube
             _currentKeyboardState = Keyboard.GetState();
 
             _allKeys = typeof(Keys).GetEnumValues().Cast<Keys>();
+
+            Window.Position = new Microsoft.Xna.Framework.Point(16, 32);
         }
 
 
@@ -124,5 +125,6 @@ namespace IAmACube
         {
             Process.GetCurrentProcess().Kill();
         }
+
     }
 }

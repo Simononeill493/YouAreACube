@@ -101,6 +101,13 @@ namespace IAmACube
             return ApproachDirection(other).Reverse();
         }
 
-        public bool WithinSectorBounds() => (X < Config.SectorSize & Y < Config.SectorSize & X > -1 & Y > -1);
+        public bool InBoundsExclusive(int x, int y, int x2, int y2)
+        {
+            return InBoundsInclusive(x+1,y+1,x2-1,y2-1);
+        }
+        public bool InBoundsInclusive(int x,int y,int x2,int y2)
+        {
+            return ((X >= x) & (X <= x2) & (Y >= y) & (Y <= y2));
+        }
     }
 }

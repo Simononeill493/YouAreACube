@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,34 @@ namespace IAmACube
 
         public bool HasText = false;
         public string Text;
+
+        public void Update(UserInput input)
+        {
+            Hovering = IsMouseOver(input);
+
+            if (Hovering)
+            {
+                if (input.LeftButton == ButtonState.Pressed)
+                {
+                    ClickedOn = true;
+                }
+                else if (input.LeftButton == ButtonState.Released & ClickedOn & Clickable)
+                {
+                    ClickAction();
+
+                }
+                else if (!Hovering)
+                {
+                    ClickedOn = false;
+                }
+            }
+
+        }
+
+        public bool IsMouseOver(UserInput input)
+        {
+            var rect = DrawingInterface.GetMenuItemRectangle(this);
+            return rect.Contains(input.MouseX, input.MouseY);
+        }
     }
 }

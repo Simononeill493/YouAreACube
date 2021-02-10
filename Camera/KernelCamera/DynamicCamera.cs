@@ -9,92 +9,49 @@ namespace IAmACube
 {
     class DynamicCamera : KernelCamera
     {
-        private bool IsScrolling;
-        private Point clampOffset;
+        private bool _isScrolling;
+        private Point _clampOffset;
 
-        private int _scrollEdge;
-        private int _cameraScrollBoundary => _config.TileSizeScaled * _scrollEdge;
-        private int _scrollBoundaryTop => _cameraScrollBoundary - _config.TileSizeScaled;
-        private int _scrollBoundaryBottom => (MonoGameWindow.CurrentHeight - _cameraScrollBoundary);
-        private int _scrollBoundaryLeft => _cameraScrollBoundary - _config.TileSizeScaled;
-        private int _scrollBoundaryRight => (MonoGameWindow.CurrentWidth - _cameraScrollBoundary);
+        private int _borderNumTiles;
+        private ScrollBoundaries _boundary;
 
         public DynamicCamera(Kernel kernel) : base(kernel)
         {
             _config.Scale = 4;
-            _scrollEdge = 4;
+            _borderNumTiles = 4;
 
             _config.SetScreenScaling();
-            _config.ClampToBlock(kernel.Host,new Point(0,0));
+            _config.SnapToBlock(kernel.Host,Point.Zero);
         }
 
         protected override void _kernelCameraUpdate(UserInput input)
         {
-            if (_isKernelOutOfCameraBounds())
+            _boundary.Update(_borderNumTiles, _config.TileSizeScaled);
+
+            if(_boundary.WithinBoundary(_kernelScreenPos))
             {
-                if (!IsScrolling)
-                {
-                    _startScrollingWithPlayerMovement();
-                }
+                _isScrolling = false;
             }
-            else
+            else if(!_isScrolling)
             {
-                IsScrolling = false;
+                _startScrolling();
             }
 
-            if (IsScrolling)
+            if (_isScrolling)
             {
-                _config.ClampToBlock(_kernel.Host,clampOffset);
+                _config.SnapToBlock(_kernel.Host, _clampOffset);
             }
         }
 
-        protected void _startScrollingWithPlayerMovement()
+        protected void _startScrolling()
         {
             var centre = _config.GetCameraCentre();
 
-            clampOffset.X = centre.x - kernelScreenPos.X;
-            clampOffset.Y = centre.y - kernelScreenPos.Y;
+            _clampOffset.X = centre.x - _kernelScreenPos.X;
+            _clampOffset.Y = centre.y - _kernelScreenPos.Y;
+            _clampOffset += _boundary.GetBoundaryPushBack(_kernelScreenPos);
 
-            IsScrolling = true;
-
-            _moveBackFromCameraBounds();
-        }
-
-        private void _moveBackFromCameraBounds()
-        {
-            if (kernelScreenPos.X <= _scrollBoundaryLeft)
-            {
-                var difference = (_scrollBoundaryLeft - kernelScreenPos.X);
-                clampOffset.X -= (difference);
-            }
-            if (kernelScreenPos.X >= _scrollBoundaryRight)
-            {
-                var difference = (kernelScreenPos.X - _scrollBoundaryRight);
-                clampOffset.X += (difference);
-            }
-            if (kernelScreenPos.Y <= _scrollBoundaryTop)
-            {
-                var difference = (_scrollBoundaryTop - kernelScreenPos.Y);
-                clampOffset.Y -= (difference);
-            }
-            if (kernelScreenPos.Y >= _scrollBoundaryBottom)
-            {
-                var difference = (kernelScreenPos.Y - _scrollBoundaryBottom);
-                clampOffset.Y += (difference);
-            }
-        }
-
-        private bool _isKernelOutOfCameraBounds()
-        {
-            var isOutOfBounds =
-            (
-                kernelScreenPos.X < _scrollBoundaryLeft |
-                kernelScreenPos.Y < _scrollBoundaryTop |
-                kernelScreenPos.X > _scrollBoundaryRight |
-                kernelScreenPos.Y > _scrollBoundaryBottom
-            );
-
-            return isOutOfBounds;
+            _isScrolling = true;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace IAmACube
         public string Background;
         public List<MenuItem> MenuItems = new List<MenuItem>();
 
-        public void DrawBackgroundAndMenuItems(DrawingInterface drawingInterface)
+        public override void Draw(DrawingInterface drawingInterface)
         {
             drawingInterface.DrawBackground(Background);
 
@@ -22,36 +22,12 @@ namespace IAmACube
             }
         }
 
-        public void MenuScreenUpdate(UserInput input)
+        public override void Update(UserInput input)
         {
             foreach (var item in MenuItems)
             {
-                item.Hovering = _isMouseOverItem(input, item);
-
-                if (item.Hovering)
-                {
-                    if (input.LeftButton == ButtonState.Pressed)
-                    {
-                        item.ClickedOn = true;
-                    }
-                    else if (input.LeftButton == ButtonState.Released & item.ClickedOn & item.Clickable)
-                    {
-                        item.ClickAction();
-
-                    }
-                    else if (!item.Hovering)
-                    {
-                        item.ClickedOn = false;
-                    }
-
-                }
+                item.Update(input);
             }
-        }
-
-        private bool _isMouseOverItem(UserInput input,MenuItem menuItem)
-        {
-            var rect = DrawingInterface.GetMenuItemRectangle(menuItem);
-            return rect.Contains(input.MouseX, input.MouseY);
         }
     }
 }
