@@ -10,6 +10,8 @@ namespace IAmACube
     [Serializable()]
     public class BlockMovementData
     {
+        public bool IsMoving;
+
         public CardinalDirection Direction;
         public Tile Destination;
         public int MoveSpeed;
@@ -24,9 +26,9 @@ namespace IAmACube
         public bool AtMidpoint => (MovementPosition == Midpoint);
         public bool MovementComplete => (PastMidpoint & (MovementPosition == 0));
 
-        public BlockMovementData() { }
-        public BlockMovementData(Block block,CardinalDirection direction,int moveSpeed)
+        public void StartMoving(Block block, CardinalDirection direction, int moveSpeed)
         {
+            IsMoving = true;
             Direction = direction;
             PastMidpoint = false;
             MovementPosition = 0;
@@ -36,6 +38,12 @@ namespace IAmACube
             Offset = direction.XYOffset();
 
             Midpoint = ((moveSpeed + 1) / 2);
+        }
+        public void StopMoving()
+        {
+            IsMoving = false;
+            Destination = null;
+            MovementPosition = 0;
         }
 
         public void MovePastMidpoint()

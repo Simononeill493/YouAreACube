@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -10,46 +11,93 @@ namespace IAmACube
 {
     public class PrimitivesHelper
     {
-        private Texture2D _myBasicTexture;
+        private GraphicsDevice _graphicsDevice;
         private SpriteBatch _spriteBatch;
+        private SpriteFont _spriteFont;
+        private Texture2D _standardTexture;
 
-        public PrimitivesHelper(GraphicsDevice graphicsDevice,SpriteBatch spriteBatch)
+        public int ViewportWidth => _graphicsDevice.Viewport.Width;
+        public int ViewportHeight => _graphicsDevice.Viewport.Height;
+
+        public PrimitivesHelper() { }
+        public void LoadContent(GraphicsDevice graphicsDevice, ContentManager contentManager)
         {
-            _spriteBatch = spriteBatch;
-            _myBasicTexture = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            _graphicsDevice = graphicsDevice;
+            _spriteBatch = new SpriteBatch(graphicsDevice);
+            _spriteFont = contentManager.Load<SpriteFont>("PressStart2P");
 
+            _standardTexture = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            _standardTexture.SetData(new[] { Color.White });
             //Revisit this: this color is never used, but needs to be set for the texture to be visible.
-            _myBasicTexture.SetData<Color>(new[] { Color.White });
+
+            SpriteManager.LoadContent(contentManager);
         }
 
-        public void DrawHorizontalLine(int x1, int y1, int length)
-        //Draws a horizontal line extending right.
+        public void BeginDrawFrame()
         {
-            _spriteBatch.Draw(_myBasicTexture, new Rectangle(x1, y1, length, 1), null, Color.Green);
+            _graphicsDevice.Clear(Color.Black);
+            _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp);
         }
-
-        public void DrawVericalLine(int x1, int y1, int length)
-        //Draws a vertical line extending down.
+        public void EndDrawFrame()
         {
-            _spriteBatch.Draw(_myBasicTexture, new Rectangle(x1, y1, 1, length), null, Color.Green);
+            _spriteBatch.End();
         }
 
-        public void DrawRectangle(int x, int y, int width, int height, Color color)
+        public void DrawHorizontalLine(int x1, int y1, int length,float layer,Color color)
         {
-            _spriteBatch.Draw(_myBasicTexture,destinationRectangle: new Rectangle(x, y, width, height),color: color, layerDepth: CameraDrawLayer.MenuLayer);
+            _spriteBatch.Draw(_standardTexture, destinationRectangle: new Rectangle(x1, y1, length, 1), color: color, layerDepth: layer);
         }
-
-        public void DrawGrid(int width, int height, int squareSize)
+        public void DrawVericalLine(int x1, int y1, int length,float layer,Color color)
+        {
+            _spriteBatch.Draw(_standardTexture, destinationRectangle: new Rectangle(x1, y1, 1, length), color: color, layerDepth: layer);
+        }
+        public void DrawRectangle(int x, int y, int width, int height, float layer, Color color)
+        {
+            _spriteBatch.Draw(_standardTexture, destinationRectangle: new Rectangle(x, y, width, height),color: color, layerDepth: layer);
+        }
+        public void DrawGrid(int width, int height, int squareSize,float layer,Color color)
         {
             for(int i=0;i<width+1;i++)
             {
-                DrawVericalLine(i * squareSize, 0, height * squareSize);
+                DrawVericalLine(i * squareSize, 0, height * squareSize,layer,color);
             }
 
             for (int i = 0; i < height+1; i++)
             {
-                DrawHorizontalLine(0, i * squareSize,width*squareSize);
+                DrawHorizontalLine(0, i * squareSize,width*squareSize, layer, color);
             }
         }
+       
+        public void DrawSprite(string spriteName, int x, int y, int scale, float layer)
+        {
+            var sprite = SpriteManager.GetSprite(spriteName);
+            _spriteBatch.Draw(sprite, new Vector2(x, y), scale: new Vector2(scale, scale), layerDepth: layer);
+        }
+        public void DrawSpriteCentered(string spriteName, int x, int y, int scale, float layer)
+        {
+            var sprite = SpriteManager.GetSprite(spriteName);
+            var (xOffset, yoffset) = DrawUtils.GetCenteredCoords(sprite.Width, sprite.Height, x, y, scale);
+
+            _spriteBatch.Draw(sprite, new Vector2(xOffset, yoffset), scale: new Vector2(scale, scale), layerDepth: layer);
+        }
+        public void DrawText(string text, int xPercentage, int yPercentage, int scale, float layer)
+        {
+            var (x, y) = DrawUtils.ScreenPercentageToCoords(xPercentage, yPercentage);
+            var dims = _spriteFont.MeasureString(text);
+            var (xOffs, yOffs) = DrawUtils.GetCenteredCoords((int)dims.X, (int)dims.Y, x, y, scale);
+
+            //_spriteBatch.DrawString(_spriteFont, text, new Vector2(xOffs, yOffs),Color.Black);
+            _spriteBatch.DrawString(_spriteFont, text, new Vector2(xOffs, yOffs), Color.Black, 0, Vector2.Zero, scale, SpriteEffects.None, layer);
+        }
+
+        public void DrawStretchedToScreen(string spriteName)
+        {
+            var backgroundSprite = SpriteManager.GetSprite(spriteName);
+            var horizontalScale = ViewportWidth / (float)backgroundSprite.Width;
+            var verticallScale = ViewportHeight / (float)backgroundSprite.Height;
+
+            _spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), scale: new Vector2(horizontalScale, verticallScale), layerDepth: DrawLayers.BackgroundLayer);
+        }
+
     }
 }

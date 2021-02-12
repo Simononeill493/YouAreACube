@@ -10,130 +10,67 @@ namespace IAmACube
 {
     public class DrawingInterface
     {
-        public GraphicsDevice graphicsDevice;
-
-        private SpriteBatch _spriteBatch;
-        private SpriteFont _spriteFont;
-
         private PrimitivesHelper _primitivesHelper;
-
-        //Helper class to draw 2D primitive shapes; not a lot of native support for this
-
-        private ContentManager _contentManager;
-
-        public void LoadContent(GraphicsDevice graphicsDevice, ContentManager contentManager)
+        public DrawingInterface(PrimitivesHelper primitivesHelper)
         {
-            _spriteBatch = new SpriteBatch(graphicsDevice);
-            //_spriteFont = contentManager.Load<SpriteFont>("Connection3");
-            //_spriteFont = contentManager.Load<SpriteFont>("ConnectionSerif");
-            _spriteFont = contentManager.Load<SpriteFont>("PressStart2P");
-            //_spriteFont = contentManager.Load<SpriteFont>("Arial");
-
-            _primitivesHelper = new PrimitivesHelper(graphicsDevice, _spriteBatch);
-            _contentManager = contentManager;
-            SpriteManager.LoadContent(contentManager);
+            _primitivesHelper = primitivesHelper;
         }
 
-        public void BeginDrawFrame()
+        public void DrawBackground(string background) => _primitivesHelper.DrawStretchedToScreen(background);
+        public void DrawText(string text, int xPercentage, int yPercentage, int scale, float layer) => _primitivesHelper.DrawText(text, xPercentage, yPercentage, scale, layer);
+        
+        public void DrawTile(Tile tile, Point drawPos, CameraConfiguration cameraConfig)
         {
-            graphicsDevice.Clear(Color.Black);
-            //_spriteBatch.Begin();
+            DrawBlock(tile.Ground, drawPos, DrawLayers.GroundLayer, cameraConfig);
 
-           _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend,SamplerState.PointClamp);
+            if (tile.HasSurface)
+            {
+                DrawBlock(tile.Surface, drawPos, DrawLayers.SurfaceLayer, cameraConfig);
+            }
+            if (tile.HasEphemeral)
+            {
+                DrawBlock(tile.Ephemeral, drawPos, DrawLayers.EphemeralLayer, cameraConfig);
+            }
+        }
+        public void DrawBlock(Block block, Point drawPos, float layer, CameraConfiguration cameraConfig)
+        {
+            var offsetDrawPos = drawPos + CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizeScaled);
 
+            _primitivesHelper.DrawSprite(block.Sprite, offsetDrawPos.X, offsetDrawPos.Y, cameraConfig.Scale, layer);
         }
-        public void EndDrawFrame()
+        public void DrawVoid(Point drawPos, CameraConfiguration cameraConfig)
         {
-            _spriteBatch.End();
+            _primitivesHelper.DrawSprite("Black", drawPos.X, drawPos.Y, cameraConfig.Scale, DrawLayers.GroundLayer);
         }
 
-        public void DrawBackground(string background)
+        public void DrawHUD(Kernel kernel)
         {
-            var backgroundSprite = SpriteManager.GetSprite(background);
-            var horizontalScale = graphicsDevice.Viewport.Width / (float)backgroundSprite.Width;
-            var verticallScale = graphicsDevice.Viewport.Height / (float)backgroundSprite.Height;
-            _spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), scale: new Vector2(horizontalScale, verticallScale), layerDepth: MenuDrawLayer.BackgroundLayer);
+            DrawHUD(kernel, MonoGameWindow.CurrentWidth / 16, MonoGameWindow.CurrentHeight / 16);
         }
-        public void DrawSprite(string spriteName, int x, int y,float layer,int scale = 1)
+        public void DrawHUD(Kernel kernel, int x, int y)
         {
-            var sprite = SpriteManager.GetSprite(spriteName);
-            _spriteBatch.Draw(sprite, new Vector2(x, y), scale: new Vector2(scale, scale),layerDepth: layer);
+            var host = kernel.Host;
+            _primitivesHelper.DrawRectangle(x - 2, y - 2, 204, 29, DrawLayers.HUDLayer, Color.Black);
+            _primitivesHelper.DrawRectangle(x, y, (int)(200.0 * (host.EnergyRemainingPercentage)), 25, DrawLayers.HUDLayer, Color.Blue);
         }
-        public void DrawSpriteCentered(string spriteName, int x, int y, int scale = 1,float layer = 1)
-        {
-            var sprite = SpriteManager.GetSprite(spriteName);
-            var (xOffset, yoffset) = _transformCoordsToCenteredCoords(sprite.Width,sprite.Height, x, y, scale);
 
-            _spriteBatch.Draw(sprite, new Vector2(xOffset, yoffset), scale: new Vector2(scale, scale),layerDepth: layer);
-        }
         public void DrawMenuItem(MenuItem item)
         {
-            var (x, y) = _screenPercentageToCoords(item.XPercentage, item.YPercentage);
+            var (x, y) = DrawUtils.ScreenPercentageToCoords(item.XPercentage, item.YPercentage);
 
-            //All menu items are drawn centered. 
-            if(item.Highlightable & item.Hovering)
+            if (item.Highlightable & item.Hovering)
             {
-                DrawSpriteCentered(item.HighlightedSpriteName, x, y, item.Scale, layer: MenuDrawLayer.MenuItemLayer);
+                _primitivesHelper.DrawSpriteCentered(item.HighlightedSpriteName, x, y, item.Scale, layer: DrawLayers.MenuItemLayer);
             }
             else
             {
-                DrawSpriteCentered(item.SpriteName, x, y, item.Scale, layer: MenuDrawLayer.MenuItemLayer);
+                _primitivesHelper.DrawSpriteCentered(item.SpriteName, x, y, item.Scale, layer: DrawLayers.MenuItemLayer);
             }
 
-            if(item.HasText)
+            if (item.HasText)
             {
-                //if(item.Text.Contains("test"))
-                //{
-                    DrawText(item.Text, item.XPercentage, item.YPercentage, 2, layer: MenuDrawLayer.MenuTextLayer);
-                //}
+                _primitivesHelper.DrawText(item.Text, item.XPercentage, item.YPercentage, 2, layer: DrawLayers.MenuTextLayer);
             }
-        }
-        public void DrawText(string text,int xPercentage,int yPercentage,int scale,float layer)
-        {
-            var (x, y) = _screenPercentageToCoords(xPercentage, yPercentage);
-            var dims = _spriteFont.MeasureString(text);
-            var (xOffs, yOffs) = _transformCoordsToCenteredCoords((int)dims.X, (int)dims.Y, x, y, scale);
-
-            //_spriteBatch.DrawString(_spriteFont, text, new Vector2(xOffs, yOffs),Color.Black);
-            _spriteBatch.DrawString(_spriteFont, text, new Vector2(xOffs, yOffs), Color.Black, 0, Vector2.Zero, scale,SpriteEffects.None,layer);
-
-        }
-
-        public void DrawHUD(Kernel kernel,int x,int y)
-        {
-            var host = kernel.Host;
-            _primitivesHelper.DrawRectangle(x-2, y-2, 204, 29, Color.Black);
-            _primitivesHelper.DrawRectangle(x, y, (int)(200.0 * (host.EnergyRemainingPercentage)), 25, Color.Blue);
-        }
-
-
-        public static Rectangle GetMenuItemRectangle(MenuItem item)
-        //public static (int x1, int y1, int x2, int y2) GetMenuItemRectangle(MenuItem item)
-        {
-            var sprite = SpriteManager.GetSprite(item.SpriteName);
-
-            var (x, y) = _screenPercentageToCoords(item.XPercentage, item.YPercentage);
-            var (x1, y1) = _transformCoordsToCenteredCoords(sprite.Width,sprite.Height, x, y, item.Scale);
-
-            var x2 = x1 + sprite.Width * item.Scale;
-            var y2 = y1 + sprite.Height * item.Scale;
-
-            return new Rectangle(x1, y1, sprite.Width * item.Scale, sprite.Height * item.Scale);
-            //return (x1, y1, x2, y2);
-        }
-        private static (int xOffset, int yOffset) _transformCoordsToCenteredCoords(int width,int height, int x, int y, int scale)
-        {
-            var xOffset = x - ((int)((width / 2.0) * scale));
-            var yOffset = y - ((int)((height/ 2.0) * scale));
-
-            return (xOffset, yOffset);
-        }
-        private static (int x, int y) _screenPercentageToCoords(int xPercentage, int yPercentage)
-        {
-            var x = (int)(MonoGameWindow.CurrentWidth * (xPercentage / 100.0));
-            var y = (int)(MonoGameWindow.CurrentHeight * (yPercentage / 100.0));
-
-            return (x, y);
         }
     }
 }

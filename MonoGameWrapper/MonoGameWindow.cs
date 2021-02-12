@@ -20,6 +20,8 @@ namespace IAmACube
         public static int CurrentHeight;
 
         private DrawingInterface _drawingInterface;
+        private PrimitivesHelper _primitivesHelper;
+
         private GraphicsDeviceManager _graphicsDeviceManager;
         private AttachedConsoleManager _attachedConsoleManager;
         private ScreenManager _screenManager;
@@ -46,7 +48,8 @@ namespace IAmACube
             _attachedConsoleManager = new AttachedConsoleManager(GraphicsDevice,Window.Position);
             this.Window.ClientSizeChanged += _attachedConsoleManager.ConsoleMoveEventHandler;
 
-            _drawingInterface = new DrawingInterface();
+            _primitivesHelper = new PrimitivesHelper();
+            _drawingInterface = new DrawingInterface(_primitivesHelper);
 
             _screenManager = new ScreenManager();
 
@@ -101,20 +104,18 @@ namespace IAmACube
                 Console.Write((char)13);
             }
 
-            _drawingInterface.graphicsDevice = _graphicsDeviceManager.GraphicsDevice;
             CurrentWidth = _graphicsDeviceManager.GraphicsDevice.Viewport.Width;
             CurrentHeight = _graphicsDeviceManager.GraphicsDevice.Viewport.Height;
-
-            _drawingInterface.BeginDrawFrame();
+            _primitivesHelper.BeginDrawFrame();
             _screenManager.Draw(_drawingInterface);
-            _drawingInterface.EndDrawFrame();
+            _primitivesHelper.EndDrawFrame();
 
             base.Draw(gameTime);
         }
 
         protected override void LoadContent()
         {
-            _drawingInterface.LoadContent(GraphicsDevice, Content);
+            _primitivesHelper.LoadContent(GraphicsDevice, Content);
         }
 
         protected override void UnloadContent()

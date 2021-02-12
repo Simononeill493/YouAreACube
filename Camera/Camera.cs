@@ -11,12 +11,11 @@ namespace IAmACube
     public abstract class Camera
     {
         protected CameraConfiguration _config;
-        protected DrawManager _drawManager;
+        protected DrawingInterface _drawingInterface;
 
         public Camera()
         {
             _config = new CameraConfiguration();
-            _drawManager = new DrawManager();
         }
 
         public void Update(UserInput input)
@@ -30,7 +29,7 @@ namespace IAmACube
 
         public virtual void Draw(DrawingInterface drawingInterface, World world)
         {
-            _drawManager.SetDrawingInterface(drawingInterface);
+            _drawingInterface = drawingInterface;
             _drawTiles(world);
         }
 
@@ -55,11 +54,11 @@ namespace IAmACube
             if (world.HasTile(tileLocation))
             {
                 var outerTile = world.GetTile(tileLocation);
-                _drawManager.DrawTile(outerTile, drawPos, _config);
+                _drawingInterface.DrawTile(outerTile, drawPos, _config);
             }
             else
             {
-                _drawManager.DrawVoid(drawPos, _config);
+                _drawingInterface.DrawVoid(drawPos, _config);
             }
         }
 

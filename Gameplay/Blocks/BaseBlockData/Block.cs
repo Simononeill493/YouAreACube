@@ -13,9 +13,8 @@ namespace IAmACube
         public BlockType BlockType;
         public int SpeedOffset;
 
-        public bool IsMoving;
+        public bool IsMoving => MovementData.IsMoving;
         public bool IsInCentreOfBlock => MovementData.IsInCentreOfBlock;
-
         public BlockMovementData MovementData;
 
         public Orientation Orientation;

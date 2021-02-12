@@ -25,7 +25,7 @@ namespace IAmACube
         public override void Draw(DrawingInterface drawingInterface, World world)
         {
             base.Draw(drawingInterface, world);
-            _drawManager.DrawHUD(_kernel);
+            _drawingInterface.DrawHUD(_kernel);
         }
 
         protected abstract void _kernelCameraUpdate(UserInput input);

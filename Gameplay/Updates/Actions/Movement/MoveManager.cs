@@ -9,20 +9,20 @@ namespace IAmACube
     [Serializable()]
     public class MoveManager
     {
-        public Sector _sector;
-
-        public List<Block> Moving = new List<Block>();
-        public List<(Block,Point)> _toMoveFromSector = new List<(Block, Point)>();
         public List<(Block, Point)> MovedOutOfSector = new List<(Block, Point)>();
+        private List<(Block, Point)> _toMoveFromSector = new List<(Block, Point)>();
+
+        private List<Block> _moving = new List<Block>();
+        private Sector _sector;
 
         public MoveManager(Sector sector)
         {
             _sector = sector;
         }
 
-        public void TickCurrentMoves()
+        public void Tick()
         {
-            foreach (var movingBlock in Moving)
+            foreach (var movingBlock in _moving)
             {
                 _processMovingBlock(movingBlock);
             }
@@ -31,83 +31,87 @@ namespace IAmACube
             _removeFinishedBlocks();
         }
 
-        public void AddMovingBlockFromOtherSector(Block block)
-        {
-            Moving.Add(block);
-        }
-
-        public void _moveBlocksFromSector()
-        {
-            foreach(var toMove in _toMoveFromSector)
-            {
-                _sector.RemoveFromSectorLists(toMove.Item1);
-
-                Moving.Remove(toMove.Item1);
-                MovedOutOfSector.Add(toMove);
-            }
-
-            _toMoveFromSector.Clear();
-        }
-
-        public void TryStartMoving(Block block, RelativeDirection direction,int moveSpeed)
+        public void TryStartMoving(Block block, RelativeDirection direction, int moveSpeed)
         {
             var cardinal = DirectionUtils.ToCardinal(block.Orientation, direction);
-            TryStartMoving(block, cardinal,moveSpeed);
+            TryStartMoving(block, cardinal, moveSpeed);
         }
-        public void TryStartMoving(Block block,CardinalDirection direction, int moveSpeed)
+        public void TryStartMoving(Block block, CardinalDirection direction, int moveSpeed)
         {
             if (block.Location.DirectionIsValid(direction) & block.CanStartMoving())
             {
-                _startMovement(block, direction,moveSpeed);
+                _startMoving(block, direction, moveSpeed);
             }
         }
 
         public void ManuallyCancelMovement(Block block)
         {
-            if(block.IsMoving)
+            if (block.IsMoving)
             {
-                Moving.Remove(block);
+                _moving.Remove(block);
             }
         }
+        public void ManuallyAddMovingBlock(Block block)
+        {
+            _moving.Add(block);
+        }
 
+        private void _moveBlocksFromSector()
+        {
+            foreach(var toMove in _toMoveFromSector)
+            {
+                _sector.RemoveFromSectorLists(toMove.Item1);
+
+                _moving.Remove(toMove.Item1);
+                MovedOutOfSector.Add(toMove);
+            }
+
+            _toMoveFromSector.Clear();
+        }
         private void _processMovingBlock(Block block)
         {
             var data = block.MovementData;
             data.MovementPosition++;
 
-            if (_shouldCancelMovementEarly(block) | data.MovementComplete)
+            if (data.MovementComplete | _shouldCancelMovementEarly(block))
             {
-                _endMovement(block);
+                _stopMoving(block);
             }
             else if (data.AtMidpoint)
             {
-                if(block.TryMove(block.MovementData.Direction))
-                {
-                    data.MovePastMidpoint();
+                _tryMoveBlockToNewTile(block, data);
+            }
+        }
+        private void _tryMoveBlockToNewTile(Block block,BlockMovementData data)
+        {
+            if (block.TryMove(data.Direction))
+            {
+                data.MovePastMidpoint();
 
-                    if(!block.InSector(_sector))
-                    {
-                        _toMoveFromSector.Add((block,block.Location.SectorID));
-                    }
-                }
-                else
+                if (!block.InSector(_sector))
                 {
-                    _endMovement(block);
+                    _toMoveFromSector.Add((block, block.Location.SectorID));
                 }
+            }
+            else
+            {
+                _stopMoving(block);
             }
         }
 
-
-        private void _startMovement(Block block, CardinalDirection direction, int moveSpeed)
+        private void _startMoving(Block block, CardinalDirection direction, int moveSpeed)
         {
-            block.IsMoving = true;
-
-            block.MovementData = new BlockMovementData(block, direction, moveSpeed);
-            Moving.Add(block);
+            block.MovementData.StartMoving(block, direction, moveSpeed);
+            _moving.Add(block);
         }
-        private void _endMovement(Block block)
+        private void _stopMoving(Block block)
         {
-            block.IsMoving = false;
+            if (block.MovementData.MovementPosition == 1)
+            {
+                Console.WriteLine();
+            }
+
+            block.MovementData.StopMoving();
         }
 
         private bool _shouldCancelMovementEarly(Block block)
@@ -116,7 +120,7 @@ namespace IAmACube
         }
         private void _removeFinishedBlocks()
         {
-            Moving.RemoveAll(b => !b.IsMoving);
+            _moving.RemoveAll(b => !b.IsMoving);
         }
     }
 }

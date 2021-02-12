@@ -20,7 +20,7 @@ namespace IAmACube
 
         public void ProcessActions(ActionsList actions)
         {
-            _moveManager.TickCurrentMoves();
+            _moveManager.Tick();
 
             foreach(var effect in actions.Actions)
             {

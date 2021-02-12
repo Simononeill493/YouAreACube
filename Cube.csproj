@@ -48,10 +48,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Camera\CameraConfiguration.cs" />
-    <Compile Include="Camera\CameraDrawLayer.cs" />
     <Compile Include="Camera\CameraUtils.cs" />
     <Compile Include="Camera\AdminCamera.cs" />
-    <Compile Include="Camera\DrawManager.cs" />
     <Compile Include="Camera\KernelCamera\DynamicCamera.cs" />
     <Compile Include="Camera\KernelCamera\KernelCamera.cs" />
     <Compile Include="Camera\KernelCamera\ScrollBoundaries.cs" />
@@ -87,7 +85,8 @@
     <Compile Include="Misc\LocationWithNeighbors.cs" />
     <Compile Include="Misc\Point.cs" />
     <Compile Include="Screens\InGameScreens\TemplateExplorerScreen.cs" />
-    <Compile Include="Screens\Menus\MenuDrawLayer.cs" />
+    <Compile Include="Misc\DrawLayers.cs" />
+    <Compile Include="Utils\DrawUtils.cs" />
     <Compile Include="Utils\WorldUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Gameplay\Templates\BlockTemplate.cs" />
@@ -123,7 +122,7 @@
     <Compile Include="MonoGameWrapper\Graphics\PrimitivesHelper.cs" />
     <Compile Include="MonoGameWrapper\MonoGameWindow.cs" />
     <Compile Include="Launcher.cs" />
-    <Compile Include="Screens\Menus\MenuItem.cs" />
+    <Compile Include="Screens\Menus\MenuItems\MenuItem.cs" />
     <Compile Include="Screens\Menus\MenuScreen.cs" />
     <Compile Include="Screens\PreGameScreens\NewGameScreen.cs" />
     <Compile Include="Screens\Screen.cs" />

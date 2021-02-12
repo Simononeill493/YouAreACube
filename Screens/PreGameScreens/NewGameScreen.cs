@@ -57,7 +57,7 @@ namespace IAmACube
         public override void Draw(DrawingInterface drawingInterface)
         {
             base.Draw(drawingInterface);
-            drawingInterface.DrawText(WorldName, 50, 40, 2, MenuDrawLayer.MenuTextLayer);
+            drawingInterface.DrawText(WorldName, 50, 40, 2, DrawLayers.MenuTextLayer);
         }
 
         public override void Update(UserInput input)

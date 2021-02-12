@@ -32,7 +32,7 @@ namespace IAmACube
         {
             if (block.IsMoving)
             {
-                _moveManager.AddMovingBlockFromOtherSector(block);
+                _moveManager.ManuallyAddMovingBlock(block);
             }
         }
 
