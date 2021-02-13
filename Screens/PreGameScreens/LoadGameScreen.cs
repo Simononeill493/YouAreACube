@@ -23,23 +23,19 @@ namespace IAmACube
 
             for(int i=0;i<4;i++)
             {
-                var fileSlot = new MenuItem()
+                var fileSlot = new SpriteMenuItem()
                 {
                     SpriteName = "EmptyMenuRectangleMedium",
-                    XPercentage = 50,
-                    YPercentage = 15+(i*15),
-                    Scale = 3,
                 };
+
+                _setMenuPosition(fileSlot,50, 15 + (i * 15), PositioningMode.Relative);
 
                 var cur = i;
 
                 if(saves.Count()>i)
                 {
-                    Console.WriteLine("Fetched save " + i + ":\t" + saves[i]);
-                    fileSlot.Clickable = true;
-                    fileSlot.ClickAction = () => ClickSaveFile(cur);
-
-                    fileSlot.HasText = true;
+                    //Console.WriteLine("Fetched save " + i + ":\t" + saves[i]);
+                    fileSlot.OnClick = () => ClickSaveFile(cur);
                     fileSlot.Text = Path.GetFileNameWithoutExtension(saves[i]);
                 }
 

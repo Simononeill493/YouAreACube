@@ -13,31 +13,22 @@ namespace IAmACube
         {
             Background = "TitleBackground";
 
-            var newGameButton = new MenuItem() 
+            var newGameButton = new SpriteMenuItem() 
             { 
                 SpriteName = "NewGameMenu", 
-                HighlightedSpriteName = "NewGameMenu_Highlight", 
-                XPercentage = 50, 
-                YPercentage = 25, 
-                Scale = 3, 
-                Highlightable = true, 
-
-                Clickable = true,
-                ClickAction = GoToNewGame
+                HighlightedSpriteName = "NewGameMenu_Highlight",
+                OnClick = GoToNewGame
             };
 
-            var loadGameButton = new MenuItem() 
+            var loadGameButton = new SpriteMenuItem() 
             { 
                 SpriteName = "LoadGameMenu", 
                 HighlightedSpriteName = "LoadGameMenu_Highlight",
-                XPercentage = 50,
-                YPercentage = 50, 
-                Scale = 3, 
-                Highlightable = true,
-
-                Clickable = true,
-                ClickAction = GoToLoadGame
+                OnClick = GoToLoadGame
             };
+
+            _setMenuPosition(newGameButton,50, 25, PositioningMode.Relative);
+            _setMenuPosition(loadGameButton,50, 50, PositioningMode.Relative);
 
             MenuItems.Add(newGameButton);
             MenuItems.Add(loadGameButton);

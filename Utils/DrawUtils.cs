@@ -17,27 +17,26 @@ namespace IAmACube
             return (xOffset, yOffset);
         }
 
-        public static (int x, int y) ScreenPercentageToCoords(int xPercentage, int yPercentage)
+        public static Point ScreenPercentageToCoords(Point percentages)
         {
-            var x = (int)(MonoGameWindow.CurrentWidth * (xPercentage / 100.0));
-            var y = (int)(MonoGameWindow.CurrentHeight * (yPercentage / 100.0));
+            var x = (int)(MonoGameWindow.CurrentWidth * (percentages.X / 100.0));
+            var y = (int)(MonoGameWindow.CurrentHeight * (percentages.Y / 100.0));
 
-            return (x, y);
+            return new Point(x, y);
         }
 
-        public static Rectangle GetMenuItemRectangle(MenuItem item)
-        //public static (int x1, int y1, int x2, int y2) GetMenuItemRectangle(MenuItem item)
+        public static Rectangle GetMenuItemRectangle(SpriteMenuItem item,int scale)
         {
             var sprite = SpriteManager.GetSprite(item.SpriteName);
 
-            var (x, y) = ScreenPercentageToCoords(item.XPercentage, item.YPercentage);
-            var (x1, y1) = GetCenteredCoords(sprite.Width, sprite.Height, x, y, item.Scale);
+            var location = item.LocationOnScreen;
+            if(item.IsCentered)
+            {
+                var (x1, y1) = GetCenteredCoords(sprite.Width, sprite.Height, location.X, location.Y, scale);
+                location = new Point(x1, y1);
+            }
 
-            var x2 = x1 + sprite.Width * item.Scale;
-            var y2 = y1 + sprite.Height * item.Scale;
-
-            return new Rectangle(x1, y1, sprite.Width * item.Scale, sprite.Height * item.Scale);
-            //return (x1, y1, x2, y2);
+            return new Rectangle(location.X, location.Y, sprite.Width * scale, sprite.Height * scale);
         }
     }
 }

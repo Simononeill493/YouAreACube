@@ -7,51 +7,54 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class MenuItem
+    public abstract class MenuItem
     {
-        public string SpriteName;
-        public int XPercentage;
-        public int YPercentage;
-        public int Scale = 1;
+        public Point LocationOnScreen { get; private set; }
+        public System.Action OnClick;
 
-        public bool Hovering = false;
-
-        public string HighlightedSpriteName;
-        public bool Highlightable = false;
-
-        public bool Clickable = false;
-        public bool ClickedOn = false;
-        public System.Action ClickAction;
-
-        public bool HasText = false;
+        public bool IsCentered;
         public string Text;
+
+        protected bool _mouseHovering = false;
+        protected bool _clickedOn = false;
+
+        public void SetLocation(int x,int y,PositioningMode positioningMode)
+        {
+            SetLocation(new Point(x, y), positioningMode);
+        }
+        public void SetLocation(Point point,PositioningMode positioningMode)
+        {
+            switch (positioningMode)
+            {
+                case PositioningMode.Absolute:
+                    LocationOnScreen = point;
+                    break;
+                case PositioningMode.Relative:
+                    LocationOnScreen =  DrawUtils.ScreenPercentageToCoords(point);
+                    break;
+            }
+        }
 
         public void Update(UserInput input)
         {
-            Hovering = IsMouseOver(input);
+            _mouseHovering = IsMouseOver(input);
 
-            if (Hovering)
+            if (_mouseHovering)
             {
                 if (input.LeftButton == ButtonState.Pressed)
                 {
-                    ClickedOn = true;
+                    _clickedOn = true;
                 }
-                else if (input.LeftButton == ButtonState.Released & ClickedOn & Clickable)
+                else if (input.LeftButton == ButtonState.Released & _clickedOn & OnClick!=null)
                 {
-                    ClickAction();
-
-                }
-                else if (!Hovering)
-                {
-                    ClickedOn = false;
+                    OnClick();
                 }
             }
         }
 
-        public bool IsMouseOver(UserInput input)
-        {
-            var rect = DrawUtils.GetMenuItemRectangle(this);
-            return rect.Contains(input.MouseX, input.MouseY);
-        }
+        public abstract void Draw(DrawingInterface drawingInterface);
+
+        public abstract bool IsMouseOver(UserInput input);
     }
+
 }

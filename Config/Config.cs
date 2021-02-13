@@ -20,5 +20,9 @@ namespace IAmACube
         public const string TemplatesFile = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Sprites\templates.txt";
 
         public static bool KernelUnlimitedEnergy = true;
+
+        public static int MenuItemScale = 3;
+        public static int MenuItemTextScale = 2;
+
     }
 }

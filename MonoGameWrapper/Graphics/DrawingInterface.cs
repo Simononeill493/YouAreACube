@@ -17,8 +17,9 @@ namespace IAmACube
         }
 
         public void DrawBackground(string background) => _primitivesHelper.DrawStretchedToScreen(background);
-        public void DrawText(string text, int xPercentage, int yPercentage, int scale, float layer) => _primitivesHelper.DrawText(text, xPercentage, yPercentage, scale, layer);
-        
+        public void DrawText(string text, int x, int y, int scale, float layer,bool centered = false) => _primitivesHelper.DrawText(text, x, y, scale, layer, centered);
+        public void DrawSprite(string sprite, int x, int y, int scale, float layer, bool centered = false) => _primitivesHelper.DrawSprite(sprite, x, y, scale, layer, centered);
+
         public void DrawTile(Tile tile, Point drawPos, CameraConfiguration cameraConfig)
         {
             DrawBlock(tile.Ground, drawPos, DrawLayers.GroundLayer, cameraConfig);
@@ -36,11 +37,11 @@ namespace IAmACube
         {
             var offsetDrawPos = drawPos + CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizeScaled);
 
-            _primitivesHelper.DrawSprite(block.Sprite, offsetDrawPos.X, offsetDrawPos.Y, cameraConfig.Scale, layer);
+            _primitivesHelper.DrawSprite(block.Sprite, offsetDrawPos.X, offsetDrawPos.Y, cameraConfig.Scale, layer, centered: false);
         }
         public void DrawVoid(Point drawPos, CameraConfiguration cameraConfig)
         {
-            _primitivesHelper.DrawSprite("Black", drawPos.X, drawPos.Y, cameraConfig.Scale, DrawLayers.GroundLayer);
+            _primitivesHelper.DrawSprite("Black", drawPos.X, drawPos.Y, cameraConfig.Scale, DrawLayers.GroundLayer, centered: false);
         }
 
         public void DrawHUD(Kernel kernel)
@@ -52,25 +53,6 @@ namespace IAmACube
             var host = kernel.Host;
             _primitivesHelper.DrawRectangle(x - 2, y - 2, 204, 29, DrawLayers.HUDLayer, Color.Black);
             _primitivesHelper.DrawRectangle(x, y, (int)(200.0 * (host.EnergyRemainingPercentage)), 25, DrawLayers.HUDLayer, Color.Blue);
-        }
-
-        public void DrawMenuItem(MenuItem item)
-        {
-            var (x, y) = DrawUtils.ScreenPercentageToCoords(item.XPercentage, item.YPercentage);
-
-            if (item.Highlightable & item.Hovering)
-            {
-                _primitivesHelper.DrawSpriteCentered(item.HighlightedSpriteName, x, y, item.Scale, layer: DrawLayers.MenuItemLayer);
-            }
-            else
-            {
-                _primitivesHelper.DrawSpriteCentered(item.SpriteName, x, y, item.Scale, layer: DrawLayers.MenuItemLayer);
-            }
-
-            if (item.HasText)
-            {
-                _primitivesHelper.DrawText(item.Text, item.XPercentage, item.YPercentage, 2, layer: DrawLayers.MenuTextLayer);
-            }
         }
     }
 }

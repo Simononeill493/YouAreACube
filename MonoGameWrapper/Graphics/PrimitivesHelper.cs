@@ -68,26 +68,25 @@ namespace IAmACube
             }
         }
        
-        public void DrawSprite(string spriteName, int x, int y, int scale, float layer)
+        public void DrawSprite(string spriteName, int x, int y, int scale, float layer,bool centered)
         {
             var sprite = SpriteManager.GetSprite(spriteName);
+            if (centered)
+            {
+                (x,y) = DrawUtils.GetCenteredCoords(sprite.Width, sprite.Height, x, y, scale);
+            }
+
             _spriteBatch.Draw(sprite, new Vector2(x, y), scale: new Vector2(scale, scale), layerDepth: layer);
         }
-        public void DrawSpriteCentered(string spriteName, int x, int y, int scale, float layer)
+        public void DrawText(string text, int x, int y, int scale, float layer,bool centered)
         {
-            var sprite = SpriteManager.GetSprite(spriteName);
-            var (xOffset, yoffset) = DrawUtils.GetCenteredCoords(sprite.Width, sprite.Height, x, y, scale);
+            if(centered)
+            {
+                var dims = _spriteFont.MeasureString(text);
+                (x, y) = DrawUtils.GetCenteredCoords((int)dims.X, (int)dims.Y, x, y, scale);
+            }
 
-            _spriteBatch.Draw(sprite, new Vector2(xOffset, yoffset), scale: new Vector2(scale, scale), layerDepth: layer);
-        }
-        public void DrawText(string text, int xPercentage, int yPercentage, int scale, float layer)
-        {
-            var (x, y) = DrawUtils.ScreenPercentageToCoords(xPercentage, yPercentage);
-            var dims = _spriteFont.MeasureString(text);
-            var (xOffs, yOffs) = DrawUtils.GetCenteredCoords((int)dims.X, (int)dims.Y, x, y, scale);
-
-            //_spriteBatch.DrawString(_spriteFont, text, new Vector2(xOffs, yOffs),Color.Black);
-            _spriteBatch.DrawString(_spriteFont, text, new Vector2(xOffs, yOffs), Color.Black, 0, Vector2.Zero, scale, SpriteEffects.None, layer);
+            _spriteBatch.DrawString(_spriteFont, text, new Vector2(x,y), Color.Black, 0, Vector2.Zero, scale, SpriteEffects.None, layer);
         }
 
         public void DrawStretchedToScreen(string spriteName)

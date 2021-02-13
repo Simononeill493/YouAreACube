@@ -9,45 +9,34 @@ namespace IAmACube
 {
     class NewGameScreen : MenuScreen
     {
-        public string WorldName = "test";
+        public string WorldName { get { return textBox.Text; } set { textBox.Text = value; } }
+        private SpriteMenuItem textBox;
 
         public NewGameScreen(Action<ScreenType> switchScreen) : base(switchScreen)
         {
             Background = "TitleBackground";
 
-            var textBox = new MenuItem()
+            textBox = new SpriteMenuItem()
             {
                 SpriteName = "EmptyMenuRectangleMedium",
-                XPercentage = 50,
-                YPercentage = 40,
-                Scale = 3,
+                Text = "test"
             };
 
-            var okButton = new MenuItem()
+            var okButton = new SpriteMenuItem()
             {
                 SpriteName = "OkButton",
-                HighlightedSpriteName = "OkButton",
-                XPercentage = 25,
-                YPercentage = 65,
-                Scale = 3,
-                Highlightable = true,
-
-                Clickable = true,
-                ClickAction = NewGameClicked
+                OnClick = NewGameClicked
             };
 
-            var cancelButton = new MenuItem()
+            var cancelButton = new SpriteMenuItem()
             {
                 SpriteName = "CancelButton",
-                HighlightedSpriteName = "CancelButton",
-                XPercentage = 65,
-                YPercentage = 65,
-                Scale = 3,
-                Highlightable = true,
-
-                Clickable = true,
-                ClickAction = BackToTitleScreen
+                OnClick = BackToTitleScreen
             };
+
+            _setMenuPosition(textBox,50, 40, PositioningMode.Relative);
+            _setMenuPosition(okButton,25, 65, PositioningMode.Relative);
+            _setMenuPosition(cancelButton,65, 65, PositioningMode.Relative);
 
             MenuItems.Add(textBox);
             MenuItems.Add(okButton);
@@ -57,7 +46,6 @@ namespace IAmACube
         public override void Draw(DrawingInterface drawingInterface)
         {
             base.Draw(drawingInterface);
-            drawingInterface.DrawText(WorldName, 50, 40, 2, DrawLayers.MenuTextLayer);
         }
 
         public override void Update(UserInput input)

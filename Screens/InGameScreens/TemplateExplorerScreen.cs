@@ -15,13 +15,12 @@ namespace IAmACube
         {
             _game = game;
 
-            var newGameButton = new MenuItem()
+            var newGameButton = new SpriteMenuItem()
             {
                 SpriteName = "EmptyMenuRectangleMedium",
-                XPercentage = 50,
-                YPercentage = 25,
-                Scale = 3,
             };
+
+            newGameButton.SetLocation(50, 25, PositioningMode.Relative);
 
             MenuItems.Add(newGameButton);
         }
