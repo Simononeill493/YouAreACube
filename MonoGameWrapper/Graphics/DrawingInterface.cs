@@ -20,6 +20,9 @@ namespace IAmACube
         public void DrawText(string text, int x, int y, int scale, float layer,bool centered = false) => _primitivesHelper.DrawText(text, x, y, scale, layer, centered);
         public void DrawSprite(string sprite, int x, int y, int scale, float layer, bool centered = false) => _primitivesHelper.DrawSprite(sprite, x, y, scale, layer, centered);
 
+        public void DrawRectangle(int x, int y, int width, int height, float layer, Color color)=>_primitivesHelper.DrawRectangle(x,y,width,height,layer,color);
+        
+
         public void DrawTile(Tile tile, Point drawPos, CameraConfiguration cameraConfig)
         {
             DrawBlock(tile.Ground, drawPos, DrawLayers.GroundLayer, cameraConfig);

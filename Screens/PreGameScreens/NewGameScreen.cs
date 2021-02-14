@@ -9,17 +9,18 @@ namespace IAmACube
 {
     class NewGameScreen : MenuScreen
     {
-        public string WorldName { get { return textBox.Text; } set { textBox.Text = value; } }
-        private SpriteMenuItem textBox;
+        public string WorldName { get { return text.Text; } set { text.Text = value; } }
+        private TextMenuItem text;
 
         public NewGameScreen(Action<ScreenType> switchScreen) : base(switchScreen)
         {
             Background = "TitleBackground";
 
-            textBox = new SpriteMenuItem()
+            text = new TextMenuItem() { Text = "test" };
+            
+            var textBox = new SpriteMenuItem()
             {
                 SpriteName = "EmptyMenuRectangleMedium",
-                Text = "test"
             };
 
             var okButton = new SpriteMenuItem()
@@ -34,13 +35,14 @@ namespace IAmACube
                 OnClick = BackToTitleScreen
             };
 
-            _setMenuPosition(textBox,50, 40, PositioningMode.Relative);
-            _setMenuPosition(okButton,25, 65, PositioningMode.Relative);
-            _setMenuPosition(cancelButton,65, 65, PositioningMode.Relative);
+            textBox.SetPositioningConfig(50, 40, CoordinateMode.Relative);
+            okButton.SetPositioningConfig(25, 65, CoordinateMode.Relative);
+            cancelButton.SetPositioningConfig(65, 65, CoordinateMode.Relative);
+            textBox.AddChild(text);
 
-            MenuItems.Add(textBox);
-            MenuItems.Add(okButton);
-            MenuItems.Add(cancelButton);
+            AddMenuItem(textBox);
+            AddMenuItem(okButton);
+            AddMenuItem(cancelButton);
         }
 
         public override void Draw(DrawingInterface drawingInterface)

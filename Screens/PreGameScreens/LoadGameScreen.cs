@@ -28,7 +28,7 @@ namespace IAmACube
                     SpriteName = "EmptyMenuRectangleMedium",
                 };
 
-                _setMenuPosition(fileSlot,50, 15 + (i * 15), PositioningMode.Relative);
+                fileSlot.SetPositioningConfig(50, 15 + (i * 15), CoordinateMode.Relative);
 
                 var cur = i;
 
@@ -36,10 +36,10 @@ namespace IAmACube
                 {
                     //Console.WriteLine("Fetched save " + i + ":\t" + saves[i]);
                     fileSlot.OnClick = () => ClickSaveFile(cur);
-                    fileSlot.Text = Path.GetFileNameWithoutExtension(saves[i]);
+                    fileSlot.AddChild(new TextMenuItem() { Text = Path.GetFileNameWithoutExtension(saves[i]) });
                 }
 
-                MenuItems.Add(fileSlot);
+                AddMenuItem(fileSlot);
             }
         }
 

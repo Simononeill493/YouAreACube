@@ -10,10 +10,15 @@ namespace IAmACube
     abstract class MenuScreen : Screen
     {
         public string Background;
-        public List<MenuItem> MenuItems = new List<MenuItem>();
-        public List<(MenuItem,int, int, PositioningMode)> MenuItemLocations = new List<(MenuItem, int, int, PositioningMode)>();
+        private List<MenuItem> MenuItems = new List<MenuItem>();
 
-        public MenuScreen(Action<ScreenType> switchScreen) : base(switchScreen) { }
+        public MenuScreen(Action<ScreenType> switchScreen) : base(switchScreen) {}
+
+        protected void AddMenuItem(MenuItem item)
+        {
+            MenuItems.Add(item);
+            item.UpdateThisAndChildLocations();
+        }
 
         public override void Draw(DrawingInterface drawingInterface)
         {
@@ -30,28 +35,17 @@ namespace IAmACube
 
         public override void Update(UserInput input)
         {
-            _updateMenuPositions();
-
             foreach (var item in MenuItems)
             {
                 item.Update(input);
             }
         }
 
-        protected void _setMenuPosition(MenuItem item, int x, int y, PositioningMode mode)
+        protected void _manuallyUpdateLocations()
         {
-            MenuItemLocations.Add((item, x, y, mode));
-            item.SetLocation(x, y, mode);
-        }
-
-        private void _updateMenuPositions()
-        {
-            foreach(var item in MenuItemLocations)
+            foreach (var item in MenuItems)
             {
-                if(item.Item4 == PositioningMode.Relative)
-                {
-                    item.Item1.SetLocation(item.Item2, item.Item3,item.Item4);
-                }
+                item.UpdateLocation();
             }
         }
     }

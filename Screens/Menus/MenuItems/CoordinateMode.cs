@@ -1,6 +1,6 @@
 ﻿namespace IAmACube
 {
-    public enum PositioningMode
+    public enum CoordinateMode
     {
         Absolute,
         Relative

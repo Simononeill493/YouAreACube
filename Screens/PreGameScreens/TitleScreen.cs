@@ -27,11 +27,11 @@ namespace IAmACube
                 OnClick = GoToLoadGame
             };
 
-            _setMenuPosition(newGameButton,50, 25, PositioningMode.Relative);
-            _setMenuPosition(loadGameButton,50, 50, PositioningMode.Relative);
+            newGameButton.SetPositioningConfig(50, 25, CoordinateMode.Relative);
+            loadGameButton.SetPositioningConfig(50, 50, CoordinateMode.Relative);
 
-            MenuItems.Add(newGameButton);
-            MenuItems.Add(loadGameButton);
+            AddMenuItem(newGameButton);
+            AddMenuItem(loadGameButton);
         }
 
         public override void Draw(DrawingInterface drawingInterface)

@@ -86,9 +86,10 @@
     <Compile Include="Misc\Point.cs" />
     <Compile Include="Screens\InGameScreens\TemplateExplorerScreen.cs" />
     <Compile Include="Misc\DrawLayers.cs" />
-    <Compile Include="Screens\Menus\MenuItems\PositioningMode.cs" />
+    <Compile Include="Screens\Menus\MenuItems\CoordinateMode.cs" />
     <Compile Include="Screens\Menus\MenuItems\ShapeMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\SpriteMenuItem.cs" />
+    <Compile Include="Screens\Menus\MenuItems\TextMenuItem.cs" />
     <Compile Include="Utils\DrawUtils.cs" />
     <Compile Include="Utils\WorldUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />

@@ -27,10 +27,7 @@ namespace IAmACube
                 drawingInterface.DrawSprite(SpriteName, LocationOnScreen.X, LocationOnScreen.Y, Config.MenuItemScale, layer: DrawLayers.MenuItemLayer, centered: IsCentered);
             }
 
-            if (Text!=null)
-            {
-                drawingInterface.DrawText(Text, LocationOnScreen.X, LocationOnScreen.Y, Config.MenuItemTextScale, layer: DrawLayers.MenuTextLayer, centered: IsCentered);
-            }
+            base.Draw(drawingInterface);
         }
 
         public override bool IsMouseOver(UserInput input)

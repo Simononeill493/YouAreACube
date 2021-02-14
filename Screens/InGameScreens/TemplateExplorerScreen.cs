@@ -15,14 +15,16 @@ namespace IAmACube
         {
             _game = game;
 
-            var newGameButton = new SpriteMenuItem()
+            var newGameButton = new ShapeMenuItem()
             {
-                SpriteName = "EmptyMenuRectangleMedium",
+                Color = Microsoft.Xna.Framework.Color.Gray,
+                Width = 128,
+                Height = 128
             };
 
-            newGameButton.SetLocation(50, 25, PositioningMode.Relative);
+            newGameButton.SetPositioningConfig(50, 25, CoordinateMode.Relative);
 
-            MenuItems.Add(newGameButton);
+            AddMenuItem(newGameButton);
         }
 
         public override void Draw(DrawingInterface drawingInterface)

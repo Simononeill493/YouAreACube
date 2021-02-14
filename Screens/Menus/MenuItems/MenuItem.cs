@@ -9,33 +9,21 @@ namespace IAmACube
 {
     public abstract class MenuItem
     {
-        public Point LocationOnScreen { get; private set; }
+        public Point LocationOnScreen { get; protected set; }
         public System.Action OnClick;
 
         public bool IsCentered;
-        public string Text;
-
         protected bool _mouseHovering = false;
         protected bool _clickedOn = false;
 
-        public void SetLocation(int x,int y,PositioningMode positioningMode)
-        {
-            SetLocation(new Point(x, y), positioningMode);
-        }
-        public void SetLocation(Point point,PositioningMode positioningMode)
-        {
-            switch (positioningMode)
-            {
-                case PositioningMode.Absolute:
-                    LocationOnScreen = point;
-                    break;
-                case PositioningMode.Relative:
-                    LocationOnScreen =  DrawUtils.ScreenPercentageToCoords(point);
-                    break;
-            }
-        }
+        protected (Point loc, CoordinateMode mode) _positioningConfig;
+        protected List<MenuItem> _children = new List<MenuItem>();
 
-        public void Update(UserInput input)
+        public virtual void Draw(DrawingInterface drawingInterface)
+        {
+            _drawChildren(drawingInterface);
+        }
+        public virtual void Update(UserInput input)
         {
             _mouseHovering = IsMouseOver(input);
 
@@ -50,11 +38,60 @@ namespace IAmACube
                     OnClick();
                 }
             }
+
+            UpdateLocation();
+            _updateChildren(input);
+        }
+        public abstract bool IsMouseOver(UserInput input);
+        public virtual void UpdateLocation()
+        {
+            switch (_positioningConfig.mode)
+            {
+                case CoordinateMode.Absolute:
+                    LocationOnScreen = _positioningConfig.loc;
+                    break;
+                case CoordinateMode.Relative:
+                    LocationOnScreen = DrawUtils.ScreenPercentageToCoords(_positioningConfig.loc);
+                    break;
+            }
         }
 
-        public abstract void Draw(DrawingInterface drawingInterface);
+        public void AddChild(MenuItem item)
+        {
+            item.SetPositioningConfig(_positioningConfig.loc, _positioningConfig.mode);
+            _children.Add(item);
+        }
 
-        public abstract bool IsMouseOver(UserInput input);
+        public void SetPositioningConfig(int x, int y, CoordinateMode positioningMode)
+        {
+            SetPositioningConfig(new Point(x, y), positioningMode);
+        }
+        public void SetPositioningConfig(Point pos, CoordinateMode positioningMode)
+        {
+            _positioningConfig = (pos, positioningMode);
+        }
+        public void UpdateThisAndChildLocations()
+        {
+            UpdateLocation();
+            foreach (var child in _children)
+            {
+                child.UpdateThisAndChildLocations();
+            }
+        }
+
+        private void _updateChildren(UserInput input)
+        {
+            foreach(var child in _children)
+            {
+                child.Update(input);
+            }
+        }
+        private void _drawChildren(DrawingInterface drawingInterface)
+        {
+            foreach (var child in _children)
+            {
+                child.Draw(drawingInterface);
+            }
+        }
     }
-
 }
