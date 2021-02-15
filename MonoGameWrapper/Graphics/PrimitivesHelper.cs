@@ -51,8 +51,13 @@ namespace IAmACube
         {
             _spriteBatch.Draw(_standardTexture, destinationRectangle: new Rectangle(x1, y1, 1, length), color: color, layerDepth: layer);
         }
-        public void DrawRectangle(int x, int y, int width, int height, float layer, Color color)
+        public void DrawRectangle(int x, int y, int width, int height, float layer, Color color,bool centered)
         {
+            if(centered)
+            {
+                (x, y) = DrawUtils.GetCenteredCoords(width, height, x, y, 1);
+            }
+
             _spriteBatch.Draw(_standardTexture, destinationRectangle: new Rectangle(x, y, width, height),color: color, layerDepth: layer);
         }
         public void DrawGrid(int width, int height, int squareSize,float layer,Color color)

@@ -61,6 +61,12 @@ namespace IAmACube
             return "(" + X + " " + Y + ")";
         }
 
+        public void Deconstruct(out int x, out int y)
+        {
+            x = X;
+            y = Y;
+        }
+
         public CardinalDirection ApproachDirection(Point other)
         {
             if (other.X > X)

@@ -11,30 +11,22 @@ namespace IAmACube
         public string SpriteName;
         public string HighlightedSpriteName;
 
+        private string _activeSpriteName => (_mouseHovering & HighlightedSpriteName != null) ? HighlightedSpriteName : SpriteName;
+
         public SpriteMenuItem()
         {
-            IsCentered = true;
+            Dimensions.IsCentered = true;
         }
 
         public override void Draw(DrawingInterface drawingInterface)
         {
-            if (_mouseHovering & HighlightedSpriteName != null)
-            {
-                drawingInterface.DrawSprite(HighlightedSpriteName, LocationOnScreen.X, LocationOnScreen.Y, Config.MenuItemScale, layer: DrawLayers.MenuItemLayer, centered: IsCentered);
-            }
-            else
-            {
-                drawingInterface.DrawSprite(SpriteName, LocationOnScreen.X, LocationOnScreen.Y, Config.MenuItemScale, layer: DrawLayers.MenuItemLayer, centered: IsCentered);
-            }
-
+            drawingInterface.DrawSprite(_activeSpriteName, X, Y, Config.MenuItemScale, layer: DrawLayers.MenuItemLayer, centered: Dimensions.IsCentered);
             base.Draw(drawingInterface);
         }
-
         public override bool IsMouseOver(UserInput input)
         {
-            var rect = DrawUtils.GetMenuItemRectangle(this, Config.MenuItemScale);
+            var rect = DrawUtils.GetMenuItemRectangle(this.SpriteName,this.Dimensions, Config.MenuItemScale);
             return rect.Contains(input.MouseX, input.MouseY);
         }
-
     }
 }

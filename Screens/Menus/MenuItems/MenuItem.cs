@@ -9,21 +9,22 @@ namespace IAmACube
 {
     public abstract class MenuItem
     {
-        public Point LocationOnScreen { get; protected set; }
-        public System.Action OnClick;
+        protected MenuItemDimensions Dimensions = new MenuItemDimensions();
+        public int X => Dimensions.ActualLocation.X;
+        public int Y => Dimensions.ActualLocation.Y;
 
-        public bool IsCentered;
-        protected bool _mouseHovering = false;
-        protected bool _clickedOn = false;
-
-        protected (Point loc, CoordinateMode mode) _positioningConfig;
+        public event System.Action OnClick;
         protected List<MenuItem> _children = new List<MenuItem>();
+
+        protected bool _mouseHovering = false;
+        protected bool _mousePressedOn = false;
+        protected bool _clickedOn = false;
 
         public virtual void Draw(DrawingInterface drawingInterface)
         {
             _drawChildren(drawingInterface);
         }
-        public virtual void Update(UserInput input)
+        public void Update(UserInput input)
         {
             _mouseHovering = IsMouseOver(input);
 
@@ -31,45 +32,34 @@ namespace IAmACube
             {
                 if (input.LeftButton == ButtonState.Pressed)
                 {
+                    _mousePressedOn = true;
+                }
+                else if(_mousePressedOn & input.LeftButton == ButtonState.Released)
+                {
                     _clickedOn = true;
                 }
-                else if (input.LeftButton == ButtonState.Released & _clickedOn & OnClick!=null)
+
+                if (_clickedOn)
                 {
                     OnClick();
+                    _clickedOn = false;
                 }
+            }
+            else
+            {
+                _mousePressedOn = false;
             }
 
             UpdateLocation();
             _updateChildren(input);
         }
         public abstract bool IsMouseOver(UserInput input);
-        public virtual void UpdateLocation()
-        {
-            switch (_positioningConfig.mode)
-            {
-                case CoordinateMode.Absolute:
-                    LocationOnScreen = _positioningConfig.loc;
-                    break;
-                case CoordinateMode.Relative:
-                    LocationOnScreen = DrawUtils.ScreenPercentageToCoords(_positioningConfig.loc);
-                    break;
-            }
-        }
-
         public void AddChild(MenuItem item)
         {
-            item.SetPositioningConfig(_positioningConfig.loc, _positioningConfig.mode);
+            item.Dimensions = Dimensions.ShallowCopy();
             _children.Add(item);
         }
 
-        public void SetPositioningConfig(int x, int y, CoordinateMode positioningMode)
-        {
-            SetPositioningConfig(new Point(x, y), positioningMode);
-        }
-        public void SetPositioningConfig(Point pos, CoordinateMode positioningMode)
-        {
-            _positioningConfig = (pos, positioningMode);
-        }
         public void UpdateThisAndChildLocations()
         {
             UpdateLocation();
@@ -78,6 +68,9 @@ namespace IAmACube
                 child.UpdateThisAndChildLocations();
             }
         }
+        public void UpdateLocation() => Dimensions.UpdateLocation();
+
+        public void SetLocationConfig(int x, int y, CoordinateMode positioningMode) => Dimensions.SetLocationConfig(x, y, positioningMode);
 
         private void _updateChildren(UserInput input)
         {
@@ -93,5 +86,7 @@ namespace IAmACube
                 child.Draw(drawingInterface);
             }
         }
+
+
     }
 }

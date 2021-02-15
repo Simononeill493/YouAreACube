@@ -87,6 +87,7 @@
     <Compile Include="Screens\InGameScreens\TemplateExplorerScreen.cs" />
     <Compile Include="Misc\DrawLayers.cs" />
     <Compile Include="Screens\Menus\MenuItems\CoordinateMode.cs" />
+    <Compile Include="Screens\Menus\MenuItems\MenuItemDimensions.cs" />
     <Compile Include="Screens\Menus\MenuItems\ShapeMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\SpriteMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\TextMenuItem.cs" />

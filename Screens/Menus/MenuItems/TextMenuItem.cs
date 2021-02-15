@@ -12,14 +12,14 @@ namespace IAmACube
 
         public TextMenuItem()
         {
-            IsCentered = true;
+            Dimensions.IsCentered = true;
         }
 
         public override void Draw(DrawingInterface drawingInterface)
         {
             if(Text!=null)
             {
-                drawingInterface.DrawText(Text, LocationOnScreen.X, LocationOnScreen.Y, Config.MenuItemTextScale, layer: DrawLayers.MenuTextLayer, centered: IsCentered);
+                drawingInterface.DrawText(Text, X, Y, Config.MenuItemTextScale, layer: DrawLayers.MenuTextLayer, centered: Dimensions.IsCentered);
             }
 
             base.Draw(drawingInterface);

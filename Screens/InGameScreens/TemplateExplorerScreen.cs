@@ -22,7 +22,7 @@ namespace IAmACube
                 Height = 128
             };
 
-            newGameButton.SetPositioningConfig(50, 25, CoordinateMode.Relative);
+            newGameButton.SetLocationConfig(50, 25, CoordinateMode.Relative);
 
             AddMenuItem(newGameButton);
         }

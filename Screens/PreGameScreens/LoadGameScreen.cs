@@ -28,16 +28,17 @@ namespace IAmACube
                     SpriteName = "EmptyMenuRectangleMedium",
                 };
 
-                fileSlot.SetPositioningConfig(50, 15 + (i * 15), CoordinateMode.Relative);
+                fileSlot.SetLocationConfig(50, 15 + (i * 15), CoordinateMode.Relative);
 
                 var cur = i;
 
                 if(saves.Count()>i)
                 {
                     //Console.WriteLine("Fetched save " + i + ":\t" + saves[i]);
-                    fileSlot.OnClick = () => ClickSaveFile(cur);
                     fileSlot.AddChild(new TextMenuItem() { Text = Path.GetFileNameWithoutExtension(saves[i]) });
                 }
+
+                fileSlot.OnClick += () => ClickSaveFile(cur);
 
                 AddMenuItem(fileSlot);
             }

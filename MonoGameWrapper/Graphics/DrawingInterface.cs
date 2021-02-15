@@ -20,7 +20,7 @@ namespace IAmACube
         public void DrawText(string text, int x, int y, int scale, float layer,bool centered = false) => _primitivesHelper.DrawText(text, x, y, scale, layer, centered);
         public void DrawSprite(string sprite, int x, int y, int scale, float layer, bool centered = false) => _primitivesHelper.DrawSprite(sprite, x, y, scale, layer, centered);
 
-        public void DrawRectangle(int x, int y, int width, int height, float layer, Color color)=>_primitivesHelper.DrawRectangle(x,y,width,height,layer,color);
+        public void DrawRectangle(int x, int y, int width, int height, float layer, Color color, bool centered = false)=>_primitivesHelper.DrawRectangle(x,y,width,height,layer,color,centered);
         
 
         public void DrawTile(Tile tile, Point drawPos, CameraConfiguration cameraConfig)
@@ -54,8 +54,8 @@ namespace IAmACube
         public void DrawHUD(Kernel kernel, int x, int y)
         {
             var host = kernel.Host;
-            _primitivesHelper.DrawRectangle(x - 2, y - 2, 204, 29, DrawLayers.HUDLayer, Color.Black);
-            _primitivesHelper.DrawRectangle(x, y, (int)(200.0 * (host.EnergyRemainingPercentage)), 25, DrawLayers.HUDLayer, Color.Blue);
+            _primitivesHelper.DrawRectangle(x - 2, y - 2, 204, 29, DrawLayers.HUDLayer, Color.Black,false);
+            _primitivesHelper.DrawRectangle(x, y, (int)(200.0 * (host.EnergyRemainingPercentage)), 25, DrawLayers.HUDLayer, Color.Blue,false);
         }
     }
 }

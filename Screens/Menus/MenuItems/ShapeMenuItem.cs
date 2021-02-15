@@ -15,28 +15,25 @@ namespace IAmACube
 
         public ShapeMenuItem()
         {
-            IsCentered = true;
+            Dimensions.IsCentered = true;
         }
 
         public override void Draw(DrawingInterface drawingInterface)
         {
-            drawingInterface.DrawRectangle(LocationOnScreen.X,LocationOnScreen.Y,Width,Height, DrawLayers.MenuItemLayer, Color);
+            drawingInterface.DrawRectangle(X, Y,Width,Height, DrawLayers.MenuItemLayer, Color,Dimensions.IsCentered);
 
             base.Draw(drawingInterface);
         }
-
         public override bool IsMouseOver(UserInput input)
         {
-            return new Rectangle(LocationOnScreen.X, LocationOnScreen.Y, Width, Height).Contains(new Microsoft.Xna.Framework.Point(input.MouseX, input.MouseY));
-        }
-
-        public override void UpdateLocation()
-        {
-            base.UpdateLocation();
-            if (IsCentered)
+            var (x, y) = Dimensions.ActualLocation;
+            if(Dimensions.IsCentered)
             {
-                LocationOnScreen = LocationOnScreen - new Point(Width / 2, Height / 2);
+                (x, y) = DrawUtils.GetCenteredCoords(Width, Height, x, y, 1);
             }
+
+            var output = new Rectangle(x, y, Width, Height).Contains(new Microsoft.Xna.Framework.Point(input.MouseX, input.MouseY));
+            return output;
         }
     }
 }

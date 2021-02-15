@@ -26,18 +26,19 @@ namespace IAmACube
             var okButton = new SpriteMenuItem()
             {
                 SpriteName = "OkButton",
-                OnClick = NewGameClicked
             };
 
             var cancelButton = new SpriteMenuItem()
             {
                 SpriteName = "CancelButton",
-                OnClick = BackToTitleScreen
             };
 
-            textBox.SetPositioningConfig(50, 40, CoordinateMode.Relative);
-            okButton.SetPositioningConfig(25, 65, CoordinateMode.Relative);
-            cancelButton.SetPositioningConfig(65, 65, CoordinateMode.Relative);
+            okButton.OnClick += NewGameClicked;
+            cancelButton.OnClick += BackToTitleScreen;
+
+            textBox.SetLocationConfig(50, 40, CoordinateMode.Relative);
+            okButton.SetLocationConfig(25, 65, CoordinateMode.Relative);
+            cancelButton.SetLocationConfig(65, 65, CoordinateMode.Relative);
             textBox.AddChild(text);
 
             AddMenuItem(textBox);

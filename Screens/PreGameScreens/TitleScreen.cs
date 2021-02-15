@@ -17,18 +17,19 @@ namespace IAmACube
             { 
                 SpriteName = "NewGameMenu", 
                 HighlightedSpriteName = "NewGameMenu_Highlight",
-                OnClick = GoToNewGame
             };
 
             var loadGameButton = new SpriteMenuItem() 
             { 
                 SpriteName = "LoadGameMenu", 
                 HighlightedSpriteName = "LoadGameMenu_Highlight",
-                OnClick = GoToLoadGame
             };
 
-            newGameButton.SetPositioningConfig(50, 25, CoordinateMode.Relative);
-            loadGameButton.SetPositioningConfig(50, 50, CoordinateMode.Relative);
+            newGameButton.OnClick += GoToNewGame;
+            loadGameButton.OnClick += GoToLoadGame;
+
+            newGameButton.SetLocationConfig(50, 25, CoordinateMode.Relative);
+            loadGameButton.SetLocationConfig(50, 50, CoordinateMode.Relative);
 
             AddMenuItem(newGameButton);
             AddMenuItem(loadGameButton);
