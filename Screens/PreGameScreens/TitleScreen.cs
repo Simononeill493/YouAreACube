@@ -13,16 +13,14 @@ namespace IAmACube
         {
             Background = "TitleBackground";
 
-            var newGameButton = new SpriteMenuItem() 
+            var newGameButton = new SpriteMenuItem("NewGameMenu") 
             { 
-                SpriteName = "NewGameMenu", 
-                HighlightedSpriteName = "NewGameMenu_Highlight",
+                HighlightedSpriteName = "NewGameMenu_Highlight"
             };
 
-            var loadGameButton = new SpriteMenuItem() 
+            var loadGameButton = new SpriteMenuItem("LoadGameMenu") 
             { 
-                SpriteName = "LoadGameMenu", 
-                HighlightedSpriteName = "LoadGameMenu_Highlight",
+                HighlightedSpriteName = "LoadGameMenu_Highlight"
             };
 
             newGameButton.OnClick += GoToNewGame;
@@ -31,8 +29,8 @@ namespace IAmACube
             newGameButton.SetLocationConfig(50, 25, CoordinateMode.Relative);
             loadGameButton.SetLocationConfig(50, 50, CoordinateMode.Relative);
 
-            AddMenuItem(newGameButton);
-            AddMenuItem(loadGameButton);
+            _addMenuItem(newGameButton);
+            _addMenuItem(loadGameButton);
         }
 
         public override void Draw(DrawingInterface drawingInterface)

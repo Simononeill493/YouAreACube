@@ -17,21 +17,10 @@ namespace IAmACube
             Background = "TitleBackground";
 
             text = new TextMenuItem() { Text = "test" };
-            
-            var textBox = new SpriteMenuItem()
-            {
-                SpriteName = "EmptyMenuRectangleMedium",
-            };
 
-            var okButton = new SpriteMenuItem()
-            {
-                SpriteName = "OkButton",
-            };
-
-            var cancelButton = new SpriteMenuItem()
-            {
-                SpriteName = "CancelButton",
-            };
+            var textBox = new SpriteMenuItem("EmptyMenuRectangleMedium");
+            var okButton = new SpriteMenuItem("OkButton");
+            var cancelButton = new SpriteMenuItem("CancelButton");
 
             okButton.OnClick += NewGameClicked;
             cancelButton.OnClick += BackToTitleScreen;
@@ -41,9 +30,9 @@ namespace IAmACube
             cancelButton.SetLocationConfig(65, 65, CoordinateMode.Relative);
             textBox.AddChild(text);
 
-            AddMenuItem(textBox);
-            AddMenuItem(okButton);
-            AddMenuItem(cancelButton);
+            _addMenuItem(textBox);
+            _addMenuItem(okButton);
+            _addMenuItem(cancelButton);
         }
 
         public override void Draw(DrawingInterface drawingInterface)

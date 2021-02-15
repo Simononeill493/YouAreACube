@@ -50,7 +50,7 @@ namespace IAmACube
                 _mousePressedOn = false;
             }
 
-            UpdateLocation();
+            UpdateDimensions(Dimensions.Scale);
             _updateChildren(input);
         }
         public abstract bool IsMouseOver(UserInput input);
@@ -60,15 +60,15 @@ namespace IAmACube
             _children.Add(item);
         }
 
-        public void UpdateThisAndChildLocations()
+        public void UpdateThisAndChildDimensions(int scale)
         {
-            UpdateLocation();
+            UpdateDimensions(scale);
             foreach (var child in _children)
             {
-                child.UpdateThisAndChildLocations();
+                child.UpdateThisAndChildDimensions(scale);
             }
         }
-        public void UpdateLocation() => Dimensions.UpdateLocation();
+        public void UpdateDimensions(int scale) => Dimensions.Update(scale);
 
         public void SetLocationConfig(int x, int y, CoordinateMode positioningMode) => Dimensions.SetLocationConfig(x, y, positioningMode);
 
@@ -86,7 +86,5 @@ namespace IAmACube
                 child.Draw(drawingInterface);
             }
         }
-
-
     }
 }

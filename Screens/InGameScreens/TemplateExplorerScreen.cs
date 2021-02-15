@@ -18,13 +18,12 @@ namespace IAmACube
             var newGameButton = new ShapeMenuItem()
             {
                 Color = Microsoft.Xna.Framework.Color.Gray,
-                Width = 128,
-                Height = 128
+                Size = new Point(128,128),
             };
 
-            newGameButton.SetLocationConfig(50, 25, CoordinateMode.Relative);
+            newGameButton.SetLocationConfig(50, 50, CoordinateMode.Relative);
 
-            AddMenuItem(newGameButton);
+            _addMenuItem(newGameButton);
         }
 
         public override void Draw(DrawingInterface drawingInterface)

@@ -32,5 +32,11 @@ namespace IAmACube
                 return sprite;
             }
         }
+
+        public static Point GetSpriteSize(string spriteName)
+        {
+            var sprite = GetSprite(spriteName);
+            return new Point(sprite.Width, sprite.Height);
+        }
     }
 }

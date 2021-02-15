@@ -19,11 +19,12 @@ namespace IAmACube
         {
             if(Text!=null)
             {
-                drawingInterface.DrawText(Text, X, Y, Config.MenuItemTextScale, layer: DrawLayers.MenuTextLayer, centered: Dimensions.IsCentered);
+                drawingInterface.DrawText(Text, X, Y, Dimensions.Scale-1, layer: DrawLayers.MenuTextLayer, centered: Dimensions.IsCentered);
             }
 
             base.Draw(drawingInterface);
         }
+
         public override bool IsMouseOver(UserInput input)
         {
             return false;

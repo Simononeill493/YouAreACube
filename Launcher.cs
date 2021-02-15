@@ -9,6 +9,7 @@ namespace IAmACube
         [STAThread]
         public static void Main(string[] args)
         {
+
             RandomUtils.Init(1);
             DirectionUtils.Init();
             Templates.Load();

@@ -10,8 +10,7 @@ namespace IAmACube
     class ShapeMenuItem : MenuItem
     {
         public Color Color;
-        public int Width;
-        public int Height;
+        public Point Size;
 
         public ShapeMenuItem()
         {
@@ -20,19 +19,33 @@ namespace IAmACube
 
         public override void Draw(DrawingInterface drawingInterface)
         {
-            drawingInterface.DrawRectangle(X, Y,Width,Height, DrawLayers.MenuItemLayer, Color,Dimensions.IsCentered);
+            var sizeScaled = Size * Dimensions.Scale;
 
+            drawingInterface.DrawRectangle(X, Y, sizeScaled.X, sizeScaled.Y, DrawLayers.MenuItemLayer, Color,Dimensions.IsCentered);
             base.Draw(drawingInterface);
         }
+
         public override bool IsMouseOver(UserInput input)
         {
             var (x, y) = Dimensions.ActualLocation;
+            var sizeScaled = Size * Dimensions.Scale;
+
             if(Dimensions.IsCentered)
             {
-                (x, y) = DrawUtils.GetCenteredCoords(Width, Height, x, y, 1);
+                (x, y) = DrawUtils.GetCenteredCoords(sizeScaled.X, sizeScaled.Y, x, y, 1);
             }
 
-            var output = new Rectangle(x, y, Width, Height).Contains(new Microsoft.Xna.Framework.Point(input.MouseX, input.MouseY));
+            var output = new Rectangle(x, y, sizeScaled.X, sizeScaled.Y).Contains(new Microsoft.Xna.Framework.Point(input.MouseX, input.MouseY));
+
+            /*if(output)
+            {
+                Console.WriteLine("Yes");
+            }
+            else
+            {
+                Console.WriteLine("No");
+            }*/
+
             return output;
         }
     }

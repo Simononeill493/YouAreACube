@@ -83,6 +83,8 @@ namespace IAmACube
 
             _spriteBatch.Draw(sprite, new Vector2(x, y), scale: new Vector2(scale, scale), layerDepth: layer);
         }
+
+
         public void DrawText(string text, int x, int y, int scale, float layer,bool centered)
         {
             if(centered)

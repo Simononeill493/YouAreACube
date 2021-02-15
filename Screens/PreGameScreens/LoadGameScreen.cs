@@ -23,11 +23,7 @@ namespace IAmACube
 
             for(int i=0;i<4;i++)
             {
-                var fileSlot = new SpriteMenuItem()
-                {
-                    SpriteName = "EmptyMenuRectangleMedium",
-                };
-
+                var fileSlot = new SpriteMenuItem("EmptyMenuRectangleMedium");
                 fileSlot.SetLocationConfig(50, 15 + (i * 15), CoordinateMode.Relative);
 
                 var cur = i;
@@ -40,7 +36,7 @@ namespace IAmACube
 
                 fileSlot.OnClick += () => ClickSaveFile(cur);
 
-                AddMenuItem(fileSlot);
+                _addMenuItem(fileSlot);
             }
         }
 

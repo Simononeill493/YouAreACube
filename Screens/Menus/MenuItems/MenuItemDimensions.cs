@@ -11,12 +11,14 @@ namespace IAmACube
         public Point ActualLocation;
         protected (Point location, CoordinateMode mode) LocationConfig;
 
-        public Point Size;
-
         public bool IsCentered;
 
-        public virtual void UpdateLocation()
+        public int Scale = 1;
+
+        public virtual void Update(int scale)
         {
+            Scale = scale;
+
             switch (LocationConfig.mode)
             {
                 case CoordinateMode.Absolute:
