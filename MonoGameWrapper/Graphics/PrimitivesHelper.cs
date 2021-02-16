@@ -87,6 +87,7 @@ namespace IAmACube
 
         public void DrawText(string text, int x, int y, int scale, float layer,bool centered)
         {
+            if(scale<1) { scale = 1; }
             if(centered)
             {
                 var dims = _gameFont.MeasureString(text);

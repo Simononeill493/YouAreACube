@@ -73,6 +73,18 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Sprites/CancelButton.PNG;CancelButton.PNG
 
+#begin ../Simon_Sprites/EmptyMenuRectangleFull.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Sprites/EmptyMenuRectangleFull.PNG;EmptyMenuRectangleFull.PNG
+
 #begin ../Simon_Sprites/EmptyMenuRectangleMedium.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -189,6 +201,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../Simon_Sprites/Spinner.png;Spinner.png
+
+#begin ../Simon_Sprites/TemplateItemContainer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Sprites/TemplateItemContainer.png;TemplateItemContainer.png
+
+#begin ../Simon_Sprites/TemplateItemContainerHighlight.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Sprites/TemplateItemContainerHighlight.png;TemplateItemContainerHighlight.png
 
 #begin ../Simon_Sprites/TitleBackground.png
 /importer:TextureImporter

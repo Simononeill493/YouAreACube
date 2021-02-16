@@ -32,7 +32,6 @@ namespace IAmACube
                 item.Draw(drawingInterface);
             }
         }
-
         public override void Update(UserInput input)
         {
             foreach (var item in _menuItems)
@@ -58,22 +57,22 @@ namespace IAmACube
         {
             _menuItems.Add(item);
         }
-
-        private void _refreshIfScreenSizeChanged()
-        {
-            var newScreenDimensions = new Point(MonoGameWindow.CurrentWidth, MonoGameWindow.CurrentHeight);
-            if(newScreenDimensions != _currentScreenDimensions)
-            {
-                _refreshAllItems();
-            }
-            _currentScreenDimensions = newScreenDimensions;
-        }
         protected void _refreshAllItems()
         {
             foreach (var item in _menuItems)
             {
                 item.RefreshDimensions();
             }
+        }
+
+        private void _refreshIfScreenSizeChanged()
+        {
+            var newScreenDimensions = new Point(MonoGameWindow.CurrentWidth, MonoGameWindow.CurrentHeight);
+            if (newScreenDimensions != _currentScreenDimensions)
+            {
+                _refreshAllItems();
+            }
+            _currentScreenDimensions = newScreenDimensions;
         }
     }
 }

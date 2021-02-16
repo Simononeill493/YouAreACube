@@ -24,7 +24,7 @@ namespace IAmACube
             for(int i=0;i<4;i++)
             {
                 var fileSlot = new SpriteMenuItem("EmptyMenuRectangleMedium");
-                fileSlot.SetLocation(50, 15 + (i * 15), CoordinateMode.Relative);
+                fileSlot.SetLocation(50, 15 + (i * 15), CoordinateMode.Relative, centered: true);
 
                 var cur = i;
 

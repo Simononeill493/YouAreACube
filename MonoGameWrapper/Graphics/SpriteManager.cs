@@ -44,6 +44,7 @@ namespace IAmACube
             {
                 return Point.Zero;
             }
+
             var sprite = GetSprite(spriteName);
             return new Point(sprite.Width, sprite.Height);
         }

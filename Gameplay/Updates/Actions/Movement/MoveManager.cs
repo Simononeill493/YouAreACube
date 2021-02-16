@@ -106,11 +106,6 @@ namespace IAmACube
         }
         private void _stopMoving(Block block)
         {
-            if (block.MovementData.MovementPosition == 1)
-            {
-                Console.WriteLine();
-            }
-
             block.MovementData.StopMoving();
         }
 

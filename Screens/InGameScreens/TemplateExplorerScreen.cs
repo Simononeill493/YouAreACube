@@ -9,21 +9,14 @@ namespace IAmACube
 {
     class TemplateExplorerScreen : MenuScreen
     {
-        public GameScreen _game;
+        private GameScreen _game;
 
         public TemplateExplorerScreen(Action<ScreenType> switchScreen, GameScreen game) : base(switchScreen)
         {
             _game = game;
 
-            var newGameButton = new ShapeMenuItem()
-            {
-                Color = Microsoft.Xna.Framework.Color.Gray,
-                Size = new Point(128,128),
-            };
-
-            newGameButton.SetLocation(50, 50, CoordinateMode.Relative);
-
-            _addMenuItem(newGameButton);
+            var templateMenu = new TemplateMenu(game.Game.Kernel);
+            _addMenuItem(templateMenu);
         }
 
         public override void Draw(DrawingInterface drawingInterface)

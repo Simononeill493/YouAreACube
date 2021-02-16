@@ -15,7 +15,17 @@ namespace IAmACube
 
         public ScreenManager()
         {
-            CurrentScreen = new TitleScreen(SwitchScreen);
+            if(false)
+            {
+                var save = SaveManager.LoadFromFile("test.cubesave");
+
+                LoadSaveToScreen(save);
+                SwitchScreen(ScreenType.Game);
+            }
+            else
+            {
+                CurrentScreen = new TitleScreen(SwitchScreen);
+            }
         }
 
         public void SwitchScreen(ScreenType screenType)
@@ -47,6 +57,14 @@ namespace IAmACube
 
         public void Update(UserInput input)
         {
+            if(input.IsKeyJustReleased(Keys.Home))
+            {
+                var save = SaveManager.LoadFromFile("test.cubesave");
+
+                LoadSaveToScreen(save);
+                SwitchScreen(ScreenType.Game);
+            }
+
             CurrentScreen.Update(input);
         }
 

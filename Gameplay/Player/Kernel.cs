@@ -10,6 +10,12 @@ namespace IAmACube
     public class Kernel
     {
         public SurfaceBlock Host;
+        public List<BlockTemplate> KnownTemplates = new List<BlockTemplate>();
+
+        public Kernel()
+        {
+            KnownTemplates = Templates.BlockTemplates.Values.ToList();
+        }
 
         public void SupplyPowerToHost()
         {

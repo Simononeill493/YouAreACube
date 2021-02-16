@@ -87,9 +87,11 @@
     <Compile Include="Screens\InGameScreens\TemplateExplorerScreen.cs" />
     <Compile Include="Misc\DrawLayers.cs" />
     <Compile Include="Screens\Menus\MenuItems\CoordinateMode.cs" />
-    <Compile Include="Screens\Menus\MenuItems\ShapeMenuItem.cs" />
-    <Compile Include="Screens\Menus\MenuItems\SpriteMenuItem.cs" />
-    <Compile Include="Screens\Menus\MenuItems\TextMenuItem.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Base\ShapeMenuItem.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Base\SpriteMenuItem.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Base\TextMenuItem.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Specific\TemplateItem.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenu.cs" />
     <Compile Include="Utils\DrawUtils.cs" />
     <Compile Include="Utils\WorldUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
@@ -126,7 +128,7 @@
     <Compile Include="MonoGameWrapper\Graphics\PrimitivesHelper.cs" />
     <Compile Include="MonoGameWrapper\MonoGameWindow.cs" />
     <Compile Include="Launcher.cs" />
-    <Compile Include="Screens\Menus\MenuItems\MenuItem.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Base\MenuItem.cs" />
     <Compile Include="Screens\Menus\MenuScreen.cs" />
     <Compile Include="Screens\PreGameScreens\NewGameScreen.cs" />
     <Compile Include="Screens\Screen.cs" />

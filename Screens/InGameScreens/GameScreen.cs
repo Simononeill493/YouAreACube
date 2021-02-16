@@ -9,7 +9,7 @@ namespace IAmACube
 {
     class GameScreen : Screen
     {
-        private Game _game;
+        public Game Game;
         private Camera _currentCamera;
 
         private AdminCamera _adminCamera;
@@ -17,7 +17,7 @@ namespace IAmACube
 
         public GameScreen(Action<ScreenType> switchScreen,Save save) : base(switchScreen)
         {
-            _game = new Game(save);
+            Game = new Game(save);
 
             _adminCamera = new AdminCamera();
             _dynamicCamera = new DynamicCamera(save.Kernel);
@@ -28,11 +28,11 @@ namespace IAmACube
         {
             _readKeys(input);
 
-            _game.Update(input);
+            Game.Update(input);
             _currentCamera.Update(input);
         }
 
-        public override void Draw(DrawingInterface drawingInterface) => _currentCamera.Draw(drawingInterface,_game.World); 
+        public override void Draw(DrawingInterface drawingInterface) => _currentCamera.Draw(drawingInterface,Game.World); 
 
         private void _readKeys(UserInput input)
         {
@@ -46,7 +46,7 @@ namespace IAmACube
             }
             if(input.IsKeyJustPressed(Keys.Escape))
             {
-                var save = _game.SaveAndQuit();
+                var save = Game.SaveAndQuit();
                 SaveManager.SaveToFile(save);
                 SwitchScreen(ScreenType.LoadGame);
             }

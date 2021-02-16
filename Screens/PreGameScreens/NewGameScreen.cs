@@ -25,9 +25,9 @@ namespace IAmACube
             okButton.OnClick += NewGameClicked;
             cancelButton.OnClick += BackToTitleScreen;
 
-            textBox.SetLocation(50, 40, CoordinateMode.Relative);
-            okButton.SetLocation(25, 65, CoordinateMode.Relative);
-            cancelButton.SetLocation(65, 65, CoordinateMode.Relative);
+            textBox.SetLocation(50, 40, CoordinateMode.Relative, centered: true);
+            okButton.SetLocation(25, 65, CoordinateMode.Relative, centered: true);
+            cancelButton.SetLocation(65, 65, CoordinateMode.Relative, centered: true);
             textBox.AddChild(text);
 
             _addMenuItem(textBox);
