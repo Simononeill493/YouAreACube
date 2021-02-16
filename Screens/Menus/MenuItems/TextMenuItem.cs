@@ -10,16 +10,11 @@ namespace IAmACube
     {
         public string Text;
 
-        public TextMenuItem()
-        {
-            Dimensions.IsCentered = true;
-        }
-
         public override void Draw(DrawingInterface drawingInterface)
         {
             if(Text!=null)
             {
-                drawingInterface.DrawText(Text, X, Y, Dimensions.Scale-1, layer: DrawLayers.MenuTextLayer, centered: Dimensions.IsCentered);
+                drawingInterface.DrawText(Text, Location.X, Location.Y, Scale-1, layer: DrawLayers.MenuTextLayer);
             }
 
             base.Draw(drawingInterface);
@@ -28,6 +23,12 @@ namespace IAmACube
         public override bool IsMouseOver(UserInput input)
         {
             return false;
+        }
+
+        public override Point GetSize()
+        {
+            var size = SpriteManager.GetTextSize(Text);
+            return size * (Scale-1);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace IAmACube
     {
         private GraphicsDevice _graphicsDevice;
         private SpriteBatch _spriteBatch;
-        private SpriteFont _spriteFont;
+        private SpriteFont _gameFont;
         private Texture2D _standardTexture;
 
         public int ViewportWidth => _graphicsDevice.Viewport.Width;
@@ -24,13 +24,13 @@ namespace IAmACube
         {
             _graphicsDevice = graphicsDevice;
             _spriteBatch = new SpriteBatch(graphicsDevice);
-            _spriteFont = contentManager.Load<SpriteFont>("PressStart2P");
+            _gameFont = contentManager.Load<SpriteFont>("PressStart2P");
 
             _standardTexture = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
             _standardTexture.SetData(new[] { Color.White });
             //Revisit this: this color is never used, but needs to be set for the texture to be visible.
 
-            SpriteManager.LoadContent(contentManager);
+            SpriteManager.LoadContent(contentManager,_gameFont);
         }
 
         public void BeginDrawFrame()
@@ -89,11 +89,11 @@ namespace IAmACube
         {
             if(centered)
             {
-                var dims = _spriteFont.MeasureString(text);
+                var dims = _gameFont.MeasureString(text);
                 (x, y) = DrawUtils.GetCenteredCoords((int)dims.X, (int)dims.Y, x, y, scale);
             }
 
-            _spriteBatch.DrawString(_spriteFont, text, new Vector2(x,y), Color.Black, 0, Vector2.Zero, scale, SpriteEffects.None, layer);
+            _spriteBatch.DrawString(_gameFont, text, new Vector2(x,y), Color.Black, 0, Vector2.Zero, scale, SpriteEffects.None, layer);
         }
 
         public void DrawStretchedToScreen(string spriteName)

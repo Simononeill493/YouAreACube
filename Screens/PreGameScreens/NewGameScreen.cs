@@ -25,9 +25,9 @@ namespace IAmACube
             okButton.OnClick += NewGameClicked;
             cancelButton.OnClick += BackToTitleScreen;
 
-            textBox.SetLocationConfig(50, 40, CoordinateMode.Relative);
-            okButton.SetLocationConfig(25, 65, CoordinateMode.Relative);
-            cancelButton.SetLocationConfig(65, 65, CoordinateMode.Relative);
+            textBox.SetLocation(50, 40, CoordinateMode.Relative);
+            okButton.SetLocation(25, 65, CoordinateMode.Relative);
+            cancelButton.SetLocation(65, 65, CoordinateMode.Relative);
             textBox.AddChild(text);
 
             _addMenuItem(textBox);
@@ -49,10 +49,12 @@ namespace IAmACube
                 if (_doTypeChar(key))
                 {
                     WorldName = WorldName + KeyUtils.KeyToChar(key);
+                    _refreshAllItems();
                 }
                 else if (_doBackspace(key))
                 {
                     WorldName = WorldName.Substring(0, WorldName.Length - 1);
+                    _refreshAllItems();
                 }
             }
 

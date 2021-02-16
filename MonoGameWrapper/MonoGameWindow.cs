@@ -45,6 +45,9 @@ namespace IAmACube
             _graphicsDeviceManager.ApplyChanges();
             #endregion
 
+            CurrentWidth = _graphicsDeviceManager.GraphicsDevice.Viewport.Width;
+            CurrentHeight = _graphicsDeviceManager.GraphicsDevice.Viewport.Height;
+
             _attachedConsoleManager = new AttachedConsoleManager(GraphicsDevice,Window.Position);
             this.Window.ClientSizeChanged += _attachedConsoleManager.ConsoleMoveEventHandler;
 

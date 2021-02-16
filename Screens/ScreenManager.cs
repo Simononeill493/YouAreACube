@@ -35,14 +35,14 @@ namespace IAmACube
                     CurrentScreen = CurrentGame;
                     break;
                 case ScreenType.TemplateExplorer:
-                    CurrentScreen = new TemplateExplorerScreen(SwitchScreen,CurrentGame);
+                    CurrentScreen = new TemplateExplorerScreen(SwitchScreen, CurrentGame);
                     break;
             }
         }
 
-        public void LoadSaveToScreen(Save save) 
+        public void LoadSaveToScreen(Save save)
         {
-            CurrentGame = new GameScreen(SwitchScreen,save);
+            CurrentGame = new GameScreen(SwitchScreen, save);
         }
 
         public void Update(UserInput input)

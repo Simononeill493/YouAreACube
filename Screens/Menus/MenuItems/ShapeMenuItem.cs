@@ -12,41 +12,25 @@ namespace IAmACube
         public Color Color;
         public Point Size;
 
-        public ShapeMenuItem()
-        {
-            Dimensions.IsCentered = true;
-        }
+        public int ScaledWidth => Size.X * Scale;
+        public int ScaledHeight => Size.Y * Scale;
 
         public override void Draw(DrawingInterface drawingInterface)
         {
-            var sizeScaled = Size * Dimensions.Scale;
-
-            drawingInterface.DrawRectangle(X, Y, sizeScaled.X, sizeScaled.Y, DrawLayers.MenuItemLayer, Color,Dimensions.IsCentered);
+            drawingInterface.DrawRectangle(Location.X, Location.Y, ScaledWidth, ScaledHeight, DrawLayers.MenuItemLayer, Color);
             base.Draw(drawingInterface);
         }
 
         public override bool IsMouseOver(UserInput input)
         {
-            var (x, y) = Dimensions.ActualLocation;
-            var sizeScaled = Size * Dimensions.Scale;
-
-            if(Dimensions.IsCentered)
-            {
-                (x, y) = DrawUtils.GetCenteredCoords(sizeScaled.X, sizeScaled.Y, x, y, 1);
-            }
-
-            var output = new Rectangle(x, y, sizeScaled.X, sizeScaled.Y).Contains(new Microsoft.Xna.Framework.Point(input.MouseX, input.MouseY));
-
-            /*if(output)
-            {
-                Console.WriteLine("Yes");
-            }
-            else
-            {
-                Console.WriteLine("No");
-            }*/
-
+            var output = new Rectangle(Location.X, Location.Y, ScaledWidth, ScaledHeight).Contains(new Microsoft.Xna.Framework.Point(input.MouseX, input.MouseY));
+            Console.WriteLine(output);
             return output;
+        }
+
+        public override Point GetSize()
+        {
+            return new Point(ScaledWidth, ScaledHeight);
         }
     }
 }

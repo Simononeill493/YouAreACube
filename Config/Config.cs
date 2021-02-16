@@ -22,7 +22,5 @@ namespace IAmACube
         public static bool KernelUnlimitedEnergy = true;
 
         public static int MenuItemScale = 4;
-        public static int MenuItemTextScale = 2;
-
     }
 }

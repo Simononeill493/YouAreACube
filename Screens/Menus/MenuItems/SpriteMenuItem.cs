@@ -16,19 +16,24 @@ namespace IAmACube
         public SpriteMenuItem(string spriteName)
         {
             SpriteName = spriteName;
-            Dimensions.IsCentered = true;
         }
 
         public override void Draw(DrawingInterface drawingInterface)
         {
-            drawingInterface.DrawSprite(_activeSpriteName, X, Y, Dimensions.Scale, layer: DrawLayers.MenuItemLayer, centered: Dimensions.IsCentered);
+            drawingInterface.DrawSprite(_activeSpriteName, Location.X, Location.Y, Scale, layer: DrawLayers.MenuItemLayer);
             base.Draw(drawingInterface);
         }
 
         public override bool IsMouseOver(UserInput input)
         {
-            var rect = DrawUtils.GetMenuItemRectangle(this.SpriteName,this.Dimensions);
+            var rect = DrawUtils.GetSpriteDimensions(this.SpriteName, Location.X, Location.Y, Scale);
             return rect.Contains(input.MouseX, input.MouseY);
+        }
+
+        public override Point GetSize()
+        {
+            var size = SpriteManager.GetSpriteSize(SpriteName);
+            return (size) * Scale;
         }
     }
 }

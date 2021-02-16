@@ -25,18 +25,10 @@ namespace IAmACube
             return new Point(x, y);
         }
 
-        public static Rectangle GetMenuItemRectangle(string spriteName,MenuItemDimensions dims)
+        public static Rectangle GetSpriteDimensions(string spriteName,int x,int y,int scale)
         {
             var sprite = SpriteManager.GetSprite(spriteName);
-            var location = dims.ActualLocation;
-
-            if (dims.IsCentered)
-            {
-                var (x1, y1) = GetCenteredCoords(sprite.Width, sprite.Height, location.X, location.Y, dims.Scale);
-                location = new Point(x1, y1);
-            }
-
-            return new Rectangle(location.X, location.Y, sprite.Width * dims.Scale, sprite.Height * dims.Scale);
+            return new Rectangle(x, y, sprite.Width * scale, sprite.Height * scale);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace IAmACube
                 Size = new Point(128,128),
             };
 
-            newGameButton.SetLocationConfig(50, 50, CoordinateMode.Relative);
+            newGameButton.SetLocation(50, 50, CoordinateMode.Relative);
 
             _addMenuItem(newGameButton);
         }

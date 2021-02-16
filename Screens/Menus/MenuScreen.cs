@@ -9,12 +9,16 @@ namespace IAmACube
 {
     abstract class MenuScreen : Screen
     {
+        public static int Scale = Config.MenuItemScale;
         public string Background;
-        private List<MenuItem> MenuItems = new List<MenuItem>();
 
-        public int Scale = Config.MenuItemScale;
+        private List<MenuItem> _menuItems = new List<MenuItem>();
+        private Point _currentScreenDimensions;
 
-        public MenuScreen(Action<ScreenType> switchScreen) : base(switchScreen) {}
+        public MenuScreen(Action<ScreenType> switchScreen) : base(switchScreen) 
+        {
+            _currentScreenDimensions = new Point(0, 0);
+        }
 
         public override void Draw(DrawingInterface drawingInterface)
         {
@@ -23,7 +27,7 @@ namespace IAmACube
                 drawingInterface.DrawBackground(Background);
             }
 
-            foreach (var item in MenuItems)
+            foreach (var item in _menuItems)
             {
                 item.Draw(drawingInterface);
             }
@@ -31,7 +35,7 @@ namespace IAmACube
 
         public override void Update(UserInput input)
         {
-            foreach (var item in MenuItems)
+            foreach (var item in _menuItems)
             {
                 item.Update(input);
             }
@@ -39,28 +43,37 @@ namespace IAmACube
             if(input.IsKeyJustReleased(Keys.P))
             {
                 Scale++;
-                _manuallyUpdateDimensions();
+                _refreshAllItems();
             }
             if (input.IsKeyJustReleased(Keys.O))
             {
                 Scale--;
-                _manuallyUpdateDimensions();
+                _refreshAllItems();
             }
-        }
 
-        protected void _manuallyUpdateDimensions()
-        {
-            foreach (var item in MenuItems)
-            {
-                item.UpdateThisAndChildDimensions(Scale);
-            }
+            _refreshIfScreenSizeChanged();
         }
 
         protected void _addMenuItem(MenuItem item)
         {
-            MenuItems.Add(item);
-            item.UpdateThisAndChildDimensions(Scale);
+            _menuItems.Add(item);
         }
 
+        private void _refreshIfScreenSizeChanged()
+        {
+            var newScreenDimensions = new Point(MonoGameWindow.CurrentWidth, MonoGameWindow.CurrentHeight);
+            if(newScreenDimensions != _currentScreenDimensions)
+            {
+                _refreshAllItems();
+            }
+            _currentScreenDimensions = newScreenDimensions;
+        }
+        protected void _refreshAllItems()
+        {
+            foreach (var item in _menuItems)
+            {
+                item.RefreshDimensions();
+            }
+        }
     }
 }

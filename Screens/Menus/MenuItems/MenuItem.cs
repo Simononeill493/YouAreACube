@@ -9,16 +9,18 @@ namespace IAmACube
 {
     public abstract class MenuItem
     {
-        protected MenuItemDimensions Dimensions = new MenuItemDimensions();
-        public int X => Dimensions.ActualLocation.X;
-        public int Y => Dimensions.ActualLocation.Y;
+        public int Scale => MenuScreen.Scale;
+        public Point Location;
+        private (Point loc, CoordinateMode mode, bool centered) _locationConfig;
+
 
         public event System.Action OnClick;
-        protected List<MenuItem> _children = new List<MenuItem>();
 
         protected bool _mouseHovering = false;
         protected bool _mousePressedOn = false;
         protected bool _clickedOn = false;
+
+        protected List<MenuItem> _children = new List<MenuItem>();
 
         public virtual void Draw(DrawingInterface drawingInterface)
         {
@@ -41,7 +43,7 @@ namespace IAmACube
 
                 if (_clickedOn)
                 {
-                    OnClick();
+                    OnClick?.Invoke();
                     _clickedOn = false;
                 }
             }
@@ -50,27 +52,49 @@ namespace IAmACube
                 _mousePressedOn = false;
             }
 
-            UpdateDimensions(Dimensions.Scale);
             _updateChildren(input);
         }
-        public abstract bool IsMouseOver(UserInput input);
+        
         public void AddChild(MenuItem item)
         {
-            item.Dimensions = Dimensions.ShallowCopy();
+            item.SetLocation(_locationConfig.loc,_locationConfig.mode, _locationConfig.centered);
             _children.Add(item);
         }
 
-        public void UpdateThisAndChildDimensions(int scale)
+        public abstract bool IsMouseOver(UserInput input);
+
+        public void SetLocation(int x, int y, CoordinateMode coordinateMode, bool centered = true)
         {
-            UpdateDimensions(scale);
+            SetLocation(new Point(x, y), coordinateMode, centered);
+        }
+        public void SetLocation(Point location, CoordinateMode coordinateMode, bool centered = true)
+        {
+            _locationConfig = (location, coordinateMode, centered);
+            if (coordinateMode == CoordinateMode.Relative)
+            {
+                location = DrawUtils.ScreenPercentageToCoords(location);
+            }
+            if(centered)
+            {
+                location = location - (GetSize() / 2);
+            }
+            Location = location;
+        }
+
+        public abstract Point GetSize();
+
+        public void RefreshDimensions()
+        {
+            _refreshOwnDimensions();
             foreach (var child in _children)
             {
-                child.UpdateThisAndChildDimensions(scale);
+                child.RefreshDimensions();
             }
         }
-        public void UpdateDimensions(int scale) => Dimensions.Update(scale);
-
-        public void SetLocationConfig(int x, int y, CoordinateMode positioningMode) => Dimensions.SetLocationConfig(x, y, positioningMode);
+        private void _refreshOwnDimensions() 
+        {
+            SetLocation(_locationConfig.loc, _locationConfig.mode, _locationConfig.centered);        
+        }
 
         private void _updateChildren(UserInput input)
         {
