@@ -17,13 +17,13 @@ namespace IAmACube
 
         public override void Draw(DrawingInterface drawingInterface)
         {
-            drawingInterface.DrawRectangle(Location.X, Location.Y, ScaledWidth, ScaledHeight, DrawLayer, Color);
+            drawingInterface.DrawRectangle(ActualLocation.X, ActualLocation.Y, ScaledWidth, ScaledHeight, DrawLayer, Color);
             base.Draw(drawingInterface);
         }
 
         public override bool IsMouseOver(UserInput input)
         {
-            var output = new Rectangle(Location.X, Location.Y, ScaledWidth, ScaledHeight).Contains(new Microsoft.Xna.Framework.Point(input.MouseX, input.MouseY));
+            var output = new Rectangle(ActualLocation.X, ActualLocation.Y, ScaledWidth, ScaledHeight).Contains(new Microsoft.Xna.Framework.Point(input.MouseX, input.MouseY));
             return output;
         }
 

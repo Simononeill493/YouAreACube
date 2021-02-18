@@ -64,7 +64,7 @@ namespace IAmACube
 
         public void OpenTemplateForEditing(BlockTemplate template)
         {
-            CurrentScreen = new TemplateEditScreen(SwitchScreen, template);
+            CurrentScreen = new TemplateEditScreen(SwitchScreen, CurrentGame, template);
         }
 
         public void Update(UserInput input)

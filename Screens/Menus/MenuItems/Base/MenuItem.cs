@@ -9,9 +9,9 @@ namespace IAmACube
 {
     public abstract class MenuItem
     {
-        public Point Location;
+        public Point ActualLocation;
         public int Scale => MenuScreen.Scale;
-        protected (Point loc, CoordinateMode mode, bool centered) _locationConfig;
+        protected (Point loc, CoordinateMode mode, bool centered, bool attachedToParent) _locationConfig;
 
         public event System.Action OnClick;
         protected bool _clickedOn = false;
@@ -54,75 +54,84 @@ namespace IAmACube
 
             _updateChildren(input);
         }
+       
         public void AddChild(MenuItem item)
         {
-            item.SetLocation(_locationConfig.loc,_locationConfig.mode, _locationConfig.centered);
             _children.Add(item);
         }
 
-        public void SetLocation(int x, int y, CoordinateMode coordinateMode, bool centered = false)
+        public void SetLocationConfig(int x, int y, CoordinateMode coordinateMode, bool centered = false, bool attachedToParent = false)
         {
-            SetLocation(new Point(x, y), coordinateMode, centered);
+            SetLocationConfig(new Point(x, y), coordinateMode, centered, attachedToParent);
         }
-        public void SetLocation(Point location, CoordinateMode coordinateMode, bool centered = false)
+        public void SetLocationConfig(Point location, CoordinateMode coordinateMode, bool centered = false, bool attachedToParent = false)
         {
-            _locationConfig = (location, coordinateMode, centered);
-            if (coordinateMode == CoordinateMode.Relative)
-            {
-                location = DrawUtils.ScreenPercentageToCoords(location);
-            }
-            if(centered)
-            {
-                location = location - (GetSize() / 2);
-            }
-            Location = location;
+            _locationConfig = (location, coordinateMode, centered, attachedToParent);
         }
 
-        public void AttachLocationToParent(MenuItem parent, Point location, CoordinateMode coordinateMode, bool centered = false)
+        public virtual void UpdateThisAndChildLocations(Point parentlocation, Point parentSize)
         {
-            AttachLocationToParent(parent.Location, parent.GetSize(),location, coordinateMode, centered);
+            UpdateLocation(parentlocation,parentSize);
+            foreach (var child in _children)
+            {
+                var size = GetSize();
+                child.UpdateThisAndChildLocations(ActualLocation,size);
+            }
         }
-        public void AttachLocationToParent(Point parentlocation, Point parentSize, Point location, CoordinateMode coordinateMode, bool centered = false)
+        public void UpdateLocation(Point parentlocation, Point parentSize)
         {
-            if (coordinateMode == CoordinateMode.Absolute)
+            if(_locationConfig.attachedToParent)
+            {
+                _updateLocation_hasParent(parentlocation,parentSize);
+            }
+            else
+            {
+                _updateLocation_noParent();
+            }
+        }
+
+        private void _updateLocation_hasParent(Point parentlocation, Point parentSize)
+        {
+            Point location = _locationConfig.loc;
+
+            if (_locationConfig.mode == CoordinateMode.Absolute)
             {
                 location = parentlocation + location;
             }
-            else if (coordinateMode == CoordinateMode.Relative)
+            else if (_locationConfig.mode == CoordinateMode.Relative)
             {
                 int widthPercent = (int)(parentSize.X * (location.X / 100.0));
-                int heightPercent = (int)(parentSize.X * (location.X / 100.0));
+                int heightPercent = (int)(parentSize.Y * (location.Y / 100.0));
                 var percentageOffset = new Point(widthPercent, heightPercent);
 
                 location = parentlocation + percentageOffset;
             }
 
-            if (centered)
+            if (_locationConfig.centered)
             {
                 location = location - (GetSize() / 2);
             }
 
-            _locationConfig = (location, CoordinateMode.Absolute, centered);
+            ActualLocation = location;
         }
-
-        public virtual void RefreshDimensions()
+        private void _updateLocation_noParent()
         {
-            _refreshOwnDimensions();
-            foreach (var child in _children)
+            Point location = _locationConfig.loc;
+
+            if (_locationConfig.mode == CoordinateMode.Relative)
             {
-                var size = GetSize();
-                child.RefreshDimensions();
+                location = DrawUtils.ScreenPercentageToCoords(location);
             }
+            if (_locationConfig.centered)
+            {
+                location = location - (GetSize() / 2);
+            }
+
+            ActualLocation = location;
         }
 
         public abstract Point GetSize();
         public abstract bool IsMouseOver(UserInput input);
-
-        protected void _refreshOwnDimensions()
-        {
-            SetLocation(_locationConfig.loc, _locationConfig.mode, _locationConfig.centered);
-        }
-
 
         private void _updateChildren(UserInput input)
         {

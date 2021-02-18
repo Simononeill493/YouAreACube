@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace IAmACube
 {
-    abstract class MenuScreen : Screen
+    public abstract class MenuScreen : Screen
     {
         public static int Scale = Config.MenuItemScale;
         public string Background;
@@ -42,12 +42,12 @@ namespace IAmACube
             if(input.IsKeyJustReleased(Keys.P))
             {
                 Scale++;
-                _refreshAllItems();
+                _updateAllItemPositions();
             }
             if (input.IsKeyJustReleased(Keys.O))
             {
                 Scale--;
-                _refreshAllItems();
+                _updateAllItemPositions();
             }
 
             _refreshIfScreenSizeChanged();
@@ -56,12 +56,13 @@ namespace IAmACube
         protected void _addMenuItem(MenuItem item)
         {
             _menuItems.Add(item);
+            item.UpdateThisAndChildLocations(Point.Zero, Point.Zero);
         }
-        protected void _refreshAllItems()
+        protected void _updateAllItemPositions()
         {
             foreach (var item in _menuItems)
             {
-                item.RefreshDimensions();
+                item.UpdateThisAndChildLocations(Point.Zero,Point.Zero);
             }
         }
 
@@ -70,7 +71,7 @@ namespace IAmACube
             var newScreenDimensions = new Point(MonoGameWindow.CurrentWidth, MonoGameWindow.CurrentHeight);
             if (newScreenDimensions != _currentScreenDimensions)
             {
-                _refreshAllItems();
+                _updateAllItemPositions();
             }
             _currentScreenDimensions = newScreenDimensions;
         }

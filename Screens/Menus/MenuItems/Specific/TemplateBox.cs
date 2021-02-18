@@ -41,7 +41,7 @@ namespace IAmACube
 
         private void _drawTemplateData(DrawingInterface drawingInterface)
         {
-            drawingInterface.DrawSprite(Template.Sprite, Location.X + (3 * Scale), Location.Y + (3 * Scale), Scale, DrawLayers.MenuContentsFrontLayer);
+            drawingInterface.DrawSprite(Template.Sprite, ActualLocation.X + (3 * Scale), ActualLocation.Y + (3 * Scale), Scale, DrawLayers.MenuContentsFrontLayer);
 
             if (_mouseHovering)
             {

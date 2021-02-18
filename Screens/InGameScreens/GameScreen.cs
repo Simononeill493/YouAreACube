@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace IAmACube
 {
-    class GameScreen : Screen
+    public class GameScreen : Screen
     {
         public Game Game;
         private Camera _currentCamera;

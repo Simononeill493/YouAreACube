@@ -19,7 +19,7 @@ namespace IAmACube
         {
             if(Text!=null)
             {
-                drawingInterface.DrawText(Text, Location.X, Location.Y, Scale-1, layer: DrawLayer);
+                drawingInterface.DrawText(Text, ActualLocation.X, ActualLocation.Y, Scale-1, layer: DrawLayer);
             }
 
             base.Draw(drawingInterface);

@@ -84,8 +84,9 @@
     <Compile Include="Gameplay\World\Sector\SectorGenerator.cs" />
     <Compile Include="Misc\LocationWithNeighbors.cs" />
     <Compile Include="Misc\Point.cs" />
-    <Compile Include="Screens\InGameScreens\TemplateEditScreen.cs" />
-    <Compile Include="Screens\InGameScreens\TemplateExplorerScreen.cs" />
+    <Compile Include="Screens\InGameScreens\InGameMenus\InGameMenuScreen.cs" />
+    <Compile Include="Screens\InGameScreens\InGameMenus\TemplateEditScreen.cs" />
+    <Compile Include="Screens\InGameScreens\InGameMenus\TemplateExplorerScreen.cs" />
     <Compile Include="Misc\DrawLayers.cs" />
     <Compile Include="Screens\Menus\MenuItems\CoordinateMode.cs" />
     <Compile Include="Screens\Menus\MenuItems\Base\ShapeMenuItem.cs" />

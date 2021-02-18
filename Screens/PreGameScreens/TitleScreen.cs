@@ -26,8 +26,8 @@ namespace IAmACube
             newGameButton.OnClick += GoToNewGame;
             loadGameButton.OnClick += GoToLoadGame;
 
-            newGameButton.SetLocation(50, 25, CoordinateMode.Relative, centered: true);
-            loadGameButton.SetLocation(50, 50, CoordinateMode.Relative, centered: true);
+            newGameButton.SetLocationConfig(50, 25, CoordinateMode.Relative, centered: true);
+            loadGameButton.SetLocationConfig(50, 50, CoordinateMode.Relative, centered: true);
 
             _addMenuItem(newGameButton);
             _addMenuItem(loadGameButton);

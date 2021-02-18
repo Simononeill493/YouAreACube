@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    abstract class Screen
+    public abstract class Screen
     {
         public ScreenType ScreenType;
         protected Action<ScreenType> SwitchScreen;

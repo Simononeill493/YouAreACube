@@ -20,13 +20,13 @@ namespace IAmACube
 
         public override void Draw(DrawingInterface drawingInterface)
         {
-            drawingInterface.DrawSprite(_activeSpriteName, Location.X, Location.Y, Scale, layer: DrawLayer);
+            drawingInterface.DrawSprite(_activeSpriteName, ActualLocation.X, ActualLocation.Y, Scale, layer: DrawLayer);
             base.Draw(drawingInterface);
         }
 
         public override bool IsMouseOver(UserInput input)
         {
-            var rect = DrawUtils.GetSpriteDimensions(this.SpriteName, Location.X, Location.Y, Scale);
+            var rect = DrawUtils.GetSpriteDimensions(this.SpriteName, ActualLocation.X, ActualLocation.Y, Scale);
             return rect.Contains(input.MouseX, input.MouseY);
         }
 

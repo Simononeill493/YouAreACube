@@ -17,7 +17,6 @@ namespace IAmACube
         public TemplateExplorerMenu(Kernel kernel,Action<BlockTemplate> _templateClick) : base("EmptyMenuRectangleFull") 
         {
             _kernel = kernel;
-            SetLocation(50, 50, CoordinateMode.Relative, centered: true);
             _boxes = _generateTemplateBoxes(_templateClick);
             _setTemplateItemsLocations();
         }
@@ -26,7 +25,7 @@ namespace IAmACube
         {
             var items = new List<TemplateBox>();
             var numTemplates = _kernel.KnownTemplates.Count();
-            for (int i = 0; i < ItemsWidth*ItemsHeight; i++)
+            for (int i = 0; i < ItemsWidth * ItemsHeight; i++)
             {
                 var box = new TemplateBox(_templateClick);
                 if(i<numTemplates)
@@ -42,21 +41,20 @@ namespace IAmACube
 
         private void _setTemplateItemsLocations()
         {
-            var size = GetSize();
-            var increment = size.X / 10;
+            var xOffset = 5;
+            var yOffset = 5;
+            var xIncrement = 10;
+            var yIncrement = 15;
 
-            var xOffset = increment / 2;
-            var yOffset = increment / 2;
-
-            for (int i = 0; i < _boxes.Count; i++)
+            for (int i=0;i<_boxes.Count;i++)
             {
-                _boxes[i].SetLocation(Location + new Point(xOffset, yOffset), CoordinateMode.Absolute, centered: false);
-                xOffset += increment;
+                _boxes[i].SetLocationConfig(new Point(xOffset, yOffset), CoordinateMode.Relative, centered: false, attachedToParent: true);
+                xOffset += xIncrement;
 
-                if((i+1)% ItemsWidth == 0)
+                if ((i + 1) % ItemsWidth == 0)
                 {
-                    xOffset = increment / 2;
-                    yOffset += increment;
+                    xOffset = 5;
+                    yOffset += yIncrement;
                 }
             }
         }
@@ -64,12 +62,6 @@ namespace IAmACube
         public override void Draw(DrawingInterface drawingInterface)
         {
             base.Draw(drawingInterface);
-        }
-
-        public override void RefreshDimensions()
-        {
-            _refreshOwnDimensions();
-            _setTemplateItemsLocations();
         }
     }
 }
