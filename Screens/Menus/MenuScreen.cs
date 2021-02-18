@@ -17,7 +17,7 @@ namespace IAmACube
 
         public MenuScreen(ScreenType screenType,Action<ScreenType> switchScreen) : base(screenType,switchScreen) 
         {
-            _currentScreenDimensions = new Point(0, 0);
+            _currentScreenDimensions = new Point(MonoGameWindow.CurrentWidth, MonoGameWindow.CurrentHeight);
         }
 
         public override void Draw(DrawingInterface drawingInterface)
@@ -56,13 +56,14 @@ namespace IAmACube
         protected void _addMenuItem(MenuItem item)
         {
             _menuItems.Add(item);
-            item.UpdateThisAndChildLocations(Point.Zero, Point.Zero);
+            item.UpdateThisAndChildLocations(Point.Zero, _currentScreenDimensions);
         }
+
         protected void _updateAllItemPositions()
         {
             foreach (var item in _menuItems)
             {
-                item.UpdateThisAndChildLocations(Point.Zero,Point.Zero);
+                item.UpdateThisAndChildLocations(Point.Zero, _currentScreenDimensions);
             }
         }
 
@@ -71,9 +72,9 @@ namespace IAmACube
             var newScreenDimensions = new Point(MonoGameWindow.CurrentWidth, MonoGameWindow.CurrentHeight);
             if (newScreenDimensions != _currentScreenDimensions)
             {
+                _currentScreenDimensions = newScreenDimensions;
                 _updateAllItemPositions();
             }
-            _currentScreenDimensions = newScreenDimensions;
         }
     }
 }

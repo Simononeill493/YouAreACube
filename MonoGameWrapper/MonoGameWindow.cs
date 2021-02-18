@@ -119,6 +119,7 @@ namespace IAmACube
         protected override void LoadContent()
         {
             _primitivesHelper.LoadContent(GraphicsDevice, Content);
+            _screenManager.Init();
         }
 
         protected override void UnloadContent()

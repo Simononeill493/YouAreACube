@@ -9,16 +9,14 @@ namespace IAmACube
 {
     class NewGameScreen : MenuScreen
     {
-        public string WorldName { get { return text.Text; } set { text.Text = value; } }
-        private TextMenuItem text;
+        public string WorldName => textBox.Text;
+        private TextBoxMenuItem textBox;
 
         public NewGameScreen(Action<ScreenType> switchScreen) : base(ScreenType.NewGame, switchScreen)
         {
             Background = "TitleBackground";
 
-            text = new TextMenuItem() { Text = "test" };
-
-            var textBox = new SpriteMenuItem("EmptyMenuRectangleMedium");
+            var textBox = new TextBoxMenuItem("test",typeable: true);
             var okButton = new SpriteMenuItem("OkButton");
             var cancelButton = new SpriteMenuItem("CancelButton");
 
@@ -28,7 +26,6 @@ namespace IAmACube
             textBox.SetLocationConfig(50, 40, CoordinateMode.Relative, centered: true);
             okButton.SetLocationConfig(25, 65, CoordinateMode.Relative, centered: true);
             cancelButton.SetLocationConfig(65, 65, CoordinateMode.Relative, centered: true);
-            textBox.AddChild(text);
 
             _addMenuItem(textBox);
             _addMenuItem(okButton);
@@ -43,20 +40,6 @@ namespace IAmACube
         public override void Update(UserInput input)
         {
             base.Update(input);
-
-            foreach(var key in input.KeysJustPressed)
-            {
-                if (_doTypeChar(key))
-                {
-                    WorldName = WorldName + KeyUtils.KeyToChar(key);
-                    _updateAllItemPositions();
-                }
-                else if (_doBackspace(key))
-                {
-                    WorldName = WorldName.Substring(0, WorldName.Length - 1);
-                    _updateAllItemPositions();
-                }
-            }
 
             if (input.IsKeyDown(Keys.Escape))
             {
@@ -78,7 +61,5 @@ namespace IAmACube
             SwitchScreen(ScreenType.Title);
         }
 
-        private bool _doTypeChar(Keys key) => (KeyUtils.IsAlphanumeric(key) && WorldName.Length < 9);
-        private bool _doBackspace(Keys key) => (key == Keys.Back && WorldName.Length > 0);
     }
 }

@@ -48,7 +48,7 @@ namespace IAmACube
 
             for (int i=0;i<_boxes.Count;i++)
             {
-                _boxes[i].SetLocationConfig(new Point(xOffset, yOffset), CoordinateMode.Relative, centered: false, attachedToParent: true);
+                _boxes[i].SetLocationConfig(new Point(xOffset, yOffset), CoordinateMode.Relative, centered: false);
                 xOffset += xIncrement;
 
                 if ((i + 1) % ItemsWidth == 0)
@@ -57,11 +57,6 @@ namespace IAmACube
                     yOffset += yIncrement;
                 }
             }
-        }
-
-        public override void Draw(DrawingInterface drawingInterface)
-        {
-            base.Draw(drawingInterface);
         }
     }
 }

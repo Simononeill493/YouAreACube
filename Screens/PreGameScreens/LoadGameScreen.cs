@@ -23,17 +23,16 @@ namespace IAmACube
 
             for(int i=0;i<4;i++)
             {
-                var fileSlot = new SpriteMenuItem("EmptyMenuRectangleMedium");
-                fileSlot.SetLocationConfig(50, 15 + (i * 15), CoordinateMode.Relative, centered: true);
-
                 var cur = i;
-
-                if(saves.Count()>i)
+                string fileName = "";
+                if (saves.Count() > i)
                 {
                     //Console.WriteLine("Fetched save " + i + ":\t" + saves[i]);
-                    fileSlot.AddChild(new TextMenuItem() { Text = Path.GetFileNameWithoutExtension(saves[i]) });
+                    fileName = Path.GetFileNameWithoutExtension(saves[i]);
                 }
 
+                var fileSlot = new TextBoxMenuItem(fileName,false);
+                fileSlot.SetLocationConfig(50, 15 + (i * 15), CoordinateMode.Relative, centered: true);
                 fileSlot.OnClick += () => ClickSaveFile(cur);
 
                 _addMenuItem(fileSlot);

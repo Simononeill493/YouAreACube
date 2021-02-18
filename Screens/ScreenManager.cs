@@ -10,12 +10,14 @@ namespace IAmACube
 {
     class ScreenManager
     {
+        public bool Initialized = false;
+
         public Screen CurrentScreen;
         public GameScreen CurrentGame;
 
-        public ScreenManager()
+        public void Init()
         {
-            if(false)
+            if (false)
             {
                 var save = SaveManager.LoadFromFile("test.cubesave");
 
@@ -26,6 +28,8 @@ namespace IAmACube
             {
                 CurrentScreen = new TitleScreen(SwitchScreen);
             }
+
+            Initialized = true;
         }
 
         public void SwitchScreen(ScreenType screenType)
@@ -69,6 +73,12 @@ namespace IAmACube
 
         public void Update(UserInput input)
         {
+            if (!Initialized) 
+            {
+                Console.WriteLine("Warning: screenManager updating before initialization");
+                return; 
+            }
+
             if(input.IsKeyJustReleased(Keys.PageUp))
             {
                 var save = SaveManager.LoadFromFile("test.cubesave");
@@ -82,6 +92,12 @@ namespace IAmACube
 
         public void Draw(DrawingInterface drawingInterface)
         {
+            if (!Initialized)
+            {
+                Console.WriteLine("Warning: screenManager drawing before initialization");
+                return;
+            }
+
             CurrentScreen.Draw(drawingInterface);
         }
     }

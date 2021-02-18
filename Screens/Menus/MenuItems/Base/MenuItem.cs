@@ -9,9 +9,11 @@ namespace IAmACube
 {
     public abstract class MenuItem
     {
-        public Point ActualLocation;
+        public Point ActualLocation { get; private set; }
+        protected (Point loc, CoordinateMode mode, bool centered) _locationConfig;
+
         public int Scale => MenuScreen.Scale;
-        protected (Point loc, CoordinateMode mode, bool centered, bool attachedToParent) _locationConfig;
+        public float DrawLayer = DrawLayers.MenuBaseLayer;
 
         public event System.Action OnClick;
         protected bool _clickedOn = false;
@@ -19,8 +21,6 @@ namespace IAmACube
         protected bool _mouseHovering = false;
 
         protected List<MenuItem> _children = new List<MenuItem>();
-
-        public float DrawLayer = DrawLayers.MenuBaseLayer;
 
         public virtual void Draw(DrawingInterface drawingInterface)
         {
@@ -60,13 +60,13 @@ namespace IAmACube
             _children.Add(item);
         }
 
-        public void SetLocationConfig(int x, int y, CoordinateMode coordinateMode, bool centered = false, bool attachedToParent = false)
+        public void SetLocationConfig(int x, int y, CoordinateMode coordinateMode, bool centered = false)
         {
-            SetLocationConfig(new Point(x, y), coordinateMode, centered, attachedToParent);
+            SetLocationConfig(new Point(x, y), coordinateMode, centered);
         }
-        public void SetLocationConfig(Point location, CoordinateMode coordinateMode, bool centered = false, bool attachedToParent = false)
+        public void SetLocationConfig(Point location, CoordinateMode coordinateMode, bool centered = false)
         {
-            _locationConfig = (location, coordinateMode, centered, attachedToParent);
+            _locationConfig = (location, coordinateMode, centered);
         }
 
         public virtual void UpdateThisAndChildLocations(Point parentlocation, Point parentSize)
@@ -79,18 +79,6 @@ namespace IAmACube
             }
         }
         public void UpdateLocation(Point parentlocation, Point parentSize)
-        {
-            if(_locationConfig.attachedToParent)
-            {
-                _updateLocation_hasParent(parentlocation,parentSize);
-            }
-            else
-            {
-                _updateLocation_noParent();
-            }
-        }
-
-        private void _updateLocation_hasParent(Point parentlocation, Point parentSize)
         {
             Point location = _locationConfig.loc;
 
@@ -107,21 +95,6 @@ namespace IAmACube
                 location = parentlocation + percentageOffset;
             }
 
-            if (_locationConfig.centered)
-            {
-                location = location - (GetSize() / 2);
-            }
-
-            ActualLocation = location;
-        }
-        private void _updateLocation_noParent()
-        {
-            Point location = _locationConfig.loc;
-
-            if (_locationConfig.mode == CoordinateMode.Relative)
-            {
-                location = DrawUtils.ScreenPercentageToCoords(location);
-            }
             if (_locationConfig.centered)
             {
                 location = location - (GetSize() / 2);
