@@ -20,7 +20,7 @@ namespace IAmACube
 
         public override void Draw(DrawingInterface drawingInterface)
         {
-            drawingInterface.DrawSprite(_activeSpriteName, Location.X, Location.Y, Scale, layer: _layer);
+            drawingInterface.DrawSprite(_activeSpriteName, Location.X, Location.Y, Scale, layer: DrawLayer);
             base.Draw(drawingInterface);
         }
 

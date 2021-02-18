@@ -12,14 +12,14 @@ namespace IAmACube
 
         public TextMenuItem()
         {
-            _layer = DrawLayers.MenuContentsBackLayer;
+            DrawLayer = DrawLayers.MenuContentsBackLayer;
         }
 
         public override void Draw(DrawingInterface drawingInterface)
         {
             if(Text!=null)
             {
-                drawingInterface.DrawText(Text, Location.X, Location.Y, Scale-1, layer: _layer);
+                drawingInterface.DrawText(Text, Location.X, Location.Y, Scale-1, layer: DrawLayer);
             }
 
             base.Draw(drawingInterface);

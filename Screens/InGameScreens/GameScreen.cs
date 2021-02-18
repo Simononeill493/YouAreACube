@@ -15,7 +15,7 @@ namespace IAmACube
         private AdminCamera _adminCamera;
         private DynamicCamera _dynamicCamera;
 
-        public GameScreen(Action<ScreenType> switchScreen,Save save) : base(switchScreen)
+        public GameScreen(Action<ScreenType> switchScreen,Save save) : base(ScreenType.Game,switchScreen)
         {
             Game = new Game(save);
 

@@ -26,6 +26,9 @@ namespace IAmACube
         public static Point operator +(Point a, Point b) => new Point(a.X+b.X,a.Y+b.Y);
         public static Point operator -(Point a, Point b) => new Point(a.X - b.X, a.Y - b.Y);
 
+        public static Point operator *(Point a, Point b) => new Point(a.X * b.X, a.Y * b.Y);
+        public static Point operator /(Point a, Point b) => new Point(a.X / b.X, a.Y / b.Y);
+
         public static Point operator *(Point p,int i) => new Point(p.X*i, p.Y*i);
         public static Point operator /(Point p, int i) => new Point(p.X / i, p.Y / i);
 

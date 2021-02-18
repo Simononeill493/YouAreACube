@@ -15,7 +15,7 @@ namespace IAmACube
         private List<MenuItem> _menuItems = new List<MenuItem>();
         private Point _currentScreenDimensions;
 
-        public MenuScreen(Action<ScreenType> switchScreen) : base(switchScreen) 
+        public MenuScreen(ScreenType screenType,Action<ScreenType> switchScreen) : base(screenType,switchScreen) 
         {
             _currentScreenDimensions = new Point(0, 0);
         }

@@ -9,9 +9,11 @@ namespace IAmACube
 {
     abstract class Screen
     {
+        public ScreenType ScreenType;
         protected Action<ScreenType> SwitchScreen;
-        public Screen(Action<ScreenType> switchScreen)
+        public Screen(ScreenType screenType,Action<ScreenType> switchScreen)
         {
+            ScreenType = screenType;
             SwitchScreen = switchScreen;
         }
 

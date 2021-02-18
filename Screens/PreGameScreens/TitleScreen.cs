@@ -9,7 +9,7 @@ namespace IAmACube
 {
     class TitleScreen : MenuScreen
     {
-        public TitleScreen(Action<ScreenType> switchScreen) : base(switchScreen)
+        public TitleScreen(Action<ScreenType> switchScreen) : base(ScreenType.Title,switchScreen)
         {
             Background = "TitleBackground";
 

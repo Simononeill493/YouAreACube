@@ -17,7 +17,7 @@ namespace IAmACube
 
         public override void Draw(DrawingInterface drawingInterface)
         {
-            drawingInterface.DrawRectangle(Location.X, Location.Y, ScaledWidth, ScaledHeight, _layer, Color);
+            drawingInterface.DrawRectangle(Location.X, Location.Y, ScaledWidth, ScaledHeight, DrawLayer, Color);
             base.Draw(drawingInterface);
         }
 

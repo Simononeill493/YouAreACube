@@ -11,11 +11,11 @@ namespace IAmACube
     {
         private GameScreen _game;
 
-        public TemplateExplorerScreen(Action<ScreenType> switchScreen, GameScreen game) : base(switchScreen)
+        public TemplateExplorerScreen(Action<ScreenType> switchScreen, Action<BlockTemplate> openTemplateForEditing,GameScreen game) : base(ScreenType.TemplateExplorer, switchScreen)
         {
             _game = game;
 
-            var templateMenu = new TemplateMenu(game.Game.Kernel);
+            var templateMenu = new TemplateExplorerMenu(game.Game.Kernel, openTemplateForEditing);
             _addMenuItem(templateMenu);
         }
 
@@ -29,7 +29,7 @@ namespace IAmACube
         {
             base.Update(input);
 
-            if (input.IsKeyJustPressed(Keys.Tab))
+            if (input.IsKeyJustPressed(Keys.Tab) || input.IsKeyJustPressed(Keys.Escape))
             {
                 SwitchScreen(ScreenType.Game);
             }

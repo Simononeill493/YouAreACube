@@ -12,7 +12,7 @@ namespace IAmACube
         public string WorldName { get { return text.Text; } set { text.Text = value; } }
         private TextMenuItem text;
 
-        public NewGameScreen(Action<ScreenType> switchScreen) : base(switchScreen)
+        public NewGameScreen(Action<ScreenType> switchScreen) : base(ScreenType.NewGame, switchScreen)
         {
             Background = "TitleBackground";
 

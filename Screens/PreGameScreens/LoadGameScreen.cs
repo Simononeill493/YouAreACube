@@ -13,7 +13,7 @@ namespace IAmACube
         private List<string> saves;
         private Action<Save> _loadSaveToScreen;
 
-        public LoadGameScreen(Action<ScreenType> switchScreen,Action<Save> loadSaveToScreen) : base(switchScreen)
+        public LoadGameScreen(Action<ScreenType> switchScreen,Action<Save> loadSaveToScreen) : base(ScreenType.LoadGame,switchScreen)
         {
             _loadSaveToScreen = loadSaveToScreen;
 

@@ -42,10 +42,17 @@ namespace IAmACube
                     CurrentScreen = new LoadGameScreen(SwitchScreen, LoadSaveToScreen);
                     break;
                 case ScreenType.Game:
-                    CurrentScreen = CurrentGame;
+                    if(CurrentGame==null)
+                    {
+                        Console.WriteLine("Warning: tried to open the game screen but no game was loaded.");
+                    }
+                    else
+                    {
+                        CurrentScreen = CurrentGame;
+                    }
                     break;
                 case ScreenType.TemplateExplorer:
-                    CurrentScreen = new TemplateExplorerScreen(SwitchScreen, CurrentGame);
+                    CurrentScreen = new TemplateExplorerScreen(SwitchScreen, OpenTemplateForEditing, CurrentGame);
                     break;
             }
         }
@@ -55,9 +62,14 @@ namespace IAmACube
             CurrentGame = new GameScreen(SwitchScreen, save);
         }
 
+        public void OpenTemplateForEditing(BlockTemplate template)
+        {
+            CurrentScreen = new TemplateEditScreen(SwitchScreen, template);
+        }
+
         public void Update(UserInput input)
         {
-            if(input.IsKeyJustReleased(Keys.Home))
+            if(input.IsKeyJustReleased(Keys.PageUp))
             {
                 var save = SaveManager.LoadFromFile("test.cubesave");
 
@@ -80,7 +92,8 @@ namespace IAmACube
         NewGame,
         LoadGame,
         Game,
-        TemplateExplorer
+        TemplateExplorer,
+        TemplateEdit
     }
     
 }

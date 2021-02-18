@@ -20,7 +20,7 @@ namespace IAmACube
 
         protected List<MenuItem> _children = new List<MenuItem>();
 
-        protected float _layer = DrawLayers.MenuBaseLayer;
+        public float DrawLayer = DrawLayers.MenuBaseLayer;
 
         public virtual void Draw(DrawingInterface drawingInterface)
         {
@@ -78,11 +78,39 @@ namespace IAmACube
             Location = location;
         }
 
+        public void AttachLocationToParent(MenuItem parent, Point location, CoordinateMode coordinateMode, bool centered = false)
+        {
+            AttachLocationToParent(parent.Location, parent.GetSize(),location, coordinateMode, centered);
+        }
+        public void AttachLocationToParent(Point parentlocation, Point parentSize, Point location, CoordinateMode coordinateMode, bool centered = false)
+        {
+            if (coordinateMode == CoordinateMode.Absolute)
+            {
+                location = parentlocation + location;
+            }
+            else if (coordinateMode == CoordinateMode.Relative)
+            {
+                int widthPercent = (int)(parentSize.X * (location.X / 100.0));
+                int heightPercent = (int)(parentSize.X * (location.X / 100.0));
+                var percentageOffset = new Point(widthPercent, heightPercent);
+
+                location = parentlocation + percentageOffset;
+            }
+
+            if (centered)
+            {
+                location = location - (GetSize() / 2);
+            }
+
+            _locationConfig = (location, CoordinateMode.Absolute, centered);
+        }
+
         public virtual void RefreshDimensions()
         {
             _refreshOwnDimensions();
             foreach (var child in _children)
             {
+                var size = GetSize();
                 child.RefreshDimensions();
             }
         }
@@ -94,6 +122,8 @@ namespace IAmACube
         {
             SetLocation(_locationConfig.loc, _locationConfig.mode, _locationConfig.centered);
         }
+
+
         private void _updateChildren(UserInput input)
         {
             foreach(var child in _children)
