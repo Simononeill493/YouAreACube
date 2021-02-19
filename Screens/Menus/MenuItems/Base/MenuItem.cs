@@ -15,7 +15,7 @@ namespace IAmACube
         public int Scale => MenuScreen.Scale + ScaleOffset;
         public int ScaleOffset = 0;
 
-        public float DrawLayer { get; private set; }
+        public float DrawLayer { get; set; }
 
         public event System.Action OnClick;
         public event System.Action OnMouseStartHover;
@@ -31,7 +31,7 @@ namespace IAmACube
 
         public MenuItem(IHasDrawLayer parentDrawLayer)
         {
-            DrawLayer = parentDrawLayer.DrawLayer - 0.0001f;
+            DrawLayer = parentDrawLayer.DrawLayer - DrawLayers.MinLayerDistance;
         }
 
         public void Draw(DrawingInterface drawingInterface)
@@ -143,6 +143,15 @@ namespace IAmACube
             }
 
             ActualLocation = location;
+        }
+
+        public void RescaleAll(int offSet)
+        {
+            ScaleOffset += offSet;
+            foreach(var child in _children)
+            {
+                child.RescaleAll(offSet);
+            }
         }
 
         public abstract Point GetSize();

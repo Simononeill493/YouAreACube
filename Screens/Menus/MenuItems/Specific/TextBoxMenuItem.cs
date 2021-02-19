@@ -10,12 +10,13 @@ namespace IAmACube
     public class TextBoxMenuItem : MenuItem
     {
         public string Text => text.Text;
+
         public bool Typeable;
 
-        private SpriteMenuItem box;
-        private TextMenuItem text;
+        protected SpriteMenuItem box;
+        protected TextMenuItem text;
 
-        public TextBoxMenuItem(IHasDrawLayer parentDrawLayer,string initialString,bool typeable) : base(parentDrawLayer)
+        public TextBoxMenuItem(IHasDrawLayer parentDrawLayer,string initialString) : base(parentDrawLayer)
         {
             box = new SpriteMenuItem(this,"EmptyMenuRectangleMedium");
             text = new TextMenuItem(this) { Text = initialString };
@@ -23,16 +24,20 @@ namespace IAmACube
             box.SetLocationConfig(0, 0, CoordinateMode.ParentOffset, centered: false);
             text.SetLocationConfig(50, 50, CoordinateMode.ParentRelative, centered: true);
             text.ScaleOffset = -1;
+            text.DrawLayer = box.DrawLayer - DrawLayers.MinLayerDistance;
 
             AddChild(box);
             box.AddChild(text);
-
-            Typeable = typeable;
         }
 
         public void SetText(string textToSet)
         {
             text.Text = textToSet;
+        }
+
+        public void RescaleText(int offset)
+        {
+            text.ScaleOffset += offset;
         }
 
         public override void Update(UserInput input)

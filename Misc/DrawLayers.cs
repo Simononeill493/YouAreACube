@@ -18,5 +18,6 @@ namespace IAmACube
         public const float MenuBaseLayer = 0.5f;
         public const float MenuHoverLayer = 0.1f;
 
+        public const float MinLayerDistance = 0.0001f;
     }
 }

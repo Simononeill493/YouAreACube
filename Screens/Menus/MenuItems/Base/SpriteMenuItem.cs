@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class SpriteMenuItem : MenuItem
+    public class SpriteMenuItem : MenuItem
     {
         public string SpriteName;
         public string HighlightedSpriteName;

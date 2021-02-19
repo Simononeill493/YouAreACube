@@ -12,15 +12,15 @@ namespace IAmACube
         private TextBoxMenuItem _templateHoverBox;
         private SpriteMenuItem _sprite;
 
-        public TemplateBox(IHasDrawLayer parentDrawLayer,Action<BlockTemplate> templateClick) : base(parentDrawLayer,"TemplateItemContainer")
+        public TemplateBox(IHasDrawLayer parentDrawLayer,Action<BlockTemplate> selectTemplate) : base(parentDrawLayer,"TemplateItemContainer")
         {
-            OnClick += () => templateClick(_template);
+            OnClick += () => selectTemplate(_template);
             OnMouseStartHover += TemplateBox_OnMouseStartHover;
             OnMouseEndHover += TemplateBox_OnMouseEndHover;
 
             HighlightedSpriteName = "TemplateItemContainerHighlight";
 
-            _templateHoverBox = new TextBoxMenuItem(this,"null",false);
+            _templateHoverBox = new TextBoxMenuItem(this,"null");
             _templateHoverBox.UpdateDrawLayer(DrawLayers.MenuHoverLayer);
             _templateHoverBox.Visible = false;
 

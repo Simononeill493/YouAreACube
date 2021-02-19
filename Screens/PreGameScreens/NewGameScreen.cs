@@ -16,7 +16,7 @@ namespace IAmACube
         {
             Background = "TitleBackground";
 
-            var textBox = new TextBoxMenuItem(this,"test",typeable: true);
+            var textBox = new TextBoxMenuItem(this, "test") { Typeable = true };
             var okButton = new SpriteMenuItem(this, "OkButton");
             var cancelButton = new SpriteMenuItem(this, "CancelButton");
 

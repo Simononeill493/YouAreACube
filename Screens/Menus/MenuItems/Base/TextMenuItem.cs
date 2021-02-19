@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class TextMenuItem : MenuItem
+    public class TextMenuItem : MenuItem
     {
         public string Text;
 

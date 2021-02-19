@@ -93,6 +93,7 @@
     <Compile Include="Screens\Menus\MenuItems\Base\ShapeMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\Base\SpriteMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\Base\TextMenuItem.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Specific\ButtonMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateBox.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateEditMenu.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateExplorerMenu.cs" />

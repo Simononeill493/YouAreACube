@@ -13,25 +13,45 @@ namespace IAmACube
 
         private Kernel _kernel;
         private List<TemplateBox> _boxes;
+        private TemplateSelectedMenu templateSelectedMenu;
 
-        public TemplateExplorerMenu(IHasDrawLayer parentDrawLayer,Kernel kernel,Action<BlockTemplate> _templateClick) : base(parentDrawLayer,"EmptyMenuRectangleFull") 
+        private Action<BlockTemplate> _goToTemplateEditMenu;
+
+        public TemplateExplorerMenu(IHasDrawLayer parentDrawLayer,Kernel kernel,Action<BlockTemplate> goToTemplateEditMenu) : base(parentDrawLayer,"EmptyMenuRectangleFull") 
         {
             _kernel = kernel;
-            _boxes = _generateTemplateBoxes(_templateClick);
+            _goToTemplateEditMenu = goToTemplateEditMenu;
+
+            _boxes = _generateTemplateBoxes();
             _setTemplateItemsLocations();
 
-            var templateSelectedMenu = new TemplateSelectedMenu(this, kernel);
+            templateSelectedMenu = new TemplateSelectedMenu(this, _templateSelectedAction);
             templateSelectedMenu.SetLocationConfig(60, 0, CoordinateMode.ParentRelative);
             AddChild(templateSelectedMenu);
         }
 
-        private List<TemplateBox> _generateTemplateBoxes(Action<BlockTemplate> _templateClick)
+        private void _templateSelectedAction(BlockTemplate template, TemplateSelectedAction selectedActionType)
+        {
+            switch (selectedActionType)
+            {
+                case TemplateSelectedAction.Edit:
+                    _goToTemplateEditMenu(template);
+                    break;
+            }
+        }
+
+        private void _templateBoxClicked(BlockTemplate template)
+        {
+            templateSelectedMenu.SetTemplate(template);
+        }
+
+        private List<TemplateBox> _generateTemplateBoxes()
         {
             var items = new List<TemplateBox>();
             var numTemplates = _kernel.KnownTemplates.Count();
             for (int i = 0; i < ItemsWidth * ItemsHeight; i++)
             {
-                var box = new TemplateBox(this,_templateClick);
+                var box = new TemplateBox(this, _templateBoxClicked);
                 if(i<numTemplates)
                 {
                     box.SetTemplate(_kernel.KnownTemplates[i]);

@@ -30,7 +30,7 @@ namespace IAmACube
                     fileName = Path.GetFileNameWithoutExtension(saves[i]);
                 }
 
-                var fileSlot = new TextBoxMenuItem(this,fileName, false);
+                var fileSlot = new TextBoxMenuItem(this,fileName);
                 fileSlot.SetLocationConfig(50, 15 + (i * 15), CoordinateMode.ParentRelative, centered: true);
                 fileSlot.OnClick += () => ClickSaveFile(cur);
 
