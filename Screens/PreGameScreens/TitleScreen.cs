@@ -13,12 +13,12 @@ namespace IAmACube
         {
             Background = "TitleBackground";
 
-            var newGameButton = new SpriteMenuItem("NewGameMenu") 
+            var newGameButton = new SpriteMenuItem(this, "NewGameMenu") 
             { 
                 HighlightedSpriteName = "NewGameMenu_Highlight"
             };
 
-            var loadGameButton = new SpriteMenuItem("LoadGameMenu") 
+            var loadGameButton = new SpriteMenuItem(this, "LoadGameMenu") 
             { 
                 HighlightedSpriteName = "LoadGameMenu_Highlight"
             };
@@ -26,8 +26,8 @@ namespace IAmACube
             newGameButton.OnClick += GoToNewGame;
             loadGameButton.OnClick += GoToLoadGame;
 
-            newGameButton.SetLocationConfig(50, 25, CoordinateMode.Relative, centered: true);
-            loadGameButton.SetLocationConfig(50, 50, CoordinateMode.Relative, centered: true);
+            newGameButton.SetLocationConfig(50, 25, CoordinateMode.ParentRelative, centered: true);
+            loadGameButton.SetLocationConfig(50, 50, CoordinateMode.ParentRelative, centered: true);
 
             _addMenuItem(newGameButton);
             _addMenuItem(loadGameButton);

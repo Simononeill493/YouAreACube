@@ -13,15 +13,14 @@ namespace IAmACube
 
         private string _activeSpriteName => (_mouseHovering & HighlightedSpriteName != null) ? HighlightedSpriteName : SpriteName;
 
-        public SpriteMenuItem(string spriteName)
+        public SpriteMenuItem(IHasDrawLayer parentDrawLayer,string spriteName) : base(parentDrawLayer)
         {
             SpriteName = spriteName;
         }
 
-        public override void Draw(DrawingInterface drawingInterface)
+        protected override void _drawSelf(DrawingInterface drawingInterface)
         {
             drawingInterface.DrawSprite(_activeSpriteName, ActualLocation.X, ActualLocation.Y, Scale, layer: DrawLayer);
-            base.Draw(drawingInterface);
         }
 
         public override bool IsMouseOver(UserInput input)

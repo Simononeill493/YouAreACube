@@ -16,16 +16,16 @@ namespace IAmACube
         {
             Background = "TitleBackground";
 
-            var textBox = new TextBoxMenuItem("test",typeable: true);
-            var okButton = new SpriteMenuItem("OkButton");
-            var cancelButton = new SpriteMenuItem("CancelButton");
+            var textBox = new TextBoxMenuItem(this,"test",typeable: true);
+            var okButton = new SpriteMenuItem(this, "OkButton");
+            var cancelButton = new SpriteMenuItem(this, "CancelButton");
 
             okButton.OnClick += NewGameClicked;
             cancelButton.OnClick += BackToTitleScreen;
 
-            textBox.SetLocationConfig(50, 40, CoordinateMode.Relative, centered: true);
-            okButton.SetLocationConfig(25, 65, CoordinateMode.Relative, centered: true);
-            cancelButton.SetLocationConfig(65, 65, CoordinateMode.Relative, centered: true);
+            textBox.SetLocationConfig(50, 40, CoordinateMode.ParentRelative, centered: true);
+            okButton.SetLocationConfig(25, 65, CoordinateMode.ParentRelative, centered: true);
+            cancelButton.SetLocationConfig(65, 65, CoordinateMode.ParentRelative, centered: true);
 
             _addMenuItem(textBox);
             _addMenuItem(okButton);

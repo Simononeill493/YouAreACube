@@ -27,12 +27,11 @@ namespace IAmACube
                 string fileName = "";
                 if (saves.Count() > i)
                 {
-                    //Console.WriteLine("Fetched save " + i + ":\t" + saves[i]);
                     fileName = Path.GetFileNameWithoutExtension(saves[i]);
                 }
 
-                var fileSlot = new TextBoxMenuItem(fileName,false);
-                fileSlot.SetLocationConfig(50, 15 + (i * 15), CoordinateMode.Relative, centered: true);
+                var fileSlot = new TextBoxMenuItem(this,fileName, false);
+                fileSlot.SetLocationConfig(50, 15 + (i * 15), CoordinateMode.ParentRelative, centered: true);
                 fileSlot.OnClick += () => ClickSaveFile(cur);
 
                 _addMenuItem(fileSlot);

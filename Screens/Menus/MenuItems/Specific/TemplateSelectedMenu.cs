@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class TemplateEditMenu : SpriteMenuItem
+    class TemplateSelectedMenu : SpriteMenuItem
     {
         private Kernel _kernel;
         private BlockTemplate _template;
 
-
-        public TemplateEditMenu(IHasDrawLayer parentDrawLayer,Kernel kernel, BlockTemplate template) : base(parentDrawLayer,"EmptyMenuRectangleFull")
+        public TemplateSelectedMenu(IHasDrawLayer parentDrawLayer,Kernel kernel) : base(parentDrawLayer,"EmptyMenuRectangleSection")
         {
             _kernel = kernel;
-            _template = template;
         }
+
     }
 }

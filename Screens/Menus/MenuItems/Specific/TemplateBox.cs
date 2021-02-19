@@ -8,45 +8,60 @@ namespace IAmACube
 {
     class TemplateBox : SpriteMenuItem
     {
-        public BlockTemplate Template;
+        private BlockTemplate _template;
+        private TextBoxMenuItem _templateHoverBox;
+        private SpriteMenuItem _sprite;
 
-        private int _mouseX;
-        private int _mouseY;
-
-        public TemplateBox(Action<BlockTemplate> templateClick) : base("TemplateItemContainer")
+        public TemplateBox(IHasDrawLayer parentDrawLayer,Action<BlockTemplate> templateClick) : base(parentDrawLayer,"TemplateItemContainer")
         {
-            OnClick += () => templateClick(Template);
+            OnClick += () => templateClick(_template);
+            OnMouseStartHover += TemplateBox_OnMouseStartHover;
+            OnMouseEndHover += TemplateBox_OnMouseEndHover;
 
-            DrawLayer = DrawLayers.MenuContentsBackLayer;
             HighlightedSpriteName = "TemplateItemContainerHighlight";
+
+            _templateHoverBox = new TextBoxMenuItem(this,"null",false);
+            _templateHoverBox.UpdateDrawLayer(DrawLayers.MenuHoverLayer);
+            _templateHoverBox.Visible = false;
+
+            AddChild(_templateHoverBox);
+        }
+
+        public void SetTemplate(BlockTemplate template)
+        {
+            _template = template;
+            _templateHoverBox.SetText(_template.Name);
+
+            if (_sprite != null)
+            {
+                RemoveChild(_sprite);
+            }
+
+            _sprite = new SpriteMenuItem(this, template.Sprite);
+            _sprite.SetLocationConfig(14, 14, CoordinateMode.ParentRelative);
+
+            AddChild(_sprite);
+        }
+        private void TemplateBox_OnMouseStartHover()
+        {
+            if(_template!=null)
+            {
+                _templateHoverBox.Visible = true;
+            }
+        }
+        private void TemplateBox_OnMouseEndHover()
+        {
+            _templateHoverBox.Visible = false;
         }
 
         public override void Update(UserInput input)
         {
             base.Update(input);
 
-            _mouseX = input.MouseX;
-            _mouseY = input.MouseY;
-        }
-
-        public override void Draw(DrawingInterface drawingInterface)
-        {
-            base.Draw(drawingInterface);
-
-            if(Template != null)
-            {
-                _drawTemplateData(drawingInterface);
-            }
-        }
-
-        private void _drawTemplateData(DrawingInterface drawingInterface)
-        {
-            drawingInterface.DrawSprite(Template.Sprite, ActualLocation.X + (3 * Scale), ActualLocation.Y + (3 * Scale), Scale, DrawLayers.MenuContentsFrontLayer);
-
             if (_mouseHovering)
             {
-                drawingInterface.DrawSprite("EmptyMenuRectangleMedium", _mouseX, _mouseY, Scale, DrawLayers.MenuHoverLayer1);
-                drawingInterface.DrawText(Template.Name, _mouseX + (5 * Scale), _mouseY + (3 * Scale), Scale - 3, DrawLayers.MenuHoverLayer2);
+                _templateHoverBox.SetLocationConfig(new Point(input.MouseX, input.MouseY), CoordinateMode.Absolute, false);
+                _templateHoverBox.UpdateThisAndChildLocations(Point.Zero, Point.Zero);
             }
         }
     }

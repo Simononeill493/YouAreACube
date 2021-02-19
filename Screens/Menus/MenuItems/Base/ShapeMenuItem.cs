@@ -15,10 +15,11 @@ namespace IAmACube
         public int ScaledWidth => Size.X * Scale;
         public int ScaledHeight => Size.Y * Scale;
 
-        public override void Draw(DrawingInterface drawingInterface)
+        public ShapeMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer) { }
+
+        protected override void _drawSelf(DrawingInterface drawingInterface)
         {
             drawingInterface.DrawRectangle(ActualLocation.X, ActualLocation.Y, ScaledWidth, ScaledHeight, DrawLayer, Color);
-            base.Draw(drawingInterface);
         }
 
         public override bool IsMouseOver(UserInput input)

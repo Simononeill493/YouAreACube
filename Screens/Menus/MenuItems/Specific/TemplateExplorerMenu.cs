@@ -8,17 +8,21 @@ namespace IAmACube
 {
     class TemplateExplorerMenu : SpriteMenuItem
     {
-        private const int ItemsWidth = 8;
+        private const int ItemsWidth = 5;
         private const int ItemsHeight = 6;
 
         private Kernel _kernel;
         private List<TemplateBox> _boxes;
 
-        public TemplateExplorerMenu(Kernel kernel,Action<BlockTemplate> _templateClick) : base("EmptyMenuRectangleFull") 
+        public TemplateExplorerMenu(IHasDrawLayer parentDrawLayer,Kernel kernel,Action<BlockTemplate> _templateClick) : base(parentDrawLayer,"EmptyMenuRectangleFull") 
         {
             _kernel = kernel;
             _boxes = _generateTemplateBoxes(_templateClick);
             _setTemplateItemsLocations();
+
+            var templateSelectedMenu = new TemplateSelectedMenu(this, kernel);
+            templateSelectedMenu.SetLocationConfig(60, 0, CoordinateMode.ParentRelative);
+            AddChild(templateSelectedMenu);
         }
 
         private List<TemplateBox> _generateTemplateBoxes(Action<BlockTemplate> _templateClick)
@@ -27,10 +31,10 @@ namespace IAmACube
             var numTemplates = _kernel.KnownTemplates.Count();
             for (int i = 0; i < ItemsWidth * ItemsHeight; i++)
             {
-                var box = new TemplateBox(_templateClick);
+                var box = new TemplateBox(this,_templateClick);
                 if(i<numTemplates)
                 {
-                    box.Template = _kernel.KnownTemplates[i];
+                    box.SetTemplate(_kernel.KnownTemplates[i]);
                 }
                 items.Add(box);
                 AddChild(box);
@@ -48,7 +52,7 @@ namespace IAmACube
 
             for (int i=0;i<_boxes.Count;i++)
             {
-                _boxes[i].SetLocationConfig(new Point(xOffset, yOffset), CoordinateMode.Relative, centered: false);
+                _boxes[i].SetLocationConfig(new Point(xOffset, yOffset), CoordinateMode.ParentRelative, centered: false);
                 xOffset += xIncrement;
 
                 if ((i + 1) % ItemsWidth == 0)

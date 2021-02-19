@@ -14,19 +14,25 @@ namespace IAmACube
 
         private SpriteMenuItem box;
         private TextMenuItem text;
-        
-        public TextBoxMenuItem(string initialString,bool typeable)
-        {
-            box = new SpriteMenuItem("EmptyMenuRectangleMedium");
-            text = new TextMenuItem() { Text = initialString };
 
-            box.SetLocationConfig(0, 0, CoordinateMode.Absolute, centered: false);
-            text.SetLocationConfig(50, 50, CoordinateMode.Relative, centered: true);
+        public TextBoxMenuItem(IHasDrawLayer parentDrawLayer,string initialString,bool typeable) : base(parentDrawLayer)
+        {
+            box = new SpriteMenuItem(this,"EmptyMenuRectangleMedium");
+            text = new TextMenuItem(this) { Text = initialString };
+
+            box.SetLocationConfig(0, 0, CoordinateMode.ParentOffset, centered: false);
+            text.SetLocationConfig(50, 50, CoordinateMode.ParentRelative, centered: true);
+            text.ScaleOffset = -1;
 
             AddChild(box);
-            AddChild(text);
+            box.AddChild(text);
 
             Typeable = typeable;
+        }
+
+        public void SetText(string textToSet)
+        {
+            text.Text = textToSet;
         }
 
         public override void Update(UserInput input)

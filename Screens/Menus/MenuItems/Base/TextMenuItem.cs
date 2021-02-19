@@ -10,19 +10,14 @@ namespace IAmACube
     {
         public string Text;
 
-        public TextMenuItem()
-        {
-            DrawLayer = DrawLayers.MenuContentsBackLayer;
-        }
+        public TextMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer) { }
 
-        public override void Draw(DrawingInterface drawingInterface)
+        protected override void _drawSelf(DrawingInterface drawingInterface)
         {
             if(Text!=null)
             {
                 drawingInterface.DrawText(Text, ActualLocation.X, ActualLocation.Y, Scale-1, layer: DrawLayer);
             }
-
-            base.Draw(drawingInterface);
         }
 
         public override bool IsMouseOver(UserInput input)

@@ -16,10 +16,7 @@ namespace IAmACube
         public const float HUDLayer = 0.6f;
 
         public const float MenuBaseLayer = 0.5f;
-        public const float MenuContentsBackLayer = 0.4f;
-        public const float MenuContentsFrontLayer = 0.3f;
-        public const float MenuHoverLayer1 = 0.2f;
-        public const float MenuHoverLayer2 = 0.1f;
+        public const float MenuHoverLayer = 0.1f;
 
     }
 }

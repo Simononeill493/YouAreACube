@@ -88,6 +88,7 @@
     <Compile Include="Screens\InGameScreens\InGameMenus\TemplateEditScreen.cs" />
     <Compile Include="Screens\InGameScreens\InGameMenus\TemplateExplorerScreen.cs" />
     <Compile Include="Misc\DrawLayers.cs" />
+    <Compile Include="Screens\Menus\IDrawLayer.cs" />
     <Compile Include="Screens\Menus\MenuItems\CoordinateMode.cs" />
     <Compile Include="Screens\Menus\MenuItems\Base\ShapeMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\Base\SpriteMenuItem.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateBox.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateEditMenu.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateExplorerMenu.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Specific\TemplateSelectedMenu.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TextBoxMenuItem.cs" />
     <Compile Include="Utils\DrawUtils.cs" />
     <Compile Include="Utils\WorldUtils.cs" />
