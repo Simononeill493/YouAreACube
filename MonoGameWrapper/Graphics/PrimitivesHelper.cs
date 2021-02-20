@@ -81,6 +81,7 @@ namespace IAmACube
                 (x,y) = DrawUtils.GetCenteredCoords(sprite.Width, sprite.Height, x, y, scale);
             }
 
+            //_spriteBatch.Draw(sprite, new Vector2(x, y), scale: new Vector2(scale, scale), layerDepth: layer);
             _spriteBatch.Draw(sprite, new Vector2(x, y), scale: new Vector2(scale, scale), layerDepth: layer);
         }
 

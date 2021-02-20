@@ -48,8 +48,11 @@ namespace IAmACube
             }
             if (input.IsKeyJustReleased(Keys.O))
             {
-                Scale--;
-                _updateAllItemPositions();
+                if(Scale>3)
+                {
+                    Scale--;
+                    _updateAllItemPositions();
+                }
             }
 
             _refreshIfScreenSizeChanged();

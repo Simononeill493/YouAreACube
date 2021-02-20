@@ -16,7 +16,7 @@ namespace IAmACube
         {
             if(Text!=null)
             {
-                drawingInterface.DrawText(Text, ActualLocation.X, ActualLocation.Y, Scale-1, layer: DrawLayer);
+                drawingInterface.DrawText(Text, ActualLocation.X, ActualLocation.Y, Scale, layer: DrawLayer);
             }
         }
 
@@ -28,7 +28,7 @@ namespace IAmACube
         public override Point GetSize()
         {
             var size = SpriteManager.GetTextSize(Text);
-            return size * (Scale-1);
+            return size * Scale;
         }
     }
 }

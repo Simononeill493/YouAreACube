@@ -23,7 +23,7 @@ namespace IAmACube
 
             box.SetLocationConfig(0, 0, CoordinateMode.ParentOffset, centered: false);
             text.SetLocationConfig(50, 50, CoordinateMode.ParentRelative, centered: true);
-            text.ScaleOffset = -1;
+            //text.ScaleOffset = -1;
             text.DrawLayer = box.DrawLayer - DrawLayers.MinLayerDistance;
 
             AddChild(box);
