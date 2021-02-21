@@ -12,7 +12,7 @@ namespace IAmACube
         public TemplateExplorerScreen(Action<ScreenType> switchScreen, Action<BlockTemplate> openTemplateForEditing,GameScreen gameScreen) : base(ScreenType.TemplateExplorer, switchScreen,gameScreen)
         {
             var templateMenu = new TemplateExplorerMenu(this,_gameScreen.Game.Kernel, openTemplateForEditing);
-            templateMenu.SetLocationConfig(50, 50, CoordinateMode.ParentRelative, centered: true);
+            templateMenu.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
 
             _addMenuItem(templateMenu);
         }

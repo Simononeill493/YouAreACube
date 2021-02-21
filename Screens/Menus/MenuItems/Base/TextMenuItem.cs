@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace IAmACube
     public class TextMenuItem : MenuItem
     {
         public string Text;
+        public Color Color = Config.DefaultColor;
 
         public TextMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer) { }
 
@@ -16,7 +18,7 @@ namespace IAmACube
         {
             if(Text!=null)
             {
-                drawingInterface.DrawText(Text, ActualLocation.X, ActualLocation.Y, Scale, layer: DrawLayer);
+                drawingInterface.DrawText(Text, ActualLocation.X, ActualLocation.Y, Scale, DrawLayer, Color);
             }
         }
 

@@ -3,7 +3,7 @@
     public enum CoordinateMode
     {
         Absolute,
-        ParentOffset,
-        ParentRelative
+        ParentPixelOffset,
+        ParentPercentageOffset
     }
 }

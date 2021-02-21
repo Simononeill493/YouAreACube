@@ -9,6 +9,11 @@ namespace IAmACube
 {
     public class UserInput
     {
+        private static int previousScrollValue;
+
+        public bool ScrolledUp;
+        public bool ScrolledDown;
+
         public KeyboardState KeyboardState;
         public MouseState MouseState;
 
@@ -21,6 +26,11 @@ namespace IAmACube
             KeyboardState = keyboardState;
             KeysJustPressed = keysJustPressed;
             KeysJustReleased = keysJustReleased;
+
+            ScrolledUp = MouseState.ScrollWheelValue > previousScrollValue;
+            ScrolledDown = MouseState.ScrollWheelValue < previousScrollValue;
+
+            previousScrollValue = MouseState.ScrollWheelValue;
         }
 
         public bool IsKeyDown(Keys key) => KeyboardState.IsKeyDown(key);
@@ -33,7 +43,5 @@ namespace IAmACube
         public ButtonState RightButton => MouseState.RightButton;
         public int MouseX => MouseState.X;
         public int MouseY => MouseState.Y;
-
-
     }
 }

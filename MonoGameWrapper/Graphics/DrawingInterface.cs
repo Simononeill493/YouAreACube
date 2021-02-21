@@ -17,7 +17,7 @@ namespace IAmACube
         }
 
         public void DrawBackground(string background) => _primitivesHelper.DrawStretchedToScreen(background);
-        public void DrawText(string text, int x, int y, int scale, float layer,bool centered = false) => _primitivesHelper.DrawText(text, x, y, scale, layer, centered);
+        public void DrawText(string text, int x, int y, int scale, float layer,Color color,bool centered = false) => _primitivesHelper.DrawText(text, x, y, scale, layer, color, centered);
         public void DrawSprite(string sprite, int x, int y, int scale, float layer, bool centered = false) => _primitivesHelper.DrawSprite(sprite, x, y, scale, layer, centered);
 
         public void DrawRectangle(int x, int y, int width, int height, float layer, Color color, bool centered = false)=>_primitivesHelper.DrawRectangle(x,y,width,height,layer,color,centered);

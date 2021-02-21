@@ -20,7 +20,7 @@ namespace IAmACube
 
         public void Update(UserInput input)
         {
-            _readKeys(input);
+            _readInput(input);
 
             _config.SetScreenScaling();
             _update(input);
@@ -62,7 +62,7 @@ namespace IAmACube
             }
         }
 
-        private void _readKeys(UserInput input)
+        private void _readInput(UserInput input)
         {
             if (input.IsKeyDown(Keys.Home))//up
             {
@@ -81,11 +81,11 @@ namespace IAmACube
                 _config.PartialGridOffset.X += 15;
             }
 
-            if (input.IsKeyJustPressed(Keys.P))
+            if (input.ScrolledUp)
             {
                 _config.Scale++;
             }
-            if (input.IsKeyJustPressed(Keys.O))
+            if (input.ScrolledDown)
             {
                 if (_config.Scale > 1) { _config.Scale--; }
             }

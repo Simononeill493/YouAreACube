@@ -21,8 +21,8 @@ namespace IAmACube
             box = new SpriteMenuItem(this,"EmptyMenuRectangleMedium");
             text = new TextMenuItem(this) { Text = initialString };
 
-            box.SetLocationConfig(0, 0, CoordinateMode.ParentOffset, centered: false);
-            text.SetLocationConfig(50, 50, CoordinateMode.ParentRelative, centered: true);
+            box.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, centered: false);
+            text.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
             //text.ScaleOffset = -1;
             text.DrawLayer = box.DrawLayer - DrawLayers.MinLayerDistance;
 

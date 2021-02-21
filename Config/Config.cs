@@ -22,5 +22,7 @@ namespace IAmACube
         public static bool KernelUnlimitedEnergy = true;
 
         public static int MenuItemScale = 4;
+
+        public static Microsoft.Xna.Framework.Color DefaultColor = Microsoft.Xna.Framework.Color.Black;
     }
 }

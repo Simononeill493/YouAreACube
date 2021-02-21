@@ -69,6 +69,7 @@ namespace IAmACube
                 else if(_mousePressedOn & input.LeftButton == ButtonState.Released)
                 {
                     _clickedOn = true;
+                    _mousePressedOn = false;
                 }
 
                 if (_clickedOn)
@@ -124,11 +125,11 @@ namespace IAmACube
         {
             Point location = _locationConfig.loc;
 
-            if (_locationConfig.mode == CoordinateMode.ParentOffset)
+            if (_locationConfig.mode == CoordinateMode.ParentPixelOffset)
             {
-                location = parentlocation + location;
+                location = parentlocation + (location*Scale);
             }
-            else if (_locationConfig.mode == CoordinateMode.ParentRelative)
+            else if (_locationConfig.mode == CoordinateMode.ParentPercentageOffset)
             {
                 int widthPercent = (int)(parentSize.X * (location.X / 100.0));
                 int heightPercent = (int)(parentSize.Y * (location.Y / 100.0));

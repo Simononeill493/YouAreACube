@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class ShapeMenuItem : MenuItem
+    public class ShapeMenuItem : MenuItem
     {
         public Color Color;
         public Point Size;

@@ -31,7 +31,7 @@ namespace IAmACube
                 }
 
                 var fileSlot = new TextBoxMenuItem(this,fileName);
-                fileSlot.SetLocationConfig(50, 15 + (i * 15), CoordinateMode.ParentRelative, centered: true);
+                fileSlot.SetLocationConfig(50, 15 + (i * 15), CoordinateMode.ParentPercentageOffset, centered: true);
                 fileSlot.OnClick += () => ClickSaveFile(cur);
 
                 _addMenuItem(fileSlot);

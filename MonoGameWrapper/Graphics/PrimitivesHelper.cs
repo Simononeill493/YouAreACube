@@ -86,7 +86,7 @@ namespace IAmACube
         }
 
 
-        public void DrawText(string text, int x, int y, int scale, float layer,bool centered)
+        public void DrawText(string text, int x, int y, int scale, float layer, Color color, bool centered)
         {
             if(centered)
             {
@@ -94,7 +94,7 @@ namespace IAmACube
                 (x, y) = DrawUtils.GetCenteredCoords((int)dims.X, (int)dims.Y, x, y, scale);
             }
 
-            _spriteBatch.DrawString(_gameFont, text, new Vector2(x,y), Color.Black, 0, Vector2.Zero, scale, SpriteEffects.None, layer);
+            _spriteBatch.DrawString(_gameFont, text, new Vector2(x,y), color, 0, Vector2.Zero, scale, SpriteEffects.None, layer);
         }
 
         public void DrawStretchedToScreen(string spriteName)
