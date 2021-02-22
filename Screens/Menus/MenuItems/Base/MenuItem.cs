@@ -27,7 +27,7 @@ namespace IAmACube
 
         public bool Visible = true;
 
-        protected List<MenuItem> _children = new List<MenuItem>();
+        private List<MenuItem> _children = new List<MenuItem>();
 
         public MenuItem(IHasDrawLayer parentDrawLayer)
         {
@@ -94,6 +94,15 @@ namespace IAmACube
         {
             _children.Remove(item);
         }
+        public void RemoveChildren(List<MenuItem> toRemove)
+        {
+            foreach (var item in toRemove)
+            {
+                _children.Remove(item);
+            }
+        }
+
+
         public void UpdateDrawLayer(float newLayer)
         {
             DrawLayer = newLayer;
@@ -172,5 +181,7 @@ namespace IAmACube
                 child.Draw(drawingInterface);
             }
         }
+
+
     }
 }

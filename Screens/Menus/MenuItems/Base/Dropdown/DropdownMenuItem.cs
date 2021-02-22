@@ -23,6 +23,8 @@ namespace IAmACube
         private List<T> _items;
         private List<DropdownItemMenuItem<T>> _dropdownItems;
 
+        public event Action<T> OnSelectedChanged;
+
         private TextMenuItem _text;
 
         public DropdownMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "Dropdown")
@@ -59,7 +61,6 @@ namespace IAmACube
             }
         }
 
-
         protected override void _drawSelf(DrawingInterface drawingInterface)
         {
             base._drawSelf(drawingInterface);
@@ -71,17 +72,18 @@ namespace IAmACube
             Dropped = false;
 
             _text.Text = item.ToString();
+            OnSelectedChanged?.Invoke(item);
         }
 
         private void _clearDropdown()
         {
             foreach(var item in _dropdownItems)
             {
-                _children.Remove(item);
+                RemoveChild(item);
             }
-
             _dropdownItems.Clear();
         }
+
         private void _setItemsVisibility(bool visible)
         {
             foreach (var item in _dropdownItems)
@@ -89,7 +91,5 @@ namespace IAmACube
                 item.Visible = visible;
             }
         }
-
-
     }
 }

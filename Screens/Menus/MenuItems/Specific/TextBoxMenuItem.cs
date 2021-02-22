@@ -10,11 +10,15 @@ namespace IAmACube
     public class TextBoxMenuItem : MenuItem
     {
         public string Text => text.Text;
+        public int MaxTextLength = 9;
 
         public bool Typeable;
+        public bool Focused;
 
         protected SpriteMenuItem box;
         protected TextMenuItem text;
+
+        public event Action<string> OnTextChanged;
 
         public TextBoxMenuItem(IHasDrawLayer parentDrawLayer,string initialString) : base(parentDrawLayer)
         {
@@ -44,7 +48,12 @@ namespace IAmACube
         {
             base.Update(input);
 
-            if(Typeable)
+            if(input.LeftButton == ButtonState.Pressed)
+            {
+                Focused = _mouseHovering;
+            }
+
+            if(Typeable & Focused)
             {
                 foreach (var key in input.KeysJustPressed)
                 {
@@ -54,11 +63,13 @@ namespace IAmACube
                     {
                         text.Text = text.Text + KeyUtils.KeyToChar(key);
                         text.UpdateLocation(ActualLocation, size);
+                        OnTextChanged?.Invoke(Text);
                     }
                     else if (_doBackspace(key))
                     {
                         text.Text = text.Text.Substring(0, text.Text.Length - 1);
                         text.UpdateLocation(ActualLocation, size);
+                        OnTextChanged?.Invoke(Text);
                     }
                 }
             }
@@ -74,7 +85,7 @@ namespace IAmACube
             return box.IsMouseOver(input);
         }
 
-        private bool _doTypeChar(Keys key) => (KeyUtils.IsAlphanumeric(key) && text.Text.Length < 9);
+        private bool _doTypeChar(Keys key) => (KeyUtils.IsAlphanumeric(key) && text.Text.Length < MaxTextLength);
         private bool _doBackspace(Keys key) => (key == Keys.Back && text.Text.Length > 0);
     }
 }

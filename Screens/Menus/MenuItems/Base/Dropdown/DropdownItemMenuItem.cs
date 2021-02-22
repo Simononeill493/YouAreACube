@@ -25,7 +25,10 @@ namespace IAmACube
 
             OnClick += () =>
             {
-                itemSelected(Item);
+                if(Visible)
+                {
+                    itemSelected(Item);
+                }
             };
 
             OnMouseStartHover += () => 

@@ -81,11 +81,11 @@ namespace IAmACube
                 _config.PartialGridOffset.X += 15;
             }
 
-            if (input.ScrolledUp)
+            if (input.IsKeyJustPressed(Keys.P) | input.ScrolledUp)
             {
                 _config.Scale++;
             }
-            if (input.ScrolledDown)
+            if (input.IsKeyJustPressed(Keys.O) | input.ScrolledDown)
             {
                 if (_config.Scale > 1) { _config.Scale--; }
             }

@@ -10,9 +10,12 @@ namespace IAmACube
     {
         public ChipSearchPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "SearchPane")
         {
-            var searchBar = new SpriteMenuItem(this, "SearchBar");
+            var searchBar = new SearchBarMenuItem(this);
+            searchBar.OnTextChanged += _searchTermChanged;
+
             var chipTypeDropdown = new DropdownMenuItem<ChipType>(this);
             chipTypeDropdown.SetItems(typeof(ChipType).GetEnumValues().Cast<ChipType>().ToList());
+            chipTypeDropdown.OnSelectedChanged += _chipTypeChanged;
 
             searchBar.SetLocationConfig(50, 6, CoordinateMode.ParentPercentageOffset, true);
             chipTypeDropdown.SetLocationConfig(50, 19, CoordinateMode.ParentPercentageOffset, true);
@@ -20,6 +23,9 @@ namespace IAmACube
             AddChild(searchBar);
             AddChild(chipTypeDropdown);
         }
+
+        private void _searchTermChanged(string searchTerm){}
+        private void _chipTypeChanged(ChipType chipType){}
 
     }
 }

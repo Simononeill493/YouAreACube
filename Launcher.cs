@@ -9,7 +9,7 @@ namespace IAmACube
         [STAThread]
         public static void Main(string[] args)
         {
-
+            ChipDatabase.Load();
             RandomUtils.Init(1);
             DirectionUtils.Init();
             Templates.Load();
