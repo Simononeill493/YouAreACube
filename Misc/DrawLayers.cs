@@ -8,6 +8,8 @@ namespace IAmACube
 {
     public class DrawLayers
     {
+        public const float MinLayerDistance = 0.0001f;
+
         public const float BackgroundLayer = 1;
 
         public const float GroundLayer = 0.9f;
@@ -16,8 +18,9 @@ namespace IAmACube
         public const float HUDLayer = 0.6f;
 
         public const float MenuBaseLayer = 0.5f;
+
+        public const float MenuDropdownLayer = 0.2f;
         public const float MenuHoverLayer = 0.1f;
 
-        public const float MinLayerDistance = 0.0001f;
     }
 }

@@ -14,6 +14,8 @@ namespace IAmACube
 
         public DropdownItemMenuItem(IHasDrawLayer parentDrawLayer,T item,Action<T> itemSelected) : base(parentDrawLayer)
         {
+            DrawLayer = DrawLayers.MenuDropdownLayer;
+
             Color = Color.White;
             TextColor = Color.Black;
 

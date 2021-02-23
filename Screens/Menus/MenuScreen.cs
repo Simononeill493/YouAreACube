@@ -43,14 +43,14 @@ namespace IAmACube
 
             if (input.IsKeyJustPressed(Keys.P) | input.ScrolledUp)
             {
-                Scale++;
+                Scale+=2;
                 _updateAllItemPositions();
             }
             if (input.IsKeyJustPressed(Keys.O) | input.ScrolledDown)
             {
-                if (Scale > 3)
+                if (Scale > 2)
                 {
-                    Scale--;
+                    Scale-=2;
                     _updateAllItemPositions();
                 }
             }

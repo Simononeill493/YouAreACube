@@ -12,7 +12,7 @@ namespace IAmACube
         {
             text.SetLocationConfig(4, 3, CoordinateMode.ParentPixelOffset, false);
             box.SpriteName = "SearchBar";
-            Typeable = true;
+            Editable = true;
             MaxTextLength = 7;
         }
     }

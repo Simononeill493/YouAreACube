@@ -12,7 +12,7 @@ namespace IAmACube
         public string Text => text.Text;
         public int MaxTextLength = 9;
 
-        public bool Typeable;
+        public bool Editable;
         public bool Focused;
 
         protected SpriteMenuItem box;
@@ -27,7 +27,7 @@ namespace IAmACube
 
             box.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, centered: false);
             text.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
-            //text.ScaleOffset = -1;
+
             text.DrawLayer = box.DrawLayer - DrawLayers.MinLayerDistance;
 
             AddChild(box);
@@ -39,11 +39,6 @@ namespace IAmACube
             text.Text = textToSet;
         }
 
-        public void RescaleText(int offset)
-        {
-            text.ScaleOffset += offset;
-        }
-
         public override void Update(UserInput input)
         {
             base.Update(input);
@@ -53,7 +48,7 @@ namespace IAmACube
                 Focused = _mouseHovering;
             }
 
-            if(Typeable & Focused)
+            if(Editable & Focused)
             {
                 foreach (var key in input.KeysJustPressed)
                 {

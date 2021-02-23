@@ -31,7 +31,7 @@ namespace IAmACube
 
             _templateName = new TextMenuItem(this);
             _templateName.SetLocationConfig(10, 20, CoordinateMode.ParentPercentageOffset);
-            _templateName.ScaleOffset -= 2;
+            _templateName.HalfScaled = true;
             AddChild(_templateName);
 
             _editButton = new ButtonMenuItem(this, "Edit...");

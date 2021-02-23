@@ -12,8 +12,8 @@ namespace IAmACube
         public Point ActualLocation { get; private set; }
         protected (Point loc, CoordinateMode mode, bool centered) _locationConfig;
 
-        public int Scale => MenuScreen.Scale + ScaleOffset;
-        public int ScaleOffset = 0;
+        public int Scale => MenuScreen.Scale / (HalfScaled ? 2 : 1);
+        public bool HalfScaled = false;        
 
         public float DrawLayer { get; set; }
 
@@ -94,14 +94,13 @@ namespace IAmACube
         {
             _children.Remove(item);
         }
-        public void RemoveChildren(List<MenuItem> toRemove)
+        public void RemoveChildren<T>(List<T> toRemove) where T : MenuItem
         {
             foreach (var item in toRemove)
             {
                 _children.Remove(item);
             }
         }
-
 
         public void UpdateDrawLayer(float newLayer)
         {
@@ -124,10 +123,14 @@ namespace IAmACube
         public virtual void UpdateThisAndChildLocations(Point parentlocation, Point parentSize)
         {
             UpdateLocation(parentlocation,parentSize);
+            _updateChildLocations();
+        }
+        protected void _updateChildLocations()
+        {
             foreach (var child in _children)
             {
                 var size = GetSize();
-                child.UpdateThisAndChildLocations(ActualLocation,size);
+                child.UpdateThisAndChildLocations(ActualLocation, size);
             }
         }
         public void UpdateLocation(Point parentlocation, Point parentSize)
@@ -153,15 +156,6 @@ namespace IAmACube
             }
 
             ActualLocation = location;
-        }
-
-        public void RescaleAll(int offSet)
-        {
-            ScaleOffset += offSet;
-            foreach(var child in _children)
-            {
-                child.RescaleAll(offSet);
-            }
         }
 
         public abstract Point GetSize();

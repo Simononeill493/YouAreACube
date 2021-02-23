@@ -18,6 +18,7 @@ namespace IAmACube
         public const string SaveExtension = ".cubesave";
 
         public const string TemplatesFile = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data\templates.txt";
+        public const string ChipsFile = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data\BuiltInChips.txt";
 
         public static bool KernelUnlimitedEnergy = true;
 

@@ -8,6 +8,8 @@ namespace IAmACube
 {
     class DropdownMenuItem<T> : SpriteMenuItem
     {
+        public bool IsItemSelected = false;
+
         public T Selected { get; private set; }
         public bool Dropped
         {
@@ -45,7 +47,7 @@ namespace IAmACube
 
         public void SetItems(List<T> items)
         {
-            _clearDropdown();
+            _clearDropdownItems();
             _items = items;
             var size = GetSize() / Scale;
 
@@ -61,26 +63,19 @@ namespace IAmACube
             }
         }
 
-        protected override void _drawSelf(DrawingInterface drawingInterface)
-        {
-            base._drawSelf(drawingInterface);
-        }
-
         private void DropdownClicked(T item)
         {
             Selected = item;
             Dropped = false;
+            IsItemSelected = true;
 
             _text.Text = item.ToString();
             OnSelectedChanged?.Invoke(item);
         }
 
-        private void _clearDropdown()
+        private void _clearDropdownItems()
         {
-            foreach(var item in _dropdownItems)
-            {
-                RemoveChild(item);
-            }
+            RemoveChildren(_dropdownItems);
             _dropdownItems.Clear();
         }
 
