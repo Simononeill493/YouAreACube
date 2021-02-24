@@ -34,7 +34,7 @@ namespace IAmACube
             _items = new List<T>();
             _dropdownItems = new List<DropdownItemMenuItem<T>>();
 
-            this.OnClick += () => { Dropped = !Dropped; };
+            this.OnClick += (i) => { Dropped = !Dropped; };
 
             var dropButton = new SpriteMenuItem(this, "DropdownArrow");
             dropButton.SetLocationConfig(92, 50, CoordinateMode.ParentPercentageOffset, true);

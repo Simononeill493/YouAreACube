@@ -9,82 +9,93 @@ namespace IAmACube
     class ChipSearchPane : SpriteMenuItem
     {
         public const int MaxVisibleChips = 6;
-        private bool _toRefresh;
 
-        private SearchBarMenuItem searchBar;
-        private DropdownMenuItem<ChipType> dropdown;
+        private SearchBarMenuItem _searchBar;
+        private DropdownMenuItem<ChipType> _dropdown;
 
         private List<ChipPreviewSmall> _chipPreviews;
+
+        private ChipPreviewLarge _draggedChip;
 
         public ChipSearchPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "SearchPane")
         {
             _chipPreviews = new List<ChipPreviewSmall>();
 
-            searchBar = new SearchBarMenuItem(this);
-            searchBar.OnTextChanged += _searchTermChanged;
+            _searchBar = new SearchBarMenuItem(this);
+            _searchBar.OnTextChanged += _searchTermChanged;
 
-            dropdown = new DropdownMenuItem<ChipType>(this);
-            dropdown.SetItems(typeof(ChipType).GetEnumValues().Cast<ChipType>().ToList());
-            dropdown.OnSelectedChanged += _chipTypeChanged;
+            _dropdown = new DropdownMenuItem<ChipType>(this);
+            _dropdown.SetItems(typeof(ChipType).GetEnumValues().Cast<ChipType>().ToList());
+            _dropdown.OnSelectedChanged += _chipTypeChanged;
 
-            searchBar.SetLocationConfig(50, 6, CoordinateMode.ParentPercentageOffset, true);
-            dropdown.SetLocationConfig(50, 19, CoordinateMode.ParentPercentageOffset, true);
+            _searchBar.SetLocationConfig(50, 6, CoordinateMode.ParentPercentageOffset, true);
+            _dropdown.SetLocationConfig(50, 19, CoordinateMode.ParentPercentageOffset, true);
 
-            AddChild(searchBar);
-            AddChild(dropdown);
+            AddChild(_searchBar);
+            AddChild(_dropdown);
 
-            SetPreviews(ChipDatabase.BuiltInChips.Values.ToList());
+            _setPreviews(ChipDatabase.BuiltInChips.Values.ToList());
         }
 
-        public override void Update(UserInput input)
+        private void _tryCreateChip(ChipPreviewSmall preview, UserInput input)
         {
-            base.Update(input);
-            if(_toRefresh)
+            if(!MenuScreen.UserDragging)
             {
-                _refreshFilter();
-                _toRefresh = false;
+                _createChip(preview, input);
             }
         }
+        private void _createChip(ChipPreviewSmall preview,UserInput input)
+        {
+            if(_draggedChip!=null)
+            {
+                RemoveChildAfterUpdate(_draggedChip);
+            }
 
-        private void SetPreviews(List<ChipData> chips)
+            var chip = new ChipPreviewLarge(this, preview.Chip);
+            chip.ManuallyAttachToMouse(chip.GetSize()/2);
+            chip.SetLocationConfig(input.MousePos, CoordinateMode.Absolute, true);
+
+            AddChildAfterUpdate(chip);
+        }
+
+        private void _setPreviews(List<ChipData> chips)
         {
             _clearPreviews();
 
             for (int i = 0; i < Math.Min(chips.Count, MaxVisibleChips); i++)
             {
-                var chipPreview = new ChipPreviewSmall(this);
+                var chipPreview = new ChipPreviewSmall(this, chips[i]);
                 chipPreview.SetLocationConfig(3, 25 + (20 * (i + 1)), CoordinateMode.ParentPixelOffset, false);
-                chipPreview.SetText(chips[i].Name);
+                chipPreview.OnMousePressed += (input) => _tryCreateChip(chipPreview, input);
 
                 _chipPreviews.Add(chipPreview);
-                AddChild(chipPreview);
+                AddChildAfterUpdate(chipPreview);
             }
         }
-
         private void _clearPreviews()
         {
-            RemoveChildren(_chipPreviews);
+            RemoveChildrenAfterUpdate(_chipPreviews);
             _chipPreviews.Clear();
         }
+
         private void _refreshFilter()
         {
             var chips = ChipDatabase.BuiltInChips.Values;
-            var filtered = chips.Where(c => c.Name.ToLower().Contains(searchBar.Text.ToLower()));
-            if(dropdown.IsItemSelected)
+            var filtered = chips.Where(c => c.Name.ToLower().Contains(_searchBar.Text.ToLower()));
+            if(_dropdown.IsItemSelected)
             {
-                filtered = filtered.Where(c => c.ChipType == dropdown.Selected);
+                filtered = filtered.Where(c => c.ChipType == _dropdown.Selected);
             }
 
-            SetPreviews(filtered.ToList());
-            _updateChildLocations();
+            _setPreviews(filtered.ToList());
         }
         private void _searchTermChanged(string searchTerm)
         {
-            _toRefresh = true;
+            _refreshFilter();
         }
         private void _chipTypeChanged(ChipType chipType)
         {
-            _toRefresh = true;
+            _refreshFilter();
         }
     }
 }

@@ -93,6 +93,7 @@
     <Compile Include="Screens\InGameScreens\InGameMenus\TemplateExplorerScreen.cs" />
     <Compile Include="Misc\DrawLayers.cs" />
     <Compile Include="Screens\Menus\IDrawLayer.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Base\DraggableMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\Base\Dropdown\DropdownItemMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\Base\Dropdown\DropdownMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\CoordinateMode.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\SearchBarMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateBox.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\ChipEditPane.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\ChipPreviewLarge.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\ChipPreviewSmall.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\ChipSearchPane.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\TemplateEditMenu.cs" />

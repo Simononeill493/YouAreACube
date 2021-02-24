@@ -21,6 +21,7 @@ namespace IAmACube
             _sprites = new Dictionary<string, Texture2D>();
             _contentManager = contentManager;
             _gameFont = gameFont;
+
             IsInitialized = true;
         }
 
@@ -51,7 +52,7 @@ namespace IAmACube
 
         public static Point GetTextSize(string text)
         {
-            if (!IsInitialized)
+            if (text == null | !IsInitialized)
             {
                 return Point.Zero;
             }

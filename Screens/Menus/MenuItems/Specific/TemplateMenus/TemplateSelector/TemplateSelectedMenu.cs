@@ -36,7 +36,7 @@ namespace IAmACube
 
             _editButton = new ButtonMenuItem(this, "Edit...");
             _editButton.SetLocationConfig(50, 90, CoordinateMode.ParentPercentageOffset, true);
-            _editButton.OnClick += () => { doTemplateSelectedAction(_template, TemplateSelectedAction.Edit); };
+            _editButton.OnClick += (i) => { doTemplateSelectedAction(_template, TemplateSelectedAction.Edit); };
             AddChild(_editButton);
         }
 

@@ -14,9 +14,9 @@ namespace IAmACube
 
         public TemplateBox(IHasDrawLayer parentDrawLayer,Action<BlockTemplate> selectTemplate) : base(parentDrawLayer,"TemplateItemContainer")
         {
-            OnClick += () => selectTemplate(_template);
-            OnMouseStartHover += TemplateBox_OnMouseStartHover;
-            OnMouseEndHover += TemplateBox_OnMouseEndHover;
+            OnClick += (i) => selectTemplate(_template);
+            OnMouseStartHover += (i) => TemplateBox_OnMouseStartHover();
+            OnMouseEndHover += (i) => TemplateBox_OnMouseEndHover();
 
             HighlightedSpriteName = "TemplateItemContainerHighlight";
 

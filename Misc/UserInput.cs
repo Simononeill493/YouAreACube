@@ -31,6 +31,8 @@ namespace IAmACube
             ScrolledDown = MouseState.ScrollWheelValue < previousScrollValue;
 
             previousScrollValue = MouseState.ScrollWheelValue;
+
+            MousePos = new Point(MouseX, MouseY);
         }
 
         public bool IsKeyDown(Keys key) => KeyboardState.IsKeyDown(key);
@@ -43,5 +45,6 @@ namespace IAmACube
         public ButtonState RightButton => MouseState.RightButton;
         public int MouseX => MouseState.X;
         public int MouseY => MouseState.Y;
+        public Point MousePos;
     }
 }

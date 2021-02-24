@@ -1,19 +1,18 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-
 
 namespace IAmACube
 {
-    class ChipPreviewSmall : SpriteMenuItem
+    class ChipPreviewLarge : DraggableMenuItem
     {
         public ChipData Chip;
         private TextMenuItem _text;
 
-        public ChipPreviewSmall(IHasDrawLayer parent, ChipData chip) : base(parent, "BlueChipSmall")
+        public ChipPreviewLarge(IHasDrawLayer parent, ChipData chip) : base(parent, "BlueChipFull")
         {
             Chip = chip;
 
@@ -22,7 +21,7 @@ namespace IAmACube
             _text.HalfScaled = true;
             _text.Text = chip.Name;
 
-            _text.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
+            _text.SetLocationConfig(10, 40, CoordinateMode.ParentPercentageOffset, false);
             AddChild(_text);
         }
     }

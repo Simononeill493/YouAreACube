@@ -25,7 +25,7 @@ namespace IAmACube
             text.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
             AddChild(text);
 
-            OnClick += () =>
+            OnClick += (i) =>
             {
                 if(Visible)
                 {
@@ -33,13 +33,13 @@ namespace IAmACube
                 }
             };
 
-            OnMouseStartHover += () => 
+            OnMouseStartHover += (i) => 
             { 
                 Color = Color.Navy;
                 text.Color = Color.White;
             };
 
-            OnMouseEndHover += () => 
+            OnMouseEndHover += (i) => 
             { 
                 Color = Color.White;
                 text.Color = Color.Black;

@@ -17,9 +17,11 @@ namespace IAmACube
 
         public float DrawLayer { get; set; }
 
-        public event System.Action OnClick;
-        public event System.Action OnMouseStartHover;
-        public event System.Action OnMouseEndHover;
+        public event System.Action<UserInput> OnClick;
+        public event System.Action<UserInput> OnMousePressed;
+
+        public event System.Action<UserInput> OnMouseStartHover;
+        public event System.Action<UserInput> OnMouseEndHover;
 
         protected bool _clickedOn = false;
         protected bool _mousePressedOn = false;
@@ -28,6 +30,9 @@ namespace IAmACube
         public bool Visible = true;
 
         private List<MenuItem> _children = new List<MenuItem>();
+
+        private List<MenuItem> _toAdd = new List<MenuItem>();
+        private List<MenuItem> _toRemove = new List<MenuItem>();
 
         public MenuItem(IHasDrawLayer parentDrawLayer)
         {
@@ -51,11 +56,11 @@ namespace IAmACube
 
             if(!oldHoverState & newHoverState)
             {
-                OnMouseStartHover?.Invoke();
+                OnMouseStartHover?.Invoke(input);
             }
             else if(oldHoverState & !newHoverState)
             {
-                OnMouseEndHover?.Invoke();
+                OnMouseEndHover?.Invoke(input);
             }
 
             _mouseHovering = newHoverState;
@@ -65,6 +70,7 @@ namespace IAmACube
                 if (input.LeftButton == ButtonState.Pressed)
                 {
                     _mousePressedOn = true;
+                    OnMousePressed?.Invoke(input);
                 }
                 else if(_mousePressedOn & input.LeftButton == ButtonState.Released)
                 {
@@ -74,7 +80,7 @@ namespace IAmACube
 
                 if (_clickedOn)
                 {
-                    OnClick?.Invoke();
+                    OnClick?.Invoke(input);
                     _clickedOn = false;
                 }
             }
@@ -84,8 +90,30 @@ namespace IAmACube
             }
 
             _updateChildren(input);
+            _addAndRemoveQueuedChildren();
         }
-       
+
+        private void _addAndRemoveQueuedChildren()
+        {
+            if(_toAdd.Any())
+            {
+                var size = GetSize();
+                foreach (var child in _toAdd)
+                {
+                    _children.Add(child);
+                    child.UpdateThisAndChildLocations(ActualLocation, size);
+                }
+            }
+
+            foreach(var child in _toRemove)
+            {
+                _children.Remove(child);
+            }
+
+            _toAdd.Clear();
+            _toRemove.Clear();
+        }
+
         public void AddChild(MenuItem item)
         {
             _children.Add(item);
@@ -101,6 +129,11 @@ namespace IAmACube
                 _children.Remove(item);
             }
         }
+
+        public void AddChildAfterUpdate(MenuItem item)=> _toAdd.Add(item);
+        public void RemoveChildAfterUpdate(MenuItem item)=> _toRemove.Add(item);
+        public void RemoveChildrenAfterUpdate<T>(List<T> toRemove) where T : MenuItem => _toRemove.AddRange(toRemove);
+
 
         public void UpdateDrawLayer(float newLayer)
         {
@@ -127,9 +160,9 @@ namespace IAmACube
         }
         protected void _updateChildLocations()
         {
+            var size = GetSize();
             foreach (var child in _children)
             {
-                var size = GetSize();
                 child.UpdateThisAndChildLocations(ActualLocation, size);
             }
         }

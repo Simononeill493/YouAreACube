@@ -9,9 +9,12 @@ namespace IAmACube
 {
     public abstract class MenuScreen : Screen, IHasDrawLayer
     {
+        public static int Scale = Config.MenuItemScale;
+        public static bool UserDragging = false;
+
+
         public float DrawLayer { get; } = DrawLayers.MenuBaseLayer;
 
-        public static int Scale = Config.MenuItemScale;
         public string Background;
 
         private List<MenuItem> _menuItems = new List<MenuItem>();
