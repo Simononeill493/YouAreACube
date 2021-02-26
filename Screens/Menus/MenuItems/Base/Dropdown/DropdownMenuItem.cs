@@ -49,7 +49,7 @@ namespace IAmACube
         {
             _clearDropdownItems();
             _items = items;
-            var size = GetSize() / Scale;
+            var size = GetCurrentSize() / Scale;
 
             for (int i = 0; i < _items.Count; i++)
             {

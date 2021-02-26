@@ -22,15 +22,7 @@ namespace IAmACube
             }
         }
 
-        public override bool IsMouseOver(UserInput input)
-        {
-            return false;
-        }
-
-        public override Point GetSize()
-        {
-            var size = SpriteManager.GetTextSize(Text);
-            return size * Scale;
-        }
+        public override bool IsMouseOver(UserInput input) => false;
+        public override Point GetBaseSize() => SpriteManager.GetTextSize(Text);
     }
 }

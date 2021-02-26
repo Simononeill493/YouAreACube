@@ -18,6 +18,8 @@ namespace IAmACube
         public string Output;
 
         public bool IsGeneric;
+        public int NumInputs;
+
 
         public ChipData(string name,ChipType chipType)
         {
@@ -31,6 +33,10 @@ namespace IAmACube
             IsGeneric |= (Input2 == null) ? false : Input2.Contains("Variable");
             IsGeneric |= (Input3 == null) ? false : Input3.Contains("Variable");
             IsGeneric |= (Output == null) ? false : Output.Contains("Variable");
+
+            if (Input1 != null) { NumInputs++; }
+            if (Input2 != null) { NumInputs++; }
+            if (Input3 != null) { NumInputs++; }
         }
 
         public override string ToString()

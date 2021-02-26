@@ -11,6 +11,7 @@ namespace IAmACube
     {
         public ChipData Chip;
         private TextMenuItem _text;
+        private int _addedSections;
 
         public ChipPreviewLarge(IHasDrawLayer parent, ChipData chip) : base(parent, "BlueChipFull")
         {

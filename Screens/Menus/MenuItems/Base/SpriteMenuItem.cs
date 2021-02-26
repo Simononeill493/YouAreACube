@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 namespace IAmACube
 {
@@ -23,16 +24,7 @@ namespace IAmACube
             drawingInterface.DrawSprite(_activeSpriteName, ActualLocation.X, ActualLocation.Y, Scale, layer: DrawLayer);
         }
 
-        public override bool IsMouseOver(UserInput input)
-        {
-            var rect = DrawUtils.GetSpriteDimensions(this.SpriteName, ActualLocation.X, ActualLocation.Y, Scale);
-            return rect.Contains(input.MouseX, input.MouseY);
-        }
-
-        public override Point GetSize()
-        {
-            var size = SpriteManager.GetSpriteSize(SpriteName);
-            return (size) * Scale;
-        }
+        public override Point GetBaseSize() => SpriteManager.GetSpriteSize(SpriteName);
+  
     }
 }

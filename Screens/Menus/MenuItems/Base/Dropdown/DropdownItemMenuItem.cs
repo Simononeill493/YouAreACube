@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class DropdownItemMenuItem<T> : ShapeMenuItem
+    public class DropdownItemMenuItem<T> : RectangleMenuItem
     {
         public T Item;
         public Color TextColor;

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,6 @@ namespace IAmACube
         public event System.Action<UserInput> OnMouseStartHover;
         public event System.Action<UserInput> OnMouseEndHover;
 
-        protected bool _clickedOn = false;
         protected bool _mousePressedOn = false;
         protected bool _mouseHovering = false;
 
@@ -67,21 +67,15 @@ namespace IAmACube
 
             if (_mouseHovering)
             {
-                if (input.LeftButton == ButtonState.Pressed)
+                if (input.MouseLeftPressed)
                 {
                     _mousePressedOn = true;
                     OnMousePressed?.Invoke(input);
                 }
-                else if(_mousePressedOn & input.LeftButton == ButtonState.Released)
+                else if(_mousePressedOn & input.MouseLeftReleased)
                 {
-                    _clickedOn = true;
                     _mousePressedOn = false;
-                }
-
-                if (_clickedOn)
-                {
                     OnClick?.Invoke(input);
-                    _clickedOn = false;
                 }
             }
             else
@@ -97,7 +91,7 @@ namespace IAmACube
         {
             if(_toAdd.Any())
             {
-                var size = GetSize();
+                var size = GetCurrentSize();
                 foreach (var child in _toAdd)
                 {
                     _children.Add(child);
@@ -160,7 +154,7 @@ namespace IAmACube
         }
         protected void _updateChildLocations()
         {
-            var size = GetSize();
+            var size = GetCurrentSize();
             foreach (var child in _children)
             {
                 child.UpdateThisAndChildLocations(ActualLocation, size);
@@ -185,7 +179,7 @@ namespace IAmACube
 
             if (_locationConfig.centered)
             {
-                location = location - (GetSize() / 2);
+                location = location - (GetCurrentSize() / 2);
             }
 
             ActualLocation = location;
@@ -196,8 +190,16 @@ namespace IAmACube
             return mousePos - ActualLocation;
         }
 
-        public abstract Point GetSize();
-        public abstract bool IsMouseOver(UserInput input);
+        public Point GetCurrentSize() => GetBaseSize() * Scale;
+        public abstract Point GetBaseSize();
+
+        public virtual bool IsMouseOver(UserInput input) 
+        {
+            var size = GetCurrentSize();
+            var rect = new Rectangle(ActualLocation.X, ActualLocation.Y, size.X, size.Y);
+
+            return rect.Contains(input.MouseX, input.MouseY);
+        }
 
         private void _updateChildren(UserInput input)
         {

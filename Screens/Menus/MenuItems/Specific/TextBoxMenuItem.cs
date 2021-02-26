@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class TextBoxMenuItem : MenuItem
+    public class TextBoxMenuItem : SpriteMenuItem
     {
         public string Text => text.Text;
         public int MaxTextLength = 9;
@@ -15,23 +15,15 @@ namespace IAmACube
         public bool Editable;
         public bool Focused;
 
-        protected SpriteMenuItem box;
         protected TextMenuItem text;
 
         public event Action<string> OnTextChanged;
 
-        public TextBoxMenuItem(IHasDrawLayer parentDrawLayer,string initialString) : base(parentDrawLayer)
+        public TextBoxMenuItem(IHasDrawLayer parentDrawLayer,string initialString) : base(parentDrawLayer,"EmptyMenuRectangleMedium")
         {
-            box = new SpriteMenuItem(this,"EmptyMenuRectangleMedium");
             text = new TextMenuItem(this) { Text = initialString };
-
-            box.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, centered: false);
             text.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
-
-            text.DrawLayer = box.DrawLayer - DrawLayers.MinLayerDistance;
-
-            AddChild(box);
-            box.AddChild(text);
+            AddChild(text);
         }
 
         public void SetText(string textToSet)
@@ -43,7 +35,7 @@ namespace IAmACube
         {
             base.Update(input);
 
-            if(input.LeftButton == ButtonState.Pressed)
+            if(input.MouseLeftPressed)
             {
                 Focused = _mouseHovering;
             }
@@ -52,15 +44,15 @@ namespace IAmACube
             {
                 foreach (var key in input.KeysJustPressed)
                 {
-                    var size = this.GetSize();
+                    var size = this.GetCurrentSize();
 
-                    if (_doTypeChar(key))
+                    if (_shouldTypeCharacter(key))
                     {
                         text.Text = text.Text + KeyUtils.KeyToChar(key);
                         text.UpdateLocation(ActualLocation, size);
                         OnTextChanged?.Invoke(Text);
                     }
-                    else if (_doBackspace(key))
+                    else if (_shouldTypeBackspace(key))
                     {
                         text.Text = text.Text.Substring(0, text.Text.Length - 1);
                         text.UpdateLocation(ActualLocation, size);
@@ -70,17 +62,7 @@ namespace IAmACube
             }
         }
 
-        public override Point GetSize()
-        {
-            return box.GetSize();
-        }
-
-        public override bool IsMouseOver(UserInput input)
-        {
-            return box.IsMouseOver(input);
-        }
-
-        private bool _doTypeChar(Keys key) => (KeyUtils.IsAlphanumeric(key) && text.Text.Length < MaxTextLength);
-        private bool _doBackspace(Keys key) => (key == Keys.Back && text.Text.Length > 0);
+        private bool _shouldTypeCharacter(Keys key) => (KeyUtils.IsAlphanumeric(key) && text.Text.Length < MaxTextLength);
+        private bool _shouldTypeBackspace(Keys key) => (key == Keys.Back && text.Text.Length > 0);
     }
 }

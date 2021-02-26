@@ -19,7 +19,7 @@ namespace IAmACube
         public void CreateChip(ChipPreviewSmall preview, UserInput input)
         {
             var chip = new ChipPreviewLarge(this, preview.Chip);
-            chip.ManuallyAttachToMouse(chip.GetSize() / 2);
+            chip.AttachToMouse(chip.GetCurrentSize() / 2);
             chip.SetLocationConfig(input.MousePos, CoordinateMode.Absolute, true);
             chip.OnEndDrag += (i) => ChipReleased(chip, i);
 
@@ -35,7 +35,7 @@ namespace IAmACube
             }
             else
             {
-                _pushInside(chip, GetSize());
+                _pushChipInside(chip, GetCurrentSize());
             }
         }
 
@@ -45,10 +45,10 @@ namespace IAmACube
             RemoveChildAfterUpdate(chip);
         }
 
-        private void _pushInside(ChipPreviewLarge chip,Point planeSize)
+        private void _pushChipInside(ChipPreviewLarge chip,Point planeSize)
         {
             var chipTopLeft = chip.ActualLocation;
-            var chipBottomRight = chipTopLeft + chip.GetSize();
+            var chipBottomRight = chipTopLeft + chip.GetCurrentSize();
             var planeTopLeft = ActualLocation;
             var planeBottomRight = planeTopLeft + planeSize;
 

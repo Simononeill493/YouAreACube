@@ -22,20 +22,18 @@ namespace IAmACube
             DrawLayer = DrawLayers.MenuDragLayer;
         }
 
-        public void ManuallyAttachToMouse(Point offset) => _attachToMouse(offset);
-
         private void _beginDrag(UserInput input)
         {
             if(!_dragging & !MenuScreen.UserDragging)
             {
                 var mouseOffset = GetLocationOffset(input.MousePos);
-                _attachToMouse(mouseOffset);
+                AttachToMouse(mouseOffset);
 
                 OnStartDrag?.Invoke(input);
             }
         }
 
-        private void _attachToMouse(Point offset)
+        public void AttachToMouse(Point offset)
         {
             MenuScreen.UserDragging = true;
             _dragging = true;

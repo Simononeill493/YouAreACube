@@ -33,6 +33,12 @@ namespace IAmACube
             previousScrollValue = MouseState.ScrollWheelValue;
 
             MousePos = new Point(MouseX, MouseY);
+
+            MouseLeftPressed = MouseState.LeftButton == ButtonState.Pressed;
+            MouseRightPressed = MouseState.RightButton == ButtonState.Pressed;
+
+            MouseLeftReleased = MouseState.LeftButton == ButtonState.Released;
+            MouseRightReleased = MouseState.RightButton == ButtonState.Released;
         }
 
         public bool IsKeyDown(Keys key) => KeyboardState.IsKeyDown(key);
@@ -41,10 +47,15 @@ namespace IAmACube
         public bool IsKeyJustPressed(Keys key) => KeysJustPressed.Contains(key);
         public bool IsKeyJustReleased(Keys key) => KeysJustReleased.Contains(key);
 
-        public ButtonState LeftButton => MouseState.LeftButton;
-        public ButtonState RightButton => MouseState.RightButton;
+        public bool MouseLeftPressed;
+        public bool MouseRightPressed;
+
+        public bool MouseLeftReleased;
+        public bool MouseRightReleased;
+
         public int MouseX => MouseState.X;
         public int MouseY => MouseState.Y;
+
         public Point MousePos;
     }
 }
