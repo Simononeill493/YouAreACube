@@ -20,6 +20,8 @@ namespace IAmACube
             Y = y;
         }
 
+        public Point Absolute => new Point(Math.Abs(X), Math.Abs(Y));
+
         public static Point operator +(Point p) => p;
         public static Point operator -(Point p) => new Point(-p.X,-p.Y);
 
@@ -40,6 +42,7 @@ namespace IAmACube
         {
             return !a.Equals(b);
         }
+       
         public override bool Equals(object obj)
         {
             return (obj is Point) && Equals((Point)obj);
@@ -48,6 +51,7 @@ namespace IAmACube
         {
             return ((X == other.X) && (Y == other.Y));
         }
+       
         public override int GetHashCode()
         {
             unchecked

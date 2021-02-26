@@ -17,7 +17,8 @@ namespace IAmACube
             _template = template;
 
             var chipEditPane = new ChipEditPane(this);
-            var searchPane = new ChipSearchPane(this);
+            var searchPane = new ChipSearchPane(this,chipEditPane.CreateChip);
+            chipEditPane.Trash = searchPane;
 
             chipEditPane.SetLocationConfig(33, 50, CoordinateMode.ParentPercentageOffset, true);
             searchPane.SetLocationConfig(83, 50, CoordinateMode.ParentPercentageOffset, true);

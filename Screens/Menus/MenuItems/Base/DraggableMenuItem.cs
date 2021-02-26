@@ -11,6 +11,9 @@ namespace IAmACube
         private bool _dragging = false;
         private Point _dragOffset;
 
+        public event System.Action<UserInput> OnStartDrag;
+        public event System.Action<UserInput> OnEndDrag;
+
         public DraggableMenuItem(IHasDrawLayer parent, string sprite) : base(parent, sprite)
         {
             OnMousePressed += _beginDrag;
@@ -25,7 +28,10 @@ namespace IAmACube
         {
             if(!_dragging & !MenuScreen.UserDragging)
             {
-                _attachToMouse(input.MousePos - ActualLocation);
+                var mouseOffset = GetLocationOffset(input.MousePos);
+                _attachToMouse(mouseOffset);
+
+                OnStartDrag?.Invoke(input);
             }
         }
 
@@ -40,6 +46,8 @@ namespace IAmACube
         {
             MenuScreen.UserDragging = false;
             _dragging = false;
+
+            OnEndDrag?.Invoke(input);
         }
 
         public override void Update(UserInput input)
@@ -51,7 +59,6 @@ namespace IAmACube
                 this.SetLocationConfig(input.MousePos-_dragOffset, CoordinateMode.Absolute);
                 this.UpdateThisAndChildLocations(Point.Zero, Point.Zero);
             }
-
         }
     }
 }

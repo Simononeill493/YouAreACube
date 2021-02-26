@@ -191,6 +191,11 @@ namespace IAmACube
             ActualLocation = location;
         }
 
+        public Point GetLocationOffset(Point mousePos)
+        {
+            return mousePos - ActualLocation;
+        }
+
         public abstract Point GetSize();
         public abstract bool IsMouseOver(UserInput input);
 

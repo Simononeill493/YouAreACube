@@ -25,6 +25,30 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/BlankMenus/BlueChipFull.png;BlueChipFull.png
 
+#begin ../Simon_Data/To_Import/BlankMenus/BlueChipFullEnd.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/BlankMenus/BlueChipFullEnd.png;BlueChipFullEnd.png
+
+#begin ../Simon_Data/To_Import/BlankMenus/BlueChipFullMiddle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/BlankMenus/BlueChipFullMiddle.png;BlueChipFullMiddle.png
+
 #begin ../Simon_Data/To_Import/BlankMenus/BlueChipSmall.png
 /importer:TextureImporter
 /processor:TextureProcessor

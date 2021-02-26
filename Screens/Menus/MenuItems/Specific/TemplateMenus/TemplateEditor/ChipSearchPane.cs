@@ -15,10 +15,12 @@ namespace IAmACube
 
         private List<ChipPreviewSmall> _chipPreviews;
 
-        private ChipPreviewLarge _draggedChip;
+        private Action<ChipPreviewSmall, UserInput> _createChip;
 
-        public ChipSearchPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "SearchPane")
+        public ChipSearchPane(IHasDrawLayer parentDrawLayer, Action<ChipPreviewSmall, UserInput> createChip) : base(parentDrawLayer, "SearchPane")
         {
+            _createChip = createChip;
+
             _chipPreviews = new List<ChipPreviewSmall>();
 
             _searchBar = new SearchBarMenuItem(this);
@@ -43,19 +45,6 @@ namespace IAmACube
             {
                 _createChip(preview, input);
             }
-        }
-        private void _createChip(ChipPreviewSmall preview,UserInput input)
-        {
-            if(_draggedChip!=null)
-            {
-                RemoveChildAfterUpdate(_draggedChip);
-            }
-
-            var chip = new ChipPreviewLarge(this, preview.Chip);
-            chip.ManuallyAttachToMouse(chip.GetSize()/2);
-            chip.SetLocationConfig(input.MousePos, CoordinateMode.Absolute, true);
-
-            AddChildAfterUpdate(chip);
         }
 
         private void _setPreviews(List<ChipData> chips)
