@@ -97,7 +97,7 @@
     <Compile Include="Screens\Menus\MenuItems\Base\Dropdown\DropdownItemMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\Base\Dropdown\DropdownMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\CoordinateMode.cs" />
-    <Compile Include="Screens\Menus\MenuItems\Base\ShapeMenuItem.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Base\RectangleMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\Base\SpriteMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\Base\TextMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\ButtonMenuItem.cs" />

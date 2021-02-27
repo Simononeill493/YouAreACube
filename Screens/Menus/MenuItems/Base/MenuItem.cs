@@ -129,12 +129,12 @@ namespace IAmACube
         public void RemoveChildrenAfterUpdate<T>(List<T> toRemove) where T : MenuItem => _toRemove.AddRange(toRemove);
 
 
-        public void UpdateDrawLayer(float newLayer)
+        public void UpdateDrawLayerCascade(float newLayer)
         {
             DrawLayer = newLayer;
             foreach (var child in _children)
             {
-                child.UpdateDrawLayer(newLayer - 0.0001f);
+                child.UpdateDrawLayerCascade(newLayer - DrawLayers.MinLayerDistance);
             }
         }
 

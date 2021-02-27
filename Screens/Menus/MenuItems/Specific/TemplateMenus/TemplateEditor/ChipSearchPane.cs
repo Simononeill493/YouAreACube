@@ -15,11 +15,11 @@ namespace IAmACube
 
         private List<ChipPreviewSmall> _chipPreviews;
 
-        private Action<ChipPreviewSmall, UserInput> _createChip;
+        private Action<ChipPreviewSmall, UserInput> _tryCreateChip;
 
-        public ChipSearchPane(IHasDrawLayer parentDrawLayer, Action<ChipPreviewSmall, UserInput> createChip) : base(parentDrawLayer, "SearchPane")
+        public ChipSearchPane(IHasDrawLayer parentDrawLayer, Action<ChipPreviewSmall, UserInput> tryCreateChip) : base(parentDrawLayer, "SearchPane")
         {
-            _createChip = createChip;
+            _tryCreateChip = tryCreateChip;
 
             _chipPreviews = new List<ChipPreviewSmall>();
 
@@ -37,14 +37,6 @@ namespace IAmACube
             AddChild(_dropdown);
 
             _setPreviews(ChipDatabase.BuiltInChips.Values.ToList());
-        }
-
-        private void _tryCreateChip(ChipPreviewSmall preview, UserInput input)
-        {
-            if(!MenuScreen.UserDragging)
-            {
-                _createChip(preview, input);
-            }
         }
 
         private void _setPreviews(List<ChipData> chips)

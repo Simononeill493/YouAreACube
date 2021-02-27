@@ -21,7 +21,7 @@ namespace IAmACube
             HighlightedSpriteName = "TemplateItemContainerHighlight";
 
             _templateHoverBox = new TextBoxMenuItem(this,"null");
-            _templateHoverBox.UpdateDrawLayer(DrawLayers.MenuHoverLayer);
+            _templateHoverBox.UpdateDrawLayerCascade(DrawLayers.MenuHoverLayer);
             _templateHoverBox.Visible = false;
 
             AddChild(_templateHoverBox);

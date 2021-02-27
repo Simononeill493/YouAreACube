@@ -14,39 +14,55 @@ namespace IAmACube
         public event System.Action<UserInput> OnStartDrag;
         public event System.Action<UserInput> OnEndDrag;
 
+        private float _drawLayerTemp;
+
         public DraggableMenuItem(IHasDrawLayer parent, string sprite) : base(parent, sprite)
         {
-            OnMousePressed += _beginDrag;
+            OnMousePressed += _tryBeginDragAtMousePosition;
             OnClick += _endDrag;
-
-            DrawLayer = DrawLayers.MenuDragLayer;
         }
 
-        private void _beginDrag(UserInput input)
+        public bool TryBeginDrag(UserInput input, Point offset)
         {
-            if(!_dragging & !MenuScreen.UserDragging)
+            if (!_dragging & !MenuScreen.UserDragging)
             {
-                var mouseOffset = GetLocationOffset(input.MousePos);
-                AttachToMouse(mouseOffset);
+                _drawLayerTemp = DrawLayer;
+                UpdateDrawLayerCascade(DrawLayers.MenuDragLayer);
+
+                MenuScreen.UserDragging = true;
+                _dragging = true;
+                _dragOffset = offset;
 
                 OnStartDrag?.Invoke(input);
+                return true;
             }
-        }
 
-        public void AttachToMouse(Point offset)
-        {
-            MenuScreen.UserDragging = true;
-            _dragging = true;
-            _dragOffset = offset;
+            return false;
         }
 
         private void _endDrag(UserInput input)
         {
+            UpdateDrawLayerCascade(_drawLayerTemp);
+
             MenuScreen.UserDragging = false;
             _dragging = false;
 
             OnEndDrag?.Invoke(input);
         }
+
+
+        public void SetDraggableFrom(MenuItem item)
+        {
+            item.OnMousePressed += this._tryBeginDragAtMousePosition;
+            item.OnClick += this._endDrag;
+        }
+
+        private void _tryBeginDragAtMousePosition(UserInput input)
+        {
+            var mouseOffset = GetLocationOffset(input.MousePos);
+            TryBeginDrag(input, mouseOffset);
+        }
+
 
         public override void Update(UserInput input)
         {

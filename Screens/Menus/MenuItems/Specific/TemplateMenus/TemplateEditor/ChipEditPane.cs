@@ -16,10 +16,16 @@ namespace IAmACube
             AllChips = new List<ChipPreviewLarge>();
         }
 
-        public void CreateChip(ChipPreviewSmall preview, UserInput input)
+        public void TryCreateChip(ChipPreviewSmall preview, UserInput input)
         {
+            if(MenuScreen.UserDragging) { return; }
+
             var chip = new ChipPreviewLarge(this, preview.Chip);
-            chip.AttachToMouse(chip.GetCurrentSize() / 2);
+            if(!chip.TryBeginDrag(input, chip.GetCurrentSize() / 2))
+            {
+                return;
+            }
+
             chip.SetLocationConfig(input.MousePos, CoordinateMode.Absolute, true);
             chip.OnEndDrag += (i) => ChipReleased(chip, i);
 
@@ -35,7 +41,7 @@ namespace IAmACube
             }
             else
             {
-                _pushChipInside(chip, GetCurrentSize());
+                _attachChipToPane(chip, GetCurrentSize());
             }
         }
 
@@ -45,30 +51,19 @@ namespace IAmACube
             RemoveChildAfterUpdate(chip);
         }
 
-        private void _pushChipInside(ChipPreviewLarge chip,Point planeSize)
+        private void _attachChipToPane(ChipPreviewLarge chip,Point planeSize)
         {
-            var chipTopLeft = chip.ActualLocation;
-            var chipBottomRight = chipTopLeft + chip.GetCurrentSize();
-            var planeTopLeft = ActualLocation;
-            var planeBottomRight = planeTopLeft + planeSize;
+            var displacement = this.GetLocationOffset(chip.ActualLocation);
+            var chipSize = chip.GetFullSize();
+            var bottomRightDisplacement = displacement + chipSize;
 
-            var topLeftTooFar = planeTopLeft - chipTopLeft;
-            var bottomRightTooFar = planeBottomRight - chipBottomRight;
+            if (displacement.X < 0) { displacement.X = 0; }
+            if (displacement.Y < 0) { displacement.Y = 0; }
 
-            int leftToofar = topLeftTooFar.X;
-            int topTooFar = topLeftTooFar.Y;
-            int rightTooFar = bottomRightTooFar.X;
-            int bottomTooFar = bottomRightTooFar.Y;
+            if (bottomRightDisplacement.X > planeSize.X) { displacement.X = planeSize.X - chipSize.X; }
+            if (bottomRightDisplacement.Y > planeSize.Y) { displacement.Y = planeSize.Y - chipSize.Y; }
 
-            if (leftToofar < 0) { leftToofar = 0; }
-            if (topTooFar < 0) { topTooFar = 0; }
-            if (bottomTooFar > 0) { bottomTooFar = 0; }
-            if (rightTooFar > 0) { rightTooFar = 0; }
-
-            var xChange = leftToofar + rightTooFar;
-            var yChange = topTooFar + bottomTooFar;
-
-            chip.SetLocationConfig(chipTopLeft.X + xChange, chipTopLeft.Y + yChange, CoordinateMode.Absolute, false);
+            chip.SetLocationConfig((displacement / Scale), CoordinateMode.ParentPixelOffset, false);
             chip.UpdateThisAndChildLocations(ActualLocation, planeSize);
         }
     }
