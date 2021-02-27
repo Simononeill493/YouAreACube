@@ -20,11 +20,18 @@ namespace IAmACube
         public bool IsGeneric;
         public int NumInputs;
 
-
         public ChipData(string name,ChipType chipType)
         {
             Name = name;
             ChipType = chipType;
+        }
+
+        public string GetInputType(int num)
+        {
+            if (num == 1) { return Input1; }
+            if (num == 2) { return Input2; }
+            if (num == 3) { return Input3; }
+            return "_null_";
         }
 
         public void Init()

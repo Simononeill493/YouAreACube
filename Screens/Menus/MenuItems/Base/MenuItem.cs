@@ -13,8 +13,8 @@ namespace IAmACube
         public Point ActualLocation { get; private set; }
         protected (Point loc, CoordinateMode mode, bool centered) _locationConfig;
 
-        public int Scale => MenuScreen.Scale / (HalfScaled ? 2 : 1);
-        public bool HalfScaled = false;        
+        public int Scale => (MenuScreen.Scale) / (HalfScaled ? 2 : 1);
+        public bool HalfScaled = false;
 
         public float DrawLayer { get; set; }
 
@@ -30,7 +30,6 @@ namespace IAmACube
         public bool Visible = true;
 
         private List<MenuItem> _children = new List<MenuItem>();
-
         private List<MenuItem> _toAdd = new List<MenuItem>();
         private List<MenuItem> _toRemove = new List<MenuItem>();
 

@@ -23,7 +23,6 @@ namespace IAmACube
             _text.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
             AddChild(_text);
 
-
             _addSections(chip);
         }
 
@@ -33,9 +32,9 @@ namespace IAmACube
 
             for(int i=1;i<chip.NumInputs+1;i++)
             {
-                var spriteName = (i == chip.NumInputs) ? "BlueChipFullEnd" : "BlueChipFullMiddle";
-                var section = new SpriteMenuItem(this, spriteName);
-                section.DrawLayer = DrawLayer - (DrawLayers.MinLayerDistance*i);
+                var section = new ChipPreviewLargeMiddleSection(ManualDrawLayer.Create(DrawLayer - (DrawLayers.MinLayerDistance * i)), chip.GetInputType(i));
+                if (i == chip.NumInputs) { section.SpriteName = "BlueChipFullEnd"; }
+
                 section.SetLocationConfig(ActualLocation.X, ActualLocation.Y + (size.Y*i) - 1, CoordinateMode.ParentPixelOffset, false);
 
                 this.SetDraggableFrom(section);

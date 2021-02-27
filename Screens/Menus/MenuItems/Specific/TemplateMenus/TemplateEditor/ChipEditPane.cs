@@ -14,7 +14,33 @@ namespace IAmACube
         public ChipEditPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "ChipEditPane")
         {
             AllChips = new List<ChipPreviewLarge>();
+
+
+            var size = GetBaseSize();
+
+            var plusButton = new SpriteMenuItem(this, "PlusButton");
+            plusButton.SetLocationConfig(size.X-9, 0, CoordinateMode.ParentPixelOffset, false);
+            plusButton.OnClick += (i) => _scaleChipsUp();
+            AddChild(plusButton);
+
+
+            var minusButton = new SpriteMenuItem(this, "MinusButton");
+            minusButton.SetLocationConfig(size.X - 17, 0, CoordinateMode.ParentPixelOffset, false);
+            minusButton.OnClick += (i) => _scaleChipsDown();
+
+            AddChild(minusButton);
         }
+
+        protected void _scaleChipsUp()
+        {
+            Console.WriteLine("Scaled chip pane up");
+        }
+
+        protected void _scaleChipsDown()
+        {
+            Console.WriteLine("Scaled chip pane down");
+        }
+
 
         public void TryCreateChip(ChipPreviewSmall preview, UserInput input)
         {
