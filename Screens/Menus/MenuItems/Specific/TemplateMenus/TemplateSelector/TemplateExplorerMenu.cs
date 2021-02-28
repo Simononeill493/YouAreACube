@@ -8,7 +8,7 @@ namespace IAmACube
 {
     class TemplateExplorerMenu : SpriteMenuItem
     {
-        private const int ItemsWidth = 5;
+        private const int ItemsWidth = 6;
         private const int ItemsHeight = 6;
 
         private Kernel _kernel;
@@ -26,7 +26,7 @@ namespace IAmACube
             _setTemplateItemsLocations();
 
             templateSelectedMenu = new TemplateSelectedMenu(this, _templateSelectedAction);
-            templateSelectedMenu.SetLocationConfig(60, 0, CoordinateMode.ParentPercentageOffset);
+            templateSelectedMenu.SetLocationConfig(65, 0, CoordinateMode.ParentPercentageOffset);
             AddChild(templateSelectedMenu);
         }
 
@@ -65,19 +65,21 @@ namespace IAmACube
 
         private void _setTemplateItemsLocations()
         {
-            var xOffset = 5;
-            var yOffset = 5;
-            var xIncrement = 10;
-            var yIncrement = 15;
+            var xPadding = 8;
+
+            var xOffset = xPadding;
+            var yOffset = 8;
+            var xIncrement = 25;
+            var yIncrement = 25;
 
             for (int i=0;i<_boxes.Count;i++)
             {
-                _boxes[i].SetLocationConfig(new Point(xOffset, yOffset), CoordinateMode.ParentPercentageOffset, centered: false);
+                _boxes[i].SetLocationConfig(new Point(xOffset, yOffset), CoordinateMode.ParentPixelOffset, centered: false);
                 xOffset += xIncrement;
 
                 if ((i + 1) % ItemsWidth == 0)
                 {
-                    xOffset = 5;
+                    xOffset = xPadding;
                     yOffset += yIncrement;
                 }
             }

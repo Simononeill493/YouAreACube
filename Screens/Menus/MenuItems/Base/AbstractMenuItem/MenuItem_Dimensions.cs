@@ -32,12 +32,12 @@ namespace IAmACube
             _updateChildLocations();
         }
 
-        public virtual void UpdateScaleOffsetCascade(int offset)
+        public virtual void SetScaleOffsetCascade(int offset)
         {
-            ScaleOffset += offset;
+            ScaleOffset = offset;
             foreach(var child in _children)
             {
-                child.UpdateScaleOffsetCascade(offset);
+                child.SetScaleOffsetCascade(offset);
             }
         }
 
