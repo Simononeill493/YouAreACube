@@ -11,43 +11,52 @@ namespace IAmACube
         public MenuItem Trash;
         public List<ChipPreviewLarge> AllChips;
 
+        private int _currentChipScaleOffset = 0;
+
         public ChipEditPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "ChipEditPane")
         {
             AllChips = new List<ChipPreviewLarge>();
-
 
             var size = GetBaseSize();
 
             var plusButton = new SpriteMenuItem(this, "PlusButton");
             plusButton.SetLocationConfig(size.X-9, 0, CoordinateMode.ParentPixelOffset, false);
-            plusButton.OnClick += (i) => _scaleChipsUp();
+            plusButton.OnClick += (i) => _scaleChips(2,(c)=> { c.UpscaleLocation(2); });
             AddChild(plusButton);
-
 
             var minusButton = new SpriteMenuItem(this, "MinusButton");
             minusButton.SetLocationConfig(size.X - 17, 0, CoordinateMode.ParentPixelOffset, false);
-            minusButton.OnClick += (i) => _scaleChipsDown();
-
+            minusButton.OnClick += (i) => _scaleChips(-2, (c) => { c.DownscaleLocation(2); });
             AddChild(minusButton);
         }
 
-        protected void _scaleChipsUp()
+        protected void _scaleChips(int scale,Action<MenuItem> scalingAction)
         {
-            Console.WriteLine("Scaled chip pane up");
-        }
+            var newOffset = _currentChipScaleOffset + scale;
+            if (newOffset + MenuScreen.Scale < 1) { return; }
 
-        protected void _scaleChipsDown()
-        {
-            Console.WriteLine("Scaled chip pane down");
-        }
+            _currentChipScaleOffset = newOffset;
 
+            var size = GetCurrentSize();
+            foreach(var chip in AllChips)
+            {
+                chip.UpdateScaleOffsetCascade(scale);
+                scalingAction(chip);
+                chip.UpdateLocation(ActualLocation, size);
+                _attachChipToPane(chip, size);
+            }
+
+            _updateChildLocations();
+        }
 
         public void TryCreateChip(ChipPreviewSmall preview, UserInput input)
         {
             if(MenuScreen.UserDragging) { return; }
 
             var chip = new ChipPreviewLarge(this, preview.Chip);
-            if(!chip.TryBeginDrag(input, chip.GetCurrentSize() / 2))
+            chip.UpdateScaleOffsetCascade(_currentChipScaleOffset);
+
+            if (!chip.TryBeginDrag(input, chip.GetCurrentSize() / 2))
             {
                 return;
             }
@@ -89,7 +98,7 @@ namespace IAmACube
             if (bottomRightDisplacement.X > planeSize.X) { displacement.X = planeSize.X - chipSize.X; }
             if (bottomRightDisplacement.Y > planeSize.Y) { displacement.Y = planeSize.Y - chipSize.Y; }
 
-            chip.SetLocationConfig((displacement / Scale), CoordinateMode.ParentPixelOffset, false);
+            chip.SetLocationConfig((displacement / chip.Scale), CoordinateMode.ParentPixelOffset, false);
             chip.UpdateThisAndChildLocations(ActualLocation, planeSize);
         }
     }

@@ -12,7 +12,6 @@ namespace IAmACube
         public static int Scale = Config.MenuItemScale;
         public static bool UserDragging = false;
 
-
         public float DrawLayer { get; } = DrawLayers.MenuBaseLayer;
 
         public string Background;

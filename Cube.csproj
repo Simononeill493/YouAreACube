@@ -93,6 +93,8 @@
     <Compile Include="Screens\InGameScreens\InGameMenus\TemplateExplorerScreen.cs" />
     <Compile Include="Misc\DrawLayers.cs" />
     <Compile Include="Screens\Menus\IHasDrawLayer.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Base\AbstractMenuItem\MenuItem_Children.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Base\AbstractMenuItem\MenuItem_Dimensions.cs" />
     <Compile Include="Screens\Menus\MenuItems\Base\DraggableMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\Base\Dropdown\DropdownItemMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\Base\Dropdown\DropdownMenuItem.cs" />
@@ -148,7 +150,7 @@
     <Compile Include="MonoGameWrapper\Graphics\PrimitivesHelper.cs" />
     <Compile Include="MonoGameWrapper\MonoGameWindow.cs" />
     <Compile Include="Launcher.cs" />
-    <Compile Include="Screens\Menus\MenuItems\Base\MenuItem.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Base\AbstractMenuItem\MenuItem.cs" />
     <Compile Include="Screens\Menus\MenuScreen.cs" />
     <Compile Include="Screens\PreGameScreens\NewGameScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
