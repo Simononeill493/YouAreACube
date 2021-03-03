@@ -71,7 +71,12 @@ namespace IAmACube
             if(_dragging)
             {
                 this.SetLocationConfig(input.MousePos-_dragOffset, CoordinateMode.Absolute);
-                this.UpdateThisAndChildLocations(Point.Zero, Point.Zero);
+                this.UpdateDimensionsCascade(Point.Zero, Point.Zero);
+
+                if (!input.MouseLeftPressed)
+                {
+                    _endDrag(input);
+                }
             }
         }
     }

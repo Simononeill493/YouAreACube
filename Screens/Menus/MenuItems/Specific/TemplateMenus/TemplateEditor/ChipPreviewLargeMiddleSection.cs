@@ -18,7 +18,7 @@ namespace IAmACube
 
             var textItem = new TextMenuItem(this);
             textItem.Text = text;
-            textItem.HalfScaled = true;
+            textItem.MultiplyScale(0.5f);
             textItem.Color = Microsoft.Xna.Framework.Color.White;
             textItem.SetLocationConfig(4, 40, CoordinateMode.ParentPercentageOffset, false);
 

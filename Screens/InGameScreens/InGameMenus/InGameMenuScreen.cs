@@ -16,12 +16,6 @@ namespace IAmACube
             _gameScreen = gameScreen;
         }
 
-        public override void Draw(DrawingInterface drawingInterface)
-        {
-            base.Draw(drawingInterface);
-            _gameScreen.Draw(drawingInterface);
-        }
-
         public override void Update(UserInput input)
         {
             base.Update(input);

@@ -19,24 +19,20 @@ namespace IAmACube
         private TextMenuItem _templateName;
         private TextBoxMenuItem _editButton;
 
-        private Action<BlockTemplate, TemplateSelectedAction> _doTemplateSelectedAction;
-
-        public TemplateSelectedMenu(IHasDrawLayer parentDrawLayer, Action<BlockTemplate,TemplateSelectedAction> doTemplateSelectedAction) : base(parentDrawLayer,"EmptyMenuRectangleSection")
+        public TemplateSelectedMenu(IHasDrawLayer parentDrawLayer, Action<BlockTemplate,TemplateSelectedAction> templateSelectedAction) : base(parentDrawLayer,"EmptyMenuRectangleSection")
         {
-            _doTemplateSelectedAction = doTemplateSelectedAction;
-
             _templatePicture = new TemplateBox(this, (t) => { });
             _templatePicture.SetLocationConfig(10, 5, CoordinateMode.ParentPercentageOffset);
             AddChild(_templatePicture);
 
             _templateName = new TextMenuItem(this);
             _templateName.SetLocationConfig(10, 20, CoordinateMode.ParentPercentageOffset);
-            _templateName.HalfScaled = true;
+            _templateName.MultiplyScale(0.5f);
             AddChild(_templateName);
 
             _editButton = new ButtonMenuItem(this, "Edit...");
             _editButton.SetLocationConfig(50, 90, CoordinateMode.ParentPercentageOffset, true);
-            _editButton.OnClick += (i) => { doTemplateSelectedAction(_template, TemplateSelectedAction.Edit); };
+            _editButton.OnClick += (i) => { templateSelectedAction(_template, TemplateSelectedAction.Edit); };
             AddChild(_editButton);
         }
 
@@ -44,7 +40,7 @@ namespace IAmACube
         {
             _template = template;
             _templatePicture.SetTemplate(template);
-            _templatePicture.UpdateThisAndChildLocations(ActualLocation, GetCurrentSize());
+            _templatePicture.UpdateDimensionsCascade(ActualLocation, GetCurrentSize());
 
             _templateName.Text = _template.Name;
         }

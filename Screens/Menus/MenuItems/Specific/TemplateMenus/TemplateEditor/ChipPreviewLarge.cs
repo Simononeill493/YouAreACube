@@ -11,7 +11,7 @@ namespace IAmACube
     {
         public ChipData Chip;
         private TextMenuItem _text;
-
+           
         public ChipPreviewLarge(IHasDrawLayer parent, ChipData chip) : base(parent, "BlueChipFull")
         {
             Chip = chip;
@@ -41,7 +41,7 @@ namespace IAmACube
                 AddChild(section);
             }
 
-            _updateChildLocations();
+            _updateChildDimensions();
         }
 
         public Point GetFullSize()

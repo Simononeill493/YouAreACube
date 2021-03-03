@@ -19,7 +19,7 @@ namespace IAmACube
 
             _text = new TextMenuItem(this);
             _text.Color = Color.White;
-            _text.HalfScaled = true;
+            _text.MultiplyScale(0.5f);
             _text.Text = chip.Name;
 
             _text.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);

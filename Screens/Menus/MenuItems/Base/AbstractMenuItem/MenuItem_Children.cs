@@ -33,14 +33,6 @@ namespace IAmACube
         public void RemoveChildAfterUpdate(MenuItem item) => _toRemove.Add(item);
         public void RemoveChildrenAfterUpdate<T>(List<T> toRemove) where T : MenuItem => _toRemove.AddRange(toRemove);
 
-        protected void _updateChildLocations()
-        {
-            var size = GetCurrentSize();
-            foreach (var child in _children)
-            {
-                child.UpdateThisAndChildLocations(ActualLocation, size);
-            }
-        }
 
         private void _updateChildren(UserInput input)
         {
@@ -64,7 +56,7 @@ namespace IAmACube
                 foreach (var child in _toAdd)
                 {
                     _children.Add(child);
-                    child.UpdateThisAndChildLocations(ActualLocation, size);
+                    child.UpdateDimensionsCascade(ActualLocation, size);
                 }
             }
 

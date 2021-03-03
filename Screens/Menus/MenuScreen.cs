@@ -63,14 +63,14 @@ namespace IAmACube
         protected void _addMenuItem(MenuItem item)
         {
             _menuItems.Add(item);
-            item.UpdateThisAndChildLocations(Point.Zero, _currentScreenDimensions);
+            item.UpdateDimensionsCascade(Point.Zero, _currentScreenDimensions);
         }
 
         protected void _updateAllItemPositions()
         {
             foreach (var item in _menuItems)
             {
-                item.UpdateThisAndChildLocations(Point.Zero, _currentScreenDimensions);
+                item.UpdateDimensionsCascade(Point.Zero, _currentScreenDimensions);
             }
         }
 

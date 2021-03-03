@@ -32,17 +32,23 @@ namespace IAmACube
 
         private void _templateSelectedAction(BlockTemplate template, TemplateSelectedAction selectedActionType)
         {
-            switch (selectedActionType)
+            if(template!=null)
             {
-                case TemplateSelectedAction.Edit:
-                    _goToTemplateEditMenu(template);
-                    break;
+                switch (selectedActionType)
+                {
+                    case TemplateSelectedAction.Edit:
+                        _goToTemplateEditMenu(template);
+                        break;
+                }
             }
         }
 
         private void _templateBoxClicked(BlockTemplate template)
         {
-            templateSelectedMenu.SetTemplate(template);
+            if(template!=null)
+            {
+                templateSelectedMenu.SetTemplate(template);
+            }
         }
 
         private List<TemplateBox> _generateTemplateBoxes()

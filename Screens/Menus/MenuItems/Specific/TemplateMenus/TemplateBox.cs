@@ -61,7 +61,7 @@ namespace IAmACube
             if (_mouseHovering)
             {
                 _templateHoverBox.SetLocationConfig(new Point(input.MouseX, input.MouseY), CoordinateMode.Absolute, false);
-                _templateHoverBox.UpdateThisAndChildLocations(Point.Zero, Point.Zero);
+                _templateHoverBox.UpdateDimensionsCascade(Point.Zero, Point.Zero);
             }
         }
     }
