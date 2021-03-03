@@ -109,6 +109,18 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/BlankMenus/DropdownArrow.png;DropdownArrow.png
 
+#begin ../Simon_Data/To_Import/BlankMenus/EditPaneWindow.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/BlankMenus/EditPaneWindow.PNG;EditPaneWindow.PNG
+
 #begin ../Simon_Data/To_Import/BlankMenus/EmptyButtonRectangle.PNG
 /importer:TextureImporter
 /processor:TextureProcessor

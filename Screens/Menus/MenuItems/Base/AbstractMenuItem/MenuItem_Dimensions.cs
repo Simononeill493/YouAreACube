@@ -80,7 +80,7 @@ namespace IAmACube
             Scale = GenerateScaleFromMultiplier(ScaleMultiplier);
         }
 
-        protected void _updateChildDimensions()
+        protected virtual void _updateChildDimensions()
         {
             var size = GetCurrentSize();
             foreach (var child in _children)
@@ -97,5 +97,22 @@ namespace IAmACube
         public abstract Point GetBaseSize();
 
         public static int GenerateScaleFromMultiplier(float multiplier) => (int)(MenuScreen.Scale * multiplier);
+
+        public Rectangle GetItemRectangle()
+        {
+            var size = GetCurrentSize();
+            return new Rectangle(ActualLocation.X, ActualLocation.Y, size.X, size.Y);
+        }
+
+        public bool IsIntersectedWith(MenuItem item)
+        {
+            return IsIntersectedWith(item.GetItemRectangle());
+        }
+        public bool IsIntersectedWith(Rectangle rect)
+        {
+            var thisRect = GetItemRectangle();
+            var contains = thisRect.Intersects(rect);
+            return contains;
+        }
     }
 }

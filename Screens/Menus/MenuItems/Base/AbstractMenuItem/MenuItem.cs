@@ -87,7 +87,36 @@ namespace IAmACube
             return rect.Contains(input.MouseX, input.MouseY);
         }
 
-
         protected virtual void _drawSelf(DrawingInterface drawingInterface) { }
+
+        public void FillRestOfScreen(DrawingInterface drawingInterface,float layer,Color color,int pixelPadding)
+        {
+            pixelPadding *= Scale;
+
+            var size = GetCurrentSize();
+
+            var topOrigin = Point.Zero;
+            var topSize = new Point(MonoGameWindow.CurrentWidth, ActualLocation.Y + pixelPadding);
+
+            var bottomOrigin = new Point(0, ActualLocation.Y + size.Y - pixelPadding);
+            var bottomSize = new Point(MonoGameWindow.CurrentWidth, MonoGameWindow.CurrentHeight - (ActualLocation.Y + size.Y) + pixelPadding);
+
+            var leftOrigin  = new Point(0,ActualLocation.Y);
+            var leftSize = new Point(ActualLocation.X + pixelPadding, size.Y);
+
+            var rightOrigin = new Point(ActualLocation.X+size.X - pixelPadding, ActualLocation.Y);
+            var rightSize = new Point(MonoGameWindow.CurrentWidth-(ActualLocation.X + size.X) + pixelPadding, size.Y);
+
+            if (topSize.Y <= 0) { topSize.Y = -1; }
+            if (bottomSize.Y <= 0) { bottomSize.Y = -1; }
+            if (leftSize.X <= 0) { leftSize.X = -1; }
+            if (rightSize.X <= 0) { rightSize.X = -1; }
+
+            drawingInterface.DrawRectangle(topOrigin.X, topOrigin.Y, topSize.X, topSize.Y,layer, color);
+            drawingInterface.DrawRectangle(bottomOrigin.X, bottomOrigin.Y, bottomSize.X, bottomSize.Y, layer, color);
+            drawingInterface.DrawRectangle(leftOrigin.X, leftOrigin.Y, leftSize.X, leftSize.Y, layer, color);
+            drawingInterface.DrawRectangle(rightOrigin.X, rightOrigin.Y, rightSize.X, rightSize.Y, layer, color);
+        }
+    
     }
 }
