@@ -13,7 +13,7 @@ namespace IAmACube
         public bool Visible = true;
         public float DrawLayer { get; set; }
 
-        public event Action<UserInput> OnClick;
+        public event Action<UserInput> OnMouseReleased;
         public event Action<UserInput> OnMousePressed;
         public event Action<UserInput> OnMouseStartHover;
         public event Action<UserInput> OnMouseEndHover;
@@ -60,7 +60,7 @@ namespace IAmACube
                 else if(_mousePressedOn & input.MouseLeftReleased)
                 {
                     _mousePressedOn = false;
-                    OnClick?.Invoke(input);
+                    OnMouseReleased?.Invoke(input);
                 }
             }
             else

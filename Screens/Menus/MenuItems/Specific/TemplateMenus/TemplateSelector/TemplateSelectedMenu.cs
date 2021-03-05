@@ -30,9 +30,9 @@ namespace IAmACube
             _templateName.MultiplyScale(0.5f);
             AddChild(_templateName);
 
-            _editButton = new ButtonMenuItem(this, "Edit...");
+            _editButton = new ButtonMenuItem(this, "Edit");
             _editButton.SetLocationConfig(50, 90, CoordinateMode.ParentPercentageOffset, true);
-            _editButton.OnClick += (i) => { templateSelectedAction(_template, TemplateSelectedAction.Edit); };
+            _editButton.OnMouseReleased += (i) => { templateSelectedAction(_template, TemplateSelectedAction.Edit); };
             AddChild(_editButton);
         }
 

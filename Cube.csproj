@@ -106,10 +106,11 @@
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\SearchBarMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateBox.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\ChipEditPane.cs" />
-    <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\ChipPreviewLarge.cs" />
-    <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\ChipPreviewLargeMiddleSection.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\EditableChips\ChipPreviewLarge.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\EditableChips\ChipPreviewLargeMiddleSection.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\ChipPreviewSmall.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\ChipSearchPane.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\EditableChips\EditableChipset.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\TemplateEditMenu.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateSelector\TemplateExplorerMenu.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateSelector\TemplateSelectedMenu.cs" />

@@ -20,8 +20,8 @@ namespace IAmACube
             var okButton = new SpriteMenuItem(this, "OkButton");
             var cancelButton = new SpriteMenuItem(this, "CancelButton");
 
-            okButton.OnClick += (i) => NewGameClicked();
-            cancelButton.OnClick += (i) => BackToTitleScreen();
+            okButton.OnMouseReleased += (i) => NewGameClicked();
+            cancelButton.OnMouseReleased += (i) => BackToTitleScreen();
 
             textBox.SetLocationConfig(50, 40, CoordinateMode.ParentPercentageOffset, centered: true);
             okButton.SetLocationConfig(25, 65, CoordinateMode.ParentPercentageOffset, centered: true);

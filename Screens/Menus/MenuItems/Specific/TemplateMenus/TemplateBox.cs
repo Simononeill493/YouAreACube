@@ -14,7 +14,7 @@ namespace IAmACube
 
         public TemplateBox(IHasDrawLayer parentDrawLayer,Action<BlockTemplate> selectTemplate) : base(parentDrawLayer,"TemplateItemContainer")
         {
-            OnClick += (i) => selectTemplate(_template);
+            OnMouseReleased += (i) => selectTemplate(_template);
             OnMouseStartHover += (i) => TemplateBox_OnMouseStartHover();
             OnMouseEndHover += (i) => TemplateBox_OnMouseEndHover();
 

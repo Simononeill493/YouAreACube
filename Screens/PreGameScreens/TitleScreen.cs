@@ -23,8 +23,8 @@ namespace IAmACube
                 HighlightedSpriteName = "LoadGameMenu_Highlight"
             };
 
-            newGameButton.OnClick += (i)=>GoToNewGame();
-            loadGameButton.OnClick += (i) => GoToLoadGame();
+            newGameButton.OnMouseReleased += (i)=>GoToNewGame();
+            loadGameButton.OnMouseReleased += (i) => GoToLoadGame();
 
             newGameButton.SetLocationConfig(50, 25, CoordinateMode.ParentPercentageOffset, centered: true);
             loadGameButton.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
