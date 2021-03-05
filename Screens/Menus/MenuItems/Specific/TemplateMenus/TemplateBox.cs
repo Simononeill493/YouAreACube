@@ -58,7 +58,7 @@ namespace IAmACube
         {
             base.Update(input);
 
-            if (_mouseHovering)
+            if (MouseHovering)
             {
                 _templateHoverBox.SetLocationConfig(new Point(input.MouseX, input.MouseY), CoordinateMode.Absolute, false);
                 _templateHoverBox.UpdateDimensionsCascade(Point.Zero, Point.Zero);

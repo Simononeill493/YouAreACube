@@ -12,7 +12,7 @@ namespace IAmACube
         public string SpriteName;
         public string HighlightedSpriteName;
 
-        private string _activeSpriteName => (_mouseHovering & HighlightedSpriteName != null) ? HighlightedSpriteName : SpriteName;
+        private string _activeSpriteName => (MouseHovering & HighlightedSpriteName != null) ? HighlightedSpriteName : SpriteName;
 
         public SpriteMenuItem(IHasDrawLayer parentDrawLayer,string spriteName) : base(parentDrawLayer)
         {

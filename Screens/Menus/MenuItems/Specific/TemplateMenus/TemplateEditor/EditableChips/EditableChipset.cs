@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,22 +12,82 @@ namespace IAmACube
         public List<ChipPreviewLarge> Chips;
         private ChipPreviewLarge topChip;
 
-        public EditableChipset(IHasDrawLayer parent) : base(parent,"BlueChipFull") 
+        public EditableChipset(IHasDrawLayer parent) : base(parent, "BlueChipFull")
         {
             Chips = new List<ChipPreviewLarge>();
         }
 
-        public void AddChip(ChipData chipData,float scaleMultiplier)
+        public void AppendChipset(EditableChipset toAdd, int index)
+        {
+            Chips.InsertRange(index, toAdd.Chips);
+            AddChildrenAfterUpdate(toAdd.Chips);
+
+            _updateChipPositions();
+            _resetTopChip();
+
+            _updateChildDimensions();
+        }
+
+        private void _updateChipPositions()
+        {
+            var baseSize = GetBaseSize();
+            for (int i = 0; i < Chips.Count;i++)
+            {
+                Chips[i].SetLocationConfig(0, baseSize.Y - (i+1), CoordinateMode.ParentPixelOffset, false);
+                Chips[i].UpdateDimensions(ActualLocation, GetCurrentSize());
+
+                baseSize.Y += Chips[i].GetFullBaseSize().Y;
+            }
+        }
+
+        public void AddInitialChip(ChipData chipData, float scaleMultiplier)
         {
             var chip = new ChipPreviewLarge(this, chipData);
+
             chip.MultiplyScaleCascade(scaleMultiplier);
-            chip.SetLocationConfig(0, GetFullBaseSize().Y-(Chips.Count()+1), CoordinateMode.ParentPixelOffset, false);
+            chip.SetLocationConfig(0, GetBaseSize().Y-1, CoordinateMode.ParentPixelOffset, false);
             chip.UpdateDimensions(ActualLocation, GetCurrentSize());
 
             Chips.Add(chip);
             AddChild(chip);
 
             _resetTopChip();
+        }
+
+        public int GetHoveredChip(UserInput input)
+        {
+            for(int i=0;i<Chips.Count;i++)
+            {
+                if(Chips[i].IsMouseOverAnySection())
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+
+        public static EditableChipset CreateAtMouse(UserInput input,ChipEditPane container)
+        {
+            var chipset = new EditableChipset(container);
+
+            chipset.MultiplyScaleCascade(container.ChipScaleMultiplier);
+            chipset.UpdateDimensions(container.ActualLocation, container.GetCurrentSize());
+            chipset.OnEndDrag += (i) => container.ChipsetReleased(chipset, i);
+            chipset.TryStartDrag(input, chipset.GetCurrentSize() / 2);
+
+            return chipset;
+        }
+
+        private void _resetTopChip()
+        {
+            if (topChip != null)
+            {
+                SetNotDraggableFrom(topChip);
+            }
+            topChip = Chips.First();
+            SetDraggableFrom(topChip);
         }
 
         public Point GetFullBaseSize()
@@ -41,33 +102,14 @@ namespace IAmACube
 
             return size;
         }
+
         public Point GetFullSize() => GetFullBaseSize() * Scale;
-
-        public static EditableChipset CreateAtMouse(UserInput input,ChipEditPane container)
+        public Rectangle GetFullRect()
         {
-            var chipset = new EditableChipset(container);
+            var chipLoc = ActualLocation;
+            var fullSize = GetFullSize();
 
-            chipset.MultiplyScaleCascade(container.ChipScaleMultiplier);
-            chipset.UpdateDimensions(container.ActualLocation, container.GetCurrentSize());
-            chipset.OnEndDrag += (i) => container.ChipsetReleased(chipset, i);
-            chipset.TryStartDrag(input, chipset.GetCurrentSize() / 2);
-
-            return chipset;
+            return new Rectangle(chipLoc.X, chipLoc.Y, fullSize.X, fullSize.Y);
         }
-
-
-
-
-
-        private void _resetTopChip()
-        {
-            if (topChip != null)
-            {
-                SetNotDraggableFrom(topChip);
-            }
-            topChip = Chips.First();
-            SetDraggableFrom(topChip);
-        }
-
     }
 }

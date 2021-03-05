@@ -12,6 +12,7 @@ namespace IAmACube
         public ChipData Chip;
 
         private TextMenuItem _title;
+        private List<ChipPreviewLargeMiddleSection> _middleSections;
 
         public ChipPreviewLarge(IHasDrawLayer parent, ChipData data) : base(parent, "BlueChipFull")
         {
@@ -28,6 +29,7 @@ namespace IAmACube
 
         private void _addSections(ChipData chip)
         {
+            _middleSections = new List<ChipPreviewLargeMiddleSection>();
             var size = this.GetBaseSize();
 
             for(int i=1;i<chip.NumInputs+1;i++)
@@ -37,11 +39,31 @@ namespace IAmACube
 
                 section.SetLocationConfig(ActualLocation.X, ActualLocation.Y + (size.Y*i) - 1, CoordinateMode.ParentPixelOffset, false);
 
+                _middleSections.Add(section);
                 AddChild(section);
             }
 
             _updateChildDimensions();
         }
+
+        public bool IsMouseOverAnySection()
+        {
+            if (MouseHovering)
+            {
+                return true;
+            }
+
+            foreach(var section in _middleSections)
+            {
+                if(section.MouseHovering)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
 
         public Point GetFullBaseSize()
         {

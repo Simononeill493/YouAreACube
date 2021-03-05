@@ -9,83 +9,100 @@ namespace IAmACube
 {
     class ChipEditPane : SpriteMenuItem
     {
+        private const float MinimumChipScale = 2.0f;
+
         public MenuItem Trash;
-        public List<EditableChipset> AllChipsets;
+        public List<EditableChipset> Chipsets;
         public float ChipScaleMultiplier = 1.0f;
         public ChipEditPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "ChipEditPane")
         {
             DrawLayer = DrawLayers.MenuBehindLayer;
 
-            AllChipsets = new List<EditableChipset>();
+            Chipsets = new List<EditableChipset>();
 
             var size = GetBaseSize();
 
             var plusButton = new SpriteMenuItem(this, "PlusButton");
             plusButton.SetLocationConfig(size.X - 9, 0, CoordinateMode.ParentPixelOffset, false);
             plusButton.UpdateDrawLayerCascade(DrawLayer - (DrawLayers.MinLayerDistance*10));
-            plusButton.OnMouseReleased += (i) => _multiplyChipsetScales(2);
+            plusButton.OnMouseReleased += (i) => _multiplyChipScale(2);
             AddChild(plusButton);
 
             var minusButton = new SpriteMenuItem(this, "MinusButton");
             minusButton.SetLocationConfig(size.X - 17, 0, CoordinateMode.ParentPixelOffset, false);
             minusButton.UpdateDrawLayerCascade(DrawLayer - (DrawLayers.MinLayerDistance * 10));
-            minusButton.OnMouseReleased += (i) => _multiplyChipsetScales(0.5f);
+            minusButton.OnMouseReleased += (i) => _multiplyChipScale(0.5f);
             AddChild(minusButton);
         }
-
-
 
         public void TryCreateChipset(ChipPreviewSmall preview, UserInput input)
         {
             if (MenuScreen.UserDragging) { return; }
 
             var chipset = EditableChipset.CreateAtMouse(input, this);
+            chipset.AddInitialChip(preview.Chip,ChipScaleMultiplier);
 
-            chipset.AddChip(preview.Chip,ChipScaleMultiplier);
-
-            AllChipsets.Add(chipset);
+            Chipsets.Add(chipset);
             AddChildAfterUpdate(chipset);
         }
-        public void DeleteChipset(EditableChipset chip)
+        public void RemoveChipset(EditableChipset chipset)
         {
-            AllChipsets.Remove(chip);
-            RemoveChildAfterUpdate(chip);
+            Chipsets.Remove(chipset);
+            RemoveChildAfterUpdate(chipset);
+            chipset.Dispose();
         }
-        public void ChipsetReleased(EditableChipset chip, UserInput input)
+        public void ChipsetReleased(EditableChipset chipset, UserInput input)
         {
             if (Trash.IsMouseOver(input))
             {
-                DeleteChipset(chip);
+                RemoveChipset(chipset);
             }
             else
             {
-                _attachChipsetToPane(chip, GetCurrentSize());
-                _setChipsetVisiblity(chip);
+                var (chipDropped,index) = _getChipsetHoveringOn(input,chipset);
+                if(chipDropped != null)
+                {
+                    RemoveChipset(chipset);
+                    chipDropped.AppendChipset(chipset, index);
+                }
+                else
+                {
+                    _attachChipsetToPane(chipset, GetCurrentSize());
+                    _setChipsetVisiblity(chipset);
+                }
             }
+        }
+
+        private (EditableChipset chipset,int placement) _getChipsetHoveringOn(UserInput input,EditableChipset currentlyHovering)
+        {
+            foreach(var chipset in Chipsets)
+            {
+                if(chipset!=currentlyHovering)
+                {
+                    var pos = chipset.GetHoveredChip(input);
+                    if(pos != -1)
+                    {
+                        Console.WriteLine(pos);
+                        return (chipset, pos);
+                    }
+                }
+            }
+
+            return (null, -1);
         }
 
         protected override void _updateChildDimensions()
         {
-            var newChipScale = MenuItem.GenerateScaleFromMultiplier(ChipScaleMultiplier);
-            if (newChipScale < 2)
-            {
-                var toTwoMultiplier = 2.0f / newChipScale;
-                _multiplyChipsetScales(toTwoMultiplier);
-            }
-
+            _pushChipScalingUpIfTooSmall();
             base._updateChildDimensions();
             _setChipsetVisibilities();
         }
 
-        private void _multiplyChipsetScales(float multiplier)
+        private void _multiplyChipScale(float multiplier)
         {
-            var newChipScale = MenuItem.GenerateScaleFromMultiplier(ChipScaleMultiplier * multiplier);
-            if (newChipScale < 2) { return; }
-
             ChipScaleMultiplier *= multiplier;
-            var size = GetCurrentSize();
 
-            foreach (var chip in AllChipsets)
+            foreach (var chip in Chipsets)
             {
                 chip.MultiplyScaleCascade(multiplier);
             }
@@ -99,21 +116,28 @@ namespace IAmACube
             chip.SetLocationConfig((displacement / chip.Scale), CoordinateMode.ParentPixelOffset, false);
             chip.UpdateDimensionsCascade(ActualLocation, planeSize);
         }
+
         private void _setChipsetVisibilities()
         {
-            foreach (var chip in AllChipsets)
+            foreach (var chip in Chipsets)
             {
                 _setChipsetVisiblity(chip);
             }
         }
         private void _setChipsetVisiblity(EditableChipset chip)
         {
-            var chipLoc = chip.ActualLocation;
-            var fullSize = chip.GetFullSize();
-
-            var trueRect = new Rectangle(chipLoc.X,chipLoc.Y,fullSize.X,fullSize.Y);
-            var isIntersected = this.IsIntersectedWith(trueRect);
+            var isIntersected = this.IsIntersectedWith(chip.GetFullRect());
             chip.Visible = isIntersected;
+        }
+
+        private void _pushChipScalingUpIfTooSmall()
+        {
+            var newChipScale = GenerateScaleFromMultiplier(ChipScaleMultiplier);
+            if (newChipScale < MinimumChipScale)
+            {
+                var toTwoMultiplier = MinimumChipScale / newChipScale;
+                _multiplyChipScale(toTwoMultiplier);
+            }
         }
     }
 }

@@ -37,7 +37,7 @@ namespace IAmACube
 
             if(input.MouseLeftPressed)
             {
-                Focused = _mouseHovering;
+                Focused = MouseHovering;
             }
 
             if(Editable & Focused)

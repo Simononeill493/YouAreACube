@@ -30,6 +30,8 @@ namespace IAmACube
             }
         }
         public void AddChildAfterUpdate(MenuItem item) => _toAdd.Add(item);
+        public void AddChildrenAfterUpdate<T>(List<T> items) where T : MenuItem => _toAdd.AddRange(items);
+
         public void RemoveChildAfterUpdate(MenuItem item) => _toRemove.Add(item);
         public void RemoveChildrenAfterUpdate<T>(List<T> toRemove) where T : MenuItem => _toRemove.AddRange(toRemove);
 

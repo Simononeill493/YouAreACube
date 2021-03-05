@@ -13,13 +13,15 @@ namespace IAmACube
         public bool Visible = true;
         public float DrawLayer { get; set; }
 
+        public bool Disposed { get; private set; } = false;
+
         public event Action<UserInput> OnMouseReleased;
         public event Action<UserInput> OnMousePressed;
         public event Action<UserInput> OnMouseStartHover;
         public event Action<UserInput> OnMouseEndHover;
 
+        public bool MouseHovering { get; private set; } = false;
         protected bool _mousePressedOn = false;
-        protected bool _mouseHovering = false;
 
         public MenuItem(IHasDrawLayer parentDrawLayer)
         {
@@ -28,7 +30,9 @@ namespace IAmACube
 
         public void Draw(DrawingInterface drawingInterface)
         {
-            if(Visible)
+            if (Disposed) { throw new ObjectDisposedException("Disposed MenuItem"); }
+
+            if (Visible)
             {
                 _drawSelf(drawingInterface);
                 _drawChildren(drawingInterface);
@@ -36,7 +40,9 @@ namespace IAmACube
         }
         public virtual void Update(UserInput input)
         {
-            var oldHoverState = _mouseHovering;
+            if (Disposed) { throw new ObjectDisposedException("Disposed MenuItem"); }
+
+            var oldHoverState = MouseHovering;
             var newHoverState = IsMouseOver(input);
 
             if(!oldHoverState & newHoverState)
@@ -48,9 +54,9 @@ namespace IAmACube
                 OnMouseEndHover?.Invoke(input);
             }
 
-            _mouseHovering = newHoverState;
+            MouseHovering = newHoverState;
 
-            if (_mouseHovering)
+            if (MouseHovering)
             {
                 if (input.MouseLeftPressed)
                 {
@@ -85,6 +91,15 @@ namespace IAmACube
             var rect = new Rectangle(ActualLocation.X, ActualLocation.Y, size.X, size.Y);
 
             return rect.Contains(input.MouseX, input.MouseY);
+        }
+
+        public virtual void Dispose() 
+        {
+            _children.Clear();
+            _toAdd.Clear();
+            _toRemove.Clear();
+
+            Disposed = true;
         }
 
         protected virtual void _drawSelf(DrawingInterface drawingInterface) { }

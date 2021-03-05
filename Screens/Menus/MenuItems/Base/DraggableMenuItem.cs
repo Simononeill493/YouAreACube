@@ -11,7 +11,8 @@ namespace IAmACube
         public event System.Action<UserInput> OnStartDrag;
         public event System.Action<UserInput> OnEndDrag;
 
-        private bool _dragging = false;
+        public bool Dragging { get; private set; } = false;
+
         private Point _dragOffset;
         private float _drawLayerTemp;
 
@@ -20,25 +21,37 @@ namespace IAmACube
             OnMousePressed += _tryStartDragAtMousePosition;
         }
 
+        private List<MenuItem> _draggableChildren = new List<MenuItem>();
         public void SetDraggableFrom(MenuItem item)
         {
             item.OnMousePressed += this._tryStartDragAtMousePosition;
+            _draggableChildren.Add(item);
         }
         public void SetNotDraggableFrom(MenuItem item)
         {
             item.OnMousePressed -= this._tryStartDragAtMousePosition;
-        }   
+            _draggableChildren.Remove(item);
+        }
+        public override void Dispose()
+        {
+            base.Dispose();
+            foreach(var draggableChild in _draggableChildren)
+            {
+                draggableChild.OnMousePressed -= this._tryStartDragAtMousePosition;
+            }
+        }
 
-        public override void Update(UserInput input)
+        public override void Update(UserInput input) 
         {
             base.Update(input);
+
             _draggableUpdateLocation(input);
             _checkForEndDrag(input);
         }
 
         public virtual bool TryStartDrag(UserInput input, Point offset)
         {
-            if (!_dragging & !MenuScreen.UserDragging)
+            if (!Dragging & !MenuScreen.UserDragging)
             {
                 _startDrag(input,offset);
                 return true;
@@ -53,7 +66,7 @@ namespace IAmACube
             UpdateDrawLayerCascade(DrawLayers.MenuDragLayer);
 
             MenuScreen.UserDragging = true;
-            _dragging = true;
+            Dragging = true;
             _dragOffset = offset;
 
             _draggableUpdateLocation(input);
@@ -64,7 +77,7 @@ namespace IAmACube
             UpdateDrawLayerCascade(_drawLayerTemp);
 
             MenuScreen.UserDragging = false;
-            _dragging = false;
+            Dragging = false;
 
             OnEndDrag?.Invoke(input);
         }
@@ -76,7 +89,7 @@ namespace IAmACube
         }
         private void _draggableUpdateLocation(UserInput input)
         {
-            if (_dragging)
+            if (Dragging)
             {
                 this.SetLocationConfig(input.MousePos - _dragOffset, CoordinateMode.Absolute);
                 this.UpdateDimensionsCascade(Point.Zero, Point.Zero);
@@ -84,7 +97,7 @@ namespace IAmACube
         }
         private void _checkForEndDrag(UserInput input)
         {
-            if (_dragging & !input.MouseLeftPressed)
+            if (Dragging & !input.MouseLeftPressed)
             {
                 _endDrag(input);
             }

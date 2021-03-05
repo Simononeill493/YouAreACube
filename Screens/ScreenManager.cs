@@ -34,6 +34,8 @@ namespace IAmACube
 
         public void SwitchScreen(ScreenType screenType)
         {
+            MenuScreen.UserDragging = false;
+
             switch (screenType)
             {
                 case ScreenType.Title:
