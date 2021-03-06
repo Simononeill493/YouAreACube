@@ -79,10 +79,9 @@ namespace IAmACube
             {
                 if(chipset!=currentlyHovering)
                 {
-                    var pos = chipset.GetHoveredChip(input);
+                    var pos = chipset.GetInsertionPoint(input);
                     if(pos != -1)
                     {
-                        Console.WriteLine(pos);
                         return (chipset, pos);
                     }
                 }

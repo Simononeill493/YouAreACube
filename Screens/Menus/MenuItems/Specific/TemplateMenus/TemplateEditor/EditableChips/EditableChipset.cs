@@ -54,12 +54,17 @@ namespace IAmACube
             _resetTopChip();
         }
 
-        public int GetHoveredChip(UserInput input)
+        public int GetInsertionPoint(UserInput input)
         {
             for(int i=0;i<Chips.Count;i++)
             {
                 if(Chips[i].IsMouseOverAnySection())
                 {
+                    if(Chips[i].IsMouseOverBottomSection())
+                    {
+                        return i+1;
+                    }
+
                     return i;
                 }
             }
