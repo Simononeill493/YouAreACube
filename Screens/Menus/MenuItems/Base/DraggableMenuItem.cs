@@ -10,6 +10,7 @@ namespace IAmACube
     {
         public event System.Action<UserInput> OnStartDrag;
         public event System.Action<UserInput> OnEndDrag;
+        public event System.Action<UserInput> OnMoved;
 
         public bool Dragging { get; private set; } = false;
 
@@ -18,18 +19,18 @@ namespace IAmACube
 
         public DraggableMenuItem(IHasDrawLayer parent, string sprite) : base(parent, sprite)
         {
-            OnMousePressed += _tryStartDragAtMousePosition;
+            OnMousePressed += TryStartDragAtMousePosition;
         }
 
         private List<MenuItem> _draggableChildren = new List<MenuItem>();
         public void SetDraggableFrom(MenuItem item)
         {
-            item.OnMousePressed += this._tryStartDragAtMousePosition;
+            item.OnMousePressed += this.TryStartDragAtMousePosition;
             _draggableChildren.Add(item);
         }
         public void SetNotDraggableFrom(MenuItem item)
         {
-            item.OnMousePressed -= this._tryStartDragAtMousePosition;
+            item.OnMousePressed -= this.TryStartDragAtMousePosition;
             _draggableChildren.Remove(item);
         }
         public override void Dispose()
@@ -37,7 +38,7 @@ namespace IAmACube
             base.Dispose();
             foreach(var draggableChild in _draggableChildren)
             {
-                draggableChild.OnMousePressed -= this._tryStartDragAtMousePosition;
+                draggableChild.OnMousePressed -= this.TryStartDragAtMousePosition;
             }
         }
 
@@ -82,7 +83,7 @@ namespace IAmACube
             OnEndDrag?.Invoke(input);
         }
 
-        private void _tryStartDragAtMousePosition(UserInput input)
+        public void TryStartDragAtMousePosition(UserInput input)
         {
             var mouseOffset = GetLocationOffset(input.MousePos);
             TryStartDrag(input, mouseOffset);
@@ -91,8 +92,15 @@ namespace IAmACube
         {
             if (Dragging)
             {
-                this.SetLocationConfig(input.MousePos - _dragOffset, CoordinateMode.Absolute);
-                this.UpdateDimensionsCascade(Point.Zero, Point.Zero);
+                var oldLocation = ActualLocation;
+
+                SetLocationConfig(input.MousePos - _dragOffset, CoordinateMode.Absolute);
+                UpdateDimensionsCascade(Point.Zero, Point.Zero);
+
+                if(ActualLocation!=oldLocation)
+                {
+                    OnMoved?.Invoke(input);
+                }
             }
         }
         private void _checkForEndDrag(UserInput input)

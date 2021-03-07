@@ -10,9 +10,12 @@ namespace IAmACube
     class ChipPreviewLarge : SpriteMenuItem
     {
         public ChipData Chip;
+        public int CurrentPositionInChipset = -1;
 
         private TextMenuItem _title;
-        private List<ChipPreviewLargeMiddleSection> _middleSections;
+        private List<ChipPreviewLargeMiddleSection> _middleSections = new List<ChipPreviewLargeMiddleSection>();
+
+        private Action<UserInput, int> _liftChipFromChipset;
 
         public ChipPreviewLarge(IHasDrawLayer parent, ChipData data) : base(parent, "BlueChipFull")
         {
@@ -24,7 +27,14 @@ namespace IAmACube
             _title.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
             AddChild(_title);
 
-            _addSections(Chip);
+            _addSections(Chip,GetBaseSize());
+
+            OnMouseDraggedOn += _OnDraggedHandler;
+        }
+
+        public void SetChipLiftCallback(Action<UserInput,int> chipLiftCallback)
+        {
+            _liftChipFromChipset = chipLiftCallback;
         }
 
         protected override void _drawSelf(DrawingInterface drawingInterface)
@@ -37,11 +47,8 @@ namespace IAmACube
             }
         }
 
-        private void _addSections(ChipData chip)
+        private void _addSections(ChipData chip,Point size)
         {
-            _middleSections = new List<ChipPreviewLargeMiddleSection>();
-            var size = this.GetBaseSize();
-
             for(int i=1;i<chip.NumInputs+1;i++)
             {
                 var section = new ChipPreviewLargeMiddleSection(ManualDrawLayer.Create(DrawLayer - (DrawLayers.MinLayerDistance * i)), chip.GetInputType(i));
@@ -56,18 +63,24 @@ namespace IAmACube
             _updateChildDimensions();
         }
 
-
-
         private void _highlightInsertionPoint(DrawingInterface drawingInterface)
         {
             var size = GetFullSize();
             var height = ActualLocation.Y;
             if(IsMouseOverBottomSection())
             {
-                height += size.Y;
+                height += (size.Y - (1 * Scale));
             }
 
             drawingInterface.DrawRectangle(ActualLocation.X, height, size.X, 5 * Scale, DrawLayers.MenuHoverLayer, Color.Red, false);
+        }
+
+        private void _OnDraggedHandler(UserInput input)
+        {
+            if (!MenuScreen.UserDragging)
+            {
+                _liftChipFromChipset(input,CurrentPositionInChipset);
+            }
         }
 
         public bool IsMouseOverAnySection()
@@ -89,6 +102,11 @@ namespace IAmACube
         }
         public bool IsMouseOverBottomSection()
         {
+            if(_middleSections.Count==0)
+            {
+                return true;
+            }
+
             return _middleSections.Last().MouseHovering;
         }
 
@@ -98,6 +116,5 @@ namespace IAmACube
             return new Point(topSectionSize.X, topSectionSize.Y + (topSectionSize.Y * Chip.NumInputs));
         }
         public Point GetFullSize() => GetFullBaseSize() * Scale;
-
     }
 }

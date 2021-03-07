@@ -19,9 +19,11 @@ namespace IAmACube
         public event Action<UserInput> OnMousePressed;
         public event Action<UserInput> OnMouseStartHover;
         public event Action<UserInput> OnMouseEndHover;
+        public event Action<UserInput> OnMouseDraggedOn;
 
         public bool MouseHovering { get; private set; } = false;
         protected bool _mousePressedOn = false;
+        protected Point _lastMouseClickLocation = Point.Zero;
 
         public MenuItem(IHasDrawLayer parentDrawLayer)
         {
@@ -30,7 +32,7 @@ namespace IAmACube
 
         public void Draw(DrawingInterface drawingInterface)
         {
-            if (Disposed) { throw new ObjectDisposedException("Disposed MenuItem"); }
+            if (Disposed) { throw new ObjectDisposedException("Drawing disposed MenuItem"); }
 
             if (Visible)
             {
@@ -40,7 +42,7 @@ namespace IAmACube
         }
         public virtual void Update(UserInput input)
         {
-            if (Disposed) { throw new ObjectDisposedException("Disposed MenuItem"); }
+            if (Disposed) { throw new ObjectDisposedException("Updating disposed MenuItem"); }
 
             var oldHoverState = MouseHovering;
             var newHoverState = IsMouseOver(input);
@@ -58,12 +60,18 @@ namespace IAmACube
 
             if (MouseHovering)
             {
-                if (input.MouseLeftPressed)
+                if(_mousePressedOn & (_lastMouseClickLocation != input.MousePos))
+                {
+                    OnMouseDraggedOn?.Invoke(input);
+                }
+
+                if (input.MouseLeftPressed) //Mouse Pressed
                 {
                     _mousePressedOn = true;
+                    _lastMouseClickLocation = input.MousePos;
                     OnMousePressed?.Invoke(input);
                 }
-                else if(_mousePressedOn & input.MouseLeftReleased)
+                else if(_mousePressedOn & input.MouseLeftReleased) //Mouse released
                 {
                     _mousePressedOn = false;
                     OnMouseReleased?.Invoke(input);
@@ -132,6 +140,5 @@ namespace IAmACube
             drawingInterface.DrawRectangle(leftOrigin.X, leftOrigin.Y, leftSize.X, leftSize.Y, layer, color);
             drawingInterface.DrawRectangle(rightOrigin.X, rightOrigin.Y, rightSize.X, rightSize.Y, layer, color);
         }
-    
     }
 }

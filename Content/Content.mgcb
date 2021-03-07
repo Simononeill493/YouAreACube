@@ -229,6 +229,18 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/BlankMenus/TemplateItemContainerHighlight.png;TemplateItemContainerHighlight.png
 
+#begin ../Simon_Data/To_Import/BlankMenus/TopOfChipset.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/BlankMenus/TopOfChipset.png;TopOfChipset.png
+
 #begin ../Simon_Data/To_Import/MenuSpecific/CancelButton.PNG
 /importer:TextureImporter
 /processor:TextureProcessor

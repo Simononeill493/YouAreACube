@@ -10,51 +10,50 @@ namespace IAmACube
     class EditableChipset : DraggableMenuItem
     {
         public List<ChipPreviewLarge> Chips;
-        private ChipPreviewLarge topChip;
 
-        public EditableChipset(IHasDrawLayer parent) : base(parent, "BlueChipFull")
+        private ChipPreviewLarge _topChip;
+        private Action<UserInput,List<ChipPreviewLarge>> _createNewChipset;
+
+        public EditableChipset(IHasDrawLayer parent) : base(parent, "TopOfChipset")
         {
             Chips = new List<ChipPreviewLarge>();
         }
 
-        public void AppendChipset(EditableChipset toAdd, int index)
+        public void SetCreateNewChipsetCallback(Action<UserInput, List<ChipPreviewLarge>> createNewChipset)
         {
-            Chips.InsertRange(index, toAdd.Chips);
-            AddChildrenAfterUpdate(toAdd.Chips);
-
-            _updateChipPositions();
-            _resetTopChip();
-
-            _updateChildDimensions();
+            _createNewChipset = createNewChipset;
         }
 
-        private void _updateChipPositions()
+        public void AppendChips(List<ChipPreviewLarge> toAdd,int index)
         {
-            var baseSize = GetBaseSize();
-            for (int i = 0; i < Chips.Count;i++)
+            Chips.InsertRange(index, toAdd);
+            AddChildrenAfterUpdate(toAdd);
+
+            foreach(var chip in toAdd)
             {
-                Chips[i].SetLocationConfig(0, baseSize.Y - (i+1), CoordinateMode.ParentPixelOffset, false);
-                Chips[i].UpdateDimensions(ActualLocation, GetCurrentSize());
-
-                baseSize.Y += Chips[i].GetFullBaseSize().Y;
+                chip.SetChipLiftCallback(_liftChipsFromChipset);
             }
+
+            _recalculate();
         }
 
-        public void AddInitialChip(ChipData chipData, float scaleMultiplier)
+        public List<ChipPreviewLarge> PopChips(int index)
         {
-            var chip = new ChipPreviewLarge(this, chipData);
+            var toRemove = Chips.Skip(index).ToList();
+            Chips.RemoveRange(index, toRemove.Count());
+            RemoveChildrenAfterUpdate(toRemove);
 
-            chip.MultiplyScaleCascade(scaleMultiplier);
-            chip.SetLocationConfig(0, GetBaseSize().Y-1, CoordinateMode.ParentPixelOffset, false);
-            chip.UpdateDimensions(ActualLocation, GetCurrentSize());
-
-            Chips.Add(chip);
-            AddChild(chip);
-
-            _resetTopChip();
+            _recalculate();
+            return toRemove;
         }
 
-        public int GetInsertionPoint(UserInput input)
+        public void _liftChipsFromChipset(UserInput input,int index)
+        {
+            var toRemove = PopChips(index);
+            _createNewChipset(input,toRemove);
+        }
+
+        public int GetChipIndexThatMouseIsOver(UserInput input)
         {
             for(int i=0;i<Chips.Count;i++)
             {
@@ -73,41 +72,50 @@ namespace IAmACube
         }
 
 
-        public static EditableChipset CreateAtMouse(UserInput input,ChipEditPane container)
+        private void _recalculate()
         {
-            var chipset = new EditableChipset(container);
-
-            chipset.MultiplyScaleCascade(container.ChipScaleMultiplier);
-            chipset.UpdateDimensions(container.ActualLocation, container.GetCurrentSize());
-            chipset.OnEndDrag += (i) => container.ChipsetReleased(chipset, i);
-            chipset.TryStartDrag(input, chipset.GetCurrentSize() / 2);
-
-            return chipset;
+            _updateChipPositions();
+            _updateTopChip();
+            _updateChildDimensions();
         }
 
-        private void _resetTopChip()
+        private void _updateChipPositions()
         {
-            if (topChip != null)
+            var baseSize = GetBaseSize();
+            for (int i = 0; i < Chips.Count; i++)
             {
-                SetNotDraggableFrom(topChip);
+                Chips[i].CurrentPositionInChipset = i;
+                Chips[i].SetLocationConfig(0, baseSize.Y - (i + 1), CoordinateMode.ParentPixelOffset, false);
+                Chips[i].UpdateDimensions(ActualLocation, GetCurrentSize());
+
+                baseSize.Y += Chips[i].GetFullBaseSize().Y;
             }
-            topChip = Chips.First();
-            SetDraggableFrom(topChip);
+        }
+        private void _updateTopChip()
+        {
+            if (_topChip != null)
+            {
+                SetNotDraggableFrom(_topChip);
+            }
+            _topChip = Chips.First();
+            SetDraggableFrom(_topChip);
         }
 
         public Point GetFullBaseSize()
         {
             var size = GetBaseSize();
-
             foreach (var chip in Chips)
             {
                 var chipSize = chip.GetFullBaseSize();
                 size.Y += chipSize.Y;
+                if(chipSize.X > size.X)
+                {
+                    size.X = chipSize.X;
+                }
             }
 
             return size;
         }
-
         public Point GetFullSize() => GetFullBaseSize() * Scale;
         public Rectangle GetFullRect()
         {
@@ -115,6 +123,18 @@ namespace IAmACube
             var fullSize = GetFullSize();
 
             return new Rectangle(chipLoc.X, chipLoc.Y, fullSize.X, fullSize.Y);
+        }
+
+
+        public static EditableChipset CreateAtMouse(UserInput input, ChipEditPane container)
+        {
+            var chipset = new EditableChipset(container);
+
+            chipset.MultiplyScaleCascade(container.ChipScaleMultiplier);
+            chipset.UpdateDimensions(container.ActualLocation, container.GetCurrentSize());
+            chipset.OnEndDrag += (i) => container.ChipsetReleased(chipset, i);
+
+            return chipset;
         }
     }
 }
