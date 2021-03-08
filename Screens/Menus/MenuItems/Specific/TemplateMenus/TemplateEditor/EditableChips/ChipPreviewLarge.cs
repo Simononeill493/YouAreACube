@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class ChipPreviewLarge : SpriteMenuItem
+    public class ChipPreviewLarge : SpriteMenuItem
     {
         public ChipData Chip;
         public int CurrentPositionInChipset = -1;
@@ -51,7 +51,9 @@ namespace IAmACube
         {
             for(int i=1;i<chip.NumInputs+1;i++)
             {
-                var section = new ChipPreviewLargeMiddleSection(ManualDrawLayer.Create(DrawLayer - (DrawLayers.MinLayerDistance * i)), chip.GetInputType(i));
+                var parentDrawLayer = ManualDrawLayer.Create(DrawLayer - (DrawLayers.MinLayerDistance * i));
+                var section = ChipSectionFactory.Create(parentDrawLayer,chip.GetInputType(i));
+
                 if (i == chip.NumInputs) { section.SpriteName = "BlueChipFullEnd"; }
 
                 section.SetLocationConfig(ActualLocation.X, ActualLocation.Y + (size.Y*i) - 1, CoordinateMode.ParentPixelOffset, false);

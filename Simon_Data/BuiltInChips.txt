@@ -16,7 +16,7 @@
     {
       "name":"MoveRelative",
 	  "type":"Action",
-	  "in":["Relative"],
+	  "in":["RelativeDirection"],
 	  "out":[]
     },
 	{
