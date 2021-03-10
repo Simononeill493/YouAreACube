@@ -106,6 +106,7 @@
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\SearchBarMenuItem.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateBox.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\ChipEditPane.cs" />
+    <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\EditableChips\ChipDataDropdown.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\EditableChips\ChipSectionFactory.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\EditableChips\ChipPreviewLarge.cs" />
     <Compile Include="Screens\Menus\MenuItems\Specific\TemplateMenus\TemplateEditor\EditableChips\ChipPreviewLargeMiddleSection.cs" />

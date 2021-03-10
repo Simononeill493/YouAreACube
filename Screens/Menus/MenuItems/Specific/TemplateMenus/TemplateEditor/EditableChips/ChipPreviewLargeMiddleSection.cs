@@ -17,12 +17,6 @@ namespace IAmACube
             textItem.SetLocationConfig(4, 40, CoordinateMode.ParentPercentageOffset, false);
 
             AddChild(textItem);
-
-            /*var dropdown = new DropdownMenuItem<int>(this);
-            dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentageOffset, true);
-            dropdown.SetItems(new List<int>() { 1, 2, 3, 4, 5 });
-
-            AddChild(dropdown);*/
         }
     }
 }

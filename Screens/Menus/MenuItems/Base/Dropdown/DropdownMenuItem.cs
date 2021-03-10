@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class DropdownMenuItem<T> : SpriteMenuItem
+    public class DropdownMenuItem<T> : TextBoxMenuItem
     {
         public bool IsItemSelected = false;
 
@@ -27,10 +27,10 @@ namespace IAmACube
 
         public event Action<T> OnSelectedChanged;
 
-        private TextMenuItem _text;
-
-        public DropdownMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "Dropdown")
+        public DropdownMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "")
         {
+            SpriteName = "Dropdown";
+
             _items = new List<T>();
             _dropdownItems = new List<DropdownItemMenuItem<T>>();
 
@@ -40,9 +40,7 @@ namespace IAmACube
             dropButton.SetLocationConfig(92, 50, CoordinateMode.ParentPercentageOffset, true);
             AddChild(dropButton);
 
-            _text = new TextMenuItem(this) { Text = "" };
-            _text.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
-            AddChild(_text);
+            text.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
         }
 
         public void SetItems(List<T> items)
@@ -63,13 +61,22 @@ namespace IAmACube
             }
         }
 
+        public void AddItems(List<T> toAdd)
+        {
+            var newItems = new List<T>();
+            newItems.AddRange(_items);
+            newItems.AddRange(toAdd);
+
+            SetItems(newItems);
+        }
+
         private void DropdownClicked(T item)
         {
             Selected = item;
             Dropped = false;
             IsItemSelected = true;
 
-            _text.Text = item.ToString();
+            text.Text = item.ToString();
             OnSelectedChanged?.Invoke(item);
         }
 
