@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,39 +13,42 @@ namespace IAmACube
         {
             var section = new ChipPreviewLargeMiddleSection(parentDrawLayer, dataType);
 
-            if(_isDiscreteType(dataType))
+            var dropdown = new ChipDataDropdown(section);
+
+            if (_isDiscreteType(dataType))
             {
-                _addSetDropdown(section, dataType);
+                _configureSetDropdown(dropdown, dataType);
+            }
+            else if (_isTextEntryType(dataType))
+            {
+                _configureEditableDropdown(dropdown, dataType);
+            }
+            else if (dataType.Equals("Template"))
+            {
+                _configureTemplateDropdown(dropdown);
             }
 
-            if (_isTextEntryType(dataType))
-            {
-                _addEditableDropdown(section, dataType);
-            }
+            dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentageOffset, true);
+            dropdown.BaseType = _getType(dataType);
+            section.AddChild(dropdown);
 
             return section;
         }
 
-        private static void _addEditableDropdown(ChipPreviewLargeMiddleSection section, string dataType)
+        private static void _configureEditableDropdown(ChipDataDropdown dropdown, string dataType)
         {
-            var dropdown = new ChipDataDropdown(section);
-
-            dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentageOffset, true);
             dropdown.Editable = true;
-            dropdown.BaseType = _getType(dataType);
-
-            section.AddChild(dropdown);
         }
 
-        private static void _addSetDropdown(ChipPreviewLargeMiddleSection section, string dataType)
+        private static void _configureSetDropdown(ChipDataDropdown dropdown, string dataType)
         {
-            var dropdown = new ChipDataDropdown(section);
-
             dropdown.AddItems(ChipInputPinDropdownSelectionBase.GetBasicSelections(dataType).Cast<ChipInputPinDropdownSelection>().ToList());
-            dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentageOffset, true);
-            dropdown.BaseType = _getType(dataType);
+        }
 
-            section.AddChild(dropdown);
+        private static void _configureTemplateDropdown(ChipDataDropdown dropdown)
+        {
+            var templates = ChipInputPinDropdownSelectionBase.Create(Templates.BlockTemplates.Values.ToList());
+            dropdown.AddItems(templates.Cast<ChipInputPinDropdownSelection>().ToList());
         }
 
         private static Type _getType(string dataType)
@@ -56,6 +60,13 @@ namespace IAmACube
             if (dataType.Equals("int")) { return typeof(int); }
             if (dataType.Equals("string")) { return typeof(string); }
             if (dataType.Equals("Template")) { return typeof(BlockTemplate); }
+            if (dataType.Equals("Tile")) { return typeof(Tile); }
+            if (dataType.Equals("List<Variable>")) { return typeof(List<object>); }
+            if (dataType.Equals("Keys")) { return typeof(Keys); }
+            if (dataType.Equals("SurfaceBlock")) { return typeof(SurfaceBlock); }
+            if (dataType.Equals("GroundBlock")) { return typeof(GroundBlock); }
+            if (dataType.Equals("EphemeralBlock")) { return typeof(EphemeralBlock); }
+
             throw new Exception();
         }
         private static bool _isDiscreteType(string dataType)

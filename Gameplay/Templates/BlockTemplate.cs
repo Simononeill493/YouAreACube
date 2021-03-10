@@ -55,5 +55,10 @@ namespace IAmACube
             //todo set any dynamic data here
             return block;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
