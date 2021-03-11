@@ -49,12 +49,11 @@
   <ItemGroup>
     <Compile Include="Camera\CameraConfiguration.cs" />
     <Compile Include="Camera\CameraUtils.cs" />
-    <Compile Include="Camera\AdminCamera.cs" />
-    <Compile Include="Camera\KernelCamera\DynamicCamera.cs" />
-    <Compile Include="Camera\KernelCamera\KernelCamera.cs" />
+    <Compile Include="Camera\KernelCamera\KernelTrackingCamera.cs" />
     <Compile Include="Camera\KernelCamera\ScrollBoundaries.cs" />
     <Compile Include="Gameplay\Blocks\BaseBlockData\Block.cs" />
     <Compile Include="Gameplay\Blocks\BaseBlockData\BlockType.cs" />
+    <Compile Include="Gameplay\Blocks\BaseBlockData\Block_Movement.cs" />
     <Compile Include="Gameplay\Blocks\BlockMovementData.cs" />
     <Compile Include="Gameplay\Blocks\EphemeralBlock.cs" />
     <Compile Include="Gameplay\Blocks\SurfaceBlock.cs" />

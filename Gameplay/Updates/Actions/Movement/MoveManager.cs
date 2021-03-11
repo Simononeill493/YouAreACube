@@ -9,11 +9,11 @@ namespace IAmACube
     [Serializable()]
     public class MoveManager
     {
-        public List<(Block, Point)> MovedOutOfSector = new List<(Block, Point)>();
-        private List<(Block, Point)> _toMoveFromSector = new List<(Block, Point)>();
-
-        private List<Block> _moving = new List<Block>();
         private Sector _sector;
+        private List<Block> _moving = new List<Block>();
+
+        private List<(Block, Point)> _toMoveFromSector = new List<(Block, Point)>();
+        public List<(Block, Point)> MovedOutOfSector = new List<(Block, Point)>();
 
         public MoveManager(Sector sector)
         {

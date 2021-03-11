@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace IAmACube
     class Config
     {
         public const int TickCycleLength = 60;
-        public const int TileSizeActual = 16;
+        public const int TileSizePixels = 16;
 
         public const int SectorSize = 16;
         public const bool EnableFrameCounter = false;
@@ -24,6 +25,6 @@ namespace IAmACube
 
         public static int MenuItemScale = 4;
 
-        public static Microsoft.Xna.Framework.Color DefaultColor = Microsoft.Xna.Framework.Color.Black;
+        public static Color DefaultTextColor = Color.Black;
     }
 }

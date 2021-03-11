@@ -20,7 +20,7 @@ namespace IAmACube
             TakeEnergy(1);
         }
 
-        protected override void _move(Tile destination)
+        protected override void Move(Tile destination)
         {
             if(destination.HasEphemeral)
             {
@@ -52,7 +52,7 @@ namespace IAmACube
         public override void BeCreatedBy(Block creator)
         {
             base.BeCreatedBy(creator);
-            creator.TakeEnergy(_template.InitialEnergy);
+            creator.TakeEnergy(Template.InitialEnergy);
         }
     }
 }

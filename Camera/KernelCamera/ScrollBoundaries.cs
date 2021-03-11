@@ -22,8 +22,8 @@ namespace IAmACube
             Top = BoundarySize - tileSize;
             Left = BoundarySize - tileSize;
 
-            Bottom = (MonoGameWindow.CurrentHeight - BoundarySize);
-            Right = (MonoGameWindow.CurrentWidth - BoundarySize);
+            Bottom = (MonoGameWindow.CurrentSize.Y - BoundarySize);
+            Right = (MonoGameWindow.CurrentSize.X - BoundarySize);
         }
 
         public bool WithinBoundary(Point curPos)

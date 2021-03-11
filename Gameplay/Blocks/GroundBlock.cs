@@ -14,7 +14,7 @@ namespace IAmACube
             BlockType = BlockType.Ground;
         }
 
-        protected override void _move(Tile destination)
+        protected override void Move(Tile destination)
         {
             throw new NotImplementedException();
         }

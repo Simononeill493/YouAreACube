@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public abstract class Camera
+    public class Camera
     {
         protected CameraConfiguration _config;
         protected DrawingInterface _drawingInterface;
@@ -20,12 +20,13 @@ namespace IAmACube
 
         public void Update(UserInput input)
         {
-            _readInput(input);
+            _handleUserInput(input);
+            _config.UpdateScaling();
 
-            _config.SetScreenScaling();
             _update(input);
-            _config.RollOverPartialOffsets();
+            _config.UpdateGridOffsets();
         }
+        protected virtual void _update(UserInput input) { }
 
         public virtual void Draw(DrawingInterface drawingInterface, World world)
         {
@@ -33,15 +34,14 @@ namespace IAmACube
             _drawTiles(world);
         }
 
-        protected abstract void _update(UserInput input);
         protected void _drawTiles(World world)
         {
             var screenGridPos = Point.Zero;
-            for (screenGridPos.X = -1; screenGridPos.X < _config.VisibleGridWidth+1; screenGridPos.X++)
+            for (screenGridPos.X = -1; screenGridPos.X < _config.VisibleGrid.X+2; screenGridPos.X++)
             {
-                for (screenGridPos.Y=-1; screenGridPos.Y < _config.VisibleGridHeight + 1; screenGridPos.Y++)
+                for (screenGridPos.Y=-1; screenGridPos.Y < _config.VisibleGrid.Y + 2; screenGridPos.Y++)
                 {
-                    var drawPos = (screenGridPos * _config.TileSizeScaled) - _config.PartialGridOffset;
+                    var drawPos = (screenGridPos * _config.TileSizeActual) - _config.PartialGridOffset;
                     var tileLocation = screenGridPos + _config.GridPosition;
 
                     _drawThisLocation(world, drawPos, tileLocation);
@@ -62,7 +62,7 @@ namespace IAmACube
             }
         }
 
-        private void _readInput(UserInput input)
+        private void _handleUserInput(UserInput input)
         {
             if (input.IsKeyDown(Keys.Home))//up
             {

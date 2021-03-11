@@ -14,7 +14,7 @@ namespace IAmACube
             BlockType = BlockType.Surface;
         }
 
-        protected override void _move(Tile destination)
+        protected override void Move(Tile destination)
         {
             Location.Surface = null;
             destination.Surface = this;

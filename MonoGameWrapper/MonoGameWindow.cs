@@ -16,8 +16,11 @@ namespace IAmACube
 {
     public class MonoGameWindow : Microsoft.Xna.Framework.Game
     {
-        public static int CurrentWidth;
-        public static int CurrentHeight;
+        //public static int CurrentWidth;
+        //public static int CurrentHeight;
+
+        public static Point CurrentSize;
+        //public static int CurrentHeight;
 
         private DrawingInterface _drawingInterface;
         private PrimitivesHelper _primitivesHelper;
@@ -45,8 +48,7 @@ namespace IAmACube
             _graphicsDeviceManager.ApplyChanges();
             #endregion
 
-            CurrentWidth = _graphicsDeviceManager.GraphicsDevice.Viewport.Width;
-            CurrentHeight = _graphicsDeviceManager.GraphicsDevice.Viewport.Height;
+            CurrentSize = new Point(_graphicsDeviceManager.GraphicsDevice.Viewport.Width, _graphicsDeviceManager.GraphicsDevice.Viewport.Height);
 
             _attachedConsoleManager = new AttachedConsoleManager(GraphicsDevice,Window.Position);
             this.Window.ClientSizeChanged += _attachedConsoleManager.ConsoleMoveEventHandler;
@@ -107,8 +109,7 @@ namespace IAmACube
                 Console.Write((char)13);
             }
 
-            CurrentWidth = _graphicsDeviceManager.GraphicsDevice.Viewport.Width;
-            CurrentHeight = _graphicsDeviceManager.GraphicsDevice.Viewport.Height;
+            CurrentSize = new Point(_graphicsDeviceManager.GraphicsDevice.Viewport.Width, _graphicsDeviceManager.GraphicsDevice.Viewport.Height);
             _primitivesHelper.BeginDrawFrame();
             _screenManager.Draw(_drawingInterface);
             _primitivesHelper.EndDrawFrame();

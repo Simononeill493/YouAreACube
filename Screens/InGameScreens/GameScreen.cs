@@ -12,16 +12,16 @@ namespace IAmACube
         public Game Game;
         private Camera _currentCamera;
 
-        private AdminCamera _adminCamera;
-        private DynamicCamera _dynamicCamera;
+        private Camera _adminCamera;
+        private KernelTrackingCamera _playerCamera;
 
         public GameScreen(Action<ScreenType> switchScreen,Save save) : base(ScreenType.Game,switchScreen)
         {
             Game = new Game(save);
 
-            _adminCamera = new AdminCamera();
-            _dynamicCamera = new DynamicCamera(save.Kernel);
-            _currentCamera = _dynamicCamera;
+            _adminCamera = new Camera();
+            _playerCamera = new KernelTrackingCamera(save.Kernel);
+            _currentCamera = _playerCamera;
         }
 
         public override void Update(UserInput input)
@@ -42,7 +42,7 @@ namespace IAmACube
             }
             if (input.IsKeyJustPressed(Keys.N))
             {
-                _currentCamera = _dynamicCamera;
+                _currentCamera = _playerCamera;
             }
             if(input.IsKeyJustPressed(Keys.Escape))
             {

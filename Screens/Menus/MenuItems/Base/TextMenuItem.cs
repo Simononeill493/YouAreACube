@@ -10,7 +10,7 @@ namespace IAmACube
     public class TextMenuItem : MenuItem
     {
         public string Text;
-        public Color Color = Config.DefaultColor;
+        public Color Color = Config.DefaultTextColor;
 
         public TextMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer) { }
 

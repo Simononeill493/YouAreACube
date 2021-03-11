@@ -19,8 +19,8 @@ namespace IAmACube
 
         public static Point ScreenPercentageToCoords(Point percentages)
         {
-            var x = (int)(MonoGameWindow.CurrentWidth * (percentages.X / 100.0));
-            var y = (int)(MonoGameWindow.CurrentHeight * (percentages.Y / 100.0));
+            var x = (int)(MonoGameWindow.CurrentSize.X * (percentages.X / 100.0));
+            var y = (int)(MonoGameWindow.CurrentSize.Y * (percentages.Y / 100.0));
 
             return new Point(x, y);
         }

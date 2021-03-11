@@ -7,46 +7,26 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public abstract class Block
+    public abstract partial class Block
     {
+        public BlockTemplate Template;
         public Tile Location;
         public BlockType BlockType;
+
         public int SpeedOffset;
-
-        public bool IsMoving => MovementData.IsMoving;
-        public bool IsInCentreOfBlock => MovementData.IsInCentreOfBlock;
-        public BlockMovementData MovementData;
-
         public Orientation Orientation;
 
-        public string Sprite => _template.Sprite;
-        public bool Active => _template.Active;
-        public int Speed => _template.Speed;
-        public int EnergyCap => _template.InitialEnergy;
-        public float EnergyRemainingPercentage => ((float)Energy) / EnergyCap;
-
-        protected BlockTemplate _template;
-
         public int Energy { get; private set; }
-        public void AddEnergy(int amount)
-        {
-            Energy += amount;
-            if(Energy>EnergyCap) { Energy = EnergyCap; }
-        }
-        public void TakeEnergy(int amount)
-        {
-            Energy -= amount;
-            if (Energy < 0) 
-            {
-                Console.WriteLine("Warning: energy has gone negative.");
-                Energy = 0;
-            }
 
-        }
+        public string Sprite => Template.Sprite;
+        public bool Active => Template.Active;
+        public int Speed => Template.Speed;
+        public int EnergyCap => Template.InitialEnergy;
+        public float EnergyRemainingPercentage => ((float)Energy) / EnergyCap;
 
         public Block(BlockTemplate template)
         {
-            _template = template;
+            Template = template;
             SpeedOffset = RandomUtils.R.Next(0, Config.TickCycleLength);
             MovementData = new BlockMovementData();
 
@@ -56,50 +36,35 @@ namespace IAmACube
 
         public virtual void Update(UserInput input,ActionsList actions)
         {
-            _template.Chips.Execute(this, input,actions);
+            Template.Chips.Execute(this, input,actions);
         }
-
         public void Rotate(int rotation)
         {
             Orientation = Orientation.Rotate(rotation);
         }
-
-        public bool TryMove(RelativeDirection movementDirection)
-        {
-            return TryMove(DirectionUtils.ToCardinal(Orientation, movementDirection));
-        }
-        public bool TryMove(CardinalDirection direction)
-        {
-            var destination = Location.Adjacent[direction];
-
-            if(CanOccupyDestination(destination))
-            {
-                _move(destination);
-                Energy--;
-                return true;
-            }
-
-            return false;
-        }
-
-        protected abstract void _move(Tile destination);
-
-        public bool CanStartMoving()
-        {
-            return (!IsMoving) & (Energy > 0);
-        }
-        public abstract bool CanOccupyDestination(Tile destination);
         public abstract bool ShouldBeDestroyed();
-
-
         public virtual void BeCreatedBy(Block creator)
         {
             this.SpeedOffset = creator.SpeedOffset + 1;
         }
-
         public bool InSector(Sector sector)
         {
             return Location.InSector(sector);
+        }
+        public void AddEnergy(int amount)
+        {
+            Energy += amount;
+            if (Energy > EnergyCap) { Energy = EnergyCap; }
+        }
+        public void TakeEnergy(int amount)
+        {
+            Energy -= amount;
+            if (Energy < 0)
+            {
+                Console.WriteLine("Warning: energy has gone negative.");
+                Energy = 0;
+            }
+
         }
     }
 }

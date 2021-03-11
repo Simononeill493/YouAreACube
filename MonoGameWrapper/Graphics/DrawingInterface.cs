@@ -38,7 +38,7 @@ namespace IAmACube
         }
         public void DrawBlock(Block block, Point drawPos, float layer, CameraConfiguration cameraConfig)
         {
-            var offsetDrawPos = drawPos + CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizeScaled);
+            var offsetDrawPos = drawPos + CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizeActual);
 
             _primitivesHelper.DrawSprite(block.Sprite, offsetDrawPos.X, offsetDrawPos.Y, cameraConfig.Scale, layer, centered: false);
         }
@@ -49,7 +49,7 @@ namespace IAmACube
 
         public void DrawHUD(Kernel kernel)
         {
-            DrawHUD(kernel, MonoGameWindow.CurrentWidth / 16, MonoGameWindow.CurrentHeight / 16);
+            DrawHUD(kernel, MonoGameWindow.CurrentSize.X / 16, MonoGameWindow.CurrentSize.Y / 16);
         }
         public void DrawHUD(Kernel kernel, int x, int y)
         {
