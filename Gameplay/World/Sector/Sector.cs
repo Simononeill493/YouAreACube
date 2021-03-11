@@ -61,8 +61,11 @@ namespace IAmACube
             {
                 _activeBlocks.Add(block);
             }
-
-            _updateManager.AddToTracking(block);
+        }
+        public void AddMovingBlockToSector(Block block,BlockMovementData movementData)
+        {
+            AddToSector(block);
+            _updateManager.AddToMoving(block,movementData);
         }
 
         public void RemoveFromSectorLists(Block block)
@@ -77,10 +80,20 @@ namespace IAmACube
             }
         }
 
-        public List<(Block, Point)> FetchSectorEmmigrants()
+        public (List<(Block, BlockMovementData, Point)> moved, List<(Block, Point)> created) PopSectorEmmigrants()
         {
             var list = _updateManager.GetSectorEmmigrants();
             _updateManager.ClearSectorEmmigrants();
+
+            foreach(var movedOut in list.moved)
+            {
+                RemoveFromSectorLists(movedOut.Item1);
+            }
+
+            foreach (var createdOut in list.created)
+            {
+                RemoveFromSectorLists(createdOut.Item1);
+            }
 
             return list;
         }

@@ -28,7 +28,6 @@ namespace IAmACube
         {
             Template = template;
             SpeedOffset = RandomUtils.R.Next(0, Config.TickCycleLength);
-            MovementData = new BlockMovementData();
 
             Orientation = Orientation.Top;
             Energy = template.InitialEnergy;

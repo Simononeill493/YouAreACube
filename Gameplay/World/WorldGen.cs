@@ -15,8 +15,8 @@ namespace IAmACube
             var centre = GetTestSector(new Point(0, 0));
             world.AddSector(centre);
 
-            AttachmentUtils.AddOuterSectors(world);
-            AttachmentUtils.AddOuterSectors(world);
+            //AttachmentUtils.AddOuterSectors(world);
+            //AttachmentUtils.AddOuterSectors(world);
 
             //world.AddSector(GetTestSector(new Point(1, 0)));
             /*world.AddSector(GetTestSector(new Point(2, 0)));
@@ -65,8 +65,8 @@ namespace IAmACube
         {
             var centre = world.GetSector(new Point(0, 0));
 
-            _addRandom(world.Random, centre, BlockType.Surface, "BasicEnemy", 32);
-            _addRandom(world.Random, centre, BlockType.Surface, "Spinner", 32);
+            _addRandom(world.Random, centre, BlockType.Surface, "BasicEnemy", 16);
+            _addRandom(world.Random, centre, BlockType.Surface, "Spinner", 16);
             //_addRandom(world.Random, world.Centre, BlockType.Ephemeral,"Bullet", 16);
         }
 

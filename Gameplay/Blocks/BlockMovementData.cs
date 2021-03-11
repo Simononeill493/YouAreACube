@@ -10,46 +10,51 @@ namespace IAmACube
     [Serializable()]
     public class BlockMovementData
     {
-        public bool IsMoving;
-
-        public CardinalDirection Direction;
+        public Tile Origin;
         public Tile Destination;
-        public int MoveSpeed;
 
-        public int MovementPosition;
-        public bool IsInCentreOfBlock => (MovementPosition == 0);
+        public Point MovementOffset;
 
-        public Point Offset;
+        public int TotalTicks;
+        public int CurrentTick;
 
-        public int Midpoint;
+        public bool AtMidpoint;
         public bool PastMidpoint;
-        public bool AtMidpoint => (MovementPosition == Midpoint);
-        public bool MovementComplete => (PastMidpoint & (MovementPosition == 0));
 
-        public void StartMoving(Block block, CardinalDirection direction, int moveSpeed)
+        public bool Finished;
+        public bool Cancelled;
+
+        private int _midpoint;
+
+        public BlockMovementData(Block mover,Tile destination,int moveTotalTicks,CardinalDirection direction)
         {
-            IsMoving = true;
-            Direction = direction;
-            PastMidpoint = false;
-            MovementPosition = 0;
-            MoveSpeed = moveSpeed;
+            Origin = mover.Location;
+            Destination = destination;
 
-            Destination = block.Location.Adjacent[direction];
-            Offset = direction.XYOffset();
+            MovementOffset = direction.XYOffset();
+            TotalTicks = moveTotalTicks;
+            CurrentTick = 0;
 
-            Midpoint = ((moveSpeed + 1) / 2);
-        }
-        public void StopMoving()
-        {
-            IsMoving = false;
-            Destination = null;
-            MovementPosition = 0;
+            _midpoint = TotalTicks / 2;
         }
 
-        public void MovePastMidpoint()
+        public void Tick()
         {
-            PastMidpoint = true;
-            MovementPosition = (-MovementPosition) + (MoveSpeed % 2);
+            CurrentTick++;
+            AtMidpoint = (CurrentTick == _midpoint);
+            Finished = (CurrentTick == TotalTicks);
+        }
+
+        public float GetMovePercentage()
+        {
+            var percent = ((CurrentTick) / (float)(TotalTicks));
+
+            if(PastMidpoint)
+            {
+                percent = -(1-percent);
+            }
+
+            return percent;
         }
     }
 }

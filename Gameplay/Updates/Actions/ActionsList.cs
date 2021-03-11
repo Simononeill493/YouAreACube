@@ -13,13 +13,13 @@ namespace IAmACube
 
         public void StartMove(Block block,CardinalDirection direction)
         {
-            var moveCardinalAction = new Action(block, ActionType.CardinalMovement) { CardinalDir = direction, MoveSpeed = block.Speed };
+            var moveCardinalAction = new Action(block, ActionType.CardinalMovement) { CardinalDir = direction, MoveTotalTicks = block.Speed };
             Actions.Add(moveCardinalAction);
         }
 
         public void StartMove(Block block, RelativeDirection direction)
         {
-            var moveRelativeAction = new Action(block, ActionType.RelativeMovement) { RelativeDir = direction, MoveSpeed = block.Speed };
+            var moveRelativeAction = new Action(block, ActionType.RelativeMovement) { RelativeDir = direction, MoveTotalTicks = block.Speed };
             Actions.Add(moveRelativeAction);
         }
 

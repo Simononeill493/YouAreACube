@@ -20,8 +20,9 @@ namespace IAmACube
             TakeEnergy(1);
         }
 
-        protected override void Move(Tile destination)
+        public override void Move(BlockMovementData movementData)
         {
+            var destination = movementData.Destination;
             if(destination.HasEphemeral)
             {
                 AbsorbInto(destination.Ephemeral);
@@ -46,7 +47,7 @@ namespace IAmACube
 
         public override bool ShouldBeDestroyed()
         {
-            return (Energy<1);
+            return (Energy < 1);
         }
 
         public override void BeCreatedBy(Block creator)

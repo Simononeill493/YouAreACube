@@ -8,38 +8,19 @@ namespace IAmACube
 {
     public abstract partial class Block
     {
-        public BlockMovementData MovementData;
+        public bool IsMoving;
+        public bool IsMovingThroughCentre;
+        public float MovementOffsetPercentage;
+        public Point MovementOffset;
 
-        public bool IsMoving => MovementData.IsMoving;
-        public bool IsInCentreOfBlock => MovementData.IsInCentreOfBlock;
+        public bool IsInCentreOfBlock => (!IsMoving) | (IsMovingThroughCentre);
 
-        public bool TryMove(RelativeDirection movementDirection)
-        {
-            return TryMove(DirectionUtils.ToCardinal(Orientation, movementDirection));
-        }
-        public bool TryMove(CardinalDirection direction)
-        {
-            var destination = Location.Adjacent[direction];
+        public abstract void Move(BlockMovementData movementData);
+        public virtual void StartMovement(BlockMovementData movementData) { TakeEnergy(1); }
+        public virtual void EndMovement(BlockMovementData movementData) { }
 
-            if (CanOccupyDestination(destination))
-            {
-                Move(destination);
-                Energy--;
-                return true;
-            }
-
-            return false;
-        }
-
-        protected abstract void Move(Tile destination);
-
-
-        public bool CanStartMoving()
-        {
-            return (!IsMoving) & (Energy > 0);
-        }
-
-        public abstract bool CanOccupyDestination(Tile destination);
-
+        public bool CanMoveTo(Tile destination) => CanStartMoving() & CanOccupyDestination(destination);
+        public bool CanStartMoving() => (!IsMoving) & Energy > 0;
+        public virtual bool CanOccupyDestination(Tile destination) => true;
     }
 }

@@ -14,11 +14,11 @@ namespace IAmACube
             BlockType = BlockType.Surface;
         }
 
-        protected override void Move(Tile destination)
+        public override void Move(BlockMovementData movementData)
         {
             Location.Surface = null;
-            destination.Surface = this;
-            this.Location = destination;
+            movementData.Destination.Surface = this;
+            this.Location = movementData.Destination;
         }
 
         public override bool CanOccupyDestination(Tile destination)

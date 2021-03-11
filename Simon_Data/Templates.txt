@@ -4,7 +4,7 @@
     {
       "name":"BasicEnemy",
       "sprite":"BasicEnemy",
-      "speed":9,
+      "speed":36,
 	  "energyCap":10000
     },
 	{
@@ -26,7 +26,7 @@
 	{
       "name":"Spinner",
       "sprite":"Spinner",
-      "speed":10,
+      "speed":54,
 	  "energyCap":10000
     },
 	{

@@ -9,113 +9,131 @@ namespace IAmACube
     [Serializable()]
     public class MoveManager
     {
-        private Sector _sector;
-        private List<Block> _moving = new List<Block>();
+        public Dictionary<Block,BlockMovementData> MovingBlocks;
+        public List<(Block, BlockMovementData, Point)> MovedOutOfSector;
 
-        private List<(Block, Point)> _toMoveFromSector = new List<(Block, Point)>();
-        public List<(Block, Point)> MovedOutOfSector = new List<(Block, Point)>();
+        private List<(Block, BlockMovementData, Point)> _toMoveFromSector;
+        private List<Block> _toRemove;
+        private Sector _sector;
 
         public MoveManager(Sector sector)
         {
             _sector = sector;
+            MovingBlocks = new Dictionary<Block, BlockMovementData>();
+            MovedOutOfSector = new List<(Block, BlockMovementData, Point)>();
+
+            _toMoveFromSector = new List<(Block, BlockMovementData, Point)>();
+            _toRemove = new List<Block>();
         }
 
+        public void TryStartMovement(Block block, CardinalDirection direction, int moveTotalTicks)
+        {
+            Tile destination;
+            if(block.Location.Adjacent.TryGetValue(direction,out destination))
+            {
+                if (block.CanMoveTo(destination))
+                {
+                    _startMovement(block, new BlockMovementData(block, destination, moveTotalTicks, direction));
+                }
+            }
+        }
         public void Tick()
         {
-            foreach (var movingBlock in _moving)
+            foreach(var moving in MovingBlocks)
             {
-                _processMovingBlock(movingBlock);
+                _tickBlock(moving.Key, moving.Value);
             }
 
-            _moveBlocksFromSector();
-            _removeFinishedBlocks();
+            _removeBlocksQueuedForRemoval();
+            _removeSectorEmmigrants();
         }
 
-        public void TryStartMoving(Block block, RelativeDirection direction, int moveSpeed)
+        private void _tickBlock(Block block, BlockMovementData movementData)
         {
-            var cardinal = DirectionUtils.ToCardinal(block.Orientation, direction);
-            TryStartMoving(block, cardinal, moveSpeed);
-        }
-        public void TryStartMoving(Block block, CardinalDirection direction, int moveSpeed)
-        {
-            if (block.Location.DirectionIsValid(direction) & block.CanStartMoving())
+            movementData.Tick();
+
+            if(!movementData.PastMidpoint & !block.CanOccupyDestination(movementData.Destination))
             {
-                _startMoving(block, direction, moveSpeed);
+                movementData.Cancelled = true;
             }
-        }
 
-        public void ManuallyCancelMovement(Block block)
-        {
-            if (block.IsMoving)
+            if(movementData.Cancelled)
             {
-                _moving.Remove(block);
+                _cancelMovement(block, movementData);
             }
-        }
-        public void ManuallyAddMovingBlock(Block block)
-        {
-            _moving.Add(block);
-        }
-
-        private void _moveBlocksFromSector()
-        {
-            foreach(var toMove in _toMoveFromSector)
+            if (movementData.AtMidpoint)
             {
-                _sector.RemoveFromSectorLists(toMove.Item1);
+                _moveToDestination(block, movementData);
+            }
+            else if(movementData.Finished)
+            {
+                _completeMovement(block, movementData);
+            }
 
-                _moving.Remove(toMove.Item1);
+            block.IsMovingThroughCentre = movementData.Finished;
+            block.MovementOffsetPercentage = movementData.GetMovePercentage();
+        }
+
+        private void _startMovement(Block block, BlockMovementData movementData)
+        {
+            block.IsMoving = true;
+            block.StartMovement(movementData);
+            block.MovementOffset = movementData.MovementOffset;
+
+            MovingBlocks[block] = movementData;
+        }
+        private void _moveToDestination(Block block, BlockMovementData movementData)
+        {
+            block.Move(movementData);
+            if (!block.InSector(_sector))
+            {
+                _toMoveFromSector.Add((block, movementData,block.Location.SectorID));
+            }
+
+            movementData.PastMidpoint = true;
+        }
+        private void _completeMovement(Block block, BlockMovementData movementData)
+        {
+            block.IsMoving = false;
+            block.EndMovement(movementData);
+            _toRemove.Add(block);
+        }
+        private void _cancelMovement(Block block, BlockMovementData movementData)
+        {
+            _toRemove.Add(block);
+            block.IsMoving = false; 
+        }
+
+        public void Destroy(Block block)
+        {
+            Remove(block);
+        }
+        public void Remove(Block block)
+        {
+            MovingBlocks.Remove(block);
+        }
+        public void AddFromOutOfSector(Block block, BlockMovementData data)
+        {
+            MovingBlocks[block] = data;
+        }
+
+        private void _removeBlocksQueuedForRemoval()
+        {
+            foreach (var toRemove in _toRemove)
+            {
+                Remove(toRemove);
+            }
+            _toRemove.Clear();
+        }
+        private void _removeSectorEmmigrants()
+        {
+            foreach (var toMove in _toMoveFromSector)
+            {
+                Remove(toMove.Item1);
                 MovedOutOfSector.Add(toMove);
             }
 
             _toMoveFromSector.Clear();
-        }
-        private void _processMovingBlock(Block block)
-        {
-            var data = block.MovementData;
-            data.MovementPosition++;
-
-            if (data.MovementComplete | _shouldCancelMovementEarly(block))
-            {
-                _stopMoving(block);
-            }
-            else if (data.AtMidpoint)
-            {
-                _tryMoveBlockToNewTile(block, data);
-            }
-        }
-        private void _tryMoveBlockToNewTile(Block block,BlockMovementData data)
-        {
-            if (block.TryMove(data.Direction))
-            {
-                data.MovePastMidpoint();
-
-                if (!block.InSector(_sector))
-                {
-                    _toMoveFromSector.Add((block, block.Location.SectorID));
-                }
-            }
-            else
-            {
-                _stopMoving(block);
-            }
-        }
-
-        private void _startMoving(Block block, CardinalDirection direction, int moveSpeed)
-        {
-            block.MovementData.StartMoving(block, direction, moveSpeed);
-            _moving.Add(block);
-        }
-        private void _stopMoving(Block block)
-        {
-            block.MovementData.StopMoving();
-        }
-
-        private bool _shouldCancelMovementEarly(Block block)
-        {
-            return !block.MovementData.PastMidpoint & !block.CanOccupyDestination(block.MovementData.Destination);
-        }
-        private void _removeFinishedBlocks()
-        {
-            _moving.RemoveAll(b => !b.IsMoving);
         }
     }
 }

@@ -28,21 +28,22 @@ namespace IAmACube
             _destructionManager.DestroyDoomedBlocks();
         }
 
-        public void AddToTracking(Block block)
+
+        public void AddToMoving(Block block,BlockMovementData data)
         {
-            if (block.IsMoving)
-            {
-                _moveManager.ManuallyAddMovingBlock(block);
-            }
+            _moveManager.AddFromOutOfSector(block,data);
         }
 
-        public List<(Block, Point)> GetSectorEmmigrants()
-        {
-            var list = new List<(Block, Point)>();
-            list.AddRange(_moveManager.MovedOutOfSector);
-            list.AddRange(_creationManager.CreatedOutOfSector);
 
-            return list;
+        public (List<(Block, BlockMovementData, Point)> moved, List<(Block, Point)> created) GetSectorEmmigrants()
+        {
+            var listMoved = new List<(Block,BlockMovementData,Point)>();
+            listMoved.AddRange(_moveManager.MovedOutOfSector);
+
+            var listCreated = new List<(Block, Point)>();
+            listCreated.AddRange(_creationManager.CreatedOutOfSector);
+
+            return (listMoved,listCreated);
         }
         public void ClearSectorEmmigrants()
         {

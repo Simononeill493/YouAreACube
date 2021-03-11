@@ -27,10 +27,11 @@ namespace IAmACube
                 switch (effect.ActionType)
                 {
                     case ActionType.CardinalMovement:
-                        _moveManager.TryStartMoving(effect.Actor, effect.CardinalDir,effect.MoveSpeed);
+                        _moveManager.TryStartMovement(effect.Actor, effect.CardinalDir,effect.MoveTotalTicks);
                         break;
                     case ActionType.RelativeMovement:
-                        _moveManager.TryStartMoving(effect.Actor, effect.RelativeDir,effect.MoveSpeed);
+                        var cardinal = DirectionUtils.ToCardinal(effect.Actor.Orientation, effect.RelativeDir);
+                        _moveManager.TryStartMovement(effect.Actor, cardinal, effect.MoveTotalTicks);
                         break;
                     case ActionType.Rotation:
                         effect.Actor.Rotate(effect.Rotation);

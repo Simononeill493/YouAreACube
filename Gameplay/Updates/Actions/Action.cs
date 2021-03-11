@@ -15,7 +15,7 @@ namespace IAmACube
         public CardinalDirection CardinalDir;
         public RelativeDirection RelativeDir;
         public int Rotation;
-        public int MoveSpeed;
+        public int MoveTotalTicks;
 
         public BlockType BlockType;
         public BlockTemplate BlockTemplate;

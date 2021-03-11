@@ -24,7 +24,10 @@ namespace IAmACube
                 _clearFromTile(block);
                 _sector.RemoveFromSectorLists(block);
 
-                _moveManager.ManuallyCancelMovement(block);
+                if(block.IsMoving)
+                {
+                    _moveManager.Destroy(block);
+                }
             }
         }
 
