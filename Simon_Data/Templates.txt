@@ -4,7 +4,7 @@
     {
       "name":"BasicEnemy",
       "sprite":"BasicEnemy",
-      "speed":36,
+      "speed":16,
 	  "energyCap":10000
     },
 	{

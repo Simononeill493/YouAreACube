@@ -51,7 +51,7 @@ namespace IAmACube
             return tile;
         }
 
-        public void AddToSector(Block block)
+        public void AddNonMovingBlockToSector(Block block)
         {
             if (block.BlockType != BlockType.Ground)
             {
@@ -62,10 +62,10 @@ namespace IAmACube
                 _activeBlocks.Add(block);
             }
         }
-        public void AddMovingBlockToSector(Block block,BlockMovementData movementData)
+        public void AddMovingBlockToSector(Block block)
         {
-            AddToSector(block);
-            _updateManager.AddToMoving(block,movementData);
+            AddNonMovingBlockToSector(block);
+            _updateManager.AddToMoving(block);
         }
 
         public void RemoveFromSectorLists(Block block)
@@ -80,19 +80,14 @@ namespace IAmACube
             }
         }
 
-        public (List<(Block, BlockMovementData, Point)> moved, List<(Block, Point)> created) PopSectorEmmigrants()
+        public List<(Block, Point)> PopSectorEmmigrants()
         {
             var list = _updateManager.GetSectorEmmigrants();
             _updateManager.ClearSectorEmmigrants();
 
-            foreach(var movedOut in list.moved)
+            foreach(var emmigrant in list)
             {
-                RemoveFromSectorLists(movedOut.Item1);
-            }
-
-            foreach (var createdOut in list.created)
-            {
-                RemoveFromSectorLists(createdOut.Item1);
+                RemoveFromSectorLists(emmigrant.Item1);
             }
 
             return list;

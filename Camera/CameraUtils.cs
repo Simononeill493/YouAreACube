@@ -12,7 +12,7 @@ namespace IAmACube
         {
             if (block.IsMoving)
             {
-                return block.MovementOffset * ((int)(block.MovementOffsetPercentage * tileSize));
+                return block.MovementData.MovementOffset * ((int)(block.MovementData.MovementOffsetPercentage * tileSize));
             }
 
             return Point.Zero;

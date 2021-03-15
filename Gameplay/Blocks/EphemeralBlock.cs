@@ -20,9 +20,9 @@ namespace IAmACube
             TakeEnergy(1);
         }
 
-        public override void Move(BlockMovementData movementData)
+        public override void MoveToCurrentDestination()
         {
-            var destination = movementData.Destination;
+            var destination = MovementData.Destination;
             if(destination.HasEphemeral)
             {
                 AbsorbInto(destination.Ephemeral);

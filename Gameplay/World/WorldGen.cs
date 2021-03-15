@@ -59,7 +59,7 @@ namespace IAmACube
             var tile = centre.TileGrid[0, 0];
 
             tile.AddSurface(player);
-            centre.AddToSector(player);
+            centre.AddNonMovingBlockToSector(player);
         }
         public static void AddEntities(World world)
         {
@@ -88,7 +88,7 @@ namespace IAmACube
 
                 var tile = emptyTiles[tileNum];
                 tile.AddBlock(block);
-                sector.AddToSector(block);
+                sector.AddNonMovingBlockToSector(block);
 
                 emptyTiles.RemoveAt(tileNum);
                 emptySize--;

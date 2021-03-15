@@ -51,18 +51,19 @@ namespace IAmACube
 
         private void _addSectorEmmigrants(World world, EmmigrantsList emmigrants)
         {
-            foreach (var emmigrant in emmigrants.Created)
+            foreach (var emmigrant in emmigrants.Emmigrants)
             {
                 var sector = world.GetSector(emmigrant.Item2);
-                sector.AddToSector(emmigrant.Item1);
-            }
 
-            foreach (var emmigrant in emmigrants.Moved)
-            {
-                var sector = world.GetSector(emmigrant.Item3);
-                sector.AddMovingBlockToSector(emmigrant.Item1,emmigrant.Item2);
+                if(emmigrant.Item1.IsMoving)
+                {
+                    sector.AddMovingBlockToSector(emmigrant.Item1);
+                }
+                else
+                {
+                    sector.AddNonMovingBlockToSector(emmigrant.Item1);
+                }
             }
-
         }
 
         public void AddSector(Sector sector) => _tickManager.AddSector(sector);
@@ -71,13 +72,11 @@ namespace IAmACube
     [Serializable()]
     public class EmmigrantsList
     {
-        public List<(Block, BlockMovementData, Point)> Moved = new List<(Block, BlockMovementData, Point)>();
-        public List<(Block, Point)> Created = new List<(Block, Point)>();
+        public List<(Block, Point)> Emmigrants = new List<(Block, Point)>();
 
-        public void AddAll((List<(Block, BlockMovementData, Point)> moved, List<(Block, Point)> created) toAdd)
+        public void AddAll(List<(Block, Point)> toAdd)
         {
-            Moved.AddRange(toAdd.moved);
-            Created.AddRange(toAdd.created);
+            Emmigrants.AddRange(toAdd);
         }
     }
 

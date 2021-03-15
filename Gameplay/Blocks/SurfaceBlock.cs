@@ -14,11 +14,15 @@ namespace IAmACube
             BlockType = BlockType.Surface;
         }
 
-        public override void Move(BlockMovementData movementData)
+        public override void MoveToCurrentDestination()
         {
+            if(Location.Surface!=this)
+            {
+                Console.WriteLine("Location does not match surface?");
+            }
             Location.Surface = null;
-            movementData.Destination.Surface = this;
-            this.Location = movementData.Destination;
+            MovementData.Destination.Surface = this;
+            this.Location = MovementData.Destination;
         }
 
         public override bool CanOccupyDestination(Tile destination)

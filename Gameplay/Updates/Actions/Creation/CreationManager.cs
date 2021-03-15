@@ -49,7 +49,7 @@ namespace IAmACube
 
             if(targetPosition.InSector(_sector))
             {
-                _sector.AddToSector(newBlock);
+                _sector.AddNonMovingBlockToSector(newBlock);
             }
             else
             {

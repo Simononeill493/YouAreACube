@@ -14,17 +14,20 @@ namespace IAmACube
         public Tile Destination;
 
         public Point MovementOffset;
+        public float MovementOffsetPercentage;
 
         public int TotalTicks;
         public int CurrentTick;
 
         public bool AtMidpoint;
-        public bool PastMidpoint;
+        public bool Moved;
 
         public bool Finished;
         public bool Cancelled;
 
         private int _midpoint;
+
+        public bool ManualMovedFlag = false;
 
         public BlockMovementData(Block mover,Tile destination,int moveTotalTicks,CardinalDirection direction)
         {
@@ -42,14 +45,17 @@ namespace IAmACube
         {
             CurrentTick++;
             AtMidpoint = (CurrentTick == _midpoint);
+            Moved = (Moved | AtMidpoint);
             Finished = (CurrentTick == TotalTicks);
+
+            MovementOffsetPercentage = GetMovePercentage();
         }
 
-        public float GetMovePercentage()
+        private float GetMovePercentage()
         {
             var percent = ((CurrentTick) / (float)(TotalTicks));
 
-            if(PastMidpoint)
+            if(Moved)
             {
                 percent = -(1-percent);
             }
