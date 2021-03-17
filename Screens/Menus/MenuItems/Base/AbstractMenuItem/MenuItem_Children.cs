@@ -14,14 +14,10 @@ namespace IAmACube
         private List<MenuItem> _toAdd = new List<MenuItem>();
         private List<MenuItem> _toRemove = new List<MenuItem>();
 
-        public void AddChild(MenuItem item)
-        {
-            _children.Add(item);
-        }
-        public void RemoveChild(MenuItem item)
-        {
-            _children.Remove(item);
-        }
+        public void AddChild(MenuItem item) =>_children.Add(item);
+        public void RemoveChild(MenuItem item) => _children.Remove(item);
+
+        public void AddChildren<T>(List<T> items) where T : MenuItem => _children.AddRange(items);
         public void RemoveChildren<T>(List<T> toRemove) where T : MenuItem
         {
             foreach (var item in toRemove)
@@ -29,12 +25,12 @@ namespace IAmACube
                 _children.Remove(item);
             }
         }
+        
         public void AddChildAfterUpdate(MenuItem item) => _toAdd.Add(item);
         public void AddChildrenAfterUpdate<T>(List<T> items) where T : MenuItem => _toAdd.AddRange(items);
 
         public void RemoveChildAfterUpdate(MenuItem item) => _toRemove.Add(item);
         public void RemoveChildrenAfterUpdate<T>(List<T> toRemove) where T : MenuItem => _toRemove.AddRange(toRemove);
-
 
         private void _updateChildren(UserInput input)
         {

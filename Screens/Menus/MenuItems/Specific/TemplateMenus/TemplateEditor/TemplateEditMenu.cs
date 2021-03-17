@@ -17,15 +17,17 @@ namespace IAmACube
             _kernel = kernel;
             _template = template;
 
-            var chipEditPane = new ChipEditPane(this);
-            var searchPane = new ChipSearchPane(this,chipEditPane.TryCreateChipsetFromSearchPane);
-            chipEditPane.SearchPane = searchPane;
+            var editPane = new ChipEditPane(this);
+            editPane.SetLocationConfig(4, 4, CoordinateMode.ParentPixelOffset, false);
+            AddChild(editPane);
 
-            chipEditPane.SetLocationConfig(4, 4, CoordinateMode.ParentPixelOffset, false);
+            var searchPane = new ChipSearchPane(this);
             searchPane.SetLocationConfig(84, 50, CoordinateMode.ParentPercentageOffset, true);
-
-            AddChild(chipEditPane);
             AddChild(searchPane);
+
+            editPane.SetSearchPaneMouseOverCallback(searchPane.IsMouseOver);
+            searchPane.SetCreateChipCallback(editPane.TryCreateChipsetFromSearchPane);
+            searchPane.RefreshFilter();
         }
 
         protected override void _drawSelf(DrawingInterface drawingInterface)

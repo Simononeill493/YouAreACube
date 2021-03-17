@@ -59,5 +59,6 @@ namespace IAmACube
             return dict;
         }
 
+        public static IEnumerable<ChipData> SearchChips(string searchTerm) => BuiltInChips.Values.Where(c => c.NameLower.Contains(searchTerm.ToLower()));
     }
 }

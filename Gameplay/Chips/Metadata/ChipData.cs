@@ -9,6 +9,8 @@ namespace IAmACube
     public class ChipData
     {
         public string Name;
+        public string NameLower;
+
         public ChipType ChipType;
 
         public string Input1;
@@ -23,6 +25,8 @@ namespace IAmACube
         public ChipData(string name,ChipType chipType)
         {
             Name = name;
+            NameLower = name.ToLower();
+
             ChipType = chipType;
         }
 

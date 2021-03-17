@@ -9,49 +9,59 @@ namespace IAmACube
     class ChipSearchPane : SpriteMenuItem
     {
         public const int MaxVisibleChips = 6;
+        public const int PreviewPixelXOffset = 3;
+        public const int PreviewPixeYInit = 45;
+        public const int PreviewPixeYDistance = 20;
 
         private SearchBarMenuItem _searchBar;
         private DropdownMenuItem<ChipType> _dropdown;
 
         private List<ChipPreviewSmall> _chipPreviews;
 
-        private Action<ChipPreviewSmall, UserInput> _tryCreateChip;
+        private Action<ChipPreviewSmall, UserInput> _tryCreateChipInEditPane;
+        public void SetCreateChipCallback(Action<ChipPreviewSmall, UserInput> tryCreateChip) => _tryCreateChipInEditPane = tryCreateChip;
 
-        public ChipSearchPane(IHasDrawLayer parentDrawLayer, Action<ChipPreviewSmall, UserInput> tryCreateChip) : base(parentDrawLayer, "SearchPane")
+        public ChipSearchPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "SearchPane")
         {
-            _tryCreateChip = tryCreateChip;
-
             _chipPreviews = new List<ChipPreviewSmall>();
 
             _searchBar = new SearchBarMenuItem(this);
+            _searchBar.SetLocationConfig(50, 6, CoordinateMode.ParentPercentageOffset, true);
             _searchBar.OnTextChanged += _searchTermChanged;
+            AddChild(_searchBar);
 
             _dropdown = new DropdownMenuItem<ChipType>(this);
+            _dropdown.SetLocationConfig(50, 19, CoordinateMode.ParentPercentageOffset, true);
             _dropdown.SetItems(typeof(ChipType).GetEnumValues().Cast<ChipType>().ToList());
             _dropdown.OnSelectedChanged += _chipTypeChanged;
-
-            _searchBar.SetLocationConfig(50, 6, CoordinateMode.ParentPercentageOffset, true);
-            _dropdown.SetLocationConfig(50, 19, CoordinateMode.ParentPercentageOffset, true);
-
-            AddChild(_searchBar);
             AddChild(_dropdown);
+        }
+        
+        public void RefreshFilter()
+        {
+            var filtered = ChipDatabase.SearchChips(_searchBar.Text);
+            filtered = _dropdown.IsItemSelected ? filtered.Where(c => c.ChipType == _dropdown.Selected) : filtered;
 
-            _setPreviews(ChipDatabase.BuiltInChips.Values.ToList());
+            _setPreviews(filtered.ToList());
         }
 
         private void _setPreviews(List<ChipData> chips)
         {
             _clearPreviews();
+            var numChipsToShow = Math.Min(chips.Count, MaxVisibleChips);
+            var yOffset = PreviewPixeYInit;
 
-            for (int i = 0; i < Math.Min(chips.Count, MaxVisibleChips); i++)
+            for (int i = 0; i < numChipsToShow; i++)
             {
                 var chipPreview = new ChipPreviewSmall(this, chips[i]);
-                chipPreview.SetLocationConfig(3, 25 + (20 * (i + 1)), CoordinateMode.ParentPixelOffset, false);
-                chipPreview.OnMousePressed += (input) => _tryCreateChip(chipPreview, input);
-
+                chipPreview.SetLocationConfig(PreviewPixelXOffset, yOffset, CoordinateMode.ParentPixelOffset, false);
+                chipPreview.OnMousePressed += (input) => _tryCreateChipInEditPane(chipPreview, input);
                 _chipPreviews.Add(chipPreview);
-                AddChildAfterUpdate(chipPreview);
+
+                yOffset += PreviewPixeYDistance;
             }
+
+            AddChildrenAfterUpdate(_chipPreviews);
         }
         private void _clearPreviews()
         {
@@ -59,24 +69,7 @@ namespace IAmACube
             _chipPreviews.Clear();
         }
 
-        private void _refreshFilter()
-        {
-            var chips = ChipDatabase.BuiltInChips.Values;
-            var filtered = chips.Where(c => c.Name.ToLower().Contains(_searchBar.Text.ToLower()));
-            if(_dropdown.IsItemSelected)
-            {
-                filtered = filtered.Where(c => c.ChipType == _dropdown.Selected);
-            }
-
-            _setPreviews(filtered.ToList());
-        }
-        private void _searchTermChanged(string searchTerm)
-        {
-            _refreshFilter();
-        }
-        private void _chipTypeChanged(ChipType chipType)
-        {
-            _refreshFilter();
-        }
+        private void _searchTermChanged(string searchTerm) => RefreshFilter();
+        private void _chipTypeChanged(ChipType chipType) => RefreshFilter();
     }
 }
