@@ -20,9 +20,9 @@ namespace IAmACube
 
         public void ProcessActions(ActionsList actions)
         {
-            _moveManager.Tick();
+            //_moveManager.Tick();
 
-            foreach(var effect in actions.Actions)
+            foreach (var effect in actions.Actions)
             {
                 switch (effect.ActionType)
                 {
@@ -41,6 +41,9 @@ namespace IAmACube
                         break;
                 }
             }
+
+            _moveManager.Tick();
+            //this was above process originally so if there are move bugs try undoing that
         }
     }
 }

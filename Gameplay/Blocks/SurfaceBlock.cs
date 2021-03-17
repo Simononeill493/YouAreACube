@@ -18,8 +18,9 @@ namespace IAmACube
         {
             if(Location.Surface!=this)
             {
-                Console.WriteLine("Location does not match surface?");
+                throw new Exception("Surface block is being moved, but its current tile does not register it as present.");
             }
+
             Location.Surface = null;
             MovementData.Destination.Surface = this;
             this.Location = MovementData.Destination;

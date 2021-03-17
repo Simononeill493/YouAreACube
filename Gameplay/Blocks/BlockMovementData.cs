@@ -27,8 +27,6 @@ namespace IAmACube
 
         private int _midpoint;
 
-        public bool ManualMovedFlag = false;
-
         public BlockMovementData(Block mover,Tile destination,int moveTotalTicks,CardinalDirection direction)
         {
             Origin = mover.Location;

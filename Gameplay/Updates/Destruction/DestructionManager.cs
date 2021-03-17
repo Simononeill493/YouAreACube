@@ -26,7 +26,7 @@ namespace IAmACube
 
                 if(block.IsMoving)
                 {
-                    _moveManager.Destroy(block);
+                    _moveManager.DestroyBlock(block);
                 }
             }
         }

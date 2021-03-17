@@ -28,13 +28,16 @@ namespace IAmACube
             MovementData = null;
             IsMoving = false;
         }
-        public void CancelMovement()
+        public void AbortMovement()
         {
             MovementData = null;
             IsMoving = false;
             IsMovingThroughCentre = false;
         }
 
+        public bool TryGetAdjacent(CardinalDirection cardinalDirection, out Tile destination) => Location.Adjacent.TryGetValue(cardinalDirection, out destination);
+
+        public bool ShouldAbortMovement() => (!MovementData.Moved & (!CanOccupyDestination(MovementData.Destination) | MovementData.Cancelled));
 
         public bool CanMoveTo(Tile destination) => CanStartMoving() & CanOccupyDestination(destination);
         public bool CanStartMoving() => (!IsMoving) & Energy > 0;

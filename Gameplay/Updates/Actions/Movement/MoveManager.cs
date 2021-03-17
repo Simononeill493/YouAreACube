@@ -9,12 +9,13 @@ namespace IAmACube
     [Serializable()]
     public class MoveManager
     {
+        private Sector _sector;
+
         public List<Block> MovingBlocks;
         public List<(Block, Point)> MovedOutOfSector;
 
         private List<(Block, Point)> _toMoveFromSector;
         private List<Block> _toRemove;
-        private Sector _sector;
 
         public MoveManager(Sector sector)
         {
@@ -29,7 +30,7 @@ namespace IAmACube
         public void TryStartMovement(Block block, CardinalDirection direction, int moveTotalTicks)
         {
             Tile destination;
-            if(block.Location.Adjacent.TryGetValue(direction,out destination))
+            if (block.TryGetAdjacent(direction, out destination))
             {
                 if (block.CanMoveTo(destination))
                 {
@@ -37,22 +38,22 @@ namespace IAmACube
                 }
             }
         }
+
         public void Tick()
         {
-            foreach(var moving in MovingBlocks)
+            foreach (var moving in MovingBlocks)
             {
                 _tickBlock(moving, moving.MovementData);
             }
 
             _removeBlocksQueuedForRemoval();
-            _removeSectorEmmigrants();
+            _extractSectorEmmigrants();
         }
-
-        private void _tickBlock(Block block,BlockMovementData movementData)
+        private void _tickBlock(Block block, BlockMovementData movementData)
         {
-            if(_blockCannotOccupyDestination(block,movementData) | movementData.Cancelled)
+            if (block.ShouldAbortMovement())
             {
-                _cancelMovement(block, movementData);
+                _abortMovement(block);
                 return;
             }
 
@@ -60,12 +61,12 @@ namespace IAmACube
 
             if (movementData.AtMidpoint)
             {
-                _moveToDestination(block, movementData);
-                movementData.ManualMovedFlag = true;
+                _moveToDestination(block);
+                _checkIfEmmigrated(block);
             }
-            else if(movementData.Finished)
+            else if (movementData.Finished)
             {
-                _completeMovement(block, movementData);
+                _completeMovement(block);
             }
 
             block.IsMovingThroughCentre = movementData.Finished;
@@ -76,61 +77,46 @@ namespace IAmACube
             block.StartMovement(movementData);
             MovingBlocks.Add(block);
         }
-        private void _moveToDestination(Block block, BlockMovementData movementData)
-        {
-            block.MoveToCurrentDestination();
-
-            if (!block.InSector(_sector))
-            {
-                _toMoveFromSector.Add((block,block.Location.SectorID));
-            }
-        }
-        private void _completeMovement(Block block, BlockMovementData movementData)
+        private void _moveToDestination(Block block) => block.MoveToCurrentDestination();
+        private void _completeMovement(Block block)
         {
             block.CompleteMovement();
             _toRemove.Add(block);
         }
-        private void _cancelMovement(Block block, BlockMovementData movementData)
+        private void _abortMovement(Block block)
         {
-            block.CancelMovement();
+            block.AbortMovement();
             _toRemove.Add(block);
         }
-
-        public void Destroy(Block block)
+        private void _checkIfEmmigrated(Block block)
         {
-            Remove(block);
-        }
-        public void Remove(Block block)
-        {
-            MovingBlocks.Remove(block);
-        }
-        public void AddFromOutOfSector(Block block)
-        {
-            MovingBlocks.Add(block);
+            if (!block.InSector(_sector))
+            {
+                _toMoveFromSector.Add((block, block.Location.SectorID));
+            }
         }
 
+        private void _removeFromMovingList(Block block) => MovingBlocks.Remove(block);
         private void _removeBlocksQueuedForRemoval()
         {
             foreach (var toRemove in _toRemove)
             {
-                Remove(toRemove);
+                _removeFromMovingList(toRemove);
             }
             _toRemove.Clear();
         }
-        private void _removeSectorEmmigrants()
+        private void _extractSectorEmmigrants()
         {
             foreach (var toMove in _toMoveFromSector)
             {
-                Remove(toMove.Item1);
+                _removeFromMovingList(toMove.Item1);
                 MovedOutOfSector.Add(toMove);
             }
 
             _toMoveFromSector.Clear();
         }
 
-        private bool _blockCannotOccupyDestination(Block block, BlockMovementData movementData)
-        {
-            return !movementData.Moved & !block.CanOccupyDestination(movementData.Destination);
-        }
+        public void DestroyBlock(Block block) => _removeFromMovingList(block);
+        public void AddFromOutOfSector(Block block) => MovingBlocks.Add(block);
     }
 }
