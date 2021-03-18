@@ -25,7 +25,7 @@ namespace IAmACube
             searchPane.SetLocationConfig(84, 50, CoordinateMode.ParentPercentageOffset, true);
             AddChild(searchPane);
 
-            editPane.SetSearchPaneMouseOverCallback(searchPane.IsMouseOver);
+            editPane.IsMouseOverSearchPane = searchPane.IsMouseOver;
             searchPane.SetCreateChipCallback(editPane.TryCreateChipsetFromSearchPane);
             searchPane.RefreshFilter();
         }

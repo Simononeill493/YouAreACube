@@ -25,5 +25,15 @@ namespace IAmACube
             _text.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
             AddChild(_text);
         }
+
+        public ChipPreviewLarge GenerateChip(float scale)
+        {
+            var chipHoverLayer = ManualDrawLayer.Create(DrawLayers.MenuHoverLayer);
+            var chip = new ChipPreviewLarge(chipHoverLayer, this.Chip);
+            chip.MultiplyScaleCascade(scale);
+
+            return chip;
+        }
+
     }
 }

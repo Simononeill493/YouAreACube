@@ -27,11 +27,7 @@ namespace IAmACube
         {
             _chips.InsertRange(index, toAdd);
             AddChildren(toAdd);
-
-            foreach(var chip in toAdd)
-            {
-                chip.SetChipLiftCallback(_liftChipsFromChipset);
-            }
+            toAdd.ForEach(chip => chip.SetChipLiftCallback(_liftChipsFromChipset));
 
             _recalculate();
         }
@@ -69,7 +65,6 @@ namespace IAmACube
 
             return -1;
         }
-
 
         private void _recalculate()
         {
@@ -123,5 +118,7 @@ namespace IAmACube
 
             return new Rectangle(chipLoc.X, chipLoc.Y, fullSize.X, fullSize.Y);
         }
+
+        public Point DefaultMouseDragOffset => GetAttachedChips().First().GetCurrentSize() / 2;
     }
 }
