@@ -42,7 +42,7 @@ namespace IAmACube
             var output = chip["out"];
             if(output!=null)
             {
-                if (output.Values().Count() > 0) { data.Output = output.ToString(); }
+                data.Output = output.ToString();
             }
 
             data.Init();

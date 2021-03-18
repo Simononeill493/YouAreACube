@@ -87,6 +87,7 @@
     <Compile Include="Gameplay\World\Sector\SectorGenerator.cs" />
     <Compile Include="Misc\LocationWithNeighbors.cs" />
     <Compile Include="Misc\Point.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipPreviewLarge\ChipPreviewItems\ChipPreviewOutputLabel.cs" />
     <Compile Include="UI\Screens\InGameScreens\InGameMenus\InGameMenuScreen.cs" />
     <Compile Include="UI\Screens\InGameScreens\InGameMenus\TemplateEditScreen.cs" />
     <Compile Include="UI\Screens\InGameScreens\InGameMenus\TemplateExplorerScreen.cs" />
@@ -105,10 +106,10 @@
     <Compile Include="UI\Menus\MenuItems\Base\SearchBarMenuItem.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateBox.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipEditPane.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipDataDropdown.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipSectionFactory.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipPreviewLarge.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipPreviewLargeMiddleSection.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipPreviewLarge\ChipPreviewItems\ChipDataDropdown.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipPreviewLarge\ChipSectionFactory.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipPreviewLarge\ChipPreviewLarge.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipPreviewLarge\ChipPreviewLargeMiddleSection.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipPreviewSmall.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipSearchPane.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\EditableChipset.cs" />

@@ -5,25 +5,21 @@
       "name":"CreateCardinal",
 	  "type":"Action",
 	  "in":["CardinalDirection","Template","BlockType"],
-	  "out":[]
     },
 	{
       "name":"MoveCardinal",
 	  "type":"Action",
 	  "in":["CardinalDirection"],
-	  "out":[]
     },
     {
       "name":"MoveRelative",
 	  "type":"Action",
 	  "in":["RelativeDirection"],
-	  "out":[]
     },
 	{
       "name":"Rotation",
 	  "type":"Action",
 	  "in":["int"],
-	  "out":[]
     },
 	{
       "name":"If",
@@ -35,61 +31,60 @@
       "name":"KeySwitch",
 	  "type":"Control",
 	  "in":[],
-	  "out":[]
     },
 	{
       "name":"GetNeighbours",
 	  "type":"Sense",
 	  "in":[],
-	  "out":["List<SurfaceBlock>"]
+	  "out":"List<SurfaceBlock>"
     },
 	{
       "name":"IsKeyPressed",
 	  "type":"Sense",
 	  "in":["Keys"],
-	  "out":["bool"]
+	  "out":"bool"
     },
     {
       "name":"RandomDir",
 	  "type":"Sense",
 	  "in":[],
-	  "out":["CardinalDirection"]
+	  "out":"CardinalDirection"
     },
 	{
       "name":"RandomNum",
 	  "type":"Sense",
 	  "in":["int"],
-	  "out":["int"]
+	  "out":"int"
     },
 	{
       "name":"ApproachDirection",
 	  "type":"General",
 	  "in":["Tile"],
-	  "out":["CardinalDirection"]
+	  "out":"CardinalDirection"
     },
 	{
       "name":"BlockLocation",
 	  "type":"General",
 	  "in":["SurfaceBlock"],
-	  "out":["Tile"]
+	  "out":"Tile"
     },
 	{
       "name":"FirstOfList",
 	  "type":"General",
 	  "in":["List<Variable>"],
-	  "out":["Variable"]
+	  "out":"Variable"
     },
 	{
       "name":"FleeDirection",
 	  "type":"General",
 	  "in":["Tile"],
-	  "out":["CardinalDirection"]
+	  "out":"CardinalDirection"
     },
 	{
       "name":"IsListEmpty",
 	  "type":"General",
 	  "in":["List<Variable>"],
-	  "out":["bool"]
+	  "out":"bool"
     }
   ]
 }
