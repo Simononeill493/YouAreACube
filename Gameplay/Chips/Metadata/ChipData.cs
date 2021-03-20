@@ -17,7 +17,7 @@ namespace IAmACube
         public string Input2;
         public string Input3;
 
-        public string Output;
+        public string OutputType;
 
         public bool IsGeneric;
         public int NumInputs;
@@ -43,7 +43,7 @@ namespace IAmACube
             IsGeneric |= (Input1 == null) ? false : Input1.Contains("Variable");
             IsGeneric |= (Input2 == null) ? false : Input2.Contains("Variable");
             IsGeneric |= (Input3 == null) ? false : Input3.Contains("Variable");
-            IsGeneric |= (Output == null) ? false : Output.Contains("Variable");
+            IsGeneric |= (OutputType == null) ? false : OutputType.Contains("Variable");
 
             if (Input1 != null) { NumInputs++; }
             if (Input2 != null) { NumInputs++; }

@@ -12,7 +12,7 @@ namespace IAmACube
     {
         public Point ActualLocation { get; private set; }
         public int Scale { get; private set; } = MenuScreen.Scale;
-        public float ScaleMultiplier { get; private set; } = 1;
+        public float ScaleMultiplier { get; set; } = 1;
 
         protected (Point loc, CoordinateMode mode, bool centered) _locationConfig;
         public void ScaleLocation(float factor)

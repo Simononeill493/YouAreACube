@@ -13,42 +13,38 @@ namespace IAmACube
         {
             var section = new ChipPreviewLargeMiddleSection(parentDrawLayer, dataType);
 
-            var dropdown = new ChipDataDropdown(section);
+            var dropdown = new ChipDataDropdown(section, dataType);
+            SetDefaultItems(dropdown, dataType);
 
-            if (_isDiscreteType(dataType))
+            if (_isTextEntryType(dataType))
             {
-                _configureSetDropdown(dropdown, dataType);
-            }
-            else if (_isTextEntryType(dataType))
-            {
-                _configureEditableDropdown(dropdown, dataType);
-            }
-            else if (dataType.Equals("Template"))
-            {
-                _configureTemplateDropdown(dropdown);
+                dropdown.Editable = true;
             }
 
             dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentageOffset, true);
             dropdown.BaseType = _getType(dataType);
             section.AddChild(dropdown);
 
+            section.Dropdown = dropdown;
+
             return section;
         }
 
-        private static void _configureEditableDropdown(ChipDataDropdown dropdown, string dataType)
+        public static void SetDefaultItems(ChipDataDropdown dropdown, string dataType)
         {
-            dropdown.Editable = true;
-        }
-
-        private static void _configureSetDropdown(ChipDataDropdown dropdown, string dataType)
-        {
-            dropdown.AddItems(ChipInputPinDropdownSelectionBase.GetBasicSelections(dataType).Cast<ChipInputPinDropdownSelection>().ToList());
-        }
-
-        private static void _configureTemplateDropdown(ChipDataDropdown dropdown)
-        {
-            var templates = ChipInputPinDropdownSelectionBase.Create(Templates.BlockTemplates.Values.ToList());
-            dropdown.AddItems(templates.Cast<ChipInputPinDropdownSelection>().ToList());
+            if (_isDiscreteType(dataType))
+            {
+                dropdown.SetItems(ChipInputPinDropdownSelectionBase.GetBasicSelections(dataType).Cast<ChipInputPinDropdownSelection>().ToList());
+            }
+            else if (dataType.Equals("Template"))
+            {
+                var templates = ChipInputPinDropdownSelectionBase.Create(Templates.BlockTemplates.Values.ToList());
+                dropdown.SetItems(templates.Cast<ChipInputPinDropdownSelection>().ToList());
+            }
+            else
+            {
+                dropdown.SetItems(new List<ChipInputPinDropdownSelection>());
+            }
         }
 
         private static Type _getType(string dataType)

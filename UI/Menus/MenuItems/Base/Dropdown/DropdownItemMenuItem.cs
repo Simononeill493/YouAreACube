@@ -12,6 +12,8 @@ namespace IAmACube
         public T Item;
         public Color TextColor;
 
+        private TextMenuItem _text;
+
         public DropdownItemMenuItem(IHasDrawLayer parentDrawLayer,T item,Action<T> itemSelected) : base(parentDrawLayer)
         {
             DrawLayer = DrawLayers.MenuDropdownLayer;
@@ -21,9 +23,9 @@ namespace IAmACube
 
             Item = item;
 
-            var text = new TextMenuItem(this) { Text = item.ToString() };
-            text.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
-            AddChild(text);
+            _text = new TextMenuItem(this) { Text = item.ToString() };
+            _text.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
+            AddChild(_text);
 
             OnMouseReleased += (i) =>
             {
@@ -36,14 +38,19 @@ namespace IAmACube
             OnMouseStartHover += (i) => 
             { 
                 Color = Color.Navy;
-                text.Color = Color.White;
+                _text.Color = Color.White;
             };
 
             OnMouseEndHover += (i) => 
             { 
                 Color = Color.White;
-                text.Color = Color.Black;
+                _text.Color = Color.Black;
             };
+        }
+
+        public void RefreshText()
+        {
+            _text.Text = Item.ToString();
         }
     }
 }

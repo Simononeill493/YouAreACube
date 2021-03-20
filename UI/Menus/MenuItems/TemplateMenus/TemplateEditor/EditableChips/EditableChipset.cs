@@ -23,7 +23,12 @@ namespace IAmACube
         {
             Chips.InsertRange(index, toAdd);
             AddChildren(toAdd);
-            toAdd.ForEach(chip => chip.LiftChipFromChipset = _liftChipsFromChipset);
+
+            foreach(var chip in toAdd)
+            {
+                chip.LiftChipFromChipset = _liftChipsFromChipset;
+                chip.OutputTextChangedCallback = _refreshText;
+            }
 
             _refreshAll();
         }
@@ -41,6 +46,8 @@ namespace IAmACube
         private void _refreshAll()
         {
             _updateChipPositions();
+            _updateChipConnections();
+            _refreshText();
             _updateBaseChip();
             _updateChildDimensions();
         }
@@ -64,9 +71,23 @@ namespace IAmACube
             return -1;
         }
 
+        private void _updateChipConnections()
+        {
+            var chipsAboveCurrent = new List<ChipPreviewLarge>();
+
+            foreach(var chip in Chips)
+            {
+                chip.AddConnectionsFromAbove(chipsAboveCurrent);
+                chipsAboveCurrent.Add(chip);
+            }
+        }
+
+        private void _refreshText() => Chips.ForEach(c => c.RefreshText());
+
         private void _updateChipPositions()
         {
             var baseSize = GetBaseSize();
+
             for (int i = 0; i < Chips.Count; i++)
             {
                 Chips[i].CurrentPositionInChipset = i;

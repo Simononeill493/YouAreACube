@@ -1,19 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class ChipDataDropdown : DropdownMenuItem<ChipInputPinDropdownSelection>
-    {
-        public Type BaseType;
-        public ChipDataDropdown(IHasDrawLayer parent) : base(parent) {}
-    }
-
-    public abstract class ChipInputPinDropdownSelection {}
-
     public class ChipInputPinDropdownSelectionBase : ChipInputPinDropdownSelection
     {
         public object BaseObject;

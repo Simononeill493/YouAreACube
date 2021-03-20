@@ -17,18 +17,7 @@ namespace IAmACube
 
         public void Init()
         {
-            if (false)
-            {
-                var save = SaveManager.LoadFromFile("test.cubesave");
-
-                LoadSaveToScreen(save);
-                SwitchScreen(ScreenType.Game);
-            }
-            else
-            {
-                CurrentScreen = new TitleScreen(SwitchScreen);
-            }
-
+            CurrentScreen = new TitleScreen(SwitchScreen);
             Initialized = true;
         }
 

@@ -52,6 +52,7 @@ namespace IAmACube
             for (int i = 0; i < _items.Count; i++)
             {
                 var dropdownItem = new DropdownItemMenuItem<T>(this, _items[i], DropdownClicked);
+                dropdownItem.MultiplyScaleCascade(this.ScaleMultiplier);
                 dropdownItem.Size = size;
                 dropdownItem.SetLocationConfig(0, 100 * (i + 1), CoordinateMode.ParentPercentageOffset, false);
                 dropdownItem.Visible = Dropped;
@@ -91,6 +92,19 @@ namespace IAmACube
             foreach (var item in _dropdownItems)
             {
                 item.Visible = visible;
+            }
+        }
+
+        public void RefreshText()
+        {
+            if(IsItemSelected)
+            {
+                text.Text = Selected.ToString();
+            }
+
+            foreach(var item in _dropdownItems)
+            {
+                item.RefreshText();
             }
         }
     }
