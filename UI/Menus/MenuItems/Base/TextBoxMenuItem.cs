@@ -10,12 +10,13 @@ namespace IAmACube
     public class TextBoxMenuItem : SpriteMenuItem
     {
         public string Text => text.Text;
+        protected TextMenuItem text;
+
         public int MaxTextLength = 9;
 
         public bool Editable;
         public bool Focused;
 
-        protected TextMenuItem text;
 
         public event Action<string> OnTextChanged;
 

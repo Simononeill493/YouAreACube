@@ -22,7 +22,8 @@ namespace IAmACube
 
         public const float MenuDropdownLayer = 0.3f;
         public const float MenuHoverLayer = 0.2f;
-        public const float MenuDragLayer = 0.1f;
 
+
+        public const float MenuDragOffset = 0.3f;
     }
 }

@@ -15,7 +15,6 @@ namespace IAmACube
         public bool Dragging { get; private set; } = false;
 
         private Point _dragOffset;
-        private float _drawLayerTemp;
 
         public DraggableMenuItem(IHasDrawLayer parent, string sprite) : base(parent, sprite)
         {
@@ -63,8 +62,7 @@ namespace IAmACube
         
         protected void _startDrag(UserInput input,Point offset)
         {
-            _drawLayerTemp = DrawLayer;
-            UpdateDrawLayerCascade(DrawLayers.MenuDragLayer);
+            OffsetDrawLayerCascade(-DrawLayers.MenuDragOffset);
 
             MenuScreen.UserDragging = true;
             Dragging = true;
@@ -75,7 +73,7 @@ namespace IAmACube
         }
         private void _endDrag(UserInput input)
         {
-            UpdateDrawLayerCascade(_drawLayerTemp);
+            OffsetDrawLayerCascade(DrawLayers.MenuDragOffset);
 
             MenuScreen.UserDragging = false;
             Dragging = false;

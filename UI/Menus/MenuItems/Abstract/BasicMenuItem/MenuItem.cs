@@ -85,6 +85,16 @@ namespace IAmACube
             _updateChildren(input);
             _addAndRemoveQueuedChildren();
         }
+
+
+        public void OffsetDrawLayerCascade(float offset)
+        {
+            DrawLayer += offset;
+            foreach (var child in _children)
+            {
+                child.OffsetDrawLayerCascade(offset);
+            }
+        }
         public void UpdateDrawLayerCascade(float newLayer)
         {
             DrawLayer = newLayer;
@@ -93,6 +103,7 @@ namespace IAmACube
                 child.UpdateDrawLayerCascade(newLayer - DrawLayers.MinLayerDistance);
             }
         }
+        
         public virtual bool IsMouseOver(UserInput input) 
         {
             var size = GetCurrentSize();
@@ -103,6 +114,11 @@ namespace IAmACube
 
         public virtual void Dispose() 
         {
+            if(Disposed)
+            {
+                throw new Exception("MenuItem disposed twice!");
+            }
+
             _children.Clear();
             _toAdd.Clear();
             _toRemove.Clear();

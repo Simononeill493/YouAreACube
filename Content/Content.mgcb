@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../Simon_Data/To_Import/BlankMenus/BlankPixel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/BlankMenus/BlankPixel.png;BlankPixel.png
+
 #begin ../Simon_Data/To_Import/BlankMenus/BlueChipFull.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -181,6 +193,18 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/BlankMenus/MinusButton.png;MinusButton.png
 
+#begin ../Simon_Data/To_Import/BlankMenus/MinusButton_Partial.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/BlankMenus/MinusButton_Partial.png;MinusButton_Partial.png
+
 #begin ../Simon_Data/To_Import/BlankMenus/PlusButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -228,18 +252,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/BlankMenus/TemplateItemContainerHighlight.png;TemplateItemContainerHighlight.png
-
-#begin ../Simon_Data/To_Import/BlankMenus/TopOfChipset.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/BlankMenus/TopOfChipset.png;TopOfChipset.png
 
 #begin ../Simon_Data/To_Import/MenuSpecific/CancelButton.PNG
 /importer:TextureImporter

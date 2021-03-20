@@ -30,7 +30,7 @@ namespace IAmACube
             plusButton.OnMouseReleased += (i) => _multiplyChipScale(2);
             AddChild(plusButton);
 
-            var minusButton = new SpriteMenuItem(this, "MinusButton");
+            var minusButton = new SpriteMenuItem(this, "MinusButton_Partial");
             minusButton.SetLocationConfig(size.X - 17, 0, CoordinateMode.ParentPixelOffset, false);
             minusButton.UpdateDrawLayerCascade(DrawLayer - (DrawLayers.MinLayerDistance * 10));
             minusButton.OnMouseReleased += (i) => _multiplyChipScale(0.5f);

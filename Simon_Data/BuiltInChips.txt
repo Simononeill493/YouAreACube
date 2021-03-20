@@ -25,7 +25,6 @@
       "name":"If",
 	  "type":"Control",
 	  "in":["bool"],
-	  "out":[]
     },
 	{
       "name":"KeySwitch",

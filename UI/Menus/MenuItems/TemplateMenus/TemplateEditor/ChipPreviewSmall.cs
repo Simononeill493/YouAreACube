@@ -28,7 +28,7 @@ namespace IAmACube
 
         public ChipPreviewLarge GenerateChip(float scale)
         {
-            var chipHoverLayer = ManualDrawLayer.Create(DrawLayers.MenuHoverLayer);
+            var chipHoverLayer = ManualDrawLayer.Create(DrawLayers.MenuBehindLayer-DrawLayers.MinLayerDistance);
             var chip = new ChipPreviewLarge(chipHoverLayer, this.Chip);
             chip.MultiplyScaleCascade(scale);
 

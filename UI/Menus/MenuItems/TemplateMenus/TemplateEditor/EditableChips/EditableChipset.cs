@@ -13,7 +13,7 @@ namespace IAmACube
         private ChipPreviewLarge _baseChip;
         public Action<List<ChipPreviewLarge>, UserInput> CreateNewChipsetInEditPane;
 
-        public EditableChipset(IHasDrawLayer parent,float scaleMultiplier) : base(parent, "TopOfChipset")
+        public EditableChipset(IHasDrawLayer parent,float scaleMultiplier) : base(parent, "BlankPixel")
         {
             Chips = new List<ChipPreviewLarge>();
             MultiplyScaleCascade(scaleMultiplier);
