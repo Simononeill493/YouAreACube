@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class ChipPreviewLarge : SpriteMenuItem
+    public class ChipItem : SpriteMenuItem
     {
         public ChipData Chip;
         public int CurrentPositionInChipset = -1;
@@ -18,10 +18,10 @@ namespace IAmACube
         public System.Action OutputTextChangedCallback;
 
         private TextMenuItem _title;
-        private ChipPreviewOutputLabel _outputLabel;
-        private List<ChipPreviewLargeMiddleSection> _middleSections = new List<ChipPreviewLargeMiddleSection>();
+        private ChipItemOutputLabel _outputLabel;
+        private List<ChipItemMiddleSection> _middleSections = new List<ChipItemMiddleSection>();
 
-        public ChipPreviewLarge(IHasDrawLayer parent, ChipData data) : base(parent, "BlueChipFull")
+        public ChipItem(IHasDrawLayer parent, ChipData data) : base(parent, "BlueChipFull")
         {
             Chip = data;
             _title = new TextMenuItem(this);
@@ -33,7 +33,7 @@ namespace IAmACube
 
             if(Chip.OutputType!=null)
             {
-                _outputLabel = new ChipPreviewOutputLabel(this, Chip);
+                _outputLabel = new ChipItemOutputLabel(this, Chip);
                 _outputLabel.SetLocationConfig(100, 0, CoordinateMode.ParentPercentageOffset);
                 _outputLabel.TextBox.OnTextChanged += OutputNameChanged;
                 AddChild(_outputLabel);
@@ -90,7 +90,7 @@ namespace IAmACube
         }
 
 
-        public void AddConnectionsFromAbove(List<ChipPreviewLarge> chipsAbove)
+        public void AddConnectionsFromAbove(List<ChipItem> chipsAbove)
         {
             foreach (var middleSection in _middleSections)
             {

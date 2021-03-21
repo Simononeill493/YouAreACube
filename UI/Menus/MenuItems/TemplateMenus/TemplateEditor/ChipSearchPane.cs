@@ -16,14 +16,14 @@ namespace IAmACube
         private SearchBarMenuItem _searchBar;
         private DropdownMenuItem<ChipType> _dropdown;
 
-        private List<ChipPreviewSmall> _chipPreviews;
+        private List<ChipPreview> _chipPreviews;
 
-        private Action<ChipPreviewSmall, UserInput> _tryCreateChipInEditPane;
-        public void SetCreateChipCallback(Action<ChipPreviewSmall, UserInput> tryCreateChip) => _tryCreateChipInEditPane = tryCreateChip;
+        private Action<ChipPreview, UserInput> _tryCreateChipInEditPane;
+        public void SetCreateChipCallback(Action<ChipPreview, UserInput> tryCreateChip) => _tryCreateChipInEditPane = tryCreateChip;
 
         public ChipSearchPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "SearchPane")
         {
-            _chipPreviews = new List<ChipPreviewSmall>();
+            _chipPreviews = new List<ChipPreview>();
 
             _searchBar = new SearchBarMenuItem(this);
             _searchBar.SetLocationConfig(50, 6, CoordinateMode.ParentPercentageOffset, true);
@@ -53,7 +53,7 @@ namespace IAmACube
 
             for (int i = 0; i < numChipsToShow; i++)
             {
-                var chipPreview = new ChipPreviewSmall(this, chips[i]);
+                var chipPreview = new ChipPreview(this, chips[i]);
                 chipPreview.SetLocationConfig(PreviewPixelXOffset, yOffset, CoordinateMode.ParentPixelOffset, false);
                 chipPreview.OnMousePressed += (input) => _tryCreateChipInEditPane(chipPreview, input);
                 _chipPreviews.Add(chipPreview);

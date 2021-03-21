@@ -4,19 +4,19 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class ChipDataDropdown : DropdownMenuItem<ChipInputPinDropdownSelection>
+    public class ChipInputDropdown : DropdownMenuItem<ChipInputOption>
     {
         public Type BaseType;
         public string DataType;
 
-        public ChipDataDropdown(IHasDrawLayer parent, string dataType) : base(parent)
+        public ChipInputDropdown(IHasDrawLayer parent, string dataType) : base(parent)
         {
             DataType = dataType;
         }
 
         public void ResetToDefaults()
         {
-            ChipSectionFactory.SetDefaultItems(this, DataType);
+            ChipDropdownUtils.SetDefaultItems(this, DataType);
         }
     }
 }

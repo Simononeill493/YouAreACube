@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class ChipPreviewOutputLabel : SpriteMenuItem
+    class ChipItemOutputLabel : SpriteMenuItem
     {
         public bool Extended = true;
 
@@ -14,7 +14,7 @@ namespace IAmACube
         public TextBoxMenuItem TextBox;
         private TextMenuItem _outputDataTypeLabel;
 
-        public ChipPreviewOutputLabel(IHasDrawLayer parent,ChipData chip) : base(parent, "BlankPixel")
+        public ChipItemOutputLabel(IHasDrawLayer parent,ChipData chip) : base(parent, "BlankPixel")
         {
             TextBox = new TextBoxMenuItem(this, chip.Name + "_out");
             TextBox.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, false);

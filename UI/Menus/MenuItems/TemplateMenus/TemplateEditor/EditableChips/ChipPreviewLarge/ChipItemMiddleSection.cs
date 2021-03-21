@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class ChipPreviewLargeMiddleSection : SpriteMenuItem
+    public class ChipItemMiddleSection : SpriteMenuItem
     {
         public string InputType;
-        public ChipDataDropdown Dropdown;
+        public ChipInputDropdown Dropdown;
 
-        public ChipPreviewLargeMiddleSection(IHasDrawLayer parent,string inputType) : base(parent, "BlueChipFullMiddle") 
+        public ChipItemMiddleSection(IHasDrawLayer parent,string inputType) : base(parent, "BlueChipFullMiddle") 
         {
             InputType = inputType;
 
@@ -24,10 +24,10 @@ namespace IAmACube
             AddChild(textItem);
         }
 
-        public void AddConnectionsFromAbove(List<ChipPreviewLarge> chipsAbove)
+        public void AddConnectionsFromAbove(List<ChipItem> chipsAbove)
         {
             Dropdown.ResetToDefaults();
-            var aboveChipsToAdd = new List<ChipInputPinDropdownSelection>();
+            var aboveChipsToAdd = new List<ChipInputOption>();
 
             foreach (var chipAbove in chipsAbove)
             {
@@ -36,7 +36,7 @@ namespace IAmACube
                 {
                     if (Dropdown.DataType.Equals(data.OutputType))
                     {
-                        var selectionToAdd = new ChipInputPinDropdownSelectionChipReference(chipAbove);
+                        var selectionToAdd = new ChipInputOptionReference(chipAbove);
                         aboveChipsToAdd.Add(selectionToAdd);
                     }
                 }

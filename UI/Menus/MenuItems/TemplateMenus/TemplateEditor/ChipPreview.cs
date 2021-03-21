@@ -8,12 +8,12 @@ using Microsoft.Xna.Framework;
 
 namespace IAmACube
 {
-    class ChipPreviewSmall : SpriteMenuItem
+    class ChipPreview : SpriteMenuItem
     {
         public ChipData Chip;
         private TextMenuItem _text;
 
-        public ChipPreviewSmall(IHasDrawLayer parent, ChipData chip) : base(parent, "BlueChipSmall")
+        public ChipPreview(IHasDrawLayer parent, ChipData chip) : base(parent, "BlueChipSmall")
         {
             Chip = chip;
 
@@ -26,10 +26,10 @@ namespace IAmACube
             AddChild(_text);
         }
 
-        public ChipPreviewLarge GenerateChip(float scale)
+        public ChipItem GenerateChip(float scale)
         {
             var chipHoverLayer = ManualDrawLayer.Create(DrawLayers.MenuBehindLayer-DrawLayers.MinLayerDistance);
-            var chip = new ChipPreviewLarge(chipHoverLayer, this.Chip);
+            var chip = new ChipItem(chipHoverLayer, this.Chip);
             chip.MultiplyScaleCascade(scale);
 
             return chip;

@@ -9,17 +9,17 @@ namespace IAmACube
 {
     class EditableChipset : DraggableMenuItem
     {
-        public List<ChipPreviewLarge> Chips { get; private set; }
-        private ChipPreviewLarge _baseChip;
-        public Action<List<ChipPreviewLarge>, UserInput> CreateNewChipsetInEditPane;
+        public List<ChipItem> Chips { get; private set; }
+        private ChipItem _baseChip;
+        public Action<List<ChipItem>, UserInput> CreateNewChipsetInEditPane;
 
         public EditableChipset(IHasDrawLayer parent,float scaleMultiplier) : base(parent, "BlankPixel")
         {
-            Chips = new List<ChipPreviewLarge>();
+            Chips = new List<ChipItem>();
             MultiplyScaleCascade(scaleMultiplier);
         }
 
-        public void AppendChips(List<ChipPreviewLarge> toAdd,int index)
+        public void AppendChips(List<ChipItem> toAdd,int index)
         {
             Chips.InsertRange(index, toAdd);
             AddChildren(toAdd);
@@ -32,7 +32,7 @@ namespace IAmACube
 
             _refreshAll();
         }
-        public List<ChipPreviewLarge> PopChips(int index)
+        public List<ChipItem> PopChips(int index)
         {
             var toRemove = Chips.Skip(index).ToList();
             Chips.RemoveRange(index, toRemove.Count());
@@ -73,7 +73,7 @@ namespace IAmACube
 
         private void _updateChipConnections()
         {
-            var chipsAboveCurrent = new List<ChipPreviewLarge>();
+            var chipsAboveCurrent = new List<ChipItem>();
 
             foreach(var chip in Chips)
             {
