@@ -18,8 +18,7 @@ namespace IAmACube
 
         private List<ChipPreview> _chipPreviews;
 
-        private Action<ChipPreview, UserInput> _tryCreateChipInEditPane;
-        public void SetCreateChipCallback(Action<ChipPreview, UserInput> tryCreateChip) => _tryCreateChipInEditPane = tryCreateChip;
+        public Action<ChipPreview, UserInput> TryCreateChipInEditPane;
 
         public ChipSearchPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "SearchPane")
         {
@@ -55,7 +54,7 @@ namespace IAmACube
             {
                 var chipPreview = new ChipPreview(this, chips[i]);
                 chipPreview.SetLocationConfig(PreviewPixelXOffset, yOffset, CoordinateMode.ParentPixelOffset, false);
-                chipPreview.OnMousePressed += (input) => _tryCreateChipInEditPane(chipPreview, input);
+                chipPreview.OnMousePressed += (input) => TryCreateChipInEditPane(chipPreview, input);
                 _chipPreviews.Add(chipPreview);
 
                 yOffset += PreviewPixeYDistance;

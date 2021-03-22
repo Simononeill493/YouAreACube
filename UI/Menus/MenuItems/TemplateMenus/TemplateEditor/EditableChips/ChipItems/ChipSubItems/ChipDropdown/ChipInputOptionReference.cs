@@ -2,13 +2,13 @@
 {
     public class ChipInputOptionReference : ChipInputOption
     {
-        public ChipItem ChipReference;
+        public ChipTopSection ChipReference;
         public override string ToString()
         {
             return ChipReference.OutputName;
         }
 
-        public ChipInputOptionReference(ChipItem chipReference)
+        public ChipInputOptionReference(ChipTopSection chipReference)
         {
             ChipReference = chipReference;
         }

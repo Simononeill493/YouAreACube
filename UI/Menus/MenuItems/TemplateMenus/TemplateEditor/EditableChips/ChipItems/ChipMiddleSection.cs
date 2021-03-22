@@ -6,27 +6,32 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class ChipItemMiddleSection : SpriteMenuItem
+    public class ChipMiddleSection : SpriteMenuItem
     {
-        public string InputType;
-        public ChipInputDropdown Dropdown;
+        private ChipInputDropdown _dropdown;
 
-        public ChipItemMiddleSection(IHasDrawLayer parent,string inputType) : base(parent, "BlueChipFullMiddle") 
+        public ChipMiddleSection(IHasDrawLayer parent,string inputType) : base(parent, "BlueChipFullMiddle") 
         {
-            InputType = inputType;
-
             var textItem = new TextMenuItem(this);
             textItem.Text = inputType;
             textItem.MultiplyScale(0.5f);
             textItem.Color = Microsoft.Xna.Framework.Color.White;
             textItem.SetLocationConfig(4, 40, CoordinateMode.ParentPercentageOffset, false);
-
             AddChild(textItem);
+
+            _dropdown = ChipDropdownFactory.Create(this, inputType);
+            _dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentageOffset, true);
+            AddChild(_dropdown);
         }
 
-        public void AddConnectionsFromAbove(List<ChipItem> chipsAbove)
+        public void SetConnectionsFromAbove(List<ChipTopSection> chipsAbove)
         {
-            Dropdown.ResetToDefaults();
+            _dropdown.ResetToDefaults();
+            _dropdown.AddItems(_getInputsToAddToDropdown(chipsAbove));
+        }
+
+        private List<ChipInputOption> _getInputsToAddToDropdown(List<ChipTopSection> chipsAbove)
+        {
             var aboveChipsToAdd = new List<ChipInputOption>();
 
             foreach (var chipAbove in chipsAbove)
@@ -34,7 +39,7 @@ namespace IAmACube
                 var data = chipAbove.Chip;
                 if (data.OutputType != null)
                 {
-                    if (Dropdown.DataType.Equals(data.OutputType))
+                    if (_dropdown.DataType.Equals(data.OutputType))
                     {
                         var selectionToAdd = new ChipInputOptionReference(chipAbove);
                         aboveChipsToAdd.Add(selectionToAdd);
@@ -42,9 +47,9 @@ namespace IAmACube
                 }
             }
 
-            Dropdown.AddItems(aboveChipsToAdd);
+            return aboveChipsToAdd;
         }
 
-        public void RefreshText() => Dropdown.RefreshText();
+        public void RefreshText() => _dropdown.RefreshText();
     }
 }

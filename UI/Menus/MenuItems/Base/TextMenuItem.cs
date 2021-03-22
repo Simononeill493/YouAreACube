@@ -13,6 +13,7 @@ namespace IAmACube
         public Color Color = Config.DefaultTextColor;
 
         public TextMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer) { }
+        public TextMenuItem(IHasDrawLayer parentDrawLayer,string initial) : base(parentDrawLayer) { Text = initial; }
 
         protected override void _drawSelf(DrawingInterface drawingInterface)
         {

@@ -26,10 +26,10 @@ namespace IAmACube
             AddChild(_text);
         }
 
-        public ChipItem GenerateChip(float scale)
+        public ChipTopSection GenerateChip(float scale)
         {
             var chipHoverLayer = ManualDrawLayer.Create(DrawLayers.MenuBehindLayer-DrawLayers.MinLayerDistance);
-            var chip = new ChipItem(chipHoverLayer, this.Chip);
+            var chip = new ChipTopSection(chipHoverLayer, this.Chip);
             chip.MultiplyScaleCascade(scale);
 
             return chip;

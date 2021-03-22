@@ -9,7 +9,7 @@ namespace IAmACube
 {
     public class ChipDropdownFactory
     {
-        public static ChipInputDropdown Create(ChipItemMiddleSection section,string dataType)
+        public static ChipInputDropdown Create(ChipMiddleSection section,string dataType)
         {
             var dropdown = new ChipInputDropdown(section, dataType);
             ChipDropdownUtils.SetDefaultItems(dropdown, dataType);

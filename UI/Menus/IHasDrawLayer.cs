@@ -19,6 +19,6 @@ namespace IAmACube
 
         public static ManualDrawLayer Create(float layer) => new ManualDrawLayer(layer);
 
-        public static ManualDrawLayer InFrontOf(IHasDrawLayer parent) => new ManualDrawLayer(parent.DrawLayer - (DrawLayers.MinLayerDistance));
+        public static ManualDrawLayer InFrontOf(IHasDrawLayer parent,int steps) => new ManualDrawLayer(parent.DrawLayer - ((DrawLayers.MinLayerDistance)*steps));
     }
 }

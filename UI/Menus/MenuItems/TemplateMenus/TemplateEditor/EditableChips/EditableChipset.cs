@@ -7,19 +7,18 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class EditableChipset : DraggableMenuItem
+    partial class EditableChipset : DraggableMenuItem
     {
-        public List<ChipItem> Chips { get; private set; }
-        private ChipItem _baseChip;
-        public Action<List<ChipItem>, UserInput> CreateNewChipsetInEditPane;
+        public List<ChipTopSection> Chips { get; private set; }
+        public Action<List<ChipTopSection>, UserInput> LiftChipsCallback;
 
         public EditableChipset(IHasDrawLayer parent,float scaleMultiplier) : base(parent, "BlankPixel")
         {
-            Chips = new List<ChipItem>();
+            Chips = new List<ChipTopSection>();
             MultiplyScaleCascade(scaleMultiplier);
         }
 
-        public void AppendChips(List<ChipItem> toAdd,int index)
+        public void AppendChips(List<ChipTopSection> toAdd,int index)
         {
             Chips.InsertRange(index, toAdd);
             AddChildren(toAdd);
@@ -32,7 +31,7 @@ namespace IAmACube
 
             _refreshAll();
         }
-        public List<ChipItem> PopChips(int index)
+        public List<ChipTopSection> PopChips(int index)
         {
             var toRemove = Chips.Skip(index).ToList();
             Chips.RemoveRange(index, toRemove.Count());
@@ -43,16 +42,6 @@ namespace IAmACube
             return toRemove;
         }
 
-        private void _refreshAll()
-        {
-            _updateChipPositions();
-            _updateChipConnections();
-            _refreshText();
-            _updateBaseChip();
-            _updateChildDimensions();
-        }
-
-        public void _liftChipsFromChipset(UserInput input, int index) => CreateNewChipsetInEditPane(PopChips(index), input);
         public int GetChipIndexThatMouseIsOver(UserInput input)
         {
             for (int i = 0; i < Chips.Count; i++)
@@ -71,44 +60,7 @@ namespace IAmACube
             return -1;
         }
 
-        private void _updateChipConnections()
-        {
-            var chipsAboveCurrent = new List<ChipItem>();
-
-            foreach(var chip in Chips)
-            {
-                chip.AddConnectionsFromAbove(chipsAboveCurrent);
-                chipsAboveCurrent.Add(chip);
-            }
-        }
-
-        private void _refreshText() => Chips.ForEach(c => c.RefreshText());
-
-        private void _updateChipPositions()
-        {
-            var baseSize = GetBaseSize();
-
-            for (int i = 0; i < Chips.Count; i++)
-            {
-                Chips[i].CurrentPositionInChipset = i;
-                Chips[i].SetLocationConfig(0, baseSize.Y - (i + 1), CoordinateMode.ParentPixelOffset, false);
-                Chips[i].UpdateDimensions(ActualLocation, GetCurrentSize());
-
-                baseSize.Y += Chips[i].GetFullBaseSize().Y;
-            }
-        }
-        private void _updateBaseChip()
-        {
-            if (_baseChip != null)
-            {
-                SetNotDraggableFrom(_baseChip);
-            }
-            _baseChip = Chips.First();
-            SetDraggableFrom(_baseChip);
-        }
-
         public Point DefaultMouseDragOffset => Chips.First().GetCurrentSize() / 2;
-
         public Point GetFullBaseSize()
         {
             var size = GetBaseSize();
@@ -133,5 +85,6 @@ namespace IAmACube
             return new Rectangle(chipLoc.X, chipLoc.Y, fullSize.X, fullSize.Y);
         }
 
+        private void _liftChipsFromChipset(UserInput input, int index) => LiftChipsCallback(PopChips(index), input);
     }
 }
