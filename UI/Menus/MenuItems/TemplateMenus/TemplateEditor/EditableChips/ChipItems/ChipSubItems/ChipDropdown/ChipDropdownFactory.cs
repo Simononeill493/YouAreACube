@@ -9,17 +9,12 @@ namespace IAmACube
 {
     public class ChipDropdownFactory
     {
-        public static ChipInputDropdown Create(ChipMiddleSection section,string dataType)
+        public static ChipInputDropdown Create(ChipMiddleSection section,string inputType)
         {
-            var dropdown = new ChipInputDropdown(section, dataType);
-            ChipDropdownUtils.SetDefaultItems(dropdown, dataType);
+            var dropdown = new ChipInputDropdown(section);
+            dropdown.ResetToDefaults(inputType);
+            dropdown.Editable = ChipDropdownUtils.IsTextEntryType(inputType);
 
-            if (ChipDropdownUtils.IsTextEntryType(dataType))
-            {
-                dropdown.Editable = true;
-            }
-
-            dropdown.BaseType = ChipDropdownUtils.GetTypeOfDataType(dataType);
             return dropdown;
         }
     }

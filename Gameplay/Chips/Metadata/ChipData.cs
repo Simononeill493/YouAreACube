@@ -17,9 +17,18 @@ namespace IAmACube
         public string Input2;
         public string Input3;
 
-        public string OutputType;
+        public string OutputType { get; private set; }
+        public string OutputTypeCurrent { get; private set; }
+
+        public void SetOutputType(string outputType)
+        {
+            OutputType = outputType;
+            OutputTypeCurrent = outputType;
+        }
 
         public bool IsGeneric;
+        public bool OutputIsGeneric => OutputType.Contains("Variable");
+
         public int NumInputs;
 
         public ChipData(string name,ChipType chipType)
@@ -31,6 +40,14 @@ namespace IAmACube
         }
 
         public string GetInputType(int num)
+        {
+            if (num == 1) { return Input1; }
+            if (num == 2) { return Input2; }
+            if (num == 3) { return Input3; }
+            return "_null_";
+        }
+
+        public string IsInputGeneric(int num)
         {
             if (num == 1) { return Input1; }
             if (num == 2) { return Input2; }
@@ -54,5 +71,48 @@ namespace IAmACube
         {
             return Name + " (" + ChipType.ToString() + ")";
         }
+
+        public (bool canFeed,bool isGeneric,string baseOfVariable) CanFeedOutputInto(string inputType)
+        {
+            if(OutputTypeCurrent == null)
+            {
+                return (false, false, "");
+            }
+
+            if (inputType.Equals(OutputTypeCurrent))
+            {
+                return (true, false,OutputTypeCurrent);
+            }
+
+            if(inputType.Equals("Variable"))
+            {
+                return (true, true,OutputTypeCurrent);
+            }
+
+            if(inputType.Equals("List<Variable>"))
+            {
+                if(OutputTypeCurrent.StartsWith("List<") & OutputTypeCurrent.EndsWith(">"))
+                {
+                    var afterOpeningList = OutputTypeCurrent.Substring(5);
+                    var baseOutput = afterOpeningList.Substring(0, afterOpeningList.Length - 1);
+                    return (true,true,baseOutput);
+                }
+            }
+
+            return (false,false,"");
+        }
+
+        public void SetOutputTypeFromGeneric(string actualType)
+        {
+            if(OutputType!=null)
+            {
+                OutputTypeCurrent = OutputType.Replace("Variable", actualType);
+            }
+        }
+        public void ResetOutputType()
+        {
+            OutputTypeCurrent = OutputType;
+        }
+
     }
 }

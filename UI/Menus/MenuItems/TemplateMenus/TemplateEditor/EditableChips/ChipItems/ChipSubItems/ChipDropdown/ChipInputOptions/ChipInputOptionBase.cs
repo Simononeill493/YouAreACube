@@ -7,9 +7,9 @@ namespace IAmACube
     public class ChipInputOptionBase : ChipInputOption
     {
         public object BaseObject;
-        public override string ToString()
-        {
-            return BaseObject.ToString();
-        }
+
+        public ChipInputOptionBase() : base(InputOptionType.Base) {  }
+
+        public override string ToString() => BaseObject.ToString();
     }
 }

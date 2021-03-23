@@ -14,6 +14,11 @@ namespace IAmACube
         public TextBoxMenuItem TextBox;
         private TextMenuItem _outputDataTypeLabel;
 
+        public void SetOutputDataTypeLabel(string newLabel)
+        {
+            _outputDataTypeLabel.Text = newLabel;
+        }
+
         public ChipItemOutputLabel(IHasDrawLayer parent,ChipData chip) : base(parent, "BlankPixel")
         {
             TextBox = new TextBoxMenuItem(this, chip.Name + "_out");

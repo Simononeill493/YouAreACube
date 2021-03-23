@@ -6,17 +6,11 @@ namespace IAmACube
 {
     public class ChipInputDropdown : DropdownMenuItem<ChipInputOption>
     {
-        public Type BaseType;
-        public string DataType;
+        public ChipInputDropdown(IHasDrawLayer parent) : base(parent) { }
 
-        public ChipInputDropdown(IHasDrawLayer parent, string dataType) : base(parent)
+        public void ResetToDefaults(string inputType)
         {
-            DataType = dataType;
-        }
-
-        public void ResetToDefaults()
-        {
-            ChipDropdownUtils.SetDefaultItems(this, DataType);
+            ChipDropdownUtils.SetDefaultItems(this, inputType);
         }
     }
 }

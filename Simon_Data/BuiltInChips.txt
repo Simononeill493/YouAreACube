@@ -84,6 +84,16 @@
 	  "type":"General",
 	  "in":["List<Variable>"],
 	  "out":"bool"
+    },
+	{
+      "name":"ShuffleList",
+	  "type":"General",
+	  "in":["List<Variable>"]
+    },
+	{
+      "name":"AddToList",
+	  "type":"General",
+	  "in":["Variable","List<Variable>"]
     }
   ]
 }

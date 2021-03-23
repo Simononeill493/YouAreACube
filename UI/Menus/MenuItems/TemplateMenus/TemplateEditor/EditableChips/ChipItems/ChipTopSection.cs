@@ -45,6 +45,7 @@ namespace IAmACube
             {
                 var section = ChipSectionFactory.Create(this,i);
                 section.SetLocationConfig(ActualLocation.X, ActualLocation.Y + (size.Y*i) - 1, CoordinateMode.ParentPixelOffset, false);
+                section.DropdownSelectedCallback = _middleSectionDropdownChanged;
 
                 _middleSections.Add(section);
                 AddChild(section);
@@ -54,7 +55,21 @@ namespace IAmACube
         }
 
         public void SetConnectionsFromAbove(List<ChipTopSection> chipsAbove) =>_middleSections.ForEach(m => m.SetConnectionsFromAbove(chipsAbove));
-        
+        public void _middleSectionDropdownChanged(ChipInputDropdown dropdown,ChipInputOption optionSelected)
+        {
+            if (optionSelected.OptionType == InputOptionType.Generic)
+            {
+                var genericOption = (ChipInputOptionGeneric)optionSelected;
+                Chip.SetOutputTypeFromGeneric(genericOption.BaseOutput);
+            }
+            else if(optionSelected.OptionType == InputOptionType.Base)
+            {
+                Chip.ResetOutputType();
+            }
+
+            _outputLabel?.SetOutputDataTypeLabel(Chip.OutputTypeCurrent);
+        }
+
         public Point GetFullBaseSize()
         {
             var baseSize = GetBaseSize();

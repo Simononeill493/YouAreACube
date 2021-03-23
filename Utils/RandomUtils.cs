@@ -38,5 +38,10 @@ namespace IAmACube
             return R.Next(0, upperBoundExclusive);
         }
 
+        public static List<T> Shuffle<T>(List<T> toShuffle)
+        {
+            return toShuffle.OrderBy(x => R.Next()).ToList();
+        }
+
     }
 }
