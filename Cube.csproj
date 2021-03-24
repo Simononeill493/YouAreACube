@@ -57,7 +57,9 @@
     <Compile Include="Gameplay\Blocks\BlockMovementData.cs" />
     <Compile Include="Gameplay\Blocks\EphemeralBlock.cs" />
     <Compile Include="Gameplay\Blocks\SurfaceBlock.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\GetSurroundingsChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\AddToListChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\GetListItemAtIndexChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\ShuffleListChip.cs" />
     <Compile Include="Gameplay\Chips\Metadata\ChipData.cs" />
     <Compile Include="Gameplay\Chips\Metadata\ChipDatabase.cs" />

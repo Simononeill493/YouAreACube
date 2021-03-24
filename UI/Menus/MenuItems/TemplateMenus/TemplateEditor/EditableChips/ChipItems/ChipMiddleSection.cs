@@ -37,8 +37,8 @@ namespace IAmACube
 
         public void SetConnectionsFromAbove(List<ChipTopSection> chipsAbove)
         {
-            _dropdown.ResetToDefaults(_inputType);
-            _dropdown.AddItems(_getInputsToAddToDropdown(chipsAbove));
+            _dropdown.SetItems(_getInputsToAddToDropdown(chipsAbove));
+            _dropdown.AddItems(ChipDropdownUtils.GetDefaultItems(_inputType));            
         }
 
         private List<ChipInputOption> _getInputsToAddToDropdown(List<ChipTopSection> chipsAbove)

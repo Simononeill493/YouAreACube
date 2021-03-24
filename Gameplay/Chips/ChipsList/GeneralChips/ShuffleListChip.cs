@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IAmACube.Gameplay.Chips.ChipsList.GeneralChips
+namespace IAmACube
 {
     [Serializable()]
     internal class ShuffleListChip<T> : InputPin<List<T>>

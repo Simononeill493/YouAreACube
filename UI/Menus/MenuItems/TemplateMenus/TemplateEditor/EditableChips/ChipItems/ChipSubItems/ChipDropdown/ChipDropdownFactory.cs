@@ -12,7 +12,7 @@ namespace IAmACube
         public static ChipInputDropdown Create(ChipMiddleSection section,string inputType)
         {
             var dropdown = new ChipInputDropdown(section);
-            dropdown.ResetToDefaults(inputType);
+            dropdown.SetItems(ChipDropdownUtils.GetDefaultItems(inputType));
             dropdown.Editable = ChipDropdownUtils.IsTextEntryType(inputType);
 
             return dropdown;

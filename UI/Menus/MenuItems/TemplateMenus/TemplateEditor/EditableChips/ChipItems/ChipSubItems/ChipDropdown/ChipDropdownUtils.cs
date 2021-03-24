@@ -9,20 +9,20 @@ namespace IAmACube
 {
     class ChipDropdownUtils
     {
-        public static void SetDefaultItems(ChipInputDropdown dropdown, string dataType)
+        public static List<ChipInputOption> GetDefaultItems(string dataType)
         {
             if (IsDiscreteType(dataType))
             {
-                dropdown.SetItems(GetBasicSelections(dataType).Cast<ChipInputOption>().ToList());
+                return GetBasicSelections(dataType).Cast<ChipInputOption>().ToList();
             }
             else if (dataType.Equals("Template"))
             {
                 var templates = _createOptionsFromItems(Templates.BlockTemplates.Values.ToList());
-                dropdown.SetItems(templates.Cast<ChipInputOption>().ToList());
+                return templates.Cast<ChipInputOption>().ToList();
             }
             else
             {
-                dropdown.SetItems(new List<ChipInputOption>());
+                return new List<ChipInputOption>();
             }
         }
 

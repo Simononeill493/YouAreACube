@@ -38,6 +38,12 @@
 	  "out":"List<SurfaceBlock>"
     },
 	{
+      "name":"GetSurroundings",
+	  "type":"Sense",
+	  "in":[],
+	  "out":"List<Tile>"
+    },
+	{
       "name":"IsKeyPressed",
 	  "type":"Sense",
 	  "in":["Keys"],
@@ -94,6 +100,13 @@
       "name":"AddToList",
 	  "type":"General",
 	  "in":["Variable","List<Variable>"]
+    },
+	{
+      "name":"GetListItemAtIndex",
+	  "type":"General",
+	  "in":["List<Variable>","int"],
+	  "out":"Variable"
+
     }
   ]
 }
