@@ -8,7 +8,7 @@ namespace IAmACube
 {
     partial class EditableChipset : DraggableMenuItem
     {
-        private ChipTopSection _topChip;
+        private ChipTop _topChip;
 
         private void _refreshAll()
         {
@@ -37,7 +37,7 @@ namespace IAmACube
 
         private void _updateChipConnections()
         {
-            var chipsAboveCurrent = new List<ChipTopSection>();
+            var chipsAboveCurrent = new List<ChipTop>();
 
             foreach (var chip in Chips)
             {

@@ -8,7 +8,7 @@ namespace IAmACube
 {
     class EditableChipsetFactory
     {
-        public static EditableChipset Create(ChipEditPane container,List<ChipTopSection> chips,float scaleMultiplier, Action<List<ChipTopSection>, UserInput> liftChipsCallback, Action<EditableChipset,UserInput> dropChipsCallback)
+        public static EditableChipset Create(ChipEditPane container,List<ChipTop> chips,float scaleMultiplier, Action<List<ChipTop>, UserInput> liftChipsCallback, Action<EditableChipset,UserInput> dropChipsCallback)
         {
             var chipset = new EditableChipset(container, scaleMultiplier);
 

@@ -9,16 +9,16 @@ namespace IAmACube
 {
     partial class EditableChipset : DraggableMenuItem
     {
-        public List<ChipTopSection> Chips { get; private set; }
-        public Action<List<ChipTopSection>, UserInput> LiftChipsCallback;
+        public List<ChipTop> Chips { get; private set; }
+        public Action<List<ChipTop>, UserInput> LiftChipsCallback;
 
         public EditableChipset(IHasDrawLayer parent,float scaleMultiplier) : base(parent, "BlankPixel")
         {
-            Chips = new List<ChipTopSection>();
+            Chips = new List<ChipTop>();
             MultiplyScaleCascade(scaleMultiplier);
         }
 
-        public void AppendChips(List<ChipTopSection> toAdd,int index)
+        public void AppendChips(List<ChipTop> toAdd,int index)
         {
             Chips.InsertRange(index, toAdd);
             AddChildren(toAdd);
@@ -31,7 +31,7 @@ namespace IAmACube
 
             _refreshAll();
         }
-        public List<ChipTopSection> PopChips(int index)
+        public List<ChipTop> PopChips(int index)
         {
             var toRemove = Chips.Skip(index).ToList();
             Chips.RemoveRange(index, toRemove.Count());

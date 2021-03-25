@@ -101,8 +101,8 @@ namespace IAmACube
             AddChildAfterUpdate(chipset);
         }
 
-        private EditableChipset _createChipset(ChipTopSection chip) => _createChipset(new List<ChipTopSection>() { chip });
-        private EditableChipset _createChipset(List<ChipTopSection> chips) => EditableChipsetFactory.Create(this, chips, _chipScaleMultiplier, _chipsLiftedFromPane, _chipsetDropped);
+        private EditableChipset _createChipset(ChipTop chip) => _createChipset(new List<ChipTop>() { chip });
+        private EditableChipset _createChipset(List<ChipTop> chips) => EditableChipsetFactory.Create(this, chips, _chipScaleMultiplier, _chipsLiftedFromPane, _chipsetDropped);
         private void _deleteChipset(EditableChipset chipset)
         {
             _chipsets.Remove(chipset);
@@ -111,7 +111,7 @@ namespace IAmACube
             chipset.Dispose();
         }
 
-        private void _chipsLiftedFromPane(List<ChipTopSection> chips, UserInput input) => _attachNewChipsetToMouse(_createChipset(chips), input);
+        private void _chipsLiftedFromPane(List<ChipTop> chips, UserInput input) => _attachNewChipsetToMouse(_createChipset(chips), input);
         private void _createAndAttachNewChipsetToMouse(ChipPreview preview, UserInput input) => _attachNewChipsetToMouse(_createChipset(preview.GenerateChip(_chipScaleMultiplier)), input);
 
         #region visuals

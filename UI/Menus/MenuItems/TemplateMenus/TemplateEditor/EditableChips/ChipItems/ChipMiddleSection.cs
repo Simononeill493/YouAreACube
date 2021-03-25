@@ -35,13 +35,13 @@ namespace IAmACube
             DropdownSelectedCallback(_dropdown, optionSelected);
         }
 
-        public void SetConnectionsFromAbove(List<ChipTopSection> chipsAbove)
+        public void SetConnectionsFromAbove(List<ChipTop> chipsAbove)
         {
             _dropdown.SetItems(_getInputsToAddToDropdown(chipsAbove));
             _dropdown.AddItems(ChipDropdownUtils.GetDefaultItems(_inputType));            
         }
 
-        private List<ChipInputOption> _getInputsToAddToDropdown(List<ChipTopSection> chipsAbove)
+        private List<ChipInputOption> _getInputsToAddToDropdown(List<ChipTop> chipsAbove)
         {
             var aboveChipsToAdd = new List<ChipInputOption>();
 
@@ -51,14 +51,16 @@ namespace IAmACube
                 var (canFeed, generic, baseOutput) = data.CanFeedOutputInto(_inputType);
                 if (canFeed)
                 {
-                    if(generic)
+                    var standardChip = (ChipTopStandard)chipAbove;
+
+                    if (generic)
                     {
-                        var selectionToAdd = new ChipInputOptionGeneric(chipAbove, baseOutput);
+                        var selectionToAdd = new ChipInputOptionGeneric(standardChip, baseOutput);
                         aboveChipsToAdd.Add(selectionToAdd);
                     }
                     else
                     {
-                        var selectionToAdd = new ChipInputOptionReference(chipAbove);
+                        var selectionToAdd = new ChipInputOptionReference(standardChip);
                         aboveChipsToAdd.Add(selectionToAdd);
                     }
                 }

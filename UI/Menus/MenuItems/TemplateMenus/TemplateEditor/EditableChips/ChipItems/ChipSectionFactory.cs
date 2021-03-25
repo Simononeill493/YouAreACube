@@ -9,7 +9,7 @@ namespace IAmACube
 {
     public class ChipSectionFactory
     {
-        public static ChipMiddleSection Create(ChipTopSection parent, int sectionIndex)
+        public static ChipMiddleSection Create(ChipTopStandard parent, int sectionIndex)
         {
             var parentDrawLayer = ManualDrawLayer.InFrontOf(parent, sectionIndex);
             var dataType = parent.Chip.GetInputType(sectionIndex);

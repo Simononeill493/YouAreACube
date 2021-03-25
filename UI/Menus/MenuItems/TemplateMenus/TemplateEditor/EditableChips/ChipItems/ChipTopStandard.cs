@@ -7,25 +7,15 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class ChipTopSection : SpriteMenuItem
+    public class ChipTopStandard : ChipTop
     {
-        public ChipData Chip;
-        public int CurrentPositionInChipset = -1;
         public string OutputName => _outputLabel.TextBox.Text;
 
         private ChipItemOutputLabel _outputLabel;
         private List<ChipMiddleSection> _middleSections = new List<ChipMiddleSection>();
 
-        public ChipTopSection(IHasDrawLayer parent, ChipData data) : base(parent, "BlueChipFull")
+        public ChipTopStandard(IHasDrawLayer parent, ChipData data) : base(parent, data)
         {
-            Chip = data;
-            OnMouseDraggedOn += _onDraggedHandler;
-
-            var title = new TextMenuItem(this, Chip.Name);
-            title.Color = Color.White;
-            title.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
-            AddChild(title);
-
             _tryCreateOutputLabel();
             _createMiddleSections(Chip,GetBaseSize());
         }
@@ -54,7 +44,7 @@ namespace IAmACube
             _updateChildDimensions();
         }
 
-        public void SetConnectionsFromAbove(List<ChipTopSection> chipsAbove) =>_middleSections.ForEach(m => m.SetConnectionsFromAbove(chipsAbove));
+        public override void SetConnectionsFromAbove(List<ChipTop> chipsAbove) =>_middleSections.ForEach(m => m.SetConnectionsFromAbove(chipsAbove));
         public void _middleSectionDropdownChanged(ChipInputDropdown dropdown,ChipInputOption optionSelected)
         {
             if (optionSelected.OptionType == InputOptionType.Generic)
@@ -70,7 +60,7 @@ namespace IAmACube
             _outputLabel?.SetOutputDataTypeLabel(Chip.OutputTypeCurrent);
         }
 
-        public Point GetFullBaseSize()
+        public override Point GetFullBaseSize()
         {
             var baseSize = GetBaseSize();
 
@@ -81,49 +71,11 @@ namespace IAmACube
 
             return new Point(baseSize.X, baseSize.Y + (baseSize.Y * Chip.NumInputs));
         }
-        public Point GetFullSize() => GetFullBaseSize() * Scale;
 
-        #region visual
-        protected override void _drawSelf(DrawingInterface drawingInterface)
-        {
-            base._drawSelf(drawingInterface);
-
-            if (MenuScreen.UserDragging & IsMouseOverAnySection())
-            {
-                _highlightInsertionPoint(drawingInterface);
-            }
-        }
-        private void _highlightInsertionPoint(DrawingInterface drawingInterface)
-        {
-            var size = GetFullSize();
-            var height = ActualLocation.Y;
-
-            if (IsMouseOverBottomSection())
-            {
-                height += (size.Y - (1 * Scale));
-            }
-
-            drawingInterface.DrawRectangle(ActualLocation.X, height, size.X, 5 * Scale, DrawLayers.MenuHoverLayer, Color.Red, false);
-        }
-
-        public void RefreshText() => _middleSections.ForEach(m => m.RefreshText());
-
+        public override void RefreshText() => _middleSections.ForEach(m => m.RefreshText());
         private void OutputNameChanged(string newName) => OutputTextChangedCallback.Invoke();
-        public System.Action OutputTextChangedCallback;
-        #endregion
 
-        #region mouseControls
-        public Action<UserInput, int> LiftChipFromChipset;
-
-        private void _onDraggedHandler(UserInput input)
-        {
-            if (!MenuScreen.UserDragging)
-            {
-                LiftChipFromChipset(input, CurrentPositionInChipset);
-            }
-        }
-
-        public bool IsMouseOverAnySection()
+        public override bool IsMouseOverAnySection()
         {
             if (MouseHovering)
             {
@@ -140,7 +92,7 @@ namespace IAmACube
 
             return false;
         }
-        public bool IsMouseOverBottomSection()
+        public override bool IsMouseOverBottomSection()
         {
             if (_middleSections.Count == 0)
             {
@@ -149,6 +101,5 @@ namespace IAmACube
 
             return _middleSections.Last().MouseHovering;
         }
-        #endregion
     }
 }

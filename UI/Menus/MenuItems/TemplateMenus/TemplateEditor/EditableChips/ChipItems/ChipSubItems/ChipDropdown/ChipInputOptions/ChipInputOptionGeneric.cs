@@ -10,7 +10,7 @@ namespace IAmACube
     {
         public string BaseOutput;
 
-        public ChipInputOptionGeneric(ChipTopSection chipReference, string baseOutput) : base(chipReference)
+        public ChipInputOptionGeneric(ChipTopStandard chipReference, string baseOutput) : base(chipReference)
         {
             BaseOutput = baseOutput;
             OptionType = InputOptionType.Generic;
