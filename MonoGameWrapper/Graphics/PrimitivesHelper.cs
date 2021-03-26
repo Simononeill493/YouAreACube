@@ -45,11 +45,11 @@ namespace IAmACube
 
         public void DrawHorizontalLine(int x1, int y1, int length,float layer,Color color)
         {
-            _spriteBatch.Draw(_standardTexture, destinationRectangle: new Rectangle(x1, y1, length, 1), color: color, layerDepth: layer);
+            //_spriteBatch.Draw(_standardTexture,destinationRectangle: new Rectangle(x1, y1, length, 1), color: color, layerDepth: layer);
         }
         public void DrawVericalLine(int x1, int y1, int length,float layer,Color color)
         {
-            _spriteBatch.Draw(_standardTexture, destinationRectangle: new Rectangle(x1, y1, 1, length), color: color, layerDepth: layer);
+            //_spriteBatch.Draw(_standardTexture, destinationRectangle: new Rectangle(x1, y1, 1, length), color: color, layerDepth: layer);
         }
         public void DrawRectangle(int x, int y, int width, int height, float layer, Color color,bool centered)
         {
@@ -58,7 +58,7 @@ namespace IAmACube
                 (x, y) = DrawUtils.GetCenteredCoords(width, height, x, y, 1);
             }
 
-            _spriteBatch.Draw(_standardTexture, destinationRectangle: new Rectangle(x, y, width, height),color: color, layerDepth: layer);
+            _spriteBatch.Draw(_standardTexture, new Rectangle(x, y, width, height), null, color, 0, Vector2.Zero, SpriteEffects.None, layer);
         }
         public void DrawGrid(int width, int height, int squareSize,float layer,Color color)
         {
@@ -82,7 +82,8 @@ namespace IAmACube
             }
 
             //_spriteBatch.Draw(sprite, new Vector2(x, y), scale: new Vector2(scale, scale), layerDepth: layer);
-            _spriteBatch.Draw(sprite, new Vector2(x, y), scale: new Vector2(scale, scale), layerDepth: layer);
+            //_spriteBatch.Draw(sprite, new Vector2(x, y), scale: new Vector2(scale, scale), layerDepth: layer);
+            _spriteBatch.Draw(sprite, new Vector2(x, y), null, Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, layer);
         }
 
 
@@ -103,7 +104,7 @@ namespace IAmACube
             var horizontalScale = ViewportWidth / (float)backgroundSprite.Width;
             var verticallScale = ViewportHeight / (float)backgroundSprite.Height;
 
-            _spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), scale: new Vector2(horizontalScale, verticallScale), layerDepth: DrawLayers.BackgroundLayer);
+            _spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), null,Color.White, 0, Vector2.Zero, new Vector2(horizontalScale, verticallScale), SpriteEffects.None, DrawLayers.BackgroundLayer); ;
         }
 
     }

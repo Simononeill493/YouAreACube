@@ -15,11 +15,11 @@ namespace IAmACube
         public const int SectorSize = 16;
         public const bool EnableFrameCounter = false;
 
-        public const string SaveDirectory = @"C:\Users\Simon\Desktop\Cube\Cube\Saves";
+        public const string SaveDirectory = @"C:\Users\Simon\Desktop\YouAreACube\Saves";
         public const string SaveExtension = ".cubesave";
 
-        public const string TemplatesFile = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data\templates.txt";
-        public const string ChipsFile = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data\BuiltInChips.txt";
+        public const string TemplatesFile = @"C:\Users\Simon\Desktop\YouAreACube\Simon_Data\templates.txt";
+        public const string ChipsFile = @"C:\Users\Simon\Desktop\YouAreACube\Simon_Data\BuiltInChips.txt";
 
         public static bool KernelUnlimitedEnergy = true;
 
