@@ -26,7 +26,7 @@ namespace IAmACube
             foreach(var chip in toAdd)
             {
                 chip.LiftChipFromChipset = _liftChipsFromChipset;
-                chip.OutputTextChangedCallback = _refreshText;
+                chip.ChipsetRefreshTextCallback = _refreshText;
             }
 
             _refreshAll();
