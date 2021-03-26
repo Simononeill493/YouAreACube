@@ -18,11 +18,10 @@ namespace IAmACube
         public abstract bool IsMouseOverAnySection();
         public abstract bool IsMouseOverBottomSection();
 
-        public abstract Point GetFullBaseSize();
-        public Point GetFullSize() => GetFullBaseSize() * Scale;
-
         public abstract void SetConnectionsFromAbove(List<ChipTop> chipsAbove);
         public abstract void RefreshText();
+
+        protected List<MenuItem> _sections;
 
         public ChipTop(IHasDrawLayer parent, ChipData data) : base(parent, "BlueChipFull") 
         { 
@@ -34,6 +33,8 @@ namespace IAmACube
             title.Color = Color.White;
             title.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
             AddChild(title);
+
+            _sections = new List<MenuItem>() { this };
         }
 
         private void _onDraggedHandler(UserInput input)
@@ -42,6 +43,15 @@ namespace IAmACube
             {
                 LiftChipFromChipset(input, CurrentPositionInChipset);
             }
+        }
+
+        protected void _addSection(MenuItem section)
+        {
+            var chipFullSize = GetFullBaseSize();
+            section.SetLocationConfig(0, chipFullSize.Y - 1, CoordinateMode.ParentPixelOffset, false);
+
+            _sections.Add(section);
+            AddChild(section);
         }
 
         protected override void _drawSelf(DrawingInterface drawingInterface)
@@ -65,5 +75,14 @@ namespace IAmACube
 
             drawingInterface.DrawRectangle(ActualLocation.X, height, size.X, 5 * Scale, DrawLayers.MenuHoverLayer, Color.Red, false);
         }
+
+        public virtual Point GetFullBaseSize()
+        {
+            var baseSize = GetBaseSize();
+            return new Point(baseSize.X, _sections.Sum(s => s.GetBaseSize().Y)-(_sections.Count));
+        }
+        public Point GetFullSize() => GetFullBaseSize() * Scale;
+
+
     }
 }

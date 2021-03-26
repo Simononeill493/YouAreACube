@@ -12,12 +12,12 @@ namespace IAmACube
         public string OutputName => _outputLabel.TextBox.Text;
 
         private ChipItemOutputLabel _outputLabel;
-        private List<ChipMiddleSection> _middleSections = new List<ChipMiddleSection>();
+        private List<ChipMiddleSection> _inputSections = new List<ChipMiddleSection>();
 
         public ChipTopStandard(IHasDrawLayer parent, ChipData data) : base(parent, data)
         {
             _tryCreateOutputLabel();
-            _createMiddleSections(Chip,GetBaseSize());
+            _createInputSections(Chip);
         }
         private void _tryCreateOutputLabel()
         {
@@ -29,22 +29,21 @@ namespace IAmACube
                 AddChild(_outputLabel);
             }
         }
-        private void _createMiddleSections(ChipData chip,Point size)
+        private void _createInputSections(ChipData chip)
         {
             for(int i=1;i<chip.NumInputs+1;i++)
             {
                 var section = ChipSectionFactory.Create(this,i);
-                section.SetLocationConfig(ActualLocation.X, ActualLocation.Y + (size.Y*i) - 1, CoordinateMode.ParentPixelOffset, false);
                 section.DropdownSelectedCallback = _middleSectionDropdownChanged;
 
-                _middleSections.Add(section);
-                AddChild(section);
+                _addSection(section);
+                _inputSections.Add(section);
             }
 
             _updateChildDimensions();
         }
 
-        public override void SetConnectionsFromAbove(List<ChipTop> chipsAbove) =>_middleSections.ForEach(m => m.SetConnectionsFromAbove(chipsAbove));
+        public override void SetConnectionsFromAbove(List<ChipTop> chipsAbove) =>_inputSections.ForEach(m => m.SetConnectionsFromAbove(chipsAbove));
         public void _middleSectionDropdownChanged(ChipInputDropdown dropdown,ChipInputOption optionSelected)
         {
             if (optionSelected.OptionType == InputOptionType.Generic)
@@ -62,17 +61,17 @@ namespace IAmACube
 
         public override Point GetFullBaseSize()
         {
-            var baseSize = GetBaseSize();
+            var size = base.GetFullBaseSize();
 
             if(_outputLabel!=null)
             {
-                baseSize.X += _outputLabel.GetBaseSize().X;
+                size.X += _outputLabel.GetBaseSize().X;
             }
 
-            return new Point(baseSize.X, baseSize.Y + (baseSize.Y * Chip.NumInputs));
+            return size;
         }
 
-        public override void RefreshText() => _middleSections.ForEach(m => m.RefreshText());
+        public override void RefreshText() => _inputSections.ForEach(m => m.RefreshText());
         private void OutputNameChanged(string newName) => OutputTextChangedCallback.Invoke();
 
         public override bool IsMouseOverAnySection()
@@ -82,7 +81,7 @@ namespace IAmACube
                 return true;
             }
 
-            foreach (var section in _middleSections)
+            foreach (var section in _inputSections)
             {
                 if (section.MouseHovering)
                 {
@@ -94,12 +93,12 @@ namespace IAmACube
         }
         public override bool IsMouseOverBottomSection()
         {
-            if (_middleSections.Count == 0)
+            if (_inputSections.Count == 0)
             {
                 return true;
             }
 
-            return _middleSections.Last().MouseHovering;
+            return _inputSections.Last().MouseHovering;
         }
     }
 }

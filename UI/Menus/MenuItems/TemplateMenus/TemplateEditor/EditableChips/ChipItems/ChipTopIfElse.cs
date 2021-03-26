@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 { 
-    class ChipTopIfElse 
+    class ChipTopIfElse : ChipTopStandard
     {
+        public ChipTopIfElse(IHasDrawLayer parent, ChipData data) : base(parent, data)
+        {
 
+        }
     }
 }

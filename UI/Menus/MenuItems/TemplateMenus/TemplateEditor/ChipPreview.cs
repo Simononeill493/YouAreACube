@@ -26,10 +26,21 @@ namespace IAmACube
             AddChild(_text);
         }
 
-        public ChipTopStandard GenerateChip(float scale)
+        public ChipTop GenerateChip(float scale)
         {
             var chipHoverLayer = ManualDrawLayer.Create(DrawLayers.MenuBehindLayer-DrawLayers.MinLayerDistance);
-            var chip = new ChipTopStandard(chipHoverLayer, this.Chip);
+
+            ChipTop chip = null;
+
+            if(Chip.Name.Equals("If"))
+            {
+                chip = new ChipTopIfElse(chipHoverLayer, this.Chip);
+            }
+            else
+            {
+                chip = new ChipTopStandard(chipHoverLayer, this.Chip);
+            }
+
             chip.MultiplyScaleCascade(scale);
 
             return chip;

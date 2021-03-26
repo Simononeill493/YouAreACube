@@ -28,7 +28,7 @@ namespace IAmACube
             for (int i = 0; i < Chips.Count; i++)
             {
                 Chips[i].CurrentPositionInChipset = i;
-                Chips[i].SetLocationConfig(0, baseSize.Y - (i + 1), CoordinateMode.ParentPixelOffset, false);
+                Chips[i].SetLocationConfig(0, baseSize.Y - (i+1), CoordinateMode.ParentPixelOffset, false);
                 Chips[i].UpdateDimensions(ActualLocation, GetCurrentSize());
 
                 baseSize.Y += Chips[i].GetFullBaseSize().Y;
