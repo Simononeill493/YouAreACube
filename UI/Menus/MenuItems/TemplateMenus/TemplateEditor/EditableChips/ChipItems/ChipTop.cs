@@ -16,9 +16,10 @@ namespace IAmACube
         protected List<MenuItem> _sections;
         protected List<ChipMiddleSection> _inputSections;
 
-        public ChipTop(IHasDrawLayer parent, ChipData data) : base(parent, "BlueChipFull") 
+        public ChipTop(IHasDrawLayer parent, ChipData data) : base(parent, "ChipFull") 
         { 
             Chip = data;
+            ColorMask = Chip.ChipType.GetColor();
 
             OnMouseDraggedOn += _chipDraggedHandler;
 

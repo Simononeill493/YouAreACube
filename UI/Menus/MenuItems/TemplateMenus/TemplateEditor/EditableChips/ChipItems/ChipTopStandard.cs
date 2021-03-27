@@ -16,6 +16,11 @@ namespace IAmACube
         {
             _tryCreateOutputLabel();
             _createInputSections(Chip);
+
+            if (_inputSections.Count > 0)
+            {
+                _inputSections[_inputSections.Count - 1].SpriteName = "ChipFullEnd";
+            }
         }
         private void _tryCreateOutputLabel()
         {

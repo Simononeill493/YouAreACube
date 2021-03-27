@@ -17,7 +17,6 @@ namespace IAmACube
         public bool Editable;
         public bool Focused;
 
-
         public event Action<string> OnTextChanged;
 
         public TextBoxMenuItem(IHasDrawLayer parentDrawLayer,string initialString) : base(parentDrawLayer,"EmptyMenuRectangleMedium")

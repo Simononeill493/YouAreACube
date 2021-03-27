@@ -25,54 +25,6 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/BlankMenus/BlankPixel.png;BlankPixel.png
 
-#begin ../Simon_Data/To_Import/BlankMenus/BlueChipFull.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/BlankMenus/BlueChipFull.png;BlueChipFull.png
-
-#begin ../Simon_Data/To_Import/BlankMenus/BlueChipFullEnd.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/BlankMenus/BlueChipFullEnd.png;BlueChipFullEnd.png
-
-#begin ../Simon_Data/To_Import/BlankMenus/BlueChipFullMiddle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/BlankMenus/BlueChipFullMiddle.png;BlueChipFullMiddle.png
-
-#begin ../Simon_Data/To_Import/BlankMenus/BlueChipSmall.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/BlankMenus/BlueChipSmall.png;BlueChipSmall.png
-
 #begin ../Simon_Data/To_Import/BlankMenus/ChipEditPane.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -85,6 +37,42 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/BlankMenus/ChipEditPane.png;ChipEditPane.png
 
+#begin ../Simon_Data/To_Import/BlankMenus/ChipFull.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/BlankMenus/ChipFull.png;ChipFull.png
+
+#begin ../Simon_Data/To_Import/BlankMenus/ChipFullEnd.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/BlankMenus/ChipFullEnd.png;ChipFullEnd.png
+
+#begin ../Simon_Data/To_Import/BlankMenus/ChipFullMiddle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/BlankMenus/ChipFullMiddle.png;ChipFullMiddle.png
+
 #begin ../Simon_Data/To_Import/BlankMenus/ChipNumberBox.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -96,6 +84,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/BlankMenus/ChipNumberBox.png;ChipNumberBox.png
+
+#begin ../Simon_Data/To_Import/BlankMenus/ChipSmall.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/BlankMenus/ChipSmall.png;ChipSmall.png
 
 #begin ../Simon_Data/To_Import/BlankMenus/Dropdown.png
 /importer:TextureImporter
@@ -180,6 +180,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/BlankMenus/EmptyMenuRectangleSection.PNG;EmptyMenuRectangleSection.PNG
+
+#begin ../Simon_Data/To_Import/BlankMenus/IfChipSwitchButton.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/BlankMenus/IfChipSwitchButton.bmp;IfChipSwitchButton.bmp
 
 #begin ../Simon_Data/To_Import/BlankMenus/MinusButton.png
 /importer:TextureImporter

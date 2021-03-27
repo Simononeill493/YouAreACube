@@ -13,9 +13,10 @@ namespace IAmACube
         public ChipData Chip;
         private TextMenuItem _text;
 
-        public ChipPreview(IHasDrawLayer parent, ChipData chip) : base(parent, "BlueChipSmall")
+        public ChipPreview(IHasDrawLayer parent, ChipData chip) : base(parent, "ChipSmall")
         {
             Chip = chip;
+            ColorMask = Chip.ChipType.GetColor();
 
             _text = new TextMenuItem(this);
             _text.Color = Color.White;

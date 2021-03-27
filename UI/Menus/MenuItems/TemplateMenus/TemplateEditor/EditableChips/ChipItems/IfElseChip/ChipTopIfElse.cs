@@ -11,6 +11,13 @@ namespace IAmACube
         public ChipTopIfElse(IHasDrawLayer parent, ChipData data) : base(parent, data)
         {
             _createInputSections(Chip);
+            _createIfElseSwitch();
+        }
+
+        private void _createIfElseSwitch()
+        {
+            var ifElseSwitch = new ChipIfElseSwitchSection(this, ColorMask);
+            _addSection(ifElseSwitch);
         }
     }
 }

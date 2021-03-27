@@ -12,7 +12,9 @@ namespace IAmACube
         public string SpriteName;
         public string HighlightedSpriteName;
 
-        private string _activeSpriteName => (MouseHovering & HighlightedSpriteName != null) ? HighlightedSpriteName : SpriteName;
+        public Color ColorMask = Color.White;
+
+        private string _currentSprite => (MouseHovering & (HighlightedSpriteName != null)) ? HighlightedSpriteName : SpriteName;
 
         public SpriteMenuItem(IHasDrawLayer parentDrawLayer,string spriteName) : base(parentDrawLayer)
         {
@@ -21,10 +23,9 @@ namespace IAmACube
 
         protected override void _drawSelf(DrawingInterface drawingInterface)
         {
-            drawingInterface.DrawSprite(_activeSpriteName, ActualLocation.X, ActualLocation.Y, Scale, layer: DrawLayer);
+            drawingInterface.DrawSprite(_currentSprite, ActualLocation.X, ActualLocation.Y, Scale, DrawLayer, ColorMask, false);
         }
 
         public override Point GetBaseSize() => SpriteManager.GetSpriteSize(SpriteName);
-  
     }
 }

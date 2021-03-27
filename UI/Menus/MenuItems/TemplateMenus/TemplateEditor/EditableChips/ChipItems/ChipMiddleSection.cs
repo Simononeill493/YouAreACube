@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,9 +14,10 @@ namespace IAmACube
         private ChipInputDropdown _dropdown;
         private string _inputType;
 
-        public ChipMiddleSection(IHasDrawLayer parent,string inputType) : base(parent, "BlueChipFullMiddle") 
+        public ChipMiddleSection(IHasDrawLayer parent,string inputType,Color color) : base(parent, "ChipFullMiddle") 
         {
             _inputType = inputType;
+            ColorMask = color;
 
             var textItem = new TextMenuItem(this);
             textItem.Text = inputType;

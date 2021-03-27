@@ -14,14 +14,8 @@ namespace IAmACube
             var parentDrawLayer = ManualDrawLayer.InFrontOf(parent, sectionIndex);
             var dataType = parent.Chip.GetInputType(sectionIndex);
 
-            var section = new ChipMiddleSection(parentDrawLayer, dataType);
-            if (sectionIndex == parent.Chip.NumInputs) 
-            { 
-                section.SpriteName = "BlueChipFullEnd"; 
-            }
-
+            var section = new ChipMiddleSection(parentDrawLayer, dataType, parent.ColorMask);
             return section;
         }
-
     }
 }
