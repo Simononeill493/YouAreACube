@@ -10,10 +10,11 @@ namespace IAmACube
         public ChipData Chip;
         public int CurrentPositionInChipset = -1;
 
-        public System.Action ChipsetRefreshTextCallback;
+        public Action ChipsetRefreshAllCallback;
+        public Action ChipsetRefreshTextCallback;
         public Action<UserInput, int> LiftChipFromChipset;
 
-        protected List<MenuItem> _sections;
+        private List<MenuItem> _sections;
         protected List<ChipMiddleSection> _inputSections;
 
         public ChipTop(IHasDrawLayer parent, ChipData data) : base(parent, "ChipFull") 
@@ -66,13 +67,38 @@ namespace IAmACube
 
             _updateChildDimensions();
         }
+
         protected void _addSection(MenuItem section)
+        {
+            _addAsSection(section);
+            AddChild(section);
+        }
+        protected void _addSectionAfterUpdate(MenuItem section)
+        {
+            _addAsSection(section);
+            AddChildAfterUpdate(section);
+        }
+
+        protected void _removeSection(MenuItem section)
+        {
+            _sections.Remove(section);
+            RemoveChild(section);
+        }
+        protected void _removeSectionAfterUpdate(MenuItem section)
+        {
+            _sections.Remove(section);
+            RemoveChildAfterUpdate(section);
+        }
+
+        private void _addAsSection(MenuItem section)
         {
             var chipFullSize = GetFullBaseSize();
             section.SetLocationConfig(0, chipFullSize.Y - 1, CoordinateMode.ParentPixelOffset, false);
 
+            section.ScaleMultiplier = this.ScaleMultiplier;
+            section.UpdateDimensionsCascade(ActualLocation,chipFullSize);
+
             _sections.Add(section);
-            AddChild(section);
         }
 
         protected override void _drawSelf(DrawingInterface drawingInterface)

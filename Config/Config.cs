@@ -26,5 +26,9 @@ namespace IAmACube
         public static int MenuItemScale = 4;
 
         public static Color DefaultTextColor = Color.Black;
+
+        public const int ScreenDefaultWidth = 1024;//1024
+        public const int ScreenDefaultHeight = 768;//768
+
     }
 }

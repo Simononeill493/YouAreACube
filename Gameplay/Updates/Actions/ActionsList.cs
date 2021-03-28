@@ -9,29 +9,29 @@ namespace IAmACube
     [Serializable()]
     public class ActionsList
     {
-        public List<Action> Actions = new List<Action>();
+        public List<BlockAction> Actions = new List<BlockAction>();
 
         public void StartMove(Block block,CardinalDirection direction)
         {
-            var moveCardinalAction = new Action(block, ActionType.CardinalMovement) { CardinalDir = direction, MoveTotalTicks = block.Speed };
+            var moveCardinalAction = new BlockAction(block, ActionType.CardinalMovement) { CardinalDir = direction, MoveTotalTicks = block.Speed };
             Actions.Add(moveCardinalAction);
         }
 
         public void StartMove(Block block, RelativeDirection direction)
         {
-            var moveRelativeAction = new Action(block, ActionType.RelativeMovement) { RelativeDir = direction, MoveTotalTicks = block.Speed };
+            var moveRelativeAction = new BlockAction(block, ActionType.RelativeMovement) { RelativeDir = direction, MoveTotalTicks = block.Speed };
             Actions.Add(moveRelativeAction);
         }
 
         public void StartRotation(Block block, int rotation)
         {
-            var rotationAction = new Action(block, ActionType.Rotation) { Rotation = rotation };
+            var rotationAction = new BlockAction(block, ActionType.Rotation) { Rotation = rotation };
             Actions.Add(rotationAction);
         }
 
         public void CreateBlock(Block block, BlockTemplate toCreate, BlockType blockType,CardinalDirection direction)
         {
-            var creationAction = new Action(block, ActionType.CardinalCreation) { BlockTemplate = toCreate, BlockType = blockType, CardinalDir = direction };
+            var creationAction = new BlockAction(block, ActionType.CardinalCreation) { BlockTemplate = toCreate, BlockType = blockType, CardinalDir = direction };
             Actions.Add(creationAction);
         }
     }

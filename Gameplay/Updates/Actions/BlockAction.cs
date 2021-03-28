@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class Action
+    public class BlockAction
     {
         public ActionType ActionType;
         public Block Actor;
@@ -20,7 +20,7 @@ namespace IAmACube
         public BlockType BlockType;
         public BlockTemplate BlockTemplate;
 
-        public Action(Block actor,ActionType actionType)
+        public BlockAction(Block actor,ActionType actionType)
         {
             ActionType = actionType;
             Actor = actor;

@@ -9,27 +9,33 @@ namespace IAmACube
 {
     class ChipIfElseSwitchSection : SpriteMenuItem
     {
-        private IfElseChipExtensionMode Mode = IfElseChipExtensionMode.None;
+        public IfElseChipExtensionMode CurrentMode = IfElseChipExtensionMode.None;
 
-        public ChipIfElseSwitchSection(IHasDrawLayer parent,Color parentColor) : base(parent, "ChipFullMiddle")
+        private TextBoxMenuItem _yesButton;
+        private TextBoxMenuItem _noButton;
+
+        private Action<IfElseChipExtensionMode> _switchChangedCallback;
+
+        public ChipIfElseSwitchSection(IHasDrawLayer parent,Color parentColor, Action<IfElseChipExtensionMode> switchChangedCallback) : base(parent, "ChipFullMiddle")
         {
             ColorMask = parentColor;
 
-            var yesButton = new TextBoxMenuItem(this, "Yes") {SpriteName= "IfChipSwitchButton" };
-            yesButton.SetLocationConfig(0, 1, CoordinateMode.ParentPixelOffset);
-            yesButton.OnMouseReleased += (i) => _yesButtonClicked();
-            AddChild(yesButton);
+            _yesButton = new TextBoxMenuItem(this, "Yes") {SpriteName= "IfChipSwitchButton" };
+            _yesButton.SetLocationConfig(0, 1, CoordinateMode.ParentPixelOffset);
+            _yesButton.OnMouseReleased += (i) => _yesButtonClicked();
+            AddChild(_yesButton);
 
-            var noButton = new TextBoxMenuItem(this, "No") { SpriteName = "IfChipSwitchButton" };
-            noButton.SetLocationConfig(80, 1, CoordinateMode.ParentPixelOffset);
-            noButton.OnMouseReleased += (i) => _noButtonClicked();
+            _noButton = new TextBoxMenuItem(this, "No") { SpriteName = "IfChipSwitchButton" };
+            _noButton.SetLocationConfig(80, 1, CoordinateMode.ParentPixelOffset);
+            _noButton.OnMouseReleased += (i) => _noButtonClicked();
+            AddChild(_noButton);
 
-            AddChild(noButton);
+            _switchChangedCallback = switchChangedCallback;
         }
 
         private void _yesButtonClicked()
         {
-            switch (Mode)
+            switch (CurrentMode)
             {
                 case IfElseChipExtensionMode.None:
                 case IfElseChipExtensionMode.No:
@@ -42,7 +48,7 @@ namespace IAmACube
         }
         private void _noButtonClicked()
         {
-            switch (Mode)
+            switch (CurrentMode)
             {
                 case IfElseChipExtensionMode.None:
                 case IfElseChipExtensionMode.Yes:
@@ -54,9 +60,25 @@ namespace IAmACube
             }
         }
 
-        private void _switchMode(IfElseChipExtensionMode mode)
+        private void _switchMode(IfElseChipExtensionMode newMode)
         {
-            Mode = mode;
+            switch (newMode)
+            {
+                case IfElseChipExtensionMode.None:
+                    _yesButton.ColorMask = Color.White;
+                    _noButton.ColorMask = Color.White;
+                    break;
+                case IfElseChipExtensionMode.No:
+                    _yesButton.ColorMask = Color.White;
+                    _noButton.ColorMask = Color.LightGreen;
+                    break;
+                case IfElseChipExtensionMode.Yes:
+                    _yesButton.ColorMask = Color.LightGreen;
+                    _noButton.ColorMask = Color.White;
+                    break;
+            }
+            _switchChangedCallback(newMode);
+            CurrentMode = newMode;
         }
     }
 

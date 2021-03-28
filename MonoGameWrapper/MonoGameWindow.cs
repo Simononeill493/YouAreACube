@@ -16,11 +16,7 @@ namespace IAmACube
 {
     public class MonoGameWindow : Microsoft.Xna.Framework.Game
     {
-        //public static int CurrentWidth;
-        //public static int CurrentHeight;
-
         public static Point CurrentSize;
-        //public static int CurrentHeight;
 
         private DrawingInterface _drawingInterface;
         private PrimitivesHelper _primitivesHelper;
@@ -30,7 +26,6 @@ namespace IAmACube
         private ScreenManager _screenManager;
 
         private KeyboardState _currentKeyboardState;
-        private IEnumerable<Keys> _allKeys;
 
         FrameCounter _frameCounter = new FrameCounter();
 
@@ -43,9 +38,7 @@ namespace IAmACube
             Window.AllowUserResizing = true;
 
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
-            _graphicsDeviceManager.PreferredBackBufferWidth = 1024; //Set the screen size.
-            _graphicsDeviceManager.PreferredBackBufferHeight = 768;
-            _graphicsDeviceManager.ApplyChanges();
+            _setScreenSizeToDefault();
             #endregion
 
             CurrentSize = new Point(_graphicsDeviceManager.GraphicsDevice.Viewport.Width, _graphicsDeviceManager.GraphicsDevice.Viewport.Height);
@@ -59,8 +52,6 @@ namespace IAmACube
             _screenManager = new ScreenManager();
 
             _currentKeyboardState = Keyboard.GetState();
-
-            _allKeys = typeof(Keys).GetEnumValues().Cast<Keys>();
 
             Window.Position = new Microsoft.Xna.Framework.Point(16, 32);
         }
@@ -100,6 +91,13 @@ namespace IAmACube
             base.Update(gameTime);
         }
 
+        private void _setScreenSizeToDefault()
+        {
+            _graphicsDeviceManager.PreferredBackBufferWidth = Config.ScreenDefaultWidth; //Set the screen size.
+            _graphicsDeviceManager.PreferredBackBufferHeight = Config.ScreenDefaultHeight;
+            _graphicsDeviceManager.ApplyChanges();
+        }
+
         protected override void Draw(GameTime gameTime)
         {
             if(Config.EnableFrameCounter)
@@ -121,6 +119,8 @@ namespace IAmACube
         {
             _primitivesHelper.LoadContent(GraphicsDevice, Content);
             _screenManager.Init();
+
+            _setScreenSizeToDefault();
         }
 
         protected override void UnloadContent()
@@ -133,6 +133,5 @@ namespace IAmACube
         {
             Process.GetCurrentProcess().Kill();
         }
-
     }
 }

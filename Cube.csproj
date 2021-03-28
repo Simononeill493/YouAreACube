@@ -78,7 +78,7 @@
     <Compile Include="Gameplay\Updates\Destruction\DestructionManager.cs" />
     <Compile Include="Gameplay\Direction\RelativeDirection.cs" />
     <Compile Include="Gameplay\Direction\Orientation.cs" />
-    <Compile Include="Gameplay\Updates\Actions\Action.cs" />
+    <Compile Include="Gameplay\Updates\Actions\BlockAction.cs" />
     <Compile Include="Gameplay\Updates\Actions\ActionManager.cs" />
     <Compile Include="Gameplay\Updates\Actions\ActionsList.cs" />
     <Compile Include="Gameplay\Updates\Actions\ActionType.cs" />

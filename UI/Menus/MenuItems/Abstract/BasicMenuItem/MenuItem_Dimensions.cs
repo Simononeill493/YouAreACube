@@ -22,11 +22,8 @@ namespace IAmACube
         }
 
         public void SetLocationConfig(int x, int y, CoordinateMode coordinateMode, bool centered = false) => SetLocationConfig(new Point(x, y), coordinateMode, centered);
-        public void SetLocationConfig(Point location, CoordinateMode coordinateMode, bool centered = false)
-        {
-            _locationConfig = (location, coordinateMode, centered);
-        }
-       
+        public void SetLocationConfig(Point location, CoordinateMode coordinateMode, bool centered = false) => _locationConfig = (location, coordinateMode, centered);
+
         public void UpdateDimensionsCascade(Point parentlocation, Point parentSize)
         {
             UpdateDimensions(parentlocation, parentSize);
@@ -46,10 +43,8 @@ namespace IAmACube
                 child.MultiplyScaleCascade(multiplier);
             }
         }
-        public void MultiplyScale(float multiplier)
-        {
-            ScaleMultiplier *= multiplier;
-        }
+        public void MultiplyScale(float multiplier) => ScaleMultiplier *= multiplier;
+        
 
         protected void _updateLocation(Point parentlocation, Point parentSize)
         {
@@ -75,10 +70,8 @@ namespace IAmACube
 
             ActualLocation = location;
         }
-        protected void _updateScale()
-        {
-            Scale = GenerateScaleFromMultiplier(ScaleMultiplier);
-        }
+        protected void _updateScale() => Scale = GenerateScaleFromMultiplier(ScaleMultiplier);
+
 
         protected virtual void _updateChildDimensions()
         {
@@ -89,14 +82,15 @@ namespace IAmACube
             }
         }
 
-        public Point GetLocationOffset(Point mousePos)
-        {
-            return mousePos - ActualLocation;
-        }
+        public static int GenerateScaleFromMultiplier(float multiplier) => (int)(MenuScreen.Scale * multiplier);
+
+        public Point GetLocationOffset(Point mousePos)=> mousePos - ActualLocation;
         public Point GetCurrentSize() => GetBaseSize() * Scale;
         public abstract Point GetBaseSize();
 
-        public static int GenerateScaleFromMultiplier(float multiplier) => (int)(MenuScreen.Scale * multiplier);
+
+        public bool IsIntersectedWith(MenuItem item) => IsIntersectedWith(item.GetItemRectangle());
+        public bool IsIntersectedWith(Rectangle rect) => GetItemRectangle().Intersects(rect);
 
         public Rectangle GetItemRectangle()
         {
@@ -104,15 +98,5 @@ namespace IAmACube
             return new Rectangle(ActualLocation.X, ActualLocation.Y, size.X, size.Y);
         }
 
-        public bool IsIntersectedWith(MenuItem item)
-        {
-            return IsIntersectedWith(item.GetItemRectangle());
-        }
-        public bool IsIntersectedWith(Rectangle rect)
-        {
-            var thisRect = GetItemRectangle();
-            var contains = thisRect.Intersects(rect);
-            return contains;
-        }
     }
 }

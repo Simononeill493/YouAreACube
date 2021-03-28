@@ -27,6 +27,7 @@ namespace IAmACube
             {
                 chip.LiftChipFromChipset = _liftChipsFromChipset;
                 chip.ChipsetRefreshTextCallback = _refreshText;
+                chip.ChipsetRefreshAllCallback = _refreshAll;
             }
 
             _refreshAll();

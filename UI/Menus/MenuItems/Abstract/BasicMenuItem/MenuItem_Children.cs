@@ -18,13 +18,7 @@ namespace IAmACube
         public void RemoveChild(MenuItem item) => _children.Remove(item);
 
         public void AddChildren<T>(List<T> items) where T : MenuItem => _children.AddRange(items);
-        public void RemoveChildren<T>(List<T> toRemove) where T : MenuItem
-        {
-            foreach (var item in toRemove)
-            {
-                _children.Remove(item);
-            }
-        }
+        public void RemoveChildren<T>(List<T> toRemove) where T : MenuItem => toRemove.ForEach(item => _children.Remove(item));
         
         public void AddChildAfterUpdate(MenuItem item) => _toAdd.Add(item);
         public void AddChildrenAfterUpdate<T>(List<T> items) where T : MenuItem => _toAdd.AddRange(items);
