@@ -27,15 +27,14 @@ namespace IAmACube
             AddChild(_text);
         }
 
-        public ChipTop GenerateChip(float scale)
+        public ChipTop GenerateChip(float scale,Func<EditableChipset> subChipsetGenerator)
         {
             var chipHoverLayer = ManualDrawLayer.Create(DrawLayers.MenuBehindLayer-DrawLayers.MinLayerDistance);
 
             ChipTop chip = null;
-
             if(Chip.Name.Equals("If"))
             {
-                chip = new ChipTopIfElse(chipHoverLayer, this.Chip);
+                chip = new ChipTopIfElse(chipHoverLayer, this.Chip, subChipsetGenerator(), subChipsetGenerator());
             }
             else
             {

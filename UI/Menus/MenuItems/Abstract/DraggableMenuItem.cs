@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    abstract class DraggableMenuItem : SpriteMenuItem
+    public abstract class DraggableMenuItem : SpriteMenuItem
     {
         public event System.Action<UserInput> OnStartDrag;
         public event System.Action<UserInput> OnEndDrag;

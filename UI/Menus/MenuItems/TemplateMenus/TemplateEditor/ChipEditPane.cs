@@ -43,23 +43,6 @@ namespace IAmACube
             _createAndAttachNewChipsetToMouse(preview,input);
         }
 
-        private (EditableChipset chipset, int chipIndex) _getFirstChipsetThatMouseIsOver(UserInput input, EditableChipset chipsetJustReleased)
-        {
-            foreach (var chipset in _chipsets)
-            {
-                if (chipset != chipsetJustReleased)
-                {
-                    var pos = chipset.GetChipIndexThatMouseIsOver(input);
-                    if (pos != -1)
-                    {
-                        return (chipset, pos);
-                    }
-                }
-            }
-
-            return (null, -1);
-        }
-
         private void _chipsetDropped(EditableChipset releasedChipset, UserInput input)
         {
             if (IsMouseOverSearchPane(input))
@@ -68,22 +51,57 @@ namespace IAmACube
             }
             else
             {
-                _attachChipsetToPane(releasedChipset, input);
+                _attachChipset(releasedChipset, input);
             }
         }
-        private void _attachChipsetToPane(EditableChipset releasedChipset, UserInput input)
+        private void _attachChipset(EditableChipset releasedChipset, UserInput input)
         {
-            var (chipsetDroppedOn, index) = _getFirstChipsetThatMouseIsOver(input, releasedChipset);
+            var (chipsetDroppedOn, index, isBottom) = _getFirstChipsetThatMouseIsOver(input, releasedChipset);
             if (chipsetDroppedOn != null)
             {
-                chipsetDroppedOn.AppendChips(releasedChipset.Chips, index);
-                _deleteChipset(releasedChipset);
+                _attachChipsetToOtherChipset(releasedChipset, chipsetDroppedOn, index + (isBottom ? 1 : 0));
             }
             else
             {
-                _alignChipsetToPixels(releasedChipset, GetCurrentSize());
-                _setChipsetVisiblity(releasedChipset);
+                _attachChipsetToPane(releasedChipset);
             }
+        }
+
+        private void _attachChipsetToPane(EditableChipset releasedChipset)
+        {
+            _alignChipsetToPixels(releasedChipset, GetCurrentSize());
+            _setChipsetVisiblity(releasedChipset);
+        }
+        private void _attachChipsetToOtherChipset(EditableChipset releasedChipset, EditableChipset chipsetDroppedOn, int index)
+        {
+            var chipsToAppend = releasedChipset.PopChips(0);
+            chipsetDroppedOn.AppendChips(chipsToAppend, index);
+            _deleteChipset(releasedChipset);
+        }
+
+        private (EditableChipset chipset, int chipIndex, bool isBottom) _getFirstChipsetThatMouseIsOver(UserInput input, EditableChipset chipsetJustReleased)
+        {
+            foreach (var chipset in _chipsets)
+            {
+                if (chipset != chipsetJustReleased)
+                {
+                    var pos = chipset.GetChipIndexThatMouseIsOver(input);
+                    if (pos.index != -1)
+                    {
+                        var (subChipset, subIndex, bottom) = chipset.GetSubChipThatMouseIsOverIfAny(input,pos.index);
+                        if(subChipset !=null)
+                        {
+                            return (subChipset, subIndex, bottom);
+                        }
+                        else
+                        {
+                            return (chipset, pos.index, pos.bottom);
+                        }
+                    }
+                }
+            }
+
+            return (null, -1, false);
         }
 
         private void _alignChipsetToPixels(EditableChipset chip, Point planeSize)
@@ -101,6 +119,7 @@ namespace IAmACube
             AddChildAfterUpdate(chipset);
         }
 
+        private EditableChipset _createChipset() => _createChipset(new List<ChipTop>());
         private EditableChipset _createChipset(ChipTop chip) => _createChipset(new List<ChipTop>() { chip });
         private EditableChipset _createChipset(List<ChipTop> chips) => EditableChipsetFactory.Create(this, chips, _chipScaleMultiplier, _chipsLiftedFromPane, _chipsetDropped);
         private void _deleteChipset(EditableChipset chipset)
@@ -112,7 +131,7 @@ namespace IAmACube
         }
 
         private void _chipsLiftedFromPane(List<ChipTop> chips, UserInput input) => _attachNewChipsetToMouse(_createChipset(chips), input);
-        private void _createAndAttachNewChipsetToMouse(ChipPreview preview, UserInput input) => _attachNewChipsetToMouse(_createChipset(preview.GenerateChip(_chipScaleMultiplier)), input);
+        private void _createAndAttachNewChipsetToMouse(ChipPreview preview, UserInput input) => _attachNewChipsetToMouse(_createChipset(preview.GenerateChip(_chipScaleMultiplier, _createChipset)), input);
 
         #region visuals
         protected override void _updateChildDimensions()

@@ -8,19 +8,41 @@ namespace IAmACube
 { 
     class ChipTopIfElse : ChipTop
     {
+        private ChipIfElseSwitchSection _ifElseSwitch;
+
         private List<MenuItem> _yesItems;
         private List<MenuItem> _noItems;
 
-        private ChipIfElseSwitchSection _ifElseSwitch;
+        private EditableChipset _yesChipset;
+        private EditableChipset _noChipset;
 
-        public ChipTopIfElse(IHasDrawLayer parent, ChipData data) : base(parent, data)
+        private MenuItem _currentSectionBackground;
+        private EditableChipset _currentChipset;
+
+        public ChipTopIfElse(IHasDrawLayer parent, ChipData data,EditableChipset yesChipset,EditableChipset noChipset) : base(parent, data)
         {
             _createInputSections(Chip);
             _createIfElseSwitch();
 
-            _yesItems = new List<MenuItem>() { new SpriteMenuItem(this, "ChipFullGreyed") };
-            _noItems = new List<MenuItem>() { new SpriteMenuItem(this, "ChipFull") };
+            _yesChipset = yesChipset;
+            _noChipset = noChipset;
+
+            _yesItems = new List<MenuItem>() { _yesChipset,new SpriteMenuItem(this, "ChipFullGreyed") };
+            _noItems = new List<MenuItem>() { _noChipset,new SpriteMenuItem(this, "ChipFullGreyed") };
         }
+
+        public override (EditableChipset chipset, int index, bool bottom) GetSubChipThatMouseIsOverIfAny(UserInput input)
+        {
+            if (_ifElseSwitch.CurrentMode != IfElseChipExtensionMode.None)
+            {
+                if(_currentSectionBackground.MouseHovering)
+                {
+                    return (_currentChipset, 0, false);
+                }
+            }
+
+            return (null, -1, false);
+        } 
 
         private void _createIfElseSwitch()
         {
@@ -35,14 +57,20 @@ namespace IAmACube
                 case IfElseChipExtensionMode.None:
                     if (_ifElseSwitch.CurrentMode == IfElseChipExtensionMode.Yes) { _removeSwitchItems(_yesItems); }
                     if (_ifElseSwitch.CurrentMode == IfElseChipExtensionMode.No) { _removeSwitchItems(_noItems); }
+                    _currentSectionBackground = null;
+                    _currentChipset = null;
                     break;
                 case IfElseChipExtensionMode.Yes:
                     if(_ifElseSwitch.CurrentMode== IfElseChipExtensionMode.No) { _removeSwitchItems(_noItems);}
                     _addSwitchItems(_yesItems);
+                    _currentSectionBackground = _yesItems.Last();
+                    _currentChipset = _yesChipset;
                     break;
                 case IfElseChipExtensionMode.No:
                     if (_ifElseSwitch.CurrentMode == IfElseChipExtensionMode.Yes) { _removeSwitchItems(_yesItems); }
                     _addSwitchItems(_noItems);
+                    _currentSectionBackground = _noItems.Last();
+                    _currentChipset = _noChipset;
                     break;
             }
 

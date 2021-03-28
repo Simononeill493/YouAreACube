@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    partial class EditableChipset : DraggableMenuItem
+    public partial class EditableChipset : DraggableMenuItem
     {
         private ChipTop _topChip;
 
@@ -53,8 +53,11 @@ namespace IAmACube
                 SetNotDraggableFrom(_topChip);
             }
 
-            _topChip = Chips.First();
-            SetDraggableFrom(_topChip);
+            if(Chips.Count>0)
+            {
+                _topChip = Chips.First();
+                SetDraggableFrom(_topChip);
+            }
         }
 
         private void _refreshText() => Chips.ForEach(c => c.RefreshText());

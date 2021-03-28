@@ -43,7 +43,7 @@ namespace IAmACube
             return toRemove;
         }
 
-        public int GetChipIndexThatMouseIsOver(UserInput input)
+        public (int index, bool bottom) GetChipIndexThatMouseIsOver(UserInput input)
         {
             for (int i = 0; i < Chips.Count; i++)
             {
@@ -51,15 +51,16 @@ namespace IAmACube
                 {
                     if (Chips[i].IsMouseOverBottomSection())
                     {
-                        return i + 1;
+                        return (i, true);
                     }
 
-                    return i;
+                    return (i, false);
                 }
             }
 
-            return -1;
+            return (-1, false);
         }
+        public (EditableChipset chipset, int index, bool bottom) GetSubChipThatMouseIsOverIfAny(UserInput input, int index) => Chips[index].GetSubChipThatMouseIsOverIfAny(input);
 
         public Point DefaultMouseDragOffset => Chips.First().GetCurrentSize() / 2;
         public Point GetFullBaseSize()

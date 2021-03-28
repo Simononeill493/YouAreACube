@@ -33,6 +33,8 @@ namespace IAmACube
             _inputSections = new List<ChipMiddleSection>();
         }
 
+        public virtual (EditableChipset chipset, int index, bool bottom) GetSubChipThatMouseIsOverIfAny(UserInput input) => (null, -1, false);
+
         private void _chipDraggedHandler(UserInput input)
         {
             if (!MenuScreen.UserDragging)
