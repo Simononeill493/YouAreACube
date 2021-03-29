@@ -51,7 +51,7 @@ namespace IAmACube
 
         public virtual bool TryStartDrag(UserInput input, Point offset)
         {
-            if (!Dragging & !MenuScreen.UserDragging)
+            if (!Dragging & !MenuScreen.IsUserDragging)
             {
                 _startDrag(input,offset);
                 return true;
@@ -64,7 +64,7 @@ namespace IAmACube
         {
             OffsetDrawLayerCascade(-DrawLayers.MenuDragOffset);
 
-            MenuScreen.UserDragging = true;
+            MenuScreen.DraggedItem = this;
             Dragging = true;
             _dragOffset = offset;
 
@@ -75,7 +75,7 @@ namespace IAmACube
         {
             OffsetDrawLayerCascade(DrawLayers.MenuDragOffset);
 
-            MenuScreen.UserDragging = false;
+            MenuScreen.DraggedItem = null;
             Dragging = false;
 
             OnEndDrag?.Invoke(input);

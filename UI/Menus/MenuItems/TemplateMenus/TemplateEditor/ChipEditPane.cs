@@ -39,7 +39,7 @@ namespace IAmACube
 
         public void TryCreateChipsetFromSearchPane(ChipPreview preview, UserInput input)
         {
-            if (MenuScreen.UserDragging) { return; }
+            if (MenuScreen.IsUserDragging) { return; }
             _createAndAttachNewChipsetToMouse(preview,input);
         }
 
@@ -69,6 +69,8 @@ namespace IAmACube
 
         private void _attachChipsetToPane(EditableChipset releasedChipset)
         {
+            releasedChipset.LiftChipsCallback = _chipsLiftedFromPane;
+
             _alignChipsetToPixels(releasedChipset, GetCurrentSize());
             _setChipsetVisiblity(releasedChipset);
         }
@@ -114,6 +116,7 @@ namespace IAmACube
         private void _attachNewChipsetToMouse(EditableChipset chipset, UserInput input)
         {
             chipset.TryStartDrag(input, chipset.DefaultMouseDragOffset);
+            chipset.OnEndDrag += (i) => _chipsetDropped(chipset, i);
 
             _chipsets.Add(chipset);
             AddChildAfterUpdate(chipset);
@@ -121,7 +124,7 @@ namespace IAmACube
 
         private EditableChipset _createChipset() => _createChipset(new List<ChipTop>());
         private EditableChipset _createChipset(ChipTop chip) => _createChipset(new List<ChipTop>() { chip });
-        private EditableChipset _createChipset(List<ChipTop> chips) => EditableChipsetFactory.Create(this, chips, _chipScaleMultiplier, _chipsLiftedFromPane, _chipsetDropped);
+        private EditableChipset _createChipset(List<ChipTop> chips) => EditableChipsetFactory.Create(this, chips, _chipScaleMultiplier);
         private void _deleteChipset(EditableChipset chipset)
         {
             _chipsets.Remove(chipset);

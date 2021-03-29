@@ -42,7 +42,7 @@ namespace IAmACube
             #endregion
 
             CurrentSize = new Point(_graphicsDeviceManager.GraphicsDevice.Viewport.Width, _graphicsDeviceManager.GraphicsDevice.Viewport.Height);
-
+            oldInput = new UserInput(Mouse.GetState(), Mouse.GetState(), Keyboard.GetState(), new List<Keys>(), new List<Keys>());
             _attachedConsoleManager = new AttachedConsoleManager(GraphicsDevice,Window.Position);
             this.Window.ClientSizeChanged += _attachedConsoleManager.ConsoleMoveEventHandler;
 
@@ -85,11 +85,15 @@ namespace IAmACube
             }
 
             _currentKeyboardState = newKeyState;
-            var input = new UserInput(mouseState, _currentKeyboardState, keysDown, keysUp);
+            var input = new UserInput(mouseState,oldInput.MouseState, _currentKeyboardState, keysDown, keysUp);
 
             _screenManager.Update(input);
             base.Update(gameTime);
+
+            oldInput = input;
         }
+
+        UserInput oldInput;
 
         private void _setScreenSizeToDefault()
         {

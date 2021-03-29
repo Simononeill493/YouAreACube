@@ -27,7 +27,7 @@ namespace IAmACube
             _text.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
             AddChild(_text);
 
-            OnMouseReleased += (i) =>
+            OnMousePressed += (i) =>
             {
                 if(Visible)
                 {

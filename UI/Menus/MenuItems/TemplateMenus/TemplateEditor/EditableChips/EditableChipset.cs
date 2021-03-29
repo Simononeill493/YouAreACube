@@ -23,15 +23,17 @@ namespace IAmACube
             Chips.InsertRange(index, toAdd);
             AddChildren(toAdd);
 
-            foreach(var chip in toAdd)
-            {
-                chip.LiftChipFromChipset = _liftChipsFromChipset;
-                chip.ChipsetRefreshTextCallback = _refreshText;
-                chip.ChipsetRefreshAllCallback = _refreshAll;
-            }
+            toAdd.ForEach(chip => _setChipCallbacks(chip));
 
             _refreshAll();
         }
+        private void _setChipCallbacks(ChipTop chip)
+        {
+            chip.LiftChipFromChipset = _liftChipsFromChipset;
+            chip.ChipsetRefreshTextCallback = _refreshText;
+            chip.ChipsetRefreshAllCallback = _refreshAll;
+        }
+
         public List<ChipTop> PopChips(int index)
         {
             var toRemove = Chips.Skip(index).ToList();
@@ -41,6 +43,12 @@ namespace IAmACube
             _refreshAll();
 
             return toRemove;
+        }
+        private void _liftChipsFromChipset(UserInput input, int index) => LiftChipsCallback(PopChips(index), input);
+
+        public override void Update(UserInput input)
+        {
+            base.Update(input);
         }
 
         public (int index, bool bottom) GetChipIndexThatMouseIsOver(UserInput input)
@@ -62,6 +70,10 @@ namespace IAmACube
         }
         public (EditableChipset chipset, int index, bool bottom) GetSubChipThatMouseIsOverIfAny(UserInput input, int index) => Chips[index].GetSubChipThatMouseIsOverIfAny(input);
 
+
+
+
+
         public Point DefaultMouseDragOffset => Chips.First().GetCurrentSize() / 2;
         public Point GetFullBaseSize()
         {
@@ -70,7 +82,7 @@ namespace IAmACube
             {
                 var chipSize = chip.GetFullBaseSize();
                 size.Y += chipSize.Y;
-                if(chipSize.X > size.X)
+                if (chipSize.X > size.X)
                 {
                     size.X = chipSize.X;
                 }
@@ -86,7 +98,5 @@ namespace IAmACube
 
             return new Rectangle(chipLoc.X, chipLoc.Y, fullSize.X, fullSize.Y);
         }
-
-        private void _liftChipsFromChipset(UserInput input, int index) => LiftChipsCallback(PopChips(index), input);
     }
 }

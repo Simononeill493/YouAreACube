@@ -37,7 +37,7 @@ namespace IAmACube
 
         private void _chipDraggedHandler(UserInput input)
         {
-            if (!MenuScreen.UserDragging)
+            if (!MenuScreen.IsUserDragging)
             {
                 LiftChipFromChipset(input, CurrentPositionInChipset);
             }
@@ -103,11 +103,31 @@ namespace IAmACube
             _sections.Add(section);
         }
 
+        public override void Update(UserInput input)
+        {
+            base.Update(input);
+            
+            if(input.IsKeyJustPressed(Microsoft.Xna.Framework.Input.Keys.R))
+            {
+                _refreshSectionPositions();
+                UpdateDimensionsCascade(ActualLocation, GetBaseSize());
+            }
+        }
+        private void _refreshSectionPositions()
+        {
+            var height = GetBaseSize().Y;
+            for (int i = 1; i < _sections.Count; i++)
+            {
+                _sections[i].SetLocationConfig(0, height - 1, CoordinateMode.ParentPixelOffset);
+                height += _sections[i].GetBaseSize().Y;
+            }
+        }
+
         protected override void _drawSelf(DrawingInterface drawingInterface)
         {
             base._drawSelf(drawingInterface);
 
-            if (MenuScreen.UserDragging & IsMouseOverAnySection())
+            if (IsMouseOverAnySection() & (MenuScreen.DraggedItem!=null))
             {
                 _highlightInsertionPoint(drawingInterface);
             }
@@ -152,7 +172,26 @@ namespace IAmACube
             return _sections.Last().MouseHovering;
         }
 
-        public virtual Point GetFullBaseSize() => new Point(GetBaseSize().X, _sections.Sum(s => s.GetBaseSize().Y) - (_sections.Count));
+        public virtual Point GetFullBaseSize()
+        {
+            var fullBaseSize = new Point(GetBaseSize().X, 0);
+
+            foreach(var s in _sections)
+            {
+                var asChipset = (s as EditableChipset);
+                if(asChipset!=null)
+                {
+                    fullBaseSize.Y += asChipset.GetFullBaseSize().Y;
+                }
+                else
+                {
+                    fullBaseSize.Y += s.GetBaseSize().Y;
+                }
+            }
+
+            fullBaseSize.Y -= _sections.Count;
+            return fullBaseSize;
+        }
         public Point GetFullSize() => GetFullBaseSize() * Scale;
 
         public void RefreshText() => _inputSections.ForEach(m => m.RefreshText());

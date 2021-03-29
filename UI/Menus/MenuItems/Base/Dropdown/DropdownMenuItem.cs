@@ -71,6 +71,15 @@ namespace IAmACube
             SetItems(newItems);
         }
 
+        public override void Update(UserInput input)
+        {
+            base.Update(input);
+            if(input.MouseLeftJustPressed & !MouseHovering)
+            {
+                Dropped = false;
+            }
+        }
+
         private void DropdownClicked(T item)
         {
             Selected = item;
@@ -87,14 +96,8 @@ namespace IAmACube
             _dropdownItems.Clear();
         }
 
-        private void _setItemsVisibility(bool visible)
-        {
-            foreach (var item in _dropdownItems)
-            {
-                item.Visible = visible;
-            }
-        }
-
+        private void _setItemsVisibility(bool visible) => _dropdownItems.ForEach(item => item.Visible = visible);
+        
         public void RefreshText()
         {
             if(IsItemSelected)

@@ -23,7 +23,9 @@ namespace IAmACube
 
         public bool MouseHovering { get; private set; } = false;
         protected bool _mousePressedOn = false;
-        protected Point _lastMouseClickLocation = Point.Zero;
+        protected Point _lastMousePressedLocation = Point.Zero;
+
+        protected bool _mousePressedForClick;
 
         public MenuItem(IHasDrawLayer parentDrawLayer)
         {
@@ -60,26 +62,30 @@ namespace IAmACube
 
             if (MouseHovering)
             {
-                if(_mousePressedOn & (_lastMouseClickLocation != input.MousePos))
+                if(_mousePressedOn & (_lastMousePressedLocation != input.MousePos))
                 {
                     OnMouseDraggedOn?.Invoke(input);
                 }
 
-                if (input.MouseLeftPressed) //Mouse Pressed
+                if (input.MouseLeftJustPressed) //Mouse Pressed
                 {
                     _mousePressedOn = true;
-                    _lastMouseClickLocation = input.MousePos;
+                    _lastMousePressedLocation = input.MousePos;
                     OnMousePressed?.Invoke(input);
                 }
-                else if(_mousePressedOn & input.MouseLeftReleased) //Mouse released
+                else if(input.MouseLeftReleased) //Mouse released
                 {
-                    _mousePressedOn = false;
-                    OnMouseReleased?.Invoke(input);
+                    if(_mousePressedOn)
+                    {
+                        _mousePressedOn = false;
+                        OnMouseReleased?.Invoke(input);
+                    }
                 }
             }
             else
             {
                 _mousePressedOn = false;
+                _mousePressedForClick = false;
             }
 
             _updateChildren(input);

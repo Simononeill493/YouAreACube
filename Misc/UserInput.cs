@@ -20,7 +20,7 @@ namespace IAmACube
         public List<Keys> KeysJustPressed;
         public List<Keys> KeysJustReleased;
 
-        public UserInput(MouseState mouseState, KeyboardState keyboardState, List<Keys> keysJustPressed, List<Keys> keysJustReleased)
+        public UserInput(MouseState mouseState, MouseState oldMouseState,KeyboardState keyboardState, List<Keys> keysJustPressed, List<Keys> keysJustReleased)
         {
             MouseState = mouseState;
             KeyboardState = keyboardState;
@@ -39,6 +39,9 @@ namespace IAmACube
 
             MouseLeftReleased = MouseState.LeftButton == ButtonState.Released;
             MouseRightReleased = MouseState.RightButton == ButtonState.Released;
+
+            MouseLeftJustPressed = MouseLeftPressed & (oldMouseState.LeftButton == ButtonState.Released);
+            MouseRightJustPressed = MouseRightPressed & (oldMouseState.RightButton == ButtonState.Released);
         }
 
         public bool IsKeyDown(Keys key) => KeyboardState.IsKeyDown(key);
@@ -46,6 +49,9 @@ namespace IAmACube
 
         public bool IsKeyJustPressed(Keys key) => KeysJustPressed.Contains(key);
         public bool IsKeyJustReleased(Keys key) => KeysJustReleased.Contains(key);
+
+        public bool MouseLeftJustPressed;
+        public bool MouseRightJustPressed;
 
         public bool MouseLeftPressed;
         public bool MouseRightPressed;
