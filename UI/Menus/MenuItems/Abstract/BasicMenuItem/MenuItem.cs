@@ -62,7 +62,7 @@ namespace IAmACube
 
             if (MouseHovering)
             {
-                if(_mousePressedOn & (_lastMousePressedLocation != input.MousePos))
+                if(_mousePressedOn & (_lastMousePressedLocation != input.MousePos) & !MenuScreen.IsUserDragging)
                 {
                     OnMouseDraggedOn?.Invoke(input);
                 }

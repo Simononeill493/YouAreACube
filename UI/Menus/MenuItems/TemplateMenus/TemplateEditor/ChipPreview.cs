@@ -16,7 +16,7 @@ namespace IAmACube
         public ChipPreview(IHasDrawLayer parent, ChipData chip) : base(parent, "ChipSmall")
         {
             Chip = chip;
-            ColorMask = Chip.ChipType.GetColor();
+            ColorMask = Chip.ChipDataType.GetColor();
 
             _text = new TextMenuItem(this);
             _text.Color = Color.White;
@@ -27,23 +27,20 @@ namespace IAmACube
             AddChild(_text);
         }
 
-        public ChipTop GenerateChip(float scale,Func<EditableChipset> subChipsetGenerator)
+        public ChipTop GenerateChip()
         {
-            var chipHoverLayer = ManualDrawLayer.Create(DrawLayers.MenuBehindLayer-DrawLayers.MinLayerDistance);
+            //var initialDrawLayer = ManualDrawLayer.Create(DrawLayers.MenuBehindLayer - DrawLayers.MinLayerDistance);
+            var initialDrawLayer = ManualDrawLayer.Zero;
+            //var initialDrawLayer = ManualDrawLayer.Create(DrawLayers.MenuHoverLayer);
 
-            ChipTop chip = null;
-            if(Chip.Name.Equals("If"))
+            if (Chip.Name.Equals("If"))
             {
-                chip = new ChipTopIfElse(chipHoverLayer, this.Chip, subChipsetGenerator(), subChipsetGenerator());
+                return new ChipTopIfElse(initialDrawLayer, this.Chip);
             }
             else
             {
-                chip = new ChipTopStandard(chipHoverLayer, this.Chip);
+                return new ChipTopStandard(initialDrawLayer, this.Chip);
             }
-
-            chip.MultiplyScaleCascade(scale);
-
-            return chip;
         }
 
     }

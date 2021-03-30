@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace IAmACube
         public string Name;
         public string NameLower;
 
-        public ChipType ChipType;
+        public ChipType ChipDataType;
 
         public string Input1;
         public string Input2;
@@ -36,8 +37,10 @@ namespace IAmACube
             Name = name;
             NameLower = name.ToLower();
 
-            ChipType = chipType;
+            ChipDataType = chipType;
         }
+
+        public Color ChipColor => this.ChipDataType.GetColor();
 
         public string GetInputType(int num)
         {
@@ -69,7 +72,7 @@ namespace IAmACube
 
         public override string ToString()
         {
-            return Name + " (" + ChipType.ToString() + ")";
+            return Name + " (" + ChipDataType.ToString() + ")";
         }
 
         public (bool canFeed,bool isGeneric,string baseOfVariable) CanFeedOutputInto(string inputType)

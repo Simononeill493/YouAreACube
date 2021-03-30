@@ -21,26 +21,6 @@ namespace IAmACube
             OnMousePressed += TryStartDragAtMousePosition;
         }
 
-        private List<MenuItem> _draggableChildren = new List<MenuItem>();
-        public void SetDraggableFrom(MenuItem item)
-        {
-            item.OnMousePressed += this.TryStartDragAtMousePosition;
-            _draggableChildren.Add(item);
-        }
-        public void SetNotDraggableFrom(MenuItem item)
-        {
-            item.OnMousePressed -= this.TryStartDragAtMousePosition;
-            _draggableChildren.Remove(item);
-        }
-        public override void Dispose()
-        {
-            base.Dispose();
-            foreach(var draggableChild in _draggableChildren)
-            {
-                draggableChild.OnMousePressed -= this.TryStartDragAtMousePosition;
-            }
-        }
-
         public override void Update(UserInput input) 
         {
             base.Update(input);

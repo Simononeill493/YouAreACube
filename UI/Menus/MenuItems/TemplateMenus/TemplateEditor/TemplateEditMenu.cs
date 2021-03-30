@@ -26,7 +26,7 @@ namespace IAmACube
             AddChild(searchPane);
 
             editPane.IsMouseOverSearchPane = searchPane.IsMouseOver;
-            searchPane.TryCreateChipInEditPane = editPane.TryCreateChipsetFromSearchPane;
+            searchPane.AddToEditPane = editPane.CreateNewChipsetFromSearchChipClick;
             searchPane.RefreshFilter();
         }
 

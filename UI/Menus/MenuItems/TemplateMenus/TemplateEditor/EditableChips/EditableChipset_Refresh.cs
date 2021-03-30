@@ -8,32 +8,29 @@ namespace IAmACube
 {
     public partial class EditableChipset : DraggableMenuItem
     {
-        private ChipTop _topChip;
-
         private void _refreshAll()
         {
-            _updateChipPositions();
             _updateChipConnections();
-
-            _setTopChip();
-            _refreshText();
-
+            _updateChipPositions();
             _updateChildDimensions();
         }
+
 
         private void _updateChipPositions()
         {
             var baseSize = GetBaseSize();
+            var cumulativeYOffset = baseSize.Y;
 
             for (int i = 0; i < Chips.Count; i++)
             {
-                Chips[i].CurrentPositionInChipset = i;
-                Chips[i].SetLocationConfig(0, baseSize.Y - (i+1), CoordinateMode.ParentPixelOffset, false);
+                Chips[i].IndexInChipset = i;
+                Chips[i].SetLocationConfig(0, cumulativeYOffset - (i + 1), CoordinateMode.ParentPixelOffset, false);
                 Chips[i].UpdateDimensions(ActualLocation, GetCurrentSize());
 
-                baseSize.Y += Chips[i].GetFullBaseSize().Y;
+                cumulativeYOffset += Chips[i].GetBaseSize().Y;
             }
         }
+
 
         private void _updateChipConnections()
         {
@@ -45,21 +42,5 @@ namespace IAmACube
                 chipsAboveCurrent.Add(chip);
             }
         }
-
-        private void _setTopChip()
-        {
-            if (_topChip != null)
-            {
-                SetNotDraggableFrom(_topChip);
-            }
-
-            if(Chips.Count>0)
-            {
-                _topChip = Chips.First();
-                SetDraggableFrom(_topChip);
-            }
-        }
-
-        private void _refreshText() => Chips.ForEach(c => c.RefreshText());
     }
 }

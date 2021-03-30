@@ -15,7 +15,6 @@ namespace IAmACube
         public ChipTopStandard(IHasDrawLayer parent, ChipData data) : base(parent, data)
         {
             _tryCreateOutputLabel();
-            _createInputSections(Chip);
 
             if (_inputSections.Count > 0)
             {
@@ -28,7 +27,7 @@ namespace IAmACube
             {
                 _outputLabel = new ChipItemOutputLabel(this, Chip);
                 _outputLabel.SetLocationConfig(100, 0, CoordinateMode.ParentPercentageOffset);
-                _outputLabel.TextBox.OnTextChanged += _outputNameChanged;
+                //_outputLabel.TextBox.OnTextChanged += _outputNameChanged;
                 AddChild(_outputLabel);
             }
         }
@@ -38,20 +37,6 @@ namespace IAmACube
             base._inputSectionDropdownChanged(dropdown, optionSelected);
             _outputLabel?.SetOutputDataTypeLabel(Chip.OutputTypeCurrent);
         }
-
-        public override Point GetFullBaseSize()
-        {
-            var size = base.GetFullBaseSize();
-
-            if(_outputLabel!=null)
-            {
-                size.X += _outputLabel.GetBaseSize().X;
-            }
-
-            return size;
-        }
-
-        private void _outputNameChanged(string newName) => ChipsetRefreshTextCallback.Invoke();
 
     }
 }

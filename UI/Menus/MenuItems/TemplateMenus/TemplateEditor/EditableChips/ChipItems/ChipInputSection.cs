@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class ChipMiddleSection : SpriteMenuItem
+    public class ChipInputSection : SpriteMenuItem
     {
         public Action<ChipInputDropdown, ChipInputOption> DropdownSelectedCallback;
 
         private ChipInputDropdown _dropdown;
         private string _inputType;
 
-        public ChipMiddleSection(IHasDrawLayer parent,string inputType,Color color) : base(parent, "ChipFullMiddle") 
+        public ChipInputSection(IHasDrawLayer parent,string inputType,Color color) : base(parent, "ChipFullMiddle") 
         {
             _inputType = inputType;
             ColorMask = color;

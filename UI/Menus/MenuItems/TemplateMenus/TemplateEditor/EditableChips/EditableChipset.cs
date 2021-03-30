@@ -7,33 +7,78 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    partial class EditableChipset : DraggableMenuItem
+    partial class EditableChipset : DraggableMenuItem, IChipsDroppableOn
     {
         public List<ChipTop> Chips { get; private set; }
-        public Action<List<ChipTop>, UserInput> LiftChipsCallback;
 
-        public EditableChipset(IHasDrawLayer parent,float scaleMultiplier) : base(parent, "BlankPixel")
+        public EditableChipset(IHasDrawLayer parent,float scaleMultiplier,Action<List<ChipTop>,UserInput> liftChipsCallback) : base(parent, "TopOfChipset")
         {
             Chips = new List<ChipTop>();
             MultiplyScaleCascade(scaleMultiplier);
+
+            _liftChipsCallback = liftChipsCallback;
         }
 
+        #region liftAndDrop
+        private Action<List<ChipTop>, UserInput> _liftChipsCallback;
+
+        public void DropChipset(EditableChipset dropped,UserInput input)
+        {
+            var chipsToDrop = dropped.PopChips(0);
+            var itemToDropOn = _getChipsetSectionMouseIsOver();
+
+            if(itemToDropOn==null)
+            {
+                Console.WriteLine("Warning: dropped chips onto a chipset that was supposed to be under the mouse, but wasn't");
+                return;
+            }
+
+            itemToDropOn.DropChipsOn(chipsToDrop, input);
+        }
+        public void DropChipsOn(List<ChipTop> chips, UserInput input) => AppendChips(chips, 0);
+
+        private void _chipLiftedFromChipset(ChipTop chip, UserInput input)
+        {
+            var chipsRemoved = PopChips(chip.IndexInChipset);
+            _liftChipsCallback(chipsRemoved, input);
+        }
+
+        private IChipsDroppableOn _getChipsetSectionMouseIsOver()
+        {
+            if (MouseHovering)
+            {
+                return this;
+            }
+
+            foreach (var chip in Chips)
+            {
+                if (chip.IsMouseOverAnySection())
+                {
+                    return chip;
+                }
+            }
+
+            return null;
+        }
+        public bool IsMouseOverAnyChip() => _getChipsetSectionMouseIsOver() != null;
+        #endregion
+
+        #region addAndRemoveChips
+        public void AppendChip(ChipTop toAdd) => AppendChips(new List<ChipTop>() { toAdd }, 0);
         public void AppendChips(List<ChipTop> toAdd,int index)
         {
             Chips.InsertRange(index, toAdd);
             AddChildren(toAdd);
 
-            toAdd.ForEach(chip => _setChipCallbacks(chip));
+            foreach(var chip in toAdd)
+            {
+                chip.UpdateDrawLayerCascade(DrawLayer);
+                chip.ChipLiftedCallback = _chipLiftedFromChipset;
+                chip.AppendChips = AppendChips;
+            }
 
             _refreshAll();
         }
-        private void _setChipCallbacks(ChipTop chip)
-        {
-            chip.LiftChipFromChipset = _liftChipsFromChipset;
-            chip.ChipsetRefreshTextCallback = _refreshText;
-            chip.ChipsetRefreshAllCallback = _refreshAll;
-        }
-
         public List<ChipTop> PopChips(int index)
         {
             var toRemove = Chips.Skip(index).ToList();
@@ -44,59 +89,34 @@ namespace IAmACube
 
             return toRemove;
         }
-        private void _liftChipsFromChipset(UserInput input, int index) => LiftChipsCallback(PopChips(index), input);
+        #endregion
 
-        public override void Update(UserInput input)
+        #region container
+        private IEditableChipsetContainer _currentContainer;
+
+        public void SetContainer(IEditableChipsetContainer newContainer)
         {
-            base.Update(input);
+            if (newContainer == _currentContainer) { return; }
+
+            _clearContainer();
+
+            newContainer.AddChipset(this);
+            _currentContainer = newContainer;
         }
-
-        public (int index, bool bottom) GetChipIndexThatMouseIsOver(UserInput input)
+        private void _clearContainer()
         {
-            for (int i = 0; i < Chips.Count; i++)
+            if (_currentContainer != null)
             {
-                if (Chips[i].IsMouseOverAnySection())
-                {
-                    if (Chips[i].IsMouseOverBottomSection())
-                    {
-                        return (i, true);
-                    }
-
-                    return (i, false);
-                }
+                _currentContainer.RemoveChipset(this);
             }
 
-            return (-1, false);
+            _currentContainer = null;
         }
-        public (EditableChipset chipset, int index, bool bottom) GetSubChipThatMouseIsOverIfAny(UserInput input, int index) => Chips[index].GetSubChipThatMouseIsOverIfAny(input);
-
-
-
-
-
-        public Point DefaultMouseDragOffset => Chips.First().GetCurrentSize() / 2;
-        public Point GetFullBaseSize()
+        public override void Dispose()
         {
-            var size = GetBaseSize();
-            foreach (var chip in Chips)
-            {
-                var chipSize = chip.GetFullBaseSize();
-                size.Y += chipSize.Y;
-                if (chipSize.X > size.X)
-                {
-                    size.X = chipSize.X;
-                }
-            }
-
-            return size;
+            _clearContainer();
+            base.Dispose();
         }
-        public Point GetFullSize() => GetFullBaseSize() * Scale;
-        public Rectangle GetFullRect()
-        {
-            var chipLoc = ActualLocation;
-            var fullSize = GetFullSize();
-
-            return new Rectangle(chipLoc.X, chipLoc.Y, fullSize.X, fullSize.Y);
-        }
+        #endregion
     }
 }

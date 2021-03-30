@@ -18,7 +18,7 @@ namespace IAmACube
 
         private List<ChipPreview> _chipPreviews;
 
-        public Action<ChipPreview, UserInput> TryCreateChipInEditPane;
+        public Action<ChipTop,UserInput> AddToEditPane;
 
         public ChipSearchPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "SearchPane")
         {
@@ -39,7 +39,7 @@ namespace IAmACube
         public void RefreshFilter()
         {
             var filtered = ChipDatabase.SearchChips(_searchBar.Text);
-            filtered = _dropdown.IsItemSelected ? filtered.Where(c => c.ChipType == _dropdown.Selected) : filtered;
+            filtered = _dropdown.IsItemSelected ? filtered.Where(c => c.ChipDataType == _dropdown.Selected) : filtered;
 
             _setPreviews(filtered.ToList());
         }
@@ -54,7 +54,7 @@ namespace IAmACube
             {
                 var chipPreview = new ChipPreview(this, chips[i]);
                 chipPreview.SetLocationConfig(PreviewPixelXOffset, yOffset, CoordinateMode.ParentPixelOffset, false);
-                chipPreview.OnMousePressed += (input) => TryCreateChipInEditPane(chipPreview, input);
+                chipPreview.OnMousePressed += (input) => _createChipAndAddToEditPane(chipPreview, input);
                 _chipPreviews.Add(chipPreview);
 
                 yOffset += PreviewPixeYDistance;
@@ -70,5 +70,11 @@ namespace IAmACube
 
         private void _searchTermChanged(string searchTerm) => RefreshFilter();
         private void _chipTypeChanged(ChipType chipType) => RefreshFilter();
+    
+        private void _createChipAndAddToEditPane(ChipPreview preview, UserInput input)
+        {
+            var createdChip = preview.GenerateChip();
+            AddToEditPane(createdChip,input);
+        }
     }
 }
