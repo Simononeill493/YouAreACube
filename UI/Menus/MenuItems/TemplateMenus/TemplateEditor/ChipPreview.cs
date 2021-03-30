@@ -29,9 +29,7 @@ namespace IAmACube
 
         public ChipTop GenerateChip()
         {
-            //var initialDrawLayer = ManualDrawLayer.Create(DrawLayers.MenuBehindLayer - DrawLayers.MinLayerDistance);
             var initialDrawLayer = ManualDrawLayer.Zero;
-            //var initialDrawLayer = ManualDrawLayer.Create(DrawLayers.MenuHoverLayer);
 
             if (Chip.Name.Equals("If"))
             {

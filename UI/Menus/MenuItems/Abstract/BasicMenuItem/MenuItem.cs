@@ -27,6 +27,8 @@ namespace IAmACube
 
         protected bool _mousePressedForClick;
 
+        //public bool ManualUpdateDimensionsFlag;
+
         public MenuItem(IHasDrawLayer parentDrawLayer)
         {
             DrawLayer = parentDrawLayer.DrawLayer - DrawLayers.MinLayerDistance;
@@ -92,7 +94,6 @@ namespace IAmACube
             _addAndRemoveQueuedChildren();
         }
 
-
         public void OffsetDrawLayerCascade(float offset)
         {
             DrawLayer += offset;
@@ -124,10 +125,6 @@ namespace IAmACube
             {
                 throw new Exception("MenuItem disposed twice!");
             }
-
-            _children.Clear();
-            _toAdd.Clear();
-            _toRemove.Clear();
 
             Disposed = true;
         }

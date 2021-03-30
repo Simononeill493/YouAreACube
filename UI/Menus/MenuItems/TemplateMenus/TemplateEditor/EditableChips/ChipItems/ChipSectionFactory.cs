@@ -12,7 +12,7 @@ namespace IAmACube
         public static ChipInputSection Create(ChipTop parent, int sectionIndex)
         {
             var parentDrawLayer = ManualDrawLayer.InFrontOf(parent, sectionIndex);
-            var dataType = parent.Chip.GetInputType(sectionIndex);
+            var dataType = parent.Chip.GetInputType(sectionIndex+1);
 
             var section = new ChipInputSection(parentDrawLayer, dataType, parent.ColorMask);
             return section;

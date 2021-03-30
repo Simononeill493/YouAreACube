@@ -13,6 +13,7 @@ namespace IAmACube
         public event System.Action<UserInput> OnMoved;
 
         public bool Dragging { get; private set; } = false;
+        public bool Draggable = true;
 
         private Point _dragOffset;
 
@@ -31,7 +32,7 @@ namespace IAmACube
 
         public virtual bool TryStartDrag(UserInput input, Point offset)
         {
-            if (!Dragging & !MenuScreen.IsUserDragging)
+            if (Draggable & !Dragging & !MenuScreen.IsUserDragging)
             {
                 _startDrag(input,offset);
                 return true;

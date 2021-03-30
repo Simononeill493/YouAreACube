@@ -11,7 +11,7 @@ namespace IAmACube
     {
         public List<ChipTop> Chips { get; private set; }
 
-        public EditableChipset(IHasDrawLayer parent,float scaleMultiplier,Action<List<ChipTop>,UserInput> liftChipsCallback) : base(parent, "TopOfChipset")
+        public EditableChipset(IHasDrawLayer parent,float scaleMultiplier,Action<List<ChipTop>,UserInput,EditableChipset> liftChipsCallback) : base(parent, "TopOfChipset")
         {
             Chips = new List<ChipTop>();
             MultiplyScaleCascade(scaleMultiplier);
@@ -20,7 +20,7 @@ namespace IAmACube
         }
 
         #region liftAndDrop
-        private Action<List<ChipTop>, UserInput> _liftChipsCallback;
+        private Action<List<ChipTop>, UserInput, EditableChipset> _liftChipsCallback;
 
         public void DropChipset(EditableChipset dropped,UserInput input)
         {
@@ -40,7 +40,7 @@ namespace IAmACube
         private void _chipLiftedFromChipset(ChipTop chip, UserInput input)
         {
             var chipsRemoved = PopChips(chip.IndexInChipset);
-            _liftChipsCallback(chipsRemoved, input);
+            _liftChipsCallback(chipsRemoved, input,this);
         }
 
         private IChipsDroppableOn _getChipsetSectionMouseIsOver()
@@ -75,6 +75,8 @@ namespace IAmACube
                 chip.UpdateDrawLayerCascade(DrawLayer);
                 chip.ChipLiftedCallback = _chipLiftedFromChipset;
                 chip.AppendChips = AppendChips;
+                chip.RefreshTextCallback = _refreshText;
+                chip.RefreshAllCallback = _refreshAll;
             }
 
             _refreshAll();
@@ -118,5 +120,19 @@ namespace IAmACube
             base.Dispose();
         }
         #endregion
+
+        public int HeightOfAllChips;
+        public List<EditableChipset> GetSubChipsets()
+        {
+            var output = new List<EditableChipset>();
+            var subChipsets = Chips.Select(c => c.GetSubChipsets());
+
+            foreach (var sublist in subChipsets)
+            {
+                output.AddRange(sublist);
+            }
+            return output;
+        }
+        private void _refreshText() => Chips.ForEach(c => c.RefreshText());
     }
 }

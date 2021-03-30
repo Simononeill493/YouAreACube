@@ -32,10 +32,8 @@ namespace IAmACube
             AddChild(_dropdown);
         }
 
-        public void DropdownItemSelected(ChipInputOption optionSelected)
-        {
-            DropdownSelectedCallback(_dropdown, optionSelected);
-        }
+        public void DropdownItemSelected(ChipInputOption optionSelected) => DropdownSelectedCallback(_dropdown, optionSelected);
+
 
         public void SetConnectionsFromAbove(List<ChipTop> chipsAbove)
         {

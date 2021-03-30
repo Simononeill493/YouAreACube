@@ -13,7 +13,7 @@ namespace IAmACube
         private List<EditableChipset> _topLevelChipsets;
 
         public Func<UserInput, bool> IsMouseOverSearchPane;
-        
+
         public ChipEditPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "ChipEditPane")
         {
             DrawLayer = DrawLayers.MenuBehindLayer;
@@ -25,7 +25,7 @@ namespace IAmACube
 
             var plusButton = new SpriteMenuItem(this, "PlusButton");
             plusButton.SetLocationConfig(size.X - 9, 0, CoordinateMode.ParentPixelOffset, false);
-            plusButton.UpdateDrawLayerCascade(DrawLayer - (DrawLayers.MinLayerDistance*10));
+            plusButton.UpdateDrawLayerCascade(DrawLayer - (DrawLayers.MinLayerDistance * 10));
             plusButton.OnMouseReleased += (i) => _multiplyChipScale(2);
             AddChild(plusButton);
 
@@ -37,15 +37,15 @@ namespace IAmACube
         }
 
         #region chipsetDropped
-        private void _chipsetDropped(EditableChipset droppedChipset,UserInput input)
+        private void _chipsetDropped(EditableChipset droppedChipset, UserInput input)
         {
-            if(IsMouseOverSearchPane(input))
+            if (IsMouseOverSearchPane(input))
             {
                 _destroyChipset(droppedChipset);
             }
             else
             {
-                _attachChipset(droppedChipset,input);
+                _attachChipset(droppedChipset, input);
             }
 
         }
@@ -54,7 +54,7 @@ namespace IAmACube
             var hoveredChipset = _getCurrentlyHoveredChipset(toAttach);
             if (hoveredChipset != null)
             {
-                hoveredChipset.DropChipset(toAttach,input);
+                hoveredChipset.DropChipset(toAttach, input);
                 _destroyChipset(toAttach);
             }
             else
@@ -66,7 +66,7 @@ namespace IAmACube
         private void _dropChipsetOnPane(EditableChipset toAttach, UserInput input)
         {
             _alignChipsetToPixels(toAttach, GetCurrentSize());
-            //_setChipsetVisiblity(releasedChipset);
+            _setChipsetVisiblity(toAttach);
         }
         private void _alignChipsetToPixels(EditableChipset chip, Point planeSize)
         {
@@ -78,9 +78,9 @@ namespace IAmACube
 
         private EditableChipset _getCurrentlyHoveredChipset(EditableChipset toAttach)
         {
-            foreach(var chipset in _topLevelChipsets)
+            foreach (var chipset in _topLevelChipsets)
             {
-                if(chipset.IsMouseOverAnyChip() & (chipset != toAttach))
+                if (chipset.IsMouseOverAnyChip() & (chipset != toAttach))
                 {
                     return chipset;
                 }
@@ -91,27 +91,36 @@ namespace IAmACube
         #endregion
 
         #region chipsetCreationDestruction
-        public void CreateNewChipsetFromSearchChipClick(ChipTop newChip,UserInput input)
+        public void CreateNewChipsetFromSearchChipClick(ChipTop newChip, UserInput input)
         {
             newChip.MultiplyScaleCascade(_chipScaleMultiplier);
+            newChip.GenerateSubChipsets(_createNewChipset);
 
-            var newChipset = _createNewChipset(input);
+            var newChipset = _createNewChipsetForMouse(input);
             newChipset.AppendChip(newChip);
         }
-        public void CreateNewChipsetFromExistingChips(List<ChipTop> newChips, UserInput input)
+        public void CreateNewChipsetFromExistingChips(List<ChipTop> newChips, UserInput input, EditableChipset removedFrom)
         {
-            var newChipset = _createNewChipset(input);
-            newChipset.AppendChips(newChips,0);
+            var newChipset = _createNewChipsetForMouse(input);
+            newChipset.AppendChips(newChips, 0);
+
+            _checkForChipsetGarbageCollection(removedFrom);
         }
 
-        private EditableChipset _createNewChipset(UserInput input)
+        private EditableChipset _createNewChipsetForMouse(UserInput input)
         {
-            var newChipset = new EditableChipset(this, _chipScaleMultiplier,CreateNewChipsetFromExistingChips);
+            var newChipset = _createNewChipset();
             newChipset.SetLocationConfig(input.MousePos, CoordinateMode.Absolute, centered: true);
             newChipset.UpdateDimensionsCascade(ActualLocation, GetBaseSize());
             newChipset.TryStartDragAtMousePosition(input);
-            newChipset.OnEndDrag += (i) => _chipsetDropped(newChipset, i);
             newChipset.SetContainer(this);
+
+            return newChipset;
+        }
+        private EditableChipset _createNewChipset()
+        {
+            var newChipset = new EditableChipset(this, _chipScaleMultiplier, CreateNewChipsetFromExistingChips);
+            newChipset.OnEndDrag += (i) => _chipsetDropped(newChipset, i);
 
             _allChipsets.Add(newChipset);
             return newChipset;
@@ -132,6 +141,19 @@ namespace IAmACube
             RemoveChipset(chipset);
             _allChipsets.Remove(chipset);
             chipset.Dispose();
+            
+            foreach(var subChipset in chipset.GetSubChipsets())
+            {
+                _destroyChipset(subChipset);
+            }
+        }
+
+        private void _checkForChipsetGarbageCollection(EditableChipset toCheck)
+        {
+            if (toCheck.Chips.Count == 0 & _topLevelChipsets.Contains(toCheck))
+            {
+                _destroyChipset(toCheck);
+            }
         }
         #endregion
 
@@ -143,7 +165,7 @@ namespace IAmACube
         {
             _pushChipScalingUpIfTooSmall();
             base._updateChildDimensions();
-            //_setChipsetVisibilities();
+            _setChipsetVisibilities();
         }
 
         private void _pushChipScalingUpIfTooSmall()
@@ -158,12 +180,30 @@ namespace IAmACube
         private void _multiplyChipScale(float multiplier)
         {
             _chipScaleMultiplier *= multiplier;
-            _allChipsets.ForEach(chip => chip.MultiplyScaleCascade(multiplier));
+            _topLevelChipsets.ForEach(chip => chip.MultiplyScaleCascade(multiplier));
             _updateChildDimensions();
         }
 
-        //private void _setChipsetVisibilities() => _topLevelChipsets.ForEach(chip => _setChipsetVisiblity(chip));
-        //private void _setChipsetVisiblity(EditableChipset chip) => chip.Visible = this.IsIntersectedWith(chip.GetFullRect());
+        private void _setChipsetVisibilities() => _topLevelChipsets.ForEach(chip => _setChipsetVisiblity(chip));
+        private void _setChipsetVisiblity(EditableChipset chipset)
+        {
+            if(this.IsIntersectedWith(chipset))
+            {
+                chipset.Visible = true;
+                return;
+            }
+
+            foreach(var chip in chipset.Chips)
+            {
+                if(this.IsIntersectedWith(chip))
+                {
+                    chipset.Visible = true;
+                    return;
+                }
+            }
+
+            chipset.Visible = false;
+        }
         #endregion
     }
 }

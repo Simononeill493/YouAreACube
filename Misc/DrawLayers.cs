@@ -20,8 +20,8 @@ namespace IAmACube
         public const float MenuBehindLayer = 0.5f;
         public const float MenuBaseLayer = 0.4f;
 
-        public const float MenuDropdownLayer = 0.3f;
-        public const float MenuHoverLayer = 0.2f;
+        public const float MenuDropdownLayer = 0.02f;
+        public const float MenuHoverLayer = 0.01f;
 
 
         public const float MenuDragOffset = 0.3f;

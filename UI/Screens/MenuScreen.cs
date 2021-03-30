@@ -43,6 +43,8 @@ namespace IAmACube
             foreach (var item in _menuItems)
             {
                 item.Update(input);
+                item.UpdateDimensionsCascade(Point.Zero, _currentScreenDimensions);
+
             }
 
             if (input.IsKeyJustPressed(Keys.P) | input.ScrolledUp)

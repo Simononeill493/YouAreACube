@@ -13,8 +13,8 @@ namespace IAmACube
             _updateChipConnections();
             _updateChipPositions();
             _updateChildDimensions();
+            _refreshText();
         }
-
 
         private void _updateChipPositions()
         {
@@ -29,8 +29,9 @@ namespace IAmACube
 
                 cumulativeYOffset += Chips[i].GetBaseSize().Y;
             }
-        }
 
+            HeightOfAllChips = cumulativeYOffset;
+        }
 
         private void _updateChipConnections()
         {
@@ -38,7 +39,7 @@ namespace IAmACube
 
             foreach (var chip in Chips)
             {
-                chip.SetConnectionsFromAbove(chipsAboveCurrent);
+                chip.SetInputConnectionsFromAbove(chipsAboveCurrent);
                 chipsAboveCurrent.Add(chip);
             }
         }

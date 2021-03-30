@@ -9,6 +9,7 @@ namespace IAmACube
     class ChipItemOutputLabel : SpriteMenuItem
     {
         public bool Extended = true;
+        public Action RefreshTextCallback;
 
         private SpriteMenuItem _popButton;
         public TextBoxMenuItem TextBox;
@@ -23,6 +24,7 @@ namespace IAmACube
         {
             TextBox = new TextBoxMenuItem(this, chip.Name + "_out");
             TextBox.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, false);
+            TextBox.OnTextChanged += (t) => RefreshTextCallback();
             AddChild(TextBox);
 
             _outputDataTypeLabel = new TextMenuItem(TextBox);

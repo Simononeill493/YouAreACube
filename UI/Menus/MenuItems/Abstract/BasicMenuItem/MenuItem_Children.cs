@@ -42,13 +42,15 @@ namespace IAmACube
         }
         private void _addAndRemoveQueuedChildren()
         {
+            //ManualUpdateDimensionsFlag  = ManualUpdateDimensionsFlag | _toAdd.Any() | _toRemove.Any();
+
             if (_toAdd.Any())
             {
-                var size = GetCurrentSize();
+                //var size = GetCurrentSize();
                 foreach (var child in _toAdd)
                 {
                     _children.Add(child);
-                    child.UpdateDimensionsCascade(ActualLocation, size);
+                    //child.UpdateDimensionsCascade(ActualLocation, size);
                 }
             }
 
