@@ -10,11 +10,6 @@ namespace IAmACube
         public ChipData Chip;
         public int IndexInChipset = -1;
 
-        public Action RefreshAllCallback;
-        public Action RefreshTextCallback;
-        public Action<ChipTop, UserInput> ChipLiftedCallback;
-        public Action<List<ChipTop>, int> AppendChips;
-
         public ChipTop(IHasDrawLayer parent, ChipData data) : base(parent, "ChipFull") 
         {
             _actualSize = base.GetBaseSize();
@@ -31,6 +26,21 @@ namespace IAmACube
             AddChild(title);
         }
 
+        #region liftChips
+        public Action<ChipTop, UserInput> ChipLiftedCallback;
+
+        private void _onDragHandler(UserInput input)
+        {
+            if (!_isMouseOverInternalSections())
+            {
+                ChipLiftedCallback(this, input);
+            }
+        }
+        #endregion
+
+        #region dropChips
+        public Action<List<ChipTop>, int> AppendChips;
+
         public virtual void DropChipsOn(List<ChipTop> chips, UserInput input)
         {
             if (IsMouseOverBottomSection())
@@ -42,18 +52,21 @@ namespace IAmACube
                 AppendChips(chips, IndexInChipset);
             }
         }
-
-        private void _onDragHandler(UserInput input)
-        {
-            if (!_isMouseOverInternalSections)
-            {
-                ChipLiftedCallback(this, input);
-            }
-        }
+        #endregion
 
         #region inputsections
         protected List<ChipInputSection> _inputSections;
-        public void SetInputConnectionsFromAbove(List<ChipTop> chipsAbove) => _inputSections.ForEach(m => m.SetConnectionsFromAbove(chipsAbove));
+        public void SetInputConnectionsFromAbove(List<ChipTop> chipsAbove)
+        {
+            _inputSections.ForEach(m => m.SetConnectionsFromAbove(chipsAbove));
+
+            foreach (var subChipset in GetSubChipsets())
+            {
+                var connectionsList = new List<ChipTop>();
+                connectionsList.AddRange(chipsAbove);
+                subChipset.SetInputConnectionsFromAbove(connectionsList);
+            }
+        }
 
         protected void _createInputSections()
         {
@@ -81,7 +94,6 @@ namespace IAmACube
             _actualSize.Y = height;
         }
 
-
         protected virtual void _inputSectionDropdownChanged(ChipInputDropdown dropdown, ChipInputOption optionSelected)
         {
             if (optionSelected.OptionType == InputOptionType.Generic)
@@ -97,7 +109,7 @@ namespace IAmACube
         #endregion
 
         #region dimensions
-        public bool IsMouseOverAnySection() => MouseHovering | _isMouseOverInternalSections;
+        public bool IsMouseOverAnySection() => MouseHovering | _isMouseOverInternalSections();
         public virtual bool IsMouseOverBottomSection() 
         {
             if(_inputSections.Count == 0)
@@ -107,14 +119,28 @@ namespace IAmACube
 
             return _inputSections.Last().MouseHovering;
         } 
-        protected virtual bool _isMouseOverInternalSections => _inputSections.Select(s => s.MouseHovering).Any(h => h);
+        protected virtual bool _isMouseOverInternalSections() => _inputSections.Select(s => s.MouseHovering).Any(h => h);
 
         public override Point GetBaseSize() => _actualSize;
         protected Point _actualSize;
         #endregion
 
-        public void RefreshText() => _inputSections.ForEach(s => s.RefreshText());
+        #region refresh
+        public Action TopLevelRefreshAll { get { return _topLevelRefreshAll; } set { _setTopLevelRefreshAll(value); } }
+        protected virtual void _setTopLevelRefreshAll(Action topLevelRefreshAll) => _topLevelRefreshAll = topLevelRefreshAll;
+
+        private Action _topLevelRefreshAll;
+        public Action ChipsetRefreshText;
+
+        public virtual void RefreshAll() { }
+        public void RefreshText()
+        {
+            _inputSections.ForEach(s => s.RefreshText());
+            GetSubChipsets().ForEach(s => s.RefreshText());
+        }
+        #endregion
+
         public virtual void GenerateSubChipsets(IChipsetGenerator generator) { }
-        public virtual List<EditableChipset> GetSubChipsets() => new List<EditableChipset>(); 
+        public virtual List<EditableChipset> GetSubChipsets() => new List<EditableChipset>();
     }
 }

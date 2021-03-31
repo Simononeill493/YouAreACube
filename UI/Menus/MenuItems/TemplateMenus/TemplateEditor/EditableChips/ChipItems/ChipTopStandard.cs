@@ -28,7 +28,7 @@ namespace IAmACube
             {
                 _outputLabel = new ChipItemOutputLabel(this, Chip);
                 _outputLabel.SetLocationConfig(100, 0, CoordinateMode.ParentPercentageOffset);
-                _outputLabel.RefreshTextCallback = () => RefreshTextCallback();
+                _outputLabel.RefreshTextCallback = () => ChipsetRefreshText();
                 AddChild(_outputLabel);
             }
         }

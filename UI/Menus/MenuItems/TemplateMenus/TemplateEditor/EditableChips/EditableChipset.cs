@@ -17,14 +17,25 @@ namespace IAmACube
             MultiplyScaleCascade(scaleMultiplier);
 
             _liftChipsCallback = liftChipsCallback;
+            HeightOfAllChips += GetBaseSize().Y;
         }
 
-        #region liftAndDrop
+        #region lift
         private Action<List<ChipTop>, UserInput, EditableChipset> _liftChipsCallback;
 
-        public void DropChipset(EditableChipset dropped,UserInput input)
+        private void _chipLiftedFromChipset(ChipTop chip, UserInput input)
         {
-            var chipsToDrop = dropped.PopChips(0);
+            var chipsRemoved = PopChips(chip.IndexInChipset);
+            _liftChipsCallback(chipsRemoved, input, this);
+        }
+        #endregion
+
+        #region drop
+        public void AppendToTop(List<ChipTop> chipsToDrop) => AppendChips(chipsToDrop, 0);
+        public void AppendToBottom(List<ChipTop> chipsToDrop) => AppendChips(chipsToDrop, Chips.Count);
+
+        public void DropChipsOn(List<ChipTop> chipsToDrop, UserInput input)
+        {
             var itemToDropOn = _getChipsetSectionMouseIsOver();
 
             if(itemToDropOn==null)
@@ -32,16 +43,80 @@ namespace IAmACube
                 Console.WriteLine("Warning: dropped chips onto a chipset that was supposed to be under the mouse, but wasn't");
                 return;
             }
-
-            itemToDropOn.DropChipsOn(chipsToDrop, input);
+            else if(itemToDropOn==this)
+            {
+                AppendToTop(chipsToDrop);
+            }
+            else
+            {
+                itemToDropOn.DropChipsOn(chipsToDrop, input);
+            }
         }
-        public void DropChipsOn(List<ChipTop> chips, UserInput input) => AppendChips(chips, 0);
+        #endregion
 
-        private void _chipLiftedFromChipset(ChipTop chip, UserInput input)
+        #region addAndRemoveChips
+        public void AppendChip(ChipTop toAdd) => AppendChips(new List<ChipTop>() { toAdd }, 0);
+        public void AppendChips(List<ChipTop> toAdd, int index)
         {
-            var chipsRemoved = PopChips(chip.IndexInChipset);
-            _liftChipsCallback(chipsRemoved, input,this);
+            Chips.InsertRange(index, toAdd);
+            AddChildren(toAdd);
+
+            foreach (var chip in toAdd)
+            {
+                chip.UpdateDrawLayerCascade(DrawLayer);
+                chip.ChipLiftedCallback = _chipLiftedFromChipset;
+                chip.AppendChips = AppendChips;
+                chip.ChipsetRefreshText = RefreshText;
+                chip.TopLevelRefreshAll = TopLevelRefreshAll;
+            }
+
+            TopLevelRefreshAll();
         }
+        public List<ChipTop> PopChips(int index)
+        {
+            var toRemove = Chips.Skip(index).ToList();
+            Chips.RemoveRange(index, toRemove.Count());
+            RemoveChildrenAfterUpdate(toRemove);
+
+            TopLevelRefreshAll();
+            return toRemove;
+        }
+        #endregion
+
+        #region container
+        private IEditableChipsetContainer _currentContainer;
+
+        public void SetContainer(IEditableChipsetContainer newContainer)
+        {
+            if (newContainer == _currentContainer) { return; }
+
+            ClearContainer();
+
+            newContainer.AddChipset(this);
+            _currentContainer = newContainer;
+        }
+        public void ClearContainer()
+        {
+            if (_currentContainer != null)
+            {
+                _currentContainer.RemoveChipset(this);
+            }
+
+            _currentContainer = null;
+        }
+        public override void Dispose()
+        {
+            if (_currentContainer != null)
+            {
+                throw new Exception("Tried to dispose a chipset that is still contained!");
+            }
+
+            base.Dispose();
+        }
+        #endregion
+
+        #region dimensions
+        public int HeightOfAllChips;
 
         private IChipsDroppableOn _getChipsetSectionMouseIsOver()
         {
@@ -63,65 +138,6 @@ namespace IAmACube
         public bool IsMouseOverAnyChip() => _getChipsetSectionMouseIsOver() != null;
         #endregion
 
-        #region addAndRemoveChips
-        public void AppendChip(ChipTop toAdd) => AppendChips(new List<ChipTop>() { toAdd }, 0);
-        public void AppendChips(List<ChipTop> toAdd,int index)
-        {
-            Chips.InsertRange(index, toAdd);
-            AddChildren(toAdd);
-
-            foreach(var chip in toAdd)
-            {
-                chip.UpdateDrawLayerCascade(DrawLayer);
-                chip.ChipLiftedCallback = _chipLiftedFromChipset;
-                chip.AppendChips = AppendChips;
-                chip.RefreshTextCallback = _refreshText;
-                chip.RefreshAllCallback = _refreshAll;
-            }
-
-            _refreshAll();
-        }
-        public List<ChipTop> PopChips(int index)
-        {
-            var toRemove = Chips.Skip(index).ToList();
-            Chips.RemoveRange(index, toRemove.Count());
-            RemoveChildrenAfterUpdate(toRemove);
-
-            _refreshAll();
-
-            return toRemove;
-        }
-        #endregion
-
-        #region container
-        private IEditableChipsetContainer _currentContainer;
-
-        public void SetContainer(IEditableChipsetContainer newContainer)
-        {
-            if (newContainer == _currentContainer) { return; }
-
-            _clearContainer();
-
-            newContainer.AddChipset(this);
-            _currentContainer = newContainer;
-        }
-        private void _clearContainer()
-        {
-            if (_currentContainer != null)
-            {
-                _currentContainer.RemoveChipset(this);
-            }
-
-            _currentContainer = null;
-        }
-        public override void Dispose()
-        {
-            _clearContainer();
-            base.Dispose();
-        }
-        #endregion
-
-        public int HeightOfAllChips;
         public List<EditableChipset> GetSubChipsets()
         {
             var output = new List<EditableChipset>();
@@ -133,6 +149,5 @@ namespace IAmACube
             }
             return output;
         }
-        private void _refreshText() => Chips.ForEach(c => c.RefreshText());
     }
 }

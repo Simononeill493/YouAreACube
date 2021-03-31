@@ -11,6 +11,8 @@ namespace IAmACube
     public abstract partial class MenuItem : IHasDrawLayer
     {
         public bool Visible = true;
+        public bool Enabled = true;
+
         public float DrawLayer { get; set; }
 
         public bool Disposed { get; private set; } = false;
@@ -47,7 +49,7 @@ namespace IAmACube
         public virtual void Update(UserInput input)
         {
             if (Disposed) { throw new ObjectDisposedException("Updating disposed MenuItem"); }
-
+            if(!Enabled) { return; }
             var oldHoverState = MouseHovering;
             var newHoverState = IsMouseOver(input);
 

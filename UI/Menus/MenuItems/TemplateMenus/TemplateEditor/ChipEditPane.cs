@@ -54,7 +54,8 @@ namespace IAmACube
             var hoveredChipset = _getCurrentlyHoveredChipset(toAttach);
             if (hoveredChipset != null)
             {
-                hoveredChipset.DropChipset(toAttach, input);
+                var chipsToDrop = toAttach.PopChips(0);
+                hoveredChipset.DropChipsOn(chipsToDrop, input);
                 _destroyChipset(toAttach);
             }
             else
@@ -114,6 +115,7 @@ namespace IAmACube
             newChipset.UpdateDimensionsCascade(ActualLocation, GetBaseSize());
             newChipset.TryStartDragAtMousePosition(input);
             newChipset.SetContainer(this);
+            newChipset.TopLevelRefreshAll = newChipset.RefreshAll;
 
             return newChipset;
         }
@@ -128,18 +130,28 @@ namespace IAmACube
 
         public void AddChipset(EditableChipset newChipset)
         {
+            if(_topLevelChipsets.Contains(newChipset))
+            {
+                throw new Exception();
+            }
+
             AddChildAfterUpdate(newChipset);
             _topLevelChipsets.Add(newChipset);
         }
         public void RemoveChipset(EditableChipset newChipset)
         {
+            if (!_topLevelChipsets.Contains(newChipset))
+            {
+                throw new Exception();
+            }
+
             RemoveChildAfterUpdate(newChipset);
             _topLevelChipsets.Remove(newChipset);
         }
         private void _destroyChipset(EditableChipset chipset)
         {
-            RemoveChipset(chipset);
             _allChipsets.Remove(chipset);
+            chipset.ClearContainer();
             chipset.Dispose();
             
             foreach(var subChipset in chipset.GetSubChipsets())

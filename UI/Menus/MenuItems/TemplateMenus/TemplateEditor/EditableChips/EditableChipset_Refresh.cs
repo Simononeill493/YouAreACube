@@ -8,12 +8,16 @@ namespace IAmACube
 {
     public partial class EditableChipset : DraggableMenuItem
     {
-        private void _refreshAll()
+        public Action TopLevelRefreshAll;
+
+        public void RefreshAll()
         {
-            _updateChipConnections();
+            Chips.ForEach(c => c.RefreshAll());
+
+            UpdateInputConnections();
             _updateChipPositions();
             _updateChildDimensions();
-            _refreshText();
+            RefreshText();
         }
 
         private void _updateChipPositions()
@@ -30,18 +34,20 @@ namespace IAmACube
                 cumulativeYOffset += Chips[i].GetBaseSize().Y;
             }
 
-            HeightOfAllChips = cumulativeYOffset;
+            HeightOfAllChips = cumulativeYOffset - Chips.Count;
         }
 
-        private void _updateChipConnections()
+        public void SetInputConnectionsFromAbove(List<ChipTop> chipsAbove) => _setInputConnections(chipsAbove);
+        public void UpdateInputConnections() => _setInputConnections(new List<ChipTop>());
+        private void _setInputConnections(List<ChipTop> chipsAboveCurrent)
         {
-            var chipsAboveCurrent = new List<ChipTop>();
-
             foreach (var chip in Chips)
             {
                 chip.SetInputConnectionsFromAbove(chipsAboveCurrent);
                 chipsAboveCurrent.Add(chip);
             }
         }
+
+        public void RefreshText() => Chips.ForEach(c => c.RefreshText());
     }
 }
