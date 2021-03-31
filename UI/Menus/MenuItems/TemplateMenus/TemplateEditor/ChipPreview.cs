@@ -33,7 +33,7 @@ namespace IAmACube
 
             if (Chip.Name.Equals("If"))
             {
-                return new ChipTopIfElse(initialDrawLayer, this.Chip);
+                return new ChipTopSwitch(initialDrawLayer, this.Chip, new List<string>() { "Yes", "No" });
             }
             else
             {
