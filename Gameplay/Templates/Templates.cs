@@ -27,7 +27,14 @@ namespace IAmACube
 
             BlockTemplates["BasicPlayer"].Chips = ChipTester.TestPlayerBlock;
 
-            string jsonParsed = ChipBlockParser.ParseBlockIntoJson(ChipTester.TestEnemyBlock);
+            //ChipBlockParser.ParseBlockIntoJson(ChipTester.TestEnemyBlock);
+            //ChipBlockParser.ParseBlockIntoJson(ChipTester.TestFleeBlock);
+            //ChipBlockParser.ParseBlockIntoJson(ChipTester.TestSpinBlock);
+            //ChipBlockParser.ParseBlockIntoJson(ChipTester.TestBulletBlock);
+            ChipBlockParser.ParseBlockIntoJson(ChipTester.TestPlayerBlock);
+            ChipBlockParser.ParseBlockIntoJson(ChipTester.TestEnemyBlock);
+            ChipBlockParser.ParseBlockIntoJson(ChipTester.TestBulletBlock);
+
         }
 
         private static Dictionary<string,BlockTemplate> _parseBlocks(JToken input)

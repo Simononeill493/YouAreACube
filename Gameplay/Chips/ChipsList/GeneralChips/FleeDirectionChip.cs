@@ -9,11 +9,11 @@ namespace IAmACube
     [Serializable()]
     internal class FleeDirectionChip : OutputPin<CardinalDirection>, InputPin<Tile>
     {
-        public Tile ChipInput { get; set; }
+        public Tile ChipInput1 { get; set; }
 
         public override void Run(Block actor, UserInput userInput, ActionsList actions)
         {
-            SetOutput(actor.Location.AbsoluteLocation.FleeDirection(ChipInput.AbsoluteLocation));
+            SetOutput(actor.Location.AbsoluteLocation.FleeDirection(ChipInput1.AbsoluteLocation));
         }
     }
 }

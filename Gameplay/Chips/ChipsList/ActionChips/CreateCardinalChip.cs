@@ -11,13 +11,13 @@ namespace IAmACube
     {
         public string Name { get; set; }
 
-        public CardinalDirection ChipInput { get; set; }
+        public CardinalDirection ChipInput1 { get; set; }
         public BlockTemplate ChipInput2 { get; set; }
         public BlockType ChipInput3 { get; set; }
 
         public void Run(Block actor, UserInput userInput, ActionsList actions)
         {
-            actions.CreateBlock(actor, ChipInput2, ChipInput3, ChipInput);
+            actions.CreateBlock(actor, ChipInput2, ChipInput3, ChipInput1);
         }
     }
 }

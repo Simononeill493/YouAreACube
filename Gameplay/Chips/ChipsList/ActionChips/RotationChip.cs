@@ -11,11 +11,11 @@ namespace IAmACube
     {
         public string Name { get; set; }
 
-        public int ChipInput { get; set; }
+        public int ChipInput1 { get; set; }
 
         public void Run(Block actor, UserInput userInput, ActionsList actions)
         {
-            actions.StartRotation(actor, ChipInput);
+            actions.StartRotation(actor, ChipInput1);
         }
     }
 }

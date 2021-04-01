@@ -10,11 +10,11 @@ namespace IAmACube
     [Serializable()]
     internal class IsKeyPressedChip : OutputPin<bool>, InputPin<Keys>
     {
-        public Keys ChipInput { get; set; }
+        public Keys ChipInput1 { get; set; }
 
         public override void Run(Block actor, UserInput input, ActionsList actions)
         {
-            SetOutput(input.KeyboardState.IsKeyDown(ChipInput));
+            SetOutput(input.KeyboardState.IsKeyDown(ChipInput1));
         }
     }
 }

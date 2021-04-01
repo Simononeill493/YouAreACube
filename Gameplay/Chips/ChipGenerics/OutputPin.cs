@@ -21,7 +21,7 @@ namespace IAmACube
         {
             foreach(var t in Targets)
             {
-                t.ChipInput = output;
+                t.ChipInput1 = output;
             }
 
             foreach(var t2 in Targets2)

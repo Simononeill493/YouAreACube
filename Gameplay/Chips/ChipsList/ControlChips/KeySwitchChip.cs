@@ -12,7 +12,7 @@ namespace IAmACube
     {
         public string Name { get; set; }
 
-        List<Tuple<Keys, ChipBlock>> KeyEffects = new List<Tuple<Keys, ChipBlock>>();
+        public List<Tuple<Keys, ChipBlock>> KeyEffects = new List<Tuple<Keys, ChipBlock>>();
 
         public void AddKeyEffect(Keys key,ChipBlock effect)
         {

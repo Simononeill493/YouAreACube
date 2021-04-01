@@ -11,12 +11,12 @@ namespace IAmACube
     {
         public string Name { get; set; }
 
-        public T ChipInput { get; set; }
+        public T ChipInput1 { get; set; }
         public List<T> ChipInput2 { get; set; }
 
         public  void Run(Block actor, UserInput input, ActionsList actions)
         {
-            ChipInput2.Add(ChipInput);
+            ChipInput2.Add(ChipInput1);
         }
     }
 }

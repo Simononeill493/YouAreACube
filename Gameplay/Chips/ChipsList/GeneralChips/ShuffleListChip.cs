@@ -11,11 +11,11 @@ namespace IAmACube
     {
         public string Name { get; set; }
 
-        public List<T> ChipInput { get; set; }
+        public List<T> ChipInput1 { get; set; }
 
         public void Run(Block actor, UserInput input, ActionsList actions)
         {
-            ChipInput = RandomUtils.Shuffle(ChipInput);
+            ChipInput1 = RandomUtils.Shuffle(ChipInput1);
         }
     }
 }

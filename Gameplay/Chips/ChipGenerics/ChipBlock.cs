@@ -11,6 +11,8 @@ namespace IAmACube
     {
         public static ChipBlock NoAction = new ChipBlock(new List<IChip>());
 
+        public string Name;
+
         public List<IChip> Chips;
         private List<IControlChip> _controlChips;
 
@@ -63,6 +65,5 @@ namespace IAmACube
 
             return output;
         }
-
     }
 }

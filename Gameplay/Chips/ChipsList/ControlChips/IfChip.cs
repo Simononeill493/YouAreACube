@@ -8,14 +8,14 @@ namespace IAmACube
     {
         public string Name { get; set; }
 
-        public bool ChipInput { get; set; }
+        public bool ChipInput1 { get; set; }
         public ChipBlock Result;
         public ChipBlock Yes;
         public ChipBlock No;
 
         public void Run(Block actor,UserInput input,ActionsList actions)
         {
-            if(ChipInput)
+            if(ChipInput1)
             {
                 Result = Yes;
                 return;

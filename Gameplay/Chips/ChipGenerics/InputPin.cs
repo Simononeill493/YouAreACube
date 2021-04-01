@@ -8,6 +8,6 @@ namespace IAmACube
 {
     public interface InputPin<TInputType> : IChip
     {
-        TInputType ChipInput { get;  set; }
+        TInputType ChipInput1 { get;  set; }
     }
 }
