@@ -22,6 +22,14 @@ namespace IAmACube
             }
         }
 
+        public static ChipData GetChipDataFromChip(IChip chip)
+        {
+            var chipName = chip.GetType().Name;
+            var chipStringLocation = chipName.IndexOf("Chip");
+            var chipNameNoChip = chipName.Substring(0, chipStringLocation);
+            return BuiltInChips[chipNameNoChip];
+        }
+
         public static IChip GenerateChipFromData(ChipData data)
         {
             if(data.IsGeneric)

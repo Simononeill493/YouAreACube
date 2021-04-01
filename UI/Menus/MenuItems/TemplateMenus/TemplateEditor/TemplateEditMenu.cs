@@ -28,6 +28,8 @@ namespace IAmACube
             editPane.IsMouseOverSearchPane = searchPane.IsMouseOver;
             searchPane.AddToEditPane = editPane.CreateNewChipsetFromSearchChipClick;
             searchPane.RefreshFilter();
+
+            editPane.LoadTemplate(_template);
         }
 
         protected override void _drawSelf(DrawingInterface drawingInterface)

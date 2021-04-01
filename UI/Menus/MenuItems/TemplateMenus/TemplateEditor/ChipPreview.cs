@@ -26,20 +26,5 @@ namespace IAmACube
             _text.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
             AddChild(_text);
         }
-
-        public ChipTop GenerateChip()
-        {
-            var initialDrawLayer = ManualDrawLayer.Zero;
-
-            if (Chip.Name.Equals("If"))
-            {
-                return new ChipTopSwitch(initialDrawLayer, this.Chip, new List<string>() { "Yes", "No" });
-            }
-            else
-            {
-                return new ChipTopStandard(initialDrawLayer, this.Chip);
-            }
-        }
-
     }
 }

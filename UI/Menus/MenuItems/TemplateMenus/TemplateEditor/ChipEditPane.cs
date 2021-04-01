@@ -34,7 +34,22 @@ namespace IAmACube
             minusButton.UpdateDrawLayerCascade(DrawLayer - (DrawLayers.MinLayerDistance * 10));
             minusButton.OnMouseReleased += (i) => _multiplyChipScale(0.5f);
             AddChild(minusButton);
+
         }
+
+        #region loadTemplate
+
+        public void LoadTemplate(BlockTemplate template)
+        {
+            var newChipset = _createTopLevelChipset();
+            TemplateToVisualConstructor.AddTemplateChipsToChipset(newChipset,template, this);
+
+            newChipset.SetLocationConfig(ActualLocation + new Point(10, 10), CoordinateMode.Absolute, centered: false);
+            newChipset.UpdateDimensionsCascade(ActualLocation, GetCurrentSize());
+            _dropChipsetOnPane(newChipset);
+        }
+
+        #endregion
 
         #region chipsetDropped
         private void _chipsetDropped(EditableChipset droppedChipset, UserInput input)
@@ -60,11 +75,11 @@ namespace IAmACube
             }
             else
             {
-                _dropChipsetOnPane(toAttach, input);
+                _dropChipsetOnPane(toAttach);
             }
         }
 
-        private void _dropChipsetOnPane(EditableChipset toAttach, UserInput input)
+        private void _dropChipsetOnPane(EditableChipset toAttach)
         {
             _alignChipsetToPixels(toAttach, GetCurrentSize());
             _setChipsetVisiblity(toAttach);
@@ -110,14 +125,21 @@ namespace IAmACube
 
         private EditableChipset _createNewChipsetForMouse(UserInput input)
         {
-            var newChipset = CreateChipset();
+            var newChipset = _createTopLevelChipset();
             newChipset.SetLocationConfig(input.MousePos, CoordinateMode.Absolute, centered: true);
             newChipset.UpdateDimensionsCascade(ActualLocation, GetBaseSize());
             newChipset.TryStartDragAtMousePosition(input);
-            newChipset.SetContainer(this);
-            newChipset.TopLevelRefreshAll = newChipset.RefreshAll;
 
             return newChipset;
+        }
+
+        protected EditableChipset _createTopLevelChipset()
+        {
+            var chipset = CreateChipset();
+            chipset.SetContainer(this);
+            chipset.TopLevelRefreshAll = chipset.RefreshAll;
+
+            return chipset;
         }
         public EditableChipset CreateChipset()
         {
