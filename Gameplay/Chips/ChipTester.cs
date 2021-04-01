@@ -17,17 +17,17 @@ namespace IAmACube
 
         public static ChipBlock MakeEnemyBlock()
         {
-            var getNeighboursChip = new GetNeighboursChip();
-            var randDirChip = new RandomDirChip();
+            var getNeighboursChip = new GetNeighboursChip() { Name = "GetNeighbours_1" };
+            var randDirChip = new RandomDirChip() { Name = "RandomDir_1" };
 
-            var ifChip = new IfChip();
+            var ifChip = new IfChip() { Name = "If_1" };
 
-            var isListEmptyChip = new IsListEmptyChip<SurfaceBlock>();
-            var firstOfListChip = new FirstOfListChip<SurfaceBlock>();
-            var blockLocationChip = new BlockLocationChip();
-            var stepToChip = new ApproachDirectionChip();
-            var moveRandChip = new MoveCardinalChip();
-            var moveToAdjChip = new MoveCardinalChip();
+            var isListEmptyChip = new IsListEmptyChip<SurfaceBlock>() { Name = "IsListEmpty_1" };
+            var firstOfListChip = new FirstOfListChip<SurfaceBlock>() { Name = "FirstOfList_1" };
+            var blockLocationChip = new BlockLocationChip() { Name = "BlockLocation_1" };
+            var stepToChip = new ApproachDirectionChip() { Name = "ApproachDirection_1" };
+            var moveRandChip = new MoveCardinalChip() { Name = "MoveCardinal_1" };
+            var moveToAdjChip = new MoveCardinalChip() { Name = "MoveCardinal_2" };
 
             getNeighboursChip.Targets.Add(isListEmptyChip);
             getNeighboursChip.Targets.Add(firstOfListChip);
@@ -39,7 +39,7 @@ namespace IAmACube
 
             var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip, ifChip);
             var randomWalkBlock = new ChipBlock(randDirChip, moveRandChip);
-            var approachBlock = new ChipBlock(getNeighboursChip, firstOfListChip, blockLocationChip, stepToChip, moveToAdjChip);
+            var approachBlock = new ChipBlock(firstOfListChip, blockLocationChip, stepToChip, moveToAdjChip);
 
             isListEmptyChip.Targets.Add(ifChip);
             ifChip.Yes = randomWalkBlock;
@@ -72,7 +72,7 @@ namespace IAmACube
 
             var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip,ifChip);
             var randomWalkBlock = new ChipBlock(randDirChip, moveRandChip);
-            var fleeBlock = new ChipBlock(getNeighboursChip, firstOfListChip, blockLocationChip, fleeChip, moveToAdjChip);
+            var fleeBlock = new ChipBlock(firstOfListChip, blockLocationChip, fleeChip, moveToAdjChip);
 
             isListEmptyChip.Targets.Add(ifChip);
             ifChip.Yes = randomWalkBlock;

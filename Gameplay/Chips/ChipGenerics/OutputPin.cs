@@ -9,6 +9,8 @@ namespace IAmACube
     [Serializable()]
     public abstract class OutputPin<TOutputType> : IChip
     {
+        public string Name { get; set; }
+
         public List<InputPin<TOutputType>> Targets = new List<InputPin<TOutputType>>();
         public List<InputPin2<TOutputType>> Targets2 = new List<InputPin2<TOutputType>>();
         public List<InputPin3<TOutputType>> Targets3 = new List<InputPin3<TOutputType>>();

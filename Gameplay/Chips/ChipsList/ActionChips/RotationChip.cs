@@ -9,6 +9,8 @@ namespace IAmACube
     [Serializable()]
     internal class RotationChip : InputPin<int>
     {
+        public string Name { get; set; }
+
         public int ChipInput { get; set; }
 
         public void Run(Block actor, UserInput userInput, ActionsList actions)

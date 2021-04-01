@@ -41,5 +41,28 @@ namespace IAmACube
                 controlChip.ExecuteOutput(actor, input,actions);
             }
         }
+
+        public List<IChip> GetAllChipsAndSubChips()
+        {
+            var output = new List<IChip>();
+            foreach(var block in GetBlockAndSubBlocks())
+            {
+                output.AddRange(block.Chips);
+            }
+
+            return output;
+        }
+        public List<ChipBlock> GetBlockAndSubBlocks()
+        {
+            var output = new List<ChipBlock>() { this };
+
+            foreach (var controlChip in _controlChips)
+            {
+                output.AddRange(controlChip.GetSubBlocks());
+            }
+
+            return output;
+        }
+
     }
 }

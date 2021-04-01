@@ -27,6 +27,7 @@ namespace IAmACube
             OutputTypeCurrent = outputType;
         }
 
+        public bool HasOutput;
         public bool IsGeneric;
         public bool OutputIsGeneric => OutputType.Contains("Variable");
 

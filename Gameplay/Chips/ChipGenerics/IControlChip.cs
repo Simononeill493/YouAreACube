@@ -8,6 +8,7 @@ namespace IAmACube
 {
     public interface IControlChip
     {
+        List<ChipBlock> GetSubBlocks();
         void ExecuteOutput(Block actor, UserInput input, ActionsList actions);
     }
 }

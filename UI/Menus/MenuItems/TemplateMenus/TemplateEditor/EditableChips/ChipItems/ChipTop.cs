@@ -105,6 +105,8 @@ namespace IAmACube
             {
                 Chip.ResetOutputType();
             }
+
+            _topLevelRefreshAll_Delayed();
         }
         #endregion
 
@@ -128,8 +130,11 @@ namespace IAmACube
         #region refresh
         public Action TopLevelRefreshAll { get { return _topLevelRefreshAll; } set { _setTopLevelRefreshAll(value); } }
         protected virtual void _setTopLevelRefreshAll(Action topLevelRefreshAll) => _topLevelRefreshAll = topLevelRefreshAll;
-
         private Action _topLevelRefreshAll;
+
+        private void _topLevelRefreshAll_Delayed() => _delayedTopLevelRefreshAll = true;
+        private bool _delayedTopLevelRefreshAll = false;
+
         public Action ChipsetRefreshText;
 
         public virtual void RefreshAll() { }
@@ -137,6 +142,17 @@ namespace IAmACube
         {
             _inputSections.ForEach(s => s.RefreshText());
             GetSubChipsets().ForEach(s => s.RefreshText());
+        }
+
+        public override void Update(UserInput input)
+        {
+            base.Update(input);
+
+            if(_delayedTopLevelRefreshAll)
+            {
+                TopLevelRefreshAll();
+                _delayedTopLevelRefreshAll = false;
+            }
         }
         #endregion
 

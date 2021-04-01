@@ -9,6 +9,8 @@ namespace IAmACube
     [Serializable()]
     internal class CreateCardinalChip : InputPin<CardinalDirection>, InputPin2<BlockTemplate>, InputPin3<BlockType>
     {
+        public string Name { get; set; }
+
         public CardinalDirection ChipInput { get; set; }
         public BlockTemplate ChipInput2 { get; set; }
         public BlockType ChipInput3 { get; set; }

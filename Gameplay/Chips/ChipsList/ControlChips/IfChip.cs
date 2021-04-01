@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace IAmACube
 {
     [Serializable()]
-    internal class IfChip : IControlChip, InputPin<bool> 
+    internal class IfChip : IControlChip, InputPin<bool>
     {
+        public string Name { get; set; }
+
         public bool ChipInput { get; set; }
         public ChipBlock Result;
         public ChipBlock Yes;
@@ -24,6 +27,21 @@ namespace IAmACube
         public void ExecuteOutput(Block actor, UserInput input, ActionsList actions)
         {
             Result.Execute(actor, input, actions);
+        }
+
+        public List<ChipBlock> GetSubBlocks()
+        {
+            var output = new List<ChipBlock>();
+            if(Yes!=null) 
+            {
+                output.AddRange(Yes.GetBlockAndSubBlocks());
+            }
+            if (No != null)
+            {
+                output.AddRange(No.GetBlockAndSubBlocks());
+            }
+
+            return output;
         }
     }
 }

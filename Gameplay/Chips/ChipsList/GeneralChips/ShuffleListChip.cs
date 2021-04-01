@@ -9,6 +9,8 @@ namespace IAmACube
     [Serializable()]
     internal class ShuffleListChip<T> : InputPin<List<T>>
     {
+        public string Name { get; set; }
+
         public List<T> ChipInput { get; set; }
 
         public void Run(Block actor, UserInput input, ActionsList actions)

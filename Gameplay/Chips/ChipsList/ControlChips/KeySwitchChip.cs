@@ -10,6 +10,8 @@ namespace IAmACube
     [Serializable()]
     class KeySwitchChip : IControlChip, IChip
     {
+        public string Name { get; set; }
+
         List<Tuple<Keys, ChipBlock>> KeyEffects = new List<Tuple<Keys, ChipBlock>>();
 
         public void AddKeyEffect(Keys key,ChipBlock effect)
@@ -29,5 +31,17 @@ namespace IAmACube
         }
 
         public void Run(Block actor, UserInput userInput, ActionsList actions) {}
+
+        public List<ChipBlock> GetSubBlocks()
+        {
+            var output = new List<ChipBlock>();
+
+            foreach(var block in KeyEffects.Select(k=>k.Item2))
+            {
+                output.AddRange(block.GetBlockAndSubBlocks());
+            }
+
+            return output;
+        }
     }
 }
