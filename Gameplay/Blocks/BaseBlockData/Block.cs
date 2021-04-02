@@ -11,7 +11,7 @@ namespace IAmACube
     {
         public BlockTemplate Template;
         public Tile Location;
-        public BlockType BlockType;
+        public BlockMode BlockType;
 
         public int SpeedOffset;
         public Orientation Orientation;

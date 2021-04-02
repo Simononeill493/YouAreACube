@@ -90,10 +90,10 @@ namespace IAmACube
             var moveDown = new MoveCardinalChip() { ChipInput1 = CardinalDirection.South, Name = "MoveDown" };
             var moveLeft = new MoveCardinalChip() { ChipInput1 = CardinalDirection.West, Name = "MoveLeft" };
             var moveRight = new MoveCardinalChip() { ChipInput1 = CardinalDirection.East, Name = "MoveRight" };
-            var createEnemyNorth = new CreateCardinalChip() { ChipInput1 = CardinalDirection.North, ChipInput2 = bullet, ChipInput3 = BlockType.Ephemeral, Name = "createEnemyNorth" };
-            var createEnemySouth = new CreateCardinalChip() { ChipInput1 = CardinalDirection.South, ChipInput2 = bullet, ChipInput3 = BlockType.Ephemeral, Name = "createEnemySouth" };
-            var createEnemyWest = new CreateCardinalChip() { ChipInput1 = CardinalDirection.West, ChipInput2 = bullet, ChipInput3 = BlockType.Ephemeral, Name = "createEnemyWest" };
-            var createEnemyEast = new CreateCardinalChip() { ChipInput1 = CardinalDirection.East, ChipInput2 = bullet, ChipInput3 = BlockType.Ephemeral, Name = "createEnemyEast" };
+            var createEnemyNorth = new CreateCardinalChip() { ChipInput1 = CardinalDirection.North, ChipInput2 = bullet, ChipInput3 = BlockMode.Ephemeral, Name = "createEnemyNorth" };
+            var createEnemySouth = new CreateCardinalChip() { ChipInput1 = CardinalDirection.South, ChipInput2 = bullet, ChipInput3 = BlockMode.Ephemeral, Name = "createEnemySouth" };
+            var createEnemyWest = new CreateCardinalChip() { ChipInput1 = CardinalDirection.West, ChipInput2 = bullet, ChipInput3 = BlockMode.Ephemeral, Name = "createEnemyWest" };
+            var createEnemyEast = new CreateCardinalChip() { ChipInput1 = CardinalDirection.East, ChipInput2 = bullet, ChipInput3 = BlockMode.Ephemeral, Name = "createEnemyEast" };
 
             keySwitch.AddKeyEffect(Keys.W, new ChipBlock(moveUp) { Name = "WBlock" });
             keySwitch.AddKeyEffect(Keys.A, new ChipBlock(moveLeft) { Name = "ABlock" });
@@ -104,7 +104,7 @@ namespace IAmACube
             keySwitch.AddKeyEffect(Keys.Left, new ChipBlock(createEnemyWest) { Name = "LeftBlock" });
             keySwitch.AddKeyEffect(Keys.Right, new ChipBlock(createEnemyEast) { Name = "RightBlock" });
 
-            return new ChipBlock(keySwitch) { Name = "Main" };
+            return new ChipBlock(keySwitch) { Name = "Initial" };
         }
 
         public static ChipBlock MakeSpinBlock()
@@ -118,7 +118,7 @@ namespace IAmACube
             var moveForwardChip = new MoveRelativeChip() { Name = "MoveRelative_1" };
             moveForwardChip.ChipInput1 = RelativeDirection.Forward;
 
-            return new ChipBlock(getRotationAmountChip, rotateRightChip, moveForwardChip) { Name = "Main" };
+            return new ChipBlock(getRotationAmountChip, rotateRightChip, moveForwardChip) { Name = "Initial" };
         }
 
         public static ChipBlock MakeBulletBlock()
@@ -126,7 +126,16 @@ namespace IAmACube
             var moveForwardChip = new MoveRelativeChip() { Name = "MoveRelative_1" };
             moveForwardChip.ChipInput1 = RelativeDirection.Forward;
 
-            return new ChipBlock(moveForwardChip) { Name = "Main" };
+            return new ChipBlock(moveForwardChip) { Name = "Initial" };
         }
+
+        public static ChipBlock MakeFirstOfListBlock()
+        {
+            return null;
+            var getNeighboursChip = new GetNeighboursChip() { Name = "GetNeighbours_1" };
+            var firstOfListChip = new FirstOfListChip<SurfaceBlock>() { Name = "FirstOfList_1" };
+
+        }
+
     }
 }

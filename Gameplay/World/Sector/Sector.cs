@@ -53,7 +53,7 @@ namespace IAmACube
 
         public void AddNonMovingBlockToSector(Block block)
         {
-            if (block.BlockType != BlockType.Ground)
+            if (block.BlockType != BlockMode.Ground)
             {
                 _destructibleBlocks.Add(block);
             }
@@ -70,7 +70,7 @@ namespace IAmACube
 
         public void RemoveFromSectorLists(Block block)
         {
-            if (block.BlockType != BlockType.Ground)
+            if (block.BlockType != BlockMode.Ground)
             {
                 _destructibleBlocks.Remove(block);
             }

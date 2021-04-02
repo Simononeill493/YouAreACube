@@ -18,17 +18,21 @@ namespace IAmACube
 
         public ChipBlock(List<IChip> chips)
         {
-            Chips = chips;
-            _controlChips = chips.Where(c => typeof(IControlChip).IsAssignableFrom(c.GetType())).Cast<IControlChip>().ToList();
-        }
-        public ChipBlock(params IChip[] chips)
-        {
             Chips = new List<IChip>();
-            foreach(var chip in chips)
+            _controlChips = new List<IControlChip>();
+
+            AddChips(chips);
+        }
+        public ChipBlock(params IChip[] chips) : this(chips.ToList()) { }
+
+        public void AddChip(IChip chip) => AddChips(new List<IChip>() { chip });
+        public void AddChips(List <IChip> chips)
+        {
+            foreach (var chip in chips)
             {
                 Chips.Add(chip);
             }
-            _controlChips = chips.Where(c => typeof(IControlChip).IsAssignableFrom(c.GetType())).Cast<IControlChip>().ToList();
+            _controlChips.AddRange(chips.Where(c => typeof(IControlChip).IsAssignableFrom(c.GetType())).Cast<IControlChip>().ToList());
         }
 
         public void Execute(Block actor,UserInput input,ActionsList actions) 

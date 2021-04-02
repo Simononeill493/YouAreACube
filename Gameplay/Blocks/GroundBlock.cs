@@ -11,7 +11,7 @@ namespace IAmACube
     {
         public GroundBlock(BlockTemplate template) : base(template)
         {
-            BlockType = BlockType.Ground;
+            BlockType = BlockMode.Ground;
         }
 
         public override void MoveToCurrentDestination()

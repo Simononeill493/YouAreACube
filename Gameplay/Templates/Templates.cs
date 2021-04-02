@@ -31,9 +31,13 @@ namespace IAmACube
             //ChipBlockParser.ParseBlockIntoJson(ChipTester.TestFleeBlock);
             //ChipBlockParser.ParseBlockIntoJson(ChipTester.TestSpinBlock);
             //ChipBlockParser.ParseBlockIntoJson(ChipTester.TestBulletBlock);
-            ChipBlockParser.ParseBlockIntoJson(ChipTester.TestPlayerBlock);
-            ChipBlockParser.ParseBlockIntoJson(ChipTester.TestEnemyBlock);
-            ChipBlockParser.ParseBlockIntoJson(ChipTester.TestBulletBlock);
+            //ChipBlockParser.ParseBlockIntoJson(ChipTester.TestPlayerBlock);
+
+
+            var enemyJson1 = ChipBlockParser.ParseBlockIntoJson(ChipTester.TestEnemyBlock);
+            var enemyBlock1 = ChipBlockParser.ParseJsonToBlock(enemyJson1);
+            var enemyJson2 = ChipBlockParser.ParseBlockIntoJson(enemyBlock1);
+            var equals = enemyJson1.Equals(enemyJson2);
 
         }
 
@@ -70,7 +74,7 @@ namespace IAmACube
             return template;
         }
 
-        public static Block Generate(string name,BlockType blockType) => BlockTemplates[name].Generate(blockType);
+        public static Block Generate(string name,BlockMode blockType) => BlockTemplates[name].Generate(blockType);
         public static SurfaceBlock GenerateSurface(string name) => BlockTemplates[name].GenerateSurface();
         public static GroundBlock GenerateGround(string name) => BlockTemplates[name].GenerateGround();
         public static EphemeralBlock GenerateEphemeral(string name) => BlockTemplates[name].GenerateEphemeral();

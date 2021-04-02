@@ -28,32 +28,32 @@ namespace IAmACube
             SectorID = sectorID;
         }
 
-        public bool ContainsBlock(BlockType blockType)
+        public bool ContainsBlock(BlockMode blockType)
         {
             switch (blockType)
             {
-                case BlockType.Surface:
+                case BlockMode.Surface:
                     return HasSurface;
-                case BlockType.Ground:
+                case BlockMode.Ground:
                     return true;
-                case BlockType.Ephemeral:
+                case BlockMode.Ephemeral:
                     return HasEphemeral;
             }
 
             Console.WriteLine("Warning: tried to scan a tile for  an unrecognized block type: " + blockType);
             return false;
         }
-        public void ClearBlock(BlockType blockType)
+        public void ClearBlock(BlockMode blockType)
         {
             switch (blockType)
             {
-                case BlockType.Surface:
+                case BlockMode.Surface:
                     Surface = null;
                     break;
-                case BlockType.Ground:
+                case BlockMode.Ground:
                     Console.WriteLine("Warning: you can't clear the ground!");
                     break;
-                case BlockType.Ephemeral:
+                case BlockMode.Ephemeral:
                     Ephemeral = null;
                     break;
             }
@@ -70,13 +70,13 @@ namespace IAmACube
 
             switch (block.BlockType)
             {
-                case BlockType.Surface:
+                case BlockMode.Surface:
                     AddSurface((SurfaceBlock)block);
                     break;
-                case BlockType.Ground:
+                case BlockMode.Ground:
                     AddGround((GroundBlock)block);
                     break;
-                case BlockType.Ephemeral:
+                case BlockMode.Ephemeral:
                     AddEphemeral((EphemeralBlock)block);
                     break;
             }

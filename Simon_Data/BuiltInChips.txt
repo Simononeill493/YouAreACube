@@ -4,7 +4,7 @@
 	{
       "name":"CreateCardinal",
 	  "type":"Action",
-	  "in":["CardinalDirection","Template","BlockType"],
+	  "in":["CardinalDirection","Template","BlockMode"],
     },
 	{
       "name":"MoveCardinal",

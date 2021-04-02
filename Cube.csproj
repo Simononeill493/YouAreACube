@@ -52,7 +52,7 @@
     <Compile Include="Camera\KernelCamera\KernelTrackingCamera.cs" />
     <Compile Include="Camera\KernelCamera\ScrollBoundaries.cs" />
     <Compile Include="Gameplay\Blocks\BaseBlockData\Block.cs" />
-    <Compile Include="Gameplay\Blocks\BaseBlockData\BlockType.cs" />
+    <Compile Include="Gameplay\Blocks\BaseBlockData\BlockMode.cs" />
     <Compile Include="Gameplay\Blocks\BaseBlockData\Block_Movement.cs" />
     <Compile Include="Gameplay\Blocks\BlockMovementData.cs" />
     <Compile Include="Gameplay\Blocks\EphemeralBlock.cs" />

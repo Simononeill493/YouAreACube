@@ -65,12 +65,12 @@ namespace IAmACube
         {
             var centre = world.GetSector(new Point(0, 0));
 
-            _addRandom(world.Random, centre, BlockType.Surface, "BasicEnemy", 16);
-            _addRandom(world.Random, centre, BlockType.Surface, "Spinner", 16);
+            _addRandom(world.Random, centre, BlockMode.Surface, "BasicEnemy", 16);
+            _addRandom(world.Random, centre, BlockMode.Surface, "Spinner", 16);
             //_addRandom(world.Random, world.Centre, BlockType.Ephemeral,"Bullet", 16);
         }
 
-        private static void _addRandom(Random r, Sector sector,BlockType blockType, string blockname,int number)
+        private static void _addRandom(Random r, Sector sector,BlockMode blockType, string blockname,int number)
         {
             var emptyTiles = sector.Tiles.Where(t => t.Surface == null).ToList();
             var emptySize = emptyTiles.Count();

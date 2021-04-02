@@ -23,15 +23,15 @@ namespace IAmACube
             Name = name;
         }
 
-        public Block Generate(BlockType blockType)
+        public Block Generate(BlockMode blockType)
         {
             switch (blockType)
             {
-                case BlockType.Surface:
+                case BlockMode.Surface:
                     return GenerateSurface();
-                case BlockType.Ground:
+                case BlockMode.Ground:
                     return GenerateGround();
-                case BlockType.Ephemeral:
+                case BlockMode.Ephemeral:
                     return GenerateEphemeral();
             }
 

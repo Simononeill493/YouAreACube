@@ -17,7 +17,7 @@ namespace IAmACube
             _sector = sector;
         }
 
-        public bool TryCreate(Block creator,BlockTemplate template,BlockType blockType,CardinalDirection direction)
+        public bool TryCreate(Block creator,BlockTemplate template,BlockMode blockType,CardinalDirection direction)
         {
             if(!creator.Location.DirectionIsValid(direction))
             {
@@ -28,7 +28,7 @@ namespace IAmACube
             var targetPos = creator.Location.Adjacent[direction];
             return TryCreate(creator, template, blockType, targetPos, direction);
         }
-        public bool TryCreate(Block creator, BlockTemplate template, BlockType blockType, Tile targetPosition,CardinalDirection direction)
+        public bool TryCreate(Block creator, BlockTemplate template, BlockMode blockType, Tile targetPosition,CardinalDirection direction)
         {
             if(_canThisBlockBeCreated(creator, template,blockType, targetPosition))
             {
@@ -39,7 +39,7 @@ namespace IAmACube
             return false;
         }
 
-        private void _create(Block creator, BlockTemplate template, BlockType blockType, Tile targetPosition, CardinalDirection direction)
+        private void _create(Block creator, BlockTemplate template, BlockMode blockType, Tile targetPosition, CardinalDirection direction)
         {
             var newBlock = template.Generate(blockType);
             newBlock.BeCreatedBy(creator);
@@ -57,15 +57,15 @@ namespace IAmACube
             }
         }
 
-        private bool _canThisBlockBeCreated(Block creator, BlockTemplate template, BlockType blockType, Tile targetPosition)
+        private bool _canThisBlockBeCreated(Block creator, BlockTemplate template, BlockMode blockType, Tile targetPosition)
         {
             switch (blockType)
             {
-                case BlockType.Surface:
+                case BlockMode.Surface:
                     return _canCreateSurface(creator, template, targetPosition);
-                case BlockType.Ground:
+                case BlockMode.Ground:
                     return _canCreateGround(creator, template, targetPosition);
-                case BlockType.Ephemeral:
+                case BlockMode.Ephemeral:
                     return _canCreateEphemeral(creator, template, targetPosition);
             }
 

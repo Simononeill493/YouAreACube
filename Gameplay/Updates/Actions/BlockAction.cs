@@ -17,7 +17,7 @@ namespace IAmACube
         public int Rotation;
         public int MoveTotalTicks;
 
-        public BlockType BlockType;
+        public BlockMode BlockType;
         public BlockTemplate BlockTemplate;
 
         public BlockAction(Block actor,ActionType actionType)

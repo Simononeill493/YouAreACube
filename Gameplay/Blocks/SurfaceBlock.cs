@@ -11,7 +11,7 @@ namespace IAmACube
     {        
         public SurfaceBlock(BlockTemplate template): base(template)
         {
-            BlockType = BlockType.Surface;
+            BlockType = BlockMode.Surface;
         }
 
         public override void MoveToCurrentDestination()

@@ -38,7 +38,7 @@ namespace IAmACube
             }
             else if (dataType.Equals("BlockType"))
             {
-                return _createOptionsFromItems(typeof(BlockType).GetEnumValues().Cast<BlockType>().ToList());
+                return _createOptionsFromItems(typeof(BlockMode).GetEnumValues().Cast<BlockMode>().ToList());
             }
             else if (dataType.Equals("bool"))
             {
@@ -63,7 +63,7 @@ namespace IAmACube
         {
             if (dataType.Equals("CardinalDirection")) { return typeof(CardinalDirection); }
             if (dataType.Equals("RelativeDirection")) { return typeof(RelativeDirection); }
-            if (dataType.Equals("BlockType")) { return typeof(BlockType); }
+            if (dataType.Equals("BlockType")) { return typeof(BlockMode); }
             if (dataType.Equals("bool")) { return typeof(bool); }
             if (dataType.Equals("int")) { return typeof(int); }
             if (dataType.Equals("string")) { return typeof(string); }

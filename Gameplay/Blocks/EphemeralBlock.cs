@@ -11,7 +11,7 @@ namespace IAmACube
     {
         public EphemeralBlock(BlockTemplate template) : base(template)
         {
-            BlockType = BlockType.Ephemeral;
+            BlockType = BlockMode.Ephemeral;
         }
 
         public override void Update(UserInput input, ActionsList actions)
