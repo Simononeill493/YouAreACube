@@ -65,7 +65,7 @@ namespace IAmACube
         {
             var centre = world.GetSector(new Point(0, 0));
 
-            _addRandom(world.Random, centre, BlockMode.Surface, "BasicEnemy", 16);
+            _addRandom(world.Random, centre, BlockMode.Surface, "ScaredEnemy", 16);
             _addRandom(world.Random, centre, BlockMode.Surface, "Spinner", 16);
             //_addRandom(world.Random, world.Centre, BlockType.Ephemeral,"Bullet", 16);
         }

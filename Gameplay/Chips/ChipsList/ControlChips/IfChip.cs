@@ -9,7 +9,6 @@ namespace IAmACube
         public string Name { get; set; }
 
         public bool ChipInput1 { get; set; }
-        public ChipBlock Result;
         public ChipBlock Yes;
         public ChipBlock No;
 
@@ -17,16 +16,12 @@ namespace IAmACube
         {
             if(ChipInput1)
             {
-                Result = Yes;
-                return;
+                Yes.Execute(actor, input, actions);
             }
-
-            Result = No;
-        }
-
-        public void ExecuteOutput(Block actor, UserInput input, ActionsList actions)
-        {
-            Result.Execute(actor, input, actions);
+            else
+            {
+                No.Execute(actor, input, actions);
+            }
         }
 
         public List<ChipBlock> GetSubBlocks()

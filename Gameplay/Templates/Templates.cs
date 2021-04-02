@@ -24,21 +24,25 @@ namespace IAmACube
             BlockTemplates["ScaredEnemy"].Chips = ChipTester.TestFleeBlock;
             BlockTemplates["Spinner"].Chips = ChipTester.TestSpinBlock;
             BlockTemplates["Bullet"].Chips = ChipTester.TestBulletBlock;
-
             BlockTemplates["BasicPlayer"].Chips = ChipTester.TestPlayerBlock;
 
-            //ChipBlockParser.ParseBlockIntoJson(ChipTester.TestEnemyBlock);
-            //ChipBlockParser.ParseBlockIntoJson(ChipTester.TestFleeBlock);
-            //ChipBlockParser.ParseBlockIntoJson(ChipTester.TestSpinBlock);
-            //ChipBlockParser.ParseBlockIntoJson(ChipTester.TestBulletBlock);
-            //ChipBlockParser.ParseBlockIntoJson(ChipTester.TestPlayerBlock);
+            foreach(var template in BlockTemplates)
+            {
+                if(!template.Value.Active) { continue; }
+                var json1 = ChipBlockParser.ParseBlockIntoJson(template.Value.Chips);
+                var block1 = ChipBlockParser.ParseJsonToBlock(json1);
+                var json2 = ChipBlockParser.ParseBlockIntoJson(block1);
 
+                if(!json1.Equals(json2))
+                {
+                    throw new Exception("Parsing Problem - string round trip mismatch");
+                }
 
-            var enemyJson1 = ChipBlockParser.ParseBlockIntoJson(ChipTester.TestEnemyBlock);
-            var enemyBlock1 = ChipBlockParser.ParseJsonToBlock(enemyJson1);
-            var enemyJson2 = ChipBlockParser.ParseBlockIntoJson(enemyBlock1);
-            var equals = enemyJson1.Equals(enemyJson2);
-
+                if (!template.Value.Chips.Equivalent(block1))
+                {
+                    throw new Exception("Parsing Problem - chipblock round trip mismatch");
+                }
+            }
         }
 
         private static Dictionary<string,BlockTemplate> _parseBlocks(JToken input)

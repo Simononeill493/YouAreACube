@@ -25,13 +25,17 @@ namespace IAmACube
         }
         public ChipBlock(params IChip[] chips) : this(chips.ToList()) { }
 
-        public void AddChip(IChip chip) => AddChips(new List<IChip>() { chip });
+        public void AddChip(IChip chip)
+        {
+            Chips.Add(chip);
+            if(typeof(IControlChip).IsAssignableFrom(chip.GetType()))
+            {
+                _controlChips.Add((IControlChip)chip);
+            }
+        }
         public void AddChips(List <IChip> chips)
         {
-            foreach (var chip in chips)
-            {
-                Chips.Add(chip);
-            }
+            Chips.AddRange(chips);
             _controlChips.AddRange(chips.Where(c => typeof(IControlChip).IsAssignableFrom(c.GetType())).Cast<IControlChip>().ToList());
         }
 
@@ -40,11 +44,6 @@ namespace IAmACube
             foreach(var chip in Chips)
             {
                 chip.Run(actor,input,actions);
-            }
-
-            foreach(var controlChip in _controlChips)
-            {
-                controlChip.ExecuteOutput(actor, input,actions);
             }
         }
 
@@ -61,13 +60,48 @@ namespace IAmACube
         public List<ChipBlock> GetBlockAndSubBlocks()
         {
             var output = new List<ChipBlock>() { this };
-
+            output.AddRange(GetSubBlocks());
+            return output;
+        }
+        public List<ChipBlock> GetSubBlocks()
+        {
+            var output = new List<ChipBlock>() { };
             foreach (var controlChip in _controlChips)
             {
                 output.AddRange(controlChip.GetSubBlocks());
             }
 
             return output;
+        }
+
+        public bool Equivalent(ChipBlock other)
+        {
+            if(Name != other.Name) { return false; }
+            if (Chips.Count!=other.Chips.Count) { return false; }
+            if (_controlChips.Count != other._controlChips.Count) { return false; }
+
+            for (int i = 0; i < Chips.Count; i++)
+            {
+                if (!Chips[i].Name.Equals(other.Chips[i].Name))
+                {
+                    return false;
+                }
+            }
+
+            var mySubBlocks = GetSubBlocks();
+            var otherSubBlocks = other.GetSubBlocks();
+
+            if (mySubBlocks.Count != otherSubBlocks.Count) { return false; }
+
+            for (int i=0;i< mySubBlocks.Count;i++)
+            {
+                if(!mySubBlocks[i].Equivalent(otherSubBlocks[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

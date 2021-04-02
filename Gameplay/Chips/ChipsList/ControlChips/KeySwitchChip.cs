@@ -19,18 +19,16 @@ namespace IAmACube
             KeyEffects.Add(new Tuple<Keys, ChipBlock>(key, effect));
         }
 
-        public void ExecuteOutput(Block actor, UserInput input, ActionsList actions)
+        public void Run(Block actor, UserInput input, ActionsList actions)
         {
-            foreach(var keyEffect in KeyEffects)
+            foreach (var keyEffect in KeyEffects)
             {
-                if(input.IsKeyDown(keyEffect.Item1))
+                if (input.IsKeyDown(keyEffect.Item1))
                 {
                     keyEffect.Item2.Execute(actor, input, actions);
                 }
             }
         }
-
-        public void Run(Block actor, UserInput userInput, ActionsList actions) {}
 
         public List<ChipBlock> GetSubBlocks()
         {

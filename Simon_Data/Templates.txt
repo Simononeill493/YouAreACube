@@ -9,7 +9,8 @@
     },
 	{
       "name":"ScaredEnemy",
-      "sprite":"BasicPlayer",
+      "sprite":"BasicEnemy",
+	  "energyCap":10000,
       "speed":15
     },
     {

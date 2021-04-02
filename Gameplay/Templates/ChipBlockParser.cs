@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Xna.Framework.Input;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -46,13 +48,13 @@ namespace IAmACube
                 var chipType = chip.GetType();
                 if(chipData.HasOutput)
                 {
-                    dynamic targets1 = chipType.GetField("Targets").GetValue(chip);
+                    IEnumerable targets1 = (IEnumerable)chipType.GetField("Targets1").GetValue(chip);
                     _setChipTargets(chip,0,targets1,chipToInputs);
 
-                    dynamic targets2 = chipType.GetField("Targets2").GetValue(chip);
+                    IEnumerable targets2 = (IEnumerable)chipType.GetField("Targets2").GetValue(chip);
                     _setChipTargets(chip, 1,targets2, chipToInputs);
 
-                    dynamic targets3 = chipType.GetField("Targets3").GetValue(chip);
+                    IEnumerable targets3 = (IEnumerable)chipType.GetField("Targets3").GetValue(chip);
                     _setChipTargets(chip, 2,targets3, chipToInputs);
                 }
             }
@@ -141,7 +143,7 @@ namespace IAmACube
             }
         }
 
-        private static void _setChipTargets(IChip chip,int inputPinIndex,dynamic targets, Dictionary<string, List<Tuple<string, string>>> chipToInputs)
+        private static void _setChipTargets(IChip chip,int inputPinIndex,IEnumerable targets, Dictionary<string, List<Tuple<string, string>>> chipToInputs)
         {
             foreach (var target in targets)
             {
@@ -171,10 +173,12 @@ namespace IAmACube
             var data = new Dictionary<string, ChipData>();
             var chipTokens = new Dictionary<string, JToken>();
 
+
             foreach (var blockToken in chipBlocksToken)
             {
                 var name = blockToken["name"].ToString();
-                blocks[name] = new ChipBlock() { Name = name };
+                var block = new ChipBlock() { Name = name };
+                blocks[name] = block;
 
                 foreach (var chipToken in blockToken["chips"])
                 {
@@ -182,17 +186,15 @@ namespace IAmACube
                     chipTokens[chipName] = chipToken;
 
                     var chipTypeName = chipToken["type"].ToString();
-                    var chipType = ChipDatabase.BuiltInChips[chipTypeName];
-                    data[chipName] = chipType;
-                }
-            }
+                    var chipData = ChipDatabase.BuiltInChips[chipTypeName];
+                    data[chipName] = chipData;
 
-            foreach(var chipToken in chipTokens)
-            {
-                var chipData = data[chipToken.Key];
-                var constructedChip = _getConstructedChip(chipToken.Key, chipToken.Value, chipData);
-                constructedChip.Name = chipToken.Key;
-                chips[chipToken.Key] = constructedChip;
+                    var constructedChip = _getConstructedChip(chipName, chipToken, chipData);
+                    constructedChip.Name = chipName;
+                    chips[chipName] = constructedChip;
+
+                    block.AddChip(constructedChip);
+                }
             }
 
             foreach (var chipToken in chipTokens)
@@ -219,6 +221,7 @@ namespace IAmACube
                             }
                             else
                             {
+                                if(typeName.Equals("int")) { typeName = "Int32"; }
                                 var type = ChipDatabase._allTypes[typeName];
                                 var typeValue = _parseInputAsValue(type, input["inputValue"].ToString());
                                 property.SetValue(constructedChip, typeValue);
@@ -227,21 +230,56 @@ namespace IAmACube
                         else if(inputType.Equals("Reference"))
                         {
                             var inputChipName = input["inputValue"].ToString();
-                            //var inputChip = 
+                            var inputChip = chips[inputChipName];
+
+                            var targetField = inputChip.GetType().GetField("Targets" + (i + 1).ToString());
+                            IList targetsList = (IList)targetField.GetValue(inputChip);
+                            targetsList.Add(constructedChip);
+
                         }
 
                     }
                 }
 
+                if(chipData.Name.Equals("If"))
+                {
+                    var ifChip = (IfChip)constructedChip;
+                    var yesBlockName = chipToken.Value["yes"].ToString();
+                    var yesBLock = blocks[yesBlockName];
+                    ifChip.Yes = yesBLock;
+
+                    var noBlockName = chipToken.Value["no"].ToString();
+                    var noBLock = blocks[noBlockName];
+                    ifChip.No = noBLock;
+
+                }
+                if(chipData.Name.Equals("KeySwitch"))
+                {
+                    var keySwitchChip = (KeySwitchChip)constructedChip;
+                    var keyEffects = chipToken.Value["keyEffects"];
+                    foreach(var effect in keyEffects)
+                    {
+                        var effectKey = (Keys)Enum.Parse(typeof(Keys), effect["Item1"].ToString());
+                        var effectBlockName = effect["Item2"].ToString();
+                        var effectBlock = blocks[effectBlockName];
+
+                        keySwitchChip.AddKeyEffect(effectKey, effectBlock);
+                    }
+                }
+
             }
 
-            return null;
+            var initBlock = blocks.Values.First(v => v.Name.Equals("Initial"));
+
+            return initBlock;
         }
 
         private static object _parseInputAsValue(Type t,string asString)
         {
-            var parseMethod = t.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public);
-            if(parseMethod!=null)
+            var parseMethod = t.GetMethod("Parse", new Type[] { typeof(string) }, new ParameterModifier[]{ new ParameterModifier(1)});
+
+            //var parseMethod = t.GetMethod("Parse", BindingFlags.Static | BindingFlags.Public, new ParameterModifier[]{ new ParameterModifier(1)});
+            if (parseMethod!=null)
             {
                 var parsed = parseMethod.Invoke(null, new object[] { asString });
                 return parsed;

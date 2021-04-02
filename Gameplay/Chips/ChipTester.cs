@@ -29,19 +29,19 @@ namespace IAmACube
             var moveRandChip = new MoveCardinalChip() { Name = "MoveCardinal_1" };
             var moveToAdjChip = new MoveCardinalChip() { Name = "MoveCardinal_2" };
 
-            getNeighboursChip.Targets.Add(isListEmptyChip);
-            getNeighboursChip.Targets.Add(firstOfListChip);
+            getNeighboursChip.Targets1.Add(isListEmptyChip);
+            getNeighboursChip.Targets1.Add(firstOfListChip);
 
-            randDirChip.Targets.Add(moveRandChip);
-            firstOfListChip.Targets.Add(blockLocationChip);
-            blockLocationChip.Targets.Add(stepToChip);
-            stepToChip.Targets.Add(moveToAdjChip);
+            randDirChip.Targets1.Add(moveRandChip);
+            firstOfListChip.Targets1.Add(blockLocationChip);
+            blockLocationChip.Targets1.Add(stepToChip);
+            stepToChip.Targets1.Add(moveToAdjChip);
 
             var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip, ifChip) { Name = "Initial" };
             var randomWalkBlock = new ChipBlock(randDirChip, moveRandChip) { Name = "RandomWalk" };
             var approachBlock = new ChipBlock(firstOfListChip, blockLocationChip, stepToChip, moveToAdjChip) { Name = "Approach" };
 
-            isListEmptyChip.Targets.Add(ifChip);
+            isListEmptyChip.Targets1.Add(ifChip);
             ifChip.Yes = randomWalkBlock;
             ifChip.No = approachBlock;
 
@@ -62,19 +62,19 @@ namespace IAmACube
             var moveRandChip = new MoveCardinalChip() { Name = "MoveCardinal_1" };
             var moveToAdjChip = new MoveCardinalChip() { Name = "MoveCardinal_2" };
 
-            getNeighboursChip.Targets.Add(isListEmptyChip);
-            getNeighboursChip.Targets.Add(firstOfListChip);
+            getNeighboursChip.Targets1.Add(isListEmptyChip);
+            getNeighboursChip.Targets1.Add(firstOfListChip);
 
-            randDirChip.Targets.Add(moveRandChip);
-            firstOfListChip.Targets.Add(blockLocationChip);
-            blockLocationChip.Targets.Add(fleeChip);
-            fleeChip.Targets.Add(moveToAdjChip);
+            randDirChip.Targets1.Add(moveRandChip);
+            firstOfListChip.Targets1.Add(blockLocationChip);
+            blockLocationChip.Targets1.Add(fleeChip);
+            fleeChip.Targets1.Add(moveToAdjChip);
 
             var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip, ifChip) { Name = "Initial" };
             var randomWalkBlock = new ChipBlock(randDirChip, moveRandChip) { Name = "RandomWalk" };
             var fleeBlock = new ChipBlock(firstOfListChip, blockLocationChip, fleeChip, moveToAdjChip) { Name = "Flee" };
 
-            isListEmptyChip.Targets.Add(ifChip);
+            isListEmptyChip.Targets1.Add(ifChip);
             ifChip.Yes = randomWalkBlock;
             ifChip.No = fleeBlock;
 
@@ -113,7 +113,7 @@ namespace IAmACube
             getRotationAmountChip.ChipInput1 = 3;
 
             var rotateRightChip = new RotationChip() { Name = "Rotation_1" };
-            getRotationAmountChip.Targets.Add(rotateRightChip);
+            getRotationAmountChip.Targets1.Add(rotateRightChip);
 
             var moveForwardChip = new MoveRelativeChip() { Name = "MoveRelative_1" };
             moveForwardChip.ChipInput1 = RelativeDirection.Forward;
