@@ -53,7 +53,7 @@ namespace IAmACube
         private static Dictionary<string, ChipData> _getBuiltInChipsFromFile()
         {
             var data = FileUtils.LoadJson(Config.ChipsFile);
-            return ChipParser.ParseChips(data["chips"]);
+            return BuiltInChipParser.ParseChips(data["chips"]);
         }
 
         private static Dictionary<string, Type> _getAssemblyChipTypes()

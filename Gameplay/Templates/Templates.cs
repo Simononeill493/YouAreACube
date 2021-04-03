@@ -17,7 +17,7 @@ namespace IAmACube
         {
             var data = FileUtils.LoadJson(Config.TemplatesFile);
 
-            BlockTemplates = _parseBlocks(data["blocks"]);
+            BlockTemplates = TemplateParser.ParseTemplates(data["blocks"]);
 
             //todo this is temporary
             BlockTemplates["BasicEnemy"].Chips = ChipTester.TestEnemyBlock;
@@ -26,12 +26,12 @@ namespace IAmACube
             BlockTemplates["Bullet"].Chips = ChipTester.TestBulletBlock;
             BlockTemplates["BasicPlayer"].Chips = ChipTester.TestPlayerBlock;
 
-            foreach(var template in BlockTemplates)
+            foreach(var template in BlockTemplates.ToList())
             {
                 if(!template.Value.Active) { continue; }
-                var json1 = ChipBlockParser.ParseBlockIntoJson(template.Value.Chips);
+                var json1 = ChipBlockParser.ParseBlockToJson(template.Value.Chips);
                 var block1 = ChipBlockParser.ParseJsonToBlock(json1);
-                var json2 = ChipBlockParser.ParseBlockIntoJson(block1);
+                var json2 = ChipBlockParser.ParseBlockToJson(block1);
 
                 if(!json1.Equals(json2))
                 {
@@ -42,40 +42,9 @@ namespace IAmACube
                 {
                     throw new Exception("Parsing Problem - chipblock round trip mismatch");
                 }
+
+                BlockTemplates[template.Key].Chips = block1;
             }
-        }
-
-        private static Dictionary<string,BlockTemplate> _parseBlocks(JToken input)
-        {
-            var blocksDict = new Dictionary<string, BlockTemplate>(); 
-
-            foreach (var token in input)
-            {
-                var blockTemplate = _parseBlock(token);
-                blocksDict[blockTemplate.Name] = blockTemplate;
-            }
-
-            return blocksDict;
-        }
-        private static BlockTemplate _parseBlock(JToken token)
-        {
-            var name = token["name"].ToString();
-            var sprite = token["sprite"].ToString();
-            var speed = int.Parse(token["speed"].ToString());
-            var energyCap = token["energyCap"] == null ? 30 : int.Parse(token["energyCap"].ToString());
-
-            var template = new BlockTemplate(name);
-
-            template.Sprite = sprite;
-            template.Speed = speed;
-            template.InitialEnergy = energyCap;
-
-            if (template.Speed != 0)
-            {
-                template.Active = true;
-            }
-
-            return template;
         }
 
         public static Block Generate(string name,BlockMode blockType) => BlockTemplates[name].Generate(blockType);

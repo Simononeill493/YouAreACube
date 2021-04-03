@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class ChipParser
+    class BuiltInChipParser
     {
         public static Dictionary<string, ChipData> ParseChips(JToken chips)
         {

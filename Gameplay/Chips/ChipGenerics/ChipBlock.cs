@@ -16,6 +16,11 @@ namespace IAmACube
         public List<IChip> Chips;
         private List<IControlChip> _controlChips;
 
+        public ChipBlock()
+        {
+            Chips = new List<IChip>();
+            _controlChips = new List<IControlChip>();
+        }
         public ChipBlock(List<IChip> chips)
         {
             Chips = new List<IChip>();

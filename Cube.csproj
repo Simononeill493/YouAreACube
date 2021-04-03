@@ -72,10 +72,11 @@
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\IsKeyPressedChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\RandomNumChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\FleeDirectionChip.cs" />
-    <Compile Include="Gameplay\Chips\Metadata\ChipParser.cs" />
+    <Compile Include="Parsers\TemplateParser.cs" />
+    <Compile Include="Parsers\BuiltInChipParser.cs" />
     <Compile Include="Gameplay\Chips\Metadata\ChipType.cs" />
-    <Compile Include="Gameplay\Templates\ChipBlockParser.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\_templateLoadAndSave\TemplateToVisualConstructor.cs" />
+    <Compile Include="Parsers\ChipBlockParser.cs" />
+    <Compile Include="Parsers\EditableChipsetParser.cs" />
     <Compile Include="Gameplay\Updates\Actions\Creation\CreationManager.cs" />
     <Compile Include="Gameplay\Updates\Destruction\DestructionManager.cs" />
     <Compile Include="Gameplay\Direction\RelativeDirection.cs" />

@@ -41,8 +41,8 @@ namespace IAmACube
 
         public void LoadTemplate(BlockTemplate template)
         {
-            var newChipset = _createTopLevelChipset();
-            TemplateToVisualConstructor.AddTemplateChipsToChipset(newChipset,template, this);
+            var json = ChipBlockParser.ParseBlockToJson(template.Chips);
+            var newChipset = EditableChipsetParser.ParseJsonToEditableChipset(json);
 
             newChipset.SetLocationConfig(ActualLocation + new Point(10, 10), CoordinateMode.Absolute, centered: false);
             newChipset.UpdateDimensionsCascade(ActualLocation, GetCurrentSize());
