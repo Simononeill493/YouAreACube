@@ -24,9 +24,9 @@ namespace IAmACube
         }
         private void _tryCreateOutputLabel()
         {
-            if (Chip.OutputType != null)
+            if (ChipData.OutputType != null)
             {
-                _outputLabel = new ChipItemOutputLabel(this, Chip);
+                _outputLabel = new ChipItemOutputLabel(this, ChipData);
                 _outputLabel.SetLocationConfig(100, 0, CoordinateMode.ParentPercentageOffset);
                 _outputLabel.RefreshTextCallback = () => ChipsetRefreshText();
                 AddChild(_outputLabel);
@@ -36,7 +36,7 @@ namespace IAmACube
         protected override void _inputSectionDropdownChanged(ChipInputDropdown dropdown,ChipInputOption optionSelected)
         {
             base._inputSectionDropdownChanged(dropdown, optionSelected);
-            _outputLabel?.SetOutputDataTypeLabel(Chip.OutputTypeCurrent);
+            _outputLabel?.SetOutputDataTypeLabel(ChipData.OutputTypeCurrent);
         }
     }
 }

@@ -55,7 +55,8 @@ namespace IAmACube
         #endregion
 
         #region addAndRemoveChips
-        public void AppendChip(ChipTop toAdd) => AppendChips(new List<ChipTop>() { toAdd }, 0);
+        public void AppendChipToStart(ChipTop toAdd) => AppendChips(new List<ChipTop>() { toAdd }, 0);
+        public void AppendChipToEnd(ChipTop toAdd) => AppendChips(new List<ChipTop>() { toAdd }, Chips.Count);
         public void AppendChips(List<ChipTop> toAdd, int index)
         {
             Chips.InsertRange(index, toAdd);

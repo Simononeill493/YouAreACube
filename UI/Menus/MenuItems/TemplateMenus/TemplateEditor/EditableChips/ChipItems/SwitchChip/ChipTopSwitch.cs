@@ -103,22 +103,21 @@ namespace IAmACube
         #endregion
 
         #region addSection
-        private IChipsetGenerator _generator;
         private List<string> _switchInitialOptions;
 
-        public override void GenerateSubChipsets(IChipsetGenerator generator)
+        public override void GenerateSubChipsets()
         {
-            _generator = generator;
             _addNewSwitchSections(_switchInitialOptions);
         }
 
         protected void _addNewSwitchSections(List<string> sectionNames) => sectionNames.ForEach(n => _addNewSwitchSection(n));
-        protected void _addNewSwitchSection(string sectionName)
+        protected void _addNewSwitchSection(string sectionName) => AddSwitchSection(sectionName, _generator.CreateChipset());
+
+        public void AddSwitchSection(string sectionName,EditableChipset switchChipset)
         {
-            var switchChipset = _generator.CreateChipset();
             switchChipset.TopLevelRefreshAll = TopLevelRefreshAll;
             switchChipset.Visible = false;
-            switchChipset.Draggable = false; 
+            switchChipset.Draggable = false;
             AddChildAfterUpdate(switchChipset);
 
             _switchSections[sectionName] = switchChipset;

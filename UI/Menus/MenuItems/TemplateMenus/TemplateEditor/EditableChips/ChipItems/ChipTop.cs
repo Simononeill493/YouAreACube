@@ -7,20 +7,20 @@ namespace IAmACube
 {
     public abstract class ChipTop : SpriteMenuItem, IChipsDroppableOn
     {
-        public ChipData Chip;
+        public ChipData ChipData;
         public int IndexInChipset = -1;
 
         public ChipTop(IHasDrawLayer parent, ChipData data) : base(parent, "ChipFull") 
         {
             _actualSize = base.GetBaseSize();
 
-            Chip = data;
-            ColorMask = Chip.ChipColor;
+            ChipData = data;
+            ColorMask = ChipData.ChipColor;
             OnMouseDraggedOn += _onDragHandler;
 
             _inputSections = new List<ChipInputSection>();
 
-            var title = new TextMenuItem(this, Chip.Name);
+            var title = new TextMenuItem(this, ChipData.Name);
             title.Color = Color.White;
             title.SetLocationConfig(7, 6, CoordinateMode.ParentPixelOffset, false);
             AddChild(title);
@@ -70,7 +70,7 @@ namespace IAmACube
 
         protected void _createInputSections()
         {
-            for (int i = 0; i < Chip.NumInputs; i++)
+            for (int i = 0; i < ChipData.NumInputs; i++)
             {
                 var section = ChipSectionFactory.Create(this, i);
                 section.DropdownSelectedCallback = _inputSectionDropdownChanged;
@@ -99,11 +99,11 @@ namespace IAmACube
             if (optionSelected.OptionType == InputOptionType.Generic)
             {
                 var genericOption = (ChipInputOptionGeneric)optionSelected;
-                Chip.SetOutputTypeFromGeneric(genericOption.BaseOutput);
+                ChipData.SetOutputTypeFromGeneric(genericOption.BaseOutput);
             }
             else if (optionSelected.OptionType == InputOptionType.Base)
             {
-                Chip.ResetOutputType();
+                ChipData.ResetOutputType();
             }
 
             _topLevelRefreshAll_Delayed();
@@ -156,7 +156,24 @@ namespace IAmACube
         }
         #endregion
 
-        public virtual void GenerateSubChipsets(IChipsetGenerator generator) { }
+        public IChipsetGenerator _generator;
+        public void SetGenerator(IChipsetGenerator generator) => _generator = generator;
+
+        public virtual void GenerateSubChipsets() { }
         public virtual List<EditableChipset> GetSubChipsets() => new List<EditableChipset>();
+
+        public static ChipTop GenerateChipFromChipData(ChipData data)
+        {
+            var initialDrawLayer = ManualDrawLayer.Zero;
+
+            if (data.Name.Equals("If"))
+            {
+                return new ChipTopSwitch(initialDrawLayer, data, new List<string>() { "Yes", "No" });
+            }
+            else
+            {
+                return new ChipTopStandard(initialDrawLayer, data);
+            }
+        }
     }
 }

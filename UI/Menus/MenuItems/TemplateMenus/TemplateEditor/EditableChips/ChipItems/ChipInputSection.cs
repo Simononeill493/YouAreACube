@@ -47,7 +47,7 @@ namespace IAmACube
 
             foreach (var chipAbove in chipsAbove)
             {
-                var data = chipAbove.Chip;
+                var data = chipAbove.ChipData;
                 var (canFeed, generic, baseOutput) = data.CanFeedOutputInto(_inputType);
                 if (canFeed)
                 {

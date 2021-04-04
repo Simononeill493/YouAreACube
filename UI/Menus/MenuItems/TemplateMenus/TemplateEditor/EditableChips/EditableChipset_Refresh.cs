@@ -8,7 +8,20 @@ namespace IAmACube
 {
     public partial class EditableChipset : DraggableMenuItem
     {
-        public Action TopLevelRefreshAll;
+        public string Name;
+        public Action TopLevelRefreshAll 
+        { 
+            get { return _topLevelRefreshAll; } 
+            set 
+            {
+                _topLevelRefreshAll = value;
+                foreach(var c in Chips)
+                {
+                    c.TopLevelRefreshAll = _topLevelRefreshAll;
+                }
+            }
+        }
+        private Action _topLevelRefreshAll;
 
         public void RefreshAll()
         {
