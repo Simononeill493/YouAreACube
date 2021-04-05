@@ -54,6 +54,8 @@ namespace IAmACube
             _leftButton.ColorMask = _rightButton.ColorMask = Color.White;
             if(button!=_selectedButton)
             {
+                if (button.Text.Equals("")) { return; }
+
                 button.ColorMask = Color.LightGreen;
                 _selectedButton = button;
                 _switchButtonSetCallback(button.Text);

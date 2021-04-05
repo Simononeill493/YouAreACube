@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,65 +9,60 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     class EditableChipsetParser
-    { 
+    {
         public static EditableChipset ParseJsonToEditableChipset(string json,IChipsetGenerator generator)
         {
-            var chipBlocksToken = JToken.Parse(json);
-            var chipsets = new Dictionary<string, EditableChipset>();
-            var chips = new Dictionary<string, ChipTop>();
-            var chipToObject = new Dictionary<string, JToken>();
+            var chipsetsJson = JsonConvert.DeserializeObject<ChipsetJSONData>(json);
+            var chipsetsDict = chipsetsJson.GetBlocksDict();
 
-            foreach (var blockToken in chipBlocksToken)
+            chipsetsJson.SetChipData();
+            chipsetsJson.CreateChipsets(generator);
+            chipsetsJson.CreateChipTops(generator);
+
+            foreach (var blockJson in chipsetsJson)
             {
-                var blockName = blockToken["Name"].ToString();
-                var chipset = generator.CreateChipset();
-                chipset.TopLevelRefreshAll = () => { };
-
-                chipset.Name = blockName;
-                chipsets[blockName] = chipset;
-
-                var chipsTokens = blockToken["Chips"];
-                foreach(var chipToken in chipsTokens)
-                {
-                    var chipName = chipToken["Name"].ToString();
-                    var chipDataName = chipToken["Type"].ToString();
-                    var chipData = ChipDatabase.BuiltInChips[chipDataName];
-                    var chipTop = ChipTop.GenerateChipFromChipData(chipData);
-                    chipTop.SetGenerator(generator);
-                    
-                    chips[chipName] = chipTop;
-                    chipToObject[chipName] = chipToken;
-
-                    chipset.AppendChipToEnd(chipTop);
+                foreach(var chipJson in blockJson.Chips)
+                {                    
+                    blockJson.Chipset.AppendChipToEnd(chipJson.ChipTop);
                 }
             }
 
-            foreach(var chip in chips)
+            foreach(var chip in chipsetsJson.GetChips())
             {
-                var data = chip.Value.ChipData;
-                if (data.ChipDataType == ChipType.Control)
+                if (chip.ChipData.ChipDataType == ChipType.Control)
                 {
-                    _setControlChipData(chip.Value, data, chipToObject[chip.Key], chipsets);
+                    _setControlChipData(chip, chipsetsDict);
                 }
             }
 
-            var baseChipset = chipsets.Values.First(c=>c.Name.Equals("Initial"));
+            var baseChipset = chipsetsJson.First(c=>c.Name.Equals("Initial")).Chipset;
             return baseChipset;
         }
 
-        private static void _setControlChipData(ChipTop chip,ChipData data, JToken chipToken, Dictionary<string, EditableChipset> chipsets)
+        private static void _setControlChipData(ChipJSONData chip, Dictionary<string, ChipBlockJSONData> chipsets)
         {
+            var data = chip.ChipData;
+
             if(data.Name.Equals("If"))
             {
-                var ifChip = (ChipTopSwitch)chip;
+                var ifChip = (ChipTopSwitch)chip.ChipTop;
 
-                var yesName = chipToken["Yes"].ToString();
-                var yesBlock = chipsets[yesName];
+                var yesBlock = chipsets[chip.Yes].Chipset;
                 ifChip.AddSwitchSection("Yes", yesBlock);
 
-                var noName = chipToken["No"].ToString();
-                var noBlock = chipsets[noName];
+                var noBlock = chipsets[chip.No].Chipset;
                 ifChip.AddSwitchSection("No", noBlock);
+            }
+            if (data.Name.Equals("KeySwitch"))
+            {
+                var keySwitchChip = (ChipTopSwitch)chip.ChipTop;
+                foreach(var keyEffect in chip.KeyEffects)
+                {
+                    var keyString = keyEffect.Item1;
+                    var blockName = keyEffect.Item2;
+                    var block = chipsets[blockName].Chipset;
+                    keySwitchChip.AddSwitchSection(keyString, block);
+                }
             }
         }
 

@@ -7,6 +7,8 @@ namespace IAmACube
 {
     public abstract class ChipTop : SpriteMenuItem, IChipsDroppableOn
     {
+        public string Name;
+
         public ChipData ChipData;
         public int IndexInChipset = -1;
 
@@ -169,6 +171,10 @@ namespace IAmACube
             if (data.Name.Equals("If"))
             {
                 return new ChipTopSwitch(initialDrawLayer, data, new List<string>() { "Yes", "No" });
+            }
+            if (data.Name.Equals("KeySwitch"))
+            {
+                return new ChipTopSwitch(initialDrawLayer, data, new List<string>() {  });
             }
             else
             {
