@@ -58,6 +58,11 @@ namespace IAmACube
 
         #region inputsections
         protected List<ChipInputSection> _inputSections;
+        public void ManuallySetInputSection(ChipInputOption item,int index)
+        {
+            _inputSections[index].ManuallySetDropdown(item);
+        }
+        
         public void SetInputConnectionsFromAbove(List<ChipTop> chipsAbove)
         {
             _inputSections.ForEach(m => m.SetConnectionsFromAbove(chipsAbove));

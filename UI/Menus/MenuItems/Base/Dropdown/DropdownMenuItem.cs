@@ -8,7 +8,7 @@ namespace IAmACube
 {
     public class DropdownMenuItem<T> : TextBoxMenuItem
     {
-        public bool IsItemSelected = false;
+        public bool IsItemSelected => (Selected != null);
 
         public T Selected { get; private set; }
         public bool Dropped
@@ -41,6 +41,11 @@ namespace IAmACube
             AddChild(dropButton);
 
             text.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
+        }
+
+        public void ManuallySetItem(T item)
+        {
+            Selected = item;
         }
 
         public void SetItems(List<T> items)
@@ -84,7 +89,6 @@ namespace IAmACube
         {
             Selected = item;
             Dropped = false;
-            IsItemSelected = true;
 
             text.Text = item.ToString();
             OnSelectedChanged?.Invoke(item);

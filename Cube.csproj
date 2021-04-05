@@ -139,6 +139,7 @@
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateSelector\TemplateSelectedMenu.cs" />
     <Compile Include="UI\Menus\MenuItems\Base\TextBoxMenuItem.cs" />
     <Compile Include="Utils\DrawUtils.cs" />
+    <Compile Include="Utils\TypeUtils.cs" />
     <Compile Include="Utils\WorldUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Gameplay\Templates\BlockTemplate.cs" />

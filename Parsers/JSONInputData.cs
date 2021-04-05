@@ -76,11 +76,16 @@ namespace IAmACube
         public string Name;
         public string Type;
         public string TypeArgument;
-        public List<ChipJSONInputData> Inputs;
 
-        public string Yes;
-        public string No;
-        public List<Tuple<string, string>> KeyEffects;
+        public List<ChipJSONInputData> Inputs;
+        public void SetInputs()
+        {
+            Inputs = new List<ChipJSONInputData>();
+            for (int i = 0; i < ChipData.NumInputs; i++)
+            {
+                Inputs.Add(new ChipJSONInputData() { InputType = "", InputValue = "" });
+            }
+        }
 
         [JsonIgnore]
         public ChipData ChipData;
@@ -111,6 +116,10 @@ namespace IAmACube
 
             IChip.Name = this.Name;
         }
+
+        public string Yes;
+        public string No;
+        public List<Tuple<string, string>> KeyEffects;
     }
 
     public class ChipJSONInputData

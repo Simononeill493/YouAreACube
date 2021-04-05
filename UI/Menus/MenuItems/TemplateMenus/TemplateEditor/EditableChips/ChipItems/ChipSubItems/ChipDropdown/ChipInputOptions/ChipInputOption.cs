@@ -2,7 +2,7 @@
 {
     public abstract class ChipInputOption 
     {
-        public InputOptionType OptionType;
+        public InputOptionType OptionType { get; protected set; }
         public ChipInputOption(InputOptionType optionType) { OptionType = optionType; }
     }
 

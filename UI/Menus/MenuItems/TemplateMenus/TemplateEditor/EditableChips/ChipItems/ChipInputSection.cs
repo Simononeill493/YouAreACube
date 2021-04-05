@@ -32,8 +32,12 @@ namespace IAmACube
             AddChild(_dropdown);
         }
 
-        public void DropdownItemSelected(ChipInputOption optionSelected) => DropdownSelectedCallback(_dropdown, optionSelected);
+        public void ManuallySetDropdown(ChipInputOption option)
+        {
+            _dropdown.ManuallySetItem(option);
+        }
 
+        public void DropdownItemSelected(ChipInputOption optionSelected) => DropdownSelectedCallback(_dropdown, optionSelected);
 
         public void SetConnectionsFromAbove(List<ChipTop> chipsAbove)
         {

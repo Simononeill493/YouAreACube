@@ -10,10 +10,23 @@ namespace IAmACube
 {
     class EditableChipsetParser
     {
-        public static EditableChipset ParseJsonToEditableChipset(string json,IChipsetGenerator generator)
+        #region chipsetToJson
+        public static string ParseEditableChipsetToJson(EditableChipset chipset)
+        {
+
+
+
+
+            return null;
+        }
+        #endregion
+
+        #region jsonToChipset
+        public static EditableChipset ParseJsonToEditableChipset(string json, IChipsetGenerator generator)
         {
             var chipsetsJson = JsonConvert.DeserializeObject<ChipsetJSONData>(json);
-            var chipsetsDict = chipsetsJson.GetBlocksDict();
+            var blocksDict = chipsetsJson.GetBlocksDict();
+            var chipsDict = chipsetsJson.GetChipsDict();
 
             chipsetsJson.SetChipData();
             chipsetsJson.CreateChipsets(generator);
@@ -21,29 +34,59 @@ namespace IAmACube
 
             foreach (var blockJson in chipsetsJson)
             {
-                foreach(var chipJson in blockJson.Chips)
-                {                    
+                foreach (var chipJson in blockJson.Chips)
+                {
                     blockJson.Chipset.AppendChipToEnd(chipJson.ChipTop);
                 }
             }
 
-            foreach(var chip in chipsetsJson.GetChips())
+            foreach (var chip in chipsDict.Values)
             {
+                var chipTop = chip.ChipTop;
+                for (int i = 0; i < chip.Inputs.Count; i++)
+                {
+                    var input = chip.Inputs[i];
+
+                    if (input.InputType.Equals("Reference"))
+                    {
+                        var referenceChip = chipsDict[input.InputValue];
+                        var referenceOption = new ChipInputOptionReference((ChipTopStandard)referenceChip.ChipTop);
+                        chipTop.ManuallySetInputSection(referenceOption,i);
+                    }
+                    if (input.InputType.Equals("Value"))
+                    {
+                        object value = null;
+                        var inputTypeName = chip.ChipData.GetInputType(i + 1);
+                        if(inputTypeName.Equals("Template"))
+                        {
+                            value = Templates.BlockTemplates[input.InputValue];
+                        }
+                        else
+                        {
+                            var type = TypeUtils.AllTypes[inputTypeName];
+                            value = TypeUtils.ParseType(type, input.InputValue);
+                        }
+
+                        var valueOption = new ChipInputOptionBase() { BaseObject = value };
+                        chipTop.ManuallySetInputSection(valueOption, i);
+                    }
+                }
+
                 if (chip.ChipData.ChipDataType == ChipType.Control)
                 {
-                    _setControlChipData(chip, chipsetsDict);
+                    _setControlChipTargets(chip, blocksDict);
                 }
             }
 
-            var baseChipset = chipsetsJson.First(c=>c.Name.Equals("Initial")).Chipset;
+            var baseChipset = chipsetsJson.First(c => c.Name.Equals("Initial")).Chipset;
             return baseChipset;
         }
 
-        private static void _setControlChipData(ChipJSONData chip, Dictionary<string, ChipBlockJSONData> chipsets)
+        private static void _setControlChipTargets(ChipJSONData chip, Dictionary<string, ChipBlockJSONData> chipsets)
         {
             var data = chip.ChipData;
 
-            if(data.Name.Equals("If"))
+            if (data.Name.Equals("If"))
             {
                 var ifChip = (ChipTopSwitch)chip.ChipTop;
 
@@ -56,7 +99,7 @@ namespace IAmACube
             if (data.Name.Equals("KeySwitch"))
             {
                 var keySwitchChip = (ChipTopSwitch)chip.ChipTop;
-                foreach(var keyEffect in chip.KeyEffects)
+                foreach (var keyEffect in chip.KeyEffects)
                 {
                     var keyString = keyEffect.Item1;
                     var blockName = keyEffect.Item2;
@@ -65,14 +108,6 @@ namespace IAmACube
                 }
             }
         }
-
-        public static string ParseEditableChipsetToJson(EditableChipset chipset)
-        {
-
-
-
-
-            return null;
-        }
+        #endregion
     }
 }

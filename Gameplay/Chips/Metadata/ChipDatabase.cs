@@ -10,13 +10,11 @@ namespace IAmACube
     {
         public static Dictionary<string,ChipData> BuiltInChips;
         public static Dictionary<string, Type> _assemblyChipTypes;
-        public static Dictionary<string, Type> _allTypes;
 
 
         public static void Load()
         {
             BuiltInChips = _getBuiltInChipsFromFile();
-            _allTypes = _getAllTypes();
             _assemblyChipTypes = _getAssemblyChipTypes();
 
             foreach(var data in BuiltInChips.Values)
@@ -38,7 +36,7 @@ namespace IAmACube
             if(data.IsGeneric)
             {
                 var genericChipType = _assemblyChipTypes.FirstOrDefault(c => c.Value.Name.Equals(data.Name + "Chip`1")).Value;
-                var genericRuntimeType = genericChipType.MakeGenericType(_allTypes[typeArgument]);
+                var genericRuntimeType = genericChipType.MakeGenericType(TypeUtils.AllTypes[typeArgument]);
                 IChip genericInstance = (IChip)Activator.CreateInstance(genericRuntimeType);
 
                 return genericInstance;
@@ -58,7 +56,7 @@ namespace IAmACube
 
         private static Dictionary<string, Type> _getAssemblyChipTypes()
         {
-            var allIChips = _allTypes.Values.Where(x => typeof(IChip).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).ToList();
+            var allIChips = TypeUtils.AllTypes.Values.Where(x => typeof(IChip).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).ToList();
 
             var dict = new Dictionary<string, Type>();
             foreach(var iChip in allIChips)
@@ -68,20 +66,6 @@ namespace IAmACube
 
             return dict;
         }
-
-        private static Dictionary<string, Type> _getAllTypes()
-        {
-            var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes());
-
-            var dict = new Dictionary<string, Type>();
-            foreach (var type in types)
-            {
-                dict[type.Name] = type;
-            }
-
-            return dict;
-        }
-
 
         public static IEnumerable<ChipData> SearchChips(string searchTerm) => BuiltInChips.Values.Where(c => c.NameLower.Contains(searchTerm.ToLower()));
     }

@@ -28,15 +28,15 @@ namespace IAmACube
 
         public static List<ChipInputOptionBase> GetBasicSelections(string dataType)
         {
-            if (dataType.Equals("CardinalDirection"))
+            if (dataType.Equals(nameof(CardinalDirection)))
             {
                 return _createOptionsFromItems(typeof(CardinalDirection).GetEnumValues().Cast<CardinalDirection>().ToList());
             }
-            else if (dataType.Equals("RelativeDirection"))
+            else if (dataType.Equals(nameof(RelativeDirection)))
             {
                 return _createOptionsFromItems(typeof(RelativeDirection).GetEnumValues().Cast<RelativeDirection>().ToList());
             }
-            else if (dataType.Equals("BlockType"))
+            else if (dataType.Equals(nameof(BlockMode)))
             {
                 return _createOptionsFromItems(typeof(BlockMode).GetEnumValues().Cast<BlockMode>().ToList());
             }
@@ -61,9 +61,9 @@ namespace IAmACube
 
         public static Type GetTypeOfDataType(string dataType)
         {
-            if (dataType.Equals("CardinalDirection")) { return typeof(CardinalDirection); }
-            if (dataType.Equals("RelativeDirection")) { return typeof(RelativeDirection); }
-            if (dataType.Equals("BlockType")) { return typeof(BlockMode); }
+            if (dataType.Equals(nameof(CardinalDirection))) { return typeof(CardinalDirection); }
+            if (dataType.Equals(nameof(RelativeDirection))) { return typeof(RelativeDirection); }
+            if (dataType.Equals(nameof(BlockMode))) { return typeof(BlockMode); }
             if (dataType.Equals("bool")) { return typeof(bool); }
             if (dataType.Equals("int")) { return typeof(int); }
             if (dataType.Equals("string")) { return typeof(string); }
@@ -71,15 +71,15 @@ namespace IAmACube
             if (dataType.Equals("Tile")) { return typeof(Tile); }
             if (dataType.Equals("List<Variable>")) { return typeof(List<object>); }
             if (dataType.Equals("Keys")) { return typeof(Keys); }
-            if (dataType.Equals("SurfaceBlock")) { return typeof(SurfaceBlock); }
-            if (dataType.Equals("GroundBlock")) { return typeof(GroundBlock); }
-            if (dataType.Equals("EphemeralBlock")) { return typeof(EphemeralBlock); }
+            if (dataType.Equals(nameof(SurfaceBlock))) { return typeof(SurfaceBlock); }
+            if (dataType.Equals(nameof(GroundBlock))) { return typeof(GroundBlock); }
+            if (dataType.Equals(nameof(EphemeralBlock))) { return typeof(EphemeralBlock); }
 
             throw new Exception();
         }
         public static bool IsDiscreteType(string dataType)
         {
-            return dataType.Equals("CardinalDirection") | dataType.Equals("RelativeDirection") | dataType.Equals("BlockType") | dataType.Equals("bool");
+            return dataType.Equals(nameof(CardinalDirection)) | dataType.Equals(nameof(RelativeDirection)) | dataType.Equals(nameof(BlockMode)) | dataType.Equals("bool");
         }
         public static bool IsTextEntryType(string dataType)
         {
