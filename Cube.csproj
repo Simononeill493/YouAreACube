@@ -99,9 +99,8 @@
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\SwitchChip\ChipTopSwitch.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipDropdownUtils.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipInputOptions\ChipInputOption.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipInputOptions\ChipInputOptionBase.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipInputOptions\ChipInputOptionValue.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipDropdownFactory.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipInputOptions\ChipInputOptionGeneric.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipInputOptions\ChipInputOptionReference.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\ChipSubItems\ChipItemOutputLabel.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\ChipTop.cs" />
@@ -129,7 +128,7 @@
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipEditPane.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipInputDropdown.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\ChipSectionFactory.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\ChipTopStandard.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\ChipTopWithOutput.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\ChipInputSection.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipPreview.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipSearchPane.cs" />

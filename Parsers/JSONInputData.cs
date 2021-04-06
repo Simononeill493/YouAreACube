@@ -56,9 +56,8 @@ namespace IAmACube
         public EditableChipset Chipset;
         public void CreateChipset(IChipsetGenerator generator)
         {
-            var chipset = generator.CreateChipset();
+            var chipset = generator.CreateChipset(Name);
             chipset.TopLevelRefreshAll = () => { };
-            chipset.Name = Name;
 
             Chipset = chipset;
         }
@@ -95,10 +94,8 @@ namespace IAmACube
         public ChipTop ChipTop;
         public void CreateChipTop(IChipsetGenerator generator)
         {
-            ChipTop = ChipTop.GenerateChipFromChipData(ChipData);
+            ChipTop = ChipTop.GenerateChipFromChipData(ChipData, this.Name);
             ChipTop.SetGenerator(generator);
-
-            ChipTop.Name = this.Name;
         }
 
         [JsonIgnore]

@@ -8,8 +8,7 @@
 
     public enum InputOptionType
     {
-        Base,
+        Value,
         Reference,
-        Generic
     }
 }

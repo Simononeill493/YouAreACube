@@ -8,31 +8,27 @@ namespace IAmACube
 {
     class ChipItemOutputLabel : SpriteMenuItem
     {
+        public string OutputName => _textBox.Text;
+
         public bool Extended = true;
-        public Action RefreshTextCallback;
+        public Action<string> RefreshTextCallback;
 
         private SpriteMenuItem _popButton;
-        public TextBoxMenuItem TextBox;
+        private TextBoxMenuItem _textBox;
         private TextMenuItem _outputDataTypeLabel;
 
-        public void SetOutputDataTypeLabel(string newLabel)
+        public ChipItemOutputLabel(IHasDrawLayer parent,string chipName) : base(parent, "BlankPixel")
         {
-            _outputDataTypeLabel.Text = newLabel;
-        }
+            _textBox = new TextBoxMenuItem(this, chipName);
+            _textBox.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, false);
+            _textBox.OnTextChanged += OutputLabelTextTyped;
+            AddChild(_textBox);
 
-        public ChipItemOutputLabel(IHasDrawLayer parent,ChipData chip) : base(parent, "BlankPixel")
-        {
-            TextBox = new TextBoxMenuItem(this, chip.Name + "_out");
-            TextBox.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, false);
-            TextBox.OnTextChanged += (t) => RefreshTextCallback();
-            AddChild(TextBox);
-
-            _outputDataTypeLabel = new TextMenuItem(TextBox);
-            _outputDataTypeLabel.Text = chip.OutputType;
+            _outputDataTypeLabel = new TextMenuItem(_textBox);
             _outputDataTypeLabel.MultiplyScale(0.5f);
             _outputDataTypeLabel.Color = Microsoft.Xna.Framework.Color.Black;
             _outputDataTypeLabel.SetLocationConfig(50, 18, CoordinateMode.ParentPercentageOffset, true);
-            TextBox.AddChild(_outputDataTypeLabel);
+            _textBox.AddChild(_outputDataTypeLabel);
 
             _popButton = new SpriteMenuItem(ManualDrawLayer.Create(DrawLayer - (DrawLayers.MinLayerDistance * 5)), "MinusButton");
             _popButton.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, false);
@@ -40,6 +36,16 @@ namespace IAmACube
             AddChild(_popButton);
 
             _retract();
+        }
+
+        public void OutputLabelTextTyped(string newText)
+        {
+            RefreshTextCallback(newText);
+        }
+
+        public void SetOutputDataTypeLabel(string labeltext)
+        {
+            _outputDataTypeLabel.Text = labeltext;
         }
 
         public void PopInOrOut()
@@ -58,8 +64,8 @@ namespace IAmACube
         {
             _popButton.SpriteName = "MinusButton";
 
-            TextBox.Visible = true;
-            TextBox.Editable = true;
+            _textBox.Visible = true;
+            _textBox.Editable = true;
 
             Extended = true;
         }
@@ -68,16 +74,16 @@ namespace IAmACube
         {
             _popButton.SpriteName = "PlusButton";
 
-            TextBox.Visible = false;
-            TextBox.Editable = false;
-            TextBox.Focused = false;
+            _textBox.Visible = false;
+            _textBox.Editable = false;
+            _textBox.Focused = false;
 
             Extended = false;
         }
 
         public override Point GetBaseSize()
         {
-            return Extended ? TextBox.GetBaseSize() : _popButton.GetBaseSize();
+            return Extended ? _textBox.GetBaseSize() : _popButton.GetBaseSize();
         }
     }
 }

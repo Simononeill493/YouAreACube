@@ -5,15 +5,18 @@ using System.Linq;
 
 namespace IAmACube
 {
-    public abstract class ChipTop : SpriteMenuItem, IChipsDroppableOn
+    public class ChipTop : SpriteMenuItem, IChipsDroppableOn
     {
         public string Name;
 
         public ChipData ChipData;
         public int IndexInChipset = -1;
 
-        public ChipTop(IHasDrawLayer parent, ChipData data) : base(parent, "ChipFull") 
+        public bool HasOutput => ChipData.HasOutput;
+
+        public ChipTop(string name,IHasDrawLayer parent, ChipData data) : base(parent, "ChipFull") 
         {
+            Name = name;
             _actualSize = base.GetBaseSize();
 
             ChipData = data;
@@ -26,6 +29,12 @@ namespace IAmACube
             title.Color = Color.White;
             title.SetLocationConfig(7, 6, CoordinateMode.ParentPixelOffset, false);
             AddChild(title);
+
+            _createInputSections();
+            if (_inputSections.Count > 0)
+            {
+                _inputSections[_inputSections.Count - 1].SpriteName = "ChipFullEnd";
+            }
         }
 
         #region liftChips
@@ -87,7 +96,6 @@ namespace IAmACube
             AddChildren(_inputSections);
             _setInputSectionPositions();
         }
-
         protected void _setInputSectionPositions()
         {
             var height = base.GetBaseSize().Y - 1;
@@ -101,20 +109,7 @@ namespace IAmACube
             _actualSize.Y = height;
         }
 
-        protected virtual void _inputSectionDropdownChanged(ChipInputDropdown dropdown, ChipInputOption optionSelected)
-        {
-            if (optionSelected.OptionType == InputOptionType.Generic)
-            {
-                var genericOption = (ChipInputOptionGeneric)optionSelected;
-                ChipData.SetOutputTypeFromGeneric(genericOption.BaseOutput);
-            }
-            else if (optionSelected.OptionType == InputOptionType.Base)
-            {
-                ChipData.ResetOutputType();
-            }
-
-            _topLevelRefreshAll_Delayed();
-        }
+        protected virtual void _inputSectionDropdownChanged(ChipInputSection section, ChipInputDropdown dropdown, ChipInputOption optionSelected) { }
         #endregion
 
         #region dimensions
@@ -139,7 +134,7 @@ namespace IAmACube
         protected virtual void _setTopLevelRefreshAll(Action topLevelRefreshAll) => _topLevelRefreshAll = topLevelRefreshAll;
         private Action _topLevelRefreshAll;
 
-        private void _topLevelRefreshAll_Delayed() => _delayedTopLevelRefreshAll = true;
+        protected void _topLevelRefreshAll_Delayed() => _delayedTopLevelRefreshAll = true;
         private bool _delayedTopLevelRefreshAll = false;
 
         public Action ChipsetRefreshText;
@@ -169,21 +164,25 @@ namespace IAmACube
         public virtual void GenerateSubChipsets() { }
         public virtual List<EditableChipset> GetSubChipsets() => new List<EditableChipset>();
 
-        public static ChipTop GenerateChipFromChipData(ChipData data)
+        public static ChipTop GenerateChipFromChipData(ChipData data,string name = "")
         {
             var initialDrawLayer = ManualDrawLayer.Zero;
 
             if (data.Name.Equals("If"))
             {
-                return new ChipTopSwitch(initialDrawLayer, data, new List<string>() { "Yes", "No" });
+                return new ChipTopSwitch(name,initialDrawLayer, data, new List<string>() { "Yes", "No" });
             }
             if (data.Name.Equals("KeySwitch"))
             {
-                return new ChipTopSwitch(initialDrawLayer, data, new List<string>() {  });
+                return new ChipTopSwitch(name,initialDrawLayer, data, new List<string>() {  });
+            }
+            else if(data.HasOutput)
+            {
+                return new ChipTopWithOutput(name,initialDrawLayer, data);
             }
             else
             {
-                return new ChipTopStandard(initialDrawLayer, data);
+                return new ChipTop(name,initialDrawLayer, data);
             }
         }
     }

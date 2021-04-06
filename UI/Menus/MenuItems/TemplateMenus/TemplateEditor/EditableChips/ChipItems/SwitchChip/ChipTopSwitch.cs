@@ -17,9 +17,8 @@ namespace IAmACube
         private EditableChipset _extendedChipset;
         private bool _switchSectionExtended => (_extendedChipset!=null);
 
-        public ChipTopSwitch(IHasDrawLayer parent, ChipData data,List<string> switchInitialOptions) : base(parent, data)
+        public ChipTopSwitch(string name,IHasDrawLayer parent, ChipData data,List<string> switchInitialOptions) : base(name,parent, data)
         {
-            _createInputSections();
             _switchSections = new Dictionary<string, EditableChipset>();
 
             _switchButtons = new ChipSwitchButtons(this, ColorMask, () => _closeSwitchSection(true), _openSwitchSection);
@@ -111,7 +110,7 @@ namespace IAmACube
         }
 
         protected void _addNewSwitchSections(List<string> sectionNames) => sectionNames.ForEach(n => _addNewSwitchSection(n));
-        protected void _addNewSwitchSection(string sectionName) => AddSwitchSection(sectionName, _generator.CreateChipset());
+        protected void _addNewSwitchSection(string sectionName) => AddSwitchSection(sectionName, _generator.CreateChipset(Name+"-subChip_"+(GetSubChipsets().Count+1.ToString())));
 
         public void AddSwitchSection(string sectionName,EditableChipset switchChipset)
         {

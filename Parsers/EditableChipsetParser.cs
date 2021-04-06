@@ -13,11 +13,32 @@ namespace IAmACube
         #region chipsetToJson
         public static string ParseEditableChipsetToJson(EditableChipset chipset)
         {
+            var chipsetsJson = new ChipsetJSONData();
+
+            foreach(var editableChipset in chipset.GetThisAndSubChipsets())
+            {
+                var chipsetJson = new ChipBlockJSONData() { Chips = new List<ChipJSONData>() };
+                chipsetJson.Chipset = editableChipset;
+                chipsetJson.Name = editableChipset.Name;
+                chipsetsJson.Add(chipsetJson);
+
+                foreach(var chip in editableChipset.Chips)
+                {
+                    var chipJson = new ChipJSONData();
+                    chipJson.ChipTop = chip;
+                    chipJson.ChipData = chip.ChipData;
+                    chipJson.Name = chip.Name;
+                    if(chipJson.ChipData.IsGeneric)
+                    {
+                        //chipJson.TypeArgument = 
+                    }
+                    chipsetJson.Chips.Add(chipJson);
+                }
+            }
 
 
-
-
-            return null;
+            var jobjectList = JToken.FromObject(chipsetsJson, new JsonSerializer { NullValueHandling = NullValueHandling.Ignore });
+            return jobjectList.ToString();
         }
         #endregion
 
@@ -45,31 +66,34 @@ namespace IAmACube
                 var chipTop = chip.ChipTop;
                 for (int i = 0; i < chip.Inputs.Count; i++)
                 {
-                    var input = chip.Inputs[i];
+                    var jsonInputData = chip.Inputs[i];
+                    var inputType = chip.ChipData.GetInputType(i + 1);
 
-                    if (input.InputType.Equals("Reference"))
+                    ChipInputOption inputOption = null;
+                    if (jsonInputData.InputType.Equals("Reference"))
                     {
-                        var referenceChip = chipsDict[input.InputValue];
-                        var referenceOption = new ChipInputOptionReference((ChipTopStandard)referenceChip.ChipTop);
-                        chipTop.ManuallySetInputSection(referenceOption,i);
+                        var referenceChip = (ChipTopWithOutput)chipsDict[jsonInputData.InputValue].ChipTop;
+                        inputOption = new ChipInputOptionReference(referenceChip);
                     }
-                    if (input.InputType.Equals("Value"))
+                    else if (jsonInputData.InputType.Equals("Value"))
                     {
                         object value = null;
                         var inputTypeName = chip.ChipData.GetInputType(i + 1);
                         if(inputTypeName.Equals("Template"))
                         {
-                            value = Templates.BlockTemplates[input.InputValue];
+                            value = Templates.BlockTemplates[jsonInputData.InputValue];
                         }
                         else
                         {
+                            if (inputTypeName.Equals("int")) { inputTypeName = "Int32"; }
                             var type = TypeUtils.AllTypes[inputTypeName];
-                            value = TypeUtils.ParseType(type, input.InputValue);
+                            value = TypeUtils.ParseType(type, jsonInputData.InputValue);
                         }
 
-                        var valueOption = new ChipInputOptionBase() { BaseObject = value };
-                        chipTop.ManuallySetInputSection(valueOption, i);
+                        inputOption = new ChipInputOptionValue(value);
                     }
+
+                    chipTop.ManuallySetInputSection(inputOption, i);
                 }
 
                 if (chip.ChipData.ChipDataType == ChipType.Control)

@@ -9,10 +9,12 @@ namespace IAmACube
 {
     partial class EditableChipset : DraggableMenuItem, IChipsDroppableOn
     {
+        public string Name;
         public List<ChipTop> Chips { get; private set; }
 
-        public EditableChipset(IHasDrawLayer parent,float scaleMultiplier,Action<List<ChipTop>,UserInput,EditableChipset> liftChipsCallback) : base(parent, "TopOfChipset")
+        public EditableChipset(string name,IHasDrawLayer parent,float scaleMultiplier,Action<List<ChipTop>,UserInput,EditableChipset> liftChipsCallback) : base(parent, "TopOfChipset")
         {
+            Name = name;
             Chips = new List<ChipTop>();
             MultiplyScaleCascade(scaleMultiplier);
 
@@ -139,6 +141,13 @@ namespace IAmACube
         public bool IsMouseOverAnyChip() => _getChipsetSectionMouseIsOver() != null;
         #endregion
 
+
+        public List<EditableChipset> GetThisAndSubChipsets()
+        {
+            var sub = GetSubChipsets();
+            sub.Add(this);
+            return sub;
+        }
         public List<EditableChipset> GetSubChipsets()
         {
             var output = new List<EditableChipset>();

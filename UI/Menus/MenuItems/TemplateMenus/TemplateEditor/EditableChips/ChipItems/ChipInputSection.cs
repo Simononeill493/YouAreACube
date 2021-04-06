@@ -9,24 +9,24 @@ namespace IAmACube
 {
     public class ChipInputSection : SpriteMenuItem
     {
-        public Action<ChipInputDropdown, ChipInputOption> DropdownSelectedCallback;
+        public string InputBaseType;
+        public Action<ChipInputSection, ChipInputDropdown, ChipInputOption> DropdownSelectedCallback;
 
         private ChipInputDropdown _dropdown;
-        private string _inputType;
 
         public ChipInputSection(IHasDrawLayer parent,string inputType,Color color) : base(parent, "ChipFullMiddle") 
         {
-            _inputType = inputType;
+            InputBaseType = inputType;
             ColorMask = color;
 
             var textItem = new TextMenuItem(this);
             textItem.Text = inputType;
             textItem.MultiplyScale(0.5f);
-            textItem.Color = Microsoft.Xna.Framework.Color.White;
+            textItem.Color = Color.White;
             textItem.SetLocationConfig(4, 40, CoordinateMode.ParentPercentageOffset, false);
             AddChild(textItem);
 
-            _dropdown = ChipDropdownFactory.Create(this,_inputType);
+            _dropdown = ChipDropdownFactory.Create(this,InputBaseType);
             _dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentageOffset, true);
             _dropdown.OnSelectedChanged += DropdownItemSelected;
             AddChild(_dropdown);
@@ -35,42 +35,49 @@ namespace IAmACube
         public void ManuallySetDropdown(ChipInputOption option)
         {
             _dropdown.ManuallySetItem(option);
+            DropdownItemSelected(option);
         }
 
-        public void DropdownItemSelected(ChipInputOption optionSelected) => DropdownSelectedCallback(_dropdown, optionSelected);
+        public void DropdownItemSelected(ChipInputOption optionSelected) => DropdownSelectedCallback(this,_dropdown, optionSelected);
 
         public void SetConnectionsFromAbove(List<ChipTop> chipsAbove)
         {
-            _dropdown.SetItems(_getInputsToAddToDropdown(chipsAbove));
-            _dropdown.AddItems(ChipDropdownUtils.GetDefaultItems(_inputType));            
+            _dropdown.SetItems(_getValidInputsFromAbove(chipsAbove));
+            _dropdown.AddItems(ChipDropdownUtils.GetDefaultItems(InputBaseType));            
         }
 
-        private List<ChipInputOption> _getInputsToAddToDropdown(List<ChipTop> chipsAbove)
+        private List<ChipInputOption> _getValidInputsFromAbove(List<ChipTop> chipsAbove)
         {
-            var aboveChipsToAdd = new List<ChipInputOption>();
-
-            foreach (var chipAbove in chipsAbove)
+            var output = new List<ChipInputOption>();
+            foreach (var chip in chipsAbove.Where(c=>c.HasOutput).Cast<ChipTopWithOutput>())
             {
-                var data = chipAbove.ChipData;
-                var (canFeed, generic, baseOutput) = data.CanFeedOutputInto(_inputType);
-                if (canFeed)
+                if(_isValidInput(chip))
                 {
-                    var standardChip = (ChipTopStandard)chipAbove;
-
-                    if (generic)
-                    {
-                        var selectionToAdd = new ChipInputOptionGeneric(standardChip, baseOutput);
-                        aboveChipsToAdd.Add(selectionToAdd);
-                    }
-                    else
-                    {
-                        var selectionToAdd = new ChipInputOptionReference(standardChip);
-                        aboveChipsToAdd.Add(selectionToAdd);
-                    }
+                    output.Add(new ChipInputOptionReference(chip));
                 }
             }
 
-            return aboveChipsToAdd;
+            return output;
+        }
+
+        private bool _isValidInput(ChipTopWithOutput chipAbove)
+        {
+            var chipAboveOutput = chipAbove.OutputTypeCurrent;
+
+            if(InputBaseType.Equals(chipAboveOutput))
+            {
+                return true;
+            }
+            else if(InputBaseType.Equals("Variable"))
+            {
+                return true;
+            }
+            else if(chipAboveOutput.StartsWith("List<") & InputBaseType.Equals("List<Variable>"))
+            {
+                return true;
+            }
+
+            return false; 
         }
 
         public void RefreshText() => _dropdown.RefreshText();

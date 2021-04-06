@@ -26,7 +26,7 @@ namespace IAmACube
             }
         }
 
-        public static List<ChipInputOptionBase> GetBasicSelections(string dataType)
+        public static List<ChipInputOptionValue> GetBasicSelections(string dataType)
         {
             if (dataType.Equals(nameof(CardinalDirection)))
             {
@@ -47,17 +47,7 @@ namespace IAmACube
 
             throw new Exception();
         }
-        private static List<ChipInputOptionBase> _createOptionsFromItems<T>(List<T> items)
-        {
-            var output = new List<ChipInputOptionBase>();
-            foreach (var item in items)
-            {
-                var toAdd = new ChipInputOptionBase() { BaseObject = item };
-                output.Add(toAdd);
-            }
-
-            return output;
-        }
+        private static List<ChipInputOptionValue> _createOptionsFromItems<T>(List<T> items) => items.Select(item => new ChipInputOptionValue(item)).ToList();
 
         public static Type GetTypeOfDataType(string dataType)
         {
@@ -81,9 +71,7 @@ namespace IAmACube
         {
             return dataType.Equals(nameof(CardinalDirection)) | dataType.Equals(nameof(RelativeDirection)) | dataType.Equals(nameof(BlockMode)) | dataType.Equals("bool");
         }
-        public static bool IsTextEntryType(string dataType)
-        {
-            return dataType.Equals("int") | dataType.Equals("string");
-        }
+        public static bool IsTextEntryType(string dataType) => dataType.Equals("int") | dataType.Equals("string");
+
     }
 }

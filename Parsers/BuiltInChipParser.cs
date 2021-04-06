@@ -43,7 +43,6 @@ namespace IAmACube
             if(output!=null)
             {
                 data.SetOutputType(output.ToString());
-                data.HasOutput = true;
             }
 
             data.Init();

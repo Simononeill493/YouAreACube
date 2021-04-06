@@ -30,13 +30,23 @@ namespace IAmACube
             {
                 if(!template.Value.Active) { continue; }
                 var json1 = ChipBlockParser.ParseBlockToJson(template.Value.Chips);
+
                 var block1 = ChipBlockParser.ParseJsonToBlock(json1);
                 var json2 = ChipBlockParser.ParseBlockToJson(block1);
 
-                if(!json1.Equals(json2))
+                var chipset1 = EditableChipsetParser.ParseJsonToEditableChipset(json2, new DummyChipsetGenerator());
+                var json3 = EditableChipsetParser.ParseEditableChipsetToJson(chipset1);
+
+                if (!json1.Equals(json2))
                 {
                     throw new Exception("Parsing Problem - string round trip mismatch");
                 }
+
+                if (!json1.Equals(json3))
+                {
+                    //throw new Exception("Parsing Problem - string round trip mismatch");
+                }
+
 
                 if (!template.Value.Chips.Equivalent(block1))
                 {

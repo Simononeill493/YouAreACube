@@ -19,17 +19,16 @@ namespace IAmACube
         public string Input3;
 
         public string OutputType { get; private set; }
-        public string OutputTypeCurrent { get; private set; }
-
         public void SetOutputType(string outputType)
         {
             OutputType = outputType;
-            OutputTypeCurrent = outputType;
+            OutputIsGeneric = outputType.Contains("Variable");
+            HasOutput = true;
         }
 
         public bool HasOutput;
         public bool IsGeneric;
-        public bool OutputIsGeneric => OutputType.Contains("Variable");
+        public bool OutputIsGeneric;
 
         public int NumInputs;
 
@@ -51,12 +50,14 @@ namespace IAmACube
             return "_null_";
         }
 
-        public string IsInputGeneric(int num)
+        public bool IsInputGeneric(int num)
         {
-            if (num == 1) { return Input1; }
-            if (num == 2) { return Input2; }
-            if (num == 3) { return Input3; }
-            return "_null_";
+            if(num>NumInputs) { return false; }
+
+            if (num == 1) { return Input1.Contains("Variable"); }
+            if (num == 2) { return Input2.Contains("Variable"); }
+            if (num == 3) { return Input3.Contains("Variable"); }
+            throw new Exception();
         }
 
         public void Init()
@@ -75,48 +76,5 @@ namespace IAmACube
         {
             return Name + " (" + ChipDataType.ToString() + ")";
         }
-
-        public (bool canFeed,bool isGeneric,string baseOfVariable) CanFeedOutputInto(string inputType)
-        {
-            if(OutputTypeCurrent == null)
-            {
-                return (false, false, "");
-            }
-
-            if (inputType.Equals(OutputTypeCurrent))
-            {
-                return (true, false,OutputTypeCurrent);
-            }
-
-            if(inputType.Equals("Variable"))
-            {
-                return (true, true,OutputTypeCurrent);
-            }
-
-            if(inputType.Equals("List<Variable>"))
-            {
-                if(OutputTypeCurrent.StartsWith("List<") & OutputTypeCurrent.EndsWith(">"))
-                {
-                    var afterOpeningList = OutputTypeCurrent.Substring(5);
-                    var baseOutput = afterOpeningList.Substring(0, afterOpeningList.Length - 1);
-                    return (true,true,baseOutput);
-                }
-            }
-
-            return (false,false,"");
-        }
-
-        public void SetOutputTypeFromGeneric(string actualType)
-        {
-            if(OutputType!=null)
-            {
-                OutputTypeCurrent = OutputType.Replace("Variable", actualType);
-            }
-        }
-        public void ResetOutputType()
-        {
-            OutputTypeCurrent = OutputType;
-        }
-
     }
 }

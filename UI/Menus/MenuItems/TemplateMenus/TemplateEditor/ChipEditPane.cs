@@ -129,7 +129,7 @@ namespace IAmACube
 
         private EditableChipset _createNewChipsetForMouse(UserInput input)
         {
-            var newChipset = CreateChipset();
+            var newChipset = CreateChipset("Chipset_" + _allChipsets.Count+1);
             _setChipsetToTopLevel(newChipset);
 
             newChipset.SetLocationConfig(input.MousePos, CoordinateMode.Absolute, centered: true);
@@ -144,9 +144,9 @@ namespace IAmACube
             chipset.SetContainer(this);
             chipset.TopLevelRefreshAll = chipset.RefreshAll;
         }
-        public EditableChipset CreateChipset()
+        public EditableChipset CreateChipset(string name)
         {
-            var newChipset = new EditableChipset(this, _chipScaleMultiplier, CreateNewChipsetFromExistingChips);
+            var newChipset = new EditableChipset(name,this, _chipScaleMultiplier, CreateNewChipsetFromExistingChips);
             newChipset.OnEndDrag += (i) => _chipsetDropped(newChipset, i);
 
             _allChipsets.Add(newChipset);

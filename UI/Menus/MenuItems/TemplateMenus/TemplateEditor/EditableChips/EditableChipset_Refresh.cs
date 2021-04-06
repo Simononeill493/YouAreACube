@@ -8,7 +8,6 @@ namespace IAmACube
 {
     public partial class EditableChipset : DraggableMenuItem
     {
-        public string Name;
         public Action TopLevelRefreshAll 
         { 
             get { return _topLevelRefreshAll; } 

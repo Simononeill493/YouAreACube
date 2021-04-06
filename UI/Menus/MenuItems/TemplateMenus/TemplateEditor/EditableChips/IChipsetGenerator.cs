@@ -8,6 +8,15 @@ namespace IAmACube
 {
     public interface IChipsetGenerator
     {
-        EditableChipset CreateChipset();
+        EditableChipset CreateChipset(string name);
     }
+
+    public class DummyChipsetGenerator : IChipsetGenerator
+    {
+        public EditableChipset CreateChipset(string name) 
+        {
+            return new EditableChipset(name,ManualDrawLayer.Zero, 1.0f, (a1,a2,a3) => { });
+        }
+    }
+
 }
