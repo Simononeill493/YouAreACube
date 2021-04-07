@@ -13,6 +13,7 @@ namespace IAmACube
         public int IndexInChipset = -1;
 
         public bool HasOutput => ChipData.HasOutput;
+        public string CurrentTypeArgument;
 
         public ChipTop(string name,IHasDrawLayer parent, ChipData data) : base(parent, "ChipFull") 
         {
@@ -67,10 +68,8 @@ namespace IAmACube
 
         #region inputsections
         protected List<ChipInputSection> _inputSections;
-        public void ManuallySetInputSection(ChipInputOption item,int index)
-        {
-            _inputSections[index].ManuallySetDropdown(item);
-        }
+        public List<ChipInputOption> GetCurrentInputs() => _inputSections.Select(section => section.GetCurrentInput()).ToList();
+        public void ManuallySetInputSection(ChipInputOption item,int index) =>_inputSections[index].ManuallySetDropdown(item);
         
         public void SetInputConnectionsFromAbove(List<ChipTop> chipsAbove)
         {
@@ -109,7 +108,27 @@ namespace IAmACube
             _actualSize.Y = height;
         }
 
-        protected virtual void _inputSectionDropdownChanged(ChipInputSection section, ChipInputDropdown dropdown, ChipInputOption optionSelected) { }
+        protected virtual void _inputSectionDropdownChanged(ChipInputSection section, ChipInputDropdown dropdown, ChipInputOption optionSelected)
+        {
+            if (optionSelected.OptionType == InputOptionType.Reference)
+            {
+                var referenceOption = (ChipInputOptionReference)optionSelected;
+
+                var inputBase = section.InputBaseType;
+                var dataTypeFeedingIn = referenceOption.ChipReference.OutputTypeCurrent;
+
+                if (inputBase.Equals("List<Variable>"))
+                {
+                    var afterOpeningList = dataTypeFeedingIn.Substring(5);
+                    var extracted = afterOpeningList.Substring(0, afterOpeningList.Length - 1);
+                    CurrentTypeArgument = extracted;
+                }
+                else if (inputBase.Equals("Variable"))
+                {
+                    CurrentTypeArgument = dataTypeFeedingIn;
+                }
+            }
+        }
         #endregion
 
         #region dimensions

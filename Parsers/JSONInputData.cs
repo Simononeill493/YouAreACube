@@ -82,7 +82,7 @@ namespace IAmACube
             Inputs = new List<ChipJSONInputData>();
             for (int i = 0; i < ChipData.NumInputs; i++)
             {
-                Inputs.Add(new ChipJSONInputData() { InputType = "", InputValue = "" });
+                Inputs.Add(new ChipJSONInputData("",""));
             }
         }
 
@@ -123,5 +123,11 @@ namespace IAmACube
     {
         public string InputType;
         public string InputValue;
+
+        public ChipJSONInputData(string inputType, string inputValue)
+        {
+            InputType = inputType;
+            InputValue = inputValue;
+        }
     }
 }

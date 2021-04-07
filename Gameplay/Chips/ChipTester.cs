@@ -37,7 +37,7 @@ namespace IAmACube
             blockLocationChip.Targets1.Add(stepToChip);
             stepToChip.Targets1.Add(moveToAdjChip);
 
-            var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip, ifChip) { Name = "Initial" };
+            var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip, ifChip) { Name = "_Initial" };
             var randomWalkBlock = new ChipBlock(randDirChip, moveRandChip) { Name = "RandomWalk" };
             var approachBlock = new ChipBlock(firstOfListChip, blockLocationChip, stepToChip, moveToAdjChip) { Name = "Approach" };
 
@@ -70,7 +70,7 @@ namespace IAmACube
             blockLocationChip.Targets1.Add(fleeChip);
             fleeChip.Targets1.Add(moveToAdjChip);
 
-            var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip, ifChip) { Name = "Initial" };
+            var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip, ifChip) { Name = "_Initial" };
             var randomWalkBlock = new ChipBlock(randDirChip, moveRandChip) { Name = "RandomWalk" };
             var fleeBlock = new ChipBlock(firstOfListChip, blockLocationChip, fleeChip, moveToAdjChip) { Name = "Flee" };
 
@@ -104,7 +104,7 @@ namespace IAmACube
             keySwitch.AddKeyEffect(Keys.S, new ChipBlock(moveDown) { Name = "SBlock" });
             keySwitch.AddKeyEffect(Keys.D, new ChipBlock(moveRight) { Name = "DBlock" });
 
-            return new ChipBlock(keySwitch) { Name = "Initial" };
+            return new ChipBlock(keySwitch) { Name = "_Initial" };
         }
 
         public static ChipBlock MakeSpinBlock()
@@ -118,7 +118,7 @@ namespace IAmACube
             var moveForwardChip = new MoveRelativeChip() { Name = "MoveRelative_1" };
             moveForwardChip.ChipInput1 = RelativeDirection.Forward;
 
-            return new ChipBlock(getRotationAmountChip, rotateRightChip, moveForwardChip) { Name = "Initial" };
+            return new ChipBlock(getRotationAmountChip, rotateRightChip, moveForwardChip) { Name = "_Initial" };
         }
 
         public static ChipBlock MakeBulletBlock()
@@ -126,7 +126,7 @@ namespace IAmACube
             var moveForwardChip = new MoveRelativeChip() { Name = "MoveRelative_1" };
             moveForwardChip.ChipInput1 = RelativeDirection.Forward;
 
-            return new ChipBlock(moveForwardChip) { Name = "Initial" };
+            return new ChipBlock(moveForwardChip) { Name = "_Initial" };
         }
 
         public static ChipBlock MakeFirstOfListBlock()

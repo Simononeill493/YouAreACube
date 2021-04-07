@@ -27,6 +27,7 @@ namespace IAmACube
         private string _outputTypeCurrent;
         public string OutputTypeBase;
 
+
         public ChipTopWithOutput(string name,IHasDrawLayer parent, ChipData data) : base(name,parent, data)
         {
             _createOutputLabel();
@@ -50,28 +51,10 @@ namespace IAmACube
 
         protected override void _inputSectionDropdownChanged(ChipInputSection section,ChipInputDropdown dropdown, ChipInputOption optionSelected)
         {
-            if (optionSelected.OptionType == InputOptionType.Reference)
-            {
-                var referenceOption = (ChipInputOptionReference)optionSelected;
+            base._inputSectionDropdownChanged(section, dropdown, optionSelected);
 
-                var inputBase = section.InputBaseType;
-                var dataTypeFeedingIn = referenceOption.ChipReference.OutputTypeCurrent;
-
-                if (inputBase.Equals("List<Variable>"))
-                {
-                    var afterOpeningList = dataTypeFeedingIn.Substring(5);
-                    var extracted = afterOpeningList.Substring(0, afterOpeningList.Length - 1);
-
-                    OutputTypeCurrent = OutputTypeBase.Replace("Variable", extracted);
-                }
-                else if(inputBase.Equals("Variable"))
-                {
-                    OutputTypeCurrent = OutputTypeBase.Replace("Variable", dataTypeFeedingIn);
-                }
-            }
-
+            OutputTypeCurrent = OutputTypeBase.Replace("Variable", CurrentTypeArgument);
             _topLevelRefreshAll_Delayed();
         }
-
     }
 }

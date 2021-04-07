@@ -51,6 +51,8 @@ namespace IAmACube
                 blocksJsonData.Add(token);
             }
 
+            blocksJsonData.Sort((c1,c2) => string.Compare(c1.Name,c2.Name));
+            
             var jobjectList = JToken.FromObject(blocksJsonData, new JsonSerializer{NullValueHandling = NullValueHandling.Ignore});
             return jobjectList.ToString();
         }
@@ -77,7 +79,7 @@ namespace IAmACube
             foreach (var target in targets)
             {
                 var targetInputs = chipToInputs[target.Name];
-                targetInputs[inputPinIndex] = new ChipJSONInputData() { InputType = "Reference", InputValue = chip.Name };
+                targetInputs[inputPinIndex] = new ChipJSONInputData("Reference", chip.Name);
             }
         }
         
@@ -106,13 +108,13 @@ namespace IAmACube
             return value;
         }
 
-        private static void _setControlChipAttributes(IChip chip,ChipJSONData chipToken,ChipData data)
+        private static void _setControlChipAttributes(IChip chip,ChipJSONData chipJObject,ChipData data)
         {
             if(data.Name.Equals("If"))
             {
                 var ifChip = (IfChip)chip;
-                chipToken.Yes = ifChip.Yes.Name;
-                chipToken.No = ifChip.No.Name;
+                chipJObject.Yes = ifChip.Yes.Name;
+                chipJObject.No = ifChip.No.Name;
             }
             else if(data.Name.Equals("KeySwitch"))
             {
@@ -123,7 +125,7 @@ namespace IAmACube
                     keysAndEffects.Add(new Tuple<string, string>(keyBlock.Item1.ToString(), keyBlock.Item2.Name));
                 }
 
-                chipToken.KeyEffects = keysAndEffects;
+                chipJObject.KeyEffects = keysAndEffects;
             }
         }
         private static void _setGenericChipAttributes(IChip chip, ChipJSONData chipToken, ChipData data)
@@ -172,7 +174,7 @@ namespace IAmACube
                 }
             }
 
-            var initBlock = blocksDict.Values.First(v => v.Name.Equals("Initial")).ChipBlock;
+            var initBlock = blocksDict.Values.First(v => v.Name.Equals("_Initial")).ChipBlock;
             return initBlock;
         }
 

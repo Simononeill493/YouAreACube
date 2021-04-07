@@ -24,21 +24,55 @@ namespace IAmACube
 
                 foreach(var chip in editableChipset.Chips)
                 {
-                    var chipJson = new ChipJSONData();
-                    chipJson.ChipTop = chip;
-                    chipJson.ChipData = chip.ChipData;
-                    chipJson.Name = chip.Name;
-                    if(chipJson.ChipData.IsGeneric)
+                    var chipJObject = new ChipJSONData();
+                    chipJObject.ChipTop = chip;
+                    chipJObject.ChipData = chip.ChipData;
+                    chipJObject.Type = chip.ChipData.Name;
+                    chipJObject.Name = chip.Name;
+                    chipJObject.TypeArgument = chip.CurrentTypeArgument;
+
+                    chipJObject.Inputs = new List<ChipJSONInputData>();
+                    var inputsList = chip.GetCurrentInputs();
+                    for(int i=0;i<inputsList.Count;i++)
                     {
-                        //chipJson.TypeArgument = 
+                        var input = inputsList[i];
+                        var inputData = new ChipJSONInputData(input.OptionType.ToString(), input.ToString());
+                        chipJObject.Inputs.Add(inputData);
                     }
-                    chipsetJson.Chips.Add(chipJson);
+
+                    if(chipJObject.ChipData.ChipDataType == ChipType.Control)
+                    {
+                        _setControlChipTargets(chipJObject);
+                    }
+
+                    chipsetJson.Chips.Add(chipJObject);
                 }
             }
 
+            chipsetsJson.Sort((c1, c2) => string.Compare(c1.Name, c2.Name));
 
             var jobjectList = JToken.FromObject(chipsetsJson, new JsonSerializer { NullValueHandling = NullValueHandling.Ignore });
             return jobjectList.ToString();
+        }
+
+        private static void _setControlChipTargets(ChipJSONData chipJObject)
+        {
+            var switchChip = (ChipTopSwitch)chipJObject.ChipTop;
+            if(chipJObject.ChipData.Name.Equals("If"))
+            {
+                chipJObject.Yes = switchChip.SwitchSections["Yes"].Name;
+                chipJObject.No = switchChip.SwitchSections["No"].Name;
+
+            }
+            if (chipJObject.ChipData.Name.Equals("KeySwitch"))
+            {
+                chipJObject.KeyEffects = new List<Tuple<string, string>>();
+
+                foreach (var keyAndChipset in switchChip.SwitchSections)
+                {
+                    chipJObject.KeyEffects.Add(new Tuple<string, string>(keyAndChipset.Key, keyAndChipset.Value.Name));
+                }
+            }
         }
         #endregion
 
@@ -102,7 +136,7 @@ namespace IAmACube
                 }
             }
 
-            var baseChipset = chipsetsJson.First(c => c.Name.Equals("Initial")).Chipset;
+            var baseChipset = chipsetsJson.First(c => c.Name.Equals("_Initial")).Chipset;
             return baseChipset;
         }
 

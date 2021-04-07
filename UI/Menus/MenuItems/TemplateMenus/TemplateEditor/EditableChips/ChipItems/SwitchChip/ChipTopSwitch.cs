@@ -8,18 +8,18 @@ namespace IAmACube
 { 
     class ChipTopSwitch : ChipTop
     {
+        public Dictionary<string, EditableChipset> SwitchSections;
+        public List<EditableChipset> SectionsList => SwitchSections.Values.ToList();
+
         private ChipSwitchButtons _switchButtons;
         private SpriteMenuItem _switchSectionBottom;
-
-        private Dictionary<string,EditableChipset> _switchSections;
-        private List<EditableChipset> _sectionsList => _switchSections.Values.ToList();
 
         private EditableChipset _extendedChipset;
         private bool _switchSectionExtended => (_extendedChipset!=null);
 
         public ChipTopSwitch(string name,IHasDrawLayer parent, ChipData data,List<string> switchInitialOptions) : base(name,parent, data)
         {
-            _switchSections = new Dictionary<string, EditableChipset>();
+            SwitchSections = new Dictionary<string, EditableChipset>();
 
             _switchButtons = new ChipSwitchButtons(this, ColorMask, () => _closeSwitchSection(true), _openSwitchSection);
             _switchButtons.SetLocationConfig(0, GetBaseSize().Y-1,CoordinateMode.ParentPixelOffset);
@@ -59,7 +59,7 @@ namespace IAmACube
         {
             _closeSwitchSection(false);
 
-            _extendedChipset = _switchSections[sectionName];
+            _extendedChipset = SwitchSections[sectionName];
 
             TopLevelRefreshAll();
         }
@@ -119,13 +119,13 @@ namespace IAmACube
             switchChipset.Draggable = false;
             AddChildAfterUpdate(switchChipset);
 
-            _switchSections[sectionName] = switchChipset;
+            SwitchSections[sectionName] = switchChipset;
             _switchButtons.AddSwitchSection(sectionName);
             _switchButtons.UpdateButtonText();
         }
         #endregion
 
-        public override List<EditableChipset> GetSubChipsets() => _sectionsList;
+        public override List<EditableChipset> GetSubChipsets() => SectionsList;
         public override void DropChipsOn(List<ChipTop> chips, UserInput input) 
         {
             if (!_switchSectionExtended)
@@ -152,7 +152,7 @@ namespace IAmACube
         public override void RefreshAll()
         {
             base.RefreshAll();
-            _sectionsList.ForEach(c => c.RefreshAll());
+            SectionsList.ForEach(c => c.RefreshAll());
 
             if(_switchSectionExtended)
             {
@@ -162,7 +162,7 @@ namespace IAmACube
         protected override void _setTopLevelRefreshAll(Action topLevelRefreshAll)
         {
             base._setTopLevelRefreshAll(topLevelRefreshAll);
-            _sectionsList.ForEach(c => c.TopLevelRefreshAll = topLevelRefreshAll);
+            SectionsList.ForEach(c => c.TopLevelRefreshAll = topLevelRefreshAll);
         }
     }
 }

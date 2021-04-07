@@ -26,34 +26,31 @@ namespace IAmACube
             BlockTemplates["Bullet"].Chips = ChipTester.TestBulletBlock;
             BlockTemplates["BasicPlayer"].Chips = ChipTester.TestPlayerBlock;
 
-            foreach(var template in BlockTemplates.ToList())
+            _testTemplateParsing();
+        }
+
+        private static void _testTemplateParsing()
+        {
+            foreach (var template in BlockTemplates.ToList())
             {
-                if(!template.Value.Active) { continue; }
-                var json1 = ChipBlockParser.ParseBlockToJson(template.Value.Chips);
+                if (!template.Value.Active) { continue; }
+                var initialJson = ChipBlockParser.ParseBlockToJson(template.Value.Chips);
 
-                var block1 = ChipBlockParser.ParseJsonToBlock(json1);
-                var json2 = ChipBlockParser.ParseBlockToJson(block1);
+                var chipset = EditableChipsetParser.ParseJsonToEditableChipset(initialJson, new DummyChipsetGenerator());
+                var chipBlock = ChipBlockParser.ParseJsonToBlock(initialJson);
 
-                var chipset1 = EditableChipsetParser.ParseJsonToEditableChipset(json2, new DummyChipsetGenerator());
-                var json3 = EditableChipsetParser.ParseEditableChipsetToJson(chipset1);
+                var chipsetRoundTrip = EditableChipsetParser.ParseEditableChipsetToJson(chipset);
+                var blockRoundTrip = ChipBlockParser.ParseBlockToJson(chipBlock);
 
-                if (!json1.Equals(json2))
+                if (!chipsetRoundTrip.Equals(blockRoundTrip))
                 {
-                    throw new Exception("Parsing Problem - string round trip mismatch");
+                    throw new Exception();
                 }
 
-                if (!json1.Equals(json3))
+                if (!template.Value.Chips.Equivalent(chipBlock))
                 {
-                    //throw new Exception("Parsing Problem - string round trip mismatch");
+                    throw new Exception();
                 }
-
-
-                if (!template.Value.Chips.Equivalent(block1))
-                {
-                    throw new Exception("Parsing Problem - chipblock round trip mismatch");
-                }
-
-                BlockTemplates[template.Key].Chips = block1;
             }
         }
 

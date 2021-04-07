@@ -73,7 +73,7 @@ namespace IAmACube
     
         private void _createChipAndAddToEditPane(ChipPreview preview, UserInput input)
         {
-            var createdChip = ChipTop.GenerateChipFromChipData(preview.Chip);
+            var createdChip = ChipTop.GenerateChipFromChipData(preview.Chip,preview.Chip.Name);
             AddToEditPane(createdChip,input);
         }
     }

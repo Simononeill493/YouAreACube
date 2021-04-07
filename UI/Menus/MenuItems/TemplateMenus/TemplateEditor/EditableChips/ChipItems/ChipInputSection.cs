@@ -38,6 +38,11 @@ namespace IAmACube
             DropdownItemSelected(option);
         }
 
+        public ChipInputOption GetCurrentInput()
+        {
+            return _dropdown.Selected;
+        }
+
         public void DropdownItemSelected(ChipInputOption optionSelected) => DropdownSelectedCallback(this,_dropdown, optionSelected);
 
         public void SetConnectionsFromAbove(List<ChipTop> chipsAbove)
