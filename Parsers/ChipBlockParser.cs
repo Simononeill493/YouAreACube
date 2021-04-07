@@ -199,8 +199,7 @@ namespace IAmACube
                     }
                     else
                     {
-                        if (typeName.Equals("int")) { typeName = "Int32"; }
-                        var type = TypeUtils.AllTypes[typeName];
+                        var type = TypeUtils.GetTypeByName(typeName);
                         var typeValue = TypeUtils.ParseType(type, input.InputValue);
                         property.SetValue(constructedChip, typeValue);
                     }

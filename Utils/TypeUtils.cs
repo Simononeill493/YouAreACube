@@ -9,7 +9,24 @@ namespace IAmACube
 {
     class TypeUtils
     {
-        public static Dictionary<string, Type> AllTypes;
+        private static Dictionary<string, Type> AllTypes;
+
+        public static bool IsType(string name)
+        {
+            return AllTypes.ContainsKey(name) | name.Equals("Int32");
+        }
+
+        public static Type GetTypeByName(string name)
+        {
+            if(name.Equals("int"))
+            {
+                return typeof(int);
+            }
+            else
+            {
+                return AllTypes[name];
+            }
+        }
 
         public static void Load()
         {
@@ -31,7 +48,7 @@ namespace IAmACube
                 return parsed;
             }
 
-            throw new Exception();
+            return null;
         }
 
         private static Dictionary<string, Type> _getAllTypes()
@@ -42,6 +59,19 @@ namespace IAmACube
             foreach (var type in types)
             {
                 dict[type.Name] = type;
+            }
+
+            return dict;
+        }
+
+        public static Dictionary<string, Type> GetAssemblyChipTypes()
+        {
+            var allIChips = AllTypes.Values.Where(x => typeof(IChip).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).ToList();
+
+            var dict = new Dictionary<string, Type>();
+            foreach (var iChip in allIChips)
+            {
+                dict[iChip.Name] = iChip;
             }
 
             return dict;

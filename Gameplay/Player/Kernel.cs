@@ -14,6 +14,16 @@ namespace IAmACube
 
         public Kernel()
         {
+            _loadKnownTemplates();
+        }
+
+        public void StartSession()
+        {
+            _loadKnownTemplates();
+        }
+
+        private void _loadKnownTemplates()
+        {
             KnownTemplates = Templates.BlockTemplates.Values.ToList();
         }
 

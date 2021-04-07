@@ -119,8 +119,7 @@ namespace IAmACube
                         }
                         else
                         {
-                            if (inputTypeName.Equals("int")) { inputTypeName = "Int32"; }
-                            var type = TypeUtils.AllTypes[inputTypeName];
+                            var type = TypeUtils.GetTypeByName(inputTypeName);
                             value = TypeUtils.ParseType(type, jsonInputData.InputValue);
                         }
 

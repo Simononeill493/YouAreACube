@@ -7,7 +7,32 @@ namespace IAmACube
 {
     public class ChipInputDropdown : DropdownMenuItem<ChipInputOption>
     {
-        public ChipInputDropdown(IHasDrawLayer parent) : base(parent) { }
+        private Type _inputType;
+        
+        public ChipInputDropdown(IHasDrawLayer parent,string inputTypeName) : base(parent) 
+        {
+            var isTextEntry = ChipDropdownUtils.IsTextEntryType(inputTypeName);
+
+            if (isTextEntry)
+            {
+                _inputType = TypeUtils.GetTypeByName(inputTypeName);
+                OnTextChanged += TextChanged;
+                Editable = true;
+            }
+            else
+            {
+                Editable = false;
+            }
+        }
+
+        private void TextChanged(string newText)
+        {
+            var newValue = TypeUtils.ParseType(_inputType, newText);
+            if(newValue!=null)
+            {
+                ManuallySetItem(new ChipInputOptionValue(newValue));
+            }
+        }
     }
 }
 

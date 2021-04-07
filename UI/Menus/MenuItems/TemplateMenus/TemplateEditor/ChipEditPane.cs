@@ -9,8 +9,8 @@ namespace IAmACube
 {
     class ChipEditPane : SpriteMenuItem, IEditableChipsetContainer, IChipsetGenerator
     {
+        public List<EditableChipset> TopLevelChipsets;
         private List<EditableChipset> _allChipsets;
-        private List<EditableChipset> _topLevelChipsets;
 
         public Func<UserInput, bool> IsMouseOverSearchPane;
 
@@ -19,7 +19,7 @@ namespace IAmACube
             DrawLayer = DrawLayers.MenuBehindLayer;
 
             _allChipsets = new List<EditableChipset>();
-            _topLevelChipsets = new List<EditableChipset>();
+            TopLevelChipsets = new List<EditableChipset>();
 
             var size = GetBaseSize();
 
@@ -97,7 +97,7 @@ namespace IAmACube
 
         private EditableChipset _getCurrentlyHoveredChipset(EditableChipset toAttach)
         {
-            foreach (var chipset in _topLevelChipsets)
+            foreach (var chipset in TopLevelChipsets)
             {
                 if (chipset.IsMouseOverAnyChip() & (chipset != toAttach))
                 {
@@ -155,23 +155,23 @@ namespace IAmACube
 
         public void AddChipset(EditableChipset newChipset)
         {
-            if(_topLevelChipsets.Contains(newChipset))
+            if(TopLevelChipsets.Contains(newChipset))
             {
                 throw new Exception();
             }
 
             AddChildAfterUpdate(newChipset);
-            _topLevelChipsets.Add(newChipset);
+            TopLevelChipsets.Add(newChipset);
         }
         public void RemoveChipset(EditableChipset newChipset)
         {
-            if (!_topLevelChipsets.Contains(newChipset))
+            if (!TopLevelChipsets.Contains(newChipset))
             {
                 throw new Exception();
             }
 
             RemoveChildAfterUpdate(newChipset);
-            _topLevelChipsets.Remove(newChipset);
+            TopLevelChipsets.Remove(newChipset);
         }
         private void _destroyChipset(EditableChipset chipset)
         {
@@ -187,7 +187,7 @@ namespace IAmACube
 
         private void _checkForChipsetGarbageCollection(EditableChipset toCheck)
         {
-            if (toCheck.Chips.Count == 0 & _topLevelChipsets.Contains(toCheck))
+            if (toCheck.Chips.Count == 0 & TopLevelChipsets.Contains(toCheck))
             {
                 _destroyChipset(toCheck);
             }
@@ -217,11 +217,11 @@ namespace IAmACube
         private void _multiplyChipScale(float multiplier)
         {
             _chipScaleMultiplier *= multiplier;
-            _topLevelChipsets.ForEach(chip => chip.MultiplyScaleCascade(multiplier));
+            TopLevelChipsets.ForEach(chip => chip.MultiplyScaleCascade(multiplier));
             _updateChildDimensions();
         }
 
-        private void _setChipsetVisibilities() => _topLevelChipsets.ForEach(chip => _setChipsetVisiblity(chip));
+        private void _setChipsetVisibilities() => TopLevelChipsets.ForEach(chip => _setChipsetVisiblity(chip));
         private void _setChipsetVisiblity(EditableChipset chipset)
         {
             if(this.IsIntersectedWith(chipset))

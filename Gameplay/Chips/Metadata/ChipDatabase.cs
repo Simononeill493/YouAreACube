@@ -15,7 +15,7 @@ namespace IAmACube
         public static void Load()
         {
             BuiltInChips = _getBuiltInChipsFromFile();
-            _assemblyChipTypes = _getAssemblyChipTypes();
+            _assemblyChipTypes = TypeUtils.GetAssemblyChipTypes();
 
             foreach(var data in BuiltInChips.Values)
             {
@@ -36,7 +36,7 @@ namespace IAmACube
             if(data.IsGeneric)
             {
                 var genericChipType = _assemblyChipTypes.FirstOrDefault(c => c.Value.Name.Equals(data.Name + "Chip`1")).Value;
-                var genericRuntimeType = genericChipType.MakeGenericType(TypeUtils.AllTypes[typeArgument]);
+                var genericRuntimeType = genericChipType.MakeGenericType(TypeUtils.GetTypeByName(typeArgument));
                 IChip genericInstance = (IChip)Activator.CreateInstance(genericRuntimeType);
 
                 return genericInstance;
@@ -54,18 +54,6 @@ namespace IAmACube
             return BuiltInChipParser.ParseChips(data["chips"]);
         }
 
-        private static Dictionary<string, Type> _getAssemblyChipTypes()
-        {
-            var allIChips = TypeUtils.AllTypes.Values.Where(x => typeof(IChip).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).ToList();
-
-            var dict = new Dictionary<string, Type>();
-            foreach(var iChip in allIChips)
-            {
-                dict[iChip.Name] = iChip;
-            }
-
-            return dict;
-        }
 
         public static IEnumerable<ChipData> SearchChips(string searchTerm) => BuiltInChips.Values.Where(c => c.NameLower.Contains(searchTerm.ToLower()));
     }

@@ -18,6 +18,8 @@ namespace IAmACube
         {
             _save = save;
             _sectorGenerator = new SectorGenerator();
+
+            Kernel.StartSession();
         }
 
         public void Update(UserInput input)

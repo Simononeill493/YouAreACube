@@ -28,7 +28,7 @@ namespace IAmACube
             var targetPos = creator.Location.Adjacent[direction];
             return TryCreate(creator, template, blockType, targetPos, direction);
         }
-        public bool TryCreate(Block creator, BlockTemplate template, BlockMode blockType, Tile targetPosition,CardinalDirection direction)
+        private bool TryCreate(Block creator, BlockTemplate template, BlockMode blockType, Tile targetPosition,CardinalDirection direction)
         {
             if(_canThisBlockBeCreated(creator, template,blockType, targetPosition))
             {
