@@ -13,6 +13,14 @@ namespace IAmACube
 {
     public class FileUtils
     {
+        public static List<string> GetDirectoryContents(string path)
+        {
+            var contents = Directory.GetFiles(path).Select(l => Path.GetFileName(l).ToLower()).ToList();
+            var subDirectories = Directory.GetDirectories(path).Select(l => Path.GetFileName(l).ToLower());
+            contents.AddRange(subDirectories);
+            return contents;
+        }
+
         public static void SaveBinary(object toSave, string path,string name,string extension = "")
         {
             var savePath = Path.Combine(path, name) + extension;

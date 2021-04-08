@@ -1,6 +1,8 @@
 ﻿ using System;
 using System.Windows.Forms;
 using System.Linq;
+using System.IO;
+using System.Diagnostics;
 
 namespace IAmACube
 {
@@ -9,6 +11,31 @@ namespace IAmACube
         [STAThread]
         public static void Main(string[] args)
         {
+#if DEBUG
+            Run();
+            return;
+#endif
+
+            try
+            {
+                Run();
+            }
+            catch(Exception e)
+            {
+                var path = Directory.GetCurrentDirectory();
+                var exceptionLogPath = Path.Combine(path, "Cube_exception_log.txt");
+
+                File.AppendAllText(exceptionLogPath, "\n\n" + e.GetType().ToString() + ":\t" + e.Message);
+                File.AppendAllText(exceptionLogPath, "\n" + e.StackTrace);
+                Application.Exit();
+                return;
+            }
+
+        }
+
+        private static void Run()
+        {
+            Config.Init();
             TypeUtils.Load();
             ChipDatabase.Load();
             RandomUtils.Init(1);
@@ -23,7 +50,7 @@ namespace IAmACube
 
         public static void TestCode()
         {
-            var world = WorldGen.GenerateEmptyWorld(59);
+            //var world = WorldGen.GenerateEmptyWorld(59);
         }
     }
 }

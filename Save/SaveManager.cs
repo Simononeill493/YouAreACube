@@ -27,11 +27,11 @@ namespace IAmACube
 
         public static void SaveToFile(Save save)
         {
-            FileUtils.SaveBinary(save, Config.SaveDirectory, save.Name, Config.SaveExtension);
+            FileUtils.SaveBinary(save, Config.SaveDirectoryPath, save.Name, Config.SaveExtension);
         }
         public static Save LoadFromFile(string name)
         {
-            var save = FileUtils.LoadBinary<Save>(Config.SaveDirectory, name);
+            var save = FileUtils.LoadBinary<Save>(Config.SaveDirectoryPath, name);
             return save;
         }
     }
