@@ -34,7 +34,7 @@
       "name":"Bullet",
       "sprite":"Bullet",
 	  "energyCap":30,
-      "speed":3
+      "speed":6
     }
   ]
 }

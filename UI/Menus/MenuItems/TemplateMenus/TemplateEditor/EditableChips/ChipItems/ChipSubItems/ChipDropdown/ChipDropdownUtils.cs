@@ -71,7 +71,7 @@ namespace IAmACube
         {
             return dataType.Equals(nameof(CardinalDirection)) | dataType.Equals(nameof(RelativeDirection)) | dataType.Equals(nameof(BlockMode)) | dataType.Equals("bool");
         }
-        public static bool IsTextEntryType(string dataType) => dataType.Equals("int") | dataType.Equals("string");
+        public static bool IsTextEntryType(string dataType) => dataType.Equals("int") | dataType.Equals("string") | dataType.Equals("Keys");
 
     }
 }
