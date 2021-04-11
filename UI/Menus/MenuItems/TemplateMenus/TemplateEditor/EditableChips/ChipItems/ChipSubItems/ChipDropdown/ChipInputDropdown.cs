@@ -27,11 +27,8 @@ namespace IAmACube
 
         private void TextChanged(string newText)
         {
-            var newValue = TypeUtils.ParseType(_inputType, newText);
-            if(newValue!=null)
-            {
-                ManuallySetItem(new ChipInputOptionValue(newValue));
-            }
+            var newValue = new ChipInputOptionParseable(newText,_inputType);
+            ManuallySetItem(newValue);
         }
     }
 }

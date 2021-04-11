@@ -23,7 +23,7 @@ namespace IAmACube
             _kernel = kernel;
 
             _config.Scale = 4;
-            _borderNumTiles = 4;
+            _borderNumTiles = 3;
 
             _config.UpdateScaling();
             _config.SnapToBlock(kernel.Host,Point.Zero);
@@ -52,7 +52,13 @@ namespace IAmACube
             {
                 _config.SnapToBlock(_kernel.Host, _clampOffset);
             }
+
+            /*if(input.ScrolledDown | input.ScrolledUp)
+            {
+                _clampOffset += _boundary.GetBoundaryPushBack(_kernelScreenPos);
+            }*/
         }
+
 
         protected void _startScrolling()
         {

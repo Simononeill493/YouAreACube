@@ -48,7 +48,7 @@ namespace IAmACube
         {
             foreach (var tile in sector.TileGrid)
             {
-                var ground = Templates.GenerateGround("grassPatch");
+                var ground = Templates.GenerateGround("grassPatch",0);
                 tile.AddGround(ground);
             }
         }
@@ -65,12 +65,12 @@ namespace IAmACube
         {
             var centre = world.GetSector(new Point(0, 0));
 
-            _addRandom(world.Random, centre, BlockMode.Surface, "ScaredEnemy", 16);
-            _addRandom(world.Random, centre, BlockMode.Surface, "Spinner", 16);
+            //_addRandom(world.Random, centre, BlockMode.Surface, "ScaredEnemy",0, 16);
+            //_addRandom(world.Random, centre, BlockMode.Surface, "Spinner",0, 16);
             //_addRandom(world.Random, world.Centre, BlockType.Ephemeral,"Bullet", 16);
         }
 
-        private static void _addRandom(Random r, Sector sector,BlockMode blockType, string blockname,int number)
+        private static void _addRandom(Random r, Sector sector,BlockMode blockType, string blockname,int version,int number)
         {
             var emptyTiles = sector.Tiles.Where(t => t.Surface == null).ToList();
             var emptySize = emptyTiles.Count();
@@ -83,7 +83,7 @@ namespace IAmACube
                     return;
                 }
 
-                var block = Templates.Generate(blockname,blockType);
+                var block = Templates.Generate(blockname, version,blockType);
                 var tileNum = r.Next(0, emptySize - 1);
 
                 var tile = emptyTiles[tileNum];

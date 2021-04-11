@@ -45,7 +45,7 @@ namespace IAmACube
 
         public static CardinalDirection ToCardinal(Orientation orientation, RelativeDirection relativeDirection)
         {
-            var res = _underflowMod((int)orientation, (int)relativeDirection);
+            var res = _underflowMod((int)relativeDirection + (int)orientation,8);
             return (CardinalDirection)res;
         }
         public static Orientation Rotate(this Orientation orientation, int rotation)

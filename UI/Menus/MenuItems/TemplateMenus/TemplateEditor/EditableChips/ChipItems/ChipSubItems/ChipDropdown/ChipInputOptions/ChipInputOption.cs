@@ -10,5 +10,6 @@
     {
         Value,
         Reference,
+        Parseable
     }
 }

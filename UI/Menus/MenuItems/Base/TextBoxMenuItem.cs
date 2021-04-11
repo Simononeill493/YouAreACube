@@ -62,7 +62,7 @@ namespace IAmACube
             }
         }
 
-        private bool _shouldTypeCharacter(Keys key) => (KeyUtils.IsAlphanumeric(key) && text.Text.Length < MaxTextLength);
+        private bool _shouldTypeCharacter(Keys key) => (KeyUtils.IsTypeable(key) && text.Text.Length < MaxTextLength);
         private bool _shouldTypeBackspace(Keys key) => (key == Keys.Back && text.Text.Length > 0);
     }
 }

@@ -60,7 +60,7 @@ namespace IAmACube
                 var box = new TemplateBox(this, _templateBoxClicked);
                 if(i<numTemplates)
                 {
-                    box.SetTemplate(_kernel.KnownTemplates[i]);
+                    box.SetTemplate(_kernel.KnownTemplates[i][0]);
                 }
                 items.Add(box);
                 AddChild(box);

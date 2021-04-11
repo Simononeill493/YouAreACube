@@ -2,9 +2,9 @@
   "chips":
   [
 	{
-      "name":"CreateCardinal",
+      "name":"CreateEphemeral",
+	  "in":["CardinalDirection","Template","int"],
 	  "type":"Action",
-	  "in":["CardinalDirection","Template","BlockMode"],
     },
 	{
       "name":"MoveCardinal",

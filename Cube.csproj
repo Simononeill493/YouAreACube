@@ -66,13 +66,15 @@
     <Compile Include="Gameplay\Chips\Metadata\ChipDatabase.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\InputPin2.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\InputPin3.cs" />
-    <Compile Include="Gameplay\Chips\ChipsList\ActionChips\CreateCardinalChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\ActionChips\CreateEphemeralChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\MoveRelativeChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\RotationChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ControlChips\KeySwitchChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\IsKeyPressedChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\RandomNumChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\FleeDirectionChip.cs" />
+    <Compile Include="Gameplay\Templates\TemplatesDatabase.cs" />
+    <Compile Include="Gameplay\Templates\TemplateVersionList.cs" />
     <Compile Include="Parsers\JSONInputData.cs" />
     <Compile Include="Parsers\TemplateParser.cs" />
     <Compile Include="Parsers\BuiltInChipParser.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Gameplay\World\Sector\SectorGenerator.cs" />
     <Compile Include="Misc\LocationWithNeighbors.cs" />
     <Compile Include="Misc\Point.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipInputOptions\ChipInputOptionParseable.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\SwitchChip\ChipSwitchButtons.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\SwitchChip\ChipTopSwitch.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipDropdownUtils.cs" />

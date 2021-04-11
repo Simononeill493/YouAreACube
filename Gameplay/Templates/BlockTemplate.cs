@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace IAmACube
 
         public int InitialEnergy;
 
+        [JsonIgnore]
         public ChipBlock Chips;
 
         public BlockTemplate(string name)
@@ -56,9 +58,23 @@ namespace IAmACube
             return block;
         }
 
+
         public override string ToString()
         {
             return Name;
         }
+
+        public BlockTemplate Clone()
+        {
+            var cloneJson = JsonConvert.SerializeObject(this);
+            var clone = JsonConvert.DeserializeObject<BlockTemplate>(cloneJson);
+
+            var cloneChipsJson = ChipBlockParser.ParseBlockToJson(Chips);
+            var cloneChips = ChipBlockParser.ParseJsonToBlock(cloneChipsJson);
+            clone.Chips = cloneChips;
+
+            return clone;
+        }
+
     }
 }

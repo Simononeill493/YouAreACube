@@ -25,12 +25,22 @@ namespace IAmACube
             return IsAlphabetical(key) | IsNumeric(key);
         }
 
+        public static bool IsTypeable(Keys key)
+        {
+            return IsAlphanumeric(key) | key.Equals(Keys.OemMinus);
+        }
+
+
         public static char KeyToChar(Keys key)
         {
             var keyboard = Keyboard.GetState();
             var caps = CapsLock;
             var shift = keyboard.IsKeyDown(Keys.LeftShift);
 
+            if(key == Keys.OemMinus)
+            {
+                return '-';
+            }
             var str = key.ToString();
             if((caps & !shift)|(!caps & shift))
             {

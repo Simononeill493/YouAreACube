@@ -36,7 +36,12 @@ namespace IAmACube
                     for(int i=0;i<inputsList.Count;i++)
                     {
                         var input = inputsList[i];
-                        var inputData = new ChipJSONInputData(input.OptionType.ToString(), input.ToString());
+                        var inputOptionType = input.OptionType.ToString();
+                        if(inputOptionType.Equals(nameof(InputOptionType.Parseable)))
+                        {
+                            inputOptionType = nameof(InputOptionType.Value);
+                        }
+                        var inputData = new ChipJSONInputData(inputOptionType, input.ToString());
                         chipJObject.Inputs.Add(inputData);
                     }
 

@@ -47,12 +47,12 @@ namespace IAmACube
 
             }
 
-            if (input.IsKeyJustPressed(Keys.P) | input.ScrolledUp)
+            if (input.ScrolledUp)
             {
                 Scale+=2;
                 _updateAllItemPositions();
             }
-            if (input.IsKeyJustPressed(Keys.O) | input.ScrolledDown)
+            if (input.ScrolledDown)
             {
                 if (Scale > 2)
                 {
