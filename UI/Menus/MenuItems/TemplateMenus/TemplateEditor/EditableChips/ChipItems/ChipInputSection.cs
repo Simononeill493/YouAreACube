@@ -40,7 +40,7 @@ namespace IAmACube
 
         public ChipInputOption GetCurrentInput()
         {
-            return _dropdown.Selected;
+            return _dropdown.SelectedItem;
         }
 
         public void DropdownItemSelected(ChipInputOption optionSelected) => DropdownSelectedCallback(this,_dropdown, optionSelected);

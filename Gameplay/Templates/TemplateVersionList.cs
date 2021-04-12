@@ -7,6 +7,8 @@ namespace IAmACube
     public class TemplateVersionList
     {
         public string Name;
+        public BlockTemplate Main;
+
         public TemplateVersionList(string name) : base()
         {
             _dict = new Dictionary<int, BlockTemplate>();

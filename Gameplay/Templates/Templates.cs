@@ -22,6 +22,7 @@ namespace IAmACube
             {
                 var versions = new TemplateVersionList(builtInTemplate.Key);
                 versions[0] = builtInTemplate.Value;
+                versions.Main = builtInTemplate.Value;
                 BlockTemplates[builtInTemplate.Key] = versions;
             }
 

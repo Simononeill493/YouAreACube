@@ -8,11 +8,11 @@ namespace IAmACube
 {
     class TemplateBox : SpriteMenuItem
     {
-        private BlockTemplate _template;
+        private TemplateVersionList _template;
         private TextBoxMenuItem _templateHoverBox;
         private SpriteMenuItem _sprite;
 
-        public TemplateBox(IHasDrawLayer parentDrawLayer,Action<BlockTemplate> selectTemplate) : base(parentDrawLayer,"TemplateItemContainer")
+        public TemplateBox(IHasDrawLayer parentDrawLayer,Action<TemplateVersionList> selectTemplate) : base(parentDrawLayer,"TemplateItemContainer")
         {
             OnMouseReleased += (i) => selectTemplate(_template);
             OnMouseStartHover += (i) => TemplateBox_OnMouseStartHover();
@@ -27,7 +27,7 @@ namespace IAmACube
             AddChild(_templateHoverBox);
         }
 
-        public void SetTemplate(BlockTemplate template)
+        public void SetTemplate(TemplateVersionList template)
         {
             _template = template;
             _templateHoverBox.SetText(_template.Name);
@@ -37,7 +37,7 @@ namespace IAmACube
                 RemoveChild(_sprite);
             }
 
-            _sprite = new SpriteMenuItem(this, template.Sprite);
+            _sprite = new SpriteMenuItem(this, template.Main.Sprite);
             _sprite.SetLocationConfig(14, 14, CoordinateMode.ParentPercentageOffset);
 
             AddChild(_sprite);

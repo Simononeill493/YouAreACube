@@ -43,7 +43,7 @@ namespace IAmACube
             }
         }
 
-        private void _templateBoxClicked(BlockTemplate template)
+        private void _templateBoxClicked(TemplateVersionList template)
         {
             if(template!=null)
             {
@@ -60,7 +60,7 @@ namespace IAmACube
                 var box = new TemplateBox(this, _templateBoxClicked);
                 if(i<numTemplates)
                 {
-                    box.SetTemplate(_kernel.KnownTemplates[i][0]);
+                    box.SetTemplate(_kernel.KnownTemplates[i]);
                 }
                 items.Add(box);
                 AddChild(box);

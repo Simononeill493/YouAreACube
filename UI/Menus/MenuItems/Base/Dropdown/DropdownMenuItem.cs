@@ -8,73 +8,60 @@ namespace IAmACube
 {
     public class DropdownMenuItem<T> : TextBoxMenuItem
     {
-        public bool IsItemSelected => (Selected != null);
+        public T SelectedItem { get; private set; }
+        private ListMenuItem<T> _list;
 
-        public T Selected { get; private set; }
         public bool Dropped
         {
             get { return _dropped; }
             set
             {
                 _dropped = value;
-                _setItemsVisibility(value);
+                _list.Visible = value;
+                _list.Enabled = value;
             }
         }
         private bool _dropped;
 
-        private List<T> _items;
-        private List<DropdownItemMenuItem<T>> _dropdownItems;
-
-        public event Action<T> OnSelectedChanged;
-
         public DropdownMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "")
         {
             SpriteName = "Dropdown";
+            text.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
 
-            _items = new List<T>();
-            _dropdownItems = new List<DropdownItemMenuItem<T>>();
-
-            this.OnMouseReleased += (i) => { Dropped = !Dropped; };
+            var dropdownLayer = ManualDrawLayer.Create(DrawLayers.MenuDropdownLayer);
+            _list = new ListMenuItem<T>(dropdownLayer, GetBaseSize());
+            _list.SetLocationConfig(0, 100, CoordinateMode.ParentPercentageOffset);
+            _list.Visible = false;
+            _list.Enabled = false;
+            _list.HoverHighlight = true;
+            _list.OnItemSelected += ListItemSelected;
+            AddChild(_list);
 
             var dropButton = new SpriteMenuItem(this, "DropdownArrow");
             dropButton.SetLocationConfig(92, 50, CoordinateMode.ParentPercentageOffset, true);
             AddChild(dropButton);
 
-            text.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
+
+            this.OnMouseReleased += (i) => { Dropped = !Dropped; };
         }
 
         public void ManuallySetItem(T item)
         {
-            Selected = item;
+            SelectedItem = item;
         }
 
-        public void SetItems(List<T> items)
+        public void SetItems(List<T> items) => _list.SetItems(items);
+        public void AddItems(List<T> toAdd) =>_list.AddItems(toAdd);
+
+        private void ListItemSelected(T item)
         {
-            _clearDropdownItems();
-            _items = items;
-            var size = GetCurrentSize() / Scale;
+            SelectedItem = item;
+            Dropped = false;
 
-            for (int i = 0; i < _items.Count; i++)
-            {
-                var dropdownItem = new DropdownItemMenuItem<T>(this, _items[i], DropdownClicked);
-                dropdownItem.MultiplyScaleCascade(this.ScaleMultiplier);
-                dropdownItem.Size = size;
-                dropdownItem.SetLocationConfig(0, 100 * (i + 1), CoordinateMode.ParentPercentageOffset, false);
-                dropdownItem.Visible = Dropped;
-
-                _dropdownItems.Add(dropdownItem);
-                AddChild(dropdownItem);
-            }
+            text.Text = item.ToString();
+            OnSelectedChanged?.Invoke(item);
         }
 
-        public void AddItems(List<T> toAdd)
-        {
-            var newItems = new List<T>();
-            newItems.AddRange(_items);
-            newItems.AddRange(toAdd);
-
-            SetItems(newItems);
-        }
 
         public override void Update(UserInput input)
         {
@@ -85,34 +72,18 @@ namespace IAmACube
             }
         }
 
-        private void DropdownClicked(T item)
-        {
-            Selected = item;
-            Dropped = false;
-
-            text.Text = item.ToString();
-            OnSelectedChanged?.Invoke(item);
-        }
-
-        private void _clearDropdownItems()
-        {
-            RemoveChildren(_dropdownItems);
-            _dropdownItems.Clear();
-        }
-
-        private void _setItemsVisibility(bool visible) => _dropdownItems.ForEach(item => item.Visible = visible);
         
         public void RefreshText()
         {
             if(IsItemSelected)
             {
-                text.Text = Selected.ToString();
+                text.Text = SelectedItem.ToString();
             }
 
-            foreach(var item in _dropdownItems)
-            {
-                item.RefreshText();
-            }
+            _list.RefreshText();
         }
+
+        public event Action<T> OnSelectedChanged;
+        public bool IsItemSelected => (SelectedItem != null);
     }
 }

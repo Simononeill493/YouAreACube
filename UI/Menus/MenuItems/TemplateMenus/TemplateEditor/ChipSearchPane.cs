@@ -39,7 +39,7 @@ namespace IAmACube
         public void RefreshFilter()
         {
             var filtered = ChipDatabase.SearchChips(_searchBar.Text);
-            filtered = _dropdown.IsItemSelected ? filtered.Where(c => c.ChipDataType == _dropdown.Selected) : filtered;
+            filtered = _dropdown.IsItemSelected ? filtered.Where(c => c.ChipDataType == _dropdown.SelectedItem) : filtered;
 
             _setPreviews(filtered.ToList());
         }
