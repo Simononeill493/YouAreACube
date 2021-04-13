@@ -10,6 +10,8 @@ namespace IAmACube
     [Serializable()]
     public class BlockTemplate
     {
+        public int Version;
+
         public string Name;
         public string Sprite;
         public bool Active;
@@ -61,7 +63,7 @@ namespace IAmACube
 
         public override string ToString()
         {
-            return Name;
+            return Version + ": " + Name;
         }
 
         public BlockTemplate Clone()

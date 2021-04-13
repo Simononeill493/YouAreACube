@@ -30,6 +30,12 @@ namespace IAmACube
 
             var template = new BlockTemplate(name);
 
+            var version = token["version"];
+            if (version != null)
+            {
+                template.Version = int.Parse(version.ToString());
+            }
+
             template.Sprite = sprite;
             template.Speed = speed;
             template.InitialEnergy = energyCap;

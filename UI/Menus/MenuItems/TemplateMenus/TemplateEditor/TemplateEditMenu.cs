@@ -20,6 +20,11 @@ namespace IAmACube
             _kernel = kernel;
             _template = template;
 
+            var saveButton = new SpriteMenuItem(this, "SaveButton");
+            saveButton.SetLocationConfig(0, -saveButton.GetBaseSize().Y, CoordinateMode.ParentPixelOffset, false);
+            saveButton.OnMouseReleased += (i) => { _saveButtonPressed(); };
+            AddChild(saveButton);
+
             _editPane = new ChipEditPane(this);
             _editPane.SetLocationConfig(4, 4, CoordinateMode.ParentPixelOffset, false);
             AddChild(_editPane);
@@ -33,6 +38,16 @@ namespace IAmACube
             _searchPane.RefreshFilter();
 
             _editPane.LoadTemplate(_template);
+        }
+
+        private void _saveButtonPressed()
+        {
+            var dialogBox = new DialogBoxMenuItem(ManualDrawLayer.Create(DrawLayers.MenuHoverLayer), "Test Dialog");
+            dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
+            _editPane.Enabled = false;
+            _searchPane.Enabled = false;
+            
+            AddChildAfterUpdate(dialogBox);
         }
 
         public void Save()

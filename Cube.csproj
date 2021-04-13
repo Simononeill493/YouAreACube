@@ -98,6 +98,7 @@
     <Compile Include="Gameplay\World\Sector\SectorGenerator.cs" />
     <Compile Include="Misc\LocationWithNeighbors.cs" />
     <Compile Include="Misc\Point.cs" />
+    <Compile Include="UI\Menus\MenuItems\Base\DialogBoxMenuItem.cs" />
     <Compile Include="UI\Menus\MenuItems\Base\ListMenuItem.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipInputOptions\ChipInputOptionParseable.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\EditableChips\ChipItems\SwitchChip\ChipSwitchButtons.cs" />

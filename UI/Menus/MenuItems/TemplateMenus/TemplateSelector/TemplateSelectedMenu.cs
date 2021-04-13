@@ -22,6 +22,8 @@ namespace IAmACube
         private TemplateBox _templatePicture;
         private TextMenuItem _templateName;
 
+        private ListMenuItem<BlockTemplate> _templateList;
+
         private Action<BlockTemplate, TemplateSelectedAction> _templateButtonPressCallback;
 
         public TemplateSelectedMenu(IHasDrawLayer parentDrawLayer, Action<BlockTemplate,TemplateSelectedAction> templateButtonPressCallback) : base(parentDrawLayer,"EmptyMenuRectangleSection")
@@ -52,10 +54,9 @@ namespace IAmACube
             editButton.OnMouseReleased += (i) => { _buttonPressAction(TemplateSelectedAction.Edit); };
             AddChild(editButton);
 
-            var list = new ListMenuItem<string>(this,new Point(64,15));
-            list.AddItems(new List<string>() { "Test1", "Test2", "Test3" });
-            list.SetLocationConfig(7, 40, CoordinateMode.ParentPixelOffset);
-            AddChild(list);
+            _templateList = new ListMenuItem<BlockTemplate>(this,new Point(64,15));
+            _templateList.SetLocationConfig(7, 40, CoordinateMode.ParentPixelOffset);
+            AddChild(_templateList);
         }
 
         private void _buttonPressAction(TemplateSelectedAction selectedAction)
@@ -74,6 +75,8 @@ namespace IAmACube
             _templatePicture.UpdateDimensionsCascade(ActualLocation, GetCurrentSize());
 
             _templateName.Text = _template.Name;
+
+            _templateList.SetItems(template.Values.ToList());
         }
     }
 }

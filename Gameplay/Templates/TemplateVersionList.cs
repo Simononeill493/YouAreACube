@@ -31,6 +31,7 @@ namespace IAmACube
             set
             {
                 _dict[index] = value;
+                value.Version = index;
                 // set the instance value at index
             }
         }

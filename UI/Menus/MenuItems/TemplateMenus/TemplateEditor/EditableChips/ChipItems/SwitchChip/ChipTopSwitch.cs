@@ -115,6 +115,7 @@ namespace IAmACube
         public void AddSwitchSection(string sectionName,EditableChipset switchChipset)
         {
             switchChipset.TopLevelRefreshAll = TopLevelRefreshAll;
+            switchChipset.Enabled = false;
             switchChipset.Visible = false;
             switchChipset.Draggable = false;
             AddChildAfterUpdate(switchChipset);
