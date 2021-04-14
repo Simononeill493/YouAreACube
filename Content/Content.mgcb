@@ -145,7 +145,7 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/BlankMenus/EditPaneWindow.PNG;EditPaneWindow.PNG
 
-#begin ../Simon_Data/To_Import/BlankMenus/EmptyButtonRectangle.PNG
+#begin ../Simon_Data/To_Import/BlankMenus/EmptyButtonRectangleMedium.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -155,7 +155,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/BlankMenus/EmptyButtonRectangle.PNG;EmptyButtonRectangle.PNG
+/build:../Simon_Data/To_Import/BlankMenus/EmptyButtonRectangleMedium.PNG;EmptyButtonRectangleMedium.PNG
+
+#begin ../Simon_Data/To_Import/BlankMenus/EmptyButtonRectangleSmall.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/BlankMenus/EmptyButtonRectangleSmall.PNG;EmptyButtonRectangleSmall.PNG
 
 #begin ../Simon_Data/To_Import/BlankMenus/EmptyMenuRectangleFull.PNG
 /importer:TextureImporter
@@ -192,6 +204,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/BlankMenus/EmptyMenuRectangleSection.PNG;EmptyMenuRectangleSection.PNG
+
+#begin ../Simon_Data/To_Import/BlankMenus/EmptyMenuRectangleSmall.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/BlankMenus/EmptyMenuRectangleSmall.PNG;EmptyMenuRectangleSmall.PNG
 
 #begin ../Simon_Data/To_Import/BlankMenus/IfChipSwitchButton.bmp
 /importer:TextureImporter
@@ -276,6 +300,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/BlankMenus/TemplateItemContainerHighlight.png;TemplateItemContainerHighlight.png
+
+#begin ../Simon_Data/To_Import/BlankMenus/TextBoxMenuRectangle.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/BlankMenus/TextBoxMenuRectangle.PNG;TextBoxMenuRectangle.PNG
 
 #begin ../Simon_Data/To_Import/BlankMenus/TopOfChipset.png
 /importer:TextureImporter

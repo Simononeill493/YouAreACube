@@ -9,8 +9,8 @@ namespace IAmACube
 {
     public class TextBoxMenuItem : SpriteMenuItem
     {
-        public string Text => text.Text;
-        protected TextMenuItem text;
+        public string Text => TextItem.Text;
+        public TextMenuItem TextItem;
 
         public int MaxTextLength = 9;
 
@@ -19,16 +19,16 @@ namespace IAmACube
 
         public event Action<string> OnTextChanged;
 
-        public TextBoxMenuItem(IHasDrawLayer parentDrawLayer,string initialString) : base(parentDrawLayer,"EmptyMenuRectangleMedium")
+        public TextBoxMenuItem(IHasDrawLayer parentDrawLayer,string initialString) : base(parentDrawLayer, "TextBoxMenuRectangle")
         {
-            text = new TextMenuItem(this) { Text = initialString };
-            text.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
-            AddChild(text);
+            TextItem = new TextMenuItem(this) { Text = initialString };
+            TextItem.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            AddChild(TextItem);
         }
 
         public void SetText(string textToSet)
         {
-            text.Text = textToSet;
+            TextItem.Text = textToSet;
         }
 
         public override void Update(UserInput input)
@@ -48,21 +48,21 @@ namespace IAmACube
 
                     if (_shouldTypeCharacter(key))
                     {
-                        text.Text = text.Text + KeyUtils.KeyToChar(key);
-                        text.UpdateDimensions(ActualLocation, size);
+                        TextItem.Text = TextItem.Text + KeyUtils.KeyToChar(key);
+                        TextItem.UpdateDimensions(ActualLocation, size);
                         OnTextChanged?.Invoke(Text);
                     }
                     else if (_shouldTypeBackspace(key))
                     {
-                        text.Text = text.Text.Substring(0, text.Text.Length - 1);
-                        text.UpdateDimensions(ActualLocation, size);
+                        TextItem.Text = TextItem.Text.Substring(0, TextItem.Text.Length - 1);
+                        TextItem.UpdateDimensions(ActualLocation, size);
                         OnTextChanged?.Invoke(Text);
                     }
                 }
             }
         }
 
-        private bool _shouldTypeCharacter(Keys key) => (KeyUtils.IsTypeable(key) && text.Text.Length < MaxTextLength);
-        private bool _shouldTypeBackspace(Keys key) => (key == Keys.Back && text.Text.Length > 0);
+        private bool _shouldTypeCharacter(Keys key) => (KeyUtils.IsTypeable(key) && TextItem.Text.Length < MaxTextLength);
+        private bool _shouldTypeBackspace(Keys key) => (key == Keys.Back && TextItem.Text.Length > 0);
     }
 }

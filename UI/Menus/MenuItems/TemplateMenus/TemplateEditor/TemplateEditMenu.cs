@@ -42,10 +42,16 @@ namespace IAmACube
 
         private void _saveButtonPressed()
         {
-            var dialogBox = new DialogBoxMenuItem(ManualDrawLayer.Create(DrawLayers.MenuHoverLayer), "Test Dialog");
+            var dialogBox = new ChipSaveDialog(ManualDrawLayer.Create(DrawLayers.MenuHoverLayer),this);
             dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
             _editPane.Enabled = false;
             _searchPane.Enabled = false;
+
+            dialogBox.OnClosed += () => 
+            {
+                _editPane.Enabled = true;
+                _searchPane.Enabled = true;
+            };
             
             AddChildAfterUpdate(dialogBox);
         }

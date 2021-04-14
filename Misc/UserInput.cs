@@ -50,6 +50,9 @@ namespace IAmACube
         public bool IsKeyJustPressed(Keys key) => KeysJustPressed.Contains(key);
         public bool IsKeyJustReleased(Keys key) => KeysJustReleased.Contains(key);
 
+        public void RemoveKeyJustPressed(Keys key) => KeysJustPressed.Remove(key);
+        public void RemoveKeyJustReleased(Keys key) => KeysJustReleased.Remove(key);
+
         public bool MouseLeftJustPressed;
         public bool MouseRightJustPressed;
 

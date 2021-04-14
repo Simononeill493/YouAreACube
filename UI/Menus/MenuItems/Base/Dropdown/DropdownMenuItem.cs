@@ -26,7 +26,7 @@ namespace IAmACube
         public DropdownMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "")
         {
             SpriteName = "Dropdown";
-            text.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
+            TextItem.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
 
             var dropdownLayer = ManualDrawLayer.Create(DrawLayers.MenuDropdownLayer);
             _list = new ListMenuItem<T>(dropdownLayer, GetBaseSize());
@@ -58,7 +58,7 @@ namespace IAmACube
             SelectedItem = item;
             Dropped = false;
 
-            text.Text = item.ToString();
+            TextItem.Text = item.ToString();
             OnSelectedChanged?.Invoke(item);
         }
 
@@ -77,7 +77,7 @@ namespace IAmACube
         {
             if(IsItemSelected)
             {
-                text.Text = SelectedItem.ToString();
+                TextItem.Text = SelectedItem.ToString();
             }
 
             _list.RefreshText();

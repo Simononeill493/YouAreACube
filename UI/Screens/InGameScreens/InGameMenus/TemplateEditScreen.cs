@@ -22,7 +22,7 @@ namespace IAmACube
         {
             base.Update(input);
 
-            if (input.IsKeyJustPressed(Keys.Escape))
+            if (input.IsKeyJustReleased(Keys.Escape))
             {
                 _templateEditor.Save();
                 SwitchScreen(ScreenType.TemplateExplorer);
