@@ -22,6 +22,9 @@ namespace IAmACube
         [JsonIgnore]
         public ChipBlock Chips;
 
+        [JsonIgnore]
+        public TemplateVersionList Versions;
+
         public BlockTemplate(string name)
         {
             Name = name;

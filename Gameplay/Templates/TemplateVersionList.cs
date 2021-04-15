@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IAmACube
 {
@@ -15,11 +16,14 @@ namespace IAmACube
             Name = name;
         }
 
+
+
         public override string ToString()
         {
             return Name;
         }
 
+        public int GetNewVersionNumber() => _dict.Keys.Max() + 1;
         public Dictionary<int, BlockTemplate>.ValueCollection Values => _dict.Values;
         public BlockTemplate this[int index]
         {
@@ -32,9 +36,12 @@ namespace IAmACube
             {
                 _dict[index] = value;
                 value.Version = index;
+                value.Versions = this;
                 // set the instance value at index
             }
         }
         private Dictionary<int, BlockTemplate> _dict;
+
+
     }
 }

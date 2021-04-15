@@ -17,6 +17,8 @@ namespace IAmACube
 
         private Action<BlockTemplate> _goToTemplateEditMenu;
 
+        private TemplateVersionList _currentTemplatesList;
+
         public TemplateExplorerMenu(IHasDrawLayer parentDrawLayer,Kernel kernel,Action<BlockTemplate> goToTemplateEditMenu) : base(parentDrawLayer,"EmptyMenuRectangleFull") 
         {
             _kernel = kernel;

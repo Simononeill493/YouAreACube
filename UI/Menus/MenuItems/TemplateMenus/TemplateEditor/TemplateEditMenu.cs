@@ -42,7 +42,8 @@ namespace IAmACube
 
         private void _saveButtonPressed()
         {
-            var dialogBox = new ChipSaveDialog(ManualDrawLayer.Create(DrawLayers.MenuHoverLayer),this);
+            var versionNumber = _template.Versions.GetNewVersionNumber();
+            var dialogBox = new ChipSaveDialog(ManualDrawLayer.Create(DrawLayers.MenuHoverLayer),this,versionNumber);
             dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
             _editPane.Enabled = false;
             _searchPane.Enabled = false;

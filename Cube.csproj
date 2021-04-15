@@ -100,6 +100,8 @@
     <Compile Include="Misc\Point.cs" />
     <Compile Include="UI\Menus\MenuItems\Base\DialogBoxMenuItem.cs" />
     <Compile Include="UI\Menus\MenuItems\Base\ListMenuItem.cs" />
+    <Compile Include="UI\Menus\MenuItems\Base\RadioButtons\RadioButtonMenuItem.cs" />
+    <Compile Include="UI\Menus\MenuItems\Base\RadioButtons\RadioButtonsMenuItem.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipSaveDialog\ChipSaveDialog.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipInputOptions\ChipInputOptionParseable.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\SwitchChip\ChipSwitchButtons.cs" />

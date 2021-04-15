@@ -8,28 +8,52 @@ namespace IAmACube
 {
     class ChipSaveDialog: DialogBoxMenuItem
     {
-        public ChipSaveDialog(IHasDrawLayer parentDrawLayer, MenuItem container) : base(parentDrawLayer, container, "EmptyMenuRectangleMedium")
+        private TextMenuItem _versionText;
+
+        public ChipSaveDialog(IHasDrawLayer parentDrawLayer, TemplateEditMenu container,int newVersionNumber) : base(parentDrawLayer, container, "EmptyMenuRectangleMedium")
         {
-            var saveAsNewVersionButton = new ButtonMenuItem(this, "Save New Version") { SpriteName = "EmptyButtonRectangleMedium" };
-            var saveNewTemplateButton = new ButtonMenuItem(this, "Save New Template") { SpriteName = "EmptyButtonRectangleMedium" };
-            var cancelButton = new ButtonMenuItem(this, "Cancel");
+            _versionText = new TextMenuItem(this, "V" + newVersionNumber + ":");
             var nameTextBox = new TextBoxMenuItem(this, "") { Editable = true };
+            var saveTypeRadioButtons = new RadioButtonsMenuItem<ChipSaveDialogOption>(this);
+            var saveButton = new ButtonMenuItem(this, "Save");
+            var cancelButton = new ButtonMenuItem(this, "Cancel");
 
-            //saveAsNewVersionButton.TextItem.MultiplyScale(0.5f);
-            //saveNewTemplateButton.TextItem.MultiplyScale(0.5f);
-            //cancelButton.TextItem.MultiplyScale(0.5f);
-
+            saveTypeRadioButtons.AddOption(ChipSaveDialogOption.SaveAsNewTemplate,"As new template");
+            saveTypeRadioButtons.AddOption(ChipSaveDialogOption.SaveAsNewVersion, "As new version");
+            saveTypeRadioButtons.OnItemSelected += _dialogOptionSelected;
             cancelButton.OnMouseReleased += (i) => Close();
 
-            saveAsNewVersionButton.SetLocationConfig(50, 40, CoordinateMode.ParentPercentageOffset, true);
-            saveNewTemplateButton.SetLocationConfig(50, 60, CoordinateMode.ParentPercentageOffset, true);
-            cancelButton.SetLocationConfig(50, 80, CoordinateMode.ParentPercentageOffset, true);
-            nameTextBox.SetLocationConfig(50, 20, CoordinateMode.ParentPercentageOffset, true);
+            _versionText.SetLocationConfig(10, 30, CoordinateMode.ParentPercentageOffset, true);
+            nameTextBox.SetLocationConfig(50, 30, CoordinateMode.ParentPercentageOffset, true);
+            saveTypeRadioButtons.SetLocationConfig(10, 50, CoordinateMode.ParentPercentageOffset, false);
+            saveButton.SetLocationConfig(30, 80, CoordinateMode.ParentPercentageOffset, true);
+            cancelButton.SetLocationConfig(70, 80, CoordinateMode.ParentPercentageOffset, true);
 
-            AddChild(saveAsNewVersionButton);
-            AddChild(saveNewTemplateButton);
+            AddChild(_versionText);
+            AddChild(saveButton);
             AddChild(cancelButton);
             AddChild(nameTextBox);
+            AddChild(saveTypeRadioButtons);
         }
+
+        private void _dialogOptionSelected(ChipSaveDialogOption option)
+        {
+            switch (option)
+            {
+                case ChipSaveDialogOption.SaveAsNewTemplate:
+                    _versionText.Visible = false;
+                    break;
+                case ChipSaveDialogOption.SaveAsNewVersion:
+                    _versionText.Visible = true;
+                    break;
+            }
+        }
+
+        public enum ChipSaveDialogOption
+        {
+            SaveAsNewTemplate,
+            SaveAsNewVersion
+        }
+
     }
 }

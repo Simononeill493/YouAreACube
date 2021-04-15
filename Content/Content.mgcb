@@ -265,6 +265,30 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/BlankMenus/PlusButton.png;PlusButton.png
 
+#begin ../Simon_Data/To_Import/BlankMenus/RadioButtonChecked.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/BlankMenus/RadioButtonChecked.png;RadioButtonChecked.png
+
+#begin ../Simon_Data/To_Import/BlankMenus/RadioButtonUnchecked.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/BlankMenus/RadioButtonUnchecked.png;RadioButtonUnchecked.png
+
 #begin ../Simon_Data/To_Import/BlankMenus/SearchBar.png
 /importer:TextureImporter
 /processor:TextureProcessor
