@@ -102,7 +102,9 @@
     <Compile Include="UI\Menus\MenuItems\Base\ListMenuItem.cs" />
     <Compile Include="UI\Menus\MenuItems\Base\RadioButtons\RadioButtonMenuItem.cs" />
     <Compile Include="UI\Menus\MenuItems\Base\RadioButtons\RadioButtonsMenuItem.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipSaveDialog\ChipSaveDialog.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\TemplateQuitDialog\TemplateQuitButtonOption.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\TemplateQuitDialog\TemplateQuitDialog.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\TemplateSaveDialog\TemplateSaveDialog.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipInputOptions\ChipInputOptionParseable.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\SwitchChip\ChipSwitchButtons.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\SwitchChip\ChipTopSwitch.cs" />

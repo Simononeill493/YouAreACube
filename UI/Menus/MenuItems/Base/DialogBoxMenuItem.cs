@@ -7,14 +7,26 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class DialogBoxMenuItem : SpriteMenuItem
+    class DialogBoxMenuItem : DraggableMenuItem
     {
         private MenuItem _container;
         public event Action OnClosed;
 
+        private List<MenuItem> _pausedItems;
+
         public DialogBoxMenuItem(IHasDrawLayer parentDrawLayer, MenuItem container, string sprite) : base(parentDrawLayer, sprite)
         {
             _container = container;
+            _pausedItems = new List<MenuItem>();
+        }
+
+        public void AddPausedItems(params MenuItem[] items)
+        {
+            foreach(var item in items)
+            {
+                item.Enabled = false;
+                _pausedItems.Add(item);
+            }
         }
 
         protected override void _drawSelf(DrawingInterface drawingInterface)
@@ -35,6 +47,11 @@ namespace IAmACube
 
         public void Close()
         {
+            foreach (var item in _pausedItems)
+            {
+                item.Enabled = true;
+            }
+
             _container.RemoveChildAfterUpdate(this);
             OnClosed?.Invoke();
         }

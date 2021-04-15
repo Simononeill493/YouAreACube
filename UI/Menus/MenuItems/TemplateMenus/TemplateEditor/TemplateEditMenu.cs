@@ -9,21 +9,24 @@ namespace IAmACube
 {
     class TemplateEditMenu : SpriteMenuItem
     {
+        public BlockTemplate Template;
         private Kernel _kernel;
-        private BlockTemplate _template;
 
         private ChipEditPane _editPane;
         private ChipSearchPane _searchPane;
 
-        public TemplateEditMenu(IHasDrawLayer parentDrawLayer,Kernel kernel, BlockTemplate template) : base(parentDrawLayer, "EditPaneWindow")
+        private Action _goBackToTemplateSelectScreen;
+
+        public TemplateEditMenu(IHasDrawLayer parentDrawLayer,Kernel kernel, BlockTemplate template, Action goBackToTemplateSelectScreen) : base(parentDrawLayer, "EditPaneWindow")
         {
             _kernel = kernel;
-            _template = template;
+            Template = template;
+            _goBackToTemplateSelectScreen = goBackToTemplateSelectScreen;
 
-            var saveButton = new SpriteMenuItem(this, "SaveButton");
-            saveButton.SetLocationConfig(0, -saveButton.GetBaseSize().Y, CoordinateMode.ParentPixelOffset, false);
-            saveButton.OnMouseReleased += (i) => { _saveButtonPressed(); };
-            AddChild(saveButton);
+            //var saveButton = new SpriteMenuItem(this, "SaveButton");
+            //saveButton.SetLocationConfig(0, -saveButton.GetBaseSize().Y, CoordinateMode.ParentPixelOffset, false);
+            //saveButton.OnMouseReleased += (i) => { _saveButtonPressed(); };
+            //AddChild(saveButton);
 
             _editPane = new ChipEditPane(this);
             _editPane.SetLocationConfig(4, 4, CoordinateMode.ParentPixelOffset, false);
@@ -37,23 +40,38 @@ namespace IAmACube
             _searchPane.AddToEditPane = _editPane.CreateNewChipsetFromSearchChipClick;
             _searchPane.RefreshFilter();
 
-            _editPane.LoadTemplate(_template);
+            _editPane.LoadTemplate(Template);
         }
 
-        private void _saveButtonPressed()
+        public void OpenQuitDialog()
         {
-            var versionNumber = _template.Versions.GetNewVersionNumber();
-            var dialogBox = new ChipSaveDialog(ManualDrawLayer.Create(DrawLayers.MenuHoverLayer),this,versionNumber);
+            var dialogBox = new TemplateQuitDialog(ManualDrawLayer.Create(DrawLayers.MenuDialogLayer), this, _quitButtonPressed);
             dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
-            _editPane.Enabled = false;
-            _searchPane.Enabled = false;
+            dialogBox.AddPausedItems(_editPane, _searchPane);
 
-            dialogBox.OnClosed += () => 
+            AddChildAfterUpdate(dialogBox);
+        }
+
+        private void _quitButtonPressed(TemplateQuitButtonOption option)
+        {
+            switch (option)
             {
-                _editPane.Enabled = true;
-                _searchPane.Enabled = true;
-            };
-            
+                case TemplateQuitButtonOption.SaveAndQuit:
+                    _openSaveDialog();
+                    break;
+                case TemplateQuitButtonOption.QuitWithoutSaving:
+                    _goBackToTemplateSelectScreen();
+                    break;
+            }
+        }
+
+        private void _openSaveDialog()
+        {
+            var versionNumber = Template.Versions.GetNewVersionNumber();
+            var dialogBox = new TemplateSaveDialog(ManualDrawLayer.Create(DrawLayers.MenuDialogLayer), this, versionNumber);
+            dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
+            dialogBox.AddPausedItems(_editPane, _searchPane);
+
             AddChildAfterUpdate(dialogBox);
         }
 
@@ -67,7 +85,7 @@ namespace IAmACube
                 var json = EditableChipsetParser.ParseEditableChipsetToJson(chipset);
                 var block = ChipBlockParser.ParseJsonToBlock(json);
 
-                _template.Chips = block;
+                Template.Chips = block;
             }
         }
 

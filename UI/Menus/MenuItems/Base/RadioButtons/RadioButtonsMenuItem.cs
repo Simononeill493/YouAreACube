@@ -24,13 +24,13 @@ namespace IAmACube
             var button = new RadioButtonMenuItem<T>(this, option,text);
             button.ButtonIndex = _buttons.Count;
             button.SetLocationConfig(0, currentSize.Y, CoordinateMode.ParentPixelOffset);
-            button.OnMouseReleased += (i) => _radioButtonClicked(button.ButtonIndex);
+            button.OnMouseReleased += (i) => SelectRadioButton(button.ButtonIndex);
 
             _buttons.Add(button);
             AddChildAfterUpdate(button);
         }
 
-        protected void _radioButtonClicked(int buttonIndex)
+        public void SelectRadioButton(int buttonIndex)
         {
             foreach(var button in _buttons)
             {
