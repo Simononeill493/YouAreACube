@@ -38,6 +38,12 @@ namespace IAmACube
                 }
             }
         }
+        private void _startMovement(Block block, BlockMovementData movementData)
+        {
+            block.StartMovement(movementData);
+            MovingBlocks.Add(block);
+        }
+
 
         public void Tick()
         {
@@ -46,8 +52,35 @@ namespace IAmACube
                 _tickBlock(moving, moving.MovementData);
             }
 
-            _removeBlocksQueuedForRemoval();
             _extractSectorEmmigrants();
+            _removeBlocksQueuedForRemoval();
+        }
+
+        private void _removeFromMovingList(Block block)
+        {
+            var removed = MovingBlocks.Remove(block);
+            if (!removed)
+            {
+                throw new Exception("Tried to remove a moving block, but it wasn't in the moving list!");
+            }
+        }
+        private void _removeBlocksQueuedForRemoval()
+        {
+            foreach (var toRemove in _toRemove)
+            {
+                _removeFromMovingList(toRemove);
+            }
+            _toRemove.Clear();
+        }
+        private void _extractSectorEmmigrants()
+        {
+            foreach (var toMove in _toMoveFromSector)
+            {
+                _toRemove.Add(toMove.Item1);
+                MovedOutOfSector.Add(toMove);
+            }
+
+            _toMoveFromSector.Clear();
         }
         private void _tickBlock(Block block, BlockMovementData movementData)
         {
@@ -61,8 +94,7 @@ namespace IAmACube
 
             if (movementData.AtMidpoint)
             {
-                _moveToDestination(block);
-                _checkIfEmmigrated(block);
+                _moveBlockToDestination(block);
             }
             else if (movementData.Finished)
             {
@@ -72,12 +104,11 @@ namespace IAmACube
             block.IsMovingThroughCentre = movementData.Finished;
         }
 
-        private void _startMovement(Block block, BlockMovementData movementData)
+        private void _moveBlockToDestination(Block block)
         {
-            block.StartMovement(movementData);
-            MovingBlocks.Add(block);
+            block.MoveToCurrentDestination();
+            _checkIfEmmigrated(block);
         }
-        private void _moveToDestination(Block block) => block.MoveToCurrentDestination();
         private void _completeMovement(Block block)
         {
             block.CompleteMovement();
@@ -92,28 +123,9 @@ namespace IAmACube
         {
             if (!block.InSector(_sector))
             {
+                block.MovingBetweenSectors = true;
                 _toMoveFromSector.Add((block, block.Location.SectorID));
             }
-        }
-
-        private void _removeFromMovingList(Block block) => MovingBlocks.Remove(block);
-        private void _removeBlocksQueuedForRemoval()
-        {
-            foreach (var toRemove in _toRemove)
-            {
-                _removeFromMovingList(toRemove);
-            }
-            _toRemove.Clear();
-        }
-        private void _extractSectorEmmigrants()
-        {
-            foreach (var toMove in _toMoveFromSector)
-            {
-                _removeFromMovingList(toMove.Item1);
-                MovedOutOfSector.Add(toMove);
-            }
-
-            _toMoveFromSector.Clear();
         }
 
         public void DestroyBlock(Block block) => _removeFromMovingList(block);

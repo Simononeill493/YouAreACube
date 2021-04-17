@@ -33,13 +33,15 @@ namespace IAmACube
             _moveManager.AddFromOutOfSector(block);
         }
 
-        public List<(Block, Point)> GetSectorEmmigrants()
+        public (List<(Block,Point)> movedOut, List<(Block, Point)> createdOut) GetSectorEmmigrants()
         {
-            var emmigrants = new List<(Block, Point)>();
-            emmigrants.AddRange(_moveManager.MovedOutOfSector);
-            emmigrants.AddRange(_creationManager.CreatedOutOfSector);
+            var movedOutOutput = new List<(Block, Point)>();
+            movedOutOutput.AddRange(_moveManager.MovedOutOfSector);
 
-            return emmigrants;
+            var createdOutOutput = new List<(Block, Point)>();
+            createdOutOutput.AddRange(_creationManager.CreatedOutOfSector);
+
+            return (movedOutOutput,createdOutOutput);
         }
         public void ClearSectorEmmigrants()
         {

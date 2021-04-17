@@ -63,6 +63,8 @@ namespace IAmACube
                 {
                     sector.AddNonMovingBlockToSector(emmigrant.Item1);
                 }
+
+                emmigrant.Item1.MovingBetweenSectors = false;
             }
         }
 

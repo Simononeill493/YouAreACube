@@ -17,7 +17,11 @@ namespace IAmACube
         public override void Update(UserInput input, ActionsList actions)
         {
             base.Update(input, actions);
-            TakeEnergy(1);
+
+            if(Energy>0)
+            {
+                TakeEnergy(1);
+            }
         }
 
         public override void MoveToCurrentDestination()

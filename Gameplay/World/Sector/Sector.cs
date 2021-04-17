@@ -72,25 +72,35 @@ namespace IAmACube
         {
             if (block.BlockType != BlockMode.Ground)
             {
-                _destructibleBlocks.Remove(block);
+                var destructibleRemoved =_destructibleBlocks.Remove(block);
+                if(!destructibleRemoved)
+                {
+                    throw new Exception("Tried to remove a block, but it wasn't in the expected sector");
+                }
             }
             if (block.Active)
             {
-                _activeBlocks.Remove(block);
+                var activeRemoved = _activeBlocks.Remove(block);
+                if (!activeRemoved)
+                {
+                    throw new Exception("Tried to remove a block, but it wasn't in the expected sector");
+                }
+
             }
         }
 
         public List<(Block, Point)> PopSectorEmmigrants()
         {
-            var list = _updateManager.GetSectorEmmigrants();
+            var (movedOut,createdOut) = _updateManager.GetSectorEmmigrants();
             _updateManager.ClearSectorEmmigrants();
 
-            foreach(var emmigrant in list)
+            foreach(var emmigrant in movedOut)
             {
                 RemoveFromSectorLists(emmigrant.Item1);
             }
 
-            return list;
+            movedOut.AddRange(createdOut);
+            return movedOut;
         }
     }
 }

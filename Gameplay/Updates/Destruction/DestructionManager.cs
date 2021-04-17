@@ -21,6 +21,11 @@ namespace IAmACube
         {
             foreach(var block in _sector.DoomedBlocks.ToList())
             {
+                if(block.MovingBetweenSectors)
+                {
+                    continue;
+                }
+
                 _clearFromTile(block);
                 _sector.RemoveFromSectorLists(block);
 

@@ -17,7 +17,7 @@
       "name":"BasicPlayer",
       "sprite":"BasicPlayer",
 	  "energyCap":10000,
-      "speed":5
+      "speed":6
     },
 	{
       "name":"grassPatch",
@@ -34,7 +34,7 @@
       "name":"Bullet",
       "sprite":"Bullet",
 	  "energyCap":30,
-      "speed":6
+      "speed":4
     },
 	{
       "name":"MiniBullet",

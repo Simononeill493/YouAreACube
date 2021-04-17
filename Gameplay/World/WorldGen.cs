@@ -15,7 +15,7 @@ namespace IAmACube
             var centre = GetTestSector(new Point(0, 0));
             world.AddSector(centre);
 
-            //AttachmentUtils.AddOuterSectors(world);
+            AttachmentUtils.AddOuterSectors(world);
             //AttachmentUtils.AddOuterSectors(world);
 
             //world.AddSector(GetTestSector(new Point(1, 0)));

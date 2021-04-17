@@ -24,6 +24,8 @@ namespace IAmACube
         public int EnergyCap => Template.InitialEnergy;
         public float EnergyRemainingPercentage => ((float)Energy) / EnergyCap;
 
+        public bool MovingBetweenSectors;
+
         public Block(BlockTemplate template)
         {
             Template = template;
@@ -60,10 +62,8 @@ namespace IAmACube
             Energy -= amount;
             if (Energy < 0)
             {
-                Console.WriteLine("Warning: energy has gone negative.");
-                Energy = 0;
+                throw new Exception("Took more energy from a block than it has - this shouldn't ever be permitted.");
             }
-
         }
     }
 }
