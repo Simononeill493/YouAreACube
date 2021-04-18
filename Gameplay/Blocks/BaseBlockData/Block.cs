@@ -33,6 +33,8 @@ namespace IAmACube
 
             Orientation = Orientation.Top;
             Energy = template.InitialEnergy;
+
+            Location = Tile.Dummy;
         }
 
         public virtual void Update(UserInput input,ActionsList actions)
@@ -65,5 +67,8 @@ namespace IAmACube
                 throw new Exception("Took more energy from a block than it has - this shouldn't ever be permitted.");
             }
         }
+
+        public void SetTemplateToMain()=> Template = Template.Versions.Main;
+        public void SetTemplateToRuntime()=> Template = Templates.GetRuntimeVersion(Template);       
     }
 }

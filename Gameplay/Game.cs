@@ -19,7 +19,7 @@ namespace IAmACube
             _save = save;
             _sectorGenerator = new SectorGenerator();
 
-            Kernel.StartSession();
+            _initializeSession();
         }
 
         public void Update(UserInput input)
@@ -31,10 +31,16 @@ namespace IAmACube
 
             //_sectorGenerator.GenerateAdjacentSectors(World);
 
-            if(Config.KernelUnlimitedEnergy)
+            if (Config.KernelUnlimitedEnergy)
             {
                 Kernel.Host.AddEnergy(Kernel.Host.EnergyCap);
             }
+        }
+
+        private void _initializeSession()
+        {
+            Kernel.InitializeSession();
+            World.InitializeSession();
         }
 
         public Save SaveAndQuit()

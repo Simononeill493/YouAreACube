@@ -18,7 +18,7 @@ namespace IAmACube
         public int MoveTotalTicks;
 
         public BlockMode BlockType;
-        public TemplateVersionList BlockTemplate;
+        public TemplateAllVersions BlockTemplate;
         public int TemplateVersion;
 
         public BlockAction(Block actor,ActionType actionType)

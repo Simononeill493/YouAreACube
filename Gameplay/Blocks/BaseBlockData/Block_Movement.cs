@@ -15,7 +15,6 @@ namespace IAmACube
 
         public BlockMovementData MovementData { get; private set; }
 
-        public abstract void MoveToCurrentDestination();
         public void StartMovement(BlockMovementData movementData) 
         {
             MovementData = movementData;
@@ -42,5 +41,8 @@ namespace IAmACube
         public bool CanMoveTo(Tile destination) => CanStartMoving() & CanOccupyDestination(destination);
         public bool CanStartMoving() => (!IsMoving) & Energy > 0;
         public virtual bool CanOccupyDestination(Tile destination) => true;
+        public abstract void EnterLocation(Tile destination);
+
+        public void MoveToCurrentDestination() => EnterLocation(MovementData.Destination);
     }
 }

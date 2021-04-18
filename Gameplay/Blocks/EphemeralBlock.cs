@@ -24,10 +24,15 @@ namespace IAmACube
             }
         }
 
-        public override void MoveToCurrentDestination()
+
+        public override void EnterLocation(Tile destination)
         {
-            var destination = MovementData.Destination;
-            if(destination.HasEphemeral)
+            if(destination.HasThisEphemeral(this))
+            {
+                throw new Exception("Tried to add an ephemeral to a location it already exists in");
+            }
+
+            if (destination.HasEphemeral)
             {
                 AbsorbInto(destination.Ephemeral);
                 return;
@@ -37,6 +42,7 @@ namespace IAmACube
             destination.Ephemeral = this;
             this.Location = destination;
         }
+
 
         private void AbsorbInto(EphemeralBlock destination)
         {

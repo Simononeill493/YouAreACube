@@ -49,7 +49,8 @@ namespace IAmACube
             foreach (var tile in sector.TileGrid)
             {
                 var ground = Templates.GenerateGround("grassPatch",0);
-                tile.AddGround(ground);
+                ground.EnterLocation(tile);
+                //tile.AddGround(ground);
             }
         }
 
@@ -58,7 +59,8 @@ namespace IAmACube
             var centre = world.GetSector(new Point(0,0));
             var tile = centre.TileGrid[0, 0];
 
-            tile.AddSurface(player);
+            player.EnterLocation(tile);
+            //tile.AddSurface(player);
             centre.AddNonMovingBlockToSector(player);
         }
         public static void AddEntities(World world)
@@ -87,7 +89,8 @@ namespace IAmACube
                 var tileNum = r.Next(0, emptySize - 1);
 
                 var tile = emptyTiles[tileNum];
-                tile.AddBlock(block);
+                block.EnterLocation(tile);
+                //tile.AddBlock(block);
                 sector.AddNonMovingBlockToSector(block);
 
                 emptyTiles.RemoveAt(tileNum);

@@ -23,7 +23,7 @@ namespace IAmACube
         public ChipBlock Chips;
 
         [JsonIgnore]
-        public TemplateVersionList Versions;
+        public TemplateAllVersions Versions;
 
         public BlockTemplate(string name)
         {
@@ -40,9 +40,10 @@ namespace IAmACube
                     return GenerateGround();
                 case BlockMode.Ephemeral:
                     return GenerateEphemeral();
+                default:
+                    throw new Exception("Tried to generate an unhandled block type");
             }
 
-            throw new Exception("Tried to generate an unhandled block type");
         }
         public SurfaceBlock GenerateSurface()
         {

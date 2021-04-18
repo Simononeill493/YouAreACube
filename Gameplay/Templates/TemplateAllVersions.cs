@@ -5,12 +5,20 @@ using System.Linq;
 namespace IAmACube
 {
     [Serializable()]
-    public class TemplateVersionList
+    public class TemplateAllVersions
     {
         public string Name;
         public BlockTemplate Main;
 
-        public TemplateVersionList(string name) : base()
+        public static TemplateAllVersions Create(string name,BlockTemplate initial)
+        {
+            var created = new TemplateAllVersions(name);
+            created[0] = initial;
+            created.Main = initial;
+            return created;
+        }
+
+        private TemplateAllVersions(string name) : base()
         {
             _dict = new Dictionary<int, BlockTemplate>();
             Name = name;

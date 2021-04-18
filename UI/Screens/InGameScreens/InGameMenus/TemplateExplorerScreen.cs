@@ -23,7 +23,7 @@ namespace IAmACube
 
             if (input.IsKeyJustPressed(Keys.Escape))
             {
-                SwitchScreen(ScreenType.Game);
+                _returnToGame();
             }
         }
     }

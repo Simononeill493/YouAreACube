@@ -9,15 +9,28 @@ namespace IAmACube
     [Serializable()]
     public class Kernel
     {
-        public SurfaceBlock Host;
-        public List<TemplateVersionList> KnownTemplates = new List<TemplateVersionList>();
+        public SurfaceBlock Host { get; private set; }
+        public List<Block> Companions;
+
+        public List<TemplateAllVersions> KnownTemplates = new List<TemplateAllVersions>();
 
         public Kernel()
         {
             _loadKnownTemplates();
+            Companions = new List<Block>();
         }
 
-        public void StartSession()
+        public void SetHost(SurfaceBlock block)
+        {
+            Companions.Remove(Host);
+
+            Host = block;
+            Companions.Add(block);
+        }
+
+        public void UpdateCompanions() => Companions.ForEach(t => t.SetTemplateToMain());
+
+        public void InitializeSession()
         {
             _loadKnownTemplates();
         }
@@ -30,6 +43,11 @@ namespace IAmACube
         public void SupplyPowerToHost()
         {
             Host.AddEnergy(1);
+        }
+
+        public void AddKnownTemplate(TemplateAllVersions template)
+        {
+            KnownTemplates.Add(template);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace IAmACube
         public List<Tile> Tiles;
         public IEnumerable<Block> DoomedBlocks => _destructibleBlocks.Where(b => b.ShouldBeDestroyed());
 
-        private List<Block> _activeBlocks;
+        public List<Block> ActiveBlocks;
         private List<Block> _destructibleBlocks;
 
         private SectorUpdateManager _updateManager;
@@ -26,14 +26,14 @@ namespace IAmACube
             TileGrid = tileGrid;
             Tiles = tiles;
 
-            _activeBlocks = new List<Block>();
+            ActiveBlocks = new List<Block>();
             _destructibleBlocks = new List<Block>();
         }
 
         public ActionsList GetBlockActions(UserInput input,TickManager tickCounter)
         {
             var actions = new ActionsList();
-            var toUpdate = tickCounter.GetUpdatingBlocks(this,_activeBlocks);
+            var toUpdate = tickCounter.GetUpdatingBlocks(this,ActiveBlocks);
 
             foreach(var block in toUpdate)
             {
@@ -59,7 +59,7 @@ namespace IAmACube
             }
             if (block.Active)
             {
-                _activeBlocks.Add(block);
+                ActiveBlocks.Add(block);
             }
         }
         public void AddMovingBlockToSector(Block block)
@@ -80,7 +80,7 @@ namespace IAmACube
             }
             if (block.Active)
             {
-                var activeRemoved = _activeBlocks.Remove(block);
+                var activeRemoved = ActiveBlocks.Remove(block);
                 if (!activeRemoved)
                 {
                     throw new Exception("Tried to remove a block, but it wasn't in the expected sector");

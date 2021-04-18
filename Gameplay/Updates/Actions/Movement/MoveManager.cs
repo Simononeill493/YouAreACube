@@ -15,7 +15,7 @@ namespace IAmACube
         public List<(Block, Point)> MovedOutOfSector;
 
         private List<(Block, Point)> _toMoveFromSector;
-        private List<Block> _toRemove;
+        private HashSet<Block> _toRemove;
 
         public MoveManager(Sector sector)
         {
@@ -24,7 +24,7 @@ namespace IAmACube
             MovedOutOfSector = new List<(Block, Point)>();
 
             _toMoveFromSector = new List<(Block, Point)>();
-            _toRemove = new List<Block>();
+            _toRemove = new HashSet<Block>();
         }
 
         public void TryStartMovement(Block block, CardinalDirection direction, int moveTotalTicks)
@@ -96,7 +96,7 @@ namespace IAmACube
             {
                 _moveBlockToDestination(block);
             }
-            else if (movementData.Finished)
+            if (movementData.Finished)
             {
                 _completeMovement(block);
             }

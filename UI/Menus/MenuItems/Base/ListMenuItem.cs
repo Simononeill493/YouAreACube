@@ -25,19 +25,19 @@ namespace IAmACube
             set
             {
                 _hoverHighlight = value;
-                _items.ForEach(item => item.Hoverable = _hoverHighlight);
+                Items.ForEach(item => item.Hoverable = _hoverHighlight);
             }
         }
         private bool _hoverHighlight;
 
         public event Action<T> OnItemSelected;
 
-        private List<ListItemMenuItem<T>> _items;
+        public List<ListItemMenuItem<T>> Items;
         private Point _listItemSize;
 
         public ListMenuItem(IHasDrawLayer parentDrawLayer,Point listItemSize) : base(parentDrawLayer)
         {
-            _items = new List<ListItemMenuItem<T>>();
+            Items = new List<ListItemMenuItem<T>>();
             _listItemSize = listItemSize;
 
             this.OnMousePressed += _clicked;
@@ -45,11 +45,11 @@ namespace IAmACube
 
         private void _clicked(UserInput obj)=>_deselectAll();
         private void _itemSelected(T item)=>Selected = item;
-        private void _deselectAll() => _items.ForEach(item => item.Selected = false); 
+        private void _deselectAll() => Items.ForEach(item => item.Selected = false); 
 
         public void AddItems(List<T> items)
         {
-            var yOffset = (_listItemSize.Y * _items.Count);
+            var yOffset = (_listItemSize.Y * Items.Count);
 
             foreach (var item in items)
             {
@@ -59,7 +59,7 @@ namespace IAmACube
                 listItem.Size = _listItemSize;
                 listItem.SetLocationConfig(0, yOffset, CoordinateMode.ParentPixelOffset, false);
 
-                _items.Add(listItem);
+                Items.Add(listItem);
                 AddChild(listItem);
 
                 yOffset += _listItemSize.Y;
@@ -74,16 +74,16 @@ namespace IAmACube
 
         public void ClearItems()
         {
-            RemoveChildren(_items);
-            _items.Clear();
+            RemoveChildren(Items);
+            Items.Clear();
         }
 
-        public void RefreshText() => _items.ForEach(item => item.RefreshText());
+        public void RefreshText() => Items.ForEach(item => item.RefreshText());
 
         public override Point GetBaseSize()
         {
             var size = _listItemSize;
-            size.Y *= _items.Count;
+            size.Y *= Items.Count;
             return size;
         }
     }

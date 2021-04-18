@@ -9,7 +9,7 @@ namespace IAmACube
 {
     class TemplateEditMenu : SpriteMenuItem
     {
-        public BlockTemplate Template;
+        private BlockTemplate _baseTemplate;
         private Kernel _kernel;
 
         private ChipEditPane _editPane;
@@ -17,10 +17,10 @@ namespace IAmACube
 
         private Action _goBackToTemplateSelectScreen;
 
-        public TemplateEditMenu(IHasDrawLayer parentDrawLayer,Kernel kernel, BlockTemplate template, Action goBackToTemplateSelectScreen) : base(parentDrawLayer, "EditPaneWindow")
+        public TemplateEditMenu(IHasDrawLayer parentDrawLayer,Kernel kernel, BlockTemplate baseTemplate, Action goBackToTemplateSelectScreen) : base(parentDrawLayer, "EditPaneWindow")
         {
             _kernel = kernel;
-            Template = template;
+            _baseTemplate = baseTemplate;
             _goBackToTemplateSelectScreen = goBackToTemplateSelectScreen;
 
             //var saveButton = new SpriteMenuItem(this, "SaveButton");
@@ -40,19 +40,19 @@ namespace IAmACube
             _searchPane.AddToEditPane = _editPane.CreateNewChipsetFromSearchChipClick;
             _searchPane.RefreshFilter();
 
-            _editPane.LoadTemplate(Template);
+            _editPane.LoadTemplate(_baseTemplate);
         }
 
         public void OpenQuitDialog()
         {
-            var dialogBox = new TemplateQuitDialog(ManualDrawLayer.Create(DrawLayers.MenuDialogLayer), this, _quitButtonPressed);
+            var dialogBox = new TemplateQuitDialog(ManualDrawLayer.Create(DrawLayers.MenuDialogLayer), this, _quitDialogButtonPressed);
             dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
             dialogBox.AddPausedItems(_editPane, _searchPane);
 
             AddChildAfterUpdate(dialogBox);
         }
 
-        private void _quitButtonPressed(TemplateQuitButtonOption option)
+        private void _quitDialogButtonPressed(TemplateQuitButtonOption option)
         {
             switch (option)
             {
@@ -67,17 +67,63 @@ namespace IAmACube
 
         private void _openSaveDialog()
         {
-            var versionNumber = Template.Versions.GetNewVersionNumber();
-            var dialogBox = new TemplateSaveDialog(ManualDrawLayer.Create(DrawLayers.MenuDialogLayer), this, versionNumber);
+            var versionNumber = _baseTemplate.Versions.GetNewVersionNumber();
+            var dialogBox = new TemplateSaveDialog(ManualDrawLayer.Create(DrawLayers.MenuDialogLayer), this, versionNumber, _saveDialogButtonPressed);
             dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
             dialogBox.AddPausedItems(_editPane, _searchPane);
 
             AddChildAfterUpdate(dialogBox);
         }
 
-        public void Save()
+        private void _saveDialogButtonPressed(TemplateSaveDialogOption option,string name)
         {
-            if(_editPane.TopLevelChipsets.Count==1)
+            switch (option)
+            {
+                case TemplateSaveDialogOption.SaveAsNewTemplate:
+                    SaveNewTemplate(name);
+                    break;
+                case TemplateSaveDialogOption.SaveAsNewVersion:
+                    SaveNewVersion(name);
+                    break;
+            }
+
+            _goBackToTemplateSelectScreen(); 
+        }
+
+        public void SaveNewVersion(string name)
+        {
+            var newTemplate = _createNewTemplateFromThisMenu();
+            if (newTemplate == null)
+            {
+                return;
+            }
+
+            newTemplate.Name = name;
+            var allVersions = _baseTemplate.Versions;
+            var newVersionNum = allVersions.GetNewVersionNumber();
+            allVersions[newVersionNum] = newTemplate;
+        }
+
+
+        public void SaveNewTemplate(string name)
+        {
+            var newTemplate = _createNewTemplateFromThisMenu();
+            if(newTemplate== null)
+            {
+                return;
+            }
+
+            newTemplate.Name = "Initial";
+
+            var newTemplateVersions = TemplateAllVersions.Create(name, newTemplate);
+            _kernel.AddKnownTemplate(newTemplateVersions);
+        }
+
+        private BlockTemplate _createNewTemplateFromThisMenu()
+        {
+            var template = _baseTemplate.Clone();
+
+            if (_editPane.TopLevelChipsets.Count == 1)
             {
                 var chipset = _editPane.TopLevelChipsets.First();
                 chipset.Name = "_Initial";
@@ -85,8 +131,11 @@ namespace IAmACube
                 var json = EditableChipsetParser.ParseEditableChipsetToJson(chipset);
                 var block = ChipBlockParser.ParseJsonToBlock(json);
 
-                Template.Chips = block;
+                template.Chips = block;
+                return template;
             }
+
+            return null;
         }
 
         protected override void _drawSelf(DrawingInterface drawingInterface)

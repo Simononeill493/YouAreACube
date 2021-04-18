@@ -16,13 +16,14 @@ namespace IAmACube
 
     class TemplateSelectedMenu : SpriteMenuItem
     {
-        private TemplateVersionList _template;
-        private int _selectedVersion;
+        private TemplateAllVersions _template;
 
         private TemplateBox _templatePicture;
         private TextMenuItem _templateName;
 
         private ListMenuItem<BlockTemplate> _templateList;
+        private int _selectedVersion => _templateList.Selected.Version;
+
 
         private Action<BlockTemplate, TemplateSelectedAction> _templateButtonPressCallback;
 
@@ -57,6 +58,7 @@ namespace IAmACube
             _templateList = new ListMenuItem<BlockTemplate>(this,new Point(64,15));
             _templateList.SetLocationConfig(7, 40, CoordinateMode.ParentPixelOffset);
             AddChild(_templateList);
+
         }
 
         private void _buttonPressAction(TemplateSelectedAction selectedAction)
@@ -64,11 +66,17 @@ namespace IAmACube
             if(_template!=null)
             {
                 var version = _template[_selectedVersion];
+
+                if (selectedAction == TemplateSelectedAction.SetMain)
+                {
+                    _template.Main = version;
+                }
+
                 _templateButtonPressCallback(version, selectedAction);
             }
         }
 
-        public void SetTemplate(TemplateVersionList template)
+        public void SetTemplate(TemplateAllVersions template)
         {
             _template = template;
             _templatePicture.SetTemplate(template);
@@ -77,6 +85,9 @@ namespace IAmACube
             _templateName.Text = _template.Name;
 
             _templateList.SetItems(template.Values.ToList());
+
+            var mainItem = _templateList.Items.First(i => i.Item == template.Main);
+            mainItem.TrySelectItem();
         }
     }
 }

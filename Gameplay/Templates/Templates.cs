@@ -20,9 +20,7 @@ namespace IAmACube
             var builtInTemplates = TemplateParser.ParseTemplates(data["blocks"]);
             foreach(var builtInTemplate in builtInTemplates)
             {
-                var versions = new TemplateVersionList(builtInTemplate.Key);
-                versions[0] = builtInTemplate.Value;
-                versions.Main = builtInTemplate.Value;
+                var versions = TemplateAllVersions.Create(builtInTemplate.Key, builtInTemplate.Value);
                 BlockTemplates[builtInTemplate.Key] = versions;
             }
 
@@ -64,6 +62,12 @@ namespace IAmACube
                     throw new Exception();
                 }
             }
+        }
+
+        public static BlockTemplate GetRuntimeVersion(BlockTemplate savedVersion)
+        {
+            var runtimeVersion = BlockTemplates[savedVersion.Versions.Name][savedVersion.Version];
+            return runtimeVersion;
         }
 
         public static Block Generate(string name,int version,BlockMode blockType ) => BlockTemplates[name][version].Generate(blockType);

@@ -45,7 +45,8 @@ namespace IAmACube
             newBlock.BeCreatedBy(creator);
             newBlock.Orientation = (Orientation)direction;
 
-            targetPosition.AddBlock(newBlock);
+            newBlock.EnterLocation(targetPosition);
+            //targetPosition.AddBlock(newBlock);
 
             if(targetPosition.InSector(_sector))
             {

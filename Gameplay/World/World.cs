@@ -44,6 +44,19 @@ namespace IAmACube
             Focus = GetSector(block.Location.SectorID);
         }
 
+        public void InitializeSession()
+        {
+            var sectorsActiveBlockLists = SectorGrid.Values.Select(s => s.ActiveBlocks);
+            foreach(var blockList in sectorsActiveBlockLists)
+            {
+                foreach(var block in blockList)
+                {
+                    block.SetTemplateToRuntime();
+                }
+            }
+
+        }
+
         public bool HasTile(Point worldCoords)
         {
             var sectorLocation = WorldUtils.GetLocationOfSector(worldCoords);

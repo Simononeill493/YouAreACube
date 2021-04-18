@@ -64,6 +64,11 @@ namespace IAmACube
                     sector.AddNonMovingBlockToSector(emmigrant.Item1);
                 }
 
+                if(!emmigrant.Item1.MovingBetweenSectors)
+                {
+                    throw new Exception("Block moved between sectors, but not marked as such");
+                }
+
                 emmigrant.Item1.MovingBetweenSectors = false;
             }
         }

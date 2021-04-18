@@ -10,6 +10,7 @@ namespace IAmACube
     public abstract class InGameMenuScreen : MenuScreen
     {
         protected GameScreen _gameScreen;
+        protected Kernel kernel;
 
         public InGameMenuScreen(ScreenType screenType,Action<ScreenType> switchScreen, GameScreen gameScreen) : base(screenType,switchScreen)
         {
@@ -22,8 +23,14 @@ namespace IAmACube
 
             if (input.IsKeyJustPressed(Keys.Tab))
             {
-                SwitchScreen(ScreenType.Game);
+                _returnToGame();
             }
+        }
+
+        protected void _returnToGame()
+        {
+            _gameScreen.Game.Kernel.UpdateCompanions();
+            SwitchScreen(ScreenType.Game);
         }
     }
 }

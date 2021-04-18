@@ -20,6 +20,7 @@ namespace IAmACube
         public int CurrentTick;
 
         public bool AtMidpoint;
+        public bool PassedMidpoint;
         public bool Moved;
 
         public bool Finished;
@@ -42,7 +43,8 @@ namespace IAmACube
         public void Tick()
         {
             CurrentTick++;
-            AtMidpoint = (CurrentTick == _midpoint);
+            AtMidpoint = (CurrentTick >= _midpoint) & (!PassedMidpoint);
+            PassedMidpoint = PassedMidpoint | AtMidpoint;
             Moved = (Moved | AtMidpoint);
             Finished = (CurrentTick == TotalTicks);
 

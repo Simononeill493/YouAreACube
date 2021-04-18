@@ -10,6 +10,7 @@ namespace IAmACube
     public struct Point
     {
         public static Point Zero => new Point(0, 0);
+        public static Point Min => new Point(int.MinValue, int.MinValue);
 
         public int X;
         public int Y;

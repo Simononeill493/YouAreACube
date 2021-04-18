@@ -29,7 +29,7 @@ namespace IAmACube
             Actions.Add(rotationAction);
         }
 
-        public void CreateBlock(Block block, TemplateVersionList toCreate, int version, BlockMode blockType,CardinalDirection direction)
+        public void CreateBlock(Block block, TemplateAllVersions toCreate, int version, BlockMode blockType,CardinalDirection direction)
         {
             var creationAction = new BlockAction(block, ActionType.CardinalCreation) 
             { 

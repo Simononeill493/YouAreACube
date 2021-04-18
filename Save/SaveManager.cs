@@ -19,7 +19,9 @@ namespace IAmACube
             WorldGen.AddPlayer(world, player);
             WorldGen.AddEntities(world);
 
-            var kernel = new Kernel() { Host = player };
+            var kernel = new Kernel();
+            kernel.SetHost(player);
+
             var save = new Save(kernel, world);
 
             return save;

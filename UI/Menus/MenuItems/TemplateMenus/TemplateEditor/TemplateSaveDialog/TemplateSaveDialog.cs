@@ -6,18 +6,23 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class TemplateSaveDialog: DialogBoxMenuItem
+    partial class TemplateSaveDialog: DialogBoxMenuItem
     {
         public TemplateSaveDialogOption SelectedDialogOption;
 
         private TextMenuItem _versionText;
         private TextMenuItem _nameText;
+        private TextBoxMenuItem _nameTextBox;
 
-        public TemplateSaveDialog(IHasDrawLayer parentDrawLayer, MenuItem container,int newVersionNumber) : base(parentDrawLayer, container, "EmptyMenuRectangleMedium")
+        private Action<TemplateSaveDialogOption, string> _saveTemplateCallback;
+
+        public TemplateSaveDialog(IHasDrawLayer parentDrawLayer, MenuItem container,int newVersionNumber,Action<TemplateSaveDialogOption,string> saveTemplateCallback) : base(parentDrawLayer, container, "EmptyMenuRectangleMedium")
         {
+            _saveTemplateCallback = saveTemplateCallback;
+
             _nameText = new TextMenuItem(this, "");
             _versionText = new TextMenuItem(this, "V" + newVersionNumber + ":");
-            var nameTextBox = new TextBoxMenuItem(this, "") { Editable = true, MaxTextLength=12 };
+            _nameTextBox = new TextBoxMenuItem(this, "") { Editable = true, MaxTextLength=12 };
             var saveTypeRadioButtons = new RadioButtonsMenuItem<TemplateSaveDialogOption>(this);
             var saveButton = new ButtonMenuItem(this, "Save");
             var cancelButton = new ButtonMenuItem(this, "Cancel");
@@ -25,11 +30,12 @@ namespace IAmACube
             saveTypeRadioButtons.AddOption(TemplateSaveDialogOption.SaveAsNewTemplate,"As new template");
             saveTypeRadioButtons.AddOption(TemplateSaveDialogOption.SaveAsNewVersion, "As new version");
             saveTypeRadioButtons.OnItemSelected += _dialogOptionSelected;
+            saveButton.OnMouseReleased += (i) =>_saveButtonPressed();
             cancelButton.OnMouseReleased += (i) => Close();
 
             _nameText.SetLocationConfig(50, 15, CoordinateMode.ParentPercentageOffset, true);
             _versionText.SetLocationConfig(10, 30, CoordinateMode.ParentPercentageOffset, true);
-            nameTextBox.SetLocationConfig(50, 30, CoordinateMode.ParentPercentageOffset, true);
+            _nameTextBox.SetLocationConfig(50, 30, CoordinateMode.ParentPercentageOffset, true);
             saveTypeRadioButtons.SetLocationConfig(10, 50, CoordinateMode.ParentPercentageOffset, false);
             saveButton.SetLocationConfig(30, 80, CoordinateMode.ParentPercentageOffset, true);
             cancelButton.SetLocationConfig(70, 80, CoordinateMode.ParentPercentageOffset, true);
@@ -38,10 +44,16 @@ namespace IAmACube
             AddChild(_versionText);
             AddChild(saveButton);
             AddChild(cancelButton);
-            AddChild(nameTextBox);
+            AddChild(_nameTextBox);
             AddChild(saveTypeRadioButtons);
 
             saveTypeRadioButtons.SelectRadioButton(1);
+        }
+
+        private void _saveButtonPressed()
+        {
+            _saveTemplateCallback(SelectedDialogOption, _nameTextBox.Text);
+            Close();
         }
 
         private void _dialogOptionSelected(TemplateSaveDialogOption option)
@@ -59,12 +71,6 @@ namespace IAmACube
                     _nameText.Text = "Version name";
                     break;
             }
-        }
-
-        public enum TemplateSaveDialogOption
-        {
-            SaveAsNewTemplate,
-            SaveAsNewVersion
         }
     }
 }

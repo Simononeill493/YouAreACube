@@ -5,7 +5,7 @@ using System.Linq;
 namespace IAmACube
 {
     [Serializable()]
-    public class TemplatesDatabase : Dictionary<string, TemplateVersionList>
+    public class TemplatesDatabase : Dictionary<string, TemplateAllVersions>
     {
         public List<BlockTemplate> GetAllVersionsOfAllTemplates()
         {
@@ -17,7 +17,7 @@ namespace IAmACube
             return output;
         }
 
-        public List<TemplateVersionList> GetAllTemplates()
+        public List<TemplateAllVersions> GetAllTemplates()
         {
             return Values.ToList();
         }

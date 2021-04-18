@@ -14,11 +14,6 @@ namespace IAmACube
             BlockType = BlockMode.Ground;
         }
 
-        public override void MoveToCurrentDestination()
-        {
-            throw new NotImplementedException();
-        }
-
         public override bool CanOccupyDestination(Tile destination)
         {
             throw new NotImplementedException();
@@ -28,5 +23,18 @@ namespace IAmACube
         {
             throw new NotImplementedException();
         }
+
+        public override void EnterLocation(Tile destination)
+        {
+            if (destination.HasThisGround(this))
+            {
+                throw new Exception("Tried to add a ground to a location it already exists in");
+            }
+
+            Location.Ground = null;
+            destination.Ground = this;
+            this.Location = destination;
+        }
+
     }
 }

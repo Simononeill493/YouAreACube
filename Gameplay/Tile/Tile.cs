@@ -10,12 +10,18 @@ namespace IAmACube
     [Serializable()]
     public class Tile : LocationWithNeighbors<Tile>
     {
+        public static Tile Dummy = new DummyTile();
+
         public Point LocationInSector;
         public Point SectorID;
 
         public GroundBlock Ground { get; set; }
         public SurfaceBlock Surface { get; set; }
         public EphemeralBlock Ephemeral { get; set; }
+
+        public virtual bool HasThisSurface(SurfaceBlock surface) => surface == Surface;
+        public virtual bool HasThisGround(GroundBlock ground) => ground == Ground;
+        public virtual bool HasThisEphemeral(EphemeralBlock ephemeral) => ephemeral == Ephemeral;
 
         public bool HasSurface => (Surface != null);
         public bool HasEphemeral => (Ephemeral != null);
@@ -64,7 +70,7 @@ namespace IAmACube
             return sector.AbsoluteLocation.Equals(SectorID);
         }
 
-        public void AddBlock(Block block)
+        /*public void AddBlock(Block block)
         {
             block.Location = this;
 
@@ -113,6 +119,6 @@ namespace IAmACube
             }
 
             Ground = block;
-        }
+        }*/
     }
 }

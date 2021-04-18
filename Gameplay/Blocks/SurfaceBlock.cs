@@ -14,17 +14,23 @@ namespace IAmACube
             BlockType = BlockMode.Surface;
         }
 
-        public override void MoveToCurrentDestination()
+        public override void EnterLocation(Tile destination)
         {
-            if(Location.Surface!=this)
+            if (destination.HasThisSurface(this))
+            {
+                throw new Exception("Tried to add a ground to a location it already exists in");
+            }
+
+            if (!Location.HasThisSurface(this))
             {
                 throw new Exception("Surface block is being moved, but its current tile does not register it as present.");
             }
 
             Location.Surface = null;
-            MovementData.Destination.Surface = this;
-            this.Location = MovementData.Destination;
+            destination.Surface = this;
+            this.Location = destination;
         }
+
 
         public override bool CanOccupyDestination(Tile destination)
         {

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class CreateEphemeralChip : InputPin<CardinalDirection>, InputPin2<TemplateVersionList>, InputPin3<int>
+    internal class CreateEphemeralChip : InputPin<CardinalDirection>, InputPin2<TemplateAllVersions>, InputPin3<int>
     {
         public string Name { get; set; }
 
         public CardinalDirection ChipInput1 { get; set; }
-        public TemplateVersionList ChipInput2 { get; set; }
+        public TemplateAllVersions ChipInput2 { get; set; }
         public int ChipInput3 { get; set; }
 
         public void Run(Block actor, UserInput userInput, ActionsList actions)
