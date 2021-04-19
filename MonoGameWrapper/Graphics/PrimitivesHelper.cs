@@ -73,7 +73,7 @@ namespace IAmACube
             }
         }
        
-        public void DrawSprite(string spriteName, int x, int y, int scale, float layer,Color colorMask,bool centered)
+        public void DrawSprite(string spriteName, int x, int y, int scale, float layer,Color colorMask,bool centered,bool flipHorizontal,bool flipVertical)
         {
             var sprite = SpriteManager.GetSprite(spriteName);
             if (centered)
@@ -81,9 +81,10 @@ namespace IAmACube
                 (x,y) = DrawUtils.GetCenteredCoords(sprite.Width, sprite.Height, x, y, scale);
             }
 
-            //_spriteBatch.Draw(sprite, new Vector2(x, y), scale: new Vector2(scale, scale), layerDepth: layer);
-            //_spriteBatch.Draw(sprite, new Vector2(x, y), scale: new Vector2(scale, scale), layerDepth: layer);
-            _spriteBatch.Draw(sprite, new Vector2(x, y), null, colorMask, 0, Vector2.Zero, scale, SpriteEffects.None, layer);
+            var spriteEffects = (flipHorizontal ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+            spriteEffects |= (flipVertical ? SpriteEffects.FlipVertically : SpriteEffects.None);
+
+            _spriteBatch.Draw(sprite, new Vector2(x, y), null, colorMask, 0, Vector2.Zero, scale, spriteEffects, layer);
         }
 
 

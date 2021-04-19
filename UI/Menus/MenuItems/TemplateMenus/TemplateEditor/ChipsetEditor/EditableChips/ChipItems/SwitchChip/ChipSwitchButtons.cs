@@ -14,18 +14,18 @@ namespace IAmACube
         private ChipSwitchButton _rightButton;
 
         private int _indexOffset = 0;
-        private List<string> _switchSections;
+        public List<string> SwitchSectionsNames;
 
-        private Action _switchButtonClearedCallback;
-        private Action<string> _switchButtonSetCallback;
+        private Action _switchSectionClosedCallback;
+        private Action<int> _switchSectionOpenedCallback;
 
-        public ChipSwitchButtons(IHasDrawLayer parent,Color parentColor,Action switchButtonClearedCallback,Action<string> switchButtonSetCallback) : base(parent, "ChipFullEnd")
+        public ChipSwitchButtons(IHasDrawLayer parent,Color parentColor,Action switchSectionClosedCallback,Action<int> switchSectionOpenedCallback) : base(parent, "ChipFullEnd")
         {
-            _switchButtonClearedCallback = switchButtonClearedCallback;
-            _switchButtonSetCallback = switchButtonSetCallback;
+            _switchSectionClosedCallback = switchSectionClosedCallback;
+            _switchSectionOpenedCallback = switchSectionOpenedCallback;
 
             ColorMask = parentColor;
-            _switchSections = new List<string>();
+            SwitchSectionsNames = new List<string>();
 
             _leftButton = new ChipSwitchButton(this, "",0);
             _leftButton.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset);
@@ -36,16 +36,51 @@ namespace IAmACube
             _rightButton.SetLocationConfig(70, 0, CoordinateMode.ParentPixelOffset);
             _rightButton.OnMouseReleased += (i) => _buttonClicked(_rightButton);
             AddChild(_rightButton);
+
+            _addArrowButtons();
         }
 
-        public void AddSwitchSection(string name) => _switchSections.Add(name);
+        private void _addArrowButtons()
+        {
+            var switchArrowButtonLeft = new SpriteMenuItem(this, "SwitchChipSideArrow");
+            switchArrowButtonLeft.SetLocationConfig(140, 0, CoordinateMode.ParentPixelOffset);
+            switchArrowButtonLeft.OnMouseReleased += (i) => { UpdateButtonOffset(-1); };
+            AddChild(switchArrowButtonLeft);
+
+            var switchArrowButtonRight = new SpriteMenuItem(this, "SwitchChipSideArrow");
+            switchArrowButtonRight.FlipHorizontal = true;
+            switchArrowButtonRight.SetLocationConfig(140 + switchArrowButtonLeft.GetBaseSize().X, 0, CoordinateMode.ParentPixelOffset);
+            switchArrowButtonRight.OnMouseReleased += (i) => { UpdateButtonOffset(1); };
+            AddChild(switchArrowButtonRight);
+        }
+
+        public void UpdateButtonOffset(int offsetChange)
+        {
+            var newOffset = _indexOffset + offsetChange;
+            if(newOffset < 0 | newOffset>SwitchSectionsNames.Count-2)
+            {
+                return;
+            }
+
+            var prevSelectedButton = _selectedButton;
+
+            _indexOffset = newOffset;
+            _closeSwitchSection();
+
+            if(prevSelectedButton!=null)
+            {
+                _openSwitchSection(prevSelectedButton);
+            }
+        }
+
+        public void AddSwitchSection(string name) => SwitchSectionsNames.Add(name);
 
         public void UpdateButtonText()
         {
-            var leftButtonText = (_indexOffset < _switchSections.Count()) ? _switchSections[_indexOffset] : "";
+            var leftButtonText = (_indexOffset < SwitchSectionsNames.Count()) ? SwitchSectionsNames[_indexOffset] : "";
             _leftButton.SetText(leftButtonText);
 
-            var rightButtontext = (_indexOffset+1 < _switchSections.Count()) ? _switchSections[_indexOffset+1] : "";
+            var rightButtontext = (_indexOffset+1 < SwitchSectionsNames.Count()) ? SwitchSectionsNames[_indexOffset+1] : "";
             _rightButton.SetText(rightButtontext);
         }
 
@@ -54,18 +89,29 @@ namespace IAmACube
             _leftButton.ColorMask = _rightButton.ColorMask = Color.White;
             if(button!=_selectedButton)
             {
-                if (button.Text.Equals("")) { return; }
-
-                button.ColorMask = Color.LightGreen;
-                _selectedButton = button;
-                _switchButtonSetCallback(button.Text);
+                _openSwitchSection(button);
             }
             else
             {
-                _selectedButton = null;
-                _switchButtonClearedCallback();
+                _closeSwitchSection();
             }
         }
+
+        private void _closeSwitchSection()
+        {
+            _selectedButton = null;
+            _switchSectionClosedCallback();
+        }
+
+        private void _openSwitchSection(ChipSwitchButton button)
+        {
+            if (button.Text.Equals("")) { return; }
+
+            button.ColorMask = Color.LightGreen;
+            _selectedButton = button;
+            _switchSectionOpenedCallback(button.ButtonIndex + _indexOffset);
+        }
+
     }
 
     class ChipSwitchButton : TextBoxMenuItem

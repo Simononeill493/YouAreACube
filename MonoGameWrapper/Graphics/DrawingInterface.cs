@@ -18,10 +18,8 @@ namespace IAmACube
 
         public void DrawBackground(string background) => _primitivesHelper.DrawStretchedToScreen(background);
         public void DrawText(string text, int x, int y, int scale, float layer,Color color,bool centered = false) => _primitivesHelper.DrawText(text, x, y, scale, layer, color, centered);
-        public void DrawSprite(string sprite, int x, int y, int scale, float layer, Color colorMask,bool centered = false) => _primitivesHelper.DrawSprite(sprite, x, y, scale, layer, colorMask, centered);
-
+        public void DrawSprite(string sprite, int x, int y, int scale, float layer, Color colorMask,bool centered = false, bool flipHorizontal = false, bool flipVertical = false) => _primitivesHelper.DrawSprite(sprite, x, y, scale, layer, colorMask, centered,flipHorizontal,flipVertical);
         public void DrawRectangle(int x, int y, int width, int height, float layer, Color color, bool centered = false)=>_primitivesHelper.DrawRectangle(x,y,width,height,layer,color,centered);
-        
 
         public void DrawTile(Tile tile, Point drawPos, CameraConfiguration cameraConfig)
         {
@@ -40,11 +38,11 @@ namespace IAmACube
         {
             var offsetDrawPos = drawPos + CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizeActual);
 
-            _primitivesHelper.DrawSprite(block.Sprite, offsetDrawPos.X, offsetDrawPos.Y, cameraConfig.Scale, layer, colorMask: Color.White,centered: false);
+            _primitivesHelper.DrawSprite(block.Sprite, offsetDrawPos.X, offsetDrawPos.Y, cameraConfig.Scale, layer, colorMask: Color.White,false,false,false);
         }
         public void DrawVoid(Point drawPos, CameraConfiguration cameraConfig)
         {
-            _primitivesHelper.DrawSprite("Black", drawPos.X, drawPos.Y, cameraConfig.Scale, DrawLayers.GroundLayer, colorMask: Color.White,centered: false);
+            _primitivesHelper.DrawSprite("Black", drawPos.X, drawPos.Y, cameraConfig.Scale, DrawLayers.GroundLayer, colorMask: Color.White, false, false, false);
         }
 
         public void DrawHUD(Kernel kernel)

@@ -8,8 +8,7 @@ namespace IAmACube
 { 
     class ChipTopSwitch : ChipTop
     {
-        public Dictionary<string, EditableChipset> SwitchSections;
-        public List<EditableChipset> SectionsList => SwitchSections.Values.ToList();
+        public List<EditableChipset> SwitchChipsets;
 
         private ChipSwitchButtons _switchButtons;
         private SpriteMenuItem _switchSectionBottom;
@@ -19,7 +18,7 @@ namespace IAmACube
 
         public ChipTopSwitch(string name,IHasDrawLayer parent, ChipData data,List<string> switchInitialOptions) : base(name,parent, data)
         {
-            SwitchSections = new Dictionary<string, EditableChipset>();
+            SwitchChipsets = new List<EditableChipset>();
 
             _switchButtons = new ChipSwitchButtons(this, ColorMask, () => _closeSwitchSection(true), _openSwitchSection);
             _switchButtons.SetLocationConfig(0, GetBaseSize().Y-1,CoordinateMode.ParentPixelOffset);
@@ -55,11 +54,11 @@ namespace IAmACube
                 TopLevelRefreshAll();
             }
         }
-        private void _openSwitchSection(string sectionName)
+        private void _openSwitchSection(int sectionIndex)
         {
             _closeSwitchSection(false);
 
-            _extendedChipset = SwitchSections[sectionName];
+            _extendedChipset = SwitchChipsets[sectionIndex];
 
             TopLevelRefreshAll();
         }
@@ -120,13 +119,13 @@ namespace IAmACube
             switchChipset.Draggable = false;
             AddChildAfterUpdate(switchChipset);
 
-            SwitchSections[sectionName] = switchChipset;
+            SwitchChipsets.Add(switchChipset);
             _switchButtons.AddSwitchSection(sectionName);
             _switchButtons.UpdateButtonText();
         }
         #endregion
 
-        public override List<EditableChipset> GetSubChipsets() => SectionsList;
+        public override List<EditableChipset> GetSubChipsets() => SwitchChipsets.ToList();
         public override void DropChipsOn(List<ChipTop> chips, UserInput input) 
         {
             if (!_switchSectionExtended)
@@ -153,7 +152,8 @@ namespace IAmACube
         public override void RefreshAll()
         {
             base.RefreshAll();
-            SectionsList.ForEach(c => c.RefreshAll());
+            SwitchChipsets.ForEach(c => c.RefreshAll());
+            _switchButtons.UpdateButtonText();
 
             if(_switchSectionExtended)
             {
@@ -163,7 +163,23 @@ namespace IAmACube
         protected override void _setTopLevelRefreshAll(Action topLevelRefreshAll)
         {
             base._setTopLevelRefreshAll(topLevelRefreshAll);
-            SectionsList.ForEach(c => c.TopLevelRefreshAll = topLevelRefreshAll);
+            SwitchChipsets.ForEach(c => c.TopLevelRefreshAll = topLevelRefreshAll);
+        }
+
+        public List<(string,EditableChipset)> GetSwitchSectionsWithNames()
+        {
+            var names = _switchButtons.SwitchSectionsNames;
+            if (SwitchChipsets.Count != names.Count)
+            {
+                throw new Exception("Tried to extract switch chip section names, but the numbers don't match up.");
+            }
+
+            var output = new List<(string, EditableChipset)>();
+            for(int i=0;i<SwitchChipsets.Count;i++)
+            {
+                output.Add((names[i],SwitchChipsets[i]));
+            }
+            return output;
         }
     }
 }

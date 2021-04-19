@@ -65,17 +65,17 @@ namespace IAmACube
             var switchChip = (ChipTopSwitch)chipJObject.ChipTop;
             if(chipJObject.ChipData.Name.Equals("If"))
             {
-                chipJObject.Yes = switchChip.SwitchSections["Yes"].Name;
-                chipJObject.No = switchChip.SwitchSections["No"].Name;
+                chipJObject.Yes = switchChip.SwitchChipsets[0].Name;
+                chipJObject.No = switchChip.SwitchChipsets[1].Name;
 
             }
             if (chipJObject.ChipData.Name.Equals("KeySwitch"))
             {
                 chipJObject.KeyEffects = new List<Tuple<string, string>>();
 
-                foreach (var keyAndChipset in switchChip.SwitchSections)
+                foreach (var keyAndChipset in switchChip.GetSwitchSectionsWithNames())
                 {
-                    chipJObject.KeyEffects.Add(new Tuple<string, string>(keyAndChipset.Key, keyAndChipset.Value.Name));
+                    chipJObject.KeyEffects.Add(new Tuple<string, string>(keyAndChipset.Item1, keyAndChipset.Item2.Name));
                 }
             }
         }
