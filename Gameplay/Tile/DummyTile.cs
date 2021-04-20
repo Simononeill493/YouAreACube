@@ -14,5 +14,6 @@ namespace IAmACube
         public override bool HasThisGround(GroundBlock ground) => true;
         public override bool HasThisEphemeral(EphemeralBlock ephemeral) => true;
 
+        public override string ToString() => "Dummy Tile";
     }
 }

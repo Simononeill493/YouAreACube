@@ -90,5 +90,16 @@ namespace IAmACube
                 if (_config.Scale > 1) { _config.Scale--; }
             }
         }
+
+        public void SetMouseHover(UserInput input,World world)
+        {
+            var mouseGridPos = input.MousePos / _config.TileSizeActual;
+            var mouseOffset = _config.GridPosition + mouseGridPos;
+
+            if(world.HasTile(mouseOffset))
+            {
+                input.MouseHoverTile = world.GetTile(mouseOffset);
+            }
+        }
     }
 }

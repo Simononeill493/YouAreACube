@@ -66,5 +66,6 @@ namespace IAmACube
         public int MouseY => MouseState.Y;
 
         public Point MousePos;
+        public Tile MouseHoverTile = Tile.Dummy;
     }
 }

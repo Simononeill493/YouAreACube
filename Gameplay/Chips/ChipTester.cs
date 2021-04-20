@@ -15,6 +15,8 @@ namespace IAmACube
         public static ChipBlock TestSpinBlock => MakeSpinBlock();
         public static ChipBlock TestBulletBlock => MakeBulletBlock();
         public static ChipBlock TestBulletV2Block => MakeSpinBulletBlock();
+        public static ChipBlock TestMouseFollowBlock => MakeMouseFollowBlock();
+
 
         public static ChipBlock MakeEnemyBlock()
         {
@@ -141,6 +143,17 @@ namespace IAmACube
             return new ChipBlock(moveForwardChip, rotationChip) { Name = "_Initial" };
         }
 
+        public static ChipBlock MakeMouseFollowBlock()
+        {
+            var getMouseChip = new GetMouseHoverChip() { Name = "MouseHover_1" };
+            var approachDirChip = new ApproachDirectionChip() { Name = "ApproachDir" };
+            var moveCardinalChip = new MoveCardinalChip() { Name = "MoveCardinal_1" };
+
+            getMouseChip.Targets1.Add(approachDirChip);
+            approachDirChip.Targets1.Add(moveCardinalChip);
+
+            return new ChipBlock(getMouseChip, approachDirChip, moveCardinalChip) { Name = "_Initial" };
+        }
 
         public static ChipBlock MakeFirstOfListBlock()
         {

@@ -5,13 +5,19 @@
       "name":"BasicEnemy",
       "sprite":"BasicEnemy",
       "speed":16,
-	  "energyCap":10000
+	  "energyCap":1000
     },
 	{
       "name":"ScaredEnemy",
       "sprite":"BasicEnemy",
-	  "energyCap":10000,
+	  "energyCap":1000,
       "speed":15
+    },
+	{
+      "name":"MouseFollower",
+      "sprite":"MouseFollower",
+	  "energyCap":1000,
+      "speed":6
     },
     {
       "name":"BasicPlayer",
@@ -28,7 +34,7 @@
       "name":"Spinner",
       "sprite":"Spinner",
       "speed":54,
-	  "energyCap":10000
+	  "energyCap":1000
     },
 	{
       "name":"Bullet",

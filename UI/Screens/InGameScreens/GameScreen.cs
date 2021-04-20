@@ -28,8 +28,10 @@ namespace IAmACube
         {
             _readKeys(input);
 
-            Game.Update(input);
             _currentCamera.Update(input);
+            _currentCamera.SetMouseHover(input, Game.World);
+
+            Game.Update(input);
         }
 
         public override void Draw(DrawingInterface drawingInterface) => _currentCamera.Draw(drawingInterface,Game.World); 

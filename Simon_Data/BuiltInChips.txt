@@ -56,6 +56,12 @@
 	  "out":"CardinalDirection"
     },
 	{
+      "name":"GetMouseHover",
+	  "type":"Sense",
+	  "in":[],
+	  "out":"Tile"
+    },
+	{
       "name":"RandomNum",
 	  "type":"Sense",
 	  "in":["int"],

@@ -31,6 +31,7 @@ namespace IAmACube
             BlockTemplates["Bullet"][0].Chips = ChipTester.TestBulletBlock;
             BlockTemplates["MiniBullet"][0].Chips = ChipTester.TestBulletBlock;
             BlockTemplates["BasicPlayer"][0].Chips = ChipTester.TestPlayerBlock;
+            BlockTemplates["MouseFollower"][0].Chips = ChipTester.TestMouseFollowBlock;
 
             var bullet2 = BlockTemplates["Bullet"][0].Clone();
             bullet2.Chips = ChipTester.TestBulletV2Block;
