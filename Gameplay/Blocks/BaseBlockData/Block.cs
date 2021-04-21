@@ -14,7 +14,7 @@ namespace IAmACube
         public BlockMode BlockType;
 
         public int SpeedOffset;
-        public Orientation Orientation;
+        public Orientation Orientation { get; private set; }
 
         public int Energy { get; private set; }
 

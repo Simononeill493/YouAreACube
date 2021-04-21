@@ -43,7 +43,7 @@ namespace IAmACube
         {
             var newBlock = template.Generate(blockType);
             newBlock.BeCreatedBy(creator);
-            newBlock.Orientation = (Orientation)direction;
+            newBlock.Rotate((int)direction);
 
             newBlock.EnterLocation(targetPosition);
             //targetPosition.AddBlock(newBlock);

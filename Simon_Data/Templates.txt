@@ -40,7 +40,7 @@
       "name":"Bullet",
       "sprite":"Bullet",
 	  "energyCap":45,
-      "speed":3
+      "speed":4
     },
 	{
       "name":"MiniBullet",

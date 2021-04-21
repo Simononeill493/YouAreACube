@@ -21,6 +21,7 @@ namespace IAmACube
         public void DrawSprite(string sprite, int x, int y, int scale, float layer, Color colorMask,bool centered = false, bool flipHorizontal = false, bool flipVertical = false) => _primitivesHelper.DrawSprite(sprite, x, y, scale, layer, colorMask, centered,flipHorizontal,flipVertical);
         public void DrawRectangle(int x, int y, int width, int height, float layer, Color color, bool centered = false)=>_primitivesHelper.DrawRectangle(x,y,width,height,layer,color,centered);
 
+
         public void DrawTile(Tile tile, Point drawPos, CameraConfiguration cameraConfig)
         {
             DrawBlock(tile.Ground, drawPos, DrawLayers.GroundLayer, cameraConfig);

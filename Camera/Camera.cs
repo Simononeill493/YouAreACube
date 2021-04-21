@@ -32,6 +32,7 @@ namespace IAmACube
         {
             _drawingInterface = drawingInterface;
             _drawTiles(world);
+            _drawGridLines(world);
         }
 
         protected void _drawTiles(World world)
@@ -47,6 +48,31 @@ namespace IAmACube
                     _drawThisLocation(world, drawPos, tileLocation);
                 }
             }
+        }
+
+        protected void _drawGridLines(World world)
+        {
+            if(world.Focus!=null)
+            {
+                foreach (var sector in world.Focus.Neighbours)
+                {
+                    _drawSectorBoundaries(sector.AbsoluteLocation);
+                }
+            }
+        }
+
+        protected void _drawSectorBoundaries(Point sector)
+        {
+            var gridLineThickness = 3;
+
+            var sectorOrigin = sector * Config.SectorSize * _config.TileSizeActual;
+            var sectorOriginOffset = sectorOrigin - _config.ActualOffset;
+            var sectorSquareSize = _config.TileSizeActual * Config.SectorSize;
+
+            _drawingInterface.DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y, gridLineThickness, sectorSquareSize, DrawLayers.GameDebugLayer, Color.Red);
+            _drawingInterface.DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y, sectorSquareSize, gridLineThickness, DrawLayers.GameDebugLayer, Color.Red);
+            _drawingInterface.DrawRectangle(sectorOriginOffset.X+sectorSquareSize, sectorOriginOffset.Y, gridLineThickness, sectorSquareSize, DrawLayers.GameDebugLayer, Color.Red);
+            _drawingInterface.DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y+sectorSquareSize, sectorSquareSize, gridLineThickness, DrawLayers.GameDebugLayer, Color.Red);
         }
 
         private void _drawThisLocation(World world,Point drawPos,Point tileLocation)
