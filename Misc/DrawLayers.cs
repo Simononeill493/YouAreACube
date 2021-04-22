@@ -15,8 +15,15 @@ namespace IAmACube
         public const float GroundLayer = 0.9f;
         public const float SurfaceLayer = 0.8f;
         public const float EphemeralLayer = 0.7f;
+
+        public const float BlockInfoLayer_Back = 0.69f;
+        public const float BlockInfoLayer_Front = 0.68f;
+
+        public const float GameSectorOverlayLayer = 0.65f;
+        public const float GameTileDebugLayer = 0.64f;
+
         public const float HUDLayer = 0.6f;
-        public const float GameDebugLayer = 0.55f;
+
 
         public const float MenuBehindLayer = 0.5f;
         public const float MenuBaseLayer = 0.4f;

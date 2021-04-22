@@ -26,10 +26,13 @@ namespace IAmACube
 
         public bool MovingBetweenSectors;
 
+        public int _id;
+
         public Block(BlockTemplate template)
         {
             Template = template;
             SpeedOffset = RandomUtils.R.Next(0, Config.TickCycleLength);
+            _id = RandomUtils.R.Next(0, 9999);
 
             Orientation = Orientation.Top;
             Energy = template.InitialEnergy;

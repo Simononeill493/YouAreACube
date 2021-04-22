@@ -34,13 +34,23 @@ namespace IAmACube
 
             if (destination.HasEphemeral)
             {
-                AbsorbInto(destination.Ephemeral);
-                return;
+                if(!destination.Ephemeral.ShouldBeDestroyed())
+                {
+                    var target = destination.Ephemeral;
+                    Console.WriteLine("Ephemeral " + _id + " at " + Location.AbsoluteLocation + " absorbed into Ephemeral " + target._id + " at " + target.Location.AbsoluteLocation);
+                    AbsorbInto(destination.Ephemeral);
+                    return;
+                }
+            }
+
+            if (!Location.HasThisEphemeral(this))
+            {
+                throw new Exception("Block trying to exit a location despite not existing in that location");
             }
 
             Location.Ephemeral = null;
-            destination.Ephemeral = this;
             this.Location = destination;
+            Location.Ephemeral = this;
         }
 
 

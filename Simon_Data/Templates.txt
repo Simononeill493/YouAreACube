@@ -1,6 +1,18 @@
 {
   "blocks":
   [
+	{
+      "name":"BasicPlayer",
+      "sprite":"BasicPlayer",
+	  "energyCap":10000,
+      "speed":2
+    },
+  	{
+      "name":"Bullet",
+      "sprite":"Bullet",
+	  "energyCap":45,
+      "speed":4
+    },
     {
       "name":"BasicEnemy",
       "sprite":"BasicEnemy",
@@ -19,12 +31,6 @@
 	  "energyCap":1000,
       "speed":6
     },
-    {
-      "name":"BasicPlayer",
-      "sprite":"BasicPlayer",
-	  "energyCap":10000,
-      "speed":5
-    },
 	{
       "name":"grassPatch",
       "sprite":"grass",
@@ -35,12 +41,6 @@
       "sprite":"Spinner",
       "speed":54,
 	  "energyCap":1000
-    },
-	{
-      "name":"Bullet",
-      "sprite":"Bullet",
-	  "energyCap":45,
-      "speed":4
     },
 	{
       "name":"MiniBullet",

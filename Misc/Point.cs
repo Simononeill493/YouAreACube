@@ -66,7 +66,7 @@ namespace IAmACube
         }
         public override string ToString()
         {
-            return "(" + X + " " + Y + ")";
+            return X + " " + Y;
         }
 
         public void Deconstruct(out int x, out int y)

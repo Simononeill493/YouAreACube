@@ -32,7 +32,7 @@ namespace IAmACube
         {
             _drawingInterface = drawingInterface;
             _drawTiles(world);
-            _drawGridLines(world);
+            _drawSectorBoundaries(world);
         }
 
         protected void _drawTiles(World world)
@@ -50,29 +50,15 @@ namespace IAmACube
             }
         }
 
-        protected void _drawGridLines(World world)
+        protected void _drawSectorBoundaries(World world)
         {
             if(world.Focus!=null)
             {
                 foreach (var sector in world.Focus.Neighbours)
                 {
-                    _drawSectorBoundaries(sector.AbsoluteLocation);
+                    _drawingInterface.DrawSectorGridOverlay(sector.AbsoluteLocation, 3, _config);
                 }
             }
-        }
-
-        protected void _drawSectorBoundaries(Point sector)
-        {
-            var gridLineThickness = 3;
-
-            var sectorOrigin = sector * Config.SectorSize * _config.TileSizeActual;
-            var sectorOriginOffset = sectorOrigin - _config.ActualOffset;
-            var sectorSquareSize = _config.TileSizeActual * Config.SectorSize;
-
-            _drawingInterface.DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y, gridLineThickness, sectorSquareSize, DrawLayers.GameDebugLayer, Color.Red);
-            _drawingInterface.DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y, sectorSquareSize, gridLineThickness, DrawLayers.GameDebugLayer, Color.Red);
-            _drawingInterface.DrawRectangle(sectorOriginOffset.X+sectorSquareSize, sectorOriginOffset.Y, gridLineThickness, sectorSquareSize, DrawLayers.GameDebugLayer, Color.Red);
-            _drawingInterface.DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y+sectorSquareSize, sectorSquareSize, gridLineThickness, DrawLayers.GameDebugLayer, Color.Red);
         }
 
         private void _drawThisLocation(World world,Point drawPos,Point tileLocation)
@@ -81,6 +67,7 @@ namespace IAmACube
             {
                 var outerTile = world.GetTile(tileLocation);
                 _drawingInterface.DrawTile(outerTile, drawPos, _config);
+                _drawingInterface.DrawTileDebugOverlay(outerTile, drawPos, _config);
             }
             else
             {

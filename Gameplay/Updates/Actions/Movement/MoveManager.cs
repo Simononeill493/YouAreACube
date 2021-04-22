@@ -41,6 +41,12 @@ namespace IAmACube
         private void _startMovement(Block block, BlockMovementData movementData)
         {
             block.StartMovement(movementData);
+
+            if(MovingBlocks.Contains(block))
+            {
+                throw new Exception("Started moving block, but it's already moving");
+            }
+
             MovingBlocks.Add(block);
         }
 

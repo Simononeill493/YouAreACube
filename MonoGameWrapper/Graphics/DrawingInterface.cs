@@ -35,12 +35,54 @@ namespace IAmACube
                 DrawBlock(tile.Ephemeral, drawPos, DrawLayers.EphemeralLayer, cameraConfig);
             }
         }
+
         public void DrawBlock(Block block, Point drawPos, float layer, CameraConfiguration cameraConfig)
         {
-            var offsetDrawPos = drawPos + CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizeActual);
+            drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizeActual);
 
-            _primitivesHelper.DrawSprite(block.Sprite, offsetDrawPos.X, offsetDrawPos.Y, cameraConfig.Scale, layer, colorMask: Color.White,false,false,false);
+            _primitivesHelper.DrawSprite(block.Sprite, drawPos.X, drawPos.Y, cameraConfig.Scale, layer, colorMask: Color.White,false,false,false);
         }
+
+
+        public void DrawTileDebugOverlay(Tile tile, Point drawPos, CameraConfiguration cameraConfig)
+        {
+            _primitivesHelper.DrawText(tile.AbsoluteLocation.ToString(), drawPos.X, drawPos.Y, 2, DrawLayers.GameTileDebugLayer, Color.Black, false);
+            if (tile.HasSurface)
+            {
+                DrawBlockDebugOverlay(tile.Surface, drawPos, DrawLayers.SurfaceLayer, cameraConfig);
+            }
+            if (tile.HasEphemeral)
+            {
+                DrawBlockDebugOverlay(tile.Ephemeral, drawPos, DrawLayers.EphemeralLayer, cameraConfig);
+            }
+        }
+
+        public void DrawBlockDebugOverlay(Block block, Point drawPos, float layer, CameraConfiguration cameraConfig)
+        {
+            if(block.Active)
+            {
+                drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizeActual);
+
+                var energyPercentage = block.EnergyRemainingPercentage;
+                var barCurrentLength = energyPercentage * cameraConfig.TileSizeActual;
+                _primitivesHelper.DrawRectangle(drawPos.X, drawPos.Y, cameraConfig.TileSizeActual, 8, DrawLayers.BlockInfoLayer_Back, Color.Black, false);
+                _primitivesHelper.DrawRectangle(drawPos.X, drawPos.Y, (int)barCurrentLength, 8,DrawLayers.BlockInfoLayer_Front, Color.Cyan, false);
+            }
+        }
+
+        public void DrawSectorGridOverlay(Point sector,int gridLineThickness,CameraConfiguration _config)
+        {
+            var sectorOrigin = sector * Config.SectorSize * _config.TileSizeActual;
+            var sectorOriginOffset = sectorOrigin - _config.ActualOffset;
+            var sectorSquareSize = _config.TileSizeActual * Config.SectorSize;
+
+            DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y, gridLineThickness, sectorSquareSize, DrawLayers.GameSectorOverlayLayer, Color.Red);
+            DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y, sectorSquareSize, gridLineThickness, DrawLayers.GameSectorOverlayLayer, Color.Red);
+            DrawRectangle(sectorOriginOffset.X + sectorSquareSize, sectorOriginOffset.Y, gridLineThickness, sectorSquareSize, DrawLayers.GameSectorOverlayLayer, Color.Red);
+            DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y + sectorSquareSize, sectorSquareSize, gridLineThickness, DrawLayers.GameSectorOverlayLayer, Color.Red);
+        }
+
+
         public void DrawVoid(Point drawPos, CameraConfiguration cameraConfig)
         {
             _primitivesHelper.DrawSprite("Black", drawPos.X, drawPos.Y, cameraConfig.Scale, DrawLayers.GroundLayer, colorMask: Color.White, false, false, false);

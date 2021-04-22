@@ -49,18 +49,25 @@ namespace IAmACube
             Console.WriteLine("Warning: tried to scan a tile for  an unrecognized block type: " + blockType);
             return false;
         }
-        public void ClearBlock(BlockMode blockType)
+        public void ClearBlock(Block block)
         {
-            switch (blockType)
+            switch (block.BlockType)
             {
                 case BlockMode.Surface:
-                    Surface = null;
+                    if(block == Surface)
+                    {
+                        Console.WriteLine("Warning: deleted a surface block which wasn't in its last stored location. This shoudn't happen.");
+                        Surface = null;
+                    }
                     break;
                 case BlockMode.Ground:
                     Console.WriteLine("Warning: you can't clear the ground!");
                     break;
                 case BlockMode.Ephemeral:
-                    Ephemeral = null;
+                    if (block == Ephemeral)
+                    {
+                        Ephemeral = null;
+                    }
                     break;
             }
         }    

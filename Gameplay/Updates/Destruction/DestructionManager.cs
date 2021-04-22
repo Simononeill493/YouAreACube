@@ -33,12 +33,14 @@ namespace IAmACube
                 {
                     _moveManager.DestroyBlock(block);
                 }
+
+                Console.WriteLine("Block " + block._id + " destroyed.");
             }
         }
 
         private void _clearFromTile(Block block)
         {
-            block.Location.ClearBlock(block.BlockType);
+            block.Location.ClearBlock(block);
             block.Location = null;
         }
     }
