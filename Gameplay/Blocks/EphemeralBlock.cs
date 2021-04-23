@@ -96,7 +96,7 @@ namespace IAmACube
         public override void BeCreatedBy(Block creator)
         {
             base.BeCreatedBy(creator);
-            creator.TakeEnergy(Template.InitialEnergy);
+            creator.TakeEnergy(Template.EnergyCap);
         }
     }
 }

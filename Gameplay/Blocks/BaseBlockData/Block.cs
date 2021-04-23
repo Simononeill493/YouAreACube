@@ -14,17 +14,17 @@ namespace IAmACube
         public Tile Location;
         public BlockMode BlockType;
 
-        public (int,int,int,int) ColorMask = (255,255,255,255);
-
         public int SpeedOffset;
         public Orientation Orientation { get; private set; }
 
         public int Energy { get; private set; }
 
+        public (int, int, int, int) ColorMask = (255, 255, 255, 255);
         public string Sprite => Template.Sprite;
+
         public bool Active => Template.Active;
         public int Speed => Template.Speed;
-        public int EnergyCap => Template.InitialEnergy;
+        public int EnergyCap => Template.EnergyCap;
         public float EnergyRemainingPercentage => ((float)Energy) / EnergyCap;
 
         public int _id;
@@ -36,7 +36,7 @@ namespace IAmACube
             _id = RandomUtils.R.Next(0, 9999);
 
             Orientation = Orientation.Top;
-            Energy = template.InitialEnergy;
+            Energy = template.EnergyCap;
 
             Location = Tile.Dummy;
         }

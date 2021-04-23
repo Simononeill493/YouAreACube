@@ -75,7 +75,7 @@ namespace IAmACube
         }
         private bool _canCreateEphemeral(Block creator, BlockTemplate template, Tile targetPosition)
         {
-            return !targetPosition.HasEphemeral & creator.IsInCentreOfBlock & (creator.Energy>= template.InitialEnergy);
+            return !targetPosition.HasEphemeral & creator.IsInCentreOfBlock & (creator.Energy>= template.EnergyCap);
         }
         private bool _canCreateSurface(Block creator, BlockTemplate template, Tile targetPosition)
         {

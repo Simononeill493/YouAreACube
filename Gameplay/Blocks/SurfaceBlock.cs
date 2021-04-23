@@ -12,8 +12,8 @@ namespace IAmACube
     {
         #region health
         public int Health { get; private set; }
-        public int HealthCap;
-        public float HealthRemainingPercentage => ((float)Health) / HealthCap;
+        public int MaxHealth => Template.MaxHealth;
+        public float HealthRemainingPercentage => ((float)Health) / MaxHealth;
 
         public bool Dead = false;
 
@@ -38,7 +38,7 @@ namespace IAmACube
         public SurfaceBlock(BlockTemplate template): base(template)
         {
             BlockType = BlockMode.Surface;
-            Health = HealthCap = 100;
+            Health = MaxHealth;
         }
 
         public override void EnterLocation(Tile destination)

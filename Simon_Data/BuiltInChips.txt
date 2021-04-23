@@ -22,6 +22,11 @@
 	  "in":["int"],
     },
 	{
+      "name":"ZapSurface",
+	  "type":"Action",
+	  "in":[],
+    },
+	{
       "name":"If",
 	  "type":"Control",
 	  "in":["bool"],

@@ -27,6 +27,7 @@ namespace IAmACube
             var sprite = token["sprite"].ToString();
             var speed = int.Parse(token["speed"].ToString());
             var energyCap = token["energyCap"] == null ? 30 : int.Parse(token["energyCap"].ToString());
+            var maxHealth = token["maxHealth"] == null ? 250 : int.Parse(token["maxHealth"].ToString());
 
             var template = new BlockTemplate(name);
 
@@ -38,7 +39,8 @@ namespace IAmACube
 
             template.Sprite = sprite;
             template.Speed = speed;
-            template.InitialEnergy = energyCap;
+            template.EnergyCap = energyCap;
+            template.MaxHealth = maxHealth;
 
             if (template.Speed != 0)
             {

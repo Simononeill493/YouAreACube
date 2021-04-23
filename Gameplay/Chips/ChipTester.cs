@@ -126,21 +126,25 @@ namespace IAmACube
 
         public static ChipBlock MakeBulletBlock()
         {
+            var zapSurfaceChip = new ZapSurfaceChip() { Name = "ZapSurfaceChip" };
+
             var moveForwardChip = new MoveRelativeChip() { Name = "MoveRelative_1" };
             moveForwardChip.ChipInput1 = RelativeDirection.Forward;
 
-            return new ChipBlock(moveForwardChip) { Name = "_Initial" };
+            return new ChipBlock(zapSurfaceChip,moveForwardChip) { Name = "_Initial" };
         }
 
         public static ChipBlock MakeSpinBulletBlock()
         {
+            var zapSurfaceChip = new ZapSurfaceChip() { Name = "ZapSurfaceChip" };
+
             var moveForwardChip = new MoveRelativeChip() { Name = "MoveRelative_1" };
             moveForwardChip.ChipInput1 = RelativeDirection.Forward;
 
             var rotationChip = new RotationChip() { Name = "Rotate_1" };
             rotationChip.ChipInput1 = 1;
 
-            return new ChipBlock(moveForwardChip, rotationChip) { Name = "_Initial" };
+            return new ChipBlock(zapSurfaceChip, moveForwardChip, rotationChip) { Name = "_Initial" };
         }
 
         public static ChipBlock MakeMouseFollowBlock()

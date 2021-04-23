@@ -5,13 +5,14 @@
       "name":"BasicPlayer",
       "sprite":"BasicPlayer",
 	  "energyCap":10000,
-      "speed":2
+	  "maxHealth":10000,
+      "speed":6
     },
   	{
       "name":"Bullet",
       "sprite":"Bullet",
 	  "energyCap":45,
-      "speed":4
+      "speed":5
     },
     {
       "name":"BasicEnemy",
