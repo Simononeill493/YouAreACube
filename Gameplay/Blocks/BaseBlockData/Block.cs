@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ namespace IAmACube
         public Tile Location;
         public BlockMode BlockType;
 
+        public (int,int,int,int) ColorMask = (255,255,255,255);
+
         public int SpeedOffset;
         public Orientation Orientation { get; private set; }
 
@@ -23,8 +26,6 @@ namespace IAmACube
         public int Speed => Template.Speed;
         public int EnergyCap => Template.InitialEnergy;
         public float EnergyRemainingPercentage => ((float)Energy) / EnergyCap;
-
-        public bool MovingBetweenSectors;
 
         public int _id;
 
@@ -40,29 +41,12 @@ namespace IAmACube
             Location = Tile.Dummy;
         }
 
-        public virtual void Update(UserInput input,ActionsList actions)
-        {
-            Template.Chips.Execute(this, input,actions);
-        }
-        public void Rotate(int rotation)
-        {
-            Orientation = Orientation.Rotate(rotation);
-        }
-        public abstract bool ShouldBeDestroyed();
-        public virtual void BeCreatedBy(Block creator)
-        {
-            this.SpeedOffset = creator.SpeedOffset + 1;
-        }
-        public bool InSector(Sector sector)
-        {
-            return Location.InSector(sector);
-        }
         public void AddEnergy(int amount)
         {
             Energy += amount;
             if (Energy > EnergyCap) { Energy = EnergyCap; }
         }
-        public void TakeEnergy(int amount)
+        public virtual void TakeEnergy(int amount)
         {
             Energy -= amount;
             if (Energy < 0)
@@ -70,8 +54,32 @@ namespace IAmACube
                 throw new Exception("Took more energy from a block than it has - this shouldn't ever be permitted.");
             }
         }
+        public virtual BlockEnergyTransferResult TryTakeEnergyFrom(Block source, int amount)
+        {
+            if (amount > source.Energy)
+            {
+                amount = source.Energy;
+            }
 
-        public void SetTemplateToMain()=> Template = Template.Versions.Main;
-        public void SetTemplateToRuntime()=> Template = Templates.GetRuntimeVersion(Template);       
+            this.AddEnergy(amount);
+            source.TakeEnergy(amount);
+
+            return BlockEnergyTransferResult.Success;
+        }
+
+        public virtual void Update(UserInput input, ActionsList actions) => Template.Chips.Execute(this, input, actions);
+        public void Rotate(int rotation) => Orientation = Orientation.Rotate(rotation);
+        public virtual void BeCreatedBy(Block creator) => this.SpeedOffset = creator.SpeedOffset + 1;
+        public bool InSector(Sector sector) => Location.InSector(sector);
+        public void SetTemplateToMain() => Template = Template.Versions.Main;
+        public void SetTemplateToRuntime() => Template = Templates.GetRuntimeVersion(Template);
+        public virtual bool CanUpdate => true;
+        public abstract bool ShouldBeDestroyed();
+    }
+
+    public enum BlockEnergyTransferResult
+    {
+        Success,
+        Failure_SourceIsDyingEphemeral
     }
 }

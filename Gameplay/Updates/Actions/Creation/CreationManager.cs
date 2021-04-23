@@ -54,7 +54,7 @@ namespace IAmACube
             }
             else
             {
-                newBlock.MovingBetweenSectors = true;
+                newBlock.IsMovingBetweenSectors = true;
                 CreatedOutOfSector.Add((newBlock, targetPosition.SectorID));
             }
         }

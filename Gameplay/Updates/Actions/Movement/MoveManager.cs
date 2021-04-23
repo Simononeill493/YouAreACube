@@ -129,7 +129,7 @@ namespace IAmACube
         {
             if (!block.InSector(_sector))
             {
-                block.MovingBetweenSectors = true;
+                block.IsMovingBetweenSectors = true;
                 _toMoveFromSector.Add((block, block.Location.SectorID));
             }
         }

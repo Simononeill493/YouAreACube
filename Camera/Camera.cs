@@ -13,6 +13,7 @@ namespace IAmACube
         protected CameraConfiguration _config;
         protected DrawingInterface _drawingInterface;
 
+        public bool DebugMode = true;
         public Camera()
         {
             _config = new CameraConfiguration();
@@ -32,7 +33,11 @@ namespace IAmACube
         {
             _drawingInterface = drawingInterface;
             _drawTiles(world);
-            _drawSectorBoundaries(world);
+
+            if (DebugMode) 
+            { 
+                _drawSectorBoundaries(world); 
+            }
         }
 
         protected void _drawTiles(World world)
@@ -67,7 +72,11 @@ namespace IAmACube
             {
                 var outerTile = world.GetTile(tileLocation);
                 _drawingInterface.DrawTile(outerTile, drawPos, _config);
-                _drawingInterface.DrawTileDebugOverlay(outerTile, drawPos, _config);
+
+                if(DebugMode)
+                {
+                    _drawingInterface.DrawTileDebugOverlay(outerTile, drawPos, _config);
+                }
             }
             else
             {
@@ -94,11 +103,15 @@ namespace IAmACube
                 _config.PartialGridOffset.X += 15;
             }
 
-            if (input.IsKeyJustPressed(Keys.P) | input.ScrolledUp)
+            if(input.IsKeyJustPressed(Keys.F3))
+            {
+                DebugMode = !DebugMode;
+            }
+            if (input.ScrolledUp)
             {
                 _config.Scale++;
             }
-            if (input.IsKeyJustPressed(Keys.O) | input.ScrolledDown)
+            if (input.ScrolledDown)
             {
                 if (_config.Scale > 1) { _config.Scale--; }
             }

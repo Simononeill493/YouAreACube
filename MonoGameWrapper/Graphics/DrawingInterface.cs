@@ -39,25 +39,28 @@ namespace IAmACube
         public void DrawBlock(Block block, Point drawPos, float layer, CameraConfiguration cameraConfig)
         {
             drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizeActual);
+            var colorMask = new Color(block.ColorMask.Item1, block.ColorMask.Item2, block.ColorMask.Item3, block.ColorMask.Item4);
 
-            _primitivesHelper.DrawSprite(block.Sprite, drawPos.X, drawPos.Y, cameraConfig.Scale, layer, colorMask: Color.White,false,false,false);
+            _primitivesHelper.DrawSprite(block.Sprite, drawPos.X, drawPos.Y, cameraConfig.Scale, layer, colorMask, false,false,false);
         }
 
 
         public void DrawTileDebugOverlay(Tile tile, Point drawPos, CameraConfiguration cameraConfig)
         {
             _primitivesHelper.DrawText(tile.AbsoluteLocation.ToString(), drawPos.X, drawPos.Y, 2, DrawLayers.GameTileDebugLayer, Color.Black, false);
+            
             if (tile.HasSurface)
             {
-                DrawBlockDebugOverlay(tile.Surface, drawPos, DrawLayers.SurfaceLayer, cameraConfig);
+                DrawBlockEnergyOverlay(tile.Surface, drawPos, cameraConfig);
+                DrawBlockHealthOverlay(tile.Surface, drawPos, cameraConfig);
             }
             if (tile.HasEphemeral)
             {
-                DrawBlockDebugOverlay(tile.Ephemeral, drawPos, DrawLayers.EphemeralLayer, cameraConfig);
+                DrawBlockEnergyOverlay(tile.Ephemeral, drawPos, cameraConfig);
             }
         }
 
-        public void DrawBlockDebugOverlay(Block block, Point drawPos, float layer, CameraConfiguration cameraConfig)
+        public void DrawBlockEnergyOverlay(Block block, Point drawPos, CameraConfiguration cameraConfig)
         {
             if(block.Active)
             {
@@ -69,6 +72,17 @@ namespace IAmACube
                 _primitivesHelper.DrawRectangle(drawPos.X, drawPos.Y, (int)barCurrentLength, 8,DrawLayers.BlockInfoLayer_Front, Color.Cyan, false);
             }
         }
+
+        public void DrawBlockHealthOverlay(SurfaceBlock block, Point drawPos, CameraConfiguration cameraConfig)
+        {
+            drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizeActual);
+
+            var healthPercentage = block.HealthRemainingPercentage;
+            var barCurrentLength = healthPercentage * cameraConfig.TileSizeActual;
+            _primitivesHelper.DrawRectangle(drawPos.X, drawPos.Y+8, cameraConfig.TileSizeActual, 8, DrawLayers.BlockInfoLayer_Back, Color.Black, false);
+            _primitivesHelper.DrawRectangle(drawPos.X, drawPos.Y+8, (int)barCurrentLength, 8, DrawLayers.BlockInfoLayer_Front, Color.Red, false);
+        }
+
 
         public void DrawSectorGridOverlay(Point sector,int gridLineThickness,CameraConfiguration _config)
         {

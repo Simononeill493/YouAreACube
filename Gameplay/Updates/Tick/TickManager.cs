@@ -38,7 +38,7 @@ namespace IAmACube
 
         public IEnumerable<Block> GetUpdatingBlocks(Sector sector,List<Block> blocks)
         {
-            return blocks.Where(b => (SectorTicks[sector.AbsoluteLocation] + b.SpeedOffset) % b.Speed == 0);
+            return blocks.Where(b => ((SectorTicks[sector.AbsoluteLocation] + b.SpeedOffset) % b.Speed == 0) & b.CanUpdate);
         }
     }
 }

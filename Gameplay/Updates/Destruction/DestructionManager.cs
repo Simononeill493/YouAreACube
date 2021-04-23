@@ -21,7 +21,7 @@ namespace IAmACube
         {
             foreach(var block in _sector.DoomedBlocks.ToList())
             {
-                if(block.MovingBetweenSectors)
+                if(block.IsMovingBetweenSectors)
                 {
                     continue;
                 }

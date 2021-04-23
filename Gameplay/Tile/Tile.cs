@@ -66,7 +66,7 @@ namespace IAmACube
                 case BlockMode.Ephemeral:
                     if (block == Ephemeral)
                     {
-                        Ephemeral = null;
+                        throw new Exception("Destroyed an ephemeral that wasn't removed from its location properly.");
                     }
                     break;
             }

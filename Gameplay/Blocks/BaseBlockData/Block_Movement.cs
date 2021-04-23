@@ -10,6 +10,7 @@ namespace IAmACube
     {
         public bool IsMoving;
         public bool IsMovingThroughCentre;
+        public bool IsMovingBetweenSectors;
 
         public bool IsInCentreOfBlock => (!IsMoving) | (IsMovingThroughCentre);
 
@@ -35,14 +36,12 @@ namespace IAmACube
         }
 
         public bool TryGetAdjacent(CardinalDirection cardinalDirection, out Tile destination) => Location.Adjacent.TryGetValue(cardinalDirection, out destination);
-
         public bool ShouldAbortMovement() => (!MovementData.Moved & (!CanOccupyDestination(MovementData.Destination) | MovementData.Cancelled));
-
         public bool CanMoveTo(Tile destination) => CanStartMoving() & CanOccupyDestination(destination);
         public bool CanStartMoving() => (!IsMoving) & Energy > 0;
         public virtual bool CanOccupyDestination(Tile destination) => true;
+        public void MoveToCurrentDestination() => EnterLocation(MovementData.Destination);
         public abstract void EnterLocation(Tile destination);
 
-        public void MoveToCurrentDestination() => EnterLocation(MovementData.Destination);
     }
 }

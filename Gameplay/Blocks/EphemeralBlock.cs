@@ -9,6 +9,8 @@ namespace IAmACube
     [Serializable()]
     public class EphemeralBlock : Block
     {
+        private bool _ephemeralFaded;
+
         public EphemeralBlock(BlockTemplate template) : base(template)
         {
             BlockType = BlockMode.Ephemeral;
@@ -24,6 +26,26 @@ namespace IAmACube
             }
         }
 
+        public override void TakeEnergy(int amount)
+        {
+            base.TakeEnergy(amount);
+
+            if(Energy==0)
+            {
+                FadeAway();
+            }
+        }
+
+        public void FadeAway()
+        {
+            if(!Location.HasThisEphemeral(this))
+            {
+                throw new Exception("Ephemeral faded away but it's not in the right location");
+            }
+
+            Location.Ephemeral = null;
+            _ephemeralFaded = true;
+        }
 
         public override void EnterLocation(Tile destination)
         {
@@ -34,18 +56,12 @@ namespace IAmACube
 
             if (destination.HasEphemeral)
             {
-                if(!destination.Ephemeral.ShouldBeDestroyed())
+                var absorbResult = TryAbsorbInto(destination.Ephemeral);
+                if(absorbResult == BlockEnergyTransferResult.Success)
                 {
-                    var target = destination.Ephemeral;
-                    Console.WriteLine("Ephemeral " + _id + " at " + Location.AbsoluteLocation + " absorbed into Ephemeral " + target._id + " at " + target.Location.AbsoluteLocation);
-                    AbsorbInto(destination.Ephemeral);
+                    //Console.WriteLine("Ephemeral " + _id + " at " + Location.AbsoluteLocation + " absorbed into Ephemeral " + destination.Ephemeral._id + " at " + destination.Ephemeral.Location.AbsoluteLocation);
                     return;
                 }
-            }
-
-            if (!Location.HasThisEphemeral(this))
-            {
-                throw new Exception("Block trying to exit a location despite not existing in that location");
             }
 
             Location.Ephemeral = null;
@@ -54,21 +70,28 @@ namespace IAmACube
         }
 
 
-        private void AbsorbInto(EphemeralBlock destination)
+        private BlockEnergyTransferResult TryAbsorbInto(EphemeralBlock destination) => destination.TryTakeEnergyFrom(this,Energy);
+
+        public override BlockEnergyTransferResult TryTakeEnergyFrom(Block source, int amount)
         {
-            destination.AddEnergy(this.Energy);
-            this.TakeEnergy(this.Energy);
+            if(source.BlockType == BlockMode.Ephemeral)
+            {
+                if(source.ShouldBeDestroyed())
+                {
+                    return BlockEnergyTransferResult.Failure_SourceIsDyingEphemeral;
+                }
+            }
+
+            return base.TryTakeEnergyFrom(source, amount);
         }
+
 
         public override bool CanOccupyDestination(Tile destination)
         {
             return true;
         }
 
-        public override bool ShouldBeDestroyed()
-        {
-            return (Energy < 1);
-        }
+        public override bool ShouldBeDestroyed() => _ephemeralFaded;
 
         public override void BeCreatedBy(Block creator)
         {
