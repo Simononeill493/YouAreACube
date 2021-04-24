@@ -18,6 +18,8 @@ namespace IAmACube
 
         public Point VisibleGrid = Point.Zero;
 
+        public Point MouseHoverPosition = Point.Zero;
+
         public void UpdateScaling()
         {
             if (Scale < 1) {Console.WriteLine("Warning: Camera scale is set to less than 1 (" + Scale + ")."); }

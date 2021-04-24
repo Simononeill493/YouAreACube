@@ -33,11 +33,18 @@ namespace IAmACube
         {
             _drawingInterface = drawingInterface;
             _drawTiles(world);
+            _drawMouseHoverPos();
 
             if (DebugMode) 
             { 
                 _drawSectorBoundaries(world); 
             }
+        }
+
+        private void _drawMouseHoverPos()
+        {
+            var pos = (_config.MouseHoverPosition * _config.TileSizeActual) - _config.ActualOffset;
+            _drawingInterface.DrawRectangle(pos.X, pos.Y, _config.TileSizeActual, _config.TileSizeActual, DrawLayers.MouseTileHoverLayer, new Color(128,128,128,128));
         }
 
         protected void _drawTiles(World world)
@@ -119,13 +126,24 @@ namespace IAmACube
 
         public void SetMouseHover(UserInput input,World world)
         {
-            var mouseGridPos = input.MousePos / _config.TileSizeActual;
-            var mouseOffset = _config.GridPosition + mouseGridPos;
+            var mouseGridPosX = (input.MousePos.X + _config.ActualOffset.X);
+            var mouseGridPosY = (input.MousePos.Y + _config.ActualOffset.Y);
 
-            if(world.HasTile(mouseOffset))
+            var mouseDividedX = Math.Round((float)mouseGridPosX / _config.TileSizeActual);
+            var mouseDividedY = Math.Round((float)mouseGridPosY / _config.TileSizeActual);
+
+            var mouseOffset = new Point((int)mouseDividedX, (int)mouseDividedY);
+            if (mouseOffset.X < 0) { mouseOffset.X--; }
+            if (mouseOffset.Y < 0) { mouseOffset.Y--; }
+
+            //mouseOffset.X += 1;
+
+            if (world.HasTile(mouseOffset))
             {
                 input.MouseHoverTile = world.GetTile(mouseOffset);
             }
+
+            _config.MouseHoverPosition = input.MouseHoverTile.AbsoluteLocation;
         }
     }
 }
