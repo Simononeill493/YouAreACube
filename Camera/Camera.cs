@@ -126,17 +126,11 @@ namespace IAmACube
 
         public void SetMouseHover(UserInput input,World world)
         {
-            var mouseGridPosX = (input.MousePos.X + _config.ActualOffset.X);
-            var mouseGridPosY = (input.MousePos.Y + _config.ActualOffset.Y);
-
-            var mouseDividedX = Math.Round((float)mouseGridPosX / _config.TileSizeActual);
-            var mouseDividedY = Math.Round((float)mouseGridPosY / _config.TileSizeActual);
+            var mouseGridPos = input.MousePos + _config.ActualOffset;
+            var mouseDividedX = Math.Floor((float)mouseGridPos.X / _config.TileSizeActual);
+            var mouseDividedY = Math.Floor((float)mouseGridPos.Y / _config.TileSizeActual);
 
             var mouseOffset = new Point((int)mouseDividedX, (int)mouseDividedY);
-            if (mouseOffset.X < 0) { mouseOffset.X--; }
-            if (mouseOffset.Y < 0) { mouseOffset.Y--; }
-
-            //mouseOffset.X += 1;
 
             if (world.HasTile(mouseOffset))
             {
