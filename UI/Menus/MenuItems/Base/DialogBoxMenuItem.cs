@@ -47,11 +47,7 @@ namespace IAmACube
 
         public void Close()
         {
-            foreach (var item in _pausedItems)
-            {
-                item.Enabled = true;
-            }
-
+            _pausedItems.ForEach(item => item.Enabled = true);
             _container.RemoveChildAfterUpdate(this);
             OnClosed?.Invoke();
         }

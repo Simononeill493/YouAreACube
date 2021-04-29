@@ -28,6 +28,6 @@ namespace IAmACube
             drawingInterface.DrawSprite(_currentSprite, ActualLocation.X, ActualLocation.Y, Scale, DrawLayer, ColorMask, flipHorizontal: FlipHorizontal);
         }
 
-        public override Point GetBaseSize() => SpriteManager.GetSpriteSize(SpriteName);
+        public override IntPoint GetBaseSize() => SpriteManager.GetSpriteSize(SpriteName);
     }
 }

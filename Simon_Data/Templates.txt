@@ -6,7 +6,7 @@
       "sprite":"BasicPlayer",
 	  "energyCap":10000,
 	  "maxHealth":10000,
-      "speed":6
+      "speed":5
     },
   	{
       "name":"Bullet",

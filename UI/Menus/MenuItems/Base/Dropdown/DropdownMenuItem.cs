@@ -45,11 +45,7 @@ namespace IAmACube
             this.OnMouseReleased += (i) => { Dropped = !Dropped; };
         }
 
-        public void ManuallySetItem(T item)
-        {
-            SelectedItem = item;
-        }
-
+        public void ManuallySetItem(T item) => SelectedItem = item;
         public void SetItems(List<T> items) => _list.SetItems(items);
         public void AddItems(List<T> toAdd) =>_list.AddItems(toAdd);
 

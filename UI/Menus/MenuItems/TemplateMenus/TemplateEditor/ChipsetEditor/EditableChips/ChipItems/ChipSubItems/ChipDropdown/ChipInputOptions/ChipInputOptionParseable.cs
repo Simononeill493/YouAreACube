@@ -17,10 +17,6 @@ namespace IAmACube
             BaseType = baseType;
         }
 
-        public override string ToString()
-        {
-            return StringRepresentation;
-        }
-
+        public override string ToString() => StringRepresentation;
     }
 }

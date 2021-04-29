@@ -26,10 +26,12 @@ namespace IAmACube
         [JsonIgnore]
         public TemplateAllVersions Versions;
 
-        public BlockTemplate(string name)
-        {
-            Name = name;
-        }
+        public BlockTemplate(string name) => Name = name;
+
+        public SurfaceBlock GenerateSurface() => new SurfaceBlock(this);
+        public GroundBlock GenerateGround() => new GroundBlock(this);
+        public EphemeralBlock GenerateEphemeral() => new EphemeralBlock(this);
+
 
         public Block Generate(BlockMode blockType)
         {
@@ -46,30 +48,6 @@ namespace IAmACube
             }
 
         }
-        public SurfaceBlock GenerateSurface()
-        {
-            var block = new SurfaceBlock(this);
-            //todo set any dynamic data here
-            return block;
-        }
-        public GroundBlock GenerateGround()
-        {
-            var block = new GroundBlock(this);
-            //todo set any dynamic data here
-            return block;
-        }
-        public EphemeralBlock GenerateEphemeral()
-        {
-            var block = new EphemeralBlock(this);
-            //todo set any dynamic data here
-            return block;
-        }
-
-
-        public override string ToString()
-        {
-            return Version + ": " + Name;
-        }
 
         public BlockTemplate Clone()
         {
@@ -83,5 +61,6 @@ namespace IAmACube
             return clone;
         }
 
+        public override string ToString() => Version + ": " + Name;
     }
 }

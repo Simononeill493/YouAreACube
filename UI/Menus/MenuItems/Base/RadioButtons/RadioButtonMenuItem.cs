@@ -11,7 +11,7 @@ namespace IAmACube
         public T Option;
         public int ButtonIndex;
 
-        private Point _baseSize;
+        private IntPoint _baseSize;
 
         private SpriteMenuItem _buttonSprite;
 
@@ -31,16 +31,8 @@ namespace IAmACube
             _baseSize.X += textItem.GetBaseSize().X;
         }
 
-        public void SetButton()
-        {
-            _buttonSprite.SpriteName = "RadioButtonChecked";
-        }
-
-        public void ClearButton()
-        {
-            _buttonSprite.SpriteName = "RadioButtonUnchecked";
-        }
-
-        public override Point GetBaseSize() => _baseSize;
+        public void SetButton() => _buttonSprite.SpriteName = "RadioButtonChecked";
+        public void ClearButton() => _buttonSprite.SpriteName = "RadioButtonUnchecked";
+        public override IntPoint GetBaseSize() => _baseSize;
     }
 }

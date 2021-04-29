@@ -26,14 +26,11 @@ namespace IAmACube
             Right = (MonoGameWindow.CurrentSize.X - BoundarySize);
         }
 
-        public bool WithinBoundary(Point curPos)
-        {
-            return curPos.InBoundsInclusive(Left, Top, Right, Bottom);
-        }
+        public bool WithinBoundary(IntPoint curPos) => curPos.InBoundsInclusive(Left, Top, Right, Bottom);
 
-        public Point GetBoundaryPushBack(Point curPos)
+        public IntPoint GetBoundaryPushBack(IntPoint curPos)
         {
-            var clampChange = Point.Zero;
+            var clampChange = IntPoint.Zero;
 
             if (curPos.X <= Left)
             {

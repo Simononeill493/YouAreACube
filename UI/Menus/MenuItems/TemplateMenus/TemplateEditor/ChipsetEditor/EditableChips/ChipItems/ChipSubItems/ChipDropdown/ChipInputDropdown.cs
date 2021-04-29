@@ -25,11 +25,7 @@ namespace IAmACube
             }
         }
 
-        private void TextChanged(string newText)
-        {
-            var newValue = new ChipInputOptionParseable(newText,_inputType);
-            ManuallySetItem(newValue);
-        }
+        private void TextChanged(string newText) => ManuallySetItem(new ChipInputOptionParseable(newText, _inputType));
     }
 }
 

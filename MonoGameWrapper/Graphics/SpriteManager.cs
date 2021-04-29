@@ -39,26 +39,26 @@ namespace IAmACube
             }
         }
 
-        public static Point GetSpriteSize(string spriteName)
+        public static IntPoint GetSpriteSize(string spriteName)
         {
             if(!IsInitialized)
             {
-                return Point.Zero;
+                return IntPoint.Zero;
             }
 
             var sprite = GetSprite(spriteName);
-            return new Point(sprite.Width, sprite.Height);
+            return new IntPoint(sprite.Width, sprite.Height);
         }
 
-        public static Point GetTextSize(string text)
+        public static IntPoint GetTextSize(string text)
         {
             if (text == null | !IsInitialized)
             {
-                return Point.Zero;
+                return IntPoint.Zero;
             }
 
             var dims = _gameFont.MeasureString(text);
-            return new Point((int)dims.X, (int)dims.Y);
+            return new IntPoint((int)dims.X, (int)dims.Y);
         }
 
     }

@@ -12,7 +12,7 @@ namespace IAmACube
         public static World GenerateEmptyWorld(int seed)
         {
             var world = new World(seed);
-            var centre = GetTestSector(new Point(0, 0));
+            var centre = GetTestSector(new IntPoint(0, 0));
             world.AddSector(centre);
 
             AttachmentUtils.AddOuterSectors(world);
@@ -37,7 +37,7 @@ namespace IAmACube
 
 
 
-        public static Sector GetTestSector(Point coords)
+        public static Sector GetTestSector(IntPoint coords)
         {
             var sector = _getInitializedSector(coords);
             _setBasicGround(sector);
@@ -56,16 +56,17 @@ namespace IAmACube
 
         public static void AddPlayer(World world,SurfaceBlock player)
         {
-            var centre = world.GetSector(new Point(0,0));
+            var centre = world.GetSector(new IntPoint(0,0));
             var tile = centre.TileGrid[0, 0];
 
             player.EnterLocation(tile);
+            world.FocusOn(player);
             //tile.AddSurface(player);
             centre.AddNonMovingBlockToSector(player);
         }
         public static void AddEntities(World world)
         {
-            var centre = world.GetSector(new Point(0, 0));
+            var centre = world.GetSector(new IntPoint(0, 0));
 
             //_addRandom(world.Random, centre, BlockMode.Surface, "MouseFollower", 0, 32);
             //_addRandom(world.Random, centre, BlockMode.Surface, "ScaredEnemy",0, 16);
@@ -98,7 +99,7 @@ namespace IAmACube
                 emptySize--;
             }
         }
-        private static Sector _getInitializedSector(Point sectorOrigin)
+        private static Sector _getInitializedSector(IntPoint sectorOrigin)
         {
             var (tiles,tilesFlattened) = _getInitializedGrid(sectorOrigin, Config.SectorSize);
             AttachmentUtils.AttachTileGridToSelf(tiles,Config.SectorSize);
@@ -106,7 +107,7 @@ namespace IAmACube
             var sector = new Sector(sectorOrigin, tiles, tilesFlattened);
             return sector;
         }
-        private static (Tile[,] tiles, List<Tile> tilesFlattened) _getInitializedGrid(Point sectorOrigin,int size)
+        private static (Tile[,] tiles, List<Tile> tilesFlattened) _getInitializedGrid(IntPoint sectorOrigin,int size)
         {
             int xOrigin = size * sectorOrigin.X;
             int yOrigin = size * sectorOrigin.Y;
@@ -121,7 +122,7 @@ namespace IAmACube
                     var xOffs = i + xOrigin;
                     var yOffs = j + yOrigin;
 
-                    var tile = new Tile(new Point(i,j),new Point(xOffs, yOffs), sectorOrigin);
+                    var tile = new Tile(new IntPoint(i,j),new IntPoint(xOffs, yOffs), sectorOrigin);
                     tiles[i, j] = tile;
 
                     tilesFlattened.Add(tile);

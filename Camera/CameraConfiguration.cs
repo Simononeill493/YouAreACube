@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,71 +10,99 @@ namespace IAmACube
     public class CameraConfiguration
     {
         public int Scale = 1;
+        public bool DebugMode = false;
 
-        public Point GridPosition;
-        public Point PartialGridOffset;
-        public Point ActualOffset;
+        public IntPoint GridPosition;
+        public IntPoint PartialGridOffset;
+        public IntPoint PixelOffset;
 
-        public int TileSizeActual;
+        public int TileSizePixels;
 
-        public Point VisibleGrid = Point.Zero;
-
-        public Point MouseHoverPosition = Point.Zero;
+        public IntPoint VisibleGrid = IntPoint.Zero;
+        public IntPoint MouseHoverPosition = IntPoint.Zero;
 
         public void UpdateScaling()
         {
-            if (Scale < 1) {Console.WriteLine("Warning: Camera scale is set to less than 1 (" + Scale + ")."); }
+            if (Scale < 1) { Console.WriteLine("Warning: Camera scale is set to less than 1 (" + Scale + ")."); }
 
-            TileSizeActual = Config.TileSizePixels * Scale;
-            VisibleGrid = MonoGameWindow.CurrentSize / TileSizeActual;
+            TileSizePixels = Config.TileSizePixels * Scale;
+            VisibleGrid = MonoGameWindow.CurrentSize / TileSizePixels;
 
-            ActualOffset = (GridPosition * TileSizeActual) + PartialGridOffset;
+            PixelOffset = (GridPosition * TileSizePixels) + PartialGridOffset;
         }
+
         public void UpdateGridOffsets()
         {
-            if (PartialGridOffset.X > TileSizeActual)
+            if (PartialGridOffset.X > TileSizePixels)
             {
-                GridPosition.X += (PartialGridOffset.X / TileSizeActual);
-                PartialGridOffset.X = PartialGridOffset.X % TileSizeActual;
+                GridPosition.X += (PartialGridOffset.X / TileSizePixels);
+                PartialGridOffset.X %= TileSizePixels;
             }
-            if (PartialGridOffset.Y > TileSizeActual)
+            if (PartialGridOffset.Y > TileSizePixels)
             {
-                GridPosition.Y += (PartialGridOffset.Y / TileSizeActual);
-                PartialGridOffset.Y = PartialGridOffset.Y % TileSizeActual;
+                GridPosition.Y += (PartialGridOffset.Y / TileSizePixels);
+                PartialGridOffset.Y %= TileSizePixels;
             }
             if (PartialGridOffset.X < 0)
             {
-                GridPosition.X -= ((-PartialGridOffset.X / TileSizeActual) + 1);
-                PartialGridOffset.X = TileSizeActual - ((-PartialGridOffset.X % TileSizeActual));
+                GridPosition.X -= ((-PartialGridOffset.X / TileSizePixels) + 1);
+                PartialGridOffset.X = TileSizePixels - ((-PartialGridOffset.X % TileSizePixels));
             }
             if (PartialGridOffset.Y < 0)
             {
-                GridPosition.Y -= ((-PartialGridOffset.Y / TileSizeActual) + 1);
-                PartialGridOffset.Y = TileSizeActual - ((-PartialGridOffset.Y % TileSizeActual));
+                GridPosition.Y -= ((-PartialGridOffset.Y / TileSizePixels) + 1);
+                PartialGridOffset.Y = TileSizePixels - ((-PartialGridOffset.Y % TileSizePixels));
             }
         }
 
-        public Point GetPosOnScreen(Block block)
+        public IntPoint GetPosOnScreen(Block block) => CameraUtils.GetBlockOffsetFromOrigin(block, TileSizePixels) - PixelOffset;
+
+
+        public void ChangeScale(int offset)
         {
-            return CameraUtils.GetBlockOffsetFromOrigin(block, TileSizeActual) - ActualOffset;
+            var newScale = offset + Scale;
+            if (newScale < 1)
+            {
+                return;
+            }
+
+            Scale = newScale;
         }
 
-        public (int x,int y) GetCameraCentre()
-        {
-            var xMidPoint = ((VisibleGrid.X / 2 * TileSizeActual));
-            var yMidPoint = ((VisibleGrid.Y / 2 * TileSizeActual));
+        public IntPoint GetCameraCentre() => (VisibleGrid / 2 * TileSizePixels);
 
-            return (xMidPoint, yMidPoint);
+
+        public void SnapToBlock(Block block, IntPoint offset)
+        {
+            GridPosition = (block.Location.AbsoluteLocation - (VisibleGrid / 2));
+            PartialGridOffset = offset + CameraUtils.GetMovementOffsets(block, TileSizePixels);
+
+            UpdateScaling();
         }
 
-        public void SnapToBlock(Block block,Point offset)
+        public void HandleUserInput(UserInput input)
         {
-            GridPosition.X = block.Location.AbsoluteLocation.X - (VisibleGrid.X / 2);
-            GridPosition.Y = block.Location.AbsoluteLocation.Y - (VisibleGrid.Y/ 2);
+            PartialGridOffset += KeyUtils.GetRightKeypadDirection(input) * 15;
+            ChangeScale(input.ScrollDirection);
 
-            (PartialGridOffset) = CameraUtils.GetMovementOffsets(block,TileSizeActual);
+            if (input.IsKeyJustPressed(Keys.F3))
+            {
+                DebugMode = !DebugMode;
+            }
+        }
 
-            PartialGridOffset += offset;
+        public void SetMouseHover(UserInput input, World world)
+        {
+            var mouseDivided = (input.MousePos + PixelOffset) / (float)TileSizePixels;
+            var mousePos = mouseDivided.Floor;
+
+            if (world.HasTile(mousePos))
+            {
+                input.MouseHoverTile = world.GetTile(mousePos);
+            }
+
+            MouseHoverPosition = input.MouseHoverTile.AbsoluteLocation;
+            Console.WriteLine(MouseHoverPosition);
         }
     }
 }

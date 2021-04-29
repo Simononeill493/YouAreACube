@@ -65,12 +65,7 @@ namespace IAmACube
             }
         }
 
-        public static BlockTemplate GetRuntimeVersion(BlockTemplate savedVersion)
-        {
-            var runtimeVersion = BlockTemplates[savedVersion.Versions.Name][savedVersion.Version];
-            return runtimeVersion;
-        }
-
+        public static BlockTemplate GetRuntimeVersion(BlockTemplate savedVersion) => BlockTemplates[savedVersion.Versions.Name][savedVersion.Version];
         public static Block Generate(string name,int version,BlockMode blockType ) => BlockTemplates[name][version].Generate(blockType);
         public static SurfaceBlock GenerateSurface(string name, int version) => BlockTemplates[name][version].GenerateSurface();
         public static GroundBlock GenerateGround(string name, int version) => BlockTemplates[name][version].GenerateGround();

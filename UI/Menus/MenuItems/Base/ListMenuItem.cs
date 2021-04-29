@@ -33,9 +33,9 @@ namespace IAmACube
         public event Action<T> OnItemSelected;
 
         public List<ListItemMenuItem<T>> Items;
-        private Point _listItemSize;
+        private IntPoint _listItemSize;
 
-        public ListMenuItem(IHasDrawLayer parentDrawLayer,Point listItemSize) : base(parentDrawLayer)
+        public ListMenuItem(IHasDrawLayer parentDrawLayer,IntPoint listItemSize) : base(parentDrawLayer)
         {
             Items = new List<ListItemMenuItem<T>>();
             _listItemSize = listItemSize;
@@ -80,7 +80,7 @@ namespace IAmACube
 
         public void RefreshText() => Items.ForEach(item => item.RefreshText());
 
-        public override Point GetBaseSize()
+        public override IntPoint GetBaseSize()
         {
             var size = _listItemSize;
             size.Y *= Items.Count;

@@ -25,11 +25,7 @@ namespace IAmACube
         }
 
 
-        public override string ToString()
-        {
-            return Name;
-        }
-
+        public override string ToString() => Name;
         public int GetNewVersionNumber() => _dict.Keys.Max() + 1;
         public Dictionary<int, BlockTemplate>.ValueCollection Values => _dict.Values;
         public BlockTemplate this[int index]
@@ -48,7 +44,5 @@ namespace IAmACube
             }
         }
         private Dictionary<int, BlockTemplate> _dict;
-
-
     }
 }

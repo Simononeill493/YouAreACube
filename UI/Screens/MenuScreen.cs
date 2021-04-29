@@ -19,7 +19,7 @@ namespace IAmACube
         public string Background;
 
         private List<MenuItem> _menuItems = new List<MenuItem>();
-        private Point _currentScreenDimensions;
+        private IntPoint _currentScreenDimensions;
 
         public MenuScreen(ScreenType screenType,Action<ScreenType> switchScreen) : base(screenType,switchScreen) 
         {
@@ -43,16 +43,16 @@ namespace IAmACube
             foreach (var item in _menuItems)
             {
                 item.Update(input);
-                item.UpdateDimensionsCascade(Point.Zero, _currentScreenDimensions);
+                item.UpdateDimensionsCascade(IntPoint.Zero, _currentScreenDimensions);
 
             }
 
-            if (input.ScrolledUp)
+            if (input.ScrollDirection == 1)
             {
                 Scale+=2;
                 _updateAllItemPositions();
             }
-            if (input.ScrolledDown)
+            if (input.ScrollDirection == -1)
             {
                 if (Scale > 2)
                 {
@@ -67,16 +67,10 @@ namespace IAmACube
         protected void _addMenuItem(MenuItem item)
         {
             _menuItems.Add(item);
-            item.UpdateDimensionsCascade(Point.Zero, _currentScreenDimensions);
+            item.UpdateDimensionsCascade(IntPoint.Zero, _currentScreenDimensions);
         }
 
-        protected void _updateAllItemPositions()
-        {
-            foreach (var item in _menuItems)
-            {
-                item.UpdateDimensionsCascade(Point.Zero, _currentScreenDimensions);
-            }
-        }
+        protected void _updateAllItemPositions() => _menuItems.ForEach(item => item.UpdateDimensionsCascade(IntPoint.Zero, _currentScreenDimensions));
 
         private void _refreshIfScreenSizeChanged()
         {

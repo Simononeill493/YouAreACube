@@ -13,9 +13,6 @@ namespace IAmACube
             ChipReference = chipReference;
         }
 
-        public override string ToString()
-        {
-            return ChipReference.OutputName;
-        }
+        public override string ToString() => ChipReference.OutputName;
     }
 }

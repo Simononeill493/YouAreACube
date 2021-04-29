@@ -38,19 +38,9 @@ namespace IAmACube
             _graphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp);
         }
-        public void EndDrawFrame()
-        {
-            _spriteBatch.End();
-        }
+        public void EndDrawFrame() => _spriteBatch.End();
 
-        public void DrawHorizontalLine(int x1, int y1, int length,float layer,Color color)
-        {
-            //_spriteBatch.Draw(_standardTexture,destinationRectangle: new Rectangle(x1, y1, length, 1), color: color, layerDepth: layer);
-        }
-        public void DrawVericalLine(int x1, int y1, int length,float layer,Color color)
-        {
-            //_spriteBatch.Draw(_standardTexture, destinationRectangle: new Rectangle(x1, y1, 1, length), color: color, layerDepth: layer);
-        }
+
         public void DrawRectangle(int x, int y, int width, int height, float layer, Color color,bool centered)
         {
             if(centered)
@@ -59,18 +49,6 @@ namespace IAmACube
             }
 
             _spriteBatch.Draw(_standardTexture, new Rectangle(x, y, width, height), null, color, 0, Vector2.Zero, SpriteEffects.None, layer);
-        }
-        public void DrawGrid(int width, int height, int squareSize,float layer,Color color)
-        {
-            for(int i=0;i<width+1;i++)
-            {
-                DrawVericalLine(i * squareSize, 0, height * squareSize,layer,color);
-            }
-
-            for (int i = 0; i < height+1; i++)
-            {
-                DrawHorizontalLine(0, i * squareSize,width*squareSize, layer, color);
-            }
         }
        
         public void DrawSprite(string spriteName, int x, int y, int scale, float layer,Color colorMask,bool centered,bool flipHorizontal,bool flipVertical)

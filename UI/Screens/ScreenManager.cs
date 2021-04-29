@@ -52,15 +52,9 @@ namespace IAmACube
             }
         }
 
-        public void LoadSaveToScreen(Save save)
-        {
-            CurrentGame = new GameScreen(SwitchScreen, save);
-        }
+        public void LoadSaveToScreen(Save save) => CurrentGame = new GameScreen(SwitchScreen, save);
+        public void OpenTemplateForEditing(BlockTemplate template) => CurrentScreen = new TemplateEditScreen(SwitchScreen, CurrentGame, template);
 
-        public void OpenTemplateForEditing(BlockTemplate template)
-        {
-            CurrentScreen = new TemplateEditScreen(SwitchScreen, CurrentGame, template);
-        }
 
         public void Update(UserInput input)
         {

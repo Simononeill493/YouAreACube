@@ -12,10 +12,9 @@ namespace IAmACube
     {
         public bool Visible = true;
         public bool Enabled = true;
+        public bool Disposed { get; private set; } = false;
 
         public float DrawLayer { get; set; }
-
-        public bool Disposed { get; private set; } = false;
 
         public event Action<UserInput> OnMouseReleased;
         public event Action<UserInput> OnMousePressed;
@@ -25,11 +24,9 @@ namespace IAmACube
 
         public bool MouseHovering { get; private set; } = false;
         protected bool _mousePressedOn = false;
-        protected Point _lastMousePressedLocation = Point.Zero;
+        protected IntPoint _lastMousePressedLocation = IntPoint.Zero;
 
         protected bool _mousePressedForClick;
-
-        //public bool ManualUpdateDimensionsFlag;
 
         public MenuItem(IHasDrawLayer parentDrawLayer)
         {
@@ -99,18 +96,12 @@ namespace IAmACube
         public void OffsetDrawLayerCascade(float offset)
         {
             DrawLayer += offset;
-            foreach (var child in _children)
-            {
-                child.OffsetDrawLayerCascade(offset);
-            }
+            _children.ForEach(child => child.OffsetDrawLayerCascade(offset));
         }
         public void UpdateDrawLayerCascade(float newLayer)
         {
             DrawLayer = newLayer;
-            foreach (var child in _children)
-            {
-                child.UpdateDrawLayerCascade(newLayer - DrawLayers.MinLayerDistance);
-            }
+            _children.ForEach(child => child.UpdateDrawLayerCascade(newLayer - DrawLayers.MinLayerDistance));
         }
         
         public virtual bool IsMouseOver(UserInput input) 
@@ -139,17 +130,17 @@ namespace IAmACube
 
             var size = GetCurrentSize();
 
-            var topOrigin = Point.Zero;
-            var topSize = new Point(MonoGameWindow.CurrentSize.X, ActualLocation.Y + pixelPadding);
+            var topOrigin = IntPoint.Zero;
+            var topSize = new IntPoint(MonoGameWindow.CurrentSize.X, ActualLocation.Y + pixelPadding);
 
-            var bottomOrigin = new Point(0, ActualLocation.Y + size.Y - pixelPadding);
-            var bottomSize = new Point(MonoGameWindow.CurrentSize.X, MonoGameWindow.CurrentSize.Y - (ActualLocation.Y + size.Y) + pixelPadding);
+            var bottomOrigin = new IntPoint(0, ActualLocation.Y + size.Y - pixelPadding);
+            var bottomSize = new IntPoint(MonoGameWindow.CurrentSize.X, MonoGameWindow.CurrentSize.Y - (ActualLocation.Y + size.Y) + pixelPadding);
 
-            var leftOrigin  = new Point(0,ActualLocation.Y);
-            var leftSize = new Point(ActualLocation.X + pixelPadding, size.Y);
+            var leftOrigin  = new IntPoint(0,ActualLocation.Y);
+            var leftSize = new IntPoint(ActualLocation.X + pixelPadding, size.Y);
 
-            var rightOrigin = new Point(ActualLocation.X+size.X - pixelPadding, ActualLocation.Y);
-            var rightSize = new Point(MonoGameWindow.CurrentSize.X - (ActualLocation.X + size.X) + pixelPadding, size.Y);
+            var rightOrigin = new IntPoint(ActualLocation.X+size.X - pixelPadding, ActualLocation.Y);
+            var rightSize = new IntPoint(MonoGameWindow.CurrentSize.X - (ActualLocation.X + size.X) + pixelPadding, size.Y);
 
             if (topSize.Y <= 0) { topSize.Y = -1; }
             if (bottomSize.Y <= 0) { bottomSize.Y = -1; }

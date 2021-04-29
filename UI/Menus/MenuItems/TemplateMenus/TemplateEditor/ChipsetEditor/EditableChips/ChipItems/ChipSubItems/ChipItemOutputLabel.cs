@@ -38,16 +38,6 @@ namespace IAmACube
             _retract();
         }
 
-        public void OutputLabelTextTyped(string newText)
-        {
-            RefreshTextCallback(newText);
-        }
-
-        public void SetOutputDataTypeLabel(string labeltext)
-        {
-            _outputDataTypeLabel.Text = labeltext;
-        }
-
         public void PopInOrOut()
         {
             if(Extended)
@@ -81,9 +71,8 @@ namespace IAmACube
             Extended = false;
         }
 
-        public override Point GetBaseSize()
-        {
-            return Extended ? _textBox.GetBaseSize() : _popButton.GetBaseSize();
-        }
+        public void OutputLabelTextTyped(string newText) => RefreshTextCallback(newText);
+        public void SetOutputDataTypeLabel(string labeltext) => _outputDataTypeLabel.Text = labeltext;
+        public override IntPoint GetBaseSize() => Extended ? _textBox.GetBaseSize() : _popButton.GetBaseSize();
     }
 }

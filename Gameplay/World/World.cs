@@ -12,7 +12,7 @@ namespace IAmACube
     {
         public WorldTicker _ticker;
 
-        public Dictionary<Point, Sector> SectorGrid;
+        public Dictionary<IntPoint, Sector> SectorGrid;
         public Sector Focus;
 
         public Random Random;
@@ -23,7 +23,7 @@ namespace IAmACube
             _seed = seed;
             Random = new Random(_seed);
 
-            SectorGrid = new Dictionary<Point, Sector>();
+            SectorGrid = new Dictionary<IntPoint, Sector>();
             _ticker = new WorldTicker();
         }
 
@@ -31,18 +31,14 @@ namespace IAmACube
 
         public List<Sector> GetUpdatingSectors(TickManager tickCounter)
         {
-            var list = new List<Sector>();
-
-            list.Add(Focus);
+            var list = new List<Sector> { Focus };
             list.AddRange(Focus.Neighbours);
 
             return list;
         }
 
-        public void FocusOn(Block block)
-        {
-            Focus = GetSector(block.Location.SectorID);
-        }
+        public void FocusOn(Block block) => Focus = GetSector(block.Location.SectorID);
+
 
         public void InitializeSession()
         {
@@ -57,12 +53,9 @@ namespace IAmACube
 
         }
 
-        public bool HasTile(Point worldCoords)
-        {
-            var sectorLocation = WorldUtils.GetLocationOfSector(worldCoords);
-            return HasSector(sectorLocation);
-        }
-        public Tile GetTile(Point worldCoords)
+        public bool HasTile(IntPoint worldCoords) => HasSector(WorldUtils.GetLocationOfSector(worldCoords));
+
+        public Tile GetTile(IntPoint worldCoords)
         {
             var sectorLocation = WorldUtils.GetLocationOfSector(worldCoords);
             var sector = GetSector(sectorLocation);
@@ -86,19 +79,9 @@ namespace IAmACube
 
             AttachmentUtils.AttachToWorld(this, sector);
         }
-        public bool HasSector(Point sectorCoords)
-        {
-            return SectorGrid.ContainsKey(sectorCoords);
-        }
-        public Sector GetSector(Point coord)
-        {
-            return SectorGrid[coord];
-        }
-        public Sector GetSector(Tile tile)
-        {
-            var secCoords = WorldUtils.GetLocationOfSector(tile.AbsoluteLocation);
-            var sector = SectorGrid[secCoords];
-            return sector;
-        }
+
+        public bool HasSector(IntPoint sectorCoords) => SectorGrid.ContainsKey(sectorCoords);
+        public Sector GetSector(IntPoint coord) => SectorGrid[coord];
+        public Sector GetSector(Tile tile) => SectorGrid[WorldUtils.GetLocationOfSector(tile.AbsoluteLocation)];
     }
 }

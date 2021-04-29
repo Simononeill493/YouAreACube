@@ -15,7 +15,7 @@ namespace IAmACube
         public bool Dragging { get; private set; } = false;
         public bool Draggable = true;
 
-        private Point _dragOffset;
+        private IntPoint _dragOffset;
 
         public DraggableMenuItem(IHasDrawLayer parent, string sprite) : base(parent, sprite)
         {
@@ -30,7 +30,7 @@ namespace IAmACube
             _checkForEndDrag(input);
         }
 
-        public virtual bool TryStartDrag(UserInput input, Point offset)
+        public virtual bool TryStartDrag(UserInput input, IntPoint offset)
         {
             if (Draggable & !Dragging & !MenuScreen.IsUserDragging)
             {
@@ -41,7 +41,7 @@ namespace IAmACube
             return false;
         }
         
-        protected void _startDrag(UserInput input,Point offset)
+        protected void _startDrag(UserInput input,IntPoint offset)
         {
             OffsetDrawLayerCascade(-DrawLayers.MenuDragOffset);
 
@@ -62,11 +62,8 @@ namespace IAmACube
             OnEndDrag?.Invoke(input);
         }
 
-        public void TryStartDragAtMousePosition(UserInput input)
-        {
-            var mouseOffset = GetLocationOffset(input.MousePos);
-            TryStartDrag(input, mouseOffset);
-        }
+        public void TryStartDragAtMousePosition(UserInput input) => TryStartDrag(input, GetLocationOffset(input.MousePos));
+
         private void _draggableUpdateLocation(UserInput input)
         {
             if (Dragging)
@@ -74,7 +71,7 @@ namespace IAmACube
                 var oldLocation = ActualLocation;
 
                 SetLocationConfig(input.MousePos - _dragOffset, CoordinateMode.Absolute);
-                UpdateDimensionsCascade(Point.Zero, Point.Zero);
+                UpdateDimensionsCascade(IntPoint.Zero, IntPoint.Zero);
 
                 if(ActualLocation!=oldLocation)
                 {

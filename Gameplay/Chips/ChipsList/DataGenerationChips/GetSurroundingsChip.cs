@@ -11,8 +11,7 @@ namespace IAmACube.Gameplay.Chips.ChipsList.DataGenerationChips
     {
         public override void Run(Block actor, UserInput input, ActionsList actions)
         {
-            var neighbours = actor.Location.Adjacent.Values.ToList();
-            SetOutput(neighbours);
+            SetOutput(actor.Location.Adjacent.Values.ToList());
         }
     }
 }

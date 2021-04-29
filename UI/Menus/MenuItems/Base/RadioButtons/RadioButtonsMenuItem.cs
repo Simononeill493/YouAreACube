@@ -46,9 +46,9 @@ namespace IAmACube
             }
         }
 
-        public override Point GetBaseSize()
+        public override IntPoint GetBaseSize()
         {
-            var size = Point.Zero;
+            var size = IntPoint.Zero;
             foreach(var button in _buttons)
             {
                 var buttonSize = button.GetBaseSize();

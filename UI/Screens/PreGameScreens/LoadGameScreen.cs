@@ -38,11 +38,6 @@ namespace IAmACube
             }
         }
 
-        public override void Draw(DrawingInterface drawingInterface)
-        {
-            base.Draw(drawingInterface);
-        }
-
         public override void Update(UserInput input)
         {
             base.Update(input);
@@ -55,10 +50,7 @@ namespace IAmACube
 
         public void ClickSaveFile(int saveNumber)
         {
-            var savePath = saves[saveNumber];
-            var save = SaveManager.LoadFromFile(savePath);
-
-            _loadSaveToScreen(save);
+            _loadSaveToScreen(SaveManager.LoadFromFile(saves[saveNumber]));
             SwitchScreen(ScreenType.Game);
         }
     }

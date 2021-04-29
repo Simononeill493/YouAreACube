@@ -65,10 +65,8 @@ namespace IAmACube
             _selectedCallback(Item);
         }
 
-        public void RefreshText()
-        {
-            _text.Text = Item.ToString();
-        }
+        public void RefreshText() => _text.Text = Item.ToString();
+
 
         private void _startHover()
         {

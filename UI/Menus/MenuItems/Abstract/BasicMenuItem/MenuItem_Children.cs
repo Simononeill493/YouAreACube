@@ -26,39 +26,17 @@ namespace IAmACube
         public void RemoveChildAfterUpdate(MenuItem item) => _toRemove.Add(item);
         public void RemoveChildrenAfterUpdate<T>(List<T> toRemove) where T : MenuItem => _toRemove.AddRange(toRemove);
 
-        private void _updateChildren(UserInput input)
-        {
-            foreach (var child in _children)
-            {
-                child.Update(input);
-            }
-        }
-        private void _drawChildren(DrawingInterface drawingInterface)
-        {
-            foreach (var child in _children)
-            {
-                child.Draw(drawingInterface);
-            }
-        }
+        private void _updateChildren(UserInput input) => _children.ForEach(child => child.Update(input));
+        private void _drawChildren(DrawingInterface drawingInterface)=>_children.ForEach(child => child.Draw(drawingInterface));
+        
         private void _addAndRemoveQueuedChildren()
         {
-            //ManualUpdateDimensionsFlag  = ManualUpdateDimensionsFlag | _toAdd.Any() | _toRemove.Any();
-
             if (_toAdd.Any())
             {
-                //var size = GetCurrentSize();
-                foreach (var child in _toAdd)
-                {
-                    _children.Add(child);
-                    //child.UpdateDimensionsCascade(ActualLocation, size);
-                }
+                _children.AddRange(_toAdd);
             }
 
-            foreach (var child in _toRemove)
-            {
-                _children.Remove(child);
-            }
-
+            _toRemove.ForEach(child => _children.Remove(child));
             _toAdd.Clear();
             _toRemove.Clear();
         }

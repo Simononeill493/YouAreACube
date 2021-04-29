@@ -28,26 +28,10 @@ namespace IAmACube
             Companions.Add(block);
         }
 
+        private void _loadKnownTemplates() => KnownTemplates = Templates.BlockTemplates.GetAllTemplates();
         public void UpdateCompanions() => Companions.ForEach(t => t.SetTemplateToMain());
-
-        public void InitializeSession()
-        {
-            _loadKnownTemplates();
-        }
-
-        private void _loadKnownTemplates()
-        {
-            KnownTemplates = Templates.BlockTemplates.GetAllTemplates();
-        }
-
-        public void SupplyPowerToHost()
-        {
-            Host.AddEnergy(1);
-        }
-
-        public void AddKnownTemplate(TemplateAllVersions template)
-        {
-            KnownTemplates.Add(template);
-        }
+        public void InitializeSession() => _loadKnownTemplates();
+        public void SupplyPowerToHost() => Host.AddEnergy(1);
+        public void AddKnownTemplate(TemplateAllVersions template)=>KnownTemplates.Add(template);
     }
 }

@@ -19,7 +19,7 @@ namespace IAmACube
 
         private SectorUpdateManager _updateManager;
 
-        public Sector(Point location,Tile[,] tileGrid, List<Tile> tiles) : base(location)
+        public Sector(IntPoint location,Tile[,] tileGrid, List<Tile> tiles) : base(location)
         {
             _updateManager = new SectorUpdateManager(this);
 
@@ -45,7 +45,7 @@ namespace IAmACube
 
         public void Update(ActionsList actions) => _updateManager.Update(actions);
 
-        public Tile GetTile(Point point)
+        public Tile GetTile(IntPoint point)
         {
             var tile = TileGrid[point.X, point.Y];
             return tile;
@@ -89,7 +89,7 @@ namespace IAmACube
             }
         }
 
-        public List<(Block, Point)> PopSectorEmmigrants()
+        public List<(Block, IntPoint)> PopSectorEmmigrants()
         {
             var (movedOut,createdOut) = _updateManager.GetSectorEmmigrants();
             _updateManager.ClearSectorEmmigrants();

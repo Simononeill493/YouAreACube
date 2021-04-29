@@ -19,20 +19,9 @@ namespace IAmACube
 
         public void SetOutput(TOutputType output)
         {
-            foreach(var t in Targets1)
-            {
-                t.ChipInput1 = output;
-            }
-
-            foreach(var t2 in Targets2)
-            {
-                t2.ChipInput2 = output;
-            }
-
-            foreach (var t2 in Targets3)
-            {
-                t2.ChipInput3 = output;
-            }
+            Targets1.ForEach(t => t.ChipInput1 = output);
+            Targets2.ForEach(t => t.ChipInput2 = output);
+            Targets3.ForEach(t => t.ChipInput3 = output);
         }
     }
 }

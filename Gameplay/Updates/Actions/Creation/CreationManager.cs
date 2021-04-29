@@ -10,12 +10,9 @@ namespace IAmACube
     public class CreationManager
     {
         private Sector _sector;
-        public List<(Block, Point)> CreatedOutOfSector = new List<(Block, Point)>();
+        public List<(Block, IntPoint)> CreatedOutOfSector = new List<(Block, IntPoint)>();
+        public CreationManager(Sector sector) => _sector = sector;
 
-        public CreationManager (Sector sector)
-        {
-            _sector = sector;
-        }
 
         public bool TryCreate(Block creator,BlockTemplate template,BlockMode blockType,CardinalDirection direction)
         {
@@ -73,17 +70,9 @@ namespace IAmACube
 
             throw new NotImplementedException("Creating unrecognized block type");
         }
-        private bool _canCreateEphemeral(Block creator, BlockTemplate template, Tile targetPosition)
-        {
-            return !targetPosition.HasEphemeral & creator.IsInCentreOfBlock & (creator.Energy>= template.EnergyCap);
-        }
-        private bool _canCreateSurface(Block creator, BlockTemplate template, Tile targetPosition)
-        {
-            return !targetPosition.HasSurface;
-        }
-        private bool _canCreateGround(Block creator, BlockTemplate template, Tile targetPosition)
-        {
-            throw new NotImplementedException("Haven't implemented ground creation");
-        }
+
+        private bool _canCreateEphemeral(Block creator, BlockTemplate template, Tile targetPosition) => !targetPosition.HasEphemeral & creator.IsInCentreOfBlock & (creator.Energy >= template.EnergyCap);
+        private bool _canCreateSurface(Block creator, BlockTemplate template, Tile targetPosition) => !targetPosition.HasSurface;
+        private bool _canCreateGround(Block creator, BlockTemplate template, Tile targetPosition) => throw new NotImplementedException("Haven't implemented ground creation");
     }
 }

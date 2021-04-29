@@ -11,10 +11,8 @@ namespace IAmACube
     {
         private bool _ephemeralFaded;
 
-        public EphemeralBlock(BlockTemplate template) : base(template)
-        {
-            BlockType = BlockMode.Ephemeral;
-        }
+        public EphemeralBlock(BlockTemplate template) : base(template) => BlockType = BlockMode.Ephemeral;
+
 
         public override void Update(UserInput input, ActionsList actions)
         {
@@ -86,11 +84,7 @@ namespace IAmACube
         }
 
 
-        public override bool CanOccupyDestination(Tile destination)
-        {
-            return true;
-        }
-
+        public override bool CanOccupyDestination(Tile destination) => true;
         public override bool ShouldBeDestroyed() => _ephemeralFaded;
 
         public override void BeCreatedBy(Block creator)

@@ -26,10 +26,8 @@ namespace IAmACube
             AddChild(TextItem);
         }
 
-        public void SetText(string textToSet)
-        {
-            TextItem.Text = textToSet;
-        }
+        public void SetText(string textToSet) => TextItem.Text = textToSet;
+
 
         public override void Update(UserInput input)
         {

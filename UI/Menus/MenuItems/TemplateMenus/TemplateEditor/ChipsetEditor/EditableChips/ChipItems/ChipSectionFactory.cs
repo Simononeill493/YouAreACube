@@ -14,8 +14,7 @@ namespace IAmACube
             var parentDrawLayer = ManualDrawLayer.InFrontOf(parent, sectionIndex);
             var dataType = parent.ChipData.GetInputType(sectionIndex+1);
 
-            var section = new ChipInputSection(parentDrawLayer, dataType, parent.ColorMask);
-            return section;
+            return new ChipInputSection(parentDrawLayer, dataType, parent.ColorMask);
         }
     }
 }

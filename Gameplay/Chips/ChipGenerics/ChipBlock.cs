@@ -44,13 +44,8 @@ namespace IAmACube
             _controlChips.AddRange(chips.Where(c => typeof(IControlChip).IsAssignableFrom(c.GetType())).Cast<IControlChip>().ToList());
         }
 
-        public void Execute(Block actor,UserInput input,ActionsList actions) 
-        { 
-            foreach(var chip in Chips)
-            {
-                chip.Run(actor,input,actions);
-            }
-        }
+        public void Execute(Block actor, UserInput input, ActionsList actions) => Chips.ForEach(chip => chip.Run(actor, input, actions));
+
 
         public List<IChip> GetAllChipsAndSubChips()
         {

@@ -16,7 +16,7 @@ namespace IAmACube
 {
     public class MonoGameWindow : Microsoft.Xna.Framework.Game
     {
-        public static Point CurrentSize;
+        public static IntPoint CurrentSize;
 
         private DrawingInterface _drawingInterface;
         private PrimitivesHelper _primitivesHelper;
@@ -41,7 +41,7 @@ namespace IAmACube
             _setScreenSizeToDefault();
             #endregion
 
-            CurrentSize = new Point(_graphicsDeviceManager.GraphicsDevice.Viewport.Width, _graphicsDeviceManager.GraphicsDevice.Viewport.Height);
+            CurrentSize = new IntPoint(_graphicsDeviceManager.GraphicsDevice.Viewport.Width, _graphicsDeviceManager.GraphicsDevice.Viewport.Height);
             oldInput = new UserInput(Mouse.GetState(), Mouse.GetState(), Keyboard.GetState(), new List<Keys>(), new List<Keys>());
             _attachedConsoleManager = new AttachedConsoleManager(GraphicsDevice,Window.Position);
             this.Window.ClientSizeChanged += _attachedConsoleManager.ConsoleMoveEventHandler;
@@ -111,7 +111,7 @@ namespace IAmACube
                 Console.Write((char)13);
             }
 
-            CurrentSize = new Point(_graphicsDeviceManager.GraphicsDevice.Viewport.Width, _graphicsDeviceManager.GraphicsDevice.Viewport.Height);
+            CurrentSize = new IntPoint(_graphicsDeviceManager.GraphicsDevice.Viewport.Width, _graphicsDeviceManager.GraphicsDevice.Viewport.Height);
             _primitivesHelper.BeginDrawFrame();
             _screenManager.Draw(_drawingInterface);
             _primitivesHelper.EndDrawFrame();

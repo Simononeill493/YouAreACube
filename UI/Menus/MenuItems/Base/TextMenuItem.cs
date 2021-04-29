@@ -24,6 +24,6 @@ namespace IAmACube
         }
 
         public override bool IsMouseOver(UserInput input) => false;
-        public override Point GetBaseSize() => SpriteManager.GetTextSize(Text);
+        public override IntPoint GetBaseSize() => SpriteManager.GetTextSize(Text);
     }
 }

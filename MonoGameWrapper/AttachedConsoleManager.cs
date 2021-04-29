@@ -21,10 +21,8 @@ namespace IAmACube
             Console.CursorVisible = false;
         }
 
-        public void ConsoleMoveEventHandler(object sender, EventArgs e)
-        {
-            MoveConsoleToWindow();
-        }
+        public void ConsoleMoveEventHandler(object sender, EventArgs e) => MoveConsoleToWindow();
+
 
         public void MoveConsoleToWindow()
         {
@@ -32,8 +30,6 @@ namespace IAmACube
             var p = GetConsoleWindow();
 
             MoveWindow(p, _lastRecordedPosition.X + bounds.Width, _lastRecordedPosition.Y, 400, bounds.Height, true);
-            //MoveWindow(p, _lastRecordedPosition.X, _lastRecordedPosition.Y + bounds.Height, bounds.Width, , true);
-            //Console.WriteLine("Console Moved");
         }
 
         public void CheckWindowPositionAndUpdateConsole(Microsoft.Xna.Framework.Point currentPosition)

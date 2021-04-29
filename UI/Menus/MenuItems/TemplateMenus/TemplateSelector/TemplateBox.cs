@@ -49,10 +49,8 @@ namespace IAmACube
                 _templateHoverBox.Visible = true;
             }
         }
-        private void TemplateBox_OnMouseEndHover()
-        {
-            _templateHoverBox.Visible = false;
-        }
+        private void TemplateBox_OnMouseEndHover() => _templateHoverBox.Visible = false;
+
 
         public override void Update(UserInput input)
         {
@@ -60,8 +58,8 @@ namespace IAmACube
 
             if (MouseHovering)
             {
-                _templateHoverBox.SetLocationConfig(new Point(input.MouseX, input.MouseY), CoordinateMode.Absolute, false);
-                _templateHoverBox.UpdateDimensionsCascade(Point.Zero, Point.Zero);
+                _templateHoverBox.SetLocationConfig(new IntPoint(input.MouseX, input.MouseY), CoordinateMode.Absolute, false);
+                _templateHoverBox.UpdateDimensionsCascade(IntPoint.Zero, IntPoint.Zero);
             }
         }
     }

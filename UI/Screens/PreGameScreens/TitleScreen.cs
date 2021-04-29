@@ -33,24 +33,7 @@ namespace IAmACube
             _addMenuItem(loadGameButton);
         }
 
-        public override void Draw(DrawingInterface drawingInterface)
-        {
-            base.Draw(drawingInterface);
-        }
-
-        public override void Update(UserInput input)
-        {
-            base.Update(input);
-        }
-
-        public void GoToNewGame()
-        {
-            SwitchScreen(ScreenType.NewGame);
-        }
-
-        public void GoToLoadGame()
-        {
-            SwitchScreen(ScreenType.LoadGame);
-        }
+        public void GoToNewGame() => SwitchScreen(ScreenType.NewGame);
+        public void GoToLoadGame() => SwitchScreen(ScreenType.LoadGame);
     }
 }

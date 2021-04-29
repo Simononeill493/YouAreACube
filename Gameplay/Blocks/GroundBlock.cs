@@ -9,20 +9,10 @@ namespace IAmACube
     [Serializable()]
     public class GroundBlock : Block
     {
-        public GroundBlock(BlockTemplate template) : base(template)
-        {
-            BlockType = BlockMode.Ground;
-        }
+        public GroundBlock(BlockTemplate template) : base(template) => BlockType = BlockMode.Ground;
+        public override bool CanOccupyDestination(Tile destination) => throw new NotImplementedException();
+        public override bool ShouldBeDestroyed() => throw new NotImplementedException();
 
-        public override bool CanOccupyDestination(Tile destination)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool ShouldBeDestroyed()
-        {
-            throw new NotImplementedException();
-        }
 
         public override void EnterLocation(Tile destination)
         {
@@ -35,6 +25,5 @@ namespace IAmACube
             destination.Ground = this;
             this.Location = destination;
         }
-
     }
 }

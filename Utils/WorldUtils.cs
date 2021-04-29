@@ -8,9 +8,9 @@ namespace IAmACube
 {
     class WorldUtils
     {
-        public static Point GetLocationOfSector(Point worldCoords)
+        public static IntPoint GetLocationOfSector(IntPoint worldCoords)
         {
-            var ret = new Point(worldCoords.X / Config.SectorSize, worldCoords.Y / Config.SectorSize);
+            var ret = new IntPoint(worldCoords.X / Config.SectorSize, worldCoords.Y / Config.SectorSize);
 
             if (worldCoords.X < 0 & (-worldCoords.X % Config.SectorSize != 0))
             {
@@ -23,9 +23,9 @@ namespace IAmACube
 
             return ret;
         }
-        public static Point ConvertToSectorCoords(Point worldCoords)
+        public static IntPoint ConvertToSectorCoords(IntPoint worldCoords)
         {
-            var ret = new Point(0, 0);
+            var ret = new IntPoint(0, 0);
 
             if (worldCoords.X >= 0)
             {

@@ -10,26 +10,26 @@ namespace IAmACube
 {
     public abstract partial class MenuItem : IHasDrawLayer
     {
-        public Point ActualLocation { get; private set; }
+        public IntPoint ActualLocation { get; private set; }
         public int Scale { get; private set; } = MenuScreen.Scale;
         public float ScaleMultiplier { get; set; } = 1;
 
-        protected (Point loc, CoordinateMode mode, bool centered) _locationConfig;
+        protected (IntPoint loc, CoordinateMode mode, bool centered) _locationConfig;
         public void ScaleLocation(float factor)
         {
             _locationConfig.loc.X = (int)(_locationConfig.loc.X * factor);
             _locationConfig.loc.Y = (int)(_locationConfig.loc.Y * factor);
         }
 
-        public void SetLocationConfig(int x, int y, CoordinateMode coordinateMode, bool centered = false) => SetLocationConfig(new Point(x, y), coordinateMode, centered);
-        public void SetLocationConfig(Point location, CoordinateMode coordinateMode, bool centered = false) => _locationConfig = (location, coordinateMode, centered);
+        public void SetLocationConfig(int x, int y, CoordinateMode coordinateMode, bool centered = false) => SetLocationConfig(new IntPoint(x, y), coordinateMode, centered);
+        public void SetLocationConfig(IntPoint location, CoordinateMode coordinateMode, bool centered = false) => _locationConfig = (location, coordinateMode, centered);
 
-        public void UpdateDimensionsCascade(Point parentlocation, Point parentSize)
+        public void UpdateDimensionsCascade(IntPoint parentlocation, IntPoint parentSize)
         {
             UpdateDimensions(parentlocation, parentSize);
             _updateChildDimensions();
         }
-        public virtual void UpdateDimensions(Point parentlocation, Point parentSize)
+        public virtual void UpdateDimensions(IntPoint parentlocation, IntPoint parentSize)
         {
             _updateScale();
             _updateLocation(parentlocation, parentSize);
@@ -38,17 +38,14 @@ namespace IAmACube
         public void MultiplyScaleCascade(float multiplier)
         {
             MultiplyScale(multiplier);
-            foreach (var child in _children)
-            {
-                child.MultiplyScaleCascade(multiplier);
-            }
+            _children.ForEach(child => child.MultiplyScaleCascade(multiplier));
         }
         public void MultiplyScale(float multiplier) => ScaleMultiplier *= multiplier;
         
 
-        protected void _updateLocation(Point parentlocation, Point parentSize)
+        protected void _updateLocation(IntPoint parentlocation, IntPoint parentSize)
         {
-            Point location = _locationConfig.loc;
+            IntPoint location = _locationConfig.loc;
 
             if (_locationConfig.mode == CoordinateMode.ParentPixelOffset)
             {
@@ -58,14 +55,14 @@ namespace IAmACube
             {
                 int widthPercent = (int)(parentSize.X * (location.X / 100.0));
                 int heightPercent = (int)(parentSize.Y * (location.Y / 100.0));
-                var percentageOffset = new Point(widthPercent, heightPercent);
+                var percentageOffset = new IntPoint(widthPercent, heightPercent);
 
                 location = parentlocation + percentageOffset;
             }
 
             if (_locationConfig.centered)
             {
-                location = location - (GetCurrentSize() / 2);
+                location -= (GetCurrentSize() / 2);
             }
 
             ActualLocation = location;
@@ -76,17 +73,14 @@ namespace IAmACube
         protected virtual void _updateChildDimensions()
         {
             var size = GetCurrentSize();
-            foreach (var child in _children)
-            {
-                child.UpdateDimensionsCascade(ActualLocation, size);
-            }
+            _children.ForEach(child => child.UpdateDimensionsCascade(ActualLocation, size));
         }
 
         public static int GenerateScaleFromMultiplier(float multiplier) => (int)(MenuScreen.Scale * multiplier);
 
-        public Point GetLocationOffset(Point mousePos)=> mousePos - ActualLocation;
-        public Point GetCurrentSize() => GetBaseSize() * Scale;
-        public abstract Point GetBaseSize();
+        public IntPoint GetLocationOffset(IntPoint mousePos)=> mousePos - ActualLocation;
+        public IntPoint GetCurrentSize() => GetBaseSize() * Scale;
+        public abstract IntPoint GetBaseSize();
 
 
         public bool IsIntersectedWith(MenuItem item) => IsIntersectedWith(item.GetItemRectangle());

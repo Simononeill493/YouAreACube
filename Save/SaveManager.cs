@@ -14,27 +14,18 @@ namespace IAmACube
         public static Save FreshSave()
         {
             var player = Templates.GenerateSurface("BasicPlayer",0);
-
             var world = WorldGen.GenerateEmptyWorld(0);
+
             WorldGen.AddPlayer(world, player);
             WorldGen.AddEntities(world);
 
             var kernel = new Kernel();
             kernel.SetHost(player);
 
-            var save = new Save(kernel, world);
-
-            return save;
+            return new Save(kernel, world);
         }
 
-        public static void SaveToFile(Save save)
-        {
-            FileUtils.SaveBinary(save, Config.SaveDirectoryPath, save.Name, Config.SaveExtension);
-        }
-        public static Save LoadFromFile(string name)
-        {
-            var save = FileUtils.LoadBinary<Save>(Config.SaveDirectoryPath, name);
-            return save;
-        }
+        public static void SaveToFile(Save save) => FileUtils.SaveBinary(save, Config.SaveDirectoryPath, save.Name, Config.SaveExtension);
+        public static Save LoadFromFile(string name) => FileUtils.LoadBinary<Save>(Config.SaveDirectoryPath, name);
     }
 }

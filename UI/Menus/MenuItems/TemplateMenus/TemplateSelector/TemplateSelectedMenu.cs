@@ -55,7 +55,7 @@ namespace IAmACube
             editButton.OnMouseReleased += (i) => { _buttonPressAction(TemplateSelectedAction.Edit); };
             AddChild(editButton);
 
-            _templateList = new ListMenuItem<BlockTemplate>(this,new Point(64,15));
+            _templateList = new ListMenuItem<BlockTemplate>(this,new IntPoint(64,15));
             _templateList.SetLocationConfig(7, 40, CoordinateMode.ParentPixelOffset);
             AddChild(_templateList);
 

@@ -17,10 +17,6 @@ namespace IAmACube
             return output;
         }
 
-        public List<TemplateAllVersions> GetAllTemplates()
-        {
-            return Values.ToList();
-        }
-
+        public List<TemplateAllVersions> GetAllTemplates() => Values.ToList();
     }
 }

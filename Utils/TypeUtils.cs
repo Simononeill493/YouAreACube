@@ -11,10 +11,8 @@ namespace IAmACube
     {
         private static Dictionary<string, Type> AllTypes;
 
-        public static bool IsType(string name)
-        {
-            return AllTypes.ContainsKey(name) | name.Equals("Int32");
-        }
+        public static bool IsType(string name) => AllTypes.ContainsKey(name) | name.Equals("Int32");
+
 
         public static Type GetTypeByName(string name)
         {
@@ -28,10 +26,8 @@ namespace IAmACube
             }
         }
 
-        public static void Load()
-        {
-            AllTypes = _getAllTypes();
-        }
+        public static void Load() => AllTypes = _getAllTypes();
+
 
         public static object ParseType(Type t, string asString)
         {

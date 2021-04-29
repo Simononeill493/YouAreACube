@@ -12,25 +12,24 @@ namespace IAmACube
         private Sector _sector;
 
         public List<Block> MovingBlocks;
-        public List<(Block, Point)> MovedOutOfSector;
+        public List<(Block, IntPoint)> MovedOutOfSector;
 
-        private List<(Block, Point)> _toMoveFromSector;
+        private List<(Block, IntPoint)> _toMoveFromSector;
         private HashSet<Block> _toRemove;
 
         public MoveManager(Sector sector)
         {
             _sector = sector;
             MovingBlocks = new List<Block>();
-            MovedOutOfSector = new List<(Block, Point)>();
+            MovedOutOfSector = new List<(Block, IntPoint)>();
 
-            _toMoveFromSector = new List<(Block, Point)>();
+            _toMoveFromSector = new List<(Block, IntPoint)>();
             _toRemove = new HashSet<Block>();
         }
 
         public void TryStartMovement(Block block, CardinalDirection direction, int moveTotalTicks)
         {
-            Tile destination;
-            if (block.TryGetAdjacent(direction, out destination))
+            if (block.TryGetAdjacent(direction, out Tile destination))
             {
                 if (block.CanMoveTo(destination))
                 {

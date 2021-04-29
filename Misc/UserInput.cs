@@ -9,10 +9,8 @@ namespace IAmACube
 {
     public class UserInput
     {
-        private static int previousScrollValue;
-
-        public bool ScrolledUp;
-        public bool ScrolledDown;
+        public int ScrollDifference;
+        public int ScrollDirection;
 
         public KeyboardState KeyboardState;
         public MouseState MouseState;
@@ -27,12 +25,10 @@ namespace IAmACube
             KeysJustPressed = keysJustPressed;
             KeysJustReleased = keysJustReleased;
 
-            ScrolledUp = MouseState.ScrollWheelValue > previousScrollValue;
-            ScrolledDown = MouseState.ScrollWheelValue < previousScrollValue;
+            ScrollDifference = MouseState.ScrollWheelValue - oldMouseState.ScrollWheelValue;
+            ScrollDirection += ScrollDifference > 0 ? 1 : ScrollDifference < 0 ? -1 : 0;
 
-            previousScrollValue = MouseState.ScrollWheelValue;
-
-            MousePos = new Point(MouseX, MouseY);
+            MousePos = new IntPoint(MouseX, MouseY);
 
             MouseLeftPressed = MouseState.LeftButton == ButtonState.Pressed;
             MouseRightPressed = MouseState.RightButton == ButtonState.Pressed;
@@ -65,7 +61,7 @@ namespace IAmACube
         public int MouseX => MouseState.X;
         public int MouseY => MouseState.Y;
 
-        public Point MousePos;
+        public IntPoint MousePos;
         public Tile MouseHoverTile = Tile.Dummy;
     }
 }

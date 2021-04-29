@@ -32,11 +32,6 @@ namespace IAmACube
             _addMenuItem(cancelButton);
         }
 
-        public override void Draw(DrawingInterface drawingInterface)
-        {
-            base.Draw(drawingInterface);
-        }
-
         public override void Update(UserInput input)
         {
             base.Update(input);
@@ -56,9 +51,6 @@ namespace IAmACube
             SwitchScreen(ScreenType.LoadGame);
         }
 
-        public void BackToTitleScreen()
-        {
-            SwitchScreen(ScreenType.Title);
-        }
+        public void BackToTitleScreen() => SwitchScreen(ScreenType.Title);
     }
 }

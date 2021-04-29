@@ -19,7 +19,7 @@ namespace IAmACube
         {
             Game = new Game(save);
 
-            _adminCamera = new Camera();
+            _adminCamera = new Camera(save.Kernel);
             _playerCamera = new KernelTrackingCamera(save.Kernel);
             _currentCamera = _playerCamera;
         }
@@ -27,11 +27,10 @@ namespace IAmACube
         public override void Update(UserInput input)
         {
             _readKeys(input);
-
-            _currentCamera.Update(input);
             _currentCamera.SetMouseHover(input, Game.World);
 
             Game.Update(input);
+            _currentCamera.Update(input);
         }
 
         public override void Draw(DrawingInterface drawingInterface) => _currentCamera.Draw(drawingInterface,Game.World); 

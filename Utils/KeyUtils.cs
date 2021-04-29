@@ -10,25 +10,10 @@ namespace IAmACube
 {
     class KeyUtils
     {
-        public static bool IsAlphabetical(Keys key)
-        {
-            return (key >= Keys.A && key <= Keys.Z);
-        }
-
-        public static bool IsNumeric(Keys key)
-        {
-            return (key >= Keys.D0 && key <= Keys.D9);
-        }
-
-        public static bool IsAlphanumeric(Keys key)
-        {
-            return IsAlphabetical(key) | IsNumeric(key);
-        }
-
-        public static bool IsTypeable(Keys key)
-        {
-            return IsAlphanumeric(key) | key.Equals(Keys.OemMinus);
-        }
+        public static bool IsAlphabetical(Keys key) => (key >= Keys.A && key <= Keys.Z);
+        public static bool IsNumeric(Keys key) => (key >= Keys.D0 && key <= Keys.D9);
+        public static bool IsAlphanumeric(Keys key) => IsAlphabetical(key) | IsNumeric(key);
+        public static bool IsTypeable(Keys key) => IsAlphanumeric(key) | key.Equals(Keys.OemMinus);
 
 
         public static char KeyToChar(Keys key)
@@ -41,6 +26,7 @@ namespace IAmACube
             {
                 return '-';
             }
+
             var str = key.ToString();
             if((caps & !shift)|(!caps & shift))
             {
@@ -63,6 +49,49 @@ namespace IAmACube
             {
                 return str[0];
             }
+        }
+
+        public static IntPoint GetWASDDirection(UserInput input)
+        {
+            if (input.IsKeyDown(Keys.W))//up
+            {
+                return new IntPoint(0, -1);
+            }
+            if (input.IsKeyDown(Keys.S))//down
+            {
+                return new IntPoint(0, 1);
+            }
+            if (input.IsKeyDown(Keys.A))//left
+            {
+                return new IntPoint(-1, 0);
+            }
+            if (input.IsKeyDown(Keys.D))//right
+            {
+                return new IntPoint(1, 0);
+            }
+
+            return new IntPoint(0, 0);
+        }
+        public static IntPoint GetRightKeypadDirection(UserInput input)
+        {
+            if (input.IsKeyDown(Keys.Home))//up
+            {
+                return new IntPoint(0, -1);
+            }
+            if (input.IsKeyDown(Keys.End))//down
+            {
+                return new IntPoint(0, 1);
+            }
+            if (input.IsKeyDown(Keys.Delete))//left
+            {
+                return new IntPoint(-1, 0);
+            }
+            if (input.IsKeyDown(Keys.PageDown))//right
+            {
+                return new IntPoint(1, 0);
+            }
+
+            return new IntPoint(0, 0);
         }
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]

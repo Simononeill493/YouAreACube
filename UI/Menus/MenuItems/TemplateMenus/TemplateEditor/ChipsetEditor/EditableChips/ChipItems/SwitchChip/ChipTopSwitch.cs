@@ -64,7 +64,7 @@ namespace IAmACube
         }
 
         #region dimensions
-        private Point _unextendedSize;
+        private IntPoint _unextendedSize;
 
         private void _setSectionLocations()
         {
@@ -102,12 +102,7 @@ namespace IAmACube
 
         #region addSection
         private List<string> _switchInitialOptions;
-
-        public override void GenerateSubChipsets()
-        {
-            _addNewSwitchSections(_switchInitialOptions);
-        }
-
+        public override void GenerateSubChipsets() => _addNewSwitchSections(_switchInitialOptions);
         protected void _addNewSwitchSections(List<string> sectionNames) => sectionNames.ForEach(n => _addNewSwitchSection(n));
         protected void _addNewSwitchSection(string sectionName) => AddSwitchSection(sectionName, _generator.CreateChipset(Name+"-subChip_"+(GetSubChipsets().Count+1.ToString())));
 

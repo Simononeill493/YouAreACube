@@ -11,10 +11,8 @@ namespace IAmACube
     public class WorldTicker
     {
         private TickManager _tickManager;
-        public WorldTicker()
-        {
-            _tickManager = new TickManager();
-        }
+        public WorldTicker() => _tickManager = new TickManager();
+
 
 
         public void TickWorld(World world,UserInput input)
@@ -79,12 +77,8 @@ namespace IAmACube
     [Serializable()]
     public class EmmigrantsList
     {
-        public List<(Block, Point)> Emmigrants = new List<(Block, Point)>();
-
-        public void AddAll(List<(Block, Point)> toAdd)
-        {
-            Emmigrants.AddRange(toAdd);
-        }
+        public List<(Block, IntPoint)> Emmigrants = new List<(Block, IntPoint)>();
+        public void AddAll(List<(Block, IntPoint)> toAdd) => Emmigrants.AddRange(toAdd);
     }
 
 }

@@ -19,10 +19,12 @@ namespace IAmACube
         public void DrawBackground(string background) => _primitivesHelper.DrawStretchedToScreen(background);
         public void DrawText(string text, int x, int y, int scale, float layer,Color color,bool centered = false) => _primitivesHelper.DrawText(text, x, y, scale, layer, color, centered);
         public void DrawSprite(string sprite, int x, int y, int scale, float layer, Color colorMask,bool centered = false, bool flipHorizontal = false, bool flipVertical = false) => _primitivesHelper.DrawSprite(sprite, x, y, scale, layer, colorMask, centered,flipHorizontal,flipVertical);
+
+        public void DrawRectangle(IntPoint location, int width, int height, float layer, Color color, bool centered = false) => _primitivesHelper.DrawRectangle(location.X, location.Y, width, height, layer, color, centered);
         public void DrawRectangle(int x, int y, int width, int height, float layer, Color color, bool centered = false)=>_primitivesHelper.DrawRectangle(x,y,width,height,layer,color,centered);
 
 
-        public void DrawTile(Tile tile, Point drawPos, CameraConfiguration cameraConfig)
+        public void DrawTile(Tile tile, IntPoint drawPos, CameraConfiguration cameraConfig)
         {
             DrawBlock(tile.Ground, drawPos, DrawLayers.GroundLayer, cameraConfig);
 
@@ -34,18 +36,23 @@ namespace IAmACube
             {
                 DrawBlock(tile.Ephemeral, drawPos, DrawLayers.EphemeralLayer, cameraConfig);
             }
+
+            if(cameraConfig.DebugMode)
+            {
+                DrawTileDebugOverlay(tile, drawPos, cameraConfig);
+            }
         }
 
-        public void DrawBlock(Block block, Point drawPos, float layer, CameraConfiguration cameraConfig)
+        public void DrawBlock(Block block, IntPoint drawPos, float layer, CameraConfiguration cameraConfig)
         {
-            drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizeActual);
+            drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizePixels);
             var colorMask = new Color(block.ColorMask.Item1, block.ColorMask.Item2, block.ColorMask.Item3, block.ColorMask.Item4);
 
             _primitivesHelper.DrawSprite(block.Sprite, drawPos.X, drawPos.Y, cameraConfig.Scale, layer, colorMask, false,false,false);
         }
 
 
-        public void DrawTileDebugOverlay(Tile tile, Point drawPos, CameraConfiguration cameraConfig)
+        public void DrawTileDebugOverlay(Tile tile, IntPoint drawPos, CameraConfiguration cameraConfig)
         {
             _primitivesHelper.DrawText(tile.AbsoluteLocation.ToString(), drawPos.X, drawPos.Y, 2, DrawLayers.GameTileDebugLayer, Color.Black, false);
             
@@ -60,35 +67,35 @@ namespace IAmACube
             }
         }
 
-        public void DrawBlockEnergyOverlay(Block block, Point drawPos, CameraConfiguration cameraConfig)
+        public void DrawBlockEnergyOverlay(Block block, IntPoint drawPos, CameraConfiguration cameraConfig)
         {
             if(block.Active)
             {
-                drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizeActual);
+                drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizePixels);
 
                 var energyPercentage = block.EnergyRemainingPercentage;
-                var barCurrentLength = energyPercentage * cameraConfig.TileSizeActual;
-                _primitivesHelper.DrawRectangle(drawPos.X, drawPos.Y, cameraConfig.TileSizeActual, 8, DrawLayers.BlockInfoLayer_Back, Color.Black, false);
+                var barCurrentLength = energyPercentage * cameraConfig.TileSizePixels;
+                _primitivesHelper.DrawRectangle(drawPos.X, drawPos.Y, cameraConfig.TileSizePixels, 8, DrawLayers.BlockInfoLayer_Back, Color.Black, false);
                 _primitivesHelper.DrawRectangle(drawPos.X, drawPos.Y, (int)barCurrentLength, 8,DrawLayers.BlockInfoLayer_Front, Color.Cyan, false);
             }
         }
 
-        public void DrawBlockHealthOverlay(SurfaceBlock block, Point drawPos, CameraConfiguration cameraConfig)
+        public void DrawBlockHealthOverlay(SurfaceBlock block, IntPoint drawPos, CameraConfiguration cameraConfig)
         {
-            drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizeActual);
+            drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizePixels);
 
             var healthPercentage = block.HealthRemainingPercentage;
-            var barCurrentLength = healthPercentage * cameraConfig.TileSizeActual;
-            _primitivesHelper.DrawRectangle(drawPos.X, drawPos.Y+8, cameraConfig.TileSizeActual, 8, DrawLayers.BlockInfoLayer_Back, Color.Black, false);
+            var barCurrentLength = healthPercentage * cameraConfig.TileSizePixels;
+            _primitivesHelper.DrawRectangle(drawPos.X, drawPos.Y+8, cameraConfig.TileSizePixels, 8, DrawLayers.BlockInfoLayer_Back, Color.Black, false);
             _primitivesHelper.DrawRectangle(drawPos.X, drawPos.Y+8, (int)barCurrentLength, 8, DrawLayers.BlockInfoLayer_Front, Color.Red, false);
         }
 
 
-        public void DrawSectorGridOverlay(Point sector,int gridLineThickness,CameraConfiguration _config)
+        public void DrawSectorGridOverlay(IntPoint sector,int gridLineThickness,CameraConfiguration _config)
         {
-            var sectorOrigin = sector * Config.SectorSize * _config.TileSizeActual;
-            var sectorOriginOffset = sectorOrigin - _config.ActualOffset;
-            var sectorSquareSize = _config.TileSizeActual * Config.SectorSize;
+            var sectorOrigin = sector * Config.SectorSize * _config.TileSizePixels;
+            var sectorOriginOffset = sectorOrigin - _config.PixelOffset;
+            var sectorSquareSize = _config.TileSizePixels * Config.SectorSize;
 
             DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y, gridLineThickness, sectorSquareSize, DrawLayers.GameSectorOverlayLayer, Color.Red);
             DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y, sectorSquareSize, gridLineThickness, DrawLayers.GameSectorOverlayLayer, Color.Red);
@@ -97,15 +104,9 @@ namespace IAmACube
         }
 
 
-        public void DrawVoid(Point drawPos, CameraConfiguration cameraConfig)
-        {
-            _primitivesHelper.DrawSprite("Black", drawPos.X, drawPos.Y, cameraConfig.Scale, DrawLayers.GroundLayer, colorMask: Color.White, false, false, false);
-        }
+        public void DrawVoid(IntPoint drawPos, CameraConfiguration cameraConfig) => _primitivesHelper.DrawSprite("Black", drawPos.X, drawPos.Y, cameraConfig.Scale, DrawLayers.GroundLayer, Color.White, false, false, false);
+        public void DrawHUD(Kernel kernel) => DrawHUD(kernel, MonoGameWindow.CurrentSize.X / 16, MonoGameWindow.CurrentSize.Y / 16);
 
-        public void DrawHUD(Kernel kernel)
-        {
-            DrawHUD(kernel, MonoGameWindow.CurrentSize.X / 16, MonoGameWindow.CurrentSize.Y / 16);
-        }
         public void DrawHUD(Kernel kernel, int x, int y)
         {
             var host = kernel.Host;

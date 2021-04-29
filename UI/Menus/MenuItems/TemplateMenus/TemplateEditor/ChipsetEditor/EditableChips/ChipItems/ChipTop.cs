@@ -144,8 +144,8 @@ namespace IAmACube
         } 
         protected virtual bool _isMouseOverInternalSections() => _inputSections.Select(s => s.MouseHovering).Any(h => h);
 
-        public override Point GetBaseSize() => _actualSize;
-        protected Point _actualSize;
+        public override IntPoint GetBaseSize() => _actualSize;
+        protected IntPoint _actualSize;
         #endregion
 
         #region refresh

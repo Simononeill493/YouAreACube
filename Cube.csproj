@@ -78,6 +78,8 @@
     <Compile Include="Gameplay\Templates\TemplatesDatabase.cs" />
     <Compile Include="Gameplay\Templates\TemplateAllVersions.cs" />
     <Compile Include="Gameplay\Tile\DummyTile.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Misc\FloatPoint.cs" />
     <Compile Include="Parsers\JSONInputData.cs" />
     <Compile Include="Parsers\TemplateParser.cs" />
     <Compile Include="Parsers\BuiltInChipParser.cs" />
@@ -100,7 +102,7 @@
     <Compile Include="Gameplay\World\AttachmentUtils.cs" />
     <Compile Include="Gameplay\World\Sector\SectorGenerator.cs" />
     <Compile Include="Misc\LocationWithNeighbors.cs" />
-    <Compile Include="Misc\Point.cs" />
+    <Compile Include="Misc\IntPoint.cs" />
     <Compile Include="UI\Menus\MenuItems\Base\DialogBoxMenuItem.cs" />
     <Compile Include="UI\Menus\MenuItems\Base\ListMenuItem.cs" />
     <Compile Include="UI\Menus\MenuItems\Base\RadioButtons\RadioButtonMenuItem.cs" />

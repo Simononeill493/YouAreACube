@@ -47,7 +47,7 @@ namespace IAmACube
 
             newChipset.RefreshAll();
 
-            newChipset.SetLocationConfig(ActualLocation + new Point(10, 10), CoordinateMode.Absolute, centered: false);
+            newChipset.SetLocationConfig(ActualLocation + new IntPoint(10, 10), CoordinateMode.Absolute, centered: false);
             newChipset.UpdateDimensionsCascade(ActualLocation, GetCurrentSize());
             _dropChipsetOnPane(newChipset);
         }
@@ -87,7 +87,7 @@ namespace IAmACube
             _alignChipsetToPixels(toAttach, GetCurrentSize());
             _setChipsetVisiblity(toAttach);
         }
-        private void _alignChipsetToPixels(EditableChipset chip, Point planeSize)
+        private void _alignChipsetToPixels(EditableChipset chip, IntPoint planeSize)
         {
             var pixelDisplacement = this.GetLocationOffset(chip.ActualLocation) / chip.Scale;
 

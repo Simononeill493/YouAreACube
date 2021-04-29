@@ -13,7 +13,8 @@ namespace IAmACube
         public Tile Origin;
         public Tile Destination;
 
-        public Point MovementOffset;
+        public IntPoint MovementOffset;
+        public FloatPoint SingleStepOffset;
         public float MovementOffsetPercentage;
 
         public int TotalTicks;
@@ -32,9 +33,11 @@ namespace IAmACube
         {
             Origin = mover.Location;
             Destination = destination;
+            TotalTicks = moveTotalTicks;
 
             MovementOffset = direction.XYOffset();
-            TotalTicks = moveTotalTicks;
+            SingleStepOffset = (MovementOffset * (GetMovePercentage(1)));
+
             CurrentTick = 0;
 
             _midpoint = TotalTicks / 2;
@@ -44,20 +47,22 @@ namespace IAmACube
         {
             CurrentTick++;
             AtMidpoint = (CurrentTick >= _midpoint) & (!PassedMidpoint);
-            PassedMidpoint = PassedMidpoint | AtMidpoint;
-            Moved = (Moved | AtMidpoint);
+
+            PassedMidpoint |= AtMidpoint;
+            Moved |= AtMidpoint;
+
             Finished = (CurrentTick == TotalTicks);
 
-            MovementOffsetPercentage = GetMovePercentage();
+            MovementOffsetPercentage = GetMovePercentage(CurrentTick);
         }
 
-        private float GetMovePercentage()
+        public float GetMovePercentage(int tick)
         {
-            var percent = ((CurrentTick) / (float)(TotalTicks));
+            var percent = tick / (float)TotalTicks;
 
             if(Moved)
             {
-                percent = -(1-percent);
+                percent--;
             }
 
             return percent;

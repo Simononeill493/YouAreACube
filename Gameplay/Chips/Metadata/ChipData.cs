@@ -72,9 +72,6 @@ namespace IAmACube
             if (Input3 != null) { NumInputs++; }
         }
 
-        public override string ToString()
-        {
-            return Name + " (" + ChipDataType.ToString() + ")";
-        }
+        public override string ToString() => Name + " (" + ChipDataType.ToString() + ")";
     }
 }

@@ -13,9 +13,6 @@ namespace IAmACube
             BaseObject = baseObject;
         }
 
-        public override string ToString()
-        {
-            return BaseObject.ToString();
-        }
+        public override string ToString() => BaseObject.ToString();
     }
 }
