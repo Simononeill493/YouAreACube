@@ -50,7 +50,7 @@ namespace IAmACube
 
         public static void TestCode()
         {
-            //var world = WorldGen.GenerateEmptyWorld(59);
+
         }
     }
 }

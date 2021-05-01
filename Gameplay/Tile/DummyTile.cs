@@ -8,7 +8,7 @@ namespace IAmACube
 {
     class DummyTile : Tile
     {
-        public DummyTile() : base(IntPoint.Min, IntPoint.Min, IntPoint.Min) { }
+        public DummyTile() : base(IntPoint.Min, IntPoint.Min, IntPoint.Min,0) { }
 
         public override bool HasThisSurface(SurfaceBlock surface) => true;
         public override bool HasThisGround(GroundBlock ground) => true;

@@ -14,7 +14,7 @@ namespace IAmACube
             foreach(var dir in world.Focus.EmptyAdjacents)
             {
                 var point = world.Focus.AbsoluteLocation + DirectionUtils.XYOffset(dir);
-                var sector = WorldGen.GetTestSector(point);
+                var sector = WorldGen.GetTestSector(point,world.SectorSize);
                 world.AddSector(sector);
             }
         }

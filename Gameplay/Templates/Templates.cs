@@ -15,7 +15,7 @@ namespace IAmACube
         public static void Load() 
         {
             BlockTemplates = new TemplatesDatabase();
-            var data = FileUtils.LoadJson(Config.TemplatesFilePath);
+            var data = FileUtils.LoadJson(ConfigFiles.TemplatesFilePath);
 
             var builtInTemplates = TemplateParser.ParseTemplates(data["blocks"]);
             foreach(var builtInTemplate in builtInTemplates)

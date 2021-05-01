@@ -19,7 +19,7 @@ namespace IAmACube
                     if (!sector.HasNeighbour(cardinal))
                     {
                         var coord = DirectionUtils.GetCoords(sector.AbsoluteLocation, cardinal);
-                        var newSector = WorldGen.GetTestSector(coord);
+                        var newSector = WorldGen.GetTestSector(coord,world.SectorSize);
                         world.AddSector(newSector);
                     }
                 }

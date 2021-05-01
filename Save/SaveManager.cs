@@ -25,7 +25,7 @@ namespace IAmACube
             return new Save(kernel, world);
         }
 
-        public static void SaveToFile(Save save) => FileUtils.SaveBinary(save, Config.SaveDirectoryPath, save.Name, Config.SaveExtension);
-        public static Save LoadFromFile(string name) => FileUtils.LoadBinary<Save>(Config.SaveDirectoryPath, name);
+        public static void SaveToFile(Save save) => FileUtils.SaveBinary(save, ConfigFiles.SaveDirectoryPath, save.Name, ConfigFiles.SaveExtension);
+        public static Save LoadFromFile(string name) => FileUtils.LoadBinary<Save>(ConfigFiles.SaveDirectoryPath, name);
     }
 }

@@ -16,6 +16,7 @@ namespace IAmACube
             if(actor.Location.HasSurface)
             {
                 var energy = actor.Energy;
+
                 actor.TakeEnergy(energy);
                 actor.Location.Surface.Damage(energy);
             }

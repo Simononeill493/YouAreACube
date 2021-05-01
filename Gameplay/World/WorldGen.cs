@@ -11,8 +11,8 @@ namespace IAmACube
     {
         public static World GenerateEmptyWorld(int seed)
         {
-            var world = new World(seed);
-            var centre = GetTestSector(new IntPoint(0, 0));
+            var world = new World(seed,Config.DefaultSectorSize);
+            var centre = GetTestSector(new IntPoint(0, 0),world.SectorSize);
             world.AddSector(centre);
 
             AttachmentUtils.AddOuterSectors(world);
@@ -37,9 +37,9 @@ namespace IAmACube
 
 
 
-        public static Sector GetTestSector(IntPoint coords)
+        public static Sector GetTestSector(IntPoint coords,int sectorSize)
         {
-            var sector = _getInitializedSector(coords);
+            var sector = _getInitializedSector(coords,sectorSize);
             _setBasicGround(sector);
 
             return sector;
@@ -99,30 +99,30 @@ namespace IAmACube
                 emptySize--;
             }
         }
-        private static Sector _getInitializedSector(IntPoint sectorOrigin)
+        private static Sector _getInitializedSector(IntPoint sectorOrigin,int sectorSize)
         {
-            var (tiles,tilesFlattened) = _getInitializedGrid(sectorOrigin, Config.SectorSize);
-            AttachmentUtils.AttachTileGridToSelf(tiles,Config.SectorSize);
+            var (tiles,tilesFlattened) = _getInitializedGrid(sectorOrigin, sectorSize);
+            AttachmentUtils.AttachTileGridToSelf(tiles, sectorSize);
 
             var sector = new Sector(sectorOrigin, tiles, tilesFlattened);
             return sector;
         }
-        private static (Tile[,] tiles, List<Tile> tilesFlattened) _getInitializedGrid(IntPoint sectorOrigin,int size)
+        private static (Tile[,] tiles, List<Tile> tilesFlattened) _getInitializedGrid(IntPoint sectorOrigin,int sectorSize)
         {
-            int xOrigin = size * sectorOrigin.X;
-            int yOrigin = size * sectorOrigin.Y;
+            int xOrigin = sectorSize * sectorOrigin.X;
+            int yOrigin = sectorSize * sectorOrigin.Y;
 
-            var tiles = new Tile[size, size];
+            var tiles = new Tile[sectorSize, sectorSize];
             var tilesFlattened = new List<Tile>();
 
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < sectorSize; i++)
             {
-                for (int j = 0; j < size; j++)
+                for (int j = 0; j < sectorSize; j++)
                 {
                     var xOffs = i + xOrigin;
                     var yOffs = j + yOrigin;
 
-                    var tile = new Tile(new IntPoint(i,j),new IntPoint(xOffs, yOffs), sectorOrigin);
+                    var tile = new Tile(new IntPoint(i, j), new IntPoint(xOffs, yOffs), sectorOrigin, sectorSize);
                     tiles[i, j] = tile;
 
                     tilesFlattened.Add(tile);

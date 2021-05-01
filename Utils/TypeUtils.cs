@@ -44,6 +44,17 @@ namespace IAmACube
                 return parsed;
             }
 
+            if (t == typeof(string))
+            {
+                return asString;
+            }
+
+            if (t == typeof(Microsoft.Xna.Framework.Color))
+            {
+                var colorObject = t.GetProperty(asString);
+                return colorObject.GetValue(null);
+            }
+
             return null;
         }
 

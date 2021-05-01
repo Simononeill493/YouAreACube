@@ -91,11 +91,11 @@ namespace IAmACube
         }
 
 
-        public void DrawSectorGridOverlay(IntPoint sector,int gridLineThickness,CameraConfiguration _config)
+        public void DrawSectorGridOverlay(IntPoint sector,int sectorSize,int gridLineThickness,CameraConfiguration _config)
         {
-            var sectorOrigin = sector * Config.SectorSize * _config.TileSizePixels;
+            var sectorOrigin = sector * sectorSize * _config.TileSizePixels;
             var sectorOriginOffset = sectorOrigin - _config.PixelOffset;
-            var sectorSquareSize = _config.TileSizePixels * Config.SectorSize;
+            var sectorSquareSize = _config.TileSizePixels * sectorSize;
 
             DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y, gridLineThickness, sectorSquareSize, DrawLayers.GameSectorOverlayLayer, Color.Red);
             DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y, sectorSquareSize, gridLineThickness, DrawLayers.GameSectorOverlayLayer, Color.Red);

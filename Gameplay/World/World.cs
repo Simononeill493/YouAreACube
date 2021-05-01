@@ -18,8 +18,11 @@ namespace IAmACube
         public Random Random;
         private int _seed;
 
-        public World(int seed)
+        public int SectorSize;
+
+        public World(int seed,int sectorSize)
         {
+            SectorSize = sectorSize;
             _seed = seed;
             Random = new Random(_seed);
 
@@ -53,14 +56,14 @@ namespace IAmACube
 
         }
 
-        public bool HasTile(IntPoint worldCoords) => HasSector(WorldUtils.GetLocationOfSector(worldCoords));
+        public bool HasTile(IntPoint worldCoords) => HasSector(WorldUtils.GetLocationOfSector(worldCoords,SectorSize));
 
         public Tile GetTile(IntPoint worldCoords)
         {
-            var sectorLocation = WorldUtils.GetLocationOfSector(worldCoords);
+            var sectorLocation = WorldUtils.GetLocationOfSector(worldCoords,SectorSize);
             var sector = GetSector(sectorLocation);
 
-            var sectorTileCoords = WorldUtils.ConvertToSectorCoords(worldCoords);
+            var sectorTileCoords = WorldUtils.ConvertToSectorCoords(worldCoords,SectorSize);
             var tile = sector.TileGrid[sectorTileCoords.X, sectorTileCoords.Y];
 
             return tile;
@@ -82,6 +85,6 @@ namespace IAmACube
 
         public bool HasSector(IntPoint sectorCoords) => SectorGrid.ContainsKey(sectorCoords);
         public Sector GetSector(IntPoint coord) => SectorGrid[coord];
-        public Sector GetSector(Tile tile) => SectorGrid[WorldUtils.GetLocationOfSector(tile.AbsoluteLocation)];
+        public Sector GetSector(Tile tile) => SectorGrid[WorldUtils.GetLocationOfSector(tile.AbsoluteLocation,SectorSize)];
     }
 }

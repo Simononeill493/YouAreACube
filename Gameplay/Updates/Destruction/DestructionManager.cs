@@ -34,7 +34,7 @@ namespace IAmACube
                     _moveManager.DestroyBlock(block);
                 }
 
-                Console.WriteLine("Block " + block._id + " destroyed.");
+                //Console.WriteLine("Block " + block._id + " destroyed.");
             }
         }
 

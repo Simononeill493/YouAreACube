@@ -102,7 +102,6 @@ namespace IAmACube
             }
 
             MouseHoverPosition = input.MouseHoverTile.AbsoluteLocation;
-            Console.WriteLine(MouseHoverPosition);
         }
     }
 }

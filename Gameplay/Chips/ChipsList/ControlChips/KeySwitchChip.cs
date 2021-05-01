@@ -12,29 +12,27 @@ namespace IAmACube
     {
         public string Name { get; set; }
 
-        public List<Tuple<Keys, ChipBlock>> KeyEffects = new List<Tuple<Keys, ChipBlock>>();
+        public List<(Keys Key, ChipBlock Block)> KeyEffects = new List<(Keys, ChipBlock)>();
+        public void AddKeyEffect(Keys key, ChipBlock effect) => KeyEffects.Add((key, effect));
 
-        public void AddKeyEffect(Keys key,ChipBlock effect)
-        {
-            KeyEffects.Add(new Tuple<Keys, ChipBlock>(key, effect));
-        }
 
         public void Run(Block actor, UserInput input, ActionsList actions)
         {
             foreach (var keyEffect in KeyEffects)
             {
-                if (input.IsKeyDown(keyEffect.Item1))
+                if (input.IsKeyDown(keyEffect.Key))
                 {
-                    keyEffect.Item2.Execute(actor, input, actions);
+                    keyEffect.Block.Execute(actor, input, actions);
                 }
             }
         }
+
 
         public List<ChipBlock> GetSubBlocks()
         {
             var output = new List<ChipBlock>();
 
-            foreach(var block in KeyEffects.Select(k=>k.Item2))
+            foreach(var block in KeyEffects.Select(k=>k.Block))
             {
                 output.AddRange(block.GetBlockAndSubBlocks());
             }

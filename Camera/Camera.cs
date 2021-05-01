@@ -61,7 +61,7 @@ namespace IAmACube
             }
         }
 
-        protected void _drawSectorBoundaries(World world) => world.Focus.Neighbours.ForEach(s => _drawingInterface.DrawSectorGridOverlay(s.AbsoluteLocation, 3, _config));
+        protected void _drawSectorBoundaries(World world) => world.Focus.Neighbours.ForEach(s => _drawingInterface.DrawSectorGridOverlay(s.AbsoluteLocation,world.SectorSize, 3, _config));
 
         private void _drawMouseHoverPos()
         {

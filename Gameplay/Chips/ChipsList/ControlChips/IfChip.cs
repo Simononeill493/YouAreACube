@@ -9,6 +9,7 @@ namespace IAmACube
         public string Name { get; set; }
 
         public bool ChipInput1 { get; set; }
+
         public ChipBlock Yes;
         public ChipBlock No;
 
@@ -27,6 +28,7 @@ namespace IAmACube
         public List<ChipBlock> GetSubBlocks()
         {
             var output = new List<ChipBlock>();
+
             if(Yes!=null) 
             {
                 output.AddRange(Yes.GetBlockAndSubBlocks());

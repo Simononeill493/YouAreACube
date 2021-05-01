@@ -13,6 +13,23 @@ namespace IAmACube
 {
     public class FileUtils
     {
+        public static string GetFilePath(string defaultLocation, string fileName)
+        {
+            var defaultPath = Path.Combine(defaultLocation, fileName);
+            if (File.Exists(defaultPath) | Directory.Exists(defaultPath))
+            {
+                return defaultPath;
+            }
+
+            var workingDirPath = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+            if (File.Exists(workingDirPath) | Directory.Exists(workingDirPath))
+            {
+                return workingDirPath;
+            }
+
+            return null;
+        }
+
         public static List<string> GetDirectoryContents(string path)
         {
             var contents = Directory.GetFiles(path).Select(l => Path.GetFileName(l).ToLower()).ToList();
