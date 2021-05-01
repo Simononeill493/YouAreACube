@@ -11,21 +11,49 @@ namespace IAmACube
 {
     public class SaveManager
     {
-        public static Save FreshSave()
+        public static (Kernel Kernel, World World) GenerateTestSave(string name = "")
         {
-            var player = Templates.GenerateSurface("BasicPlayer",0);
-            var world = WorldGen.GenerateEmptyWorld(0);
+            var kernel = GenerateTestKernel(name);
+            var world = GenerateTestWorld(name);
 
-            WorldGen.AddPlayer(world, player);
-            WorldGen.AddEntities(world);
+            AddKernelToWorld(kernel, world);
 
-            var kernel = new Kernel();
-            kernel.SetHost(player);
-
-            return new Save(kernel, world);
+            return (kernel, world);
         }
 
-        public static void SaveToFile(Save save) => FileUtils.SaveBinary(save, ConfigFiles.SaveDirectoryPath, save.Name, ConfigFiles.SaveExtension);
-        public static Save LoadFromFile(string name) => FileUtils.LoadBinary<Save>(ConfigFiles.SaveDirectoryPath, name);
+        public static Kernel GenerateTestKernel(string name = "")
+        {
+            var kernel = new Kernel();
+            kernel.Name = name;
+
+            return kernel;
+        }
+
+        public static World GenerateTestWorld(string name = "")
+        {
+            var world = WorldGen.GenerateEmptyWorld(0);
+            world.Name = name;
+
+            WorldGen.AddEntities(world);
+
+            return world;
+        }
+
+        public static void AddKernelToWorld(Kernel kernel, World world)
+        {
+            var player = Templates.GenerateSurface("BasicPlayer", 0);
+
+            WorldGen.AddPlayer(world, player);
+            kernel.SetHost(player);
+        }
+
+
+        public static void SaveKernel(Kernel kernel) => FileUtils.SaveBinary(kernel, ConfigFiles.SaveDirectoryPath, kernel.Name, ConfigFiles.SaveKernelExtension);
+        public static void SaveWorld(World world) => FileUtils.SaveBinary(world, ConfigFiles.SaveDirectoryPath, world.Name, ConfigFiles.SaveWorldExtension);
+
+
+        public static Kernel LoadKernel(string name) => FileUtils.LoadBinary<Kernel>(ConfigFiles.SaveDirectoryPath, name, ConfigFiles.SaveKernelExtension);
+        public static World LoadWorld(string name) => FileUtils.LoadBinary<World>(ConfigFiles.SaveDirectoryPath, name, ConfigFiles.SaveWorldExtension);
+
     }
 }

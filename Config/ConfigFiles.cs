@@ -14,16 +14,17 @@ namespace IAmACube
 
         public static string SaveDirectoryDefaultLocation = @"C:\Users\Simon\Desktop\Cube\Cube";
         public static string SaveDirectoryName = @"Saves";
-        public static string SaveExtension = ".cubesave";
+        public static string SaveWorldExtension = ".cubeworld";
+        public static string SaveKernelExtension = ".cubekernel";
 
         public static string TemplatesFileDefaultLocation = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data";
         public static string TemplatesFileName = @"templates.txt";
 
-        public static string ChipsFileDefaultLocation = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data";
-        public static string ChipsFileName = @"BuiltInChips.txt";
+        public static string BuiltInChipsFileDefaultLocation = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data";
+        public static string BuiltInChipsFileName = @"BuiltInChips.txt";
 
         public static string TemplatesFilePath;
-        public static string ChipsFilePath;
+        public static string BuiltInChipsFilePath;
         public static string SaveDirectoryPath;
 
         public static void Init()
@@ -31,14 +32,14 @@ namespace IAmACube
             _loadConfigFile();
 
             TemplatesFilePath = FileUtils.GetFilePath(TemplatesFileDefaultLocation, TemplatesFileName);
-            ChipsFilePath = FileUtils.GetFilePath(ChipsFileDefaultLocation, ChipsFileName);
+            BuiltInChipsFilePath = FileUtils.GetFilePath(BuiltInChipsFileDefaultLocation, BuiltInChipsFileName);
             SaveDirectoryPath = _getOrMakeSaveDirectory();
 
             if (TemplatesFilePath == null)
             {
                 throw new FileNotFoundException("Templates.txt not found. Please add Templates.txt to the application directory.");
             }
-            if (ChipsFilePath == null)
+            if (BuiltInChipsFilePath == null)
             {
                 throw new FileNotFoundException("BuiltInChips.txt not found. Please add BuiltInChips.txt to the application directory.");
             }
@@ -50,7 +51,6 @@ namespace IAmACube
             if(existingPath!=null)
             {
                 return existingPath;
-
             }
 
             var newDirPath = Path.Combine(Directory.GetCurrentDirectory(), SaveDirectoryName);

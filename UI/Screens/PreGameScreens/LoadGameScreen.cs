@@ -11,15 +11,15 @@ namespace IAmACube
     class LoadGameScreen : MenuScreen
     {
         private List<string> saves;
-        private Action<Save> _loadSaveToScreen;
+        private Action<Kernel, World> _loadSaveToScreen;
 
-        public LoadGameScreen(Action<ScreenType> switchScreen,Action<Save> loadSaveToScreen) : base(ScreenType.LoadGame,switchScreen)
+        public LoadGameScreen(Action<ScreenType> switchScreen,Action<Kernel, World> loadSaveToScreen) : base(ScreenType.LoadGame,switchScreen)
         {
             _loadSaveToScreen = loadSaveToScreen;
 
             Background = "TitleBackground";
             var files = Directory.GetFiles(ConfigFiles.SaveDirectoryPath);
-            saves = files.Where(s => s.Contains(ConfigFiles.SaveExtension)).ToList();
+            saves = files.Where(s => s.Contains(ConfigFiles.SaveWorldExtension)).ToList();
 
             for(int i=0;i<4;i++)
             {
@@ -50,7 +50,12 @@ namespace IAmACube
 
         public void ClickSaveFile(int saveNumber)
         {
-            _loadSaveToScreen(SaveManager.LoadFromFile(saves[saveNumber]));
+            var name = Path.GetFileNameWithoutExtension(saves[saveNumber]);
+
+            var world = SaveManager.LoadWorld(name);
+            var kernel = SaveManager.LoadKernel(world.Name);
+
+            _loadSaveToScreen(kernel,world);
             SwitchScreen(ScreenType.Game);
         }
     }

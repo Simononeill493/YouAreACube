@@ -61,7 +61,8 @@
     <Compile Include="Gameplay\Blocks\SurfaceBlock.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\ZapSurfaceChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Mouse\GetMouseHoverChip.cs" />
-    <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Surroundings\GetSurroundingsChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Surroundings\GetAdjacentTilesChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Surroundings\GetSurfaceEphemeralsChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\AddToListChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\GetListItemAtIndexChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\ShuffleListChip.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Keyboard\IsKeyPressedChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Randoms\RandomNumChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\Direction\FleeDirectionChip.cs" />
+    <Compile Include="Gameplay\Chips\Metadata\ChipObjectGenerator.cs" />
     <Compile Include="Gameplay\Templates\TemplatesDatabase.cs" />
     <Compile Include="Gameplay\Templates\TemplateAllVersions.cs" />
     <Compile Include="Gameplay\Tile\DummyTile.cs" />
@@ -168,7 +170,7 @@
     <Compile Include="Gameplay\Chips\ChipTester.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\IControlChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\FirstOfListChip.cs" />
-    <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Surroundings\GetNeighboursChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Surroundings\GetSurfaceNeighboursChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ControlChips\IfChip.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\Pins\InputPin.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\IsListEmptyChip.cs" />
@@ -180,7 +182,6 @@
     <Compile Include="Gameplay\Player\Kernel.cs" />
     <Compile Include="Utils\KeyUtils.cs" />
     <Compile Include="MonoGameWrapper\Graphics\SpriteManager.cs" />
-    <Compile Include="Save\Save.cs" />
     <Compile Include="Save\SaveManager.cs" />
     <Compile Include="UI\Screens\InGameScreens\GameScreen.cs" />
     <Compile Include="UI\Screens\PreGameScreens\LoadGameScreen.cs" />

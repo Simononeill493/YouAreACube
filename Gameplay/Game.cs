@@ -8,15 +8,16 @@ namespace IAmACube
 {
     public class Game
     {
-        private Save _save;
-        public Kernel Kernel => _save.Kernel;
-        public World World => _save.World;
+        public Kernel Kernel;
+        public World World;
 
         private SectorGenerator _sectorGenerator;
 
-        public Game(Save save)
+        public Game(Kernel kernel, World world)
         {
-            _save = save;
+            Kernel = kernel;
+            World = world;
+
             _sectorGenerator = new SectorGenerator();
 
             _initializeSession();
@@ -41,11 +42,15 @@ namespace IAmACube
         {
             Kernel.InitializeSession();
             World.InitializeSession();
+
+            var hostTile = World.GetTile(Kernel.Host.Location.AbsoluteLocation);
+            var liveHost = hostTile.Surface;
+            Kernel.SetHost(liveHost);
         }
 
-        public Save SaveAndQuit()
+        public (Kernel,World) SaveAndQuit()
         {
-            return _save;
+            return (Kernel,World);
         }
     }
 }

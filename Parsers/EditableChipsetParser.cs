@@ -106,7 +106,7 @@ namespace IAmACube
                 for (int i = 0; i < chip.Inputs.Count; i++)
                 {
                     var jsonInputData = chip.Inputs[i];
-                    var inputType = chip.ChipData.GetInputType(i + 1);
+                    var inputType = chip.ChipData.GetInputType(i);
 
                     ChipInputOption inputOption = null;
                     if (jsonInputData.InputType.Equals("Reference"))
@@ -117,7 +117,7 @@ namespace IAmACube
                     else if (jsonInputData.InputType.Equals("Value"))
                     {
                         object value = null;
-                        var inputTypeName = chip.ChipData.GetInputType(i + 1);
+                        var inputTypeName = chip.ChipData.GetInputType(i);
                         if(inputTypeName.Equals("Template"))
                         {
                             value = Templates.BlockTemplates[jsonInputData.InputValue];

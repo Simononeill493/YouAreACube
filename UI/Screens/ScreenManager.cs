@@ -52,7 +52,7 @@ namespace IAmACube
             }
         }
 
-        public void LoadSaveToScreen(Save save) => CurrentGame = new GameScreen(SwitchScreen, save);
+        public void LoadSaveToScreen(Kernel kernel,World world) => CurrentGame = new GameScreen(SwitchScreen, kernel, world);
         public void OpenTemplateForEditing(BlockTemplate template) => CurrentScreen = new TemplateEditScreen(SwitchScreen, CurrentGame, template);
 
 
@@ -66,9 +66,10 @@ namespace IAmACube
 
             if(input.IsKeyJustReleased(Keys.PageUp))
             {
-                var save = SaveManager.LoadFromFile("test.cubesave");
+                var kernel = SaveManager.LoadKernel("test");
+                var world = SaveManager.LoadWorld("test");
 
-                LoadSaveToScreen(save);
+                LoadSaveToScreen(kernel,world);
                 SwitchScreen(ScreenType.Game);
             }
 

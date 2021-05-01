@@ -10,6 +10,8 @@ namespace IAmACube
     [Serializable()]
     public class World
     {
+        public string Name;
+
         public WorldTicker _ticker;
 
         public Dictionary<IntPoint, Sector> SectorGrid;

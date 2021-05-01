@@ -37,13 +37,19 @@
 	  "in":[],
     },
 	{
-      "name":"GetNeighbours",
+      "name":"GetSurfaceNeighbours",
 	  "type":"Sense",
 	  "in":[],
 	  "out":"List<SurfaceBlock>"
     },
 	{
-      "name":"GetSurroundings",
+      "name":"GetEphemeralNeighbours",
+	  "type":"Sense",
+	  "in":[],
+	  "out":"List<EphemeralBlock>"
+    },
+	{
+      "name":"GetAdjacentTiles",
 	  "type":"Sense",
 	  "in":[],
 	  "out":"List<Tile>"
@@ -105,7 +111,8 @@
 	{
       "name":"ShuffleList",
 	  "type":"General",
-	  "in":["List<Variable>"]
+	  "in":["List<Variable>"],
+	  "out":"List<Variable>"
     },
 	{
       "name":"AddToList",

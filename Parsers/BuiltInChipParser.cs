@@ -28,24 +28,32 @@ namespace IAmACube
             var typeName = chip["type"].ToString();
             var chipType = (ChipType)Enum.Parse(typeof(ChipType), typeName);
 
-            var data = new ChipData(name, chipType);
 
             var inputs = chip["in"];
-            if(inputs!=null)
+            var inputsString = new string[3];
+            int numInputs = 0;
+
+            if (inputs != null)
             {
                 var values = inputs.Values();
-                if (values.Count() > 0) { data.Input1 = inputs[0].ToString(); }
-                if (values.Count() > 1) { data.Input2 = inputs[1].ToString(); }
-                if (values.Count() > 2) { data.Input3 = inputs[2].ToString(); }
+
+                foreach (var value in values)
+                {
+                    inputsString[numInputs] = value.ToString();
+                    numInputs++;
+                }
             }
 
             var output = chip["out"];
+            string outputString = null;
             if(output!=null)
             {
-                data.SetOutputType(output.ToString());
+                outputString = output.ToString();
             }
 
-            data.Init();
+
+            var data = new ChipData(name, chipType, numInputs, inputsString, outputString);
+
             return data;
         }
     }

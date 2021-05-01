@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class ShuffleListChip<T> : OutputPin<List<T>>, InputPin<List<T>>
+    internal class GetEphemeralNeighboursChip : OutputPin<List<EphemeralBlock>>
     {
-        public List<T> ChipInput1 { get; set; }
-
         public override void Run(Block actor, UserInput input, ActionsList actions)
         {
-            var shuffled = RandomUtils.Shuffle(ChipInput1);
-            SetOutput(shuffled);
+            var neighbours = actor.Location.Adjacent.Where(l => l.Value.HasEphemeral).Select(l => l.Value.Ephemeral).ToList();
+            SetOutput(neighbours);
         }
     }
 }
+

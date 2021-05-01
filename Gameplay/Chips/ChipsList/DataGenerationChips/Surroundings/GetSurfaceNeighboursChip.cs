@@ -5,11 +5,11 @@ using System.Linq;
 namespace IAmACube
 {
     [Serializable()]
-    internal class GetNeighboursChip : OutputPin<List<SurfaceBlock>>
+    internal class GetSurfaceNeighboursChip : OutputPin<List<SurfaceBlock>>
     {
         public override void Run(Block actor, UserInput input,ActionsList actions)
         {
-            var neighbours = actor.Location.Adjacent.Values.Where(l => (l.HasSurface)).Select(l => l.Surface).ToList();
+            var neighbours = actor.Location.Adjacent.Where(l => l.Value.HasSurface).Select(l => l.Value.Surface).ToList();
             SetOutput(neighbours);
         }
     }

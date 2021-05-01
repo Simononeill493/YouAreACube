@@ -20,7 +20,7 @@ namespace IAmACube
 
         public static ChipBlock MakeEnemyBlock()
         {
-            var getNeighboursChip = new GetNeighboursChip() { Name = "GetNeighbours_1" };
+            var getNeighboursChip = new GetSurfaceNeighboursChip() { Name = "GetNeighbours_1" };
             var randDirChip = new RandomDirChip() { Name = "RandomDir_1" };
 
             var ifChip = new IfChip() { Name = "If_1" };
@@ -53,7 +53,7 @@ namespace IAmACube
 
         public static ChipBlock MakeFleeBlock()
         {
-            var getNeighboursChip = new GetNeighboursChip() { Name = "GetNeighbours_1" };
+            var getNeighboursChip = new GetSurfaceNeighboursChip() { Name = "GetNeighbours_1" };
             var randDirChip = new RandomDirChip() { Name = "RandomDir_1" };
 
             var ifChip = new IfChip() { Name = "If_1" };
@@ -162,7 +162,7 @@ namespace IAmACube
         public static ChipBlock MakeFirstOfListBlock()
         {
             return null;
-            var getNeighboursChip = new GetNeighboursChip() { Name = "GetNeighbours_1" };
+            var getNeighboursChip = new GetSurfaceNeighboursChip() { Name = "GetNeighbours_1" };
             var firstOfListChip = new FirstOfListChip<SurfaceBlock>() { Name = "FirstOfList_1" };
 
         }

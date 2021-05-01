@@ -102,15 +102,7 @@ namespace IAmACube
         public IChip IChip;
         public void CreateIChip()
         {
-            if (ChipData.IsGeneric)
-            {
-                IChip = ChipDatabase.GenerateChipFromData(ChipData, TypeArgument);
-            }
-            else
-            {
-                IChip = ChipDatabase.GenerateChipFromData(ChipData);
-            }
-
+            IChip = ChipObjectGenerator.GenerateIChipFromChipData(ChipData, TypeArgument);
             IChip.Name = this.Name;
         }
 

@@ -32,7 +32,7 @@ namespace IAmACube
         {
             _createOutputLabel();
 
-            OutputTypeBase = data.OutputType;
+            OutputTypeBase = data.Output;
             OutputTypeCurrent = OutputTypeBase;
         }
         private void _createOutputLabel()

@@ -35,7 +35,6 @@ namespace IAmACube
         protected void _kernelCameraUpdate(UserInput input)
         {
             _boundary.Update(_borderNumTiles, _config.TileSizePixels);
-
             if(_boundary.WithinBoundary(_kernelScreenPos))
             {
                 _isScrolling = false;

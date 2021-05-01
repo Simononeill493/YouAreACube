@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace IAmACube.Gameplay.Chips.ChipsList.DataGenerationChips
 {
     [Serializable()]
-    internal class GetSurroundingsChip : OutputPin<List<Tile>>
+    internal class GetAdjacentTilesChip : OutputPin<List<Tile>>
     {
         public override void Run(Block actor, UserInput input, ActionsList actions)
         {
-            SetOutput(actor.Location.Adjacent.Values.ToList());
+            SetOutput(actor.Location.Neighbours);
         }
     }
 }

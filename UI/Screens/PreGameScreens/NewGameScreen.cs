@@ -9,7 +9,7 @@ namespace IAmACube
 {
     class NewGameScreen : MenuScreen
     {
-        public string WorldName => textBox.Text;
+        public string SaveName => textBox.Text;
         private TextBoxMenuItem textBox;
 
         public NewGameScreen(Action<ScreenType> switchScreen) : base(ScreenType.NewGame, switchScreen)
@@ -44,9 +44,10 @@ namespace IAmACube
 
         public void NewGameClicked()
         {
-            var save = SaveManager.FreshSave();
-            save.Name = WorldName;
-            SaveManager.SaveToFile(save);
+            var (kernel,world) = SaveManager.GenerateTestSave(SaveName);
+
+            SaveManager.SaveKernel(kernel);
+            SaveManager.SaveWorld(world);
 
             SwitchScreen(ScreenType.LoadGame);
         }

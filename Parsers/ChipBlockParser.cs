@@ -21,7 +21,7 @@ namespace IAmACube
 
             foreach (var iChip in toParse.GetAllChipsAndSubChips())
             {
-                var chipData = ChipDatabase.GetChipDataFromChip(iChip);
+                var chipData = iChip.GetChipData();
 
                 var chipJobject = new ChipJSONData();
                 chipJobject.Name = iChip.Name;
@@ -189,7 +189,7 @@ namespace IAmACube
                 var input = inputsList[i];
                 if (input.InputType.Equals("Value"))
                 {
-                    var typeName = chipData.GetInputType(i + 1);
+                    var typeName = chipData.GetInputType(i);
                     var property = constructedChip.GetType().GetProperty("ChipInput" + (i + 1).ToString());
 
                     if (typeName.Equals("Template"))

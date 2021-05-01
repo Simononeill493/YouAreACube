@@ -15,22 +15,22 @@ namespace IAmACube
         General
     }
 
-    public static class ChipTypeMetadata
+    public static class ChipTypeUtils
     {
         public static Color GetColor(this ChipType chiptype)
         {
             switch (chiptype)
             {
                 case ChipType.Action:
-                    return Microsoft.Xna.Framework.Color.DarkRed;
+                    return Color.DarkRed;
                 case ChipType.Control:
-                    return Microsoft.Xna.Framework.Color.DarkGreen;
+                    return Color.DarkGreen;
                 case ChipType.Sense:
-                    return Microsoft.Xna.Framework.Color.DarkBlue;
+                    return Color.DarkBlue;
                 case ChipType.General:
-                    return Microsoft.Xna.Framework.Color.DimGray;
+                    return Color.DimGray;
                 default:
-                    throw new Exception();
+                    throw new Exception("Tried to get a chip color for the chip type '" + chiptype.ToString() + "', which does not have a set color.");
             }
         }
     }

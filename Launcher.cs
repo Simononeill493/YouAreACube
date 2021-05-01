@@ -38,6 +38,7 @@ namespace IAmACube
             Config.Init();
             TypeUtils.Load();
             ChipDatabase.Load();
+            ChipObjectGenerator.Test();
             RandomUtils.Init(1);
             DirectionUtils.Init();
             Templates.Load();

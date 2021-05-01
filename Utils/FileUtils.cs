@@ -40,22 +40,19 @@ namespace IAmACube
 
         public static void SaveBinary(object toSave, string path,string name,string extension = "")
         {
-            var savePath = Path.Combine(path, name) + extension;
+            var savePath = Path.Combine(path, name + extension);
+            var stream = new FileStream(savePath, FileMode.Create, FileAccess.Write);
 
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream(savePath, FileMode.Create, FileAccess.Write);
-
-            formatter.Serialize(stream, toSave);
+            new BinaryFormatter().Serialize(stream, toSave);
             stream.Close();
         }
 
-        public static T LoadBinary<T>(string path, string name)
+        public static T LoadBinary<T>(string path, string name, string extension = "")
         {
-            var savePath = Path.Combine(path, name);
-            IFormatter formatter = new BinaryFormatter();
+            var savePath = Path.Combine(path, name + extension);
 
             var stream = new FileStream(savePath, FileMode.Open, FileAccess.Read);
-            T loaded = (T)formatter.Deserialize(stream);
+            var loaded = (T)new BinaryFormatter().Deserialize(stream);
             stream.Close();
 
             return loaded;

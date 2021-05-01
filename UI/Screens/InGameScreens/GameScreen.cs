@@ -15,12 +15,12 @@ namespace IAmACube
         private Camera _adminCamera;
         private KernelTrackingCamera _playerCamera;
 
-        public GameScreen(Action<ScreenType> switchScreen,Save save) : base(ScreenType.Game,switchScreen)
+        public GameScreen(Action<ScreenType> switchScreen,Kernel kernel, World world) : base(ScreenType.Game,switchScreen)
         {
-            Game = new Game(save);
+            Game = new Game(kernel, world);
 
-            _adminCamera = new Camera(save.Kernel);
-            _playerCamera = new KernelTrackingCamera(save.Kernel);
+            _adminCamera = new Camera(kernel);
+            _playerCamera = new KernelTrackingCamera(kernel);
             _currentCamera = _playerCamera;
         }
 
@@ -47,8 +47,11 @@ namespace IAmACube
             }
             if(input.IsKeyJustPressed(Keys.Escape))
             {
-                var save = Game.SaveAndQuit();
-                SaveManager.SaveToFile(save);
+                var (kernel, world) = Game.SaveAndQuit();
+
+                SaveManager.SaveKernel(kernel);
+                SaveManager.SaveWorld(world);
+
                 SwitchScreen(ScreenType.LoadGame);
             }
             if (input.IsKeyJustPressed(Keys.Tab))

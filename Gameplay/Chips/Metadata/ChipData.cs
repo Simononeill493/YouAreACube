@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,69 +10,51 @@ namespace IAmACube
 {
     public class ChipData
     {
-        public string Name;
-        public string NameLower;
+        public string Name { get; }
+        public ChipType ChipDataType { get; }
 
-        public ChipType ChipDataType;
+        private string[] Inputs { get; }
+        public int NumInputs { get; }
 
-        public string Input1;
-        public string Input2;
-        public string Input3;
+        public string Output { get; }
+        public bool HasOutput { get; }
 
-        public string OutputType { get; private set; }
-        public void SetOutputType(string outputType)
-        {
-            OutputType = outputType;
-            OutputIsGeneric = outputType.Contains("Variable");
-            HasOutput = true;
-        }
+        public bool IsGeneric { get; private set; }
+        public bool IsInputGeneric { get; private set; }
+        public bool IsOutputGeneric { get; private set; }
 
-        public bool HasOutput;
-        public bool IsGeneric;
-        public bool OutputIsGeneric;
 
-        public int NumInputs;
-
-        public ChipData(string name,ChipType chipType)
+        public ChipData(string name,ChipType chipType, int numInputs, string[] inputs, string output)
         {
             Name = name;
-            NameLower = name.ToLower();
-
             ChipDataType = chipType;
+
+            Inputs = inputs;
+            NumInputs = numInputs;
+
+            Output = output;
+            HasOutput = Output != null;
+
+            _setGenericFlags();
         }
 
-        public Color ChipColor => this.ChipDataType.GetColor();
-
-        public string GetInputType(int num)
+        private void _setGenericFlags()
         {
-            if (num == 1) { return Input1; }
-            if (num == 2) { return Input2; }
-            if (num == 3) { return Input3; }
-            return "_null_";
+            for (int i = 0; i < NumInputs; i++)
+            {
+                IsInputGeneric |= Inputs[i].Contains("Variable");
+            }
+
+            if (Output != null)
+            {
+                IsOutputGeneric = Output.Contains("Variable");
+            }
+
+            IsGeneric = IsInputGeneric | IsOutputGeneric;
         }
 
-        public bool IsInputGeneric(int num)
-        {
-            if(num>NumInputs) { return false; }
-
-            if (num == 1) { return Input1.Contains("Variable"); }
-            if (num == 2) { return Input2.Contains("Variable"); }
-            if (num == 3) { return Input3.Contains("Variable"); }
-            throw new Exception();
-        }
-
-        public void Init()
-        {
-            IsGeneric |= (Input1 == null) ? false : Input1.Contains("Variable");
-            IsGeneric |= (Input2 == null) ? false : Input2.Contains("Variable");
-            IsGeneric |= (Input3 == null) ? false : Input3.Contains("Variable");
-            IsGeneric |= (OutputType == null) ? false : OutputType.Contains("Variable");
-
-            if (Input1 != null) { NumInputs++; }
-            if (Input2 != null) { NumInputs++; }
-            if (Input3 != null) { NumInputs++; }
-        }
-
+        public Color ChipColor => ChipDataType.GetColor();
+        public string GetInputType(int num) => Inputs[num];
         public override string ToString() => Name + " (" + ChipDataType.ToString() + ")";
     }
 }

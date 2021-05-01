@@ -9,10 +9,17 @@ namespace IAmACube
 {
     class TypeUtils
     {
-        private static Dictionary<string, Type> AllTypes;
+        private static Dictionary<string, Type> _allTypes;
+        private static Dictionary<string, Type> _assemblyChipTypes;
 
-        public static bool IsType(string name) => AllTypes.ContainsKey(name) | name.Equals("Int32");
+        public static void Load()
+        {
+            _allTypes = _loadAllTypes();
+            _assemblyChipTypes = _loadAssemblyChipTypes();
+        }
 
+        public static bool IsType(string name) => _allTypes.ContainsKey(name) | name.Equals("Int32");
+        public static Type GetAssemblyChipType(string name) => _assemblyChipTypes.FirstOrDefault(c => c.Value.Name.Equals(name)).Value;
 
         public static Type GetTypeByName(string name)
         {
@@ -22,12 +29,9 @@ namespace IAmACube
             }
             else
             {
-                return AllTypes[name];
+                return _allTypes[name];
             }
         }
-
-        public static void Load() => AllTypes = _getAllTypes();
-
 
         public static object ParseType(Type t, string asString)
         {
@@ -58,7 +62,7 @@ namespace IAmACube
             return null;
         }
 
-        private static Dictionary<string, Type> _getAllTypes()
+        private static Dictionary<string, Type> _loadAllTypes()
         {
             var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes());
 
@@ -71,9 +75,9 @@ namespace IAmACube
             return dict;
         }
 
-        public static Dictionary<string, Type> GetAssemblyChipTypes()
+        private static Dictionary<string, Type> _loadAssemblyChipTypes()
         {
-            var allIChips = AllTypes.Values.Where(x => typeof(IChip).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).ToList();
+            var allIChips = _allTypes.Values.Where(x => typeof(IChip).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).ToList();
 
             var dict = new Dictionary<string, Type>();
             foreach (var iChip in allIChips)
@@ -83,6 +87,8 @@ namespace IAmACube
 
             return dict;
         }
+
+
     }
 
 }
