@@ -16,7 +16,7 @@ namespace IAmACube
 
     class TemplateSelectedMenu : SpriteMenuItem
     {
-        private TemplateAllVersions _template;
+        private TemplateVersionDictionary _template;
 
         private TemplateBox _templatePicture;
         private TextMenuItem _templateName;
@@ -76,7 +76,7 @@ namespace IAmACube
             }
         }
 
-        public void SetTemplate(TemplateAllVersions template)
+        public void SetTemplate(TemplateVersionDictionary template)
         {
             _template = template;
             _templatePicture.SetTemplate(template);
@@ -84,7 +84,7 @@ namespace IAmACube
 
             _templateName.Text = _template.Name;
 
-            _templateList.SetItems(template.Values.ToList());
+            _templateList.SetItems(template.Versions);
 
             var mainItem = _templateList.Items.First(i => i.Item == template.Main);
             mainItem.TrySelectItem();

@@ -115,7 +115,7 @@ namespace IAmACube
 
             newTemplate.Name = "Initial";
 
-            var newTemplateVersions = TemplateAllVersions.Create(name, newTemplate);
+            var newTemplateVersions = new TemplateVersionDictionary(name, newTemplate);
             _kernel.AddKnownTemplate(newTemplateVersions);
         }
 
@@ -131,7 +131,7 @@ namespace IAmACube
                 var json = EditableChipsetParser.ParseEditableChipsetToJson(chipset);
                 var block = ChipBlockParser.ParseJsonToBlock(json);
 
-                template.Chips = block;
+                template.ChipBlock = block;
                 return template;
             }
 

@@ -8,67 +8,39 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public partial class Templates
+    public static class Templates
     {
-        public static TemplatesDatabase BlockTemplates;
+        public static TemplateDatabase Database { get; private set; }
 
         public static void Load() 
         {
-            BlockTemplates = new TemplatesDatabase();
-            var data = FileUtils.LoadJson(ConfigFiles.TemplatesFilePath);
+            Database = new TemplateDatabase();
 
-            var builtInTemplates = TemplateParser.ParseTemplates(data["blocks"]);
-            foreach(var builtInTemplate in builtInTemplates)
-            {
-                var versions = TemplateAllVersions.Create(builtInTemplate.Key, builtInTemplate.Value);
-                BlockTemplates[builtInTemplate.Key] = versions;
-            }
-
-            //todo this is temporary
-            BlockTemplates["BasicEnemy"][0].Chips = ChipTester.TestEnemyBlock;
-            BlockTemplates["ScaredEnemy"][0].Chips = ChipTester.TestFleeBlock;
-            BlockTemplates["Spinner"][0].Chips = ChipTester.TestSpinBlock;
-            BlockTemplates["Bullet"][0].Chips = ChipTester.TestBulletBlock;
-            BlockTemplates["MiniBullet"][0].Chips = ChipTester.TestBulletBlock;
-            BlockTemplates["BasicPlayer"][0].Chips = ChipTester.TestPlayerBlock;
-            BlockTemplates["MouseFollower"][0].Chips = ChipTester.TestMouseFollowBlock;
-
-            var bullet2 = BlockTemplates["Bullet"][0].Clone();
-            bullet2.Chips = ChipTester.TestBulletV2Block;
-            BlockTemplates["Bullet"][1] = bullet2;
-
-            _testTemplateParsing();
+            _loadBuiltInTemplates();
+            _testCode();
         }
 
-        private static void _testTemplateParsing()
+        private static void _loadBuiltInTemplates()
         {
-            foreach (var template in BlockTemplates.GetAllVersionsOfAllTemplates())
+            var templatesToken = FileUtils.LoadJson(ConfigFiles.TemplatesPath)["blocks"];
+            var builtInTemplates = TemplateParser.ParseTemplates(templatesToken);
+
+            foreach (var builtInTemplate in builtInTemplates)
             {
-                if (!template.Active) { continue; }
-                var initialJson = ChipBlockParser.ParseBlockToJson(template.Chips);
-
-                var chipset = EditableChipsetParser.ParseJsonToEditableChipset(initialJson, new DummyChipsetGenerator());
-                var chipBlock = ChipBlockParser.ParseJsonToBlock(initialJson);
-
-                var chipsetRoundTrip = EditableChipsetParser.ParseEditableChipsetToJson(chipset);
-                var blockRoundTrip = ChipBlockParser.ParseBlockToJson(chipBlock);
-
-                if (!chipsetRoundTrip.Equals(blockRoundTrip))
-                {
-                    throw new Exception();
-                }
-
-                if (!ChipBlockComparer.Equivalent(template.Chips,chipBlock))
-                {
-                    throw new Exception();
-                }
+                var versions = new TemplateVersionDictionary(builtInTemplate.Name, builtInTemplate);
+                Database[builtInTemplate.Name] = versions;
             }
         }
+        private static void _testCode()
+        {
+            ChipTester.SetTestBlocks(Database);
+            TemplateParsingTester.TestParsingRoundTrips(Database);
+        }
 
-        public static BlockTemplate GetRuntimeVersion(BlockTemplate savedVersion) => BlockTemplates[savedVersion.Versions.Name][savedVersion.Version];
-        public static Block Generate(string name,int version,BlockMode blockType ) => BlockTemplates[name][version].Generate(blockType);
-        public static SurfaceBlock GenerateSurface(string name, int version) => BlockTemplates[name][version].GenerateSurface();
-        public static GroundBlock GenerateGround(string name, int version) => BlockTemplates[name][version].GenerateGround();
-        public static EphemeralBlock GenerateEphemeral(string name, int version) => BlockTemplates[name][version].GenerateEphemeral();
+        public static BlockTemplate GetRuntimeVersion(BlockTemplate savedVersion) => Database[savedVersion.Versions.Name][savedVersion.Version];
+        public static Block Generate(string name,int version,BlockMode blockType) => Database[name][version].Generate(blockType);
+        public static SurfaceBlock GenerateSurface(string name, int version) => Database[name][version].GenerateSurface();
+        public static GroundBlock GenerateGround(string name, int version) => Database[name][version].GenerateGround();
+        public static EphemeralBlock GenerateEphemeral(string name, int version) => Database[name][version].GenerateEphemeral();
     }
 }

@@ -36,7 +36,7 @@ namespace IAmACube
         }
 
         public bool TryGetAdjacent(CardinalDirection cardinalDirection, out Tile destination) => Location.Adjacent.TryGetValue(cardinalDirection, out destination);
-        public bool ShouldAbortMovement() => (!MovementData.Moved & (!CanOccupyDestination(MovementData.Destination) | MovementData.Cancelled));
+        public bool ShouldAbortMovement() => ToBeDeleted() | (!MovementData.Moved & (!CanOccupyDestination(MovementData.Destination) | MovementData.Cancelled));
         public bool CanMoveTo(Tile destination) => CanStartMoving() & CanOccupyDestination(destination);
         public bool CanStartMoving() => (!IsMoving) & Energy > 0;
         public virtual bool CanOccupyDestination(Tile destination) => true;

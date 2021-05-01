@@ -9,14 +9,13 @@ namespace IAmACube
     [Serializable()]
     public class CreationManager
     {
-        private Sector _sector;
-        public List<(Block, IntPoint)> PlacedOutOfSector = new List<(Block, IntPoint)>();
+        private Sector _creatorSector;
+        public List<(Block, IntPoint)> ToPlaceOutsideOfSector = new List<(Block, IntPoint)>();
 
         public CreationManager(Sector sector)
         {
-            _sector = sector;
+            _creatorSector = sector;
         }
-
 
         public bool TryCreate(Block creator,BlockTemplate template,BlockMode blockType,CardinalDirection direction)
         {
@@ -25,43 +24,41 @@ namespace IAmACube
                 return false;
             }
 
-            var targetPos = creator.Location.Adjacent[direction];
-            return TryCreate(creator, template, blockType, targetPos, direction);
+            return TryCreate(creator, template, blockType, direction, creator.Location.Adjacent[direction]);
         }
-        private bool TryCreate(Block creator, BlockTemplate template, BlockMode blockType, Tile targetPosition,CardinalDirection direction)
+        private bool TryCreate(Block creator, BlockTemplate template, BlockMode blockType, CardinalDirection direction,Tile targetPosition)
         {
-            if(_canThisBlockBeCreated(creator, template,blockType, targetPosition))
+            if(_canThisBlockBeCreated(creator, template, targetPosition,blockType))
             {
-                _create(creator, template, blockType, targetPosition,direction);                    
+                _create(creator, template, blockType, direction, targetPosition);                    
                 return true;                
             }
 
             return false;
         }
-
-        private void _create(Block creator, BlockTemplate template, BlockMode blockType, Tile targetPosition, CardinalDirection direction)
+        private void _create(Block creator, BlockTemplate template, BlockMode blockType, CardinalDirection direction, Tile targetPosition)
         {
             var newBlock = template.Generate(blockType);
-
             newBlock.BeCreatedBy(creator);
             newBlock.SetOrientation((Orientation)direction);
             newBlock.EnterLocation(targetPosition);
 
-            if(targetPosition.InSector(_sector))
+            _addToTargetSector(newBlock, targetPosition);
+        }
+
+        private void _addToTargetSector(Block newBlock, Tile targetPosition)
+        {
+            if (targetPosition.InSector(_creatorSector))
             {
-                _sector.AddBlockToSector(newBlock);
+                _creatorSector.AddBlockToSector(newBlock);
             }
             else
             {
+                ToPlaceOutsideOfSector.Add((newBlock, targetPosition.SectorID));
                 newBlock.IsMovingBetweenSectors = true;
-                PlacedOutOfSector.Add((newBlock, targetPosition.SectorID));
             }
         }
-
-
-
-
-        private bool _canThisBlockBeCreated(Block creator, BlockTemplate template, BlockMode blockType, Tile targetPosition)
+        private bool _canThisBlockBeCreated(Block creator, BlockTemplate template, Tile targetPosition, BlockMode blockType)
         {
             switch (blockType)
             {
@@ -75,7 +72,7 @@ namespace IAmACube
 
             throw new NotImplementedException("Creating unrecognized block type");
         }
-        private bool _canCreateEphemeral(Block creator, BlockTemplate template, Tile targetPosition) => creator.IsInCentreOfBlock & (creator.Energy >= template.EnergyCap);
+        private bool _canCreateEphemeral(Block creator, BlockTemplate template, Tile targetPosition) => creator.IsInCentreOfBlock & (creator.Energy >= template.MaxEnergy);
         private bool _canCreateSurface(Block creator, BlockTemplate template, Tile targetPosition) => !targetPosition.HasSurface;
         private bool _canCreateGround(Block creator, BlockTemplate template, Tile targetPosition) => throw new NotImplementedException("Haven't implemented ground creation");
     }

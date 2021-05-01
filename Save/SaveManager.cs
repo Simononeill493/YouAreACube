@@ -48,12 +48,12 @@ namespace IAmACube
         }
 
 
-        public static void SaveKernel(Kernel kernel) => FileUtils.SaveBinary(kernel, ConfigFiles.SaveDirectoryPath, kernel.Name, ConfigFiles.SaveKernelExtension);
-        public static void SaveWorld(World world) => FileUtils.SaveBinary(world, ConfigFiles.SaveDirectoryPath, world.Name, ConfigFiles.SaveWorldExtension);
+        public static void SaveKernel(Kernel kernel) => FileUtils.SaveBinary(kernel, ConfigFiles.SaveDirectory, kernel.Name, ConfigFiles.SaveKernelExtension);
+        public static void SaveWorld(World world) => FileUtils.SaveBinary(world, ConfigFiles.SaveDirectory, world.Name, ConfigFiles.SaveWorldExtension);
 
 
-        public static Kernel LoadKernel(string name) => FileUtils.LoadBinary<Kernel>(ConfigFiles.SaveDirectoryPath, name, ConfigFiles.SaveKernelExtension);
-        public static World LoadWorld(string name) => FileUtils.LoadBinary<World>(ConfigFiles.SaveDirectoryPath, name, ConfigFiles.SaveWorldExtension);
+        public static Kernel LoadKernel(string name) => FileUtils.LoadBinary<Kernel>(ConfigFiles.SaveDirectory, name, ConfigFiles.SaveKernelExtension);
+        public static World LoadWorld(string name) => FileUtils.LoadBinary<World>(ConfigFiles.SaveDirectory, name, ConfigFiles.SaveWorldExtension);
 
     }
 }

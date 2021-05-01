@@ -4,32 +4,32 @@
 	{
       "name":"BasicPlayer",
       "sprite":"BasicPlayer",
-	  "energyCap":10000,
+	  "maxEnergy":10000,
 	  "maxHealth":10000,
       "speed":3
     },
   	{
       "name":"Bullet",
       "sprite":"Bullet",
-	  "energyCap":45,
+	  "maxEnergy":45,
       "speed":2
     },
     {
       "name":"BasicEnemy",
       "sprite":"BasicEnemy",
       "speed":16,
-	  "energyCap":1000
+	  "maxEnergy":1000
     },
 	{
       "name":"ScaredEnemy",
       "sprite":"BasicEnemy",
-	  "energyCap":1000,
+	  "maxEnergy":1000,
       "speed":15
     },
 	{
       "name":"MouseFollower",
       "sprite":"MouseFollower",
-	  "energyCap":1000,
+	  "maxEnergy":1000,
       "speed":6
     },
 	{
@@ -41,12 +41,12 @@
       "name":"Spinner",
       "sprite":"Spinner",
       "speed":54,
-	  "energyCap":1000
+	  "maxEnergy":1000
     },
 	{
       "name":"MiniBullet",
       "sprite":"MiniBullet",
-	  "energyCap":5,
+	  "maxEnergy":5,
       "speed":2
     }
 

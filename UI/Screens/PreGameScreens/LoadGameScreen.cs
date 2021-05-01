@@ -18,7 +18,7 @@ namespace IAmACube
             _loadSaveToScreen = loadSaveToScreen;
 
             Background = "TitleBackground";
-            var files = Directory.GetFiles(ConfigFiles.SaveDirectoryPath);
+            var files = Directory.GetFiles(ConfigFiles.SaveDirectory);
             saves = files.Where(s => s.Contains(ConfigFiles.SaveWorldExtension)).ToList();
 
             for(int i=0;i<4;i++)

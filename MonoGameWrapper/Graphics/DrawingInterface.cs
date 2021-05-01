@@ -54,7 +54,7 @@ namespace IAmACube
 
         public void DrawTileDebugOverlay(Tile tile, IntPoint drawPos, CameraConfiguration cameraConfig)
         {
-            _primitivesHelper.DrawText(tile.AbsoluteLocation.ToString(), drawPos.X, drawPos.Y, 2, DrawLayers.GameTileDebugLayer, Color.Black, false);
+            //_primitivesHelper.DrawText(tile.AbsoluteLocation.ToString(), drawPos.X, drawPos.Y, 2, DrawLayers.GameTileDebugLayer, Color.Black, false);
             
             if (tile.HasSurface)
             {

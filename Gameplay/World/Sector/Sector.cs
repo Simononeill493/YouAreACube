@@ -12,7 +12,7 @@ namespace IAmACube
     {
         public Tile[,] TileGrid;
         public List<Tile> Tiles;
-        public IEnumerable<Block> DoomedBlocks => _destructibleBlocks.Where(b => b.ShouldBeDestroyed());
+        public IEnumerable<Block> DoomedBlocks => _destructibleBlocks.Where(b => b.ToBeDeleted());
 
         public List<Block> ActiveBlocks;
         private List<Block> _destructibleBlocks;
@@ -86,8 +86,7 @@ namespace IAmACube
 
         public List<(Block, IntPoint)> PopSectorEmmigrants()
         {
-            var (movedOut,createdOut) = _updateManager.GetSectorEmmigrants();
-            _updateManager.ClearSectorEmmigrants();
+            var (movedOut,createdOut) = _updateManager.PopSectorEmmigrants();
 
             foreach(var emmigrant in movedOut)
             {

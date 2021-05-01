@@ -23,23 +23,23 @@ namespace IAmACube
         public static string BuiltInChipsFileDefaultLocation = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data";
         public static string BuiltInChipsFileName = @"BuiltInChips.txt";
 
-        public static string TemplatesFilePath;
-        public static string BuiltInChipsFilePath;
-        public static string SaveDirectoryPath;
+        public static string TemplatesPath;
+        public static string BuiltInChipsPath;
+        public static string SaveDirectory;
 
         public static void Init()
         {
             _loadConfigFile();
 
-            TemplatesFilePath = FileUtils.GetFilePath(TemplatesFileDefaultLocation, TemplatesFileName);
-            BuiltInChipsFilePath = FileUtils.GetFilePath(BuiltInChipsFileDefaultLocation, BuiltInChipsFileName);
-            SaveDirectoryPath = _getOrMakeSaveDirectory();
+            TemplatesPath = FileUtils.GetFilePath(TemplatesFileDefaultLocation, TemplatesFileName);
+            BuiltInChipsPath = FileUtils.GetFilePath(BuiltInChipsFileDefaultLocation, BuiltInChipsFileName);
+            SaveDirectory = _getOrMakeSaveDirectory();
 
-            if (TemplatesFilePath == null)
+            if (TemplatesPath == null)
             {
                 throw new FileNotFoundException("Templates.txt not found. Please add Templates.txt to the application directory.");
             }
-            if (BuiltInChipsFilePath == null)
+            if (BuiltInChipsPath == null)
             {
                 throw new FileNotFoundException("BuiltInChips.txt not found. Please add BuiltInChips.txt to the application directory.");
             }

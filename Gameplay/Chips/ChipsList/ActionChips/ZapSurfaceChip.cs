@@ -13,12 +13,12 @@ namespace IAmACube
 
         public void Run(Block actor, UserInput userInput, ActionsList actions)
         {
-            if(actor.Location.HasSurface)
+            if(actor.Location.HasSurface & !actor.ToBeDeleted())
             {
                 var energy = actor.Energy;
 
                 actor.TakeEnergy(energy);
-                actor.Location.Surface.Damage(energy);
+                actor.Location.Surface.DealDamage(energy);
             }
         }
     }

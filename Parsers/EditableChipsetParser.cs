@@ -41,6 +41,7 @@ namespace IAmACube
                         {
                             inputOptionType = nameof(InputOptionType.Value);
                         }
+
                         var inputData = new ChipJSONInputData(inputOptionType, input.ToString());
                         chipJObject.Inputs.Add(inputData);
                     }
@@ -120,7 +121,7 @@ namespace IAmACube
                         var inputTypeName = chip.ChipData.GetInputType(i);
                         if(inputTypeName.Equals("Template"))
                         {
-                            value = Templates.BlockTemplates[jsonInputData.InputValue];
+                            value = Templates.Database[jsonInputData.InputValue];
                         }
                         else
                         {

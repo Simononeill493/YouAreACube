@@ -35,7 +35,12 @@ namespace IAmACube
 
         public void FadeAway()
         {
-            if(!Location.HasThisEphemeral(this))
+            if(EphemeralFading)
+            {
+                throw new Exception("Ephemeral fading twice!");
+
+            }
+            if (!Location.HasThisEphemeral(this))
             {
                 throw new Exception("Ephemeral faded away but it's not in the right location");
             }
@@ -71,14 +76,14 @@ namespace IAmACube
 
         public override BlockEnergyTransferResult TryTakeEnergyFrom(Block source, int amount)
         {
-            if(ShouldBeDestroyed())
+            if(ToBeDeleted())
             {
                 throw new Exception("Fading Ephemeral is trying to absorb energy");
             }
 
             if(source.BlockType == BlockMode.Ephemeral)
             {
-                if(source.ShouldBeDestroyed())
+                if(source.ToBeDeleted())
                 {
                     return BlockEnergyTransferResult.Failure_SourceIsDyingEphemeral;
                 }
@@ -89,16 +94,16 @@ namespace IAmACube
 
 
         public override bool CanOccupyDestination(Tile destination) => true;
-        public override bool ShouldBeDestroyed() => EphemeralFading;
+        public override bool ToBeDeleted() => EphemeralFading;
         public override void BeCreatedBy(Block creator)
         {
-            if (creator.Energy < Template.EnergyCap)
+            if (creator.Energy < Template.MaxEnergy)
             {
                 throw new Exception("Block created an ephemeral without the energy to do so. This should never happen");
             }
 
             base.BeCreatedBy(creator);
-            creator.TakeEnergy(Template.EnergyCap);
+            creator.TakeEnergy(Template.MaxEnergy);
         }
     }
 }

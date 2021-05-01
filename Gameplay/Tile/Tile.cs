@@ -10,13 +10,9 @@ namespace IAmACube
     [Serializable()]
     public class Tile : LocationWithNeighbors<Tile>
     {
-        public static Tile Dummy = new DummyTile();
-
-        public IntPoint LocationInSector;
-        public IntPoint SectorID;
-
-        public bool IsEdge { get; private set; }
-        public bool IsCorner { get; private set; }
+        public IntPoint LocationInSector { get; }
+        public IntPoint SectorID { get; }
+        public bool InSector(Sector sector) => sector.AbsoluteLocation.Equals(SectorID);
 
         public GroundBlock Ground { get; set; }
         public SurfaceBlock Surface { get; set; }
@@ -25,21 +21,22 @@ namespace IAmACube
         public virtual bool HasThisSurface(SurfaceBlock surface) => surface == Surface;
         public virtual bool HasThisGround(GroundBlock ground) => ground == Ground;
         public virtual bool HasThisEphemeral(EphemeralBlock ephemeral) => ephemeral == Ephemeral;
-        public bool InSector(Sector sector) => sector.AbsoluteLocation.Equals(SectorID);
 
         public bool HasSurface => (Surface != null);
         public bool HasEphemeral => (Ephemeral != null);
+        public bool IsEdge { get; private set; }
+        public bool IsCorner { get; private set; }
 
-        public Tile(IntPoint sectorOffs,IntPoint worldOffs,IntPoint sectorID,int sectorSize) : base(worldOffs)
+        public Tile(IntPoint sectorOffset,IntPoint worldOffset,IntPoint sectorID,int sectorSize) : base(worldOffset)
         {
-            LocationInSector = sectorOffs;
+            LocationInSector = sectorOffset;
             SectorID = sectorID;
 
             IsEdge = (LocationInSector.X == 0) | (LocationInSector.X == sectorSize - 1) | (LocationInSector.Y == 0) | (LocationInSector.Y == sectorSize - 1);
             IsCorner = ((LocationInSector.X == 0) | (LocationInSector.X == sectorSize - 1)) & ((LocationInSector.Y == 0) | (LocationInSector.Y == sectorSize - 1));
         }
 
-        public bool ContainsBlock(BlockMode blockType)
+        public bool ContainsBlockType(BlockMode blockType)
         {
             switch (blockType)
             {
@@ -51,33 +48,42 @@ namespace IAmACube
                     return HasEphemeral;
             }
 
-            Console.WriteLine("Warning: tried to scan a tile for  an unrecognized block type: " + blockType);
-            return false;
+            throw new Exception("Tried to scan a tile for an unrecognized block type: " + blockType);
         }
-
         public void ClearBlock(Block block)
         {
             switch (block.BlockType)
             {
                 case BlockMode.Surface:
-                    if(block == Surface)
-                    {
-                        Console.WriteLine("Warning: deleted a surface block which wasn't in its last stored location. This shoudn't happen.");
-                        Surface = null;
-                    }
-                    break;
-                case BlockMode.Ground:
-                    Console.WriteLine("Warning: you can't clear the ground!");
-                    break;
+                    _clearSurface(block);
+                    return;
                 case BlockMode.Ephemeral:
-                    if (block == Ephemeral)
-                    {
-                        throw new Exception("Destroyed an ephemeral that wasn't removed from its location properly.");
-                    }
-                    break;
+                    _clearEphemeral(block);
+                    return;
+            }
+
+            throw new Exception("Tried to clear a block type which cannot be cleared: " + block.BlockType);
+        }
+
+        private void _clearSurface(Block block)
+        {
+            if (block != Surface)
+            {
+                throw new Exception("Deleted a surface block whose tile thinks it's not there.");
+            }
+            Surface = null;
+        }
+        private void _clearEphemeral(Block block)
+        {
+            if (block == Ephemeral)
+            {
+                throw new Exception("Ephemeral block should have been cleared when it faded, but it's still in its tile.");
             }
         }
 
-
+        #region dummyTile
+        public static Tile Dummy = new DummyTile();
+        public bool IsDummy => AbsoluteLocation == Dummy.AbsoluteLocation;
+        #endregion
     }
 }

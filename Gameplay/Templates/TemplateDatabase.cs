@@ -5,18 +5,18 @@ using System.Linq;
 namespace IAmACube
 {
     [Serializable()]
-    public class TemplatesDatabase : Dictionary<string, TemplateAllVersions>
+    public class TemplateDatabase : Dictionary<string, TemplateVersionDictionary>
     {
         public List<BlockTemplate> GetAllVersionsOfAllTemplates()
         {
             var output = new List<BlockTemplate>();
-            foreach(var template in Values)
+            foreach(var versionList in GetAllVersionLists())
             {
-                output.AddRange(template.Values);
+                output.AddRange(versionList.Versions);
             }
             return output;
         }
 
-        public List<TemplateAllVersions> GetAllTemplates() => Values.ToList();
+        public List<TemplateVersionDictionary> GetAllVersionLists() => Values.ToList();
     }
 }

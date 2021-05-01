@@ -17,7 +17,7 @@ namespace IAmACube
 
         private Action<BlockTemplate> _goToTemplateEditMenu;
 
-        private TemplateAllVersions _currentTemplatesList;
+        private TemplateVersionDictionary _currentTemplatesList;
 
         public TemplateExplorerMenu(IHasDrawLayer parentDrawLayer,Kernel kernel,Action<BlockTemplate> goToTemplateEditMenu) : base(parentDrawLayer,"EmptyMenuRectangleFull") 
         {
@@ -47,7 +47,7 @@ namespace IAmACube
             }
         }
 
-        private void _templateBoxClicked(TemplateAllVersions template)
+        private void _templateBoxClicked(TemplateVersionDictionary template)
         {
             if(template!=null)
             {

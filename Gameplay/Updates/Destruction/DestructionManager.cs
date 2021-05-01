@@ -19,15 +19,11 @@ namespace IAmACube
         {
             foreach(var block in _sector.DoomedBlocks.ToList())
             {
-                if(block.IsMovingBetweenSectors)
-                {
-                    continue;
-                }
+                //if (block.IsMovingBetweenSectors) { continue; }
+                //Console.WriteLine("Destroying block " + block._id);
 
                 _clearFromTile(block);
                 _sector.RemoveBlockFromSector(block);
-
-                //Console.WriteLine("Block " + block._id + " destroyed.");
             }
         }
 

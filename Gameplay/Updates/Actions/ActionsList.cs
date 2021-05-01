@@ -15,7 +15,7 @@ namespace IAmACube
         public void StartMove(Block block, RelativeDirection direction) => Actions.Add(new BlockAction(block, ActionType.RelativeMovement) { RelativeDir = direction, MoveTotalTicks = block.Speed });
         public void StartRotation(Block block, int rotation) => Actions.Add(new BlockAction(block, ActionType.Rotation) { Rotation = rotation });
 
-        public void CreateBlock(Block block, TemplateAllVersions toCreate, int version, BlockMode blockType,CardinalDirection direction)
+        public void CreateBlock(Block block, TemplateVersionDictionary toCreate, int version, BlockMode blockType,CardinalDirection direction)
         {
             var creationAction = new BlockAction(block, ActionType.CardinalCreation) 
             { 

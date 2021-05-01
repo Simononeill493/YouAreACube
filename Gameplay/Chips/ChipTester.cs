@@ -17,6 +17,22 @@ namespace IAmACube
         public static ChipBlock TestBulletV2Block => MakeSpinBulletBlock();
         public static ChipBlock TestMouseFollowBlock => MakeMouseFollowBlock();
 
+        public static void SetTestBlocks(TemplateDatabase blockTemplates)
+        {
+            blockTemplates["BasicEnemy"][0].ChipBlock = TestEnemyBlock;
+            blockTemplates["ScaredEnemy"][0].ChipBlock = TestFleeBlock;
+            blockTemplates["Spinner"][0].ChipBlock = TestSpinBlock;
+            blockTemplates["Bullet"][0].ChipBlock = TestBulletBlock;
+            blockTemplates["MiniBullet"][0].ChipBlock = TestBulletBlock;
+            blockTemplates["BasicPlayer"][0].ChipBlock = TestPlayerBlock;
+            blockTemplates["MouseFollower"][0].ChipBlock = TestMouseFollowBlock;
+
+            var bullet2 = blockTemplates["Bullet"][0].Clone();
+            bullet2.ChipBlock = TestBulletV2Block;
+            blockTemplates["Bullet"][1] = bullet2;
+        }
+
+
 
         public static ChipBlock MakeEnemyBlock()
         {
@@ -50,7 +66,6 @@ namespace IAmACube
 
             return initialBlock;
         }
-
         public static ChipBlock MakeFleeBlock()
         {
             var getNeighboursChip = new GetSurfaceNeighboursChip() { Name = "GetNeighbours_1" };
@@ -83,11 +98,10 @@ namespace IAmACube
 
             return initialBlock;
         }
-
         public static ChipBlock MakePlayerBlock()
         {
             var keySwitch = new KeySwitchChip() { Name = "KeySwitch" };
-            var bullet = Templates.BlockTemplates["Bullet"];
+            var bullet = Templates.Database["Bullet"];
 
             var moveUp = new MoveCardinalChip() { ChipInput1 = CardinalDirection.North, Name = "MoveUp" };
             var moveDown = new MoveCardinalChip() { ChipInput1 = CardinalDirection.South, Name = "MoveDown" };
@@ -109,7 +123,6 @@ namespace IAmACube
 
             return new ChipBlock(keySwitch) { Name = "_Initial" };
         }
-
         public static ChipBlock MakeSpinBlock()
         {
             var getRotationAmountChip = new RandomNumChip() { Name = "RandomNum_1" };
@@ -123,7 +136,6 @@ namespace IAmACube
 
             return new ChipBlock(getRotationAmountChip, rotateRightChip, moveForwardChip) { Name = "_Initial" };
         }
-
         public static ChipBlock MakeBulletBlock()
         {
             var zapSurfaceChip = new ZapSurfaceChip() { Name = "ZapSurfaceChip" };
@@ -133,7 +145,6 @@ namespace IAmACube
 
             return new ChipBlock(zapSurfaceChip,moveForwardChip) { Name = "_Initial" };
         }
-
         public static ChipBlock MakeSpinBulletBlock()
         {
             var zapSurfaceChip = new ZapSurfaceChip() { Name = "ZapSurfaceChip" };
@@ -146,7 +157,6 @@ namespace IAmACube
 
             return new ChipBlock(zapSurfaceChip, moveForwardChip, rotationChip) { Name = "_Initial" };
         }
-
         public static ChipBlock MakeMouseFollowBlock()
         {
             var getMouseChip = new GetMouseHoverChip() { Name = "MouseHover_1" };
@@ -158,7 +168,6 @@ namespace IAmACube
 
             return new ChipBlock(getMouseChip, approachDirChip, moveCardinalChip) { Name = "_Initial" };
         }
-
         public static ChipBlock MakeFirstOfListBlock()
         {
             return null;

@@ -12,14 +12,14 @@ namespace IAmACube
         public string Name;
 
         public SurfaceBlock Host { get; private set; }
-        public HashSet<TemplateAllVersions> KnownTemplates { get; private set; }
+        public HashSet<TemplateVersionDictionary> KnownTemplates { get; private set; }
         public List<Block> Companions { get; private set; }
 
 
         public Kernel()
         {
             Companions = new List<Block>();
-            KnownTemplates = new HashSet<TemplateAllVersions>();
+            KnownTemplates = new HashSet<TemplateVersionDictionary>();
         }
         public void InitializeSession()
         {
@@ -45,8 +45,8 @@ namespace IAmACube
         }
 
 
-        public void AddKnownTemplate(TemplateAllVersions template) => KnownTemplates.Add(template);
-        public void LearnAllLoadedTemplates() => Templates.BlockTemplates.GetAllTemplates().ForEach(t => AddKnownTemplate(t));
+        public void AddKnownTemplate(TemplateVersionDictionary template) => KnownTemplates.Add(template);
+        public void LearnAllLoadedTemplates() => Templates.Database.GetAllVersionLists().ForEach(t => AddKnownTemplate(t));
         public void UpdateCompanionTemplates() => Companions.ForEach(t => t.SetTemplateToMain());
         private void _refreshKnownTemplates()
         {
@@ -54,7 +54,16 @@ namespace IAmACube
             KnownTemplates.Clear();
             foreach (var template in templatesList)
             {
-                KnownTemplates.Add(template.GetRuntimeVersion());
+                var runtimeVersion = template.GetRuntimeVersion();
+                if(runtimeVersion!=null)
+                {
+                    KnownTemplates.Add(runtimeVersion);
+                }
+                else
+                {
+                    KnownTemplates.Add(template);
+
+                }
             }
         }
     }

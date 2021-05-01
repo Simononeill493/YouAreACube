@@ -8,32 +8,9 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class SurfaceBlock : Block
+    public partial class SurfaceBlock : Block
     {
-        #region health
-        public int Health { get; private set; }
-        public int MaxHealth => Template.MaxHealth;
-        public float HealthRemainingPercentage => ((float)Health) / MaxHealth;
-
-        public bool Dead = false;
-
-        public void Damage(int amount)
-        {
-            Health -= amount;
-            if(Health<0) { Health = 0; }
-
-            if(Health==0)
-            {
-                Die();
-            }
-        }
-
-        public void Die()
-        {
-            Dead = true;
-            ColorMask = (128,128,128,255);
-        }
-        #endregion
+        public bool Dormant = false;
 
         public SurfaceBlock(BlockTemplate template): base(template)
         {
@@ -54,12 +31,18 @@ namespace IAmACube
             }
 
             Location.Surface = null;
-            destination.Surface = this;
             this.Location = destination;
+            Location.Surface = this;
         }
 
-        public override bool CanOccupyDestination(Tile destination)=>!destination.HasSurface;
-        public override bool ShouldBeDestroyed() => false;
-        public override bool CanUpdate => !Dead;
+        public void GoDormant()
+        {
+            Dormant = true;
+            ColorMask = (128, 128, 128, 255);
+        }
+
+        public override bool CanOccupyDestination(Tile destination) => !destination.HasSurface;
+        public override bool ToBeDeleted() => false;
+        public override bool CanUpdate => !Dormant;
     }
 }

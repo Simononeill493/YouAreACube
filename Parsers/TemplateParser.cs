@@ -10,21 +10,21 @@ namespace IAmACube
 {
     class TemplateParser
     {
-        public static Dictionary<string, BlockTemplate> ParseTemplates(JToken input)
+        public static List<BlockTemplate> ParseTemplates(JToken templatesToken)
         {
-            var blocksDict = new Dictionary<string, BlockTemplate>();
+            var templates = new List<BlockTemplate>();
 
-            foreach (var token in input)
+            foreach (var templateToken in templatesToken)
             {
-                var blockTemplate = ParseTemplate(token);
-                blocksDict[blockTemplate.Name] = blockTemplate;
+                var blockTemplate = ParseTemplate(templateToken);
+                templates.Add(blockTemplate);
             }
 
-            return blocksDict;
+            return templates;
         }
-        public static BlockTemplate ParseTemplate(JToken token)
+        public static BlockTemplate ParseTemplate(JToken templateToken)
         {
-            var template = JsonConvert.DeserializeObject<BlockTemplate>(token.ToString());
+            var template = JsonConvert.DeserializeObject<BlockTemplate>(templateToken.ToString());
             if (template.Speed != 0)
             {
                 template.Active = true;

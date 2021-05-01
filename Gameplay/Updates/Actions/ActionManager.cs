@@ -37,7 +37,7 @@ namespace IAmACube
                         effect.Actor.Rotate(effect.Rotation);
                         break;
                     case ActionType.CardinalCreation:
-                        var templateRuntimeVersion = Templates.BlockTemplates[effect.BlockTemplate.Name][effect.TemplateVersion];
+                        var templateRuntimeVersion = Templates.Database[effect.BlockTemplate.Name][effect.TemplateVersion];
                         _creationManager.TryCreate(effect.Actor, templateRuntimeVersion, effect.BlockType, effect.CardinalDir);
                         break;
                 }

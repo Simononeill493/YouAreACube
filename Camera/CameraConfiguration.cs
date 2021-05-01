@@ -10,7 +10,7 @@ namespace IAmACube
     public class CameraConfiguration
     {
         public int Scale = 1;
-        public bool DebugMode = false;
+        public bool DebugMode = true;
 
         public IntPoint GridPosition;
         public IntPoint PartialGridOffset;

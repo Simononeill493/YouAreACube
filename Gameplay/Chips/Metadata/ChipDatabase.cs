@@ -15,7 +15,7 @@ namespace IAmACube
 
         private static Dictionary<string, ChipData> _loadBuiltInChips()
         {
-            var data = FileUtils.LoadJson(ConfigFiles.BuiltInChipsFilePath)["chips"];
+            var data = FileUtils.LoadJson(ConfigFiles.BuiltInChipsPath)["chips"];
             return BuiltInChipParser.ParseChips(data);
         }
     }

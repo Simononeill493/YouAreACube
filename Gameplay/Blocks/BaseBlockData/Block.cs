@@ -24,7 +24,7 @@ namespace IAmACube
 
         public bool Active => Template.Active;
         public int Speed => Template.Speed;
-        public int EnergyCap => Template.EnergyCap;
+        public int EnergyCap => Template.MaxEnergy;
         public float EnergyRemainingPercentage => ((float)Energy) / EnergyCap;
 
         public int _id;
@@ -36,7 +36,7 @@ namespace IAmACube
             _id = RandomUtils.R.Next(0, 9999);
 
             Orientation = Orientation.Top;
-            Energy = template.EnergyCap;
+            Energy = template.MaxEnergy;
 
             Location = Tile.Dummy;
         }
@@ -67,7 +67,7 @@ namespace IAmACube
             return BlockEnergyTransferResult.Success;
         }
 
-        public virtual void Update(UserInput input, ActionsList actions) => Template.Chips.Execute(this, input, actions);
+        public virtual void Update(UserInput input, ActionsList actions) => Template.ChipBlock.Execute(this, input, actions);
 
         public void SetOrientation(Orientation orientation) => Orientation = orientation;
         public void Rotate(int rotation) => Orientation = Orientation.Rotate(rotation);
@@ -76,12 +76,6 @@ namespace IAmACube
         public void SetTemplateToMain() => Template = Template.Versions.Main;
         public void SetTemplateToRuntime() => Template = Templates.GetRuntimeVersion(Template);
         public virtual bool CanUpdate => true;
-        public abstract bool ShouldBeDestroyed();
-    }
-
-    public enum BlockEnergyTransferResult
-    {
-        Success,
-        Failure_SourceIsDyingEphemeral,
+        public abstract bool ToBeDeleted();
     }
 }

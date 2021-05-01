@@ -103,9 +103,9 @@ namespace IAmACube
         {
             var propertyName = "ChipInput" + (pinIndex + 1).ToString();
             var property = chip.GetType().GetProperty(propertyName);
-            var value = property.GetValue(chip).ToString();
 
-            return value;
+            var value = property.GetValue(chip);
+            return value.ToString();
         }
 
         private static void _setControlChipAttributes(IChip chip,ChipJSONData chipJObject,ChipData data)
@@ -194,7 +194,7 @@ namespace IAmACube
 
                     if (typeName.Equals("Template"))
                     {
-                        var template = Templates.BlockTemplates[input.InputValue];
+                        var template = Templates.Database[input.InputValue];
                         property.SetValue(constructedChip, template);
                     }
                     else

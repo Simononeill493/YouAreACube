@@ -17,7 +17,7 @@ namespace IAmACube
             }
             else if (dataType.Equals("Template"))
             {
-                var templates = _createOptionsFromItems(Templates.BlockTemplates.Values.ToList());
+                var templates = _createOptionsFromItems(Templates.Database.Values.ToList());
                 return templates.Cast<ChipInputOption>().ToList();
             }
             else

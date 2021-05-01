@@ -28,20 +28,17 @@ namespace IAmACube
             _destructionManager.DestroyDoomedBlocks();
         }
 
-        public (List<(Block,IntPoint)> movedOut, List<(Block, IntPoint)> createdOut) GetSectorEmmigrants()
+        public (List<(Block,IntPoint)> movedOut, List<(Block, IntPoint)> createdOut) PopSectorEmmigrants()
         {
             var movedOutOutput = new List<(Block, IntPoint)>();
             movedOutOutput.AddRange(_moveManager.MovedOutOfSector);
+            _moveManager.MovedOutOfSector.Clear();
 
             var createdOutOutput = new List<(Block, IntPoint)>();
-            createdOutOutput.AddRange(_creationManager.PlacedOutOfSector);
+            createdOutOutput.AddRange(_creationManager.ToPlaceOutsideOfSector);
+            _creationManager.ToPlaceOutsideOfSector.Clear();
 
             return (movedOutOutput,createdOutOutput);
-        }
-        public void ClearSectorEmmigrants()
-        {
-            _moveManager.MovedOutOfSector.Clear();
-            _creationManager.PlacedOutOfSector.Clear();
         }
 
         public void AddBlockToUpdates(Block block)

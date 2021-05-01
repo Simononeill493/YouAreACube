@@ -41,7 +41,6 @@ namespace IAmACube
             sector.Update(actions);
 
             var emmigrants = sector.PopSectorEmmigrants();
-            
             emmigrantsList.AddAll(emmigrants);
 
             _tickManager.IncrementSectorTimer(sector);

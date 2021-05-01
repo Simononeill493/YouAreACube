@@ -10,9 +10,6 @@ namespace IAmACube
     public class GroundBlock : Block
     {
         public GroundBlock(BlockTemplate template) : base(template) => BlockType = BlockMode.Ground;
-        public override bool CanOccupyDestination(Tile destination) => throw new NotImplementedException();
-        public override bool ShouldBeDestroyed() => throw new NotImplementedException();
-
 
         public override void EnterLocation(Tile destination)
         {
@@ -20,10 +17,17 @@ namespace IAmACube
             {
                 throw new Exception("Tried to add a ground to a location it already exists in");
             }
+            if (!Location.IsDummy)
+            {
+                throw new NotImplementedException("Ground already has a position - moving ground from place to place is not implemented");
+            }
 
             Location.Ground = null;
-            destination.Ground = this;
             this.Location = destination;
+            Location.Ground = this;
         }
+
+        public override bool CanOccupyDestination(Tile destination) => throw new NotImplementedException();
+        public override bool ToBeDeleted() => throw new NotImplementedException();
     }
 }
