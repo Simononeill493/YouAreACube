@@ -18,7 +18,7 @@ namespace IAmACube
                 {
                     if (!sector.HasNeighbour(cardinal))
                     {
-                        var coord = DirectionUtils.GetCoords(sector.AbsoluteLocation, cardinal);
+                        var coord = sector.AbsoluteLocation.GetAdjacentCoords(cardinal);
                         var newSector = WorldGen.GetTestSector(coord,world.SectorSize);
                         world.AddSector(newSector);
                     }
@@ -50,7 +50,7 @@ namespace IAmACube
                 {
                     if (!edge.HasNeighbour(cardinal))
                     {
-                        var offs = DirectionUtils.GetCoords(edge.AbsoluteLocation, cardinal);
+                        var offs = edge.AbsoluteLocation.GetAdjacentCoords(cardinal);
                         if (world.HasTile(offs))
                         {
                             var tileToAttach = world.GetTile(offs);

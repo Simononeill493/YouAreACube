@@ -24,6 +24,8 @@ namespace IAmACube
             Name = name;
         }
 
+        public TemplateAllVersions GetRuntimeVersion() => Templates.BlockTemplates[Name];
+
 
         public override string ToString() => Name;
         public int GetNewVersionNumber() => _dict.Keys.Max() + 1;

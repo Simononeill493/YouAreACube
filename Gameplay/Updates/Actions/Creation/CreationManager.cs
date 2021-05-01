@@ -10,8 +10,12 @@ namespace IAmACube
     public class CreationManager
     {
         private Sector _sector;
-        public List<(Block, IntPoint)> CreatedOutOfSector = new List<(Block, IntPoint)>();
-        public CreationManager(Sector sector) => _sector = sector;
+        public List<(Block, IntPoint)> PlacedOutOfSector = new List<(Block, IntPoint)>();
+
+        public CreationManager(Sector sector)
+        {
+            _sector = sector;
+        }
 
 
         public bool TryCreate(Block creator,BlockTemplate template,BlockMode blockType,CardinalDirection direction)
@@ -21,7 +25,6 @@ namespace IAmACube
                 return false;
             }
 
-            //TODO - sector management here
             var targetPos = creator.Location.Adjacent[direction];
             return TryCreate(creator, template, blockType, targetPos, direction);
         }
@@ -39,22 +42,24 @@ namespace IAmACube
         private void _create(Block creator, BlockTemplate template, BlockMode blockType, Tile targetPosition, CardinalDirection direction)
         {
             var newBlock = template.Generate(blockType);
-            newBlock.BeCreatedBy(creator);
-            newBlock.Rotate((int)direction);
 
+            newBlock.BeCreatedBy(creator);
+            newBlock.SetOrientation((Orientation)direction);
             newBlock.EnterLocation(targetPosition);
-            //targetPosition.AddBlock(newBlock);
 
             if(targetPosition.InSector(_sector))
             {
-                _sector.AddNonMovingBlockToSector(newBlock);
+                _sector.AddBlockToSector(newBlock);
             }
             else
             {
                 newBlock.IsMovingBetweenSectors = true;
-                CreatedOutOfSector.Add((newBlock, targetPosition.SectorID));
+                PlacedOutOfSector.Add((newBlock, targetPosition.SectorID));
             }
         }
+
+
+
 
         private bool _canThisBlockBeCreated(Block creator, BlockTemplate template, BlockMode blockType, Tile targetPosition)
         {
@@ -70,8 +75,7 @@ namespace IAmACube
 
             throw new NotImplementedException("Creating unrecognized block type");
         }
-
-        private bool _canCreateEphemeral(Block creator, BlockTemplate template, Tile targetPosition) => !targetPosition.HasEphemeral & creator.IsInCentreOfBlock & (creator.Energy >= template.EnergyCap);
+        private bool _canCreateEphemeral(Block creator, BlockTemplate template, Tile targetPosition) => creator.IsInCentreOfBlock & (creator.Energy >= template.EnergyCap);
         private bool _canCreateSurface(Block creator, BlockTemplate template, Tile targetPosition) => !targetPosition.HasSurface;
         private bool _canCreateGround(Block creator, BlockTemplate template, Tile targetPosition) => throw new NotImplementedException("Haven't implemented ground creation");
     }

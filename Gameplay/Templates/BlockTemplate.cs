@@ -17,8 +17,8 @@ namespace IAmACube
         public bool Active;
         public int Speed;
 
-        public int EnergyCap;
-        public int MaxHealth;
+        public int EnergyCap = 30;
+        public int MaxHealth = 250;
 
         [JsonIgnore]
         public ChipBlock Chips;

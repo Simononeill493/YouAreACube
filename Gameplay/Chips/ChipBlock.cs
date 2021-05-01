@@ -9,22 +9,14 @@ namespace IAmACube
     [Serializable()]
     public class ChipBlock
     {
-        public static ChipBlock NoAction = new ChipBlock(new List<IChip>());
-
         public string Name;
-
         public List<IChip> Chips;
-        private List<IControlChip> _controlChips;
+        public List<IControlChip> ControlChips;
 
-        public ChipBlock()
-        {
-            Chips = new List<IChip>();
-            _controlChips = new List<IControlChip>();
-        }
         public ChipBlock(List<IChip> chips)
         {
             Chips = new List<IChip>();
-            _controlChips = new List<IControlChip>();
+            ControlChips = new List<IControlChip>();
 
             AddChips(chips);
         }
@@ -33,17 +25,12 @@ namespace IAmACube
         public void AddChip(IChip chip)
         {
             Chips.Add(chip);
-            if(typeof(IControlChip).IsAssignableFrom(chip.GetType()))
+            if(chip.IsControlChip())
             {
-                _controlChips.Add((IControlChip)chip);
+                ControlChips.Add((IControlChip)chip);
             }
         }
-        public void AddChips(List <IChip> chips)
-        {
-            Chips.AddRange(chips);
-            _controlChips.AddRange(chips.Where(c => typeof(IControlChip).IsAssignableFrom(c.GetType())).Cast<IControlChip>().ToList());
-        }
-
+        public void AddChips(List <IChip> chips)=>chips.ForEach(c => AddChip(c));
         public void Execute(Block actor, UserInput input, ActionsList actions) => Chips.ForEach(chip => chip.Run(actor, input, actions));
 
 
@@ -65,43 +52,12 @@ namespace IAmACube
         }
         public List<ChipBlock> GetSubBlocks()
         {
-            var output = new List<ChipBlock>() { };
-            foreach (var controlChip in _controlChips)
-            {
-                output.AddRange(controlChip.GetSubBlocks());
-            }
-
+            var output = new List<ChipBlock>();
+            ControlChips.ForEach(c => output.AddRange(c.GetSubBlocks()));
             return output;
         }
 
-        public bool Equivalent(ChipBlock other)
-        {
-            if(Name != other.Name) { return false; }
-            if (Chips.Count!=other.Chips.Count) { return false; }
-            if (_controlChips.Count != other._controlChips.Count) { return false; }
 
-            for (int i = 0; i < Chips.Count; i++)
-            {
-                if (!Chips[i].Name.Equals(other.Chips[i].Name))
-                {
-                    return false;
-                }
-            }
-
-            var mySubBlocks = GetSubBlocks();
-            var otherSubBlocks = other.GetSubBlocks();
-
-            if (mySubBlocks.Count != otherSubBlocks.Count) { return false; }
-
-            for (int i=0;i< mySubBlocks.Count;i++)
-            {
-                if(!mySubBlocks[i].Equivalent(otherSubBlocks[i]))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
+        public static ChipBlock NoAction = new ChipBlock();
     }
 }

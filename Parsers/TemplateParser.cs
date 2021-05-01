@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,25 +24,7 @@ namespace IAmACube
         }
         public static BlockTemplate ParseTemplate(JToken token)
         {
-            var name = token["name"].ToString();
-            var sprite = token["sprite"].ToString();
-            var speed = int.Parse(token["speed"].ToString());
-            var energyCap = token["energyCap"] == null ? 30 : int.Parse(token["energyCap"].ToString());
-            var maxHealth = token["maxHealth"] == null ? 250 : int.Parse(token["maxHealth"].ToString());
-
-            var template = new BlockTemplate(name);
-
-            var version = token["version"];
-            if (version != null)
-            {
-                template.Version = int.Parse(version.ToString());
-            }
-
-            template.Sprite = sprite;
-            template.Speed = speed;
-            template.EnergyCap = energyCap;
-            template.MaxHealth = maxHealth;
-
+            var template = JsonConvert.DeserializeObject<BlockTemplate>(token.ToString());
             if (template.Speed != 0)
             {
                 template.Active = true;

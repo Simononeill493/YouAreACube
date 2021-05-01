@@ -15,5 +15,7 @@
 
             return ChipDatabase.BuiltInChips[chipName];
         }
+
+        public static bool IsControlChip(this IChip chip) => typeof(IControlChip).IsAssignableFrom(chip.GetType());
     }
 }

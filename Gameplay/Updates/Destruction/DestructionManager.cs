@@ -10,11 +10,9 @@ namespace IAmACube
     public class DestructionManager
     {
         private Sector _sector;
-        private MoveManager _moveManager;
-        public DestructionManager(Sector sector,MoveManager moveManager)
+        public DestructionManager(Sector sector)
         {
             _sector = sector;
-            _moveManager = moveManager;
         }
 
         public void DestroyDoomedBlocks()
@@ -27,12 +25,7 @@ namespace IAmACube
                 }
 
                 _clearFromTile(block);
-                _sector.RemoveFromSectorLists(block);
-
-                if(block.IsMoving)
-                {
-                    _moveManager.DestroyBlock(block);
-                }
+                _sector.RemoveBlockFromSector(block);
 
                 //Console.WriteLine("Block " + block._id + " destroyed.");
             }

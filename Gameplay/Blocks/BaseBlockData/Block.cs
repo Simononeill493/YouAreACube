@@ -68,6 +68,8 @@ namespace IAmACube
         }
 
         public virtual void Update(UserInput input, ActionsList actions) => Template.Chips.Execute(this, input, actions);
+
+        public void SetOrientation(Orientation orientation) => Orientation = orientation;
         public void Rotate(int rotation) => Orientation = Orientation.Rotate(rotation);
         public virtual void BeCreatedBy(Block creator) => this.SpeedOffset = creator.SpeedOffset + 1;
         public bool InSector(Sector sector) => Location.InSector(sector);
@@ -80,6 +82,6 @@ namespace IAmACube
     public enum BlockEnergyTransferResult
     {
         Success,
-        Failure_SourceIsDyingEphemeral
+        Failure_SourceIsDyingEphemeral,
     }
 }

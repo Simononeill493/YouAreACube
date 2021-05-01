@@ -58,7 +58,7 @@ namespace IAmACube
                     throw new Exception();
                 }
 
-                if (!template.Chips.Equivalent(chipBlock))
+                if (!ChipBlockComparer.Equivalent(template.Chips,chipBlock))
                 {
                     throw new Exception();
                 }

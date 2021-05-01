@@ -33,7 +33,7 @@ namespace IAmACube
         public ActionsList GetBlockActions(UserInput input,TickManager tickCounter)
         {
             var actions = new ActionsList();
-            var toUpdate = tickCounter.GetUpdatingBlocks(this,ActiveBlocks);
+            var toUpdate = tickCounter.GetUpdatingBlocks(this);
 
             foreach(var block in toUpdate)
             {
@@ -44,15 +44,12 @@ namespace IAmACube
         }
 
         public void Update(ActionsList actions) => _updateManager.Update(actions);
+        public Tile GetTile(IntPoint point) => TileGrid[point.X, point.Y];
 
-        public Tile GetTile(IntPoint point)
+        public void AddBlockToSector(Block block)
         {
-            var tile = TileGrid[point.X, point.Y];
-            return tile;
-        }
+            _updateManager.AddBlockToUpdates(block);
 
-        public void AddNonMovingBlockToSector(Block block)
-        {
             if (block.BlockType != BlockMode.Ground)
             {
                 _destructibleBlocks.Add(block);
@@ -62,14 +59,11 @@ namespace IAmACube
                 ActiveBlocks.Add(block);
             }
         }
-        public void AddMovingBlockToSector(Block block)
-        {
-            AddNonMovingBlockToSector(block);
-            _updateManager.AddToMoving(block);
-        }
 
-        public void RemoveFromSectorLists(Block block)
+        public void RemoveBlockFromSector(Block block)
         {
+            _updateManager.RemoveBlockFromUpdates(block);
+
             if (block.BlockType != BlockMode.Ground)
             {
                 var destructibleRemoved =_destructibleBlocks.Remove(block);
@@ -87,6 +81,7 @@ namespace IAmACube
                 }
 
             }
+
         }
 
         public List<(Block, IntPoint)> PopSectorEmmigrants()
@@ -96,7 +91,7 @@ namespace IAmACube
 
             foreach(var emmigrant in movedOut)
             {
-                RemoveFromSectorLists(emmigrant.Item1);
+                RemoveBlockFromSector(emmigrant.Item1);
             }
 
             movedOut.AddRange(createdOut);

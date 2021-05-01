@@ -45,6 +45,11 @@ namespace IAmACube
 
         public void Tick()
         {
+            if(Finished)
+            {
+                throw new Exception("Finished block is ticking");
+            }
+
             CurrentTick++;
             AtMidpoint = (CurrentTick >= _midpoint) & (!PassedMidpoint);
 

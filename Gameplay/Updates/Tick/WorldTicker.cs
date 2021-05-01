@@ -52,15 +52,7 @@ namespace IAmACube
             foreach (var emmigrant in emmigrants.Emmigrants)
             {
                 var sector = world.GetSector(emmigrant.Item2);
-
-                if(emmigrant.Item1.IsMoving)
-                {
-                    sector.AddMovingBlockToSector(emmigrant.Item1);
-                }
-                else
-                {
-                    sector.AddNonMovingBlockToSector(emmigrant.Item1);
-                }
+                sector.AddBlockToSector(emmigrant.Item1);
 
                 if(!emmigrant.Item1.IsMovingBetweenSectors)
                 {

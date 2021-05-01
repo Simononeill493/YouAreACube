@@ -21,8 +21,8 @@ namespace IAmACube
             Adjacent = new Dictionary<CardinalDirection, TContents>();
         }
 
-        public bool HasNeighbour(CardinalDirection direction)=>Adjacent.ContainsKey(direction);
-        public bool DirectionIsValid(CardinalDirection direction)=>Adjacent.ContainsKey(direction);
-        public override string ToString()=>"(" + AbsoluteLocation.X + " " + AbsoluteLocation.Y + ")" + " " + Adjacent.Count;
+        public bool HasNeighbour(CardinalDirection direction) => Adjacent.ContainsKey(direction);
+        public bool DirectionIsValid(CardinalDirection direction) => HasNeighbour(direction);
+        public override string ToString() => "(" + AbsoluteLocation.X + " " + AbsoluteLocation.Y + ")";
     }
 }

@@ -9,8 +9,7 @@ namespace IAmACube
     [Serializable()]
     public class EphemeralBlock : Block
     {
-        private bool _ephemeralFaded;
-
+        public bool EphemeralFading;
         public EphemeralBlock(BlockTemplate template) : base(template) => BlockType = BlockMode.Ephemeral;
 
 
@@ -42,7 +41,7 @@ namespace IAmACube
             }
 
             Location.Ephemeral = null;
-            _ephemeralFaded = true;
+            EphemeralFading = true;
         }
 
         public override void EnterLocation(Tile destination)
@@ -72,6 +71,11 @@ namespace IAmACube
 
         public override BlockEnergyTransferResult TryTakeEnergyFrom(Block source, int amount)
         {
+            if(ShouldBeDestroyed())
+            {
+                throw new Exception("Fading Ephemeral is trying to absorb energy");
+            }
+
             if(source.BlockType == BlockMode.Ephemeral)
             {
                 if(source.ShouldBeDestroyed())
@@ -85,10 +89,14 @@ namespace IAmACube
 
 
         public override bool CanOccupyDestination(Tile destination) => true;
-        public override bool ShouldBeDestroyed() => _ephemeralFaded;
-
+        public override bool ShouldBeDestroyed() => EphemeralFading;
         public override void BeCreatedBy(Block creator)
         {
+            if (creator.Energy < Template.EnergyCap)
+            {
+                throw new Exception("Block created an ephemeral without the energy to do so. This should never happen");
+            }
+
             base.BeCreatedBy(creator);
             creator.TakeEnergy(Template.EnergyCap);
         }

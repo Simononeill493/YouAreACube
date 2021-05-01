@@ -18,7 +18,7 @@ namespace IAmACube
         {
             _moveManager = new MoveManager(sector);
             _creationManager = new CreationManager(sector);
-            _destructionManager = new DestructionManager(sector,_moveManager);
+            _destructionManager = new DestructionManager(sector);
             _actionManager = new ActionManager(_moveManager,_creationManager);
         }
 
@@ -28,23 +28,36 @@ namespace IAmACube
             _destructionManager.DestroyDoomedBlocks();
         }
 
-        public void AddToMoving(Block block) => _moveManager.AddFromOutOfSector(block);
-
-
         public (List<(Block,IntPoint)> movedOut, List<(Block, IntPoint)> createdOut) GetSectorEmmigrants()
         {
             var movedOutOutput = new List<(Block, IntPoint)>();
             movedOutOutput.AddRange(_moveManager.MovedOutOfSector);
 
             var createdOutOutput = new List<(Block, IntPoint)>();
-            createdOutOutput.AddRange(_creationManager.CreatedOutOfSector);
+            createdOutOutput.AddRange(_creationManager.PlacedOutOfSector);
 
             return (movedOutOutput,createdOutOutput);
         }
         public void ClearSectorEmmigrants()
         {
             _moveManager.MovedOutOfSector.Clear();
-            _creationManager.CreatedOutOfSector.Clear();
+            _creationManager.PlacedOutOfSector.Clear();
+        }
+
+        public void AddBlockToUpdates(Block block)
+        {
+            if (block.IsMoving)
+            {
+                _moveManager.AddMovingBlock(block);
+            }
+        }
+
+        public void RemoveBlockFromUpdates(Block block)
+        {
+            if (block.IsMoving)
+            {
+                _moveManager.RemoveMovingBlock(block);
+            }
         }
     }
 }

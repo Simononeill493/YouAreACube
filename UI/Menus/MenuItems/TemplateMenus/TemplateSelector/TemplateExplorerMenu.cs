@@ -59,12 +59,14 @@ namespace IAmACube
         {
             var items = new List<TemplateBox>();
             var numTemplates = _kernel.KnownTemplates.Count();
+            var knownTemplatesList = _kernel.KnownTemplates.ToList();
+
             for (int i = 0; i < ItemsWidth * ItemsHeight; i++)
             {
                 var box = new TemplateBox(this, _templateBoxClicked);
                 if(i<numTemplates)
                 {
-                    box.SetTemplate(_kernel.KnownTemplates[i]);
+                    box.SetTemplate(knownTemplatesList[i]);
                 }
                 items.Add(box);
                 AddChild(box);

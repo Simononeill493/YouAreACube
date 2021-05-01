@@ -61,30 +61,17 @@ namespace IAmACube
             _removeBlocksQueuedForRemoval();
         }
 
-        private void _removeFromMovingList(Block block)
-        {
-            var removed = MovingBlocks.Remove(block);
-            if (!removed)
-            {
-                throw new Exception("Tried to remove a moving block, but it wasn't in the moving list!");
-            }
-        }
         private void _removeBlocksQueuedForRemoval()
         {
             foreach (var toRemove in _toRemove)
             {
-                _removeFromMovingList(toRemove);
+                RemoveMovingBlock(toRemove);
             }
             _toRemove.Clear();
         }
         private void _extractSectorEmmigrants()
         {
-            foreach (var toMove in _toMoveFromSector)
-            {
-                _toRemove.Add(toMove.Item1);
-                MovedOutOfSector.Add(toMove);
-            }
-
+            MovedOutOfSector.AddRange(_toMoveFromSector);
             _toMoveFromSector.Clear();
         }
         private void _tickBlock(Block block, BlockMovementData movementData)
@@ -133,7 +120,16 @@ namespace IAmACube
             }
         }
 
-        public void DestroyBlock(Block block) => _removeFromMovingList(block);
-        public void AddFromOutOfSector(Block block) => MovingBlocks.Add(block);
+        public void RemoveMovingBlock(Block block)
+        {
+            var removed = MovingBlocks.Remove(block);
+            if (!removed)
+            {
+                throw new Exception("Tried to remove a moving block, but it wasn't in the moving list!");
+            }
+        }
+
+        public void AddMovingBlock(Block block) => MovingBlocks.Add(block);
+
     }
 }

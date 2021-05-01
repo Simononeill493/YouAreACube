@@ -25,7 +25,7 @@ namespace IAmACube
 
         public void Update(UserInput input)
         {
-            Kernel.SupplyPowerToHost();
+            Kernel.Update();
 
             World.FocusOn(Kernel.Host);
             World.Tick(input);

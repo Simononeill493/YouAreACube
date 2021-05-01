@@ -9,15 +9,15 @@ namespace IAmACube
     [Serializable()]
     public class TickManager
     {
-        public int WorldTicks;
-        public int TickInCycle;
+        public int WorldTicks { get; private set; }
+        public int TickInCycle { get; private set; }
 
-        public Dictionary<IntPoint, int> SectorTicks;
+        private Dictionary<IntPoint, int> _sectorTicks;
 
         public TickManager()
         {
             WorldTicks = 0;
-            SectorTicks = new Dictionary<IntPoint, int>();
+            _sectorTicks = new Dictionary<IntPoint, int>();
         }
 
         public void IncrementWorldTimer()
@@ -26,8 +26,8 @@ namespace IAmACube
             TickInCycle = WorldTicks % Config.TickCycleLength;
         }
 
-        public void IncrementSectorTimer(Sector sector) => SectorTicks[sector.AbsoluteLocation]++;
-        public void AddSector(Sector sector) => SectorTicks[sector.AbsoluteLocation] = 0;
-        public IEnumerable<Block> GetUpdatingBlocks(Sector sector, List<Block> blocks) => blocks.Where(b => ((SectorTicks[sector.AbsoluteLocation] + b.SpeedOffset) % b.Speed == 0) & b.CanUpdate);
+        public void IncrementSectorTimer(Sector sector) => _sectorTicks[sector.AbsoluteLocation]++;
+        public void AddSector(Sector sector) => _sectorTicks[sector.AbsoluteLocation] = 0;
+        public IEnumerable<Block> GetUpdatingBlocks(Sector sector) => sector.ActiveBlocks.Where(b => ((_sectorTicks[sector.AbsoluteLocation] + b.SpeedOffset) % b.Speed == 0) & b.CanUpdate);
     }
 }

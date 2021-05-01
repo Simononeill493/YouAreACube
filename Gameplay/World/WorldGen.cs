@@ -50,7 +50,6 @@ namespace IAmACube
             {
                 var ground = Templates.GenerateGround("grassPatch",0);
                 ground.EnterLocation(tile);
-                //tile.AddGround(ground);
             }
         }
 
@@ -61,8 +60,7 @@ namespace IAmACube
 
             player.EnterLocation(tile);
             world.FocusOn(player);
-            //tile.AddSurface(player);
-            centre.AddNonMovingBlockToSector(player);
+            centre.AddBlockToSector(player);
         }
         public static void AddEntities(World world)
         {
@@ -92,8 +90,7 @@ namespace IAmACube
 
                 var tile = emptyTiles[tileNum];
                 block.EnterLocation(tile);
-                //tile.AddBlock(block);
-                sector.AddNonMovingBlockToSector(block);
+                sector.AddBlockToSector(block);
 
                 emptyTiles.RemoveAt(tileNum);
                 emptySize--;

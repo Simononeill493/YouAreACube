@@ -19,6 +19,7 @@ namespace IAmACube
 
         public static bool EnableFrameCounter = false;
         public static bool KernelUnlimitedEnergy = true;
+        public static bool KernelLearnAllTemplates = true;
 
         public static int MenuItemScale = 4;
         public static Color DefaultTextColor = Color.Black;
