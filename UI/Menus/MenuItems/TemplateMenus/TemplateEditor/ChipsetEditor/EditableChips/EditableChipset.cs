@@ -141,7 +141,6 @@ namespace IAmACube
         public bool IsMouseOverAnyChip() => _getChipsetSectionMouseIsOver() != null;
         #endregion
 
-
         public List<EditableChipset> GetThisAndSubChipsets()
         {
             var sub = GetSubChipsets();

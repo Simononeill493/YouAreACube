@@ -21,6 +21,32 @@ namespace IAmACube
             Initialized = true;
         }
 
+        public void Update(UserInput input)
+        {
+            if (!Initialized)
+            {
+                Console.WriteLine("Warning: ScreenManager updating before initialization");
+                return;
+            }
+
+            if (input.IsKeyJustReleased(Keys.PageUp))
+            {
+                _autoLoadTestWorld();
+            }
+
+            CurrentScreen.Update(input);
+        }
+        public void Draw(DrawingInterface drawingInterface)
+        {
+            if (!Initialized)
+            {
+                Console.WriteLine("Warning: ScreenManager drawing before initialization");
+                return;
+            }
+
+            CurrentScreen.Draw(drawingInterface);
+        }
+
         public void SwitchScreen(ScreenType screenType)
         {
             MenuScreen.DraggedItem = null;
@@ -34,10 +60,10 @@ namespace IAmACube
                     CurrentScreen = new NewGameScreen(SwitchScreen);
                     break;
                 case ScreenType.LoadGame:
-                    CurrentScreen = new LoadGameScreen(SwitchScreen, LoadSaveToScreen);
+                    CurrentScreen = new LoadGameScreen(SwitchScreen, LoadGameScreen);
                     break;
                 case ScreenType.Game:
-                    if(CurrentGame==null)
+                    if (CurrentGame == null)
                     {
                         Console.WriteLine("Warning: tried to open the game screen but no game was loaded.");
                     }
@@ -47,55 +73,24 @@ namespace IAmACube
                     }
                     break;
                 case ScreenType.TemplateExplorer:
-                    CurrentScreen = new TemplateExplorerScreen(SwitchScreen, OpenTemplateForEditing, CurrentGame);
+                    CurrentScreen = new TemplateExplorerScreen(SwitchScreen, LoadTemplateEditScreen, CurrentGame);
                     break;
+                case ScreenType.TemplateEdit:
+                    throw new NotImplementedException("Tried to switch to template edit screen without loading a template");
             }
         }
+        public void LoadGameScreen(Kernel kernel,World world) => CurrentGame = new GameScreen(SwitchScreen, kernel, world);
+        public void LoadTemplateEditScreen(BlockTemplate template) => CurrentScreen = new TemplateEditScreen(SwitchScreen, CurrentGame, template);
 
-        public void LoadSaveToScreen(Kernel kernel,World world) => CurrentGame = new GameScreen(SwitchScreen, kernel, world);
-        public void OpenTemplateForEditing(BlockTemplate template) => CurrentScreen = new TemplateEditScreen(SwitchScreen, CurrentGame, template);
 
-
-        public void Update(UserInput input)
+        private void _autoLoadTestWorld()
         {
-            if (!Initialized) 
-            {
-                Console.WriteLine("Warning: screenManager updating before initialization");
-                return; 
-            }
+            var kernel = SaveManager.LoadKernel("test");
+            var world = SaveManager.LoadWorld("test");
 
-            if(input.IsKeyJustReleased(Keys.PageUp))
-            {
-                var kernel = SaveManager.LoadKernel("test");
-                var world = SaveManager.LoadWorld("test");
-
-                LoadSaveToScreen(kernel,world);
-                SwitchScreen(ScreenType.Game);
-            }
-
-            CurrentScreen.Update(input);
-        }
-
-        public void Draw(DrawingInterface drawingInterface)
-        {
-            if (!Initialized)
-            {
-                Console.WriteLine("Warning: screenManager drawing before initialization");
-                return;
-            }
-
-            CurrentScreen.Draw(drawingInterface);
+            LoadGameScreen(kernel, world);
+            SwitchScreen(ScreenType.Game);
         }
     }
 
-    public enum ScreenType
-    {
-        Title,
-        NewGame,
-        LoadGame,
-        Game,
-        TemplateExplorer,
-        TemplateEdit
-    }
-    
 }

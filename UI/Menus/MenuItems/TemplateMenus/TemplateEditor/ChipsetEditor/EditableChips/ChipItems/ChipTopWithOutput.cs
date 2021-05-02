@@ -28,7 +28,7 @@ namespace IAmACube
         public string OutputTypeBase;
 
 
-        public ChipTopWithOutput(string name,IHasDrawLayer parent, ChipData data) : base(name,parent, data)
+        public ChipTopWithOutput(string name,IHasDrawLayer parent, GraphicalChipData data) : base(name,parent, data)
         {
             _createOutputLabel();
 

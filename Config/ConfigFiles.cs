@@ -20,11 +20,11 @@ namespace IAmACube
         public static string TemplatesFileDefaultLocation = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data";
         public static string TemplatesFileName = @"templates.txt";
 
-        public static string BuiltInChipsFileDefaultLocation = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data";
-        public static string BuiltInChipsFileName = @"BuiltInChips.txt";
+        public static string GraphicalChipsFileDefaultLocation = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data";
+        public static string GraphicalChipsFileName = @"GraphicalChips.txt";
 
         public static string TemplatesPath;
-        public static string BuiltInChipsPath;
+        public static string GraphicalChipsPath;
         public static string SaveDirectory;
 
         public static void Init()
@@ -32,16 +32,16 @@ namespace IAmACube
             _loadConfigFile();
 
             TemplatesPath = FileUtils.GetFilePath(TemplatesFileDefaultLocation, TemplatesFileName);
-            BuiltInChipsPath = FileUtils.GetFilePath(BuiltInChipsFileDefaultLocation, BuiltInChipsFileName);
+            GraphicalChipsPath = FileUtils.GetFilePath(GraphicalChipsFileDefaultLocation, GraphicalChipsFileName);
             SaveDirectory = _getOrMakeSaveDirectory();
 
             if (TemplatesPath == null)
             {
-                throw new FileNotFoundException("Templates.txt not found. Please add Templates.txt to the application directory.");
+                throw new FileNotFoundException(TemplatesFileName + " not found. Please add to the application directory at " + Directory.GetCurrentDirectory());
             }
-            if (BuiltInChipsPath == null)
+            if (GraphicalChipsPath == null)
             {
-                throw new FileNotFoundException("BuiltInChips.txt not found. Please add BuiltInChips.txt to the application directory.");
+                throw new FileNotFoundException(GraphicalChipsFileName + " not found. Please add to the application directory at " + Directory.GetCurrentDirectory());
             }
         }
 
@@ -78,16 +78,16 @@ namespace IAmACube
 
             foreach (var staticField in staticTypeFields)
             {
-                var configItem = _getMatchingConfigEntry(configItems, staticField.Name);
-                if (configItem.Key == null)
+                var (configSettingName, configSettingValue) = _getMatchingConfigEntry(configItems, staticField.Name);
+                if (configSettingName == null)
                 {
                     continue;
                 }
 
-                var value = TypeUtils.ParseType(staticField.FieldType, configItem.Value);
+                var value = TypeUtils.ParseType(staticField.FieldType, configSettingValue);
                 if (value == null)
                 {
-                    throw new Exception("Tried to load the field '" + configItem.Key + "' from Config.txt, but failed to parse its value, '" + configItem.Value + "' into the required type '" + staticField.FieldType.FullName + "'");
+                    throw new Exception("Tried to load the field '" + configSettingName + "' from Config.txt, but failed to parse its value, '" + configSettingValue + "' into the required type '" + staticField.FieldType.FullName + "'");
                 }
 
                 staticField.SetValue(null, value);

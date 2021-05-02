@@ -23,12 +23,9 @@ namespace IAmACube
             _buttonSprite.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, false);
             AddChild(_buttonSprite);
 
-            var textItem = new TextMenuItem(this, text);
-            textItem.SetLocationConfig(_buttonSprite.GetBaseSize().X + 3, 0, CoordinateMode.ParentPixelOffset, false);
-            AddChild(textItem);
-
+            var radioButtonText = _addTextItem(text, _buttonSprite.GetBaseSize().X + 3, 0, CoordinateMode.ParentPixelOffset, false);
             _baseSize = _buttonSprite.GetBaseSize();
-            _baseSize.X += textItem.GetBaseSize().X;
+            _baseSize.X += radioButtonText.GetBaseSize().X;
         }
 
         public void SetButton() => _buttonSprite.SpriteName = "RadioButtonChecked";

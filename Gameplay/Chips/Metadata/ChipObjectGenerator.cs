@@ -10,13 +10,13 @@ namespace IAmACube
     {
         public static void Test()
         {
-            foreach (var data in ChipDatabase.BuiltInChips.Values)
+            foreach (var data in ChipDatabase.GraphicalChips.Values)
             {
                 var instance = GenerateIChipFromChipData(data);
             }
         }
 
-        public static IChip GenerateIChipFromChipData(ChipData data, string typeArgument = "Object")
+        public static IChip GenerateIChipFromChipData(GraphicalChipData data, string typeArgument = "Object")
         {
             if (data.IsGeneric)
             {
@@ -26,7 +26,7 @@ namespace IAmACube
             return _generateNonGenericChipFromChipData(data);
         }
 
-        private static IChip _generateGenericChipFromChipData(ChipData data, string typeArgument = "Object")
+        private static IChip _generateGenericChipFromChipData(GraphicalChipData data, string typeArgument = "Object")
         {
             var genericChipType = TypeUtils.GetChipTypeByName(data.Name + "Chip`1");
             var genericRuntimeType = genericChipType.MakeGenericType(TypeUtils.GetTypeByName(typeArgument));
@@ -35,7 +35,7 @@ namespace IAmACube
             return genericInstance;
         }
 
-        private static IChip _generateNonGenericChipFromChipData(ChipData data)
+        private static IChip _generateNonGenericChipFromChipData(GraphicalChipData data)
         {
             var chipType = TypeUtils.GetChipTypeByName(data.Name + "Chip");
             var instance = (IChip)Activator.CreateInstance(chipType);

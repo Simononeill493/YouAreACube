@@ -21,8 +21,8 @@ namespace IAmACube
         }
 
         [JsonIgnore]
-        public ChipData ChipData;
-        public void SetChipData() => ChipData = ChipDatabase.BuiltInChips[Type];
+        public GraphicalChipData ChipData;
+        public void SetChipData() => ChipData = ChipDatabase.GraphicalChips[Type];
 
         [JsonIgnore]
         public ChipTop ChipTop;

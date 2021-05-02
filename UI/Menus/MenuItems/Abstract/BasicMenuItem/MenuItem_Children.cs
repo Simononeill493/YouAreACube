@@ -40,5 +40,34 @@ namespace IAmACube
             _toAdd.Clear();
             _toRemove.Clear();
         }
+
+
+        protected TextMenuItem _addTextItem(string text, int x, int y, CoordinateMode mode, bool centered)
+        {
+            var textItem = new TextMenuItem(this, text);
+            textItem.SetLocationConfig(x, y, mode, centered);
+            AddChild(textItem);
+            return textItem;
+        }
+
+
+        protected TextBoxMenuItem _addTextBox(string text, int x, int y, CoordinateMode mode, bool centered, bool editable = false, int maxTextLength =9)
+        {
+            var textBox = new TextBoxMenuItem(this, text) { Editable = editable, MaxTextLength = maxTextLength };
+            textBox.SetLocationConfig(x,y,mode,centered);
+            AddChild(textBox);
+
+            return textBox;
+        }
+
+        protected ButtonMenuItem _addButton(string text, int x, int y, CoordinateMode mode, bool centered, Action<UserInput> clicked)
+        {
+            var button = new ButtonMenuItem(this, text);
+            button.SetLocationConfig(x,y,mode,centered);
+            button.OnMouseReleased += clicked;
+            AddChild(button);
+
+            return button;
+        }
     }
 }

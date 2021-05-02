@@ -10,10 +10,10 @@ namespace IAmACube
 {
     class ChipPreview : SpriteMenuItem
     {
-        public ChipData Chip;
+        public GraphicalChipData Chip;
         private TextMenuItem _text;
 
-        public ChipPreview(IHasDrawLayer parent, ChipData chip) : base(parent, "ChipSmall")
+        public ChipPreview(IHasDrawLayer parent, GraphicalChipData chip) : base(parent, "ChipSmall")
         {
             Chip = chip;
             ColorMask = Chip.ChipDataType.GetColor();

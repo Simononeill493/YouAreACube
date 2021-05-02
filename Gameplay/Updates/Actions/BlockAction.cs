@@ -22,7 +22,6 @@ namespace IAmACube
 
         public TemplateVersionDictionary Template;
 
-
         public BlockAction(Block actor,ActionType actionType)
         {
             ActionType = actionType;

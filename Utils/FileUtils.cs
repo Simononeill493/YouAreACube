@@ -37,14 +37,6 @@ namespace IAmACube
             return contents;
         }
 
-        public static void SaveBinary(object toSave, string path,string name,string extension = "")
-        {
-            var savePath = Path.Combine(path, name + extension);
-            var stream = new FileStream(savePath, FileMode.Create, FileAccess.Write);
-
-            new BinaryFormatter().Serialize(stream, toSave);
-            stream.Close();
-        }
         public static T LoadBinary<T>(string path, string name, string extension = "")
         {
             var savePath = Path.Combine(path, name + extension);
@@ -54,6 +46,14 @@ namespace IAmACube
             stream.Close();
 
             return loaded;
+        }
+        public static void SaveBinary(object toSave, string path,string name,string extension = "")
+        {
+            var savePath = Path.Combine(path, name + extension);
+            var stream = new FileStream(savePath, FileMode.Create, FileAccess.Write);
+
+            new BinaryFormatter().Serialize(stream, toSave);
+            stream.Close();
         }
 
         public static JObject LoadJson(string path)

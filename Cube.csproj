@@ -70,7 +70,7 @@
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\AddToListChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\GetListItemAtIndexChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\ShuffleListChip.cs" />
-    <Compile Include="Gameplay\Chips\Metadata\ChipData.cs" />
+    <Compile Include="Gameplay\Chips\Metadata\GraphicalChipData.cs" />
     <Compile Include="Gameplay\Chips\Metadata\ChipDatabase.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\Pins\InputPin2.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\Pins\InputPin3.cs" />
@@ -94,11 +94,13 @@
     <Compile Include="Parsers\JsonData\ChipBlockJSONData.cs" />
     <Compile Include="Parsers\JsonData\ChipJSONData.cs" />
     <Compile Include="Parsers\JsonData\ChipsetJSONData.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateSelector\TemplateSelectedAction.cs" />
+    <Compile Include="UI\Screens\ScreenType.cs" />
     <Compile Include="UserInput\UserInput_Keyboard.cs" />
     <Compile Include="UserInput\UserInput_Mouse.cs" />
     <Compile Include="Parsers\JsonData\ChipJSONInputData.cs" />
     <Compile Include="Parsers\TemplateParser.cs" />
-    <Compile Include="Parsers\BuiltInChipParser.cs" />
+    <Compile Include="Parsers\GraphicalChipParser.cs" />
     <Compile Include="Gameplay\Chips\Metadata\ChipType.cs" />
     <Compile Include="Parsers\ChipBlockParsers\JSONToChipBlockParser.cs" />
     <Compile Include="Parsers\EditableChipsetParsers\EditableChipsetToJSONParser.cs" />

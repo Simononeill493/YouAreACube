@@ -44,7 +44,7 @@ namespace IAmACube
             _setPreviews(filtered.ToList());
         }
 
-        private void _setPreviews(List<ChipData> chips)
+        private void _setPreviews(List<GraphicalChipData> chips)
         {
             _clearPreviews();
             var numChipsToShow = Math.Min(chips.Count, MaxVisibleChips);

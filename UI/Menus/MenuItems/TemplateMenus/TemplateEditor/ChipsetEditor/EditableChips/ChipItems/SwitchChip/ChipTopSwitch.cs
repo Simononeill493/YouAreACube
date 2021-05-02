@@ -16,7 +16,7 @@ namespace IAmACube
         private EditableChipset _extendedChipset;
         private bool _switchSectionExtended => (_extendedChipset!=null);
 
-        public ChipTopSwitch(string name,IHasDrawLayer parent, ChipData data,List<string> switchInitialOptions) : base(name,parent, data)
+        public ChipTopSwitch(string name,IHasDrawLayer parent, GraphicalChipData data,List<string> switchInitialOptions) : base(name,parent, data)
         {
             SwitchChipsets = new List<EditableChipset>();
 

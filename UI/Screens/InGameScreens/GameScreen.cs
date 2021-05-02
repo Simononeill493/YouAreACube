@@ -10,8 +10,8 @@ namespace IAmACube
     public class GameScreen : Screen
     {
         public Game Game;
-        private Camera _currentCamera;
 
+        private Camera _currentCamera;
         private FixedCamera _adminCamera;
         private KernelTrackingCamera _playerCamera;
 
@@ -32,7 +32,6 @@ namespace IAmACube
             Game.Update(input);
             _currentCamera.Update(input);
         }
-
         public override void Draw(DrawingInterface drawingInterface) => _currentCamera.Draw(drawingInterface,Game.World); 
 
         private void _readKeys(UserInput input)
@@ -45,19 +44,24 @@ namespace IAmACube
             {
                 _currentCamera = _playerCamera;
             }
-            if(input.IsKeyJustPressed(Keys.Escape))
-            {
-                var (kernel, world) = Game.SaveAndQuit();
-
-                SaveManager.SaveKernel(kernel);
-                SaveManager.SaveWorld(world);
-
-                SwitchScreen(ScreenType.LoadGame);
-            }
             if (input.IsKeyJustPressed(Keys.Tab))
             {
                 SwitchScreen(ScreenType.TemplateExplorer);
             }
+            if (input.IsKeyJustPressed(Keys.Escape))
+            {
+                _saveAndQuit();
+                return;
+            }
+        }
+        private void _saveAndQuit()
+        {
+            var (kernel, world) = Game.SaveAndQuit();
+
+            SaveManager.SaveKernel(kernel);
+            SaveManager.SaveWorld(world);
+
+            SwitchScreen(ScreenType.LoadGame);
         }
     }
 }

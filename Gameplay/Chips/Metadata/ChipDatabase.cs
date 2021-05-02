@@ -8,15 +8,15 @@ namespace IAmACube
 {
     public static class ChipDatabase
     {
-        public static Dictionary<string,ChipData> BuiltInChips;
+        public static Dictionary<string,GraphicalChipData> GraphicalChips;
 
-        public static void Load() => BuiltInChips = _loadBuiltInChips();
-        public static IEnumerable<ChipData> SearchChips(string searchTerm) => BuiltInChips.Values.Where(c => c.Name.ToLower().Contains(searchTerm.ToLower()));
+        public static void Load() => GraphicalChips = _loadGraphicalChips();
+        public static IEnumerable<GraphicalChipData> SearchChips(string searchTerm) => GraphicalChips.Values.Where(c => c.Name.ToLower().Contains(searchTerm.ToLower()));
 
-        private static Dictionary<string, ChipData> _loadBuiltInChips()
+        private static Dictionary<string, GraphicalChipData> _loadGraphicalChips()
         {
-            var data = FileUtils.LoadJson(ConfigFiles.BuiltInChipsPath)["chips"];
-            return BuiltInChipParser.ParseChips(data);
+            var data = FileUtils.LoadJson(ConfigFiles.GraphicalChipsPath)["chips"];
+            return GraphicalChipParser.ParseChips(data);
         }
     }
 }

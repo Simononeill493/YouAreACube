@@ -102,7 +102,7 @@ namespace IAmACube
             var value = property.GetValue(chip);
             return value.ToString();
         }
-        private static void _setControlChipAttributes(IChip chip, ChipJSONData chipJObject, ChipData data)
+        private static void _setControlChipAttributes(IChip chip, ChipJSONData chipJObject, GraphicalChipData data)
         {
             if (data.Name.Equals("If"))
             {
@@ -116,13 +116,13 @@ namespace IAmACube
                 var keysAndEffects = new List<Tuple<string, string>>();
                 foreach (var keyBlock in keySwitchChip.KeyEffects)
                 {
-                    keysAndEffects.Add(new Tuple<string, string>(keyBlock.Item1.ToString(), keyBlock.Item2.Name));
+                    keysAndEffects.Add(new Tuple<string, string>(keyBlock.Key.ToString(), keyBlock.Block.Name));
                 }
 
                 chipJObject.KeyEffects = keysAndEffects;
             }
         }
-        private static void _setGenericChipAttributes(IChip chip, ChipJSONData chipToken, ChipData data)
+        private static void _setGenericChipAttributes(IChip chip, ChipJSONData chipToken, GraphicalChipData data)
         {
             if (data.IsGeneric)
             {

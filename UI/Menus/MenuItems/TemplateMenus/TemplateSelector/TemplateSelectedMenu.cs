@@ -7,24 +7,14 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public enum TemplateSelectedAction
-    {
-        Edit,
-        Clone,
-        SetMain
-    }
 
     class TemplateSelectedMenu : SpriteMenuItem
     {
         private TemplateVersionDictionary _template;
+        private ListMenuItem<BlockTemplate> _templateList;
 
         private TemplateBox _templatePicture;
         private TextMenuItem _templateName;
-
-        private ListMenuItem<BlockTemplate> _templateList;
-        private int _selectedVersion => _templateList.Selected.Version;
-
-
         private Action<BlockTemplate, TemplateSelectedAction> _templateButtonPressCallback;
 
         public TemplateSelectedMenu(IHasDrawLayer parentDrawLayer, Action<BlockTemplate,TemplateSelectedAction> templateButtonPressCallback) : base(parentDrawLayer,"EmptyMenuRectangleSection")
@@ -40,41 +30,16 @@ namespace IAmACube
             _templateName.MultiplyScale(0.5f);
             AddChild(_templateName);
 
-            var setMainButton = new ButtonMenuItem(this, "Set Main");
-            setMainButton.SetLocationConfig(6, 107, CoordinateMode.ParentPixelOffset);
-            setMainButton.OnMouseReleased += (i) => { _buttonPressAction(TemplateSelectedAction.SetMain); };
-            AddChild(setMainButton);
-
-            var cloneButton = new ButtonMenuItem(this, "Clone");
-            cloneButton.SetLocationConfig(6, 124, CoordinateMode.ParentPixelOffset);
-            cloneButton.OnMouseReleased += (i) => { _buttonPressAction(TemplateSelectedAction.Clone); };
-            AddChild(cloneButton);
-
-            var editButton = new ButtonMenuItem(this, "Edit");
-            editButton.SetLocationConfig(6, 141, CoordinateMode.ParentPixelOffset);
-            editButton.OnMouseReleased += (i) => { _buttonPressAction(TemplateSelectedAction.Edit); };
-            AddChild(editButton);
-
             _templateList = new ListMenuItem<BlockTemplate>(this,new IntPoint(64,15));
             _templateList.SetLocationConfig(7, 40, CoordinateMode.ParentPixelOffset);
             AddChild(_templateList);
 
+
+            _addButton("Set Main", 6, 107, CoordinateMode.ParentPixelOffset,false, (i) => { _buttonPressAction(TemplateSelectedAction.SetMain); });
+            _addButton("Clone", 6, 124, CoordinateMode.ParentPixelOffset, false, (i) => { _buttonPressAction(TemplateSelectedAction.Clone); });
+            _addButton("Edit", 6, 141, CoordinateMode.ParentPixelOffset, false, (i) => { _buttonPressAction(TemplateSelectedAction.Edit); });
         }
 
-        private void _buttonPressAction(TemplateSelectedAction selectedAction)
-        {
-            if(_template!=null)
-            {
-                var version = _template[_selectedVersion];
-
-                if (selectedAction == TemplateSelectedAction.SetMain)
-                {
-                    _template.Main = version;
-                }
-
-                _templateButtonPressCallback(version, selectedAction);
-            }
-        }
 
         public void SetTemplate(TemplateVersionDictionary template)
         {
@@ -89,5 +54,21 @@ namespace IAmACube
             var mainItem = _templateList.Items.First(i => i.Item == template.Main);
             mainItem.TrySelectItem();
         }
+        private void _buttonPressAction(TemplateSelectedAction selectedAction)
+        {
+            if(_template!=null)
+            {
+                var version = _template[_templateList.Selected.Version];
+
+                if (selectedAction == TemplateSelectedAction.SetMain)
+                {
+                    _template.Main = version;
+                }
+
+                _templateButtonPressCallback(version, selectedAction);
+            }
+        }
+
+
     }
 }

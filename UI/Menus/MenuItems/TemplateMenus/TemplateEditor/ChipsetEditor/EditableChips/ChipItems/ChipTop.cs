@@ -9,13 +9,13 @@ namespace IAmACube
     {
         public string Name;
 
-        public ChipData ChipData;
+        public GraphicalChipData ChipData;
         public int IndexInChipset = -1;
 
         public bool HasOutput => ChipData.HasOutput;
         public string CurrentTypeArgument;
 
-        public ChipTop(string name,IHasDrawLayer parent, ChipData data) : base(parent, "ChipFull") 
+        public ChipTop(string name,IHasDrawLayer parent, GraphicalChipData data) : base(parent, "ChipFull") 
         {
             Name = name;
             _actualSize = base.GetBaseSize();
@@ -26,10 +26,8 @@ namespace IAmACube
 
             _inputSections = new List<ChipInputSection>();
 
-            var title = new TextMenuItem(this, ChipData.Name);
+            var title = _addTextItem(ChipData.Name, 7, 6, CoordinateMode.ParentPixelOffset, false);
             title.Color = Color.White;
-            title.SetLocationConfig(7, 6, CoordinateMode.ParentPixelOffset, false);
-            AddChild(title);
 
             _createInputSections();
             if (_inputSections.Count > 0)
@@ -183,7 +181,7 @@ namespace IAmACube
         public virtual void GenerateSubChipsets() { }
         public virtual List<EditableChipset> GetSubChipsets() => new List<EditableChipset>();
 
-        public static ChipTop GenerateChipFromChipData(ChipData data,string name = "")
+        public static ChipTop GenerateChipFromChipData(GraphicalChipData data,string name = "")
         {
             var initialDrawLayer = ManualDrawLayer.Zero;
 

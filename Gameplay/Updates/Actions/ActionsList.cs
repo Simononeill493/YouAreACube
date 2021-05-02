@@ -9,7 +9,12 @@ namespace IAmACube
     [Serializable()]
     public class ActionsList
     {
-        public List<BlockAction> Actions = new List<BlockAction>();
+        public List<BlockAction> Actions;
+
+        public ActionsList()
+        {
+            Actions = new List<BlockAction>();
+        }
 
         public void AddMoveAction(Block block, CardinalDirection direction) => Actions.Add(new BlockAction(block, ActionType.CardinalMovement) { CardinalDir = direction, MoveSpeed = block.Speed });
         public void AddMoveAction(Block block, RelativeDirection direction) => Actions.Add(new BlockAction(block, ActionType.RelativeMovement) { RelativeDir = direction, MoveSpeed = block.Speed });

@@ -10,7 +10,6 @@ namespace IAmACube
     public abstract class InGameMenuScreen : MenuScreen
     {
         protected GameScreen _gameScreen;
-        protected Kernel kernel;
 
         public InGameMenuScreen(ScreenType screenType,Action<ScreenType> switchScreen, GameScreen gameScreen) : base(screenType,switchScreen)
         {

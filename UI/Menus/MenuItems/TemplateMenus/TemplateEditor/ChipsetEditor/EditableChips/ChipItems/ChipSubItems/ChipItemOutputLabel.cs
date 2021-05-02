@@ -19,10 +19,8 @@ namespace IAmACube
 
         public ChipItemOutputLabel(IHasDrawLayer parent,string chipName) : base(parent, "BlankPixel")
         {
-            _textBox = new TextBoxMenuItem(this, chipName);
-            _textBox.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, false);
+            _textBox = _addTextBox(chipName, 0, 0, CoordinateMode.ParentPixelOffset, false);
             _textBox.OnTextChanged += OutputLabelTextTyped;
-            AddChild(_textBox);
 
             _outputDataTypeLabel = new TextMenuItem(_textBox);
             _outputDataTypeLabel.MultiplyScale(0.5f);

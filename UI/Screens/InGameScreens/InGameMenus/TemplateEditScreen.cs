@@ -9,13 +9,13 @@ namespace IAmACube
 {
     class TemplateEditScreen : InGameMenuScreen
     {
-        private TemplateEditMenu _templateEditor;
+        private TemplateEditMenu _templateEditMenu;
 
         public TemplateEditScreen(Action<ScreenType> switchScreen,GameScreen gameScreen,BlockTemplate template) : base(ScreenType.TemplateEdit, switchScreen,gameScreen)
         {
-            _templateEditor = new TemplateEditMenu(this, _gameScreen.Game.Kernel, template, () => SwitchScreen(ScreenType.TemplateExplorer));
-            _templateEditor.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
-            _addMenuItem(_templateEditor);
+            _templateEditMenu = new TemplateEditMenu(this, _gameScreen.Game.Kernel, template, _returnToTemplateExplorer);
+            _templateEditMenu.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            _addMenuItem(_templateEditMenu);
         }
 
         public override void Update(UserInput input)
@@ -24,8 +24,13 @@ namespace IAmACube
 
             if (input.IsKeyJustReleased(Keys.Escape))
             {
-                _templateEditor.OpenQuitDialog();
+                _templateEditMenu.OpenQuitDialog();
             }
+        }
+
+        private void _returnToTemplateExplorer()
+        {
+            SwitchScreen(ScreenType.TemplateExplorer);
         }
     }
 }

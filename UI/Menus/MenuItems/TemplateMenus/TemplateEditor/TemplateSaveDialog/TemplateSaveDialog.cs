@@ -20,31 +20,17 @@ namespace IAmACube
         {
             _saveTemplateCallback = saveTemplateCallback;
 
-            _nameText = new TextMenuItem(this, "");
-            _versionText = new TextMenuItem(this, "V" + newVersionNumber + ":");
-            _nameTextBox = new TextBoxMenuItem(this, "") { Editable = true, MaxTextLength=12 };
-            var saveTypeRadioButtons = new RadioButtonsMenuItem<TemplateSaveDialogOption>(this);
-            var saveButton = new ButtonMenuItem(this, "Save");
-            var cancelButton = new ButtonMenuItem(this, "Cancel");
+            _nameText = _addTextItem("", 50, 15, CoordinateMode.ParentPercentageOffset, true);
+            _versionText = _addTextItem("V" + newVersionNumber + ":", 10, 30, CoordinateMode.ParentPercentageOffset, true);
+            _nameTextBox = _addTextBox("", 50, 30, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 12);
+            _addButton("Save", 30, 80, CoordinateMode.ParentPercentageOffset, true, (i) => _saveButtonPressed());
+            _addButton("Cancel", 70, 80, CoordinateMode.ParentPercentageOffset, true, (i) => Close());
 
+            var saveTypeRadioButtons = new RadioButtonsMenuItem<TemplateSaveDialogOption>(this);
             saveTypeRadioButtons.AddOption(TemplateSaveDialogOption.SaveAsNewTemplate,"As new template");
             saveTypeRadioButtons.AddOption(TemplateSaveDialogOption.SaveAsNewVersion, "As new version");
             saveTypeRadioButtons.OnItemSelected += _dialogOptionSelected;
-            saveButton.OnMouseReleased += (i) =>_saveButtonPressed();
-            cancelButton.OnMouseReleased += (i) => Close();
-
-            _nameText.SetLocationConfig(50, 15, CoordinateMode.ParentPercentageOffset, true);
-            _versionText.SetLocationConfig(10, 30, CoordinateMode.ParentPercentageOffset, true);
-            _nameTextBox.SetLocationConfig(50, 30, CoordinateMode.ParentPercentageOffset, true);
             saveTypeRadioButtons.SetLocationConfig(10, 50, CoordinateMode.ParentPercentageOffset, false);
-            saveButton.SetLocationConfig(30, 80, CoordinateMode.ParentPercentageOffset, true);
-            cancelButton.SetLocationConfig(70, 80, CoordinateMode.ParentPercentageOffset, true);
-
-            AddChild(_nameText);
-            AddChild(_versionText);
-            AddChild(saveButton);
-            AddChild(cancelButton);
-            AddChild(_nameTextBox);
             AddChild(saveTypeRadioButtons);
 
             saveTypeRadioButtons.SelectRadioButton(1);

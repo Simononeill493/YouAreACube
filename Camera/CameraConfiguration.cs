@@ -77,8 +77,6 @@ namespace IAmACube
             return mouseDivided.Floor;
         }
 
-
-
         public void HandleUserInput(UserInput input)
         {
             PartialGridOffset += KeyUtils.GetRightKeypadDirection(input) * 15;

@@ -10,7 +10,6 @@ namespace IAmACube
     public abstract class MenuScreen : Screen, IHasDrawLayer
     {
         public static int Scale = Config.MenuItemScale;
-
         public static DraggableMenuItem DraggedItem = null;
         public static bool IsUserDragging => (DraggedItem != null);
 
@@ -69,9 +68,8 @@ namespace IAmACube
             _menuItems.Add(item);
             item.UpdateDimensionsCascade(IntPoint.Zero, _currentScreenDimensions);
         }
-
         protected void _updateAllItemPositions() => _menuItems.ForEach(item => item.UpdateDimensionsCascade(IntPoint.Zero, _currentScreenDimensions));
-
+        
         private void _refreshIfScreenSizeChanged()
         {
             if (MonoGameWindow.CurrentSize != _currentScreenDimensions)

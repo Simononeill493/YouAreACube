@@ -81,7 +81,7 @@ namespace IAmACube
         private static void _addRandom(Random r, Sector sector,BlockMode blockType, string blockname,int version,int number)
         {
             var emptyTiles = sector.Tiles.Where(t => t.Surface == null).ToList();
-            emptyTiles = RandomUtils.GetShuffledList(emptyTiles);
+            emptyTiles = RandomUtils.GetShuffledList(emptyTiles,r);
 
             var emptySize = emptyTiles.Count();
             if(emptySize < number)

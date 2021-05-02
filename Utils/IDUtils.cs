@@ -10,7 +10,7 @@ namespace IAmACube
     {
         public static int GenerateBlockID()
         {
-             return RandomUtils.R.Next(0, 9999);
+             return RandomUtils.R.Next(0, 99999);
         }
     }
 }

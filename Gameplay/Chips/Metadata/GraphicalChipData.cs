@@ -8,38 +8,37 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class ChipData
+    public class GraphicalChipData
     {
         public string Name { get; }
         public ChipType ChipDataType { get; }
 
-        private string[] Inputs { get; }
-        public int NumInputs { get; }
-
+        public string[] Inputs { get; }
         public string Output { get; }
-        public bool HasOutput { get; }
+
+        public int NumInputs { get; private set; }
+        public bool HasOutput { get; private set; }
 
         public bool IsGeneric { get; private set; }
         public bool IsInputGeneric { get; private set; }
         public bool IsOutputGeneric { get; private set; }
 
-
-        public ChipData(string name,ChipType chipType, int numInputs, string[] inputs, string output)
+        public GraphicalChipData(string name, ChipType dataType, string[] inputs, string output)
         {
             Name = name;
-            ChipDataType = chipType;
-
+            ChipDataType = dataType;
             Inputs = inputs;
-            NumInputs = numInputs;
-
             Output = output;
-            HasOutput = Output != null;
-
-            _setGenericFlags();
         }
 
-        private void _setGenericFlags()
+        public void Init()
         {
+            if(Inputs!=null)
+            {
+                NumInputs = Inputs.Count();
+            }
+            HasOutput = Output != null;
+
             for (int i = 0; i < NumInputs; i++)
             {
                 IsInputGeneric |= Inputs[i].Contains("Variable");
