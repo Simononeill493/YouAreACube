@@ -9,6 +9,8 @@ namespace IAmACube
 {
     static class DirectionUtils
     {
+        public const int NumDirections = 8;
+
         public static List<CardinalDirection> Cardinals;
         public static List<RelativeDirection> Relatives;
         public static List<Orientation> Orientations;
@@ -91,9 +93,46 @@ namespace IAmACube
             };
         }
 
+        public static CardinalDirection ApproachDirection(this IntPoint self, IntPoint other)
+        {
+            if (other.X > self.X)
+            {
+                if (other.Y > self.Y)
+                {
+                    return CardinalDirection.SouthEast;
+                }
+                else if (other.Y < self.Y)
+                {
+                    return CardinalDirection.NorthEast;
+                }
+
+                return CardinalDirection.East;
+            }
+            else if (other.X < self.X)
+            {
+                if (other.Y > self.Y)
+                {
+                    return CardinalDirection.SouthWest;
+                }
+                else if (other.Y < self.Y)
+                {
+                    return CardinalDirection.NorthWest;
+                }
+
+                return CardinalDirection.West;
+            }
+            else if (other.Y > self.Y)
+            {
+                return CardinalDirection.South;
+            }
+
+            return CardinalDirection.North;
+        }
+        public static CardinalDirection FleeDirection(this IntPoint self, IntPoint other) => ApproachDirection(self, other).Reverse();
+
+
         public static CardinalDirection ToCardinal(Orientation orientation, RelativeDirection relativeDirection) => (CardinalDirection)_underflowMod((int)relativeDirection + (int)orientation, 8);
         public static Orientation Rotate(this Orientation orientation, int rotation) => (Orientation)_underflowMod((int)orientation + rotation, 8);
-
 
         static int _underflowMod(int x, int m)
         {

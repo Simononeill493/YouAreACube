@@ -9,18 +9,18 @@ namespace IAmACube
     [Serializable()]
     public class MoveManager
     {
-        private Sector _sector;
-
-        public List<Block> MovingBlocks;
         public List<(Block, IntPoint)> MovedOutOfSector;
-
         private List<(Block, IntPoint)> _toMoveFromSector;
+
+        private List<Block> _movingBlocks;
         private HashSet<Block> _toRemove;
+
+        private Sector _sector;
 
         public MoveManager(Sector sector)
         {
             _sector = sector;
-            MovingBlocks = new List<Block>();
+            _movingBlocks = new List<Block>();
             MovedOutOfSector = new List<(Block, IntPoint)>();
 
             _toMoveFromSector = new List<(Block, IntPoint)>();
@@ -41,38 +41,33 @@ namespace IAmACube
         {
             block.StartMovement(movementData);
 
-            if(MovingBlocks.Contains(block))
+            if(_movingBlocks.Contains(block))
             {
                 throw new Exception("Started moving block, but it's already moving");
             }
 
-            MovingBlocks.Add(block);
+            _movingBlocks.Add(block);
         }
 
+        public void AddMovingBlock(Block block) => _movingBlocks.Add(block);
+        public void RemoveMovingBlock(Block block)
+        {
+            var removed = _movingBlocks.Remove(block);
+            if (!removed)
+            {
+                throw new Exception("Tried to remove a moving block, but it wasn't in the moving list!");
+            }
+        }
 
         public void Tick()
         {
-            foreach (var moving in MovingBlocks)
+            foreach (var moving in _movingBlocks)
             {
                 _tickBlock(moving, moving.MovementData);
             }
 
             _extractSectorEmmigrants();
             _removeBlocksQueuedForRemoval();
-        }
-
-        private void _removeBlocksQueuedForRemoval()
-        {
-            foreach (var toRemove in _toRemove)
-            {
-                RemoveMovingBlock(toRemove);
-            }
-            _toRemove.Clear();
-        }
-        private void _extractSectorEmmigrants()
-        {
-            MovedOutOfSector.AddRange(_toMoveFromSector);
-            _toMoveFromSector.Clear();
         }
         private void _tickBlock(Block block, BlockMovementData movementData)
         {
@@ -95,11 +90,12 @@ namespace IAmACube
 
             block.IsMovingThroughCentre = movementData.Finished;
         }
-
         private void _moveBlockToDestination(Block block)
         {
             block.MoveToCurrentDestination();
             _checkIfEmmigrated(block);
+
+            //Console.WriteLine(block._id + " moved to tile " + block.MovementData.Destination.AbsoluteLocation);
         }
         private void _completeMovement(Block block)
         {
@@ -111,6 +107,20 @@ namespace IAmACube
             block.AbortMovement();
             _toRemove.Add(block);
         }
+
+        private void _removeBlocksQueuedForRemoval()
+        {
+            foreach (var toRemove in _toRemove)
+            {
+                RemoveMovingBlock(toRemove);
+            }
+            _toRemove.Clear();
+        }
+        private void _extractSectorEmmigrants()
+        {
+            MovedOutOfSector.AddRange(_toMoveFromSector);
+            _toMoveFromSector.Clear();
+        }
         private void _checkIfEmmigrated(Block block)
         {
             if (!block.InSector(_sector))
@@ -119,17 +129,5 @@ namespace IAmACube
                 _toMoveFromSector.Add((block, block.Location.SectorID));
             }
         }
-
-        public void RemoveMovingBlock(Block block)
-        {
-            var removed = MovingBlocks.Remove(block);
-            if (!removed)
-            {
-                throw new Exception("Tried to remove a moving block, but it wasn't in the moving list!");
-            }
-        }
-
-        public void AddMovingBlock(Block block) => MovingBlocks.Add(block);
-
     }
 }

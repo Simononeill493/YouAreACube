@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public struct ScrollBoundaries
+    public struct ScrollBoundary
     {
+        public int BoundaryNumTiles;
         public int BoundarySize;
 
         public int Top;
@@ -15,9 +16,9 @@ namespace IAmACube
         public int Bottom;
         public int Right;
 
-        public void Update(int borderNumTiles,int tileSize)
+        public void Update(int tileSize)
         {
-            BoundarySize = borderNumTiles * tileSize;
+            BoundarySize = BoundaryNumTiles * tileSize;
 
             Top = BoundarySize - tileSize;
             Left = BoundarySize - tileSize;
@@ -25,8 +26,6 @@ namespace IAmACube
             Bottom = (MonoGameWindow.CurrentSize.Y - BoundarySize);
             Right = (MonoGameWindow.CurrentSize.X - BoundarySize);
         }
-
-        public bool WithinBoundary(IntPoint curPos) => curPos.InBoundsInclusive(Left, Top, Right, Bottom);
 
         public IntPoint GetBoundaryPushBack(IntPoint curPos)
         {
@@ -55,5 +54,7 @@ namespace IAmACube
 
             return clampChange;
         }
+
+        public bool WithinBoundary(IntPoint kernelScreenPosition) => kernelScreenPosition.InBoundsInclusive(Left, Top, Right, Bottom);
     }
 }

@@ -58,9 +58,15 @@ namespace IAmACube
             var centre = world.GetSector(new IntPoint(0,0));
             var tile = centre.TileGrid[0, 0];
 
-            player.EnterLocation(tile);
-            world.FocusOn(player);
+            if(tile.HasSurface)
+            {
+                centre.RemoveBlockFromSector(tile.Surface);
+            }
+
             centre.AddBlockToSector(player);
+            player.EnterLocation(tile);
+
+            world.FocusOn(player);
         }
         public static void AddEntities(World world)
         {
@@ -75,25 +81,22 @@ namespace IAmACube
         private static void _addRandom(Random r, Sector sector,BlockMode blockType, string blockname,int version,int number)
         {
             var emptyTiles = sector.Tiles.Where(t => t.Surface == null).ToList();
+            emptyTiles = RandomUtils.GetShuffledList(emptyTiles);
+
             var emptySize = emptyTiles.Count();
+            if(emptySize < number)
+            {
+                Console.WriteLine("Worldgen warning: tried to add " + number + " blocks to a sector, but there are only " + emptySize + " free tiles.");
+                number = emptySize;
+            }
 
             for (int i = 0; i < number; i++)
             {
-                if(emptySize==0)
-                {
-                    Console.WriteLine("Warning: Tried to add " + blockname + " but sector is full!");
-                    return;
-                }
-
                 var block = Templates.Generate(blockname, version,blockType);
-                var tileNum = r.Next(0, emptySize - 1);
+                var tile = emptyTiles[i];
 
-                var tile = emptyTiles[tileNum];
                 block.EnterLocation(tile);
                 sector.AddBlockToSector(block);
-
-                emptyTiles.RemoveAt(tileNum);
-                emptySize--;
             }
         }
         private static Sector _getInitializedSector(IntPoint sectorOrigin,int sectorSize)

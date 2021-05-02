@@ -1,22 +1,18 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IAmACube
 {
     public class CameraConfiguration
     {
-        public int Scale = 1;
         public bool DebugMode = true;
+
+        public int Scale = 1;
+        public int TileSizePixels;
 
         public IntPoint GridPosition;
         public IntPoint PartialGridOffset;
         public IntPoint PixelOffset;
-
-        public int TileSizePixels;
 
         public IntPoint VisibleGrid = IntPoint.Zero;
         public IntPoint MouseHoverPosition = IntPoint.Zero;
@@ -30,8 +26,7 @@ namespace IAmACube
 
             PixelOffset = (GridPosition * TileSizePixels) + PartialGridOffset;
         }
-
-        public void UpdateGridOffsets()
+        public void RollOverGridOffsets()
         {
             if (PartialGridOffset.X > TileSizePixels)
             {
@@ -55,8 +50,6 @@ namespace IAmACube
             }
         }
 
-        public IntPoint GetPosOnScreen(Block block) => CameraUtils.GetBlockOffsetFromOrigin(block, TileSizePixels) - PixelOffset;
-
 
         public void ChangeScale(int offset)
         {
@@ -68,10 +61,6 @@ namespace IAmACube
 
             Scale = newScale;
         }
-
-        public IntPoint GetCameraCentre() => (VisibleGrid / 2 * TileSizePixels);
-
-
         public void SnapToBlock(Block block, IntPoint offset)
         {
             GridPosition = (block.Location.AbsoluteLocation - (VisibleGrid / 2));
@@ -79,6 +68,16 @@ namespace IAmACube
 
             UpdateScaling();
         }
+
+        public IntPoint GetCameraCentre() => (VisibleGrid / 2 * TileSizePixels);
+        public IntPoint GetPosOnScreen(Block block) => CameraUtils.GetBlockOffsetFromOrigin(block, TileSizePixels) - PixelOffset;
+        public IntPoint GetMouseHover(UserInput input)
+        {
+            var mouseDivided = (input.MousePos + PixelOffset) / (float)TileSizePixels;
+            return mouseDivided.Floor;
+        }
+
+
 
         public void HandleUserInput(UserInput input)
         {
@@ -90,12 +89,9 @@ namespace IAmACube
                 DebugMode = !DebugMode;
             }
         }
-
-        public void SetMouseHover(UserInput input, World world)
+        public void AssignMouseHover(UserInput input, World world)
         {
-            var mouseDivided = (input.MousePos + PixelOffset) / (float)TileSizePixels;
-            var mousePos = mouseDivided.Floor;
-
+            var mousePos = GetMouseHover(input);
             if (world.HasTile(mousePos))
             {
                 input.MouseHoverTile = world.GetTile(mousePos);

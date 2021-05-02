@@ -9,25 +9,29 @@ namespace IAmACube
 {
     public class FrameCounter
     {
+        public const int MaxSamples = 100;
         public long TotalFrames { get; private set; }
         public float TotalSeconds { get; private set; }
         public float AverageFramesPerSecond { get; private set; }
         public float CurrentFramesPerSecond { get; private set; }
 
-        public const int MAXIMUM_SAMPLES = 100;
+        private Queue<float> _frameBuffer;
 
-        private Queue<float> _sampleBuffer = new Queue<float>();
+        public FrameCounter()
+        {
+            _frameBuffer = new Queue<float>(); 
+        }
 
         public bool Update(float deltaTime)
         {
             CurrentFramesPerSecond = 1.0f / deltaTime;
 
-            _sampleBuffer.Enqueue(CurrentFramesPerSecond);
+            _frameBuffer.Enqueue(CurrentFramesPerSecond);
 
-            if (_sampleBuffer.Count > MAXIMUM_SAMPLES)
+            if (_frameBuffer.Count > MaxSamples)
             {
-                _sampleBuffer.Dequeue();
-                AverageFramesPerSecond = _sampleBuffer.Average(i => i);
+                _frameBuffer.Dequeue();
+                AverageFramesPerSecond = _frameBuffer.Average(i => i);
             }
             else
             {

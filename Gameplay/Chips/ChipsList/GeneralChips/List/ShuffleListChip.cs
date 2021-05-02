@@ -13,7 +13,7 @@ namespace IAmACube
 
         public override void Run(Block actor, UserInput input, ActionsList actions)
         {
-            var shuffled = RandomUtils.Shuffle(ChipInput1);
+            var shuffled = RandomUtils.GetShuffledList(ChipInput1);
             SetOutput(shuffled);
         }
     }

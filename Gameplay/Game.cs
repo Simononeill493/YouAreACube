@@ -8,8 +8,8 @@ namespace IAmACube
 {
     public class Game
     {
-        public Kernel Kernel;
-        public World World;
+        public Kernel Kernel { get; }
+        public World World { get; }
 
         private SectorGenerator _sectorGenerator;
 
@@ -30,12 +30,17 @@ namespace IAmACube
             World.FocusOn(Kernel.Host);
             World.Tick(input);
 
-            //_sectorGenerator.GenerateAdjacentSectors(World);
+            _sectorGenerator.GenerateAdjacentSectors(World);
 
             if (Config.KernelUnlimitedEnergy)
             {
                 Kernel.Host.AddEnergy(Kernel.Host.EnergyCap);
             }
+        }
+        
+        public (Kernel, World) SaveAndQuit()
+        {
+            return (Kernel, World);
         }
 
         private void _initializeSession()
@@ -46,11 +51,6 @@ namespace IAmACube
             var hostTile = World.GetTile(Kernel.Host.Location.AbsoluteLocation);
             var liveHost = hostTile.Surface;
             Kernel.SetHost(liveHost);
-        }
-
-        public (Kernel,World) SaveAndQuit()
-        {
-            return (Kernel,World);
         }
     }
 }

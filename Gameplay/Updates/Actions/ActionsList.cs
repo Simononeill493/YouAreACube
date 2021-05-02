@@ -11,16 +11,15 @@ namespace IAmACube
     {
         public List<BlockAction> Actions = new List<BlockAction>();
 
-        public void StartMove(Block block, CardinalDirection direction) => Actions.Add(new BlockAction(block, ActionType.CardinalMovement) { CardinalDir = direction, MoveTotalTicks = block.Speed });
-        public void StartMove(Block block, RelativeDirection direction) => Actions.Add(new BlockAction(block, ActionType.RelativeMovement) { RelativeDir = direction, MoveTotalTicks = block.Speed });
-        public void StartRotation(Block block, int rotation) => Actions.Add(new BlockAction(block, ActionType.Rotation) { Rotation = rotation });
-
-        public void CreateBlock(Block block, TemplateVersionDictionary toCreate, int version, BlockMode blockType,CardinalDirection direction)
+        public void AddMoveAction(Block block, CardinalDirection direction) => Actions.Add(new BlockAction(block, ActionType.CardinalMovement) { CardinalDir = direction, MoveSpeed = block.Speed });
+        public void AddMoveAction(Block block, RelativeDirection direction) => Actions.Add(new BlockAction(block, ActionType.RelativeMovement) { RelativeDir = direction, MoveSpeed = block.Speed });
+        public void AddRotationAction(Block block, int rotation) => Actions.Add(new BlockAction(block, ActionType.Rotation) { Rotation = rotation });
+        public void AddCreationAction(Block block, TemplateVersionDictionary toCreate, int version, BlockMode blockType,CardinalDirection direction)
         {
             var creationAction = new BlockAction(block, ActionType.CardinalCreation) 
             { 
-                BlockTemplate = toCreate,
-                TemplateVersion = version,
+                Template = toCreate,
+                Version = version,
                 BlockType = blockType, 
                 CardinalDir = direction 
             };

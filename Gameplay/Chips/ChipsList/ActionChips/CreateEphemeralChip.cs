@@ -17,7 +17,7 @@ namespace IAmACube
 
         public void Run(Block actor, UserInput userInput, ActionsList actions)
         {
-            actions.CreateBlock(actor, ChipInput2, ChipInput3, BlockMode.Ephemeral,ChipInput1);
+            actions.AddCreationAction(actor, ChipInput2, ChipInput3, BlockMode.Ephemeral,ChipInput1);
         }
     }
 }

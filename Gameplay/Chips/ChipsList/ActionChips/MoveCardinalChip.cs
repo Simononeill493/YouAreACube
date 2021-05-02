@@ -11,7 +11,7 @@ namespace IAmACube
 
         public void Run(Block actor, UserInput userInput,ActionsList actions)
         {
-            actions.StartMove(actor, ChipInput1);
+            actions.AddMoveAction(actor, ChipInput1);
         }
     }
 }

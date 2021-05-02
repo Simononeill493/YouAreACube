@@ -16,19 +16,5 @@ namespace IAmACube
 
             return (xOffset, yOffset);
         }
-
-        public static IntPoint ScreenPercentageToCoords(IntPoint percentages)
-        {
-            var x = (int)(MonoGameWindow.CurrentSize.X * (percentages.X / 100.0));
-            var y = (int)(MonoGameWindow.CurrentSize.Y * (percentages.Y / 100.0));
-
-            return new IntPoint(x, y);
-        }
-
-        public static Rectangle GetSpriteDimensions(string spriteName,int x,int y,int scale)
-        {
-            var sprite = SpriteManager.GetSprite(spriteName);
-            return new Rectangle(x, y, sprite.Width * scale, sprite.Height * scale);
-        }
     }
 }

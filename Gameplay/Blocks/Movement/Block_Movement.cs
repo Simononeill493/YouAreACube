@@ -11,7 +11,6 @@ namespace IAmACube
         public bool IsMoving;
         public bool IsMovingThroughCentre;
         public bool IsMovingBetweenSectors;
-
         public bool IsInCentreOfBlock => (!IsMoving) | (IsMovingThroughCentre);
 
         public BlockMovementData MovementData { get; private set; }
@@ -34,14 +33,14 @@ namespace IAmACube
             IsMoving = false;
             IsMovingThroughCentre = false;
         }
-
-        public bool TryGetAdjacent(CardinalDirection cardinalDirection, out Tile destination) => Location.Adjacent.TryGetValue(cardinalDirection, out destination);
-        public bool ShouldAbortMovement() => ToBeDeleted() | (!MovementData.Moved & (!CanOccupyDestination(MovementData.Destination) | MovementData.Cancelled));
-        public bool CanMoveTo(Tile destination) => CanStartMoving() & CanOccupyDestination(destination);
-        public bool CanStartMoving() => (!IsMoving) & Energy > 0;
-        public virtual bool CanOccupyDestination(Tile destination) => true;
         public void MoveToCurrentDestination() => EnterLocation(MovementData.Destination);
         public abstract void EnterLocation(Tile destination);
 
+        public bool TryGetAdjacent(CardinalDirection cardinalDirection, out Tile destination) => Location.TryGetNeighbour(cardinalDirection, out destination);
+
+        public bool ShouldAbortMovement() => ToBeDeleted() | (!MovementData.Moved & (!CanOccupyDestination(MovementData.Destination)));
+        public bool CanMoveTo(Tile destination) => CanStartMoving() & CanOccupyDestination(destination);
+        public bool CanStartMoving() => (!IsMoving) & Energy > 0;
+        public abstract bool CanOccupyDestination(Tile destination);
     }
 }

@@ -8,7 +8,7 @@ namespace IAmACube
 {
     class WorldUtils
     {
-        public static IntPoint GetLocationOfSector(IntPoint worldCoords,int sectorSize)
+        public static IntPoint WorldCoordsToSectorLocation(IntPoint worldCoords,int sectorSize)
         {
             var ret = new IntPoint(worldCoords.X / sectorSize, worldCoords.Y / sectorSize);
 
@@ -23,7 +23,7 @@ namespace IAmACube
 
             return ret;
         }
-        public static IntPoint ConvertToSectorCoords(IntPoint worldCoords,int sectorSize)
+        public static IntPoint WorldCoordsToInternalSectorCoords(IntPoint worldCoords,int sectorSize)
         {
             var ret = new IntPoint(0, 0);
 

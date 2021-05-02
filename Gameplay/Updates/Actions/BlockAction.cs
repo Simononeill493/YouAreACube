@@ -9,17 +9,19 @@ namespace IAmACube
     [Serializable()]
     public class BlockAction
     {
-        public ActionType ActionType;
         public Block Actor;
+        public ActionType ActionType;
 
         public CardinalDirection CardinalDir;
         public RelativeDirection RelativeDir;
-        public int Rotation;
-        public int MoveTotalTicks;
-
         public BlockMode BlockType;
-        public TemplateVersionDictionary BlockTemplate;
-        public int TemplateVersion;
+
+        public int Rotation;
+        public int MoveSpeed;
+        public int Version;
+
+        public TemplateVersionDictionary Template;
+
 
         public BlockAction(Block actor,ActionType actionType)
         {

@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class SpriteManager
+    static class SpriteManager
     {
-        public static bool IsInitialized = false;
-
-        public static Dictionary<string, Texture2D> _sprites;
+        private static bool _initialized = false;
+        private static Dictionary<string, Texture2D> _sprites;
         private static ContentManager _contentManager;
         private static SpriteFont _gameFont;
 
@@ -22,7 +21,7 @@ namespace IAmACube
             _contentManager = contentManager;
             _gameFont = gameFont;
 
-            IsInitialized = true;
+            _initialized = true;
         }
 
         public static Texture2D GetSprite(string spriteName)
@@ -38,10 +37,9 @@ namespace IAmACube
                 return sprite;
             }
         }
-
         public static IntPoint GetSpriteSize(string spriteName)
         {
-            if(!IsInitialized)
+            if(!_initialized)
             {
                 return IntPoint.Zero;
             }
@@ -49,10 +47,9 @@ namespace IAmACube
             var sprite = GetSprite(spriteName);
             return new IntPoint(sprite.Width, sprite.Height);
         }
-
         public static IntPoint GetTextSize(string text)
         {
-            if (text == null | !IsInitialized)
+            if (text == null | !_initialized)
             {
                 return IntPoint.Zero;
             }
@@ -60,6 +57,5 @@ namespace IAmACube
             var dims = _gameFont.MeasureString(text);
             return new IntPoint((int)dims.X, (int)dims.Y);
         }
-
     }
 }

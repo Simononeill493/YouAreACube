@@ -22,6 +22,7 @@ namespace IAmACube
 
             return templates;
         }
+
         public static BlockTemplate ParseTemplate(JToken templateToken)
         {
             var template = JsonConvert.DeserializeObject<BlockTemplate>(templateToken.ToString());

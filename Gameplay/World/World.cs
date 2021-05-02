@@ -34,7 +34,7 @@ namespace IAmACube
 
         public void Tick(UserInput input) => _ticker.TickWorld(this, input);
 
-        public List<Sector> GetUpdatingSectors(TickManager tickCounter)
+        public List<Sector> GetUpdatingSectors(WorldTickManager tickCounter)
         {
             var list = new List<Sector> { Focus };
             list.AddRange(Focus.Neighbours);
@@ -58,14 +58,14 @@ namespace IAmACube
 
         }
 
-        public bool HasTile(IntPoint worldCoords) => HasSector(WorldUtils.GetLocationOfSector(worldCoords,SectorSize));
+        public bool HasTile(IntPoint worldCoords) => HasSector(WorldUtils.WorldCoordsToSectorLocation(worldCoords,SectorSize));
 
         public Tile GetTile(IntPoint worldCoords)
         {
-            var sectorLocation = WorldUtils.GetLocationOfSector(worldCoords,SectorSize);
+            var sectorLocation = WorldUtils.WorldCoordsToSectorLocation(worldCoords,SectorSize);
             var sector = GetSector(sectorLocation);
 
-            var sectorTileCoords = WorldUtils.ConvertToSectorCoords(worldCoords,SectorSize);
+            var sectorTileCoords = WorldUtils.WorldCoordsToInternalSectorCoords(worldCoords,SectorSize);
             var tile = sector.TileGrid[sectorTileCoords.X, sectorTileCoords.Y];
 
             return tile;
@@ -87,6 +87,6 @@ namespace IAmACube
 
         public bool HasSector(IntPoint sectorCoords) => SectorGrid.ContainsKey(sectorCoords);
         public Sector GetSector(IntPoint coord) => SectorGrid[coord];
-        public Sector GetSector(Tile tile) => SectorGrid[WorldUtils.GetLocationOfSector(tile.AbsoluteLocation,SectorSize)];
+        public Sector GetSector(Tile tile) => SectorGrid[WorldUtils.WorldCoordsToSectorLocation(tile.AbsoluteLocation,SectorSize)];
     }
 }

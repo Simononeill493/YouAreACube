@@ -10,9 +10,8 @@ namespace IAmACube
     [Serializable()]
     public class Sector : LocationWithNeighbors<Sector>
     {
-        public Tile[,] TileGrid;
-        public List<Tile> Tiles;
-        public IEnumerable<Block> DoomedBlocks => _destructibleBlocks.Where(b => b.ToBeDeleted());
+        public readonly Tile[,] TileGrid;
+        public readonly List<Tile> Tiles;
 
         public List<Block> ActiveBlocks;
         private List<Block> _destructibleBlocks;
@@ -30,21 +29,27 @@ namespace IAmACube
             _destructibleBlocks = new List<Block>();
         }
 
-        public ActionsList GetBlockActions(UserInput input,TickManager tickCounter)
+        public SectorEmmigrantsList Tick(UserInput input, WorldTickManager tickManager)
+        {
+            var actions = _runChips(input, tickManager);
+            _updateManager.Update(actions);
+
+            return PopSectorEmmigrants();
+        }
+
+        public ActionsList _runChips(UserInput input, WorldTickManager tickManager)
         {
             var actions = new ActionsList();
-            var toUpdate = tickCounter.GetUpdatingBlocks(this);
+            var updating = tickManager.GetUpdatingBlocks(this);
 
-            foreach(var block in toUpdate)
+            foreach (var block in updating)
             {
-                block.Update(input,actions);
+                block.Update(input, actions);
             }
 
             return actions;
         }
 
-        public void Update(ActionsList actions) => _updateManager.Update(actions);
-        public Tile GetTile(IntPoint point) => TileGrid[point.X, point.Y];
 
         public void AddBlockToSector(Block block)
         {
@@ -59,15 +64,14 @@ namespace IAmACube
                 ActiveBlocks.Add(block);
             }
         }
-
         public void RemoveBlockFromSector(Block block)
         {
             _updateManager.RemoveBlockFromUpdates(block);
 
             if (block.BlockType != BlockMode.Ground)
             {
-                var destructibleRemoved =_destructibleBlocks.Remove(block);
-                if(!destructibleRemoved)
+                var destructibleRemoved = _destructibleBlocks.Remove(block);
+                if (!destructibleRemoved)
                 {
                     throw new Exception("Tried to remove a block, but it wasn't in the expected sector");
                 }
@@ -84,17 +88,15 @@ namespace IAmACube
 
         }
 
-        public List<(Block, IntPoint)> PopSectorEmmigrants()
+
+        public IEnumerable<Block> GetDoomedBlocks() => _destructibleBlocks.Where(b => b.ToBeDeleted());
+        public SectorEmmigrantsList PopSectorEmmigrants()
         {
-            var (movedOut,createdOut) = _updateManager.PopSectorEmmigrants();
+            var emmigrants = _updateManager.PopSectorEmmigrants();
+            emmigrants.Moved.ForEach(moved => RemoveBlockFromSector(moved.Block));
 
-            foreach(var emmigrant in movedOut)
-            {
-                RemoveBlockFromSector(emmigrant.Item1);
-            }
-
-            movedOut.AddRange(createdOut);
-            return movedOut;
+            return emmigrants;
         }
+        public Tile GetTile(IntPoint point) => TileGrid[point.X, point.Y];
     }
 }

@@ -29,7 +29,6 @@ namespace IAmACube
 
             return null;
         }
-
         public static List<string> GetDirectoryContents(string path)
         {
             var contents = Directory.GetFiles(path).Select(l => Path.GetFileName(l).ToLower()).ToList();
@@ -46,7 +45,6 @@ namespace IAmACube
             new BinaryFormatter().Serialize(stream, toSave);
             stream.Close();
         }
-
         public static T LoadBinary<T>(string path, string name, string extension = "")
         {
             var savePath = Path.Combine(path, name + extension);

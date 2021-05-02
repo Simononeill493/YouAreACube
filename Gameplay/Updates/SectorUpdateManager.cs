@@ -19,6 +19,7 @@ namespace IAmACube
             _moveManager = new MoveManager(sector);
             _creationManager = new CreationManager(sector);
             _destructionManager = new DestructionManager(sector);
+
             _actionManager = new ActionManager(_moveManager,_creationManager);
         }
 
@@ -28,19 +29,6 @@ namespace IAmACube
             _destructionManager.DestroyDoomedBlocks();
         }
 
-        public (List<(Block,IntPoint)> movedOut, List<(Block, IntPoint)> createdOut) PopSectorEmmigrants()
-        {
-            var movedOutOutput = new List<(Block, IntPoint)>();
-            movedOutOutput.AddRange(_moveManager.MovedOutOfSector);
-            _moveManager.MovedOutOfSector.Clear();
-
-            var createdOutOutput = new List<(Block, IntPoint)>();
-            createdOutOutput.AddRange(_creationManager.ToPlaceOutsideOfSector);
-            _creationManager.ToPlaceOutsideOfSector.Clear();
-
-            return (movedOutOutput,createdOutOutput);
-        }
-
         public void AddBlockToUpdates(Block block)
         {
             if (block.IsMoving)
@@ -48,13 +36,24 @@ namespace IAmACube
                 _moveManager.AddMovingBlock(block);
             }
         }
-
         public void RemoveBlockFromUpdates(Block block)
         {
             if (block.IsMoving)
             {
                 _moveManager.RemoveMovingBlock(block);
             }
+        }
+
+        public SectorEmmigrantsList PopSectorEmmigrants()
+        {
+            var emmigrants = new SectorEmmigrantsList();
+            emmigrants.AddMoved(_moveManager.MovedOutOfSector);
+            emmigrants.AddCreated(_creationManager.ToPlaceOutsideOfSector);
+
+            _moveManager.MovedOutOfSector.Clear();
+            _creationManager.ToPlaceOutsideOfSector.Clear();
+
+            return emmigrants;
         }
     }
 }

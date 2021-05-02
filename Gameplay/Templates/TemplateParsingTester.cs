@@ -14,13 +14,13 @@ namespace IAmACube
             foreach (var template in templates)
             {
                 if (!template.Active) { continue; }
-                var initialJson = ChipBlockParser.ParseBlockToJson(template.ChipBlock);
+                var initialJson = ChipBlockToJSONParser.ParseBlockToJson(template.ChipBlock);
 
-                var editableChipset = EditableChipsetParser.ParseJsonToEditableChipset(initialJson, new DummyChipsetGenerator());
-                var chipBlockClone = ChipBlockParser.ParseJsonToBlock(initialJson);
+                var editableChipset = JSONToEditableChipsetParser.ParseJsonToEditableChipset(initialJson, new DummyChipsetGenerator());
+                var chipBlockClone = JSONToChipBlockParser.ParseJsonToBlock(initialJson);
 
-                var chipsetRoundTripJson = EditableChipsetParser.ParseEditableChipsetToJson(editableChipset);
-                var chipBlockRoundTripJson = ChipBlockParser.ParseBlockToJson(chipBlockClone);
+                var chipsetRoundTripJson = EditableChipsetToJSONParser.ParseEditableChipsetToJson(editableChipset);
+                var chipBlockRoundTripJson = ChipBlockToJSONParser.ParseBlockToJson(chipBlockClone);
 
                 if (!initialJson.Equals(chipsetRoundTripJson))
                 {

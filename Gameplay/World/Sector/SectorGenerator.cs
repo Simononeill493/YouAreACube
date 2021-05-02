@@ -11,7 +11,7 @@ namespace IAmACube
     {
         public void GenerateAdjacentSectors(World world)
         {
-            foreach(var dir in world.Focus.EmptyAdjacents)
+            foreach(var dir in world.Focus.GetEmptyAdjacents())
             {
                 var point = world.Focus.AbsoluteLocation + DirectionUtils.XYOffset(dir);
                 var sector = WorldGen.GetTestSector(point,world.SectorSize);

@@ -9,7 +9,7 @@ namespace IAmACube
     [Serializable()]
     public class GroundBlock : Block
     {
-        public GroundBlock(BlockTemplate template) : base(template) => BlockType = BlockMode.Ground;
+        public GroundBlock(BlockTemplate template) : base(template, BlockMode.Ground) { }
 
         public override void EnterLocation(Tile destination)
         {

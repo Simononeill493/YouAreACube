@@ -17,7 +17,7 @@ namespace IAmACube
 
         public void DestroyDoomedBlocks()
         {
-            foreach(var block in _sector.DoomedBlocks.ToList())
+            foreach(var block in _sector.GetDoomedBlocks().ToList())
             {
                 //if (block.IsMovingBetweenSectors) { continue; }
                 //Console.WriteLine("Destroying block " + block._id);
@@ -30,7 +30,7 @@ namespace IAmACube
         private void _clearFromTile(Block block)
         {
             block.Location.ClearBlock(block);
-            block.Location = null;
+            block.ClearLocation();
         }
     }
 }

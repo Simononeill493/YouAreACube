@@ -12,9 +12,8 @@ namespace IAmACube
     {
         public bool Dormant = false;
 
-        public SurfaceBlock(BlockTemplate template): base(template)
+        public SurfaceBlock(BlockTemplate template): base(template, BlockMode.Surface)
         {
-            BlockType = BlockMode.Surface;
             Health = MaxHealth;
         }
 
@@ -24,7 +23,6 @@ namespace IAmACube
             {
                 throw new Exception("Tried to add a ground to a location it already exists in");
             }
-
             if (!Location.HasThisSurface(this))
             {
                 throw new Exception("Surface block is being moved, but its current tile does not register it as present.");

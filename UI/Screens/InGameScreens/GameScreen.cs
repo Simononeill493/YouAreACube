@@ -12,14 +12,14 @@ namespace IAmACube
         public Game Game;
         private Camera _currentCamera;
 
-        private Camera _adminCamera;
+        private FixedCamera _adminCamera;
         private KernelTrackingCamera _playerCamera;
 
         public GameScreen(Action<ScreenType> switchScreen,Kernel kernel, World world) : base(ScreenType.Game,switchScreen)
         {
             Game = new Game(kernel, world);
 
-            _adminCamera = new Camera(kernel);
+            _adminCamera = new FixedCamera(kernel);
             _playerCamera = new KernelTrackingCamera(kernel);
             _currentCamera = _playerCamera;
         }
@@ -27,7 +27,7 @@ namespace IAmACube
         public override void Update(UserInput input)
         {
             _readKeys(input);
-            _currentCamera.SetMouseHover(input, Game.World);
+            _currentCamera.AssignMouseHover(input, Game.World);
 
             Game.Update(input);
             _currentCamera.Update(input);

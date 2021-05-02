@@ -10,8 +10,7 @@ namespace IAmACube
     public class EphemeralBlock : Block
     {
         public bool EphemeralFading;
-        public EphemeralBlock(BlockTemplate template) : base(template) => BlockType = BlockMode.Ephemeral;
-
+        public EphemeralBlock(BlockTemplate template) : base(template, BlockMode.Ephemeral) { }
 
         public override void Update(UserInput input, ActionsList actions)
         {
@@ -22,7 +21,27 @@ namespace IAmACube
                 TakeEnergy(1);
             }
         }
+        public override void EnterLocation(Tile destination)
+        {
+            if (destination.HasThisEphemeral(this))
+            {
+                throw new Exception("Tried to add an ephemeral to a location it already exists in");
+            }
 
+            if (destination.HasEphemeral)
+            {
+                var absorbResult = TryAbsorbInto(destination.Ephemeral);
+                if (absorbResult == BlockEnergyTransferResult.Success)
+                {
+                    //Console.WriteLine("Ephemeral " + _id + " at " + Location.AbsoluteLocation + " absorbed into Ephemeral " + destination.Ephemeral._id + " at " + destination.Ephemeral.Location.AbsoluteLocation);
+                    return;
+                }
+            }
+
+            Location.Ephemeral = null;
+            this.Location = destination;
+            Location.Ephemeral = this;
+        }
         public override void TakeEnergy(int amount)
         {
             base.TakeEnergy(amount);
@@ -31,6 +50,35 @@ namespace IAmACube
             {
                 FadeAway();
             }
+        }
+        public override void BeCreatedBy(Block creator)
+        {
+            if (creator.Energy < Template.MaxEnergy)
+            {
+                throw new Exception("Block created an ephemeral without the energy to do so. This should never happen");
+            }
+
+            base.BeCreatedBy(creator);
+            creator.TakeEnergy(Template.MaxEnergy);
+        }
+
+        private BlockEnergyTransferResult TryAbsorbInto(EphemeralBlock destination) => destination.TryTakeEnergyFrom(this, Energy);
+        public override BlockEnergyTransferResult TryTakeEnergyFrom(Block source, int amount)
+        {
+            if (ToBeDeleted())
+            {
+                throw new Exception("Fading Ephemeral is trying to absorb energy");
+            }
+
+            if (source.BlockType == BlockMode.Ephemeral)
+            {
+                if (source.ToBeDeleted())
+                {
+                    return BlockEnergyTransferResult.Failure_SourceIsDyingEphemeral;
+                }
+            }
+
+            return base.TryTakeEnergyFrom(source, amount);
         }
 
         public void FadeAway()
@@ -49,61 +97,7 @@ namespace IAmACube
             EphemeralFading = true;
         }
 
-        public override void EnterLocation(Tile destination)
-        {
-            if(destination.HasThisEphemeral(this))
-            {
-                throw new Exception("Tried to add an ephemeral to a location it already exists in");
-            }
-
-            if (destination.HasEphemeral)
-            {
-                var absorbResult = TryAbsorbInto(destination.Ephemeral);
-                if(absorbResult == BlockEnergyTransferResult.Success)
-                {
-                    //Console.WriteLine("Ephemeral " + _id + " at " + Location.AbsoluteLocation + " absorbed into Ephemeral " + destination.Ephemeral._id + " at " + destination.Ephemeral.Location.AbsoluteLocation);
-                    return;
-                }
-            }
-
-            Location.Ephemeral = null;
-            this.Location = destination;
-            Location.Ephemeral = this;
-        }
-
-
-        private BlockEnergyTransferResult TryAbsorbInto(EphemeralBlock destination) => destination.TryTakeEnergyFrom(this,Energy);
-
-        public override BlockEnergyTransferResult TryTakeEnergyFrom(Block source, int amount)
-        {
-            if(ToBeDeleted())
-            {
-                throw new Exception("Fading Ephemeral is trying to absorb energy");
-            }
-
-            if(source.BlockType == BlockMode.Ephemeral)
-            {
-                if(source.ToBeDeleted())
-                {
-                    return BlockEnergyTransferResult.Failure_SourceIsDyingEphemeral;
-                }
-            }
-
-            return base.TryTakeEnergyFrom(source, amount);
-        }
-
-
         public override bool CanOccupyDestination(Tile destination) => true;
         public override bool ToBeDeleted() => EphemeralFading;
-        public override void BeCreatedBy(Block creator)
-        {
-            if (creator.Energy < Template.MaxEnergy)
-            {
-                throw new Exception("Block created an ephemeral without the energy to do so. This should never happen");
-            }
-
-            base.BeCreatedBy(creator);
-            creator.TakeEnergy(Template.MaxEnergy);
-        }
     }
 }

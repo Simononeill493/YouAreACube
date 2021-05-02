@@ -18,12 +18,9 @@ namespace IAmACube
             _assemblyChipTypes = _loadAssemblyChipTypes();
         }
 
-        public static bool IsType(string name) => _allTypes.ContainsKey(name) | name.Equals("Int32");
-        public static Type GetAssemblyChipType(string name) => _assemblyChipTypes.FirstOrDefault(c => c.Value.Name.Equals(name)).Value;
-
         public static Type GetTypeByName(string name)
         {
-            if(name.Equals("int"))
+            if (name.Equals("int"))
             {
                 return typeof(int);
             }
@@ -32,7 +29,9 @@ namespace IAmACube
                 return _allTypes[name];
             }
         }
+        public static Type GetChipTypeByName(string name) => _assemblyChipTypes.FirstOrDefault(c => c.Value.Name.Equals(name)).Value;
 
+        public static bool IsType(string name) => _allTypes.ContainsKey(name) | name.Equals("Int32");
         public static object ParseType(Type t, string asString)
         {
             if (t.IsEnum)
@@ -74,7 +73,6 @@ namespace IAmACube
 
             return dict;
         }
-
         private static Dictionary<string, Type> _loadAssemblyChipTypes()
         {
             var allIChips = _allTypes.Values.Where(x => typeof(IChip).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).ToList();
@@ -87,8 +85,6 @@ namespace IAmACube
 
             return dict;
         }
-
-
     }
 
 }

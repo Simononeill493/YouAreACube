@@ -15,7 +15,7 @@ namespace IAmACube
 
         public void Run(Block actor, UserInput userInput, ActionsList actions)
         {
-            actions.StartRotation(actor, ChipInput1);
+            actions.AddRotationAction(actor, ChipInput1);
         }
     }
 }

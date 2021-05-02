@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace IAmACube
     public class AttachedConsoleManager
     {
         private GraphicsDevice _graphicsDevice;
-        private Microsoft.Xna.Framework.Point _lastRecordedPosition;
+        private Point _lastRecordedPosition;
 
         public AttachedConsoleManager(GraphicsDevice graphicsDevice, Microsoft.Xna.Framework.Point firstPosition)
         {
@@ -22,17 +23,12 @@ namespace IAmACube
         }
 
         public void ConsoleMoveEventHandler(object sender, EventArgs e) => MoveConsoleToWindow();
-
-
         public void MoveConsoleToWindow()
         {
             var bounds = _graphicsDevice.PresentationParameters.Bounds;
-            var p = GetConsoleWindow();
-
-            MoveWindow(p, _lastRecordedPosition.X + bounds.Width, _lastRecordedPosition.Y, 400, bounds.Height, true);
+            MoveWindow(GetConsoleWindow(), _lastRecordedPosition.X + bounds.Width, _lastRecordedPosition.Y, 400, bounds.Height, true);
         }
-
-        public void CheckWindowPositionAndUpdateConsole(Microsoft.Xna.Framework.Point currentPosition)
+        public void CheckWindowPositionAndUpdateConsole(Point currentPosition)
         {
             if(currentPosition!=_lastRecordedPosition)
             {
@@ -41,11 +37,11 @@ namespace IAmACube
             }
         }
 
+
         [DllImport("kernel32.dll", SetLastError = true)]
         static extern IntPtr GetConsoleWindow();
 
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
-
     }
 }

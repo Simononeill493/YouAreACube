@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,11 +9,10 @@ namespace IAmACube
     [Serializable()]
     public class WorldTicker
     {
-        private TickManager _tickManager;
-        public WorldTicker() => _tickManager = new TickManager();
+        private WorldTickManager _tickManager;
+        public WorldTicker() => _tickManager = new WorldTickManager();
 
-
-
+        public void AddSector(Sector sector) => _tickManager.AddSector(sector);
         public void TickWorld(World world,UserInput input)
         {
             var emmigrants = _tickSectors(world, input);
@@ -23,53 +21,37 @@ namespace IAmACube
             _tickManager.IncrementWorldTimer();
         }
 
-        private EmmigrantsList _tickSectors(World world, UserInput input)
+        private SectorEmmigrantsList _tickSectors(World world, UserInput input)
         {
-            var sectorEmmigrants = new EmmigrantsList();
+            var emmigrantsFullList = new SectorEmmigrantsList();
             var sectorsToUpdate = world.GetUpdatingSectors(_tickManager);
 
             foreach (var sector in sectorsToUpdate)
             {
-                _tickSector(sector, input, sectorEmmigrants);
+                var emmigrants = _tickSector(sector, input);
+                emmigrantsFullList.AddList(emmigrants);
             }
 
-            return sectorEmmigrants;
+            return emmigrantsFullList;
         }  
-        private void _tickSector(Sector sector,UserInput input, EmmigrantsList emmigrantsList)
+        private SectorEmmigrantsList _tickSector(Sector sector,UserInput input)
         {
-            var actions = sector.GetBlockActions(input, _tickManager);
-            sector.Update(actions);
-
-            var emmigrants = sector.PopSectorEmmigrants();
-            emmigrantsList.AddAll(emmigrants);
-
+            var emmigrants = sector.Tick(input, _tickManager);
             _tickManager.IncrementSectorTimer(sector);
+            return emmigrants;
         }
-
-        private void _addSectorEmmigrants(World world, EmmigrantsList emmigrants)
+        private void _addSectorEmmigrants(World world, SectorEmmigrantsList emmigrants)
         {
-            foreach (var emmigrant in emmigrants.Emmigrants)
+            foreach (var emmigrant in emmigrants.GetAll())
             {
-                var sector = world.GetSector(emmigrant.Item2);
-                sector.AddBlockToSector(emmigrant.Item1);
-
-                if(!emmigrant.Item1.IsMovingBetweenSectors)
+                if (!emmigrant.Block.IsMovingBetweenSectors)
                 {
                     throw new Exception("Block moved between sectors, but not marked as such");
                 }
+                emmigrant.Block.IsMovingBetweenSectors = false;
 
-                emmigrant.Item1.IsMovingBetweenSectors = false;
+                world.GetSector(emmigrant.SectorLocation).AddBlockToSector(emmigrant.Block);
             }
         }
-
-        public void AddSector(Sector sector) => _tickManager.AddSector(sector);
     }
-
-    [Serializable()]
-    public class EmmigrantsList
-    {
-        public List<(Block, IntPoint)> Emmigrants = new List<(Block, IntPoint)>();
-        public void AddAll(List<(Block, IntPoint)> toAdd) => Emmigrants.AddRange(toAdd);
-    }
-
 }

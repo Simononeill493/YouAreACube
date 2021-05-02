@@ -41,8 +41,8 @@ namespace IAmACube
 
         public void LoadTemplate(BlockTemplate template)
         {
-            var json = ChipBlockParser.ParseBlockToJson(template.ChipBlock);
-            var newChipset = EditableChipsetParser.ParseJsonToEditableChipset(json,this);
+            var json = ChipBlockToJSONParser.ParseBlockToJson(template.ChipBlock);
+            var newChipset = JSONToEditableChipsetParser.ParseJsonToEditableChipset(json,this);
             _setChipsetToTopLevel(newChipset);
 
             newChipset.RefreshAll();

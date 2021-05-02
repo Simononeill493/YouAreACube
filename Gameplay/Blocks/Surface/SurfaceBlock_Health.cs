@@ -21,6 +21,7 @@ namespace IAmACube
             }
 
             Health -= amount;
+
             if (Health <= 0) 
             { 
                 Health = 0;

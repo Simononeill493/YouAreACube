@@ -28,7 +28,7 @@ namespace IAmACube
 
         private static IChip _generateGenericChipFromChipData(ChipData data, string typeArgument = "Object")
         {
-            var genericChipType = TypeUtils.GetAssemblyChipType(data.Name + "Chip`1");
+            var genericChipType = TypeUtils.GetChipTypeByName(data.Name + "Chip`1");
             var genericRuntimeType = genericChipType.MakeGenericType(TypeUtils.GetTypeByName(typeArgument));
             var genericInstance = (IChip)Activator.CreateInstance(genericRuntimeType);
 
@@ -37,7 +37,7 @@ namespace IAmACube
 
         private static IChip _generateNonGenericChipFromChipData(ChipData data)
         {
-            var chipType = TypeUtils.GetAssemblyChipType(data.Name + "Chip");
+            var chipType = TypeUtils.GetChipTypeByName(data.Name + "Chip");
             var instance = (IChip)Activator.CreateInstance(chipType);
 
             return instance;

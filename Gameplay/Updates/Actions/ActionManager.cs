@@ -20,24 +20,22 @@ namespace IAmACube
 
         public void ProcessActions(ActionsList actions)
         {
-            //_moveManager.Tick();
-
             foreach (var effect in actions.Actions)
             {
                 switch (effect.ActionType)
                 {
                     case ActionType.CardinalMovement:
-                        _moveManager.TryStartMovement(effect.Actor, effect.CardinalDir,effect.MoveTotalTicks);
+                        _moveManager.TryStartMovement(effect.Actor, effect.CardinalDir,effect.MoveSpeed);
                         break;
                     case ActionType.RelativeMovement:
                         var cardinal = DirectionUtils.ToCardinal(effect.Actor.Orientation, effect.RelativeDir);
-                        _moveManager.TryStartMovement(effect.Actor, cardinal, effect.MoveTotalTicks);
+                        _moveManager.TryStartMovement(effect.Actor, cardinal, effect.MoveSpeed);
                         break;
                     case ActionType.Rotation:
                         effect.Actor.Rotate(effect.Rotation);
                         break;
                     case ActionType.CardinalCreation:
-                        var templateRuntimeVersion = Templates.Database[effect.BlockTemplate.Name][effect.TemplateVersion];
+                        var templateRuntimeVersion = Templates.Database[effect.Template.Name][effect.Version];
                         _creationManager.TryCreate(effect.Actor, templateRuntimeVersion, effect.BlockType, effect.CardinalDir);
                         break;
                 }
