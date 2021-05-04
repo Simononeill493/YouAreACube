@@ -13,7 +13,7 @@
             var chipTypeName = chip.GetType().Name;
             var chipName = chipTypeName.Substring(0, chipTypeName.IndexOf("Chip"));
 
-            return ChipDatabase.GraphicalChips[chipName];
+            return GraphicalChipDatabase.GraphicalChips[chipName];
         }
 
         public static bool IsControlChip(this IChip chip) => typeof(IControlChip).IsAssignableFrom(chip.GetType());

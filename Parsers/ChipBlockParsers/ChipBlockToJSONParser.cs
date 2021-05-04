@@ -21,7 +21,8 @@ namespace IAmACube
 
                 var chipJobject = new ChipJSONData();
                 chipJobject.Name = iChip.Name;
-                chipJobject.Type = chipData.Name;
+                chipJobject.GraphicalChipType = chipData.BaseMappingName;
+                chipJobject.ActualChipType = chipData.Name;
 
                 chipJobject.ChipData = chipData;
                 chipJobject.IChip = iChip;

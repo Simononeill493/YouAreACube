@@ -21,7 +21,7 @@ namespace IAmACube
             _actualSize = base.GetBaseSize();
 
             ChipData = data;
-            ColorMask = ChipData.ChipColor;
+            ColorMask = ChipData.ChipDataType.GetColor();
             OnMouseDraggedOn += _onDragHandler;
 
             _inputSections = new List<ChipInputSection>();
@@ -66,7 +66,7 @@ namespace IAmACube
 
         #region inputsections
         protected List<ChipInputSection> _inputSections;
-        public List<ChipInputOption> GetCurrentInputs() => _inputSections.Select(section => section.GetCurrentInput()).ToList();
+        public List<ChipInputOption> GetCurrentInputs() => _inputSections.Select(section => section.CurrentlySelected).ToList();
         public void ManuallySetInputSection(ChipInputOption item,int index) =>_inputSections[index].ManuallySetDropdown(item);
         
         public void SetInputConnectionsFromAbove(List<ChipTop> chipsAbove)
@@ -85,7 +85,7 @@ namespace IAmACube
         {
             for (int i = 0; i < ChipData.NumInputs; i++)
             {
-                var section = ChipSectionFactory.Create(this, i);
+                var section = ChipSectionFactory.CreateInputSection(this, i);
                 section.DropdownSelectedCallback = _inputSectionDropdownChanged;
                 _inputSections.Add(section);
             }
@@ -112,16 +112,16 @@ namespace IAmACube
             {
                 var referenceOption = (ChipInputOptionReference)optionSelected;
 
-                var inputBase = section.InputBaseType;
+                var inputOptions = section.InputBaseTypes;
                 var dataTypeFeedingIn = referenceOption.ChipReference.OutputTypeCurrent;
 
-                if (inputBase.Equals("List<Variable>"))
+                if (inputOptions.Contains("List<Variable>"))
                 {
                     var afterOpeningList = dataTypeFeedingIn.Substring(5);
                     var extracted = afterOpeningList.Substring(0, afterOpeningList.Length - 1);
                     CurrentTypeArgument = extracted;
                 }
-                else if (inputBase.Equals("Variable"))
+                else if (inputOptions.Contains("Variable"))
                 {
                     CurrentTypeArgument = dataTypeFeedingIn;
                 }
@@ -178,6 +178,19 @@ namespace IAmACube
         public IChipsetGenerator _generator;
         public void SetGenerator(IChipsetGenerator generator) => _generator = generator;
 
+        public List<string> GetSelectedInputTypes()
+        {
+            var output = new List<string>();
+
+            foreach (var section in _inputSections)
+            {
+                var baseType = section.CurrentlySelected.BaseType;
+                output.Add(baseType);
+            }
+
+            return output;
+
+        }
         public virtual void GenerateSubChipsets() { }
         public virtual List<EditableChipset> GetSubChipsets() => new List<EditableChipset>();
 

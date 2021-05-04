@@ -9,12 +9,16 @@ namespace IAmACube
 {
     public class ChipSectionFactory
     {
-        public static ChipInputSection Create(ChipTop parent, int sectionIndex)
+        public static ChipInputSection CreateInputSection(ChipTop parent, int sectionIndex)
         {
             var parentDrawLayer = ManualDrawLayer.InFrontOf(parent, sectionIndex);
-            var dataType = parent.ChipData.GetInputType(sectionIndex);
+            var dataType = parent.ChipData.GetInputTypes(sectionIndex);
+            var displayName = parent.ChipData.GetInputDisplayName(sectionIndex);
 
-            return new ChipInputSection(parentDrawLayer, dataType, parent.ColorMask);
+            var inputSection = new ChipInputSection(parentDrawLayer, dataType, displayName);
+            inputSection.ColorMask = parent.ColorMask;
+
+            return inputSection;
         }
     }
 }

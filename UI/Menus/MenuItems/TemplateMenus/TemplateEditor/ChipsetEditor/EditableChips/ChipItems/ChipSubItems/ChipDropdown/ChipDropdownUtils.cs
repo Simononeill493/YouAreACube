@@ -11,6 +11,10 @@ namespace IAmACube
     {
         public static List<ChipInputOption> GetDefaultItems(string dataType)
         {
+            if (dataType.Contains('|'))
+            {
+                return GetDefaultItemsMultiple(dataType.Split('|').ToList());
+            }
             if (IsDiscreteType(dataType))
             {
                 return GetBasicSelections(dataType).Cast<ChipInputOption>().ToList();
@@ -24,6 +28,19 @@ namespace IAmACube
             {
                 return new List<ChipInputOption>();
             }
+        }
+
+        public static List<ChipInputOption> GetDefaultItemsMultiple(List<string> multiDataTypes)
+        {
+            var output = new List<ChipInputOption>();
+
+            foreach (var dataType in multiDataTypes)
+            {
+                var options = GetDefaultItems(dataType);
+                output.AddRange(options);
+            }
+
+            return output;
         }
 
         public static List<ChipInputOptionValue> GetBasicSelections(string dataType)

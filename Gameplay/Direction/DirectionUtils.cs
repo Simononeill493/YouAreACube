@@ -9,7 +9,8 @@ namespace IAmACube
 {
     static class DirectionUtils
     {
-        public const int NumDirections = 8;
+        public const int NumCardinalDirections = 8;
+        public const int NumRelativeDirections = 8;
 
         public static List<CardinalDirection> Cardinals;
         public static List<RelativeDirection> Relatives;

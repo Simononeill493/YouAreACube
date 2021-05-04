@@ -9,10 +9,10 @@ namespace IAmACube
 {
     public class ChipDropdownFactory
     {
-        public static ChipInputDropdown Create(ChipInputSection section,string inputType)
+        public static ChipInputDropdown Create(ChipInputSection section,List<string> inputTypes)
         {
-            var dropdown = new ChipInputDropdown(section,inputType);
-            dropdown.SetItems(ChipDropdownUtils.GetDefaultItems(inputType));
+            var dropdown = new ChipInputDropdown(section,inputTypes);
+            dropdown.SetItems(ChipDropdownUtils.GetDefaultItemsMultiple(inputTypes));
 
             return dropdown;
         }

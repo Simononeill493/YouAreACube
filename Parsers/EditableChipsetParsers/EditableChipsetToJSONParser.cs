@@ -26,9 +26,19 @@ namespace IAmACube
                     var chipJObject = new ChipJSONData();
                     chipJObject.ChipTop = chip;
                     chipJObject.ChipData = chip.ChipData;
-                    chipJObject.Type = chip.ChipData.Name;
+                    chipJObject.GraphicalChipType = chip.ChipData.BaseMappingName;
+                    chipJObject.ActualChipType = chip.ChipData.Name;
+
                     chipJObject.Name = chip.Name;
                     chipJObject.TypeArgument = chip.CurrentTypeArgument;
+
+                    if(chip.ChipData.IsMappedToSubChips)
+                    {
+                        var selectedTypes = chip.GetSelectedInputTypes();
+                        var mappings = chip.ChipData.InputMappings;
+                        var mappedType = mappings.FirstOrDefault(m => m.Inputs.SequenceEqual(selectedTypes));
+                        chipJObject.ActualChipType = mappedType.Name;
+                    }
 
                     chipJObject.Inputs = new List<ChipJSONInputData>();
                     var inputsList = chip.GetCurrentInputs();

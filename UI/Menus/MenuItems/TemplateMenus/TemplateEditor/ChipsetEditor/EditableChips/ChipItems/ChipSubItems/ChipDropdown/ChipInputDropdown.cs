@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -7,15 +8,14 @@ namespace IAmACube
 {
     public class ChipInputDropdown : DropdownMenuItem<ChipInputOption>
     {
-        private Type _inputType;
+        private List<Type> _inputTypes;
         
-        public ChipInputDropdown(IHasDrawLayer parent,string inputTypeName) : base(parent) 
+        public ChipInputDropdown(IHasDrawLayer parent, List<string> inputTypeNames) : base(parent) 
         {
-            var isTextEntry = ChipDropdownUtils.IsTextEntryType(inputTypeName);
-
+            var isTextEntry = inputTypeNames.All(name => ChipDropdownUtils.IsTextEntryType(name));
             if (isTextEntry)
             {
-                _inputType = TypeUtils.GetTypeByName(inputTypeName);
+                _inputTypes = inputTypeNames.Select(n=>TypeUtils.GetTypeByName(n)).ToList();
                 OnTextChanged += TextChanged;
                 Editable = true;
             }
@@ -25,7 +25,7 @@ namespace IAmACube
             }
         }
 
-        private void TextChanged(string newText) => ManuallySetItem(new ChipInputOptionParseable(newText, _inputType));
+        private void TextChanged(string newText) => ManuallySetItem(new ChipInputOptionParseable(newText, _inputTypes));
     }
 }
 

@@ -7,7 +7,8 @@ namespace IAmACube
     public class ChipJSONData
     {
         public string Name;
-        public string Type;
+        public string GraphicalChipType;
+        public string ActualChipType;
         public string TypeArgument;
 
         public List<ChipJSONInputData> Inputs;
@@ -22,13 +23,29 @@ namespace IAmACube
 
         [JsonIgnore]
         public GraphicalChipData ChipData;
-        public void SetChipData() => ChipData = ChipDatabase.GraphicalChips[Type];
+        public void SetChipData()
+        {
+            if(ActualChipType != null)
+            {
+                ChipData = GraphicalChipDatabase.GraphicalChips[ActualChipType];
+            }
+            else
+            {
+                ChipData = GraphicalChipDatabase.GraphicalChips[GraphicalChipType];
+            }
+        }
 
         [JsonIgnore]
         public ChipTop ChipTop;
         public void CreateChipTop(IChipsetGenerator generator)
         {
-            ChipTop = ChipTop.GenerateChipFromChipData(ChipData, this.Name);
+            var dataToCreateWith = ChipData;
+            if(ChipData.BaseMappingChip!=null)
+            {
+                dataToCreateWith = ChipData.BaseMappingChip;
+            }
+
+            ChipTop = ChipTop.GenerateChipFromChipData(dataToCreateWith, this.Name);
             ChipTop.SetGenerator(generator);
         }
 

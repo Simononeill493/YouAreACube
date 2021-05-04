@@ -24,6 +24,8 @@ namespace IAmACube
 
                 if (!initialJson.Equals(chipsetRoundTripJson))
                 {
+                    var l = initialJson.Length;
+                    var m = chipsetRoundTripJson.Length;
                     throw new Exception(template.Name + " template parsing mismatch");
                 }
 

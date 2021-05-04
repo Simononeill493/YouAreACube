@@ -9,13 +9,30 @@ namespace IAmACube
     class ChipInputOptionParseable : ChipInputOption
     {
         public string StringRepresentation;
-        public Type BaseType;
+        public List<Type> BaseTypes;
 
-        public ChipInputOptionParseable(string stringRepresentation,Type baseType) : base(InputOptionType.Parseable)
+        public override string BaseType => _tryResolveTypeOfString();
+
+        public ChipInputOptionParseable(string stringRepresentation,List<Type> baseTypes) : base(InputOptionType.Parseable)
         {
             StringRepresentation = stringRepresentation;
-            BaseType = baseType;
+            BaseTypes = baseTypes;
         }
+
+
+        private string _tryResolveTypeOfString()
+        {
+            foreach(var type in BaseTypes)
+            {
+                if(TypeUtils.ParseType(type,StringRepresentation)!=null)
+                {
+                    return type.Name;
+                }
+            }
+
+            throw new Exception("Cannot resolve type of string");
+        }
+
 
         public override string ToString() => StringRepresentation;
     }

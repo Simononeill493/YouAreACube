@@ -7,14 +7,23 @@
 	  "datatype":"Action",
     },
 	{
-      "name":"MoveCardinal",
+      "name":"Move",
 	  "datatype":"Action",
-	  "inputs":["CardinalDirection"],
-    },
-    {
-      "name":"MoveRelative",
-	  "datatype":"Action",
-	  "inputs":["RelativeDirection"],
+	  "inputs":["CardinalDirection|RelativeDirection"],
+	  "inputDisplayNames":["Direction"],
+	  "inputMappings":
+	  [
+	  	{
+		  "name":"MoveCardinal",
+		  "datatype":"Action",
+		  "inputs":["CardinalDirection"],
+		},
+		{
+		  "name":"MoveRelative",
+		  "datatype":"Action",
+		  "inputs":["RelativeDirection"],
+		},
+	  ]
     },
 	{
       "name":"Rotation",
@@ -61,10 +70,16 @@
 	  "output":"bool"
     },
     {
-      "name":"RandomDir",
+      "name":"RandomCardinal",
 	  "datatype":"Sense",
 	  "inputs":[],
 	  "output":"CardinalDirection"
+    },
+	{
+      "name":"RandomRelative",
+	  "datatype":"Sense",
+	  "inputs":[],
+	  "output":"RelativeDirection"
     },
 	{
       "name":"GetMouseHover",

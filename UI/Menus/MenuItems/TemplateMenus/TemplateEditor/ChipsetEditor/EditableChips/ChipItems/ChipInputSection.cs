@@ -9,24 +9,21 @@ namespace IAmACube
 {
     public class ChipInputSection : SpriteMenuItem
     {
-        public string InputBaseType;
+        public List<string> InputBaseTypes;
         public Action<ChipInputSection, ChipInputDropdown, ChipInputOption> DropdownSelectedCallback;
+        public ChipInputOption CurrentlySelected => _dropdown.SelectedItem;
 
         private ChipInputDropdown _dropdown;
 
-        public ChipInputSection(IHasDrawLayer parent,string inputType,Color color) : base(parent, "ChipFullMiddle") 
+        public ChipInputSection(IHasDrawLayer parent,List<string> inputTypes,string inputDisplayName) : base(parent, "ChipFullMiddle") 
         {
-            InputBaseType = inputType;
-            ColorMask = color;
+            InputBaseTypes = inputTypes;
 
-            var textItem = new TextMenuItem(this);
-            textItem.Text = inputType;
+            var textItem = _addTextItem(inputDisplayName, 4, 40, CoordinateMode.ParentPercentageOffset, false);
             textItem.MultiplyScale(0.5f);
             textItem.Color = Color.White;
-            textItem.SetLocationConfig(4, 40, CoordinateMode.ParentPercentageOffset, false);
-            AddChild(textItem);
 
-            _dropdown = ChipDropdownFactory.Create(this,InputBaseType);
+            _dropdown = ChipDropdownFactory.Create(this, inputTypes);
             _dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentageOffset, true);
             _dropdown.OnSelectedChanged += DropdownItemSelected;
             AddChild(_dropdown);
@@ -38,13 +35,15 @@ namespace IAmACube
             DropdownItemSelected(option);
         }
 
-        public ChipInputOption GetCurrentInput() => _dropdown.SelectedItem;
         public void DropdownItemSelected(ChipInputOption optionSelected) => DropdownSelectedCallback(this,_dropdown, optionSelected);
 
         public void SetConnectionsFromAbove(List<ChipTop> chipsAbove)
         {
             _dropdown.SetItems(_getValidInputsFromAbove(chipsAbove));
-            _dropdown.AddItems(ChipDropdownUtils.GetDefaultItems(InputBaseType));            
+            foreach(var typeName in InputBaseTypes)
+            {
+                _dropdown.AddItems(ChipDropdownUtils.GetDefaultItems(typeName));
+            }
         }
 
         private List<ChipInputOption> _getValidInputsFromAbove(List<ChipTop> chipsAbove)
@@ -65,15 +64,15 @@ namespace IAmACube
         {
             var chipAboveOutput = chipAbove.OutputTypeCurrent;
 
-            if(InputBaseType.Equals(chipAboveOutput))
+            if(InputBaseTypes.Any(t=>t.Equals(chipAboveOutput)))
             {
                 return true;
             }
-            else if(InputBaseType.Equals("Variable"))
+            else if(InputBaseTypes.Contains("Variable"))
             {
                 return true;
             }
-            else if(chipAboveOutput.StartsWith("List<") & InputBaseType.Equals("List<Variable>"))
+            else if(chipAboveOutput.StartsWith("List<") & InputBaseTypes.Contains("List<Variable>"))
             {
                 return true;
             }

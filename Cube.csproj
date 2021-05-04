@@ -65,13 +65,14 @@
     <Compile Include="Gameplay\Chips\ChipBlockComparer.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\ZapSurfaceChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Mouse\GetMouseHoverChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Randoms\RandomRelativeChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Surroundings\GetAdjacentTilesChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Surroundings\GetSurfaceEphemeralsChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\AddToListChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\GetListItemAtIndexChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\ShuffleListChip.cs" />
     <Compile Include="Gameplay\Chips\Metadata\GraphicalChipData.cs" />
-    <Compile Include="Gameplay\Chips\Metadata\ChipDatabase.cs" />
+    <Compile Include="Gameplay\Chips\Metadata\GraphicalChipDatabase.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\Pins\InputPin2.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\Pins\InputPin3.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\CreateEphemeralChip.cs" />
@@ -191,7 +192,7 @@
     <Compile Include="Gameplay\Chips\ChipGenerics\Pins\InputPin.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\IsListEmptyChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\MoveCardinalChip.cs" />
-    <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Randoms\RandomDirChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Randoms\RandomCardinalChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\Direction\ApproachDirectionChip.cs" />
     <Compile Include="Utils\RandomUtils.cs" />
     <Compile Include="UserInput\UserInput.cs" />
