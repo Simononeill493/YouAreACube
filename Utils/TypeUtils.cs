@@ -10,6 +10,8 @@ namespace IAmACube
     class TypeUtils
     {
         private static Dictionary<string, Type> _allTypes;
+
+
         private static Dictionary<string, Type> _assemblyChipTypes;
 
         public static void Load()
@@ -17,6 +19,22 @@ namespace IAmACube
             _allTypes = _loadAllTypes();
             _assemblyChipTypes = _loadAssemblyChipTypes();
         }
+
+        public static string GetTypeDisplayName(Type type)
+        {
+            if (type.Equals(typeof(int)))
+            {
+                return "int";
+            }
+            if (type.Equals(typeof(TemplateVersionDictionary)))
+            {
+                return "Template";
+            }
+
+
+            return type.Name;
+        }
+
 
         public static Type GetTypeByName(string name)
         {

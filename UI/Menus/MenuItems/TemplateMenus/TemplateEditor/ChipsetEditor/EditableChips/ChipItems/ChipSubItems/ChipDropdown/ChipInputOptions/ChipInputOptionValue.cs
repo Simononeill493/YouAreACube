@@ -7,7 +7,7 @@ namespace IAmACube
     public class ChipInputOptionValue : ChipInputOption
     {
         public object BaseObject;
-        public override string BaseType => BaseObject.GetType().Name;
+        public override string BaseType => TypeUtils.GetTypeDisplayName(BaseObject.GetType());
 
         public ChipInputOptionValue(object baseObject) : base(InputOptionType.Value) 
         {

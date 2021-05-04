@@ -28,16 +28,22 @@ namespace IAmACube
                         _moveManager.TryStartMovement(effect.Actor, effect.CardinalDir,effect.MoveSpeed);
                         break;
                     case ActionType.RelativeMovement:
-                        var cardinal = DirectionUtils.ToCardinal(effect.Actor.Orientation, effect.RelativeDir);
-                        _moveManager.TryStartMovement(effect.Actor, cardinal, effect.MoveSpeed);
+                        var cardinal1 = DirectionUtils.ToCardinal(effect.Actor.Orientation, effect.RelativeDir);
+                        _moveManager.TryStartMovement(effect.Actor, cardinal1, effect.MoveSpeed);
                         break;
                     case ActionType.Rotation:
                         effect.Actor.Rotate(effect.Rotation);
                         break;
                     case ActionType.CardinalCreation:
-                        var templateRuntimeVersion = Templates.Database[effect.Template.Name][effect.Version];
-                        _creationManager.TryCreate(effect.Actor, templateRuntimeVersion, effect.BlockType, effect.CardinalDir);
+                        var templateRuntimeVersion1 = Templates.Database[effect.Template.Name][effect.Version];
+                        _creationManager.TryCreate(effect.Actor, templateRuntimeVersion1, effect.BlockType, effect.CardinalDir);
                         break;
+                    case ActionType.RelativeCreation:
+                        var cardinal2 = DirectionUtils.ToCardinal(effect.Actor.Orientation, effect.RelativeDir);
+                        var templateRuntimeVersion2 = Templates.Database[effect.Template.Name][effect.Version];
+                        _creationManager.TryCreate(effect.Actor, templateRuntimeVersion2, effect.BlockType, cardinal2);
+                        break;
+
                 }
             }
 

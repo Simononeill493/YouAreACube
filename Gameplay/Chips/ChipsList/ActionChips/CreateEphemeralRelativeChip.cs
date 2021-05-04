@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class CreateEphemeralChip : InputPin<CardinalDirection>, InputPin2<TemplateVersionDictionary>, InputPin3<int>
+    internal class CreateEphemeralRelativeChip : InputPin<RelativeDirection>, InputPin2<TemplateVersionDictionary>, InputPin3<int>
     {
         public string Name { get; set; }
 
-        public CardinalDirection ChipInput1 { get; set; }
+        public RelativeDirection ChipInput1 { get; set; }
         public TemplateVersionDictionary ChipInput2 { get; set; }
         public int ChipInput3 { get; set; }
 

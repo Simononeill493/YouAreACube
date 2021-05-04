@@ -26,7 +26,7 @@ namespace IAmACube
             {
                 if(TypeUtils.ParseType(type,StringRepresentation)!=null)
                 {
-                    return type.Name;
+                    return TypeUtils.GetTypeDisplayName(type);
                 }
             }
 

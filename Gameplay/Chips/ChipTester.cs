@@ -107,10 +107,10 @@ namespace IAmACube
             var moveDown = new MoveCardinalChip() { ChipInput1 = CardinalDirection.South, Name = "MoveDown" };
             var moveLeft = new MoveCardinalChip() { ChipInput1 = CardinalDirection.West, Name = "MoveLeft" };
             var moveRight = new MoveCardinalChip() { ChipInput1 = CardinalDirection.East, Name = "MoveRight" };
-            var createEnemyNorth = new CreateEphemeralChip() { ChipInput1 = CardinalDirection.North, ChipInput2 = bullet, ChipInput3 = 1, Name = "createEnemyNorth" };
-            var createEnemySouth = new CreateEphemeralChip() { ChipInput1 = CardinalDirection.South, ChipInput2 = bullet, ChipInput3 = 1, Name = "createEnemySouth" };
-            var createEnemyWest = new CreateEphemeralChip() { ChipInput1 = CardinalDirection.West, ChipInput2 = bullet, ChipInput3 = 0, Name = "createEnemyWest" };
-            var createEnemyEast = new CreateEphemeralChip() { ChipInput1 = CardinalDirection.East, ChipInput2 = bullet, ChipInput3 = 0, Name = "createEnemyEast" };
+            var createEnemyNorth = new CreateEphemeralCardinalChip() { ChipInput1 = CardinalDirection.North, ChipInput2 = bullet, ChipInput3 = 1, Name = "createEnemyNorth" };
+            var createEnemySouth = new CreateEphemeralCardinalChip() { ChipInput1 = CardinalDirection.South, ChipInput2 = bullet, ChipInput3 = 1, Name = "createEnemySouth" };
+            var createEnemyWest = new CreateEphemeralCardinalChip() { ChipInput1 = CardinalDirection.West, ChipInput2 = bullet, ChipInput3 = 0, Name = "createEnemyWest" };
+            var createEnemyEast = new CreateEphemeralCardinalChip() { ChipInput1 = CardinalDirection.East, ChipInput2 = bullet, ChipInput3 = 0, Name = "createEnemyEast" };
 
             keySwitch.AddKeyEffect(Keys.Up, new ChipBlock(createEnemyNorth) { Name = "UpBlock" });
             keySwitch.AddKeyEffect(Keys.Down, new ChipBlock(createEnemySouth) { Name = "DownBlock" });
@@ -128,7 +128,7 @@ namespace IAmACube
             var getRotationAmountChip = new RandomNumChip() { Name = "RandomNum_1" };
             getRotationAmountChip.ChipInput1 = 3;
 
-            var rotateRightChip = new RotationChip() { Name = "Rotation_1" };
+            var rotateRightChip = new RotateChip() { Name = "Rotation_1" };
             getRotationAmountChip.Targets1.Add(rotateRightChip);
 
             var moveForwardChip = new MoveRelativeChip() { Name = "MoveRelative_1" };
@@ -152,7 +152,7 @@ namespace IAmACube
             var moveForwardChip = new MoveRelativeChip() { Name = "MoveRelative_1" };
             moveForwardChip.ChipInput1 = RelativeDirection.Forward;
 
-            var rotationChip = new RotationChip() { Name = "Rotate_1" };
+            var rotationChip = new RotateChip() { Name = "Rotate_1" };
             rotationChip.ChipInput1 = 1;
 
             return new ChipBlock(zapSurfaceChip, moveForwardChip, rotationChip) { Name = "_Initial" };
