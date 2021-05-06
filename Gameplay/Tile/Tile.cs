@@ -17,6 +17,27 @@ namespace IAmACube
         public GroundBlock Ground { get; set; }
         public SurfaceBlock Surface { get; set; }
         public EphemeralBlock Ephemeral { get; set; }
+        public Block GetBlock(BlockMode blockMode)
+        {
+            switch (blockMode)
+            {
+                case BlockMode.Surface:
+                    return Surface;
+                case BlockMode.Ground:
+                    return Ground;
+                case BlockMode.Ephemeral:
+                    return Ephemeral;
+            }
+
+            throw new Exception("Unrecognized block type");
+        }
+        public List<Block> GetBlocks()
+        {
+            var output = new List<Block>() { Ground };
+            if(HasSurface) { output.Add(Surface); }
+            if (HasEphemeral) { output.Add(Ephemeral); }
+            return output;
+        }
 
         public virtual bool HasThisSurface(SurfaceBlock surface) => surface == Surface;
         public virtual bool HasThisGround(GroundBlock ground) => ground == Ground;
@@ -24,6 +45,20 @@ namespace IAmACube
 
         public bool HasSurface => (Surface != null);
         public bool HasEphemeral => (Ephemeral != null);
+        public bool HasBlock(BlockMode blockMode)
+        {
+            switch (blockMode)
+            {
+                case BlockMode.Surface:
+                    return HasSurface;
+                case BlockMode.Ground:
+                    return true;
+                case BlockMode.Ephemeral:
+                    return HasEphemeral;
+            }
+            return false;
+        }
+
         public bool IsEdge { get; private set; }
         public bool IsCorner { get; private set; }
 

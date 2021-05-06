@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class BlockLocationChip : OutputPin<Tile>, InputPin<SurfaceBlock>
+    public class BlockLocationChip<TBlock> : OutputPin<Tile>, InputPin<TBlock> where TBlock : Block 
     {
-        public SurfaceBlock ChipInput1 { get; set; }
+        public TBlock ChipInput1 { get; set; }
 
         public override void Run(Block actor, UserInput input, ActionsList actions)
         {

@@ -80,8 +80,8 @@ namespace IAmACube
                 else if (input.InputType.Equals("Reference"))
                 {
                     var inputChip = chipsDict[input.InputValue].IChip;
-
-                    var targetField = inputChip.GetType().GetField("Targets" + (i + 1).ToString());
+                    var inputChipType = inputChip.GetType();
+                    var targetField = inputChipType.GetField("Targets" + (i + 1).ToString());
                     IList targetsList = (IList)targetField.GetValue(inputChip);
                     targetsList.Add(constructedChip);
                 }

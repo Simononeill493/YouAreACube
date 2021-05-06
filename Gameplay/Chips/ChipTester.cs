@@ -36,14 +36,14 @@ namespace IAmACube
 
         public static ChipBlock MakeEnemyBlock()
         {
-            var getNeighboursChip = new GetSurfaceNeighboursChip() { Name = "GetNeighbours_1" };
+            var getNeighboursChip = new GetNeighbouringBlocksOfTypeChip() { Name = "GetNeighbours_1", ChipInput1 = BlockMode.Surface };
             var randDirChip = new RandomCardinalChip() { Name = "RandomDir_1" };
 
             var ifChip = new IfChip() { Name = "If_1" };
 
-            var isListEmptyChip = new IsListEmptyChip<SurfaceBlock>() { Name = "IsListEmpty_1" };
-            var firstOfListChip = new FirstOfListChip<SurfaceBlock>() { Name = "FirstOfList_1" };
-            var blockLocationChip = new BlockLocationChip() { Name = "BlockLocation_1" };
+            var isListEmptyChip = new IsListEmptyChip<Block>() { Name = "IsListEmpty_1" };
+            var firstOfListChip = new FirstOfListChip<Block>() { Name = "FirstOfList_1" };
+            var blockLocationChip = new BlockLocationChip<Block>() { Name = "BlockLocation_1" };
             var stepToChip = new ApproachDirectionChip() { Name = "ApproachDirection_1" };
             var moveRandChip = new MoveCardinalChip() { Name = "MoveCardinal_1" };
             var moveToAdjChip = new MoveCardinalChip() { Name = "MoveCardinal_2" };
@@ -68,14 +68,14 @@ namespace IAmACube
         }
         public static ChipBlock MakeFleeBlock()
         {
-            var getNeighboursChip = new GetSurfaceNeighboursChip() { Name = "GetNeighbours_1" };
+            var getNeighboursChip = new GetNeighbouringBlocksOfTypeChip() { Name = "GetNeighbours_1", ChipInput1 = BlockMode.Surface };
             var randDirChip = new RandomCardinalChip() { Name = "RandomDir_1" };
 
             var ifChip = new IfChip() { Name = "If_1" };
 
-            var isListEmptyChip = new IsListEmptyChip<SurfaceBlock>() { Name = "IsListEmpty_1" };
-            var firstOfListChip = new FirstOfListChip<SurfaceBlock>() { Name = "FirstOfList_1" };
-            var blockLocationChip = new BlockLocationChip() { Name = "BlockLocation_1" };
+            var isListEmptyChip = new IsListEmptyChip<Block>() { Name = "IsListEmpty_1" };
+            var firstOfListChip = new FirstOfListChip<Block>() { Name = "FirstOfList_1" };
+            var blockLocationChip = new BlockLocationChip<Block>() { Name = "BlockLocation_1" };
             var fleeChip = new FleeDirectionChip() { Name = "FleeDirection_1" };
             var moveRandChip = new MoveCardinalChip() { Name = "MoveCardinal_1" };
             var moveToAdjChip = new MoveCardinalChip() { Name = "MoveCardinal_2" };
@@ -171,7 +171,7 @@ namespace IAmACube
         public static ChipBlock MakeFirstOfListBlock()
         {
             return null;
-            var getNeighboursChip = new GetSurfaceNeighboursChip() { Name = "GetNeighbours_1" };
+            var getNeighboursChip = new GetNeighbouringBlocksChip() { Name = "GetNeighbours_1" };
             var firstOfListChip = new FirstOfListChip<SurfaceBlock>() { Name = "FirstOfList_1" };
 
         }

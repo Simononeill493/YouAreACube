@@ -128,8 +128,8 @@ namespace IAmACube
             if (data.IsGeneric)
             {
                 var type = chip.GetType();
-                var typeArgument = type.GenericTypeArguments.First();
-                chipToken.TypeArgument = typeArgument.Name;
+                var typeArguments = type.GenericTypeArguments;
+                chipToken.TypeArguments = typeArguments.Select(ta => ta.Name).ToList();
             }
         }
     }

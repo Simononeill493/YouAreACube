@@ -63,21 +63,15 @@ namespace IAmACube
         private bool _isValidInput(ChipTopWithOutput chipAbove)
         {
             var chipAboveOutput = chipAbove.OutputTypeCurrent;
-
-            if(InputBaseTypes.Any(t=>t.Equals(chipAboveOutput)))
+            foreach(var inputType in InputBaseTypes)
             {
-                return true;
-            }
-            else if(InputBaseTypes.Contains("Variable"))
-            {
-                return true;
-            }
-            else if(chipAboveOutput.StartsWith("List<") & InputBaseTypes.Contains("List<Variable>"))
-            {
-                return true;
+                if(TypeUtils.IsValidInputFor(chipAboveOutput,inputType))
+                {
+                    return true;
+                }
             }
 
-            return false; 
+            return false;
         }
 
         public void RefreshText() => _dropdown.RefreshText();

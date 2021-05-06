@@ -16,8 +16,13 @@ namespace IAmACube
             }
         }
 
-        public static IChip GenerateIChipFromChipData(GraphicalChipData data, string typeArgument = "Object", List<string> inputMappings = null)
+        public static IChip GenerateIChipFromChipData(GraphicalChipData data, List<string> typeArguments = null, List<string> inputMappings = null)
         {
+            if(typeArguments== null)
+            {
+                typeArguments = data.DefaultTypeArguments;
+            }
+
             if(data.IsMappedToSubChips)
             {
                 GraphicalChipData mappedData;
@@ -30,21 +35,22 @@ namespace IAmACube
                     mappedData = data.InputMappings.First(sub => sub.Inputs.SequenceEqual(inputMappings));
                 }
 
-                return GenerateIChipFromChipData(mappedData, typeArgument);
+                return GenerateIChipFromChipData(mappedData, typeArguments);
             }
 
             if (data.IsGeneric)
             {
-                return _generateGenericChipFromChipData(data, typeArgument, inputMappings);
+                return _generateGenericChipFromChipData(data, typeArguments, inputMappings);
             }
 
             return _generateNonGenericChipFromChipData(data, inputMappings);
         }
 
-        private static IChip _generateGenericChipFromChipData(GraphicalChipData data, string typeArgument, List<string> inputMappings)
+        private static IChip _generateGenericChipFromChipData(GraphicalChipData data, List<string> typeArguments, List<string> inputMappings)
         {
             var genericChipType = TypeUtils.GetChipTypeByName(data.Name + "Chip`1");
-            var genericRuntimeType = genericChipType.MakeGenericType(TypeUtils.GetTypeByName(typeArgument));
+            var typeArgumentsAsType = typeArguments.Select(ta => TypeUtils.GetTypeByName(ta)).ToArray();
+            var genericRuntimeType = genericChipType.MakeGenericType(typeArgumentsAsType);
             var genericInstance = (IChip)Activator.CreateInstance(genericRuntimeType);
 
             return genericInstance;

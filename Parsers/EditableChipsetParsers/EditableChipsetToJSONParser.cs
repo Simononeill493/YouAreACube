@@ -10,11 +10,33 @@ namespace IAmACube
 {
     public static class EditableChipsetToJSONParser
     {
+        public static GraphicalChipData _getFirstMatchingMapping(List<string> inputs, List<GraphicalChipData> possibleMatches)
+        {
+            foreach (var possibleMatch in possibleMatches)
+            {
+                for (int i = 0; i < inputs.Count; i++)
+                {
+                    if (!TypeUtils.IsValidInputFor(inputs[i],possibleMatch.Inputs[i]))
+                    {
+                        goto End;
+                    }
+                }
+
+                return possibleMatch;
+                End:;
+            }
+
+            return null;
+        }
+
+
+
         public static string ParseEditableChipsetToJson(EditableChipset chipset)
         {
             var chipsetsJson = new ChipsetJSONData();
 
-            foreach(var editableChipset in chipset.GetThisAndSubChipsets())
+            var thisAndSubs = chipset.GetThisAndSubChipsets();
+            foreach (var editableChipset in chipset.GetThisAndSubChipsets())
             {
                 var chipsetJson = new ChipBlockJSONData() { Chips = new List<ChipJSONData>() };
                 chipsetJson.Chipset = editableChipset;
@@ -30,13 +52,17 @@ namespace IAmACube
                     chipJObject.ActualChipType = chip.ChipData.Name;
 
                     chipJObject.Name = chip.Name;
-                    chipJObject.TypeArgument = chip.CurrentTypeArgument;
+                    if(chip.CurrentTypeArguments.Count>0 & chip.CurrentTypeArguments.First().Length>0)
+                    {
+                        chipJObject.TypeArguments = chip.CurrentTypeArguments;
+                    }
 
-                    if(chip.ChipData.IsMappedToSubChips)
+                    if (chip.ChipData.IsMappedToSubChips)
                     {
                         var selectedTypes = chip.GetSelectedInputTypes();
                         var mappings = chip.ChipData.InputMappings;
-                        var mappedType = mappings.FirstOrDefault(m => m.Inputs.SequenceEqual(selectedTypes));
+                        var mappedType = _getFirstMatchingMapping(selectedTypes,chip.ChipData.InputMappings);
+
                         chipJObject.ActualChipType = mappedType.Name;
                     }
 

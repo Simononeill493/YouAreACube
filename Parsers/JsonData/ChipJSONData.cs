@@ -9,7 +9,7 @@ namespace IAmACube
         public string Name;
         public string GraphicalChipType;
         public string ActualChipType;
-        public string TypeArgument;
+        public List<string> TypeArguments;
 
         public List<ChipJSONInputData> Inputs;
         public void SetInputs()
@@ -53,7 +53,7 @@ namespace IAmACube
         public IChip IChip;
         public void CreateIChip()
         {
-            IChip = ChipObjectGenerator.GenerateIChipFromChipData(ChipData, TypeArgument);
+            IChip = ChipObjectGenerator.GenerateIChipFromChipData(ChipData, TypeArguments);
             IChip.Name = this.Name;
         }
 

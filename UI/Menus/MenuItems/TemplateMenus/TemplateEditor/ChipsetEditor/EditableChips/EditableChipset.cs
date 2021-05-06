@@ -154,8 +154,12 @@ namespace IAmACube
 
             foreach (var sublist in subChipsets)
             {
-                output.AddRange(sublist);
+                foreach(var sub in sublist)
+                {
+                    output.AddRange(sub.GetThisAndSubChipsets());
+                }
             }
+
             return output;
         }
     }

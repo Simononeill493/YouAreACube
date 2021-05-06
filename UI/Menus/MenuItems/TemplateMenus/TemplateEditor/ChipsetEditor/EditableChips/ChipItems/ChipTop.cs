@@ -13,10 +13,12 @@ namespace IAmACube
         public int IndexInChipset = -1;
 
         public bool HasOutput => ChipData.HasOutput;
-        public string CurrentTypeArgument;
+        public List<string> CurrentTypeArguments;
 
         public ChipTop(string name,IHasDrawLayer parent, GraphicalChipData data) : base(parent, "ChipFull") 
         {
+            CurrentTypeArguments = new List<string>() { "" };
+
             Name = name;
             _actualSize = base.GetBaseSize();
 
@@ -119,12 +121,17 @@ namespace IAmACube
                 {
                     var afterOpeningList = dataTypeFeedingIn.Substring(5);
                     var extracted = afterOpeningList.Substring(0, afterOpeningList.Length - 1);
-                    CurrentTypeArgument = extracted;
+                    CurrentTypeArguments[0] = extracted;
                 }
                 else if (inputOptions.Contains("Variable"))
                 {
-                    CurrentTypeArgument = dataTypeFeedingIn;
+                    CurrentTypeArguments[0] = dataTypeFeedingIn;
                 }
+                else if (inputOptions.Contains("AnyBlock"))
+                {
+                    CurrentTypeArguments[0] = dataTypeFeedingIn;
+                }
+
             }
         }
         #endregion

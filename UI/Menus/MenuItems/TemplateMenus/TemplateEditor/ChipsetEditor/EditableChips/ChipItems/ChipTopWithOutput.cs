@@ -53,7 +53,16 @@ namespace IAmACube
         {
             base._inputSectionDropdownChanged(section, dropdown, optionSelected);
 
-            OutputTypeCurrent = OutputTypeBase.Replace("Variable", CurrentTypeArgument);
+            OutputTypeCurrent = OutputTypeBase.Replace("Variable", CurrentTypeArguments.First());
+
+            /*if(OutputTypeBase.Contains("Block"))
+            {
+                if(optionSelected.BaseType.Equals(nameof(BlockMode)))
+                {
+                    OutputTypeCurrent = OutputTypeBase.Replace("Block", optionSelected.ToString() + "Block");
+                }
+            }*/
+
             _topLevelRefreshAll_Delayed();
         }
     }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
+    [Serializable()]
     class DummyTile : Tile
     {
         public DummyTile() : base(IntPoint.Min, IntPoint.Min, IntPoint.Min,0) { }

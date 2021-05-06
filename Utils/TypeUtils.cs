@@ -10,8 +10,6 @@ namespace IAmACube
     class TypeUtils
     {
         private static Dictionary<string, Type> _allTypes;
-
-
         private static Dictionary<string, Type> _assemblyChipTypes;
 
         public static void Load()
@@ -20,11 +18,16 @@ namespace IAmACube
             _assemblyChipTypes = _loadAssemblyChipTypes();
         }
 
+
         public static string GetTypeDisplayName(Type type)
         {
             if (type.Equals(typeof(int)))
             {
                 return "int";
+            }
+            if (type.Equals(typeof(bool)))
+            {
+                return "bool";
             }
             if (type.Equals(typeof(TemplateVersionDictionary)))
             {
@@ -34,13 +37,15 @@ namespace IAmACube
 
             return type.Name;
         }
-
-
         public static Type GetTypeByName(string name)
         {
             if (name.Equals("int"))
             {
                 return typeof(int);
+            }
+            if (name.Equals("bool"))
+            {
+                return typeof(bool);
             }
             else
             {
@@ -79,6 +84,31 @@ namespace IAmACube
             return null;
         }
 
+
+
+        public static bool IsValidInputFor(string top,string bottom)
+        {
+            if (top.Equals(bottom))
+            {
+                return true;
+            }
+            else if (bottom.Equals("AnyBlock") & (top.Equals("Block") | top.Equals("SurfaceBlock") | top.Equals("GroundBlock") | top.Equals("EphemeralBlock")))
+            {
+                return true;
+            }
+            else if (bottom.Equals("Variable"))
+            {
+                return true;
+            }
+            else if (top.StartsWith("List<") & bottom.Equals("List<Variable>"))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
         private static Dictionary<string, Type> _loadAllTypes()
         {
             var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes());
@@ -103,6 +133,7 @@ namespace IAmACube
 
             return dict;
         }
+    
     }
 
 }

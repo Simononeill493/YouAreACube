@@ -31,12 +31,17 @@ namespace IAmACube
         public bool IsMappedToSubChips { get; private set; }
 
         [JsonIgnore]
+        public List<string> DefaultTypeArguments;
+        [JsonIgnore]
         public GraphicalChipData BaseMappingChip { get; set; }
         public string BaseMappingName => BaseMappingChip == null ? Name : BaseMappingChip.Name;
 
 
         private string[] _inputDisplayNames;
         private List<List<string>> _inputDataTypeOptions;
+        
+
+
 
         public GraphicalChipData(string name, ChipType dataType, string[] inputs, string output, List<GraphicalChipData> inputMappings, string[] inputDisplayNames)
         {
@@ -51,6 +56,8 @@ namespace IAmACube
 
         public void Init()
         {
+            DefaultTypeArguments = new List<string>();
+
             _initIOData();
             _initGenericFlags();
             _initSubMappings();
@@ -58,6 +65,11 @@ namespace IAmACube
             if(_inputDisplayNames == null)
             {
                 _inputDisplayNames = Inputs;
+            }
+
+            if(!IsGeneric)
+            {
+                DefaultTypeArguments = null;
             }
         }
         private void _initIOData()
@@ -72,15 +84,36 @@ namespace IAmACube
         {
             for (int i = 0; i < NumInputs; i++)
             {
-                IsInputGeneric |= Inputs[i].Contains("Variable");
+                IsInputGeneric |= _checkIsGeneric(Inputs[i]);
             }
 
             if (Output != null)
             {
-                IsOutputGeneric = Output.Contains("Variable");
+                IsOutputGeneric = _checkIsGeneric(Output);
             }
 
             IsGeneric = IsInputGeneric | IsOutputGeneric;
+        }
+        private bool _checkIsGeneric(string typeName)
+        {
+            if(typeName.Contains("Variable"))
+            {
+                if(!DefaultTypeArguments.Contains("Object"))
+                {
+                    DefaultTypeArguments.Add("Object");
+                }
+                return true;
+            }
+            if (typeName.Contains("AnyBlock"))
+            {
+                if (!DefaultTypeArguments.Contains("SurfaceBlock"))
+                {
+                    DefaultTypeArguments.Add("SurfaceBlock");
+                }
+                return true;
+            }
+
+            return false;
         }
         private void _initSubMappings()
         {
