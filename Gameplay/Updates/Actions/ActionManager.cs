@@ -11,11 +11,13 @@ namespace IAmACube
     {
         private MoveManager _moveManager;
         private CreationManager _creationManager;
+        private EnergyTransferManager _energyTransferManager;
 
-        public ActionManager(MoveManager moveManager,CreationManager creationManager)
+        public ActionManager(MoveManager moveManager,CreationManager creationManager,EnergyTransferManager energyTransferManager)
         {
             _moveManager =  moveManager;
             _creationManager =  creationManager;
+            _energyTransferManager = energyTransferManager;
         }
 
         public void ProcessActions(ActionsList actions)
@@ -42,6 +44,13 @@ namespace IAmACube
                         var cardinal2 = DirectionUtils.ToCardinal(effect.Actor.Orientation, effect.RelativeDir);
                         var templateRuntimeVersion2 = Templates.Database[effect.Template.Name][effect.Version];
                         _creationManager.TryCreate(effect.Actor, templateRuntimeVersion2, effect.BlockType, cardinal2);
+                        break;
+                    case ActionType.CardinalGiveEnergy:
+                        _energyTransferManager.TryGiveEnergy(effect.Actor, effect.CardinalDir, effect.BlockType, effect.EnergyAmount);
+                        break;
+                    case ActionType.RelativeGiveEnergy:
+                        var cardinal3 = DirectionUtils.ToCardinal(effect.Actor.Orientation, effect.RelativeDir);
+                        _energyTransferManager.TryGiveEnergy(effect.Actor, cardinal3, effect.BlockType,effect.EnergyAmount);
                         break;
 
                 }

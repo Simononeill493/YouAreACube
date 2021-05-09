@@ -45,5 +45,30 @@ namespace IAmACube
 
             Actions.Add(creationAction);
         }
+
+
+
+        public void AddGiveEnergyAction(Block block, BlockMode blockType, CardinalDirection direction,int amount)
+        {
+            var giveEnergyAction = new BlockAction(block, ActionType.CardinalGiveEnergy)
+            {
+                BlockType = blockType,
+                CardinalDir = direction,
+                EnergyAmount = amount
+            };
+
+            Actions.Add(giveEnergyAction);
+        }
+        public void AddGiveEnergyAction(Block block, BlockMode blockType, RelativeDirection direction, int amount)
+        {
+            var giveEnergyAction = new BlockAction(block, ActionType.RelativeGiveEnergy)
+            {
+                BlockType = blockType,
+                RelativeDir = direction,
+                EnergyAmount = amount
+            };
+
+            Actions.Add(giveEnergyAction);
+        }
     }
 }

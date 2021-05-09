@@ -70,9 +70,9 @@ namespace IAmACube
         }
         public static void AddEntities(Sector sector, Random random)
         {
-            _addRandom(random, sector, BlockMode.Surface, "ShootEnemy", 0, 8);
-            _addRandom(random, sector, BlockMode.Surface, "Rock1", 0, 96);
-            _addRandom(random, sector, BlockMode.Surface, "Rock2", 0, 48);
+            _addRandom(random, sector, BlockMode.Surface, "ShootEnemy", 0, 4);
+            _addRandom(random, sector, BlockMode.Surface, "Rock1", 0, 128);
+            _addRandom(random, sector, BlockMode.Surface, "Rock2", 0, 128);
             //_addRandom(random, sector, BlockMode.Surface, "ApproachEnemy",0, 16);
             //_addRandom(random, sector, BlockMode.Surface, "FleeEnemy", 0, 16);
 

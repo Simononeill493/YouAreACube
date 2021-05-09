@@ -13,14 +13,16 @@ namespace IAmACube
         private MoveManager _moveManager;
         private CreationManager _creationManager;
         private DestructionManager _destructionManager;
+        private EnergyTransferManager _energyTransferManager;
 
         public SectorUpdateManager(Sector sector)
         {
             _moveManager = new MoveManager(sector);
             _creationManager = new CreationManager(sector);
             _destructionManager = new DestructionManager(sector);
+            _energyTransferManager = new EnergyTransferManager();
 
-            _actionManager = new ActionManager(_moveManager,_creationManager);
+            _actionManager = new ActionManager(_moveManager,_creationManager, _energyTransferManager);
         }
 
         public void Update(ActionsList actions)

@@ -185,6 +185,25 @@
 	  "datatype":"General",
 	  "inputs":["int","int"],
 	  "output":"bool"
+    },
+	{
+      "name":"GiveEnergy",
+	  "datatype":"Action",
+	  "inputs":["CardinalDirection|RelativeDirection","BlockMode","int"],
+	  "inputDisplayNames":["Direction","BlockMode","Amount"],
+	  "inputMappings":
+	  [
+	  	{
+		  "name":"GiveEnergyCardinal",
+		  "datatype":"Action",
+		  "inputs":["CardinalDirection","BlockMode","int"],
+		},
+		{
+		  "name":"GiveEnergyRelative",
+		  "datatype":"Action",
+		  "inputs":["RelativeDirection","BlockMode","int"],
+		},
+	  ]
     }
   ]
 }

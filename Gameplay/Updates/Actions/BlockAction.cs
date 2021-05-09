@@ -16,6 +16,7 @@ namespace IAmACube
         public RelativeDirection RelativeDir;
         public BlockMode BlockType;
 
+        public int EnergyAmount;
         public int Rotation;
         public int MoveSpeed;
         public int Version;

@@ -13,6 +13,8 @@ namespace IAmACube
         RelativeMovement,
         Rotation,
         CardinalCreation,
-        RelativeCreation
+        RelativeCreation,
+        CardinalGiveEnergy,
+        RelativeGiveEnergy
     }
 }

@@ -29,8 +29,8 @@
 	{
       "name":"ShootEnemy",
       "sprite":"ShootEnemy",
-	  "maxEnergy":100000,
-	  "maxHealth":1000,
+	  "maxEnergy":1000,
+	  "maxHealth":10000,
       "speed":4
     },
 	{
