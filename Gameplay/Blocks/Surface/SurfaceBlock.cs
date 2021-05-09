@@ -40,7 +40,7 @@ namespace IAmACube
         }
 
         public override bool CanOccupyDestination(Tile destination) => !destination.HasSurface;
-        public override bool ToBeDeleted() => false;
+        public override bool ToBeDeleted() => (Dormant & !Active);
         public override bool CanUpdate => !Dormant;
     }
 }

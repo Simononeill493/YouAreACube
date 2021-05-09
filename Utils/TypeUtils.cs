@@ -18,7 +18,6 @@ namespace IAmACube
             _assemblyChipTypes = _loadAssemblyChipTypes();
         }
 
-
         public static string GetTypeDisplayName(Type type)
         {
             if (type.Equals(typeof(int)))
@@ -34,10 +33,9 @@ namespace IAmACube
                 return "Template";
             }
 
-
             return type.Name;
         }
-        public static Type GetTypeByName(string name)
+        public static Type GetTypeByDisplayName(string name)
         {
             if (name.Equals("int"))
             {
@@ -47,14 +45,28 @@ namespace IAmACube
             {
                 return typeof(bool);
             }
-            else
+            if (name.Equals("Template"))
             {
-                return _allTypes[name];
+                return typeof(TemplateVersionDictionary);
             }
+            if (name.Equals("List<Variable>"))
+            {
+                return typeof(List<object>);
+            }
+            if (name.Equals("Variable"))
+            {
+                return typeof(object);
+            }
+            if (name.Equals("AnyBlock"))
+            {
+                return typeof(Block);
+            }
+
+            return _allTypes[name];
         }
         public static Type GetChipTypeByName(string name) => _assemblyChipTypes.FirstOrDefault(c => c.Value.Name.Equals(name)).Value;
 
-        public static bool IsType(string name) => _allTypes.ContainsKey(name) | name.Equals("Int32");
+
         public static object ParseType(Type t, string asString)
         {
             if (t.IsEnum)
@@ -83,30 +95,23 @@ namespace IAmACube
 
             return null;
         }
-
-
-
-        public static bool IsValidInputFor(string top,string bottom)
+        public static string GetTypeOfStringRepresentation(string stringRepresentation,List<Type> possibleTypes)
         {
-            if (top.Equals(bottom))
+            foreach (var type in possibleTypes)
             {
-                return true;
-            }
-            else if (bottom.Equals("AnyBlock") & (top.Equals("Block") | top.Equals("SurfaceBlock") | top.Equals("GroundBlock") | top.Equals("EphemeralBlock")))
-            {
-                return true;
-            }
-            else if (bottom.Equals("Variable"))
-            {
-                return true;
-            }
-            else if (top.StartsWith("List<") & bottom.Equals("List<Variable>"))
-            {
-                return true;
+                if (ParseType(type, stringRepresentation) != null)
+                {
+                    return GetTypeDisplayName(type);
+                }
             }
 
-            return false;
+            throw new Exception("Cannot resolve type of string");
         }
+
+
+        public static bool IsEnum(string typeName) => GetTypeByDisplayName(typeName).IsEnum;
+        public static List<object> GetEnumValues(string typeName) => GetTypeByDisplayName(typeName).GetEnumValues().Cast<object>().ToList();
+
 
 
         private static Dictionary<string, Type> _loadAllTypes()
@@ -133,7 +138,6 @@ namespace IAmACube
 
             return dict;
         }
-    
     }
 
 }

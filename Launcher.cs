@@ -51,6 +51,7 @@ namespace IAmACube
 
         public static void TestCode()
         {
+            TreeGen.Test();
 
         }
     }

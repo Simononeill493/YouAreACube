@@ -123,8 +123,8 @@
     <Compile Include="Gameplay\Direction\DirectionUtils.cs" />
     <Compile Include="Gameplay\Updates\SectorUpdateManager.cs" />
     <Compile Include="Gameplay\Updates\Tick\WorldTicker.cs" />
-    <Compile Include="Gameplay\World\AttachmentUtils.cs" />
-    <Compile Include="Gameplay\World\Sector\SectorGenerator.cs" />
+    <Compile Include="WorldGen\AttachmentUtils.cs" />
+    <Compile Include="WorldGen\SectorGenerator.cs" />
     <Compile Include="Misc\LocationWithNeighbors.cs" />
     <Compile Include="Misc\IntPoint.cs" />
     <Compile Include="UI\Menus\MenuItems\Base\DialogBoxMenuItem.cs" />
@@ -134,15 +134,15 @@
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\TemplateQuitDialog\TemplateQuitButtonOption.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\TemplateQuitDialog\TemplateQuitDialog.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\TemplateSaveDialog\TemplateSaveDialog.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipInputOptions\ChipInputOptionParseable.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\SwitchChip\ChipSwitchButtons.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\SwitchChip\ChipTopSwitch.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipDropdownUtils.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipInputOptions\ChipInputOption.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipInputOptions\ChipInputOptionValue.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipDropdownFactory.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipInputOptions\ChipInputOptionReference.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\ChipSubItems\ChipItemOutputLabel.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipDropdown\ChipInputOptions\ChipInputOptionParseable.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\SwitchChip\ChipSwitchButtons.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\SwitchChip\ChipTopSwitch.cs" />
+    <Compile Include="Utils\TemplateEdit\ChipDropdownUtils.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipDropdown\ChipInputOptions\ChipInputOption.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipDropdown\ChipInputOptions\ChipInputOptionValue.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipDropdown\ChipDropdownFactory.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipDropdown\ChipInputOptions\ChipInputOptionReference.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipSubItems\ChipItemOutputLabel.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\ChipTop.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\EditableChipset_Refresh.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\IChipsDroppableOn.cs" />
@@ -167,7 +167,7 @@
     <Compile Include="UI\Menus\MenuItems\Base\SearchBarMenuItem.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateSelector\TemplateBox.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\ChipEditPane.cs" />
-    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\ChipSubItems\ChipDropdown\ChipInputDropdown.cs" />
+    <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipDropdown\ChipInputDropdown.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\ChipSectionFactory.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\ChipTopWithOutput.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\EditableChips\ChipItems\ChipInputSection.cs" />
@@ -180,6 +180,7 @@
     <Compile Include="UI\Menus\MenuItems\Base\TextBoxMenuItem.cs" />
     <Compile Include="Utils\DrawUtils.cs" />
     <Compile Include="Utils\IDUtils.cs" />
+    <Compile Include="Utils\TemplateEdit\TemplateEditUtils.cs" />
     <Compile Include="Utils\TypeUtils.cs" />
     <Compile Include="Utils\WorldUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
@@ -222,12 +223,13 @@
     <Compile Include="Gameplay\Templates\Templates.cs" />
     <Compile Include="Gameplay\Updates\Tick\WorldTickManager.cs" />
     <Compile Include="Gameplay\Blocks\GroundBlock.cs" />
-    <Compile Include="Gameplay\World\Sector\Sector.cs" />
+    <Compile Include="Gameplay\World\Sector.cs" />
     <Compile Include="UI\Screens\ScreenManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Gameplay\Tile\Tile.cs" />
     <Compile Include="Gameplay\World\World.cs" />
-    <Compile Include="Gameplay\World\WorldGen.cs" />
+    <Compile Include="WorldGen\TreeGen.cs" />
+    <Compile Include="WorldGen\WorldGen.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />

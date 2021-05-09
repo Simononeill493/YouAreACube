@@ -72,7 +72,7 @@ namespace IAmACube
                     }
                     else
                     {
-                        var type = TypeUtils.GetTypeByName(typeName);
+                        var type = TypeUtils.GetTypeByDisplayName(typeName);
                         var typeValue = TypeUtils.ParseType(type, input.InputValue);
                         property.SetValue(constructedChip, typeValue);
                     }

@@ -58,6 +58,6 @@ namespace IAmACube
         }
 
 
-        public static ChipBlock NoAction = new ChipBlock();
+        public static ChipBlock NoAction = new ChipBlock() { Name = "No_Action" };
     }
 }

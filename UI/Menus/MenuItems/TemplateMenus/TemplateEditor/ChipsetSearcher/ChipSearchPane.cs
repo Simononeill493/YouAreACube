@@ -13,12 +13,11 @@ namespace IAmACube
         public const int PreviewPixeYInit = 45;
         public const int PreviewPixeYDistance = 20;
 
+        public Action<ChipTop, UserInput> AddToEditPane;
+
         private SearchBarMenuItem _searchBar;
         private DropdownMenuItem<ChipType> _dropdown;
-
         private List<ChipPreview> _chipPreviews;
-
-        public Action<ChipTop,UserInput> AddToEditPane;
 
         public ChipSearchPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "SearchPane")
         {

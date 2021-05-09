@@ -15,7 +15,7 @@ namespace IAmACube
             var isTextEntry = inputTypeNames.All(name => ChipDropdownUtils.IsTextEntryType(name));
             if (isTextEntry)
             {
-                _inputTypes = inputTypeNames.Select(n=>TypeUtils.GetTypeByName(n)).ToList();
+                _inputTypes = inputTypeNames.Select(n=>TypeUtils.GetTypeByDisplayName(n)).ToList();
                 OnTextChanged += TextChanged;
                 Editable = true;
             }

@@ -144,22 +144,6 @@ namespace IAmACube
             }
         }
 
-        public override void RefreshAll()
-        {
-            base.RefreshAll();
-            SwitchChipsets.ForEach(c => c.RefreshAll());
-            _switchButtons.UpdateButtonText();
-
-            if(_switchSectionExtended)
-            {
-                _setSectionLocations();
-            }
-        }
-        protected override void _setTopLevelRefreshAll(Action topLevelRefreshAll)
-        {
-            base._setTopLevelRefreshAll(topLevelRefreshAll);
-            SwitchChipsets.ForEach(c => c.TopLevelRefreshAll = topLevelRefreshAll);
-        }
 
         public List<(string,EditableChipset)> GetSwitchSectionsWithNames()
         {
@@ -176,5 +160,24 @@ namespace IAmACube
             }
             return output;
         }
+
+
+        public override void RefreshAll()
+        {
+            base.RefreshAll();
+            SwitchChipsets.ForEach(c => c.RefreshAll());
+            _switchButtons.UpdateButtonText();
+
+            if (_switchSectionExtended)
+            {
+                _setSectionLocations();
+            }
+        }
+        protected override void _setTopLevelRefreshAll(Action topLevelRefreshAll)
+        {
+            base._setTopLevelRefreshAll(topLevelRefreshAll);
+            SwitchChipsets.ForEach(c => c.TopLevelRefreshAll = topLevelRefreshAll);
+        }
+
     }
 }

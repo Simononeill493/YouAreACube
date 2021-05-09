@@ -12,6 +12,10 @@ namespace IAmACube
         public string Name;
         public List<ChipTop> Chips { get; private set; }
 
+        private Action<List<ChipTop>, UserInput, EditableChipset> _liftChipsCallback;
+        public int HeightOfAllChips;
+        private IEditableChipsetContainer _currentContainer;
+
         public EditableChipset(string name,IHasDrawLayer parent,float scaleMultiplier,Action<List<ChipTop>,UserInput,EditableChipset> liftChipsCallback) : base(parent, "TopOfChipset")
         {
             Name = name;
@@ -22,18 +26,11 @@ namespace IAmACube
             HeightOfAllChips += GetBaseSize().Y;
         }
 
-        #region lift
-        private Action<List<ChipTop>, UserInput, EditableChipset> _liftChipsCallback;
 
-        private void _chipLiftedFromChipset(ChipTop chip, UserInput input)
-        {
-            var chipsRemoved = PopChips(chip.IndexInChipset);
-            _liftChipsCallback(chipsRemoved, input, this);
-        }
-        #endregion
-
-        #region drop
+        public void AppendToTop(ChipTop chipToDrop) => AppendToTop(new List<ChipTop>() { chipToDrop });
         public void AppendToTop(List<ChipTop> chipsToDrop) => AppendChips(chipsToDrop, 0);
+
+        public void AppendToBottom(ChipTop chipToDrop) => AppendToBottom(new List<ChipTop>() { chipToDrop });
         public void AppendToBottom(List<ChipTop> chipsToDrop) => AppendChips(chipsToDrop, Chips.Count);
 
         public void DropChipsOn(List<ChipTop> chipsToDrop, UserInput input)
@@ -54,11 +51,7 @@ namespace IAmACube
                 itemToDropOn.DropChipsOn(chipsToDrop, input);
             }
         }
-        #endregion
 
-        #region addAndRemoveChips
-        public void AppendChipToStart(ChipTop toAdd) => AppendChips(new List<ChipTop>() { toAdd }, 0);
-        public void AppendChipToEnd(ChipTop toAdd) => AppendChips(new List<ChipTop>() { toAdd }, Chips.Count);
         public void AppendChips(List<ChipTop> toAdd, int index)
         {
             Chips.InsertRange(index, toAdd);
@@ -84,10 +77,7 @@ namespace IAmACube
             TopLevelRefreshAll();
             return toRemove;
         }
-        #endregion
 
-        #region container
-        private IEditableChipsetContainer _currentContainer;
 
         public void SetContainer(IEditableChipsetContainer newContainer)
         {
@@ -116,30 +106,9 @@ namespace IAmACube
 
             base.Dispose();
         }
-        #endregion
 
-        #region dimensions
-        public int HeightOfAllChips;
 
-        private IChipsDroppableOn _getChipsetSectionMouseIsOver()
-        {
-            if (MouseHovering)
-            {
-                return this;
-            }
-
-            foreach (var chip in Chips)
-            {
-                if (chip.IsMouseOverAnySection())
-                {
-                    return chip;
-                }
-            }
-
-            return null;
-        }
         public bool IsMouseOverAnyChip() => _getChipsetSectionMouseIsOver() != null;
-        #endregion
 
         public List<EditableChipset> GetThisAndSubChipsets()
         {
@@ -161,6 +130,30 @@ namespace IAmACube
             }
 
             return output;
+        }
+
+
+        private void _chipLiftedFromChipset(ChipTop chip, UserInput input)
+        {
+            var chipsRemoved = PopChips(chip.IndexInChipset);
+            _liftChipsCallback(chipsRemoved, input, this);
+        }
+        private IChipsDroppableOn _getChipsetSectionMouseIsOver()
+        {
+            if (MouseHovering)
+            {
+                return this;
+            }
+
+            foreach (var chip in Chips)
+            {
+                if (chip.IsMouseOverAnySection())
+                {
+                    return chip;
+                }
+            }
+
+            return null;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace IAmACube
             World.FocusOn(Kernel.Host);
             World.Tick(input);
 
-            _sectorGenerator.GenerateAdjacentSectors(World);
+            //_sectorGenerator.GenerateAdjacentSectors(World);
 
             if (Config.KernelUnlimitedEnergy)
             {

@@ -15,16 +15,23 @@
       "speed":4
     },
     {
-      "name":"BasicEnemy",
-      "sprite":"BasicEnemy",
+      "name":"ApproachEnemy",
+      "sprite":"ApproachEnemy",
       "speed":16,
 	  "maxEnergy":1000
     },
 	{
-      "name":"ScaredEnemy",
-      "sprite":"BasicEnemy",
+      "name":"FleeEnemy",
+      "sprite":"FleeEnemy",
 	  "maxEnergy":1000,
       "speed":15
+    },
+	{
+      "name":"ShootEnemy",
+      "sprite":"ShootEnemy",
+	  "maxEnergy":100000,
+	  "maxHealth":1000,
+      "speed":4
     },
 	{
       "name":"MouseFollower",
@@ -48,7 +55,16 @@
       "sprite":"MiniBullet",
 	  "maxEnergy":5,
       "speed":3
+    },
+	{
+      "name":"Rock1",
+      "sprite":"Rock1",
+	  "maxHealth":500,
+    },
+	{
+      "name":"Rock2",
+      "sprite":"Rock2",
+	  "maxHealth":1500,
     }
-
   ]
 }

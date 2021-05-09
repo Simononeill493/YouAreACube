@@ -23,7 +23,7 @@ namespace IAmACube
             {
                 foreach (var chipJson in blockJson.Chips)
                 {
-                    blockJson.Chipset.AppendChipToEnd(chipJson.ChipTop);
+                    blockJson.Chipset.AppendToBottom(chipJson.ChipTop);
                 }
             }
 
@@ -51,7 +51,7 @@ namespace IAmACube
                         }
                         else
                         {
-                            var type = TypeUtils.GetTypeByName(inputTypeName);
+                            var type = TypeUtils.GetTypeByDisplayName(inputTypeName);
                             value = TypeUtils.ParseType(type, jsonInputData.InputValue);
                         }
 

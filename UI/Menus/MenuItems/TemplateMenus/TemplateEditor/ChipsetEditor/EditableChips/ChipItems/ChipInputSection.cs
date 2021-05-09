@@ -49,7 +49,7 @@ namespace IAmACube
         private List<ChipInputOption> _getValidInputsFromAbove(List<ChipTop> chipsAbove)
         {
             var output = new List<ChipInputOption>();
-            foreach (var chip in chipsAbove.Where(c=>c.HasOutput).Cast<ChipTopWithOutput>())
+            foreach (var chip in TemplateEditUtils.GetChipsWithOutput(chipsAbove))
             {
                 if(_isValidInput(chip))
                 {
@@ -65,7 +65,7 @@ namespace IAmACube
             var chipAboveOutput = chipAbove.OutputTypeCurrent;
             foreach(var inputType in InputBaseTypes)
             {
-                if(TypeUtils.IsValidInputFor(chipAboveOutput,inputType))
+                if(TemplateEditUtils.IsValidInputFor(chipAboveOutput,inputType))
                 {
                     return true;
                 }

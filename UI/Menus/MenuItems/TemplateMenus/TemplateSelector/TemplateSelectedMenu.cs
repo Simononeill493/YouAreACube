@@ -68,7 +68,5 @@ namespace IAmACube
                 _templateButtonPressCallback(version, selectedAction);
             }
         }
-
-
     }
 }

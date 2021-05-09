@@ -15,6 +15,8 @@ namespace IAmACube
             {
                 var point = world.Focus.AbsoluteLocation + DirectionUtils.XYOffset(dir);
                 var sector = WorldGen.GetTestSector(point,world.SectorSize);
+                WorldGen.AddEntities(sector, world.Random);
+
                 world.AddSector(sector);
             }
         }

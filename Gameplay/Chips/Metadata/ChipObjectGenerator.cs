@@ -49,7 +49,7 @@ namespace IAmACube
         private static IChip _generateGenericChipFromChipData(GraphicalChipData data, List<string> typeArguments, List<string> inputMappings)
         {
             var genericChipType = TypeUtils.GetChipTypeByName(data.Name + "Chip`1");
-            var typeArgumentsAsType = typeArguments.Select(ta => TypeUtils.GetTypeByName(ta)).ToArray();
+            var typeArgumentsAsType = typeArguments.Select(ta => TypeUtils.GetTypeByDisplayName(ta)).ToArray();
             var genericRuntimeType = genericChipType.MakeGenericType(typeArgumentsAsType);
             var genericInstance = (IChip)Activator.CreateInstance(genericRuntimeType);
 

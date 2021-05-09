@@ -13,7 +13,7 @@ namespace IAmACube
         public static int ScreenDefaultWidth = 1024;
         public static int ScreenDefaultHeight = 768;
 
-        public static int DefaultSectorSize = 16;
+        public static int DefaultSectorSize = 25;
         public static int TileSizePixels = 16;
         public static int TickCycleLength = 60;
 

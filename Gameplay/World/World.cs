@@ -88,5 +88,6 @@ namespace IAmACube
         public bool HasSector(IntPoint sectorCoords) => SectorGrid.ContainsKey(sectorCoords);
         public Sector GetSector(IntPoint coord) => SectorGrid[coord];
         public Sector GetSector(Tile tile) => SectorGrid[WorldUtils.WorldCoordsToSectorLocation(tile.AbsoluteLocation,SectorSize)];
+        public List<Sector> GetAllSectors() => SectorGrid.Values.ToList();
     }
 }

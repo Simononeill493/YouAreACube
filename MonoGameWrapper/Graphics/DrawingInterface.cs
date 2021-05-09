@@ -82,9 +82,13 @@ namespace IAmACube
             drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizePixels);
 
             var healthPercentage = block.HealthRemainingPercentage;
-            var barCurrentLength = healthPercentage * cameraConfig.TileSizePixels;
-            _primitive.DrawRectangle(drawPos.X, drawPos.Y+8, cameraConfig.TileSizePixels, 8, DrawLayers.BlockInfoLayer_Back, Color.Black, false);
-            _primitive.DrawRectangle(drawPos.X, drawPos.Y+8, (int)barCurrentLength, 8, DrawLayers.BlockInfoLayer_Front, Color.Red, false);
+
+            if(healthPercentage<1)
+            {
+                var barCurrentLength = healthPercentage * cameraConfig.TileSizePixels;
+                _primitive.DrawRectangle(drawPos.X, drawPos.Y + 8, cameraConfig.TileSizePixels, 8, DrawLayers.BlockInfoLayer_Back, Color.Black, false);
+                _primitive.DrawRectangle(drawPos.X, drawPos.Y + 8, (int)barCurrentLength, 8, DrawLayers.BlockInfoLayer_Front, Color.Red, false);
+            }
         }
         public void DrawSectorGridOverlay(IntPoint sector,int sectorSize,int gridLineThickness,CameraConfiguration _config)
         {

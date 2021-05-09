@@ -68,12 +68,14 @@ namespace IAmACube
 
             world.FocusOn(player);
         }
-        public static void AddEntities(World world)
+        public static void AddEntities(Sector sector, Random random)
         {
-            var centre = world.GetSector(new IntPoint(0, 0));
+            _addRandom(random, sector, BlockMode.Surface, "ShootEnemy", 0, 8);
+            _addRandom(random, sector, BlockMode.Surface, "Rock1", 0, 96);
+            _addRandom(random, sector, BlockMode.Surface, "Rock2", 0, 48);
+            //_addRandom(random, sector, BlockMode.Surface, "ApproachEnemy",0, 16);
+            //_addRandom(random, sector, BlockMode.Surface, "FleeEnemy", 0, 16);
 
-            //_addRandom(world.Random, centre, BlockMode.Surface, "MouseFollower", 0, 32);
-            _addRandom(world.Random, centre, BlockMode.Surface, "ScaredEnemy",0, 32);
             //_addRandom(world.Random, centre, BlockMode.Surface, "Spinner",0, 16);
             //_addRandom(world.Random, world.Centre, BlockType.Ephemeral,"Bullet", 16);
         }

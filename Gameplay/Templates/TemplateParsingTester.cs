@@ -14,30 +14,35 @@ namespace IAmACube
             foreach (var template in templates)
             {
                 if (!template.Active) { continue; }
-                var initialJson = ChipBlockToJSONParser.ParseBlockToJson(template.ChipBlock);
+                TestParsingRoundTrip(template.Name, template.ChipBlock);
+            }
+        }
 
-                var editableChipset = JSONToEditableChipsetParser.ParseJsonToEditableChipset(initialJson, new DummyChipsetGenerator());
-                var chipBlockClone = JSONToChipBlockParser.ParseJsonToBlock(initialJson);
+        public static void TestParsingRoundTrip(string name,ChipBlock chipBlock)
+        {
+            var initialJson = ChipBlockToJSONParser.ParseBlockToJson(chipBlock);
 
-                var chipsetRoundTripJson = EditableChipsetToJSONParser.ParseEditableChipsetToJson(editableChipset);
-                var chipBlockRoundTripJson = ChipBlockToJSONParser.ParseBlockToJson(chipBlockClone);
+            var editableChipset = JSONToEditableChipsetParser.ParseJsonToEditableChipset(initialJson, new DummyChipsetGenerator());
+            var chipBlockClone = JSONToChipBlockParser.ParseJsonToBlock(initialJson);
 
-                if (!initialJson.Equals(chipsetRoundTripJson))
-                {
-                    var l = initialJson.Length;
-                    var m = chipsetRoundTripJson.Length;
-                    throw new Exception(template.Name + " template parsing mismatch");
-                }
+            var chipsetRoundTripJson = EditableChipsetToJSONParser.ParseEditableChipsetToJson(editableChipset);
+            var chipBlockRoundTripJson = ChipBlockToJSONParser.ParseBlockToJson(chipBlockClone);
 
-                if (!chipsetRoundTripJson.Equals(chipBlockRoundTripJson))
-                {
-                    throw new Exception(template.Name + " template parsing mismatch");
-                }
+            if (!initialJson.Equals(chipsetRoundTripJson))
+            {
+                var l = initialJson.Length;
+                var m = chipsetRoundTripJson.Length;
+                throw new Exception(name + " template parsing mismatch");
+            }
 
-                if (!ChipBlockComparer.Equivalent(template.ChipBlock, chipBlockClone))
-                {
-                    throw new Exception(template.Name + " template parsing mismatch");
-                }
+            if (!chipsetRoundTripJson.Equals(chipBlockRoundTripJson))
+            {
+                throw new Exception(name + " template parsing mismatch");
+            }
+
+            if (!ChipBlockComparer.Equivalent(chipBlock, chipBlockClone))
+            {
+                throw new Exception(name + " template parsing mismatch");
             }
         }
     }

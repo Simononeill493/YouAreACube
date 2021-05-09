@@ -6,7 +6,7 @@ namespace IAmACube
 {
     public class ChipInputOptionReference : ChipInputOption
     {
-        public ChipTopWithOutput ChipReference;
+        public ChipTopWithOutput ChipReference { get; }
         public override string BaseType => ChipReference.OutputTypeCurrent;
 
 

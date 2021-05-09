@@ -37,10 +37,10 @@ namespace IAmACube
             AddChild(_searchPane);
 
             _editPane.IsMouseOverSearchPane = _searchPane.IsMouseOver;
-            _searchPane.AddToEditPane = _editPane.CreateNewChipsetFromSearchChipClick;
+            _searchPane.AddToEditPane = _editPane.ConfigureNewChipsetFromSearchPaneClick;
             _searchPane.RefreshFilter();
 
-            _editPane.LoadTemplate(_baseTemplate);
+            _editPane.LoadTemplateForEditing(_baseTemplate);
         }
 
         public void OpenQuitDialog()
@@ -130,6 +130,8 @@ namespace IAmACube
 
                 var json = EditableChipsetToJSONParser.ParseEditableChipsetToJson(chipset);
                 var block = JSONToChipBlockParser.ParseJsonToBlock(json);
+
+                TemplateParsingTester.TestParsingRoundTrip(chipset.Name, block);
 
                 template.ChipBlock = block;
                 return template;

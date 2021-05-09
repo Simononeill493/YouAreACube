@@ -464,6 +464,18 @@
 /processorParam:TextureFormat=Compressed
 /build:../Simon_Data/To_Import/PressStart2P.spritefont;PressStart2P.spritefont
 
+#begin ../Simon_Data/To_Import/Tiles/ApproachEnemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Tiles/ApproachEnemy.png;ApproachEnemy.png
+
 #begin ../Simon_Data/To_Import/Tiles/BasicEnemy.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -500,6 +512,18 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Tiles/Black.png;Black.png
 
+#begin ../Simon_Data/To_Import/Tiles/Blank.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Tiles/Blank.png;Blank.png
+
 #begin ../Simon_Data/To_Import/Tiles/Bullet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -511,6 +535,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Tiles/Bullet.png;Bullet.png
+
+#begin ../Simon_Data/To_Import/Tiles/DarkGrass.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Tiles/DarkGrass.png;DarkGrass.png
+
+#begin ../Simon_Data/To_Import/Tiles/FleeEnemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Tiles/FleeEnemy.png;FleeEnemy.png
 
 #begin ../Simon_Data/To_Import/Tiles/Grass.png
 /importer:TextureImporter
@@ -548,6 +596,54 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Tiles/MouseFollower.png;MouseFollower.png
 
+#begin ../Simon_Data/To_Import/Tiles/Plants1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Tiles/Plants1.png;Plants1.png
+
+#begin ../Simon_Data/To_Import/Tiles/Rock1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Tiles/Rock1.png;Rock1.png
+
+#begin ../Simon_Data/To_Import/Tiles/Rock2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Tiles/Rock2.png;Rock2.png
+
+#begin ../Simon_Data/To_Import/Tiles/ShootEnemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Tiles/ShootEnemy.png;ShootEnemy.png
+
 #begin ../Simon_Data/To_Import/Tiles/Spinner.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -559,6 +655,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Tiles/Spinner.png;Spinner.png
+
+#begin ../Simon_Data/To_Import/Tiles/Water.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Tiles/Water.png;Water.png
 
 #begin ../Simon_Data/To_Import/TitleBackground.png
 /importer:TextureImporter

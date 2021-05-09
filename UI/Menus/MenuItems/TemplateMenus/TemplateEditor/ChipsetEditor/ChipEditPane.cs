@@ -9,10 +9,13 @@ namespace IAmACube
 {
     class ChipEditPane : SpriteMenuItem, IEditableChipsetContainer, IChipsetGenerator
     {
+        public Func<UserInput, bool> IsMouseOverSearchPane;
         public List<EditableChipset> TopLevelChipsets;
+
+        private const float MinimumChipScale = 2.0f;
+        private float _chipScaleMultiplier = 1.0f;
         private List<EditableChipset> _allChipsets;
 
-        public Func<UserInput, bool> IsMouseOverSearchPane;
 
         public ChipEditPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "ChipEditPane")
         {
@@ -37,24 +40,71 @@ namespace IAmACube
 
         }
 
-        #region loadTemplate
-
-        public void LoadTemplate(BlockTemplate template)
+        public void LoadTemplateForEditing(BlockTemplate template)
         {
-            var json = ChipBlockToJSONParser.ParseBlockToJson(template.ChipBlock);
-            var newChipset = JSONToEditableChipsetParser.ParseJsonToEditableChipset(json,this);
-            _setChipsetToTopLevel(newChipset);
+            var generatedChipset = TemplateEditUtils.PrepareChipsetForEditPane(template, this);
 
-            newChipset.RefreshAll();
-
-            newChipset.SetLocationConfig(ActualLocation + new IntPoint(10, 10), CoordinateMode.Absolute, centered: false);
-            newChipset.UpdateDimensionsCascade(ActualLocation, GetCurrentSize());
-            _dropChipsetOnPane(newChipset);
+            _setChipsetToTopLevel(generatedChipset);
+            _dropChipsetOnPane(generatedChipset);
         }
 
-        #endregion
 
-        #region chipsetDropped
+        public void ConfigureNewChipsetFromSearchPaneClick(ChipTop newChip, UserInput input)
+        {
+            newChip.MultiplyScaleCascade(_chipScaleMultiplier);
+            newChip.SetGenerator(this);
+            newChip.GenerateSubChipsets();
+
+            var newChipset = _createNewChipsetForMouse(input);
+            newChipset.AppendToTop(newChip);
+        }
+        public void ConfigureNewChipsetFromExistingChips(List<ChipTop> newChips, UserInput input, EditableChipset removedFrom)
+        {
+            var newChipset = _createNewChipsetForMouse(input);
+            newChipset.AppendChips(newChips, 0);
+
+            _checkForChipsetGarbageCollection(removedFrom);
+        }
+        
+        public EditableChipset CreateChipset(string name)
+        {
+            var newChipset = new EditableChipset(name, this, _chipScaleMultiplier, ConfigureNewChipsetFromExistingChips);
+            newChipset.OnEndDrag += (i) => _chipsetDropped(newChipset, i);
+
+            _allChipsets.Add(newChipset);
+            return newChipset;
+        }
+
+
+        public void AddChipset(EditableChipset newChipset)
+        {
+            if (TopLevelChipsets.Contains(newChipset))
+            {
+                throw new Exception("Tried to add a chipset to the pane that was already there");
+            }
+
+            AddChildAfterUpdate(newChipset);
+            TopLevelChipsets.Add(newChipset);
+        }
+        public void RemoveChipset(EditableChipset newChipset)
+        {
+            if (!TopLevelChipsets.Contains(newChipset))
+            {
+                throw new Exception("Tried to take a chipset from the pane that wasn't there");
+            }
+
+            RemoveChildAfterUpdate(newChipset);
+            TopLevelChipsets.Remove(newChipset);
+        }
+
+
+
+
+
+
+
+
+
         private void _chipsetDropped(EditableChipset droppedChipset, UserInput input)
         {
             if (IsMouseOverSearchPane(input))
@@ -107,26 +157,6 @@ namespace IAmACube
 
             return null;
         }
-        #endregion
-
-        #region chipsetCreationDestruction
-        public void CreateNewChipsetFromSearchChipClick(ChipTop newChip, UserInput input)
-        {
-            newChip.MultiplyScaleCascade(_chipScaleMultiplier);
-            newChip.SetGenerator(this);
-            newChip.GenerateSubChipsets();
-
-            var newChipset = _createNewChipsetForMouse(input);
-            newChipset.AppendChipToStart(newChip);
-        }
-        public void CreateNewChipsetFromExistingChips(List<ChipTop> newChips, UserInput input, EditableChipset removedFrom)
-        {
-            var newChipset = _createNewChipsetForMouse(input);
-            newChipset.AppendChips(newChips, 0);
-
-            _checkForChipsetGarbageCollection(removedFrom);
-        }
-
         private EditableChipset _createNewChipsetForMouse(UserInput input)
         {
             var newChipset = CreateChipset("Chipset_" + _allChipsets.Count+1);
@@ -144,35 +174,6 @@ namespace IAmACube
             chipset.SetContainer(this);
             chipset.TopLevelRefreshAll = chipset.RefreshAll;
         }
-        public EditableChipset CreateChipset(string name)
-        {
-            var newChipset = new EditableChipset(name,this, _chipScaleMultiplier, CreateNewChipsetFromExistingChips);
-            newChipset.OnEndDrag += (i) => _chipsetDropped(newChipset, i);
-
-            _allChipsets.Add(newChipset);
-            return newChipset;
-        }
-
-        public void AddChipset(EditableChipset newChipset)
-        {
-            if(TopLevelChipsets.Contains(newChipset))
-            {
-                throw new Exception();
-            }
-
-            AddChildAfterUpdate(newChipset);
-            TopLevelChipsets.Add(newChipset);
-        }
-        public void RemoveChipset(EditableChipset newChipset)
-        {
-            if (!TopLevelChipsets.Contains(newChipset))
-            {
-                throw new Exception();
-            }
-
-            RemoveChildAfterUpdate(newChipset);
-            TopLevelChipsets.Remove(newChipset);
-        }
         private void _destroyChipset(EditableChipset chipset)
         {
             _allChipsets.Remove(chipset);
@@ -184,7 +185,6 @@ namespace IAmACube
                 _destroyChipset(subChipset);
             }
         }
-
         private void _checkForChipsetGarbageCollection(EditableChipset toCheck)
         {
             if (toCheck.Chips.Count == 0 & TopLevelChipsets.Contains(toCheck))
@@ -192,11 +192,9 @@ namespace IAmACube
                 _destroyChipset(toCheck);
             }
         }
-        #endregion
-
-        #region visuals
-        private const float MinimumChipScale = 2.0f;
-        private float _chipScaleMultiplier = 1.0f;
+        
+        
+        
 
         protected override void _updateChildDimensions()
         {
@@ -204,7 +202,6 @@ namespace IAmACube
             base._updateChildDimensions();
             _setChipsetVisibilities();
         }
-
         private void _pushChipScalingUpIfTooSmall()
         {
             var currentChipScale = GenerateScaleFromMultiplier(_chipScaleMultiplier);
@@ -220,7 +217,6 @@ namespace IAmACube
             TopLevelChipsets.ForEach(chip => chip.MultiplyScaleCascade(multiplier));
             _updateChildDimensions();
         }
-
         private void _setChipsetVisibilities() => TopLevelChipsets.ForEach(chip => _setChipsetVisiblity(chip));
         private void _setChipsetVisiblity(EditableChipset chipset)
         {
@@ -241,6 +237,5 @@ namespace IAmACube
 
             chipset.Visible = false;
         }
-        #endregion
     }
 }
