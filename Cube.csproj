@@ -233,6 +233,7 @@
     <Compile Include="Gameplay\World\World.cs" />
     <Compile Include="WorldGen\TreeGen.cs" />
     <Compile Include="WorldGen\WorldGen.cs" />
+    <Compile Include="WorldGen\WorldGenGrid.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />

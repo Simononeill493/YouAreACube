@@ -21,7 +21,7 @@ namespace IAmACube
 
             _adminCamera = new FixedCamera(kernel);
             _playerCamera = new KernelTrackingCamera(kernel);
-            _currentCamera = _playerCamera;
+            _currentCamera = _adminCamera;
         }
 
         public override void Update(UserInput input)

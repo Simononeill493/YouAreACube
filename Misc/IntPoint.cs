@@ -41,9 +41,29 @@ namespace IAmACube
         public static FloatPoint operator *(IntPoint a, float b) => new FloatPoint(a.X * b, a.Y * b);
         public static FloatPoint operator /(IntPoint a, float b) => new FloatPoint(a.X / b, a.Y / b);
 
-
         public static bool operator ==(IntPoint a, IntPoint b)=>a.Equals(b);
         public static bool operator !=(IntPoint a, IntPoint b)=>!a.Equals(b);
+
+
+
+
+
+        public List<IntPoint> GetAdjacentPoints()
+        {
+            return new List<IntPoint>() {
+                new IntPoint(X+1, Y),
+                new IntPoint(X-1, Y),
+                new IntPoint(X, Y+1),
+                new IntPoint(X, Y-1),
+                new IntPoint(X+1, Y+1),
+                new IntPoint(X-1, Y-1),
+                new IntPoint(X+1, Y-1),
+                new IntPoint(X-1, Y+1)
+            };
+        }
+
+
+
         public override bool Equals(object obj) => (obj is IntPoint) && Equals((IntPoint)obj);
         public bool Equals(IntPoint other) => (X == other.X) && (Y == other.Y);
         public override int GetHashCode()

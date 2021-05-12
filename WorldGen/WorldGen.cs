@@ -11,11 +11,11 @@ namespace IAmACube
     {
         public static World GenerateEmptyWorld(int seed)
         {
-            var world = new World(seed,Config.DefaultSectorSize);
-            var centre = GetTestSector(new IntPoint(0, 0),world.SectorSize);
+            var world = new World(new Random().Next(),Config.DefaultSectorSize);
+            var centre = GetTestSector(world.Random,new IntPoint(0, 0),world.SectorSize);
             world.AddSector(centre);
 
-            AttachmentUtils.AddOuterSectors(world);
+            //AttachmentUtils.AddOuterSectors(world);
             //AttachmentUtils.AddOuterSectors(world);
 
             //world.AddSector(GetTestSector(new Point(1, 0)));
@@ -34,24 +34,52 @@ namespace IAmACube
 
             return world;
         }
-
-
-
-        public static Sector GetTestSector(IntPoint coords,int sectorSize)
+        public static Sector GetTestSector(Random r, IntPoint coords, int sectorSize)
         {
-            var sector = _getInitializedSector(coords,sectorSize);
+            var sector = _getInitializedSector(coords, sectorSize);
             _setBasicGround(sector);
+
+            _testWorldGeneration(r, sector);
 
             return sector;
         }
+
         private static void _setBasicGround(Sector sector)
         {
             foreach (var tile in sector.TileGrid)
             {
-                var ground = Templates.GenerateGround("grassPatch",0);
+                var ground = Templates.GenerateGround("grassPatch", 0);
                 ground.EnterLocation(tile);
             }
         }
+
+
+        private static void _testWorldGeneration(Random r, Sector sector)
+        {
+            var grid = new WorldGenGrid(sector.Size,r);
+
+            //var shootEnemy = Templates.Database["ShootEnemy"][0];
+            //grid.AddRandom(BlockMode.Surface, shootEnemy, 64);
+
+
+            var rock = Templates.Database["Rock1"][0];
+            var rock2 = Templates.Database["Rock2"][0];
+
+            grid.AddRandom(BlockMode.Surface, rock, 16);
+            grid.AddToSide(BlockMode.Surface, rock, 1, 2);
+            grid.AddToSide(BlockMode.Surface, rock, 0.3, 2);
+            grid.AddToSide(BlockMode.Surface, rock, 0.2, 2);
+            grid.AddToSide(BlockMode.Surface, rock, 0.05, 2);
+
+            //grid.AddRandom(BlockMode.Surface, rock2, 5);
+            //grid.AddToSide(BlockMode.Surface, rock2, 0.1, 8);
+
+            //grid.AddRandom(r, BlockMode.Surface, "ShootEnemy", 0, 4);
+            //grid.AddRandom(r, BlockMode.Surface, "Rock2", 0, 128);
+
+            grid.OverlayOnSector(sector);
+        }
+
 
         public static void AddPlayer(World world,SurfaceBlock player)
         {
@@ -68,45 +96,14 @@ namespace IAmACube
 
             world.FocusOn(player);
         }
-        public static void AddEntities(Sector sector, Random random)
-        {
-            _addRandom(random, sector, BlockMode.Surface, "ShootEnemy", 0, 4);
-            _addRandom(random, sector, BlockMode.Surface, "Rock1", 0, 128);
-            _addRandom(random, sector, BlockMode.Surface, "Rock2", 0, 128);
-            //_addRandom(random, sector, BlockMode.Surface, "ApproachEnemy",0, 16);
-            //_addRandom(random, sector, BlockMode.Surface, "FleeEnemy", 0, 16);
 
-            //_addRandom(world.Random, centre, BlockMode.Surface, "Spinner",0, 16);
-            //_addRandom(world.Random, world.Centre, BlockType.Ephemeral,"Bullet", 16);
-        }
 
-        private static void _addRandom(Random r, Sector sector,BlockMode blockType, string blockname,int version,int number)
-        {
-            var emptyTiles = sector.Tiles.Where(t => t.Surface == null).ToList();
-            emptyTiles = RandomUtils.GetShuffledList(emptyTiles,r);
-
-            var emptySize = emptyTiles.Count();
-            if(emptySize < number)
-            {
-                Console.WriteLine("Worldgen warning: tried to add " + number + " blocks to a sector, but there are only " + emptySize + " free tiles.");
-                number = emptySize;
-            }
-
-            for (int i = 0; i < number; i++)
-            {
-                var block = Templates.Generate(blockname, version,blockType);
-                var tile = emptyTiles[i];
-
-                block.EnterLocation(tile);
-                sector.AddBlockToSector(block);
-            }
-        }
         private static Sector _getInitializedSector(IntPoint sectorOrigin,int sectorSize)
         {
             var (tiles,tilesFlattened) = _getInitializedGrid(sectorOrigin, sectorSize);
             AttachmentUtils.AttachTileGridToSelf(tiles, sectorSize);
 
-            var sector = new Sector(sectorOrigin, tiles, tilesFlattened);
+            var sector = new Sector(new IntPoint(sectorSize,sectorSize),sectorOrigin, tiles, tilesFlattened);
             return sector;
         }
         private static (Tile[,] tiles, List<Tile> tilesFlattened) _getInitializedGrid(IntPoint sectorOrigin,int sectorSize)

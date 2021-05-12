@@ -33,6 +33,11 @@ namespace IAmACube
             {
                 _autoLoadTestWorld();
             }
+            if (input.IsKeyJustReleased(Keys.Pause))
+            {
+                _autoGenerateAndLoadTestWorld();
+            }
+
 
             CurrentScreen.Update(input);
         }
@@ -91,6 +96,15 @@ namespace IAmACube
             LoadGameScreen(kernel, world);
             SwitchScreen(ScreenType.Game);
         }
+
+        private void _autoGenerateAndLoadTestWorld()
+        {
+            var (kernel,world) = SaveManager.GenerateTestSave();
+
+            LoadGameScreen(kernel, world);
+            SwitchScreen(ScreenType.Game);
+        }
+
     }
 
 }

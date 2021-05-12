@@ -12,18 +12,20 @@ namespace IAmACube
     {
         public readonly Tile[,] TileGrid;
         public readonly List<Tile> Tiles;
+        public readonly IntPoint Size;
 
         public List<Block> ActiveBlocks;
         private List<Block> _destructibleBlocks;
 
         private SectorUpdateManager _updateManager;
 
-        public Sector(IntPoint location,Tile[,] tileGrid, List<Tile> tiles) : base(location)
+        public Sector(IntPoint size,IntPoint location,Tile[,] tileGrid, List<Tile> tiles) : base(location)
         {
-            _updateManager = new SectorUpdateManager(this);
-
+            Size = size;
             TileGrid = tileGrid;
             Tiles = tiles;
+
+            _updateManager = new SectorUpdateManager(this);
 
             ActiveBlocks = new List<Block>();
             _destructibleBlocks = new List<Block>();

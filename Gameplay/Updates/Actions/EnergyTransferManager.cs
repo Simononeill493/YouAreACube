@@ -11,12 +11,15 @@ namespace IAmACube
     {
         public void TryGiveEnergy(Block actor, CardinalDirection cardinalDir,BlockMode blockMode, int energyAmount)
         {
-            var destination = actor.Location.Adjacent[cardinalDir];
-            var target = destination.GetBlock(blockMode);
-
-            if (target != null)
+            if(actor.Location.HasNeighbour(cardinalDir))
             {
-                target.TryTakeEnergyFrom(actor,energyAmount);
+                var destination = actor.Location.Adjacent[cardinalDir];
+                var target = destination.GetBlock(blockMode);
+
+                if (target != null)
+                {
+                    target.TryTakeEnergyFrom(actor, energyAmount);
+                }
             }
         }
     }
