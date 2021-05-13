@@ -14,6 +14,7 @@ namespace IAmACube
         private CreationManager _creationManager;
         private DestructionManager _destructionManager;
         private EnergyTransferManager _energyTransferManager;
+        private ZapManager _zapManager;
 
         public SectorUpdateManager(Sector sector)
         {
@@ -21,8 +22,9 @@ namespace IAmACube
             _creationManager = new CreationManager(sector);
             _destructionManager = new DestructionManager(sector);
             _energyTransferManager = new EnergyTransferManager();
+            _zapManager = new ZapManager();
 
-            _actionManager = new ActionManager(_moveManager,_creationManager, _energyTransferManager);
+            _actionManager = new ActionManager(_moveManager,_creationManager, _energyTransferManager, _zapManager);
         }
 
         public void Update(ActionsList actions)

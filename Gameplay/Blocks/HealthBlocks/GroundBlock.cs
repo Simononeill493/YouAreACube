@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class GroundBlock : Block
+    public class GroundBlock : HealthBlock
     {
         public GroundBlock(BlockTemplate template) : base(template, BlockMode.Ground) { }
 
@@ -17,9 +17,9 @@ namespace IAmACube
             {
                 throw new Exception("Tried to add a ground to a location it already exists in");
             }
-            if (!Location.IsDummy)
+            if (!Location.HasThisGround(this))
             {
-                throw new NotImplementedException("Ground already has a position - moving ground from place to place is not implemented");
+                throw new Exception("Ground block is being moved, but its current tile does not register it as present.");
             }
 
             Location.Ground = null;
@@ -27,7 +27,6 @@ namespace IAmACube
             Location.Ground = this;
         }
 
-        public override bool CanOccupyDestination(Tile destination) => throw new NotImplementedException();
-        public override bool ToBeDeleted() => throw new NotImplementedException();
+        public override bool CanOccupyDestination(Tile destination) => !destination.HasGround;
     }
 }

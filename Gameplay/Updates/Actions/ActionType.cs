@@ -15,6 +15,7 @@ namespace IAmACube
         CardinalCreation,
         RelativeCreation,
         CardinalGiveEnergy,
-        RelativeGiveEnergy
+        RelativeGiveEnergy,
+        Zap
     }
 }

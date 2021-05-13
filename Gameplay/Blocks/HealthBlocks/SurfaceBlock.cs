@@ -8,14 +8,9 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public partial class SurfaceBlock : Block
+    public partial class SurfaceBlock : HealthBlock
     {
-        public bool Dormant = false;
-
-        public SurfaceBlock(BlockTemplate template): base(template, BlockMode.Surface)
-        {
-            Health = MaxHealth;
-        }
+        public SurfaceBlock(BlockTemplate template) : base(template, BlockMode.Surface) { }
 
         public override void EnterLocation(Tile destination)
         {
@@ -33,14 +28,7 @@ namespace IAmACube
             Location.Surface = this;
         }
 
-        public void GoDormant()
-        {
-            Dormant = true;
-            ColorMask = (128, 128, 128, 255);
-        }
 
         public override bool CanOccupyDestination(Tile destination) => !destination.HasSurface;
-        public override bool ToBeDeleted() => (Dormant & !Active);
-        public override bool CanUpdate => !Dormant;
     }
 }

@@ -109,6 +109,8 @@ namespace IAmACube
 
     public class WorldGenGridPoint
     {
+        public string TileSprite;
+
         public BlockTemplate Surface;
         public BlockTemplate Ground;
         public BlockTemplate Ephemeral;
@@ -116,6 +118,8 @@ namespace IAmACube
         public Dictionary<BlockMode, bool> Surrounded;
         public WorldGenGridPoint()
         {
+            TileSprite = "Grass";
+
             Surrounded = new Dictionary<BlockMode, bool>();
             Surrounded[BlockMode.Surface] = false;
             Surrounded[BlockMode.Ground] = false;
@@ -169,6 +173,8 @@ namespace IAmACube
 
         public void OverlayOnTile(Sector s,Tile t)
         {
+            t.Sprite = TileSprite;
+
             if (Surface != null)
             {
                 var block = Surface.GenerateSurface();

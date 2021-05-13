@@ -57,10 +57,8 @@ namespace IAmACube
         {
             _updateManager.AddBlockToUpdates(block);
 
-            if (block.BlockType != BlockMode.Ground)
-            {
-                _destructibleBlocks.Add(block);
-            }
+            _destructibleBlocks.Add(block);
+
             if (block.Active)
             {
                 ActiveBlocks.Add(block);
@@ -70,14 +68,12 @@ namespace IAmACube
         {
             _updateManager.RemoveBlockFromUpdates(block);
 
-            if (block.BlockType != BlockMode.Ground)
+            var destructibleRemoved = _destructibleBlocks.Remove(block);
+            if (!destructibleRemoved)
             {
-                var destructibleRemoved = _destructibleBlocks.Remove(block);
-                if (!destructibleRemoved)
-                {
-                    throw new Exception("Tried to remove a block, but it wasn't in the expected sector");
-                }
+                throw new Exception("Tried to remove a block, but it wasn't in the expected sector");
             }
+
             if (block.Active)
             {
                 var activeRemoved = ActiveBlocks.Remove(block);

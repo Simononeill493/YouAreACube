@@ -12,12 +12,15 @@ namespace IAmACube
         private MoveManager _moveManager;
         private CreationManager _creationManager;
         private EnergyTransferManager _energyTransferManager;
+        private ZapManager _zapManager;
 
-        public ActionManager(MoveManager moveManager,CreationManager creationManager,EnergyTransferManager energyTransferManager)
+
+        public ActionManager(MoveManager moveManager,CreationManager creationManager,EnergyTransferManager energyTransferManager, ZapManager zapManager)
         {
             _moveManager =  moveManager;
             _creationManager =  creationManager;
             _energyTransferManager = energyTransferManager;
+            _zapManager = zapManager;
         }
 
         public void ProcessActions(ActionsList actions)
@@ -51,6 +54,9 @@ namespace IAmACube
                     case ActionType.RelativeGiveEnergy:
                         var cardinal3 = DirectionUtils.ToCardinal(effect.Actor.Orientation, effect.RelativeDir);
                         _energyTransferManager.TryGiveEnergy(effect.Actor, cardinal3, effect.BlockType,effect.EnergyAmount);
+                        break;
+                    case ActionType.Zap:
+                        _zapManager.TryZap(effect.Actor, effect.BlockType);
                         break;
 
                 }

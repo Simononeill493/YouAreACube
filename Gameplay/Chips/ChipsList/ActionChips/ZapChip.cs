@@ -7,19 +7,14 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    class ZapSurfaceChip : IChip
+    class ZapChip : InputPin<BlockMode>
     {
         public string Name { get; set; }
+        public BlockMode ChipInput1 { get; set; }
 
         public void Run(Block actor, UserInput userInput, ActionsList actions)
         {
-            if(actor.Location.HasSurface & !actor.ToBeDeleted())
-            {
-                var energy = actor.Energy;
-
-                actor.TakeEnergy(energy);
-                actor.Location.Surface.DealDamage(energy);
-            }
+            actions.AddZapAction(actor, ChipInput1);
         }
     }
 }

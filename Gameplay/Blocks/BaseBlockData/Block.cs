@@ -43,6 +43,7 @@ namespace IAmACube
         public virtual void BeCreatedBy(Block creator) => SpeedOffset = creator.SpeedOffset + 1;
         public virtual bool CanUpdate => true;
         public abstract bool ToBeDeleted();
+        public virtual void DealDamage(int amount) { }
 
 
         public void Rotate(int rotation) => Orientation = Orientation.Rotate(rotation);

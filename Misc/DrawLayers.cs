@@ -12,6 +12,7 @@ namespace IAmACube
 
         public const float BackgroundLayer = 1;
 
+        public const float TileLayer = 0.95f;
         public const float GroundLayer = 0.9f;
         public const float SurfaceLayer = 0.8f;
         public const float EphemeralLayer = 0.7f;

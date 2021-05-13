@@ -98,9 +98,9 @@
 	  "inputs":["int"],
     },
 	{
-      "name":"ZapSurface",
+      "name":"Zap",
 	  "datatype":"Action",
-	  "inputs":[],
+	  "inputs":["BlockMode"],
     },
 	{
       "name":"If",

@@ -53,6 +53,12 @@ namespace IAmACube
 
         public void ChangeScale(int offset)
         {
+            var currentViewRange = Math.Min(VisibleGrid.X, VisibleGrid.Y);
+            if (!DebugMode & (offset > 0 & currentViewRange < 8))
+            {
+                return;
+            }
+
             var newScale = offset + Scale;
             if (newScale < 1)
             {

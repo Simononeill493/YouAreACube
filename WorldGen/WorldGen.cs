@@ -37,39 +37,40 @@ namespace IAmACube
         public static Sector GetTestSector(Random r, IntPoint coords, int sectorSize)
         {
             var sector = _getInitializedSector(coords, sectorSize);
-            _setBasicGround(sector);
 
             _testWorldGeneration(r, sector);
 
             return sector;
         }
 
-        private static void _setBasicGround(Sector sector)
-        {
-            foreach (var tile in sector.TileGrid)
-            {
-                var ground = Templates.GenerateGround("grassPatch", 0);
-                ground.EnterLocation(tile);
-            }
-        }
-
-
         private static void _testWorldGeneration(Random r, Sector sector)
         {
             var grid = new WorldGenGrid(sector.Size,r);
 
-            //var shootEnemy = Templates.Database["ShootEnemy"][0];
-            //grid.AddRandom(BlockMode.Surface, shootEnemy, 64);
 
+            var plants = Templates.Database["Plants1"][0];
+            grid.AddRandom(BlockMode.Ground, plants, r.Next(8, 48));
+            grid.AddToSide(BlockMode.Ground, plants, 0.1, 15);
 
             var rock = Templates.Database["Rock1"][0];
-            var rock2 = Templates.Database["Rock2"][0];
+            grid.AddRandom(BlockMode.Surface, rock, r.Next(8,48));
+            grid.AddToSide(BlockMode.Surface, rock, 0.1, 15);
 
-            grid.AddRandom(BlockMode.Surface, rock, 16);
+            var rock2 = Templates.Database["Rock2"][0];
+            grid.AddRandom(BlockMode.Surface, rock2, r.Next(4, 24));
+            grid.AddToSide(BlockMode.Surface, rock2, 0.1, r.Next(8, 12));
+
+            grid.AddRandom(BlockMode.Surface, Templates.Database["ShootEnemy"][0], r.Next(4, 16));
+            grid.AddRandom(BlockMode.Surface, Templates.Database["ApproachEnemy"][0], r.Next(4, 16));
+            grid.AddRandom(BlockMode.Surface, Templates.Database["FleeEnemy"][0], r.Next(4, 16));
+            grid.AddRandom(BlockMode.Surface, Templates.Database["MouseFollower"][0], r.Next(4, 16));
+            grid.AddRandom(BlockMode.Surface, Templates.Database["Spinner"][0], r.Next(4, 16));
+
+            /*grid.AddRandom(BlockMode.Surface, rock, 16);
             grid.AddToSide(BlockMode.Surface, rock, 1, 2);
             grid.AddToSide(BlockMode.Surface, rock, 0.3, 2);
             grid.AddToSide(BlockMode.Surface, rock, 0.2, 2);
-            grid.AddToSide(BlockMode.Surface, rock, 0.05, 2);
+            grid.AddToSide(BlockMode.Surface, rock, 0.05, 2);*/
 
             //grid.AddRandom(BlockMode.Surface, rock2, 5);
             //grid.AddToSide(BlockMode.Surface, rock2, 0.1, 8);

@@ -74,6 +74,6 @@ namespace IAmACube
         }
         private bool _canCreateEphemeral(Block creator, BlockTemplate template, Tile targetPosition) => creator.IsInCentreOfBlock & (creator.Energy >= template.MaxEnergy);
         private bool _canCreateSurface(Block creator, BlockTemplate template, Tile targetPosition) => !targetPosition.HasSurface;
-        private bool _canCreateGround(Block creator, BlockTemplate template, Tile targetPosition) => throw new NotImplementedException("Haven't implemented ground creation");
+        private bool _canCreateGround(Block creator, BlockTemplate template, Tile targetPosition) => !targetPosition.HasGround;
     }
 }

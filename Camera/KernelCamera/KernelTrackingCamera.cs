@@ -27,6 +27,9 @@ namespace IAmACube
 
         protected override void _update(UserInput input)
         {
+            var currentViewRange = Math.Min(_config.VisibleGrid.X, _config.VisibleGrid.Y);
+            _scrollBoundary.BoundaryNumTiles = (currentViewRange / 2);
+
             _kernelPositionOnScreen = _config.GetPosOnScreen(_kernel.Host);
             _kernelCameraUpdate(input);
         }

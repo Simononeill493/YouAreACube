@@ -17,6 +17,8 @@ namespace IAmACube
         }
 
         public void AddMoveAction(Block block, CardinalDirection direction) => Actions.Add(new BlockAction(block, ActionType.CardinalMovement) { CardinalDir = direction, MoveSpeed = block.Speed });
+
+
         public void AddMoveAction(Block block, RelativeDirection direction) => Actions.Add(new BlockAction(block, ActionType.RelativeMovement) { RelativeDir = direction, MoveSpeed = block.Speed });
         public void AddRotationAction(Block block, int rotation) => Actions.Add(new BlockAction(block, ActionType.Rotation) { Rotation = rotation });
 
@@ -70,5 +72,19 @@ namespace IAmACube
 
             Actions.Add(giveEnergyAction);
         }
+
+
+
+
+        internal void AddZapAction(Block actor, BlockMode blockMode)
+        {
+            var zapAction = new BlockAction(actor, ActionType.Zap)
+            {
+                BlockType = blockMode
+            };
+
+            Actions.Add(zapAction);
+        }
+
     }
 }

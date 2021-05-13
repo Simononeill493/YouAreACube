@@ -10,6 +10,7 @@ namespace IAmACube
     [Serializable()]
     public class Tile : LocationWithNeighbors<Tile>
     {
+        public string Sprite = "Grass";
         public IntPoint LocationInSector { get; }
         public IntPoint SectorID { get; }
         public bool InSector(Sector sector) => sector.AbsoluteLocation.Equals(SectorID);
@@ -33,8 +34,9 @@ namespace IAmACube
         }
         public List<Block> GetBlocks()
         {
-            var output = new List<Block>() { Ground };
-            if(HasSurface) { output.Add(Surface); }
+            var output = new List<Block>();
+            if (HasGround) { output.Add(Ground); }
+            if (HasSurface) { output.Add(Surface); }
             if (HasEphemeral) { output.Add(Ephemeral); }
             return output;
         }
@@ -43,6 +45,7 @@ namespace IAmACube
         public virtual bool HasThisGround(GroundBlock ground) => ground == Ground;
         public virtual bool HasThisEphemeral(EphemeralBlock ephemeral) => ephemeral == Ephemeral;
 
+        public bool HasGround => (Ground != null);
         public bool HasSurface => (Surface != null);
         public bool HasEphemeral => (Ephemeral != null);
         public bool HasBlock(BlockMode blockMode)
@@ -52,7 +55,7 @@ namespace IAmACube
                 case BlockMode.Surface:
                     return HasSurface;
                 case BlockMode.Ground:
-                    return true;
+                    return HasGround;
                 case BlockMode.Ephemeral:
                     return HasEphemeral;
             }
@@ -78,7 +81,7 @@ namespace IAmACube
                 case BlockMode.Surface:
                     return HasSurface;
                 case BlockMode.Ground:
-                    return true;
+                    return HasGround;
                 case BlockMode.Ephemeral:
                     return HasEphemeral;
             }
@@ -95,6 +98,10 @@ namespace IAmACube
                 case BlockMode.Ephemeral:
                     _clearEphemeral(block);
                     return;
+                case BlockMode.Ground:
+                    _clearGround(block);
+                    return;
+
             }
 
             throw new Exception("Tried to clear a block type which cannot be cleared: " + block.BlockType);
@@ -114,6 +121,14 @@ namespace IAmACube
             {
                 throw new Exception("Ephemeral block should have been cleared when it faded, but it's still in its tile.");
             }
+        }
+        private void _clearGround(Block block)
+        {
+            if (block != Ground)
+            {
+                throw new Exception("Deleted a ground block whose tile thinks it's not there.");
+            }
+            Ground = null;
         }
 
         #region dummyTile

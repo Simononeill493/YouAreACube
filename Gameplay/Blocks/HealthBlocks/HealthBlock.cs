@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    partial class SurfaceBlock
+    [Serializable()]
+    public abstract class HealthBlock : Block
     {
+        public bool Dormant = false;
         public int Health { get; private set; }
         public int MaxHealth => Template.MaxHealth;
         public float HealthRemainingPercentage => ((float)Health) / MaxHealth;
 
+        protected HealthBlock(BlockTemplate template, BlockMode blockType) : base(template,blockType)
+        {
+            Health = MaxHealth;
+        }
 
-        public void DealDamage(int amount)
+
+        public override void DealDamage(int amount)
         {
             if(Dormant)
             {
@@ -28,5 +35,14 @@ namespace IAmACube
                 GoDormant();
             }
         }
+
+        public void GoDormant()
+        {
+            Dormant = true;
+            ColorMask = (128, 128, 128, 255);
+        }
+
+        public override bool ToBeDeleted() => (Dormant & !Active);
+        public override bool CanUpdate => !Dormant;
     }
 }

@@ -126,11 +126,12 @@ namespace IAmACube
             blockLocationChip.Targets1.Add(shootDirChip);
             shootDirChip.Targets1.Add(shootAdjchip);
 
-            var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip, ifChip, randDirChip, moveRandChip) { Name = "_Initial" };
+            var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip, ifChip) { Name = "_Initial" };
             var shootBlock = new ChipBlock(firstOfListChip, blockLocationChip, shootDirChip, shootAdjchip) { Name = "Shoot" };
+            var wanderBlock = new ChipBlock(randDirChip, moveRandChip) { Name = "Wander" };
 
             isListEmptyChip.Targets1.Add(ifChip);
-            ifChip.Yes = ChipBlock.NoAction;
+            ifChip.Yes = wanderBlock;
             ifChip.No = shootBlock;
 
             return initialBlock;
@@ -177,7 +178,7 @@ namespace IAmACube
         }
         public static ChipBlock MakeBulletBlock()
         {
-            var zapSurfaceChip = new ZapSurfaceChip() { Name = "ZapSurfaceChip" };
+            var zapSurfaceChip = new ZapChip() { Name = "ZapSurfaceChip", ChipInput1 = BlockMode.Surface };
 
             var moveForwardChip = new MoveRelativeChip() { Name = "MoveRelative_1" };
             moveForwardChip.ChipInput1 = RelativeDirection.Forward;
@@ -186,7 +187,7 @@ namespace IAmACube
         }
         public static ChipBlock MakeSpinBulletBlock()
         {
-            var zapSurfaceChip = new ZapSurfaceChip() { Name = "ZapSurfaceChip" };
+            var zapSurfaceChip = new ZapChip() { Name = "ZapSurfaceChip", ChipInput1 = BlockMode.Surface };
 
             var moveForwardChip = new MoveRelativeChip() { Name = "MoveRelative_1" };
             moveForwardChip.ChipInput1 = RelativeDirection.Forward;
