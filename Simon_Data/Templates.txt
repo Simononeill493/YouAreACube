@@ -57,6 +57,13 @@
       "speed":3
     },
 	{
+      "name":"BigBullet",
+      "sprite":"BigBullet",
+	  "maxEnergy":300,
+      "speed":8
+    },
+
+	{
       "name":"Rock1",
       "sprite":"Rock1",
 	  "maxHealth":500,

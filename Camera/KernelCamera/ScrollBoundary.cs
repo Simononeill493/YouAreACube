@@ -8,23 +8,27 @@ namespace IAmACube
 {
     public struct ScrollBoundary
     {
-        public int BoundaryNumTiles;
-        public int BoundarySize;
+        public IntPoint BoundaryNumTiles;
+        public IntPoint BoundarySize;
 
         public int Top;
         public int Left;
         public int Bottom;
         public int Right;
 
-        public void Update(int tileSize)
+        public void Update(CameraConfiguration config)
         {
+            var tileSize = config.TileSizePixels;
+
+            //BoundaryNumTiles = (config.VisibleGrid / 2);
+            BoundaryNumTiles = config.VisibleGrid/3;
             BoundarySize = BoundaryNumTiles * tileSize;
 
-            Top = BoundarySize - tileSize;
-            Left = BoundarySize - tileSize;
+            Top = BoundarySize.Y - tileSize;
+            Left = BoundarySize.X - tileSize;
 
-            Bottom = (MonoGameWindow.CurrentSize.Y - BoundarySize);
-            Right = (MonoGameWindow.CurrentSize.X - BoundarySize);
+            Bottom = (MonoGameWindow.CurrentSize.Y - BoundarySize.Y);
+            Right = (MonoGameWindow.CurrentSize.X - BoundarySize.X);
         }
 
         public IntPoint GetBoundaryPushBack(IntPoint curPos)

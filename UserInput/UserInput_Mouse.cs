@@ -14,14 +14,17 @@ namespace IAmACube
         public int MouseX;
         public int MouseY;
 
-        public bool MouseLeftJustPressed;
-        public bool MouseRightJustPressed;
-
         public bool MouseLeftPressed;
         public bool MouseRightPressed;
+        public bool MouseMiddlePressed;
 
         public bool MouseLeftReleased;
         public bool MouseRightReleased;
+        public bool MouseMiddleReleased;
+
+        public bool MouseLeftJustPressed;
+        public bool MouseRightJustPressed;
+        public bool MouseMiddleJustPressed;
 
         public int ScrollDifference;
         public int ScrollDirection;
@@ -37,12 +40,15 @@ namespace IAmACube
 
             MouseLeftPressed = MouseState.LeftButton == ButtonState.Pressed;
             MouseRightPressed = MouseState.RightButton == ButtonState.Pressed;
+            MouseMiddlePressed = MouseState.MiddleButton == ButtonState.Pressed;
 
             MouseLeftReleased = MouseState.LeftButton == ButtonState.Released;
             MouseRightReleased = MouseState.RightButton == ButtonState.Released;
+            MouseMiddleReleased = MouseState.MiddleButton == ButtonState.Released;
 
             MouseLeftJustPressed = MouseLeftPressed & (oldMouseState.LeftButton == ButtonState.Released);
             MouseRightJustPressed = MouseRightPressed & (oldMouseState.RightButton == ButtonState.Released);
+            MouseMiddleJustPressed = MouseMiddlePressed & (oldMouseState.MiddleButton == ButtonState.Released);
 
             ScrollDifference = MouseState.ScrollWheelValue - oldMouseState.ScrollWheelValue;
             ScrollDirection += ScrollDifference > 0 ? 1 : ScrollDifference < 0 ? -1 : 0;

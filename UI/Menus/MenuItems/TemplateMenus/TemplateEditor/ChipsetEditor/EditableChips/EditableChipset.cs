@@ -155,5 +155,7 @@ namespace IAmACube
 
             return null;
         }
+
+        public override string ToString() => Name;
     }
 }

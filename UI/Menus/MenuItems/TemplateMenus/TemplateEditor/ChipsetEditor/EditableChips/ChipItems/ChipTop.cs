@@ -222,5 +222,7 @@ namespace IAmACube
                 return new ChipTop(name,initialDrawLayer, data);
             }
         }
+
+        public override string ToString() => Name;
     }
 }

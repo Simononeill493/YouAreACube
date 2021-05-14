@@ -28,7 +28,16 @@ namespace IAmACube
 
         private void _updateChildren(UserInput input) => _children.ForEach(child => child.Update(input));
         private void _drawChildren(DrawingInterface drawingInterface)=>_children.ForEach(child => child.Draw(drawingInterface));
-        
+
+
+        public void AddAndRemoveQueuedChildren_Cascade()
+        {
+            _addAndRemoveQueuedChildren();
+            foreach (var child in _children)
+            {
+                child.AddAndRemoveQueuedChildren_Cascade();
+            }
+        }
         private void _addAndRemoveQueuedChildren()
         {
             if (_toAdd.Any())

@@ -45,7 +45,12 @@
 	  "output":"Tile"
     },
 	
-	
+	{
+      "name":"IsBlockActive",
+	  "datatype":"General",
+	  "inputs":["AnyBlock"],
+	  "output":"bool"
+    },
 	{
       "name":"FirstOfList",
 	  "datatype":"General",

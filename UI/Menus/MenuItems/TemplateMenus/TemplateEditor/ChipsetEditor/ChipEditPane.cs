@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class ChipEditPane : SpriteMenuItem, IEditableChipsetContainer, IChipsetGenerator
+    partial class ChipEditPane : SpriteMenuItem, IEditableChipsetContainer, IChipsetGenerator
     {
         public Func<UserInput, bool> IsMouseOverSearchPane;
         public List<EditableChipset> TopLevelChipsets;
@@ -48,7 +48,6 @@ namespace IAmACube
             _dropChipsetOnPane(generatedChipset);
         }
 
-
         public void ConfigureNewChipsetFromSearchPaneClick(ChipTop newChip, UserInput input)
         {
             newChip.MultiplyScaleCascade(_chipScaleMultiplier);
@@ -65,7 +64,6 @@ namespace IAmACube
 
             _checkForChipsetGarbageCollection(removedFrom);
         }
-        
         public EditableChipset CreateChipset(string name)
         {
             var newChipset = new EditableChipset(name, this, _chipScaleMultiplier, ConfigureNewChipsetFromExistingChips);
@@ -74,7 +72,6 @@ namespace IAmACube
             _allChipsets.Add(newChipset);
             return newChipset;
         }
-
 
         public void AddChipset(EditableChipset newChipset)
         {
@@ -96,14 +93,6 @@ namespace IAmACube
             RemoveChildAfterUpdate(newChipset);
             TopLevelChipsets.Remove(newChipset);
         }
-
-
-
-
-
-
-
-
 
         private void _chipsetDropped(EditableChipset droppedChipset, UserInput input)
         {
@@ -192,9 +181,6 @@ namespace IAmACube
                 _destroyChipset(toCheck);
             }
         }
-        
-        
-        
 
         protected override void _updateChildDimensions()
         {

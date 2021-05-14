@@ -23,6 +23,7 @@ namespace IAmACube
 
         public void SetLocationConfig(int x, int y, CoordinateMode coordinateMode, bool centered = false) => SetLocationConfig(new IntPoint(x, y), coordinateMode, centered);
         public void SetLocationConfig(IntPoint location, CoordinateMode coordinateMode, bool centered = false) => _locationConfig = (location, coordinateMode, centered);
+        public void OffsetLocationConfig(IntPoint offset) => _locationConfig.loc += offset;
 
         public void UpdateDimensionsCascade(IntPoint parentlocation, IntPoint parentSize)
         {
@@ -38,7 +39,10 @@ namespace IAmACube
         public void MultiplyScaleCascade(float multiplier)
         {
             MultiplyScale(multiplier);
-            _children.ForEach(child => child.MultiplyScaleCascade(multiplier));
+            foreach(var child in _children)
+            {
+                child.MultiplyScaleCascade(multiplier);
+            }
         }
         public void MultiplyScale(float multiplier) => ScaleMultiplier *= multiplier;
         

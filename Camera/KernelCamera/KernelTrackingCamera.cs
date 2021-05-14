@@ -18,8 +18,6 @@ namespace IAmACube
 
         public KernelTrackingCamera(Kernel kernel) : base(kernel)
         {
-            _scrollBoundary.BoundaryNumTiles = 3;
-
             _config.Scale = 4;
             _config.UpdateScaling();
             _config.SnapToBlock(kernel.Host,IntPoint.Zero);
@@ -27,16 +25,13 @@ namespace IAmACube
 
         protected override void _update(UserInput input)
         {
-            var currentViewRange = Math.Min(_config.VisibleGrid.X, _config.VisibleGrid.Y);
-            _scrollBoundary.BoundaryNumTiles = (currentViewRange / 2);
-
             _kernelPositionOnScreen = _config.GetPosOnScreen(_kernel.Host);
             _kernelCameraUpdate(input);
         }
 
         protected void _kernelCameraUpdate(UserInput input)
         {
-            _scrollBoundary.Update(_config.TileSizePixels);
+            _scrollBoundary.Update(_config);
             if(_scrollBoundary.WithinBoundary(_kernelPositionOnScreen))
             {
                 _isScrolling = false;

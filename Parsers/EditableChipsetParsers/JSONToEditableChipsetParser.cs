@@ -68,6 +68,7 @@ namespace IAmACube
             }
 
             var baseChipset = chipsetsJson.First(c => c.Name.Equals("_Initial")).Chipset;
+            baseChipset.AddAndRemoveQueuedChildren_Cascade();
             return baseChipset;
         }
 

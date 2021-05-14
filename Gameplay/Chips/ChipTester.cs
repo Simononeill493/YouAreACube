@@ -29,6 +29,8 @@ namespace IAmACube
             blockTemplates["Spinner"][0].ChipBlock = TestSpinBlock;
             blockTemplates["Bullet"][0].ChipBlock = TestBulletBlock;
             blockTemplates["MiniBullet"][0].ChipBlock = TestBulletBlock;
+            blockTemplates["BigBullet"][0].ChipBlock = TestBulletBlock;
+
             blockTemplates["BasicPlayer"][0].ChipBlock = TestPlayerBlock;
             blockTemplates["MouseFollower"][0].ChipBlock = TestMouseFollowBlock;
 
@@ -106,33 +108,47 @@ namespace IAmACube
 
         public static ChipBlock MakeShootBlock()
         {
-            var getNeighboursChip = new GetNeighbouringBlocksOfTypeChip() { Name = "GetNeighbours_1", ChipInput1 = BlockMode.Surface };
-            var randDirChip = new RandomCardinalChip() { Name = "RandomDir_1" };
+            var randDirChip1 = new RandomCardinalChip() { Name = "RandomDir_1" };
+            var moveRandChip1 = new MoveCardinalChip() { Name = "MoveCardinal_1" }; 
+            randDirChip1.Targets1.Add(moveRandChip1);
+            var wanderBlock1 = new ChipBlock(randDirChip1, moveRandChip1) { Name = "Wander1" };
 
-            var ifChip = new IfChip() { Name = "If_1" };
+            var randDirChip2 = new RandomCardinalChip() { Name = "RandomDir_2" };
+            var moveRandChip2 = new MoveCardinalChip() { Name = "MoveCardinal_2" };
+            randDirChip2.Targets1.Add(moveRandChip1);
+            var wanderBlock2 = new ChipBlock(randDirChip2, moveRandChip2) { Name = "Wander2" };
+
+
+            var getNeighboursChip = new GetNeighbouringBlocksOfTypeChip() { Name = "GetNeighbours_1", ChipInput1 = BlockMode.Surface };
+
+            var ifNoBlockExists = new IfChip() { Name = "If_1" };
+            var ifBlockActive = new IfChip() { Name = "If_2" };
 
             var isListEmptyChip = new IsListEmptyChip<Block>() { Name = "IsListEmpty_1" };
             var firstOfListChip = new FirstOfListChip<Block>() { Name = "FirstOfList_1" };
             var blockLocationChip = new BlockLocationChip<Block>() { Name = "BlockLocation_1" };
             var shootDirChip = new ApproachDirectionChip() { Name = "ApproachDirection_1" };
-            var moveRandChip = new MoveCardinalChip() { Name = "MoveCardinal_1" };
-            var shootAdjchip = new CreateEphemeralCardinalChip() { Name = "CreateEphemeralCardinal_1", ChipInput2 = Templates.Database["Bullet"], ChipInput3 = 0 };
+            var shootAdjchip = new CreateEphemeralCardinalChip() { Name = "CreateEphemeralCardinal_1", ChipInput2 = Templates.Database["BigBullet"], ChipInput3 = 0 };
+            var isBlockActiveChip = new IsBlockActiveChip<Block> { Name = "IsBlockActive_1" };
 
             getNeighboursChip.Targets1.Add(isListEmptyChip);
             getNeighboursChip.Targets1.Add(firstOfListChip);
-
-            randDirChip.Targets1.Add(moveRandChip);
             firstOfListChip.Targets1.Add(blockLocationChip);
+            firstOfListChip.Targets1.Add(isBlockActiveChip);
             blockLocationChip.Targets1.Add(shootDirChip);
             shootDirChip.Targets1.Add(shootAdjchip);
+            isBlockActiveChip.Targets1.Add(ifBlockActive);
+            isListEmptyChip.Targets1.Add(ifNoBlockExists);
 
-            var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip, ifChip) { Name = "_Initial" };
-            var shootBlock = new ChipBlock(firstOfListChip, blockLocationChip, shootDirChip, shootAdjchip) { Name = "Shoot" };
-            var wanderBlock = new ChipBlock(randDirChip, moveRandChip) { Name = "Wander" };
+            var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip, ifNoBlockExists) { Name = "_Initial" };
+            var blockExists = new ChipBlock(firstOfListChip, isBlockActiveChip, ifBlockActive) { Name = "Shoot" };
+            var shootInactiveBlock = new ChipBlock(blockLocationChip, shootDirChip, shootAdjchip) { Name = "ShootActive" };
 
-            isListEmptyChip.Targets1.Add(ifChip);
-            ifChip.Yes = wanderBlock;
-            ifChip.No = shootBlock;
+            ifNoBlockExists.Yes = wanderBlock1;
+            ifNoBlockExists.No = blockExists;
+
+            ifBlockActive.Yes = wanderBlock2;
+            ifBlockActive.No = shootInactiveBlock;
 
             return initialBlock;
         }
@@ -142,13 +158,14 @@ namespace IAmACube
         {
             var keySwitch = new KeySwitchChip() { Name = "KeySwitch" };
             var bullet = Templates.Database["Bullet"];
+            var bigBullet = Templates.Database["BigBullet"];
 
             var moveUp = new MoveCardinalChip() { ChipInput1 = CardinalDirection.North, Name = "MoveUp" };
             var moveDown = new MoveCardinalChip() { ChipInput1 = CardinalDirection.South, Name = "MoveDown" };
             var moveLeft = new MoveCardinalChip() { ChipInput1 = CardinalDirection.West, Name = "MoveLeft" };
             var moveRight = new MoveCardinalChip() { ChipInput1 = CardinalDirection.East, Name = "MoveRight" };
-            var createEnemyNorth = new CreateEphemeralCardinalChip() { ChipInput1 = CardinalDirection.North, ChipInput2 = bullet, ChipInput3 = 1, Name = "createEnemyNorth" };
-            var createEnemySouth = new CreateEphemeralCardinalChip() { ChipInput1 = CardinalDirection.South, ChipInput2 = bullet, ChipInput3 = 1, Name = "createEnemySouth" };
+            var createEnemyNorth = new CreateEphemeralCardinalChip() { ChipInput1 = CardinalDirection.North, ChipInput2 = bigBullet, ChipInput3 = 0, Name = "createEnemyNorth" };
+            var createEnemySouth = new CreateEphemeralCardinalChip() { ChipInput1 = CardinalDirection.South, ChipInput2 = bigBullet, ChipInput3 = 0, Name = "createEnemySouth" };
             var createEnemyWest = new CreateEphemeralCardinalChip() { ChipInput1 = CardinalDirection.West, ChipInput2 = bullet, ChipInput3 = 0, Name = "createEnemyWest" };
             var createEnemyEast = new CreateEphemeralCardinalChip() { ChipInput1 = CardinalDirection.East, ChipInput2 = bullet, ChipInput3 = 0, Name = "createEnemyEast" };
 

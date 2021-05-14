@@ -500,6 +500,18 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Tiles/BasicPlayer.png;BasicPlayer.png
 
+#begin ../Simon_Data/To_Import/Tiles/BigBullet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Tiles/BigBullet.png;BigBullet.png
+
 #begin ../Simon_Data/To_Import/Tiles/Black.png
 /importer:TextureImporter
 /processor:TextureProcessor
