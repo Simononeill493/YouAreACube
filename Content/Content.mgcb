@@ -13,6 +13,30 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../Simon_Data/Sounds/pop1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../Simon_Data/Sounds/pop1.wav;pop1.wav
+
+#begin ../Simon_Data/Sounds/pop2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../Simon_Data/Sounds/pop2.wav;pop2.wav
+
+#begin ../Simon_Data/Sounds/pop3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../Simon_Data/Sounds/pop3.wav;pop3.wav
+
+#begin ../Simon_Data/Sounds/wind.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../Simon_Data/Sounds/wind.wav;wind.wav
+
 #begin ../Simon_Data/To_Import/BlankMenus/BlankPixel.png
 /importer:TextureImporter
 /processor:TextureProcessor

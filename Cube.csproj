@@ -101,6 +101,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Misc\FloatPoint.cs" />
     <Compile Include="MonoGameWrapper\MouseSystemData.cs" />
+    <Compile Include="MonoGameWrapper\Sound\SoundInterface.cs" />
     <Compile Include="Parsers\ChipBlockParsers\ChipBlockToJSONParser.cs" />
     <Compile Include="Parsers\EditableChipsetParsers\JSONToEditableChipsetParser.cs" />
     <Compile Include="Parsers\JsonData\ChipBlockJSONData.cs" />

@@ -47,6 +47,12 @@ namespace IAmACube
 
 
 
+        public int DistanceFrom(IntPoint other)
+        {
+            var distancePoint = (this - other).Absolute;
+            var output = distancePoint.X + distancePoint.Y;
+            return output;
+        }
 
         public List<IntPoint> GetAdjacentPoints()
         {

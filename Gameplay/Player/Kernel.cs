@@ -9,6 +9,8 @@ namespace IAmACube
     [Serializable()]
     public class Kernel
     {
+        public static IntPoint HostLoc;
+
         public string Name;
 
         public SurfaceBlock Host { get; private set; }
@@ -35,6 +37,7 @@ namespace IAmACube
         public void Update()
         {
             Host.AddEnergy(1);
+            HostLoc = Host.Location.AbsoluteLocation;
         }
 
         public void SetHost(SurfaceBlock block)

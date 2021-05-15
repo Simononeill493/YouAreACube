@@ -66,6 +66,7 @@ namespace IAmACube
         }
         protected override void LoadContent()
         {
+            SoundInterface.LoadContent(Content);
             _primitivesHelper.LoadContent(GraphicsDevice, Content);
             _screenManager.Init();
 

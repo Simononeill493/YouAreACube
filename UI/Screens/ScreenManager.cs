@@ -19,6 +19,8 @@ namespace IAmACube
         {
             CurrentScreen = new TitleScreen(SwitchScreen);
             Initialized = true;
+
+            SoundInterface.PlayWind();
         }
 
         public void Update(UserInput input)
