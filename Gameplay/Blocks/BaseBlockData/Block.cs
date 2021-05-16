@@ -34,7 +34,7 @@ namespace IAmACube
             Template = template;
             BlockType = blockType;
 
-            Energy = template.MaxEnergy;
+            Energy = 0;
             SpeedOffset = _id % Config.TickCycleLength;
         }
 

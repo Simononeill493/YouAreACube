@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class CreateEphemeralRelativeChip : InputPin<RelativeDirection>, InputPin2<TemplateVersionDictionary>, InputPin3<int>
+    internal class CreateRelativeChip : InputPin<RelativeDirection>, InputPin2<BlockTemplate>, InputPin3<BlockMode>
     {
         public string Name { get; set; }
 
         public RelativeDirection ChipInput1 { get; set; }
-        public TemplateVersionDictionary ChipInput2 { get; set; }
-        public int ChipInput3 { get; set; }
+        public BlockTemplate ChipInput2 { get; set; }
+        public BlockMode ChipInput3 { get; set; }
 
         public void Run(Block actor, UserInput userInput, ActionsList actions)
         {
-            actions.AddCreationAction(actor, ChipInput2, ChipInput3, BlockMode.Ephemeral,ChipInput1);
+            actions.AddCreationAction(actor, ChipInput2, ChipInput3, ChipInput1);
         }
     }
 }

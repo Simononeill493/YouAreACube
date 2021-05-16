@@ -20,9 +20,9 @@ namespace IAmACube
             {
                 return _getBasicSelections(dataType).Cast<ChipInputOption>().ToList();
             }
-            else if (dataType.Equals("Template"))
+            else if (dataType.Equals(nameof(BlockTemplate)))
             {
-                var templates = _createOptionsFromItems(Templates.Database.Values.ToList());
+                var templates = _createOptionsFromItems(Templates.Database.Values.SelectMany(v=>v.Versions).ToList());
                 return templates.Cast<ChipInputOption>().ToList();
             }
             else

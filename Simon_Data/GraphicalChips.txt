@@ -1,6 +1,25 @@
 {
   "chips":
   [
+  	{
+      "name":"Create",
+	  "datatype":"Action",
+	  "inputs":["CardinalDirection|RelativeDirection","BlockTemplate","BlockMode"],
+	  "inputDisplayNames":["Direction","Template","BlockMode"],
+	  "inputMappings":
+	  [
+	  	{
+		  "name":"CreateCardinal",
+		  "datatype":"Action",
+		  "inputs":["CardinalDirection","BlockTemplate","BlockMode"],
+		},
+		{
+		  "name":"CreateRelative",
+		  "datatype":"Action",
+		  "inputs":["RelativeDirection","BlockTemplate","BlockMode"],
+		},
+	  ]
+    },
 	{
       "name":"Approach",
 	  "datatype":"Action",
@@ -146,25 +165,6 @@
 	  "datatype":"Sense",
 	  "inputs":["int"],
 	  "output":"int"
-    },
-	{
-      "name":"CreateEphemeral",
-	  "datatype":"Action",
-	  "inputs":["CardinalDirection|RelativeDirection","Template","int"],
-	  "inputDisplayNames":["Direction","Template","Version"],
-	  "inputMappings":
-	  [
-	  	{
-		  "name":"CreateEphemeralCardinal",
-		  "datatype":"Action",
-		  "inputs":["CardinalDirection","Template","int"],
-		},
-		{
-		  "name":"CreateEphemeralRelative",
-		  "datatype":"Action",
-		  "inputs":["RelativeDirection","Template","int"],
-		},
-	  ]
     },
 	{
       "name":"Move",

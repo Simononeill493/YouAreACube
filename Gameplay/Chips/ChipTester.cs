@@ -115,7 +115,7 @@ namespace IAmACube
 
             var randDirChip2 = new RandomCardinalChip() { Name = "RandomDir_2" };
             var moveRandChip2 = new MoveCardinalChip() { Name = "MoveCardinal_2" };
-            randDirChip2.Targets1.Add(moveRandChip1);
+            randDirChip2.Targets1.Add(moveRandChip2);
             var wanderBlock2 = new ChipBlock(randDirChip2, moveRandChip2) { Name = "Wander2" };
 
 
@@ -128,7 +128,7 @@ namespace IAmACube
             var firstOfListChip = new FirstOfListChip<Block>() { Name = "FirstOfList_1" };
             var blockLocationChip = new BlockLocationChip<Block>() { Name = "BlockLocation_1" };
             var shootDirChip = new ApproachDirectionChip() { Name = "ApproachDirection_1" };
-            var shootAdjchip = new CreateEphemeralCardinalChip() { Name = "CreateEphemeralCardinal_1", ChipInput2 = Templates.Database["BigBullet"], ChipInput3 = 0 };
+            var shootAdjchip = new CreateCardinalChip() { Name = "CreateEphemeralCardinal_1", ChipInput2 = Templates.Database["BigBullet"][0], ChipInput3 = BlockMode.Ephemeral };
             var isBlockActiveChip = new IsBlockActiveChip<Block> { Name = "IsBlockActive_1" };
 
             getNeighboursChip.Targets1.Add(isListEmptyChip);
@@ -157,17 +157,17 @@ namespace IAmACube
         public static ChipBlock MakePlayerBlock()
         {
             var keySwitch = new KeySwitchChip() { Name = "KeySwitch" };
-            var bullet = Templates.Database["Bullet"];
-            var bigBullet = Templates.Database["BigBullet"];
+            var bullet = Templates.Database["Bullet"][0];
+            var bigBullet = Templates.Database["BigBullet"][0];
 
             var moveUp = new MoveCardinalChip() { ChipInput1 = CardinalDirection.North, Name = "MoveUp" };
             var moveDown = new MoveCardinalChip() { ChipInput1 = CardinalDirection.South, Name = "MoveDown" };
             var moveLeft = new MoveCardinalChip() { ChipInput1 = CardinalDirection.West, Name = "MoveLeft" };
             var moveRight = new MoveCardinalChip() { ChipInput1 = CardinalDirection.East, Name = "MoveRight" };
-            var createEnemyNorth = new CreateEphemeralCardinalChip() { ChipInput1 = CardinalDirection.North, ChipInput2 = bigBullet, ChipInput3 = 0, Name = "createEnemyNorth" };
-            var createEnemySouth = new CreateEphemeralCardinalChip() { ChipInput1 = CardinalDirection.South, ChipInput2 = bigBullet, ChipInput3 = 0, Name = "createEnemySouth" };
-            var createEnemyWest = new CreateEphemeralCardinalChip() { ChipInput1 = CardinalDirection.West, ChipInput2 = bullet, ChipInput3 = 0, Name = "createEnemyWest" };
-            var createEnemyEast = new CreateEphemeralCardinalChip() { ChipInput1 = CardinalDirection.East, ChipInput2 = bullet, ChipInput3 = 0, Name = "createEnemyEast" };
+            var createEnemyNorth = new CreateCardinalChip() { ChipInput1 = CardinalDirection.North, ChipInput2 = bigBullet, ChipInput3 = BlockMode.Ephemeral, Name = "createEnemyNorth" };
+            var createEnemySouth = new CreateCardinalChip() { ChipInput1 = CardinalDirection.South, ChipInput2 = bigBullet, ChipInput3 = BlockMode.Ephemeral, Name = "createEnemySouth" };
+            var createEnemyWest = new CreateCardinalChip() { ChipInput1 = CardinalDirection.West, ChipInput2 = bullet, ChipInput3 = BlockMode.Ephemeral, Name = "createEnemyWest" };
+            var createEnemyEast = new CreateCardinalChip() { ChipInput1 = CardinalDirection.East, ChipInput2 = bullet, ChipInput3 = BlockMode.Ephemeral, Name = "createEnemyEast" };
 
             keySwitch.AddKeyEffect(Keys.Up, new ChipBlock(createEnemyNorth) { Name = "UpBlock" });
             keySwitch.AddKeyEffect(Keys.Down, new ChipBlock(createEnemySouth) { Name = "DownBlock" });

@@ -19,9 +19,8 @@ namespace IAmACube
         public int EnergyAmount;
         public int Rotation;
         public int MoveSpeed;
-        public int Version;
 
-        public TemplateVersionDictionary Template;
+        public BlockTemplate Template;
 
         public BlockAction(Block actor,ActionType actionType)
         {

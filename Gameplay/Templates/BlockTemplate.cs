@@ -48,7 +48,10 @@ namespace IAmACube
         public BlockTemplate Clone()
         {
             var clone = JsonConvert.DeserializeObject<BlockTemplate>(JsonConvert.SerializeObject(this));
-            clone.ChipBlock = JSONToChipBlockParser.ParseJsonToBlock(ChipBlockToJSONParser.ParseBlockToJson(ChipBlock));
+            if(this.ChipBlock!=null)
+            {
+                clone.ChipBlock = JSONToChipBlockParser.ParseJsonToBlock(ChipBlockToJSONParser.ParseBlockToJson(ChipBlock));
+            }
 
             clone.Version = -1;
             return clone;

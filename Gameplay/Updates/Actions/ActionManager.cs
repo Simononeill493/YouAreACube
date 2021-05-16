@@ -25,38 +25,38 @@ namespace IAmACube
 
         public void ProcessActions(ActionsList actions)
         {
-            foreach (var effect in actions.Actions)
+            foreach (var action in actions.Actions)
             {
-                switch (effect.ActionType)
+                switch (action.ActionType)
                 {
                     case ActionType.CardinalMovement:
-                        _moveManager.TryStartMovement(effect.Actor, effect.CardinalDir,effect.MoveSpeed);
+                        _moveManager.TryStartMovement(action.Actor, action.CardinalDir,action.MoveSpeed);
                         break;
                     case ActionType.RelativeMovement:
-                        var cardinal1 = DirectionUtils.ToCardinal(effect.Actor.Orientation, effect.RelativeDir);
-                        _moveManager.TryStartMovement(effect.Actor, cardinal1, effect.MoveSpeed);
+                        var cardinal1 = DirectionUtils.ToCardinal(action.Actor.Orientation, action.RelativeDir);
+                        _moveManager.TryStartMovement(action.Actor, cardinal1, action.MoveSpeed);
                         break;
                     case ActionType.Rotation:
-                        effect.Actor.Rotate(effect.Rotation);
+                        action.Actor.Rotate(action.Rotation);
                         break;
                     case ActionType.CardinalCreation:
-                        var templateRuntimeVersion1 = Templates.Database[effect.Template.Name][effect.Version];
-                        _creationManager.TryCreate(effect.Actor, templateRuntimeVersion1, effect.BlockType, effect.CardinalDir);
+                        var templateRuntimeVersion1 = Templates.Database[action.Template.Versions.Name][action.Template.Version];
+                        _creationManager.TryCreate(action.Actor, templateRuntimeVersion1, action.BlockType, action.CardinalDir);
                         break;
                     case ActionType.RelativeCreation:
-                        var cardinal2 = DirectionUtils.ToCardinal(effect.Actor.Orientation, effect.RelativeDir);
-                        var templateRuntimeVersion2 = Templates.Database[effect.Template.Name][effect.Version];
-                        _creationManager.TryCreate(effect.Actor, templateRuntimeVersion2, effect.BlockType, cardinal2);
+                        var cardinal2 = DirectionUtils.ToCardinal(action.Actor.Orientation, action.RelativeDir);
+                        var templateRuntimeVersion2 = Templates.Database[action.Template.Versions.Name][action.Template.Version];
+                        _creationManager.TryCreate(action.Actor, templateRuntimeVersion2, action.BlockType, cardinal2);
                         break;
                     case ActionType.CardinalGiveEnergy:
-                        _energyTransferManager.TryGiveEnergy(effect.Actor, effect.CardinalDir, effect.BlockType, effect.EnergyAmount);
+                        _energyTransferManager.TryGiveEnergy(action.Actor, action.CardinalDir, action.BlockType, action.EnergyAmount);
                         break;
                     case ActionType.RelativeGiveEnergy:
-                        var cardinal3 = DirectionUtils.ToCardinal(effect.Actor.Orientation, effect.RelativeDir);
-                        _energyTransferManager.TryGiveEnergy(effect.Actor, cardinal3, effect.BlockType,effect.EnergyAmount);
+                        var cardinal3 = DirectionUtils.ToCardinal(action.Actor.Orientation, action.RelativeDir);
+                        _energyTransferManager.TryGiveEnergy(action.Actor, cardinal3, action.BlockType,action.EnergyAmount);
                         break;
                     case ActionType.Zap:
-                        _zapManager.TryZap(effect.Actor, effect.BlockType);
+                        _zapManager.TryZap(action.Actor, action.BlockType);
                         break;
 
                 }

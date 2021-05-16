@@ -65,10 +65,13 @@ namespace IAmACube
                     var typeName = chipData.GetInputType(i);
                     var property = constructedChip.GetType().GetProperty("ChipInput" + (i + 1).ToString());
 
-                    if (typeName.Equals("Template"))
+                    if (typeName.Equals(nameof(BlockTemplate)))
                     {
-                        var template = Templates.Database[input.InputValue];
-                        property.SetValue(constructedChip, template);
+                        var splits = input.InputValue.Split('|');
+                        var name = splits[0];
+                        var version = splits[1];
+
+                        property.SetValue(constructedChip, Templates.Database[name][int.Parse(version)]);
                     }
                     else
                     {

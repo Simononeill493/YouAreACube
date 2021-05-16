@@ -24,6 +24,9 @@ namespace IAmACube
         public static int MenuItemScale = 4;
         public static Color DefaultTextColor = Color.Black;
 
+        public static int DefaultBlockSpeed = 30;
+
+
         public static void Init() => ConfigFiles.Init();
     }
 }

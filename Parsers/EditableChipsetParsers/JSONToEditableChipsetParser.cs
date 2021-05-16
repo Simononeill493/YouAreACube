@@ -45,9 +45,13 @@ namespace IAmACube
                     {
                         object value = null;
                         var inputTypeName = chip.ChipData.GetInputType(i);
-                        if (inputTypeName.Equals("Template"))
+                        if (inputTypeName.Equals(nameof(BlockTemplate)))
                         {
-                            value = Templates.Database[jsonInputData.InputValue];
+                            var splits = jsonInputData.InputValue.Split('|');
+                            var name = splits[0];
+                            var version = splits[1];
+
+                            value = Templates.Database[name][int.Parse(version)];
                         }
                         else
                         {

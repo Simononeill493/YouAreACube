@@ -134,6 +134,12 @@ namespace IAmACube
                 TemplateParsingTester.TestParsingRoundTrip(chipset.Name, block);
 
                 template.ChipBlock = block;
+
+                if (!template.Active)
+                {
+                    template.Active = true;
+                    template.Speed = 30;
+                }
                 return template;
             }
 

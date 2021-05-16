@@ -23,24 +23,22 @@ namespace IAmACube
         public void AddRotationAction(Block block, int rotation) => Actions.Add(new BlockAction(block, ActionType.Rotation) { Rotation = rotation });
 
 
-        public void AddCreationAction(Block block, TemplateVersionDictionary toCreate, int version, BlockMode blockType, RelativeDirection direction)
+        public void AddCreationAction(Block block, BlockTemplate toCreate, BlockMode blockType, RelativeDirection direction)
         {
             var creationAction = new BlockAction(block, ActionType.RelativeCreation)
             {
                 Template = toCreate,
-                Version = version,
                 BlockType = blockType,
                 RelativeDir = direction
             };
 
             Actions.Add(creationAction);
         }
-        public void AddCreationAction(Block block, TemplateVersionDictionary toCreate, int version, BlockMode blockType,CardinalDirection direction)
+        public void AddCreationAction(Block block, BlockTemplate toCreate, BlockMode blockType, CardinalDirection direction)
         {
             var creationAction = new BlockAction(block, ActionType.CardinalCreation) 
             { 
                 Template = toCreate,
-                Version = version,
                 BlockType = blockType, 
                 CardinalDir = direction 
             };

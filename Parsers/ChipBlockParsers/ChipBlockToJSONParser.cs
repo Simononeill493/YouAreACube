@@ -101,6 +101,11 @@ namespace IAmACube
             var property = chip.GetType().GetProperty(propertyName);
 
             var value = property.GetValue(chip);
+            if(value.GetType() == typeof(BlockTemplate))
+            {
+                var template = (BlockTemplate)value;
+                return template.Versions.Name + '|' + template.Version;
+            }
             return value.ToString();
         }
         private static void _setControlChipAttributes(IChip chip, ChipJSONData chipJObject, GraphicalChipData data)

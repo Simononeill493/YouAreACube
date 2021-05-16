@@ -10,7 +10,10 @@ namespace IAmACube
     public class EphemeralBlock : Block
     {
         public bool EphemeralFading;
-        public EphemeralBlock(BlockTemplate template) : base(template, BlockMode.Ephemeral) { }
+        public EphemeralBlock(BlockTemplate template) : base(template, BlockMode.Ephemeral) 
+        {
+            AddEnergy(template.MaxEnergy);
+        }
 
         public override void Update(UserInput input, ActionsList actions)
         {

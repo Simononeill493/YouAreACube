@@ -42,10 +42,13 @@ namespace IAmACube
 
         public void LoadTemplateForEditing(BlockTemplate template)
         {
-            var generatedChipset = TemplateEditUtils.PrepareChipsetForEditPane(template, this);
+            if(template.Active)
+            {
+                var generatedChipset = TemplateEditUtils.PrepareChipsetForEditPane(template, this);
 
-            _setChipsetToTopLevel(generatedChipset);
-            _dropChipsetOnPane(generatedChipset);
+                _setChipsetToTopLevel(generatedChipset);
+                _dropChipsetOnPane(generatedChipset);
+            }
         }
 
         public void ConfigureNewChipsetFromSearchPaneClick(ChipTop newChip, UserInput input)
