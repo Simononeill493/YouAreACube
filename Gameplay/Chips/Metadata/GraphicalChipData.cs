@@ -39,9 +39,6 @@ namespace IAmACube
 
         private string[] _inputDisplayNames;
         private List<List<string>> _inputDataTypeOptions;
-        
-
-
 
         public GraphicalChipData(string name, ChipType dataType, string[] inputs, string output, List<GraphicalChipData> inputMappings, string[] inputDisplayNames)
         {

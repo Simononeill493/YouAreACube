@@ -5,7 +5,7 @@ namespace IAmACube
 {
     public class CameraConfiguration
     {
-        public bool DebugMode = true;
+        public static bool DebugMode = false;
 
         public int Scale = 1;
         public int TileSizePixels;

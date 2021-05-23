@@ -12,6 +12,8 @@ namespace IAmACube
 {
     class SoundInterface
     {
+        public static bool Initialized;
+
         public static ContentManager content;
         public static SoundEffect wind;
         public static SoundEffect pop1;
@@ -22,22 +24,33 @@ namespace IAmACube
 
         public static void LoadContent(ContentManager contentManager)
         {
-            content = contentManager;
+            try
+            {
+                content = contentManager;
 
-            wind = contentManager.Load<SoundEffect>("wind");
-            pops = new SoundEffect[3];
+                wind = contentManager.Load<SoundEffect>("wind");
+                pops = new SoundEffect[3];
 
-            pop1 = contentManager.Load<SoundEffect>("pop1");
-            pop2 = contentManager.Load<SoundEffect>("pop2");
-            pop3 = contentManager.Load<SoundEffect>("pop3");
+                pop1 = contentManager.Load<SoundEffect>("pop1");
+                pop2 = contentManager.Load<SoundEffect>("pop2");
+                pop3 = contentManager.Load<SoundEffect>("pop3");
 
-            pops[0] = pop1;
-            pops[1] = pop2;
-            pops[2] = pop3;
+                pops[0] = pop1;
+                pops[1] = pop2;
+                pops[2] = pop3;
+
+                Initialized = true;
+            }
+            catch(NoAudioHardwareException e)
+            {
+                Console.WriteLine("No sound device detected. Sounds will not play.");
+            }
         }
 
         public static void PlayWind()
         {
+            if(!Initialized) { return; }
+
             var instance = wind.CreateInstance();
             instance.IsLooped = true;
             instance.Volume = 0.25f;
@@ -46,6 +59,8 @@ namespace IAmACube
 
         public static void PlayPop()
         {
+            if (!Initialized) { return; }
+
             pop1.Play();
         }
 

@@ -21,7 +21,13 @@ namespace IAmACube
 
             _adminCamera = new FixedCamera(kernel);
             _playerCamera = new KernelTrackingCamera(kernel);
+
+            _currentCamera = _playerCamera;
+
+#if DEBUG
             _currentCamera = _adminCamera;
+            CameraConfiguration.DebugMode = true;
+#endif
         }
 
         public override void Update(UserInput input)

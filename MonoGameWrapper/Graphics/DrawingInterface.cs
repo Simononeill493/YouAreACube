@@ -40,7 +40,7 @@ namespace IAmACube
                 DrawBlock(tile.Ephemeral, drawPos, DrawLayers.EphemeralLayer, cameraConfig);
             }
 
-            if(cameraConfig.DebugMode)
+            if(CameraConfiguration.DebugMode)
             {
                 DrawTileDebugOverlay(tile, drawPos, cameraConfig);
             }

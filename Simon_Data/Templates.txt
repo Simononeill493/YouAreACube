@@ -18,12 +18,12 @@
       "name":"ApproachEnemy",
       "sprite":"ApproachEnemy",
       "speed":16,
-	  "maxEnergy":1000
+	  "maxEnergy":10000
     },
 	{
       "name":"FleeEnemy",
       "sprite":"FleeEnemy",
-	  "maxEnergy":1000,
+	  "maxEnergy":10000,
       "speed":15
     },
 	{
@@ -31,7 +31,7 @@
       "sprite":"ShootEnemy",
 	  "maxEnergy":1000000,
 	  "maxHealth":1000000,
-      "speed":4
+      "speed":8
     },
 	{
       "name":"MouseFollower",

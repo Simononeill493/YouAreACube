@@ -37,7 +37,7 @@ namespace IAmACube
             _drawTiles(world);
             _drawMouseHoverPos();
 
-            if (_config.DebugMode)
+            if (CameraConfiguration.DebugMode)
             {
                 _drawSectorBoundaries(world);
             }
