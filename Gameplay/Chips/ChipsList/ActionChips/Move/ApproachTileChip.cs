@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IAmACube.Gameplay.Chips.ChipsList.ActionChips
+namespace IAmACube
 {
     [Serializable()]
     class ApproachTileChip : InputPin<Tile>
@@ -14,7 +14,7 @@ namespace IAmACube.Gameplay.Chips.ChipsList.ActionChips
 
         public void Run(Block actor, UserInput userInput, ActionsList actions)
         {
-            actions.AddMoveAction(actor, actor.Location.AbsoluteLocation.ApproachDirection(ChipInput1.AbsoluteLocation));
+            actions.AddApproachAction(actor, ChipInput1);
         }
     }
 }

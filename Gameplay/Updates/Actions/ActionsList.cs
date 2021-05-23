@@ -16,10 +16,12 @@ namespace IAmACube
             Actions = new List<BlockAction>();
         }
 
+        public void AddApproachAction(Block block, Block target) => Actions.Add(new BlockAction(block, ActionType.ApproachBlock) { TargetBlock = target, MoveSpeed = block.Speed });
+        public void AddApproachAction(Block block, Tile target) => Actions.Add(new BlockAction(block, ActionType.ApproachTile) { TargetTile = target, MoveSpeed = block.Speed });
+
         public void AddMoveAction(Block block, CardinalDirection direction) => Actions.Add(new BlockAction(block, ActionType.CardinalMovement) { CardinalDir = direction, MoveSpeed = block.Speed });
-
-
         public void AddMoveAction(Block block, RelativeDirection direction) => Actions.Add(new BlockAction(block, ActionType.RelativeMovement) { RelativeDir = direction, MoveSpeed = block.Speed });
+        
         public void AddRotationAction(Block block, int rotation) => Actions.Add(new BlockAction(block, ActionType.Rotation) { Rotation = rotation });
 
 

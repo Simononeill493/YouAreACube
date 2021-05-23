@@ -38,6 +38,11 @@ namespace IAmACube
         {
             return chip.GetType().GetProperty("ChipInput" + (inputIndex + 1).ToString());
         }
+        public static object GetInputPropertyValue(this IChip chip, int inputIndex)
+        {
+            return GetInputProperty(chip,inputIndex).GetValue(chip);
+        }
+
         public static void SetInputProperty(this IChip chip, int inputIndex,object toSet)
         {
             var property =  chip.GetType().GetProperty("ChipInput" + (inputIndex + 1).ToString());

@@ -12,7 +12,7 @@ namespace IAmACube
         public List<string> TypeArguments;
 
         public List<ChipJSONInputData> Inputs;
-        public void SetInputs()
+        public void CreateInputsBlank()
         {
             Inputs = new List<ChipJSONInputData>();
             for (int i = 0; i < ChipData.NumInputs; i++)
@@ -22,6 +22,31 @@ namespace IAmACube
         }
         public object ParseInput(int inputIndex) => Inputs[inputIndex].Parse(ChipData.GetInputType(inputIndex));
 
+        public ChipJSONData() { }
+
+        public ChipJSONData(IChip iChip) 
+        {
+            var chipData = iChip.GetChipData();
+
+            IChip = iChip;
+            ChipData = chipData;
+
+            Name = iChip.Name;
+            GraphicalChipType = chipData.BaseMappingName;
+            ActualChipType = chipData.Name;
+
+            CreateInputsBlank();
+        }
+
+        public ChipJSONData(ChipTop chip)
+        {
+            ChipTop = chip;
+            ChipData = chip.ChipData;
+
+            Name = chip.Name;
+            GraphicalChipType = chip.ChipData.BaseMappingName;
+            ActualChipType = chip.ChipData.Name;
+        }
 
 
         [JsonIgnore]

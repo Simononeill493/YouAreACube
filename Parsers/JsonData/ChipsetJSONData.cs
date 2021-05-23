@@ -67,5 +67,7 @@ namespace IAmACube
 
             return init.First();
         }
+
+        public void AlphabetSort() => Sort((c1, c2) => string.Compare(c1.Name, c2.Name));
     }
 }

@@ -10,6 +10,9 @@ namespace IAmACube
     public class BlockAction
     {
         public Block Actor;
+        public Block TargetBlock;
+        public Tile TargetTile;
+
         public ActionType ActionType;
 
         public CardinalDirection CardinalDir;

@@ -14,7 +14,7 @@ namespace IAmACube.Gameplay.Chips.ChipsList.ActionChips
 
         public void Run(Block actor, UserInput userInput, ActionsList actions)
         {
-            actions.AddMoveAction(actor, actor.Location.AbsoluteLocation.ApproachDirection(ChipInput1.Location.AbsoluteLocation));
+            actions.AddApproachAction(actor, ChipInput1);
         }
     }
 }

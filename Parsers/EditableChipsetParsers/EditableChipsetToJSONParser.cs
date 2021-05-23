@@ -10,122 +10,127 @@ namespace IAmACube
 {
     public static class EditableChipsetToJSONParser
     {
+        public static string ParseEditableChipsetToJson(EditableChipset chipset)
+        {
+            var chipsetsJson = new ChipsetJSONData();
+
+            foreach (var editableChipset in chipset.GetThisAndSubChipsets())
+            {
+                var chipsetJson = new ChipBlockJSONData(editableChipset);
+                chipsetsJson.Add(chipsetJson);
+
+                foreach(var chip in editableChipset.Chips)
+                {
+                    var chipJObject = _parseChipTop(chip);
+                    chipsetJson.Chips.Add(chipJObject);
+                }
+            }
+
+            chipsetsJson.AlphabetSort();
+
+            var jobjectList = JToken.FromObject(chipsetsJson, new JsonSerializer { NullValueHandling = NullValueHandling.Ignore });
+            return jobjectList.ToString();
+        }
+
+        private static ChipJSONData _parseChipTop(ChipTop chip)
+        {
+            var chipJObject = new ChipJSONData(chip);
+
+            var mappedChipType = _getChipSubMapping(chipJObject);
+            _setChipTypeArguments(chipJObject, mappedChipType);
+            _parseSelectedChipInputs(chipJObject);
+            _setControlChipTargets(chipJObject);
+
+            return chipJObject;
+        }
+
+        public static GraphicalChipData _getChipSubMapping(ChipJSONData chipJObject)
+        {
+            if (chipJObject.ChipData.IsMappedToSubChips)
+            {
+                var selectedTypes = chipJObject.ChipTop.GetSelectedInputTypes();
+                var mappedChipType = _getFirstMatchingMapping(selectedTypes, chipJObject.ChipData.InputMappings);
+
+                chipJObject.ActualChipType = mappedChipType.Name;
+                return mappedChipType;
+            }
+
+            return null;
+        }
+
+        public static void _setChipTypeArguments(ChipJSONData chipJObject, GraphicalChipData mappedChipType)
+        {
+            var chip = chipJObject.ChipTop;
+
+            if (chip.CurrentTypeArguments.Count > 0 & chip.CurrentTypeArguments.First().Length > 0 & mappedChipType == null)
+            {
+                chipJObject.TypeArguments = chip.CurrentTypeArguments;
+            }
+
+            if (mappedChipType != null)
+            {
+                if (mappedChipType.IsGeneric)
+                {
+                    chipJObject.TypeArguments = chip.CurrentTypeArguments;
+                }
+            }
+        }
+
+        public static void _parseSelectedChipInputs(ChipJSONData chipJObject)
+        {
+            chipJObject.Inputs = new List<ChipJSONInputData>();
+            var inputsList = chipJObject.ChipTop.GetCurrentInputs();
+            for (int i = 0; i < inputsList.Count; i++)
+            {
+                var input = inputsList[i];
+                var inputOptionType = input.OptionType.ToString();
+                if (inputOptionType.Equals(nameof(InputOptionType.Parseable)))
+                {
+                    inputOptionType = nameof(InputOptionType.Value);
+                }
+
+                var inputData = new ChipJSONInputData(inputOptionType, input.ToString());
+                chipJObject.Inputs.Add(inputData);
+            }
+        }
+
+        private static void _setControlChipTargets(ChipJSONData chipJObject)
+        {
+            if(chipJObject.ChipData.Name.Equals("If"))
+            {
+                var ifChip = (ChipTopSwitch)chipJObject.ChipTop;
+
+                chipJObject.Yes = ifChip.SwitchChipsets[0].Name;
+                chipJObject.No = ifChip.SwitchChipsets[1].Name;
+
+            }
+            if (chipJObject.ChipData.Name.Equals("KeySwitch"))
+            {
+                var keyChip = (ChipTopSwitch)chipJObject.ChipTop;
+
+                chipJObject.KeyEffects = new List<(string, string)>();
+
+                foreach (var keyAndChipset in keyChip.GetSwitchSectionsWithNames())
+                {
+                    chipJObject.KeyEffects.Add((keyAndChipset.Item1, keyAndChipset.Item2.Name));
+                }
+            }
+        }
+
         public static GraphicalChipData _getFirstMatchingMapping(List<string> inputs, List<GraphicalChipData> possibleMatches)
         {
             foreach (var possibleMatch in possibleMatches)
             {
                 for (int i = 0; i < inputs.Count; i++)
                 {
-                    if (!TemplateEditUtils.IsValidInputFor(inputs[i],possibleMatch.Inputs[i]))
+                    if (TemplateEditUtils.IsValidInputFor(inputs[i], possibleMatch.Inputs[i]))
                     {
-                        goto End;
+                        return possibleMatch;
                     }
                 }
-
-                return possibleMatch;
-                End:;
             }
 
             return null;
-        }
-
-
-
-        public static string ParseEditableChipsetToJson(EditableChipset chipset)
-        {
-            var chipsetsJson = new ChipsetJSONData();
-
-            var thisAndSubs = chipset.GetThisAndSubChipsets();
-            foreach (var editableChipset in chipset.GetThisAndSubChipsets())
-            {
-                var chipsetJson = new ChipBlockJSONData() { Chips = new List<ChipJSONData>() };
-                chipsetJson.Chipset = editableChipset;
-                chipsetJson.Name = editableChipset.Name;
-                chipsetsJson.Add(chipsetJson);
-
-                foreach(var chip in editableChipset.Chips)
-                {
-                    var chipJObject = new ChipJSONData();
-                    chipJObject.ChipTop = chip;
-                    chipJObject.ChipData = chip.ChipData;
-                    chipJObject.GraphicalChipType = chip.ChipData.BaseMappingName;
-                    chipJObject.ActualChipType = chip.ChipData.Name;
-
-                    chipJObject.Name = chip.Name;
-
-                    GraphicalChipData mappedChipType = null;
-
-                    if (chip.ChipData.IsMappedToSubChips)
-                    {
-                        var selectedTypes = chip.GetSelectedInputTypes();
-                        var mappings = chip.ChipData.InputMappings;
-                        var mappedType = _getFirstMatchingMapping(selectedTypes, chip.ChipData.InputMappings);
-
-                        mappedChipType = mappedType;
-                        chipJObject.ActualChipType = mappedType.Name;
-                    }
-
-                    if (chip.CurrentTypeArguments.Count>0 & chip.CurrentTypeArguments.First().Length>0 & mappedChipType == null)
-                    {
-                        chipJObject.TypeArguments = chip.CurrentTypeArguments;
-                    }
-
-                    if(mappedChipType != null)
-                    {
-                        if(mappedChipType.IsGeneric)
-                        {
-                            chipJObject.TypeArguments = chip.CurrentTypeArguments;
-                        }
-                    }
-
-                    chipJObject.Inputs = new List<ChipJSONInputData>();
-                    var inputsList = chip.GetCurrentInputs();
-                    for(int i=0;i<inputsList.Count;i++)
-                    {
-                        var input = inputsList[i];
-                        var inputOptionType = input.OptionType.ToString();
-                        if(inputOptionType.Equals(nameof(InputOptionType.Parseable)))
-                        {
-                            inputOptionType = nameof(InputOptionType.Value);
-                        }
-
-                        var inputData = new ChipJSONInputData(inputOptionType, input.ToString());
-                        chipJObject.Inputs.Add(inputData);
-                    }
-
-                    if(chipJObject.ChipData.ChipDataType == ChipType.Control)
-                    {
-                        _setControlChipTargets(chipJObject);
-                    }
-
-                    chipsetJson.Chips.Add(chipJObject);
-                }
-            }
-
-            chipsetsJson.Sort((c1, c2) => string.Compare(c1.Name, c2.Name));
-
-            var jobjectList = JToken.FromObject(chipsetsJson, new JsonSerializer { NullValueHandling = NullValueHandling.Ignore });
-            return jobjectList.ToString();
-        }
-
-        private static void _setControlChipTargets(ChipJSONData chipJObject)
-        {
-            var switchChip = (ChipTopSwitch)chipJObject.ChipTop;
-            if(chipJObject.ChipData.Name.Equals("If"))
-            {
-                chipJObject.Yes = switchChip.SwitchChipsets[0].Name;
-                chipJObject.No = switchChip.SwitchChipsets[1].Name;
-
-            }
-            if (chipJObject.ChipData.Name.Equals("KeySwitch"))
-            {
-                chipJObject.KeyEffects = new List<(string, string)>();
-
-                foreach (var keyAndChipset in switchChip.GetSwitchSectionsWithNames())
-                {
-                    chipJObject.KeyEffects.Add((keyAndChipset.Item1, keyAndChipset.Item2.Name));
-                }
-            }
         }
     }
 }

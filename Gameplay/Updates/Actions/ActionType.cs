@@ -16,6 +16,8 @@ namespace IAmACube
         RelativeCreation,
         CardinalGiveEnergy,
         RelativeGiveEnergy,
-        Zap
+        Zap,
+        ApproachTile,
+        ApproachBlock
     }
 }

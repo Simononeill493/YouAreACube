@@ -58,7 +58,22 @@ namespace IAmACube
                     case ActionType.Zap:
                         _zapManager.TryZap(action.Actor, action.BlockType);
                         break;
-
+                    case ActionType.ApproachBlock:
+                        if(action.Actor.Location.AbsoluteLocation== action.TargetBlock.Location.AbsoluteLocation)
+                        {
+                            continue;
+                        }
+                        var approachBlockDir = action.Actor.Location.AbsoluteLocation.ApproachDirection(action.TargetBlock.Location.AbsoluteLocation);
+                        _moveManager.TryStartMovement(action.Actor, approachBlockDir, action.MoveSpeed);
+                        break;
+                    case ActionType.ApproachTile:
+                        if (action.Actor.Location.AbsoluteLocation == action.TargetTile.AbsoluteLocation)
+                        {
+                            continue;
+                        }
+                        var approachTileDir = action.Actor.Location.AbsoluteLocation.ApproachDirection(action.TargetTile.AbsoluteLocation);
+                        _moveManager.TryStartMovement(action.Actor, approachTileDir, action.MoveSpeed);
+                        break;
                 }
             }
 

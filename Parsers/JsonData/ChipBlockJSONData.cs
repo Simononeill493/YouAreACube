@@ -24,5 +24,20 @@ namespace IAmACube
         {
             ChipBlock = new ChipBlock() { Name = this.Name };
         }
+
+        public ChipBlockJSONData() { }
+
+        public ChipBlockJSONData(EditableChipset chipset)
+        {
+            Chips = new List<ChipJSONData>();
+            Chipset = chipset;
+            Name = chipset.Name;
+        }
+
+        public ChipBlockJSONData(ChipBlock block)
+        {
+            ChipBlock = block;
+            Name = block.Name;
+        }
     }
 }

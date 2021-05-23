@@ -37,7 +37,7 @@
       "name":"MouseFollower",
       "sprite":"MouseFollower",
 	  "maxEnergy":1000,
-      "speed":6
+      "speed":4
     },
 	{
       "name":"grassPatch",
