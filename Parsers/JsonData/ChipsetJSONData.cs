@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IAmACube
 {
@@ -35,10 +37,35 @@ namespace IAmACube
     
         public void SetChipData() => GetChips().ForEach(c => c.SetChipData());
 
+        public void CreateEditableChipsetObjects(IChipsetGenerator generator)
+        {
+            CreateChipsets(generator);
+            CreateChipTops(generator);
+        }
         public void CreateChipsets(IChipsetGenerator generator) => this.ForEach(c => c.CreateChipset(generator));
         public void CreateChipTops(IChipsetGenerator generator) => GetChips().ForEach(c => c.CreateChipTop(generator));
-
+        
+        public void CreateChipBlockObjects()
+        {
+            CreateChipBlocks();
+            CreateIChips();
+        }
         public void CreateChipBlocks() => this.ForEach(c => c.CreateChipBlock());
         public void CreateIChips() => GetChips().ForEach(c => c.CreateIChip());
+
+        public ChipBlockJSONData GetInitial()
+        {
+            var init = this.Where(c => c.Name.Equals("_Initial"));
+            if(init.Count()>1)
+            {
+                throw new Exception("Multiple initial chip blocks");
+            }
+            if (init.Count() < 1)
+            {
+                throw new Exception("No initial chip block");
+            }
+
+            return init.First();
+        }
     }
 }

@@ -20,6 +20,9 @@ namespace IAmACube
                 Inputs.Add(new ChipJSONInputData("",""));
             }
         }
+        public object ParseInput(int inputIndex) => Inputs[inputIndex].Parse(ChipData.GetInputType(inputIndex));
+
+
 
         [JsonIgnore]
         public GraphicalChipData ChipData;
@@ -57,8 +60,10 @@ namespace IAmACube
             IChip.Name = this.Name;
         }
 
+
+
         public string Yes;
         public string No;
-        public List<Tuple<string, string>> KeyEffects;
+        public List<(string keyString, string blockName)> KeyEffects;
     }
 }

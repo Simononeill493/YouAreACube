@@ -119,11 +119,11 @@ namespace IAmACube
             }
             if (chipJObject.ChipData.Name.Equals("KeySwitch"))
             {
-                chipJObject.KeyEffects = new List<Tuple<string, string>>();
+                chipJObject.KeyEffects = new List<(string, string)>();
 
                 foreach (var keyAndChipset in switchChip.GetSwitchSectionsWithNames())
                 {
-                    chipJObject.KeyEffects.Add(new Tuple<string, string>(keyAndChipset.Item1, keyAndChipset.Item2.Name));
+                    chipJObject.KeyEffects.Add((keyAndChipset.Item1, keyAndChipset.Item2.Name));
                 }
             }
         }

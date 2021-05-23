@@ -119,10 +119,10 @@ namespace IAmACube
             else if (data.Name.Equals("KeySwitch"))
             {
                 var keySwitchChip = (KeySwitchChip)chip;
-                var keysAndEffects = new List<Tuple<string, string>>();
+                var keysAndEffects = new List<(string, string)>();
                 foreach (var keyBlock in keySwitchChip.KeyEffects)
                 {
-                    keysAndEffects.Add(new Tuple<string, string>(keyBlock.Key.ToString(), keyBlock.Block.Name));
+                    keysAndEffects.Add((keyBlock.Key.ToString(), keyBlock.Block.Name));
                 }
 
                 chipJObject.KeyEffects = keysAndEffects;

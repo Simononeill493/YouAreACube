@@ -1,4 +1,7 @@
-﻿namespace IAmACube
+﻿using System.Collections;
+using System.Reflection;
+
+namespace IAmACube
 {
     public interface IChip
     {
@@ -17,5 +20,29 @@
         }
 
         public static bool IsControlChip(this IChip chip) => typeof(IControlChip).IsAssignableFrom(chip.GetType());
+
+        public static IList GetTargetsList(this IChip chip, int targetIndex)
+        {
+            var inputChipType = chip.GetType();
+            var targetField = inputChipType.GetField("Targets" + (targetIndex + 1).ToString());
+            return (IList)targetField.GetValue(chip);
+        }
+        public static void AddTarget(this IChip chip, int targetIndex,object toAdd)
+        {
+            var targetsList = chip.GetTargetsList(targetIndex);
+            targetsList.Add(toAdd);
+        }
+
+
+        public static PropertyInfo GetInputProperty(this IChip chip, int inputIndex)
+        {
+            return chip.GetType().GetProperty("ChipInput" + (inputIndex + 1).ToString());
+        }
+        public static void SetInputProperty(this IChip chip, int inputIndex,object toSet)
+        {
+            var property =  chip.GetType().GetProperty("ChipInput" + (inputIndex + 1).ToString());
+            property.SetValue(chip,toSet);
+        }
+
     }
 }

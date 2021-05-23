@@ -16,9 +16,24 @@ namespace IAmACube
             var chipsDict = chipsetsJson.GetChipsDict();
 
             chipsetsJson.SetChipData();
-            chipsetsJson.CreateChipsets(generator);
-            chipsetsJson.CreateChipTops(generator);
+            chipsetsJson.CreateEditableChipsetObjects(generator);
 
+            _appendChipsToChipsets(chipsetsJson);
+
+            foreach (var chip in chipsDict.Values)
+            {
+                _setValuesForInputSections(chip, chipsDict);
+                _setControlChipTargets(chip, blocksDict);
+            }
+
+            var baseChipset = chipsetsJson.GetInitial().Chipset;
+            baseChipset.AddAndRemoveQueuedChildren_Cascade();
+
+            return baseChipset;
+        }
+
+        private static void _appendChipsToChipsets(ChipsetJSONData chipsetsJson)
+        {
             foreach (var blockJson in chipsetsJson)
             {
                 foreach (var chipJson in blockJson.Chips)
@@ -26,81 +41,65 @@ namespace IAmACube
                     blockJson.Chipset.AppendToBottom(chipJson.ChipTop);
                 }
             }
-
-            foreach (var chip in chipsDict.Values)
-            {
-                var chipTop = chip.ChipTop;
-                for (int i = 0; i < chip.Inputs.Count; i++)
-                {
-                    var jsonInputData = chip.Inputs[i];
-                    var inputType = chip.ChipData.GetInputType(i);
-
-                    ChipInputOption inputOption = null;
-                    if (jsonInputData.InputType.Equals("Reference"))
-                    {
-                        var referenceChip = (ChipTopWithOutput)chipsDict[jsonInputData.InputValue].ChipTop;
-                        inputOption = new ChipInputOptionReference(referenceChip);
-                    }
-                    else if (jsonInputData.InputType.Equals("Value"))
-                    {
-                        object value = null;
-                        var inputTypeName = chip.ChipData.GetInputType(i);
-                        if (inputTypeName.Equals(nameof(BlockTemplate)))
-                        {
-                            var splits = jsonInputData.InputValue.Split('|');
-                            var name = splits[0];
-                            var version = splits[1];
-
-                            value = Templates.Database[name][int.Parse(version)];
-                        }
-                        else
-                        {
-                            var type = TypeUtils.GetTypeByDisplayName(inputTypeName);
-                            value = TypeUtils.ParseType(type, jsonInputData.InputValue);
-                        }
-
-                        inputOption = new ChipInputOptionValue(value);
-                    }
-
-                    chipTop.ManuallySetInputSection(inputOption, i);
-                }
-
-                if (chip.ChipData.ChipDataType == ChipType.Control)
-                {
-                    _setControlChipTargets(chip, blocksDict);
-                }
-            }
-
-            var baseChipset = chipsetsJson.First(c => c.Name.Equals("_Initial")).Chipset;
-            baseChipset.AddAndRemoveQueuedChildren_Cascade();
-            return baseChipset;
         }
-
         private static void _setControlChipTargets(ChipJSONData chip, Dictionary<string, ChipBlockJSONData> chipsets)
         {
-            var data = chip.ChipData;
-
-            if (data.Name.Equals("If"))
+            if (chip.ChipData.Name.Equals("If"))
             {
                 var ifChip = (ChipTopSwitch)chip.ChipTop;
 
-                var yesBlock = chipsets[chip.Yes].Chipset;
-                ifChip.AddSwitchSection("Yes", yesBlock);
-
-                var noBlock = chipsets[chip.No].Chipset;
-                ifChip.AddSwitchSection("No", noBlock);
+                ifChip.AddSwitchSection("Yes", chipsets[chip.Yes].Chipset);
+                ifChip.AddSwitchSection("No", chipsets[chip.No].Chipset);
             }
-            if (data.Name.Equals("KeySwitch"))
+            if (chip.ChipData.Name.Equals("KeySwitch"))
             {
                 var keySwitchChip = (ChipTopSwitch)chip.ChipTop;
-                foreach (var keyEffect in chip.KeyEffects)
+
+                foreach (var (keyString, blockName) in chip.KeyEffects)
                 {
-                    var keyString = keyEffect.Item1;
-                    var blockName = keyEffect.Item2;
                     var block = chipsets[blockName].Chipset;
                     keySwitchChip.AddSwitchSection(keyString, block);
                 }
             }
+        }
+        
+        private static void _setValuesForInputSections(ChipJSONData chip, Dictionary<string, ChipJSONData> chipsDict)
+        {
+            for (int i = 0; i < chip.Inputs.Count; i++)
+            {
+                _setValuesForInputSection(chip, chipsDict, i);
+            }
+        }
+        private static void _setValuesForInputSection(ChipJSONData chip,Dictionary<string,ChipJSONData> chipsDict,int inputIndex)
+        {
+            var jsonInputData = chip.Inputs[inputIndex];
+            var inputOption = _parseInputOption(chip,chipsDict,jsonInputData.InputType,jsonInputData.InputValue,inputIndex);
+
+            chip.ChipTop.ManuallySetInputSection(inputOption, inputIndex);
+        }
+
+        private static ChipInputOption _parseInputOption(ChipJSONData chip, Dictionary<string, ChipJSONData> chipsDict, string inputType, string inputValue, int inputIndex)
+        {
+            if (inputType.Equals("Reference"))
+            {
+                return _parseReferenceChipInput(chipsDict, inputValue);
+            }
+            else if (inputType.Equals("Value"))
+            {
+                return _parseValueChipInput(chip, inputIndex);
+            }
+
+            throw new Exception("Unrecognized chip input option type");
+        }
+        private static ChipInputOption _parseReferenceChipInput(Dictionary<string, ChipJSONData> chipsDict, string inputValue)
+        {
+            var referenceChip = (ChipTopWithOutput)chipsDict[inputValue].ChipTop;
+            return new ChipInputOptionReference(referenceChip);
+        }
+        private static ChipInputOption _parseValueChipInput(ChipJSONData chip, int inputIndex)
+        {
+            var value = chip.ParseInput(inputIndex);
+            return new ChipInputOptionValue(value);
         }
     }
 }
