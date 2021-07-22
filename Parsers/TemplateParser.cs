@@ -10,9 +10,9 @@ namespace IAmACube
 {
     class TemplateParser
     {
-        public static List<BlockTemplate> ParseTemplates(JToken templatesToken)
+        public static List<CubeTemplate> ParseTemplates(JToken templatesToken)
         {
-            var templates = new List<BlockTemplate>();
+            var templates = new List<CubeTemplate>();
 
             foreach (var templateToken in templatesToken)
             {
@@ -23,9 +23,9 @@ namespace IAmACube
             return templates;
         }
 
-        public static BlockTemplate ParseTemplate(JToken templateToken)
+        public static CubeTemplate ParseTemplate(JToken templateToken)
         {
-            var template = JsonConvert.DeserializeObject<BlockTemplate>(templateToken.ToString());
+            var template = JsonConvert.DeserializeObject<CubeTemplate>(templateToken.ToString());
             if (template.Speed != 0)
             {
                 template.Active = true;

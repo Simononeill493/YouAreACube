@@ -12,11 +12,11 @@ namespace IAmACube
     {
         public string Name { get; set; }
 
-        public List<(Keys Key, ChipBlock Block)> KeyEffects = new List<(Keys, ChipBlock)>();
-        public void AddKeyEffect(Keys key, ChipBlock effect) => KeyEffects.Add((key, effect));
+        public List<(Keys Key, Chipset Block)> KeyEffects = new List<(Keys, Chipset)>();
+        public void AddKeyEffect(Keys key, Chipset effect) => KeyEffects.Add((key, effect));
 
 
-        public void Run(Block actor, UserInput input, ActionsList actions)
+        public void Run(Cube actor, UserInput input, ActionsList actions)
         {
             foreach (var keyEffect in KeyEffects)
             {
@@ -28,13 +28,13 @@ namespace IAmACube
         }
 
 
-        public List<ChipBlock> GetSubBlocks()
+        public List<Chipset> GetSubBlocks()
         {
-            var output = new List<ChipBlock>();
+            var output = new List<Chipset>();
 
             foreach(var block in KeyEffects.Select(k=>k.Block))
             {
-                output.AddRange(block.GetBlockAndSubBlocks());
+                output.AddRange(block.GetChipsetAndSubChipsets());
             }
 
             return output;

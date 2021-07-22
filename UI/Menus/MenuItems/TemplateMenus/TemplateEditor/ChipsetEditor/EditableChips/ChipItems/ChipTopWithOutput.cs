@@ -55,11 +55,11 @@ namespace IAmACube
 
             OutputTypeCurrent = OutputTypeBase.Replace("Variable", CurrentTypeArguments.First());
 
-            /*if(OutputTypeBase.Contains("Block"))
+            /*if(OutputTypeBase.Contains("Cube"))
             {
                 if(optionSelected.BaseType.Equals(nameof(BlockMode)))
                 {
-                    OutputTypeCurrent = OutputTypeBase.Replace("Block", optionSelected.ToString() + "Block");
+                    OutputTypeCurrent = OutputTypeBase.Replace("Cube", optionSelected.ToString() + "Cube");
                 }
             }*/
 

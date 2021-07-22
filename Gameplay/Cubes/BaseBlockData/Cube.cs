@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public abstract partial class Block : IBlock
+    public abstract partial class Cube : ICube
     {
-        public BlockTemplate Template { get; private set; }
+        public CubeTemplate Template { get; private set; }
         public string Sprite => Template.Sprite;
         public bool Active => Template.Active;
         public int Speed => Template.Speed;
 
 
-        public BlockMode BlockType { get; }
+        public CubeMode BlockType { get; }
         public Orientation Orientation { get; private set; }
         public Tile Location { get; protected set; } = Tile.Dummy;
 
@@ -27,7 +27,7 @@ namespace IAmACube
         public (int, int, int, int) ColorMask = (255, 255, 255, 255);
 
 
-        public Block(BlockTemplate template, BlockMode blockType)
+        public Cube(CubeTemplate template, CubeMode blockType)
         {
             _id = IDUtils.GenerateBlockID();
 
@@ -40,7 +40,7 @@ namespace IAmACube
 
 
         public virtual void Update(UserInput input, ActionsList actions) => Template.ChipBlock.Execute(this, input, actions);
-        public virtual void BeCreatedBy(Block creator) => SpeedOffset = creator.SpeedOffset + 1;
+        public virtual void BeCreatedBy(Cube creator) => SpeedOffset = creator.SpeedOffset + 1;
         public virtual bool CanUpdate => true;
         public abstract bool ToBeDeleted();
         public virtual void DealDamage(int amount) { }
@@ -56,5 +56,5 @@ namespace IAmACube
         public void SetTemplateToRuntime() => Template = Templates.GetRuntimeVersion(Template);
     }
 
-    public interface IBlock{}
+    public interface ICube{}
 }

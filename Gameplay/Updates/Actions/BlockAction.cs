@@ -9,23 +9,23 @@ namespace IAmACube
     [Serializable()]
     public class BlockAction
     {
-        public Block Actor;
-        public Block TargetBlock;
+        public Cube Actor;
+        public Cube TargetBlock;
         public Tile TargetTile;
 
         public ActionType ActionType;
 
         public CardinalDirection CardinalDir;
         public RelativeDirection RelativeDir;
-        public BlockMode BlockType;
+        public CubeMode BlockType;
 
         public int EnergyAmount;
         public int Rotation;
         public int MoveSpeed;
 
-        public BlockTemplate Template;
+        public CubeTemplate Template;
 
-        public BlockAction(Block actor,ActionType actionType)
+        public BlockAction(Cube actor,ActionType actionType)
         {
             ActionType = actionType;
             Actor = actor;

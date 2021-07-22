@@ -37,10 +37,10 @@ namespace IAmACube
             TemplateParsingTester.TestParsingRoundTrips(Database);
         }
 
-        public static BlockTemplate GetRuntimeVersion(BlockTemplate savedVersion) => Database[savedVersion.Versions.Name][savedVersion.Version];
-        public static Block Generate(string name,int version,BlockMode blockType) => Database[name][version].Generate(blockType);
-        public static SurfaceBlock GenerateSurface(string name, int version) => Database[name][version].GenerateSurface();
-        public static GroundBlock GenerateGround(string name, int version) => Database[name][version].GenerateGround();
-        public static EphemeralBlock GenerateEphemeral(string name, int version) => Database[name][version].GenerateEphemeral();
+        public static CubeTemplate GetRuntimeVersion(CubeTemplate savedVersion) => Database[savedVersion.Versions.Name][savedVersion.Version];
+        public static Cube Generate(string name,int version,CubeMode blockType) => Database[name][version].Generate(blockType);
+        public static SurfaceCube GenerateSurface(string name, int version) => Database[name][version].GenerateSurface();
+        public static GroundCube GenerateGround(string name, int version) => Database[name][version].GenerateGround();
+        public static EphemeralCube GenerateEphemeral(string name, int version) => Database[name][version].GenerateEphemeral();
     }
 }

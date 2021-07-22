@@ -127,7 +127,7 @@ namespace IAmACube
                 {
                     CurrentTypeArguments[0] = dataTypeFeedingIn;
                 }
-                else if (inputOptions.Contains("AnyBlock"))
+                else if (inputOptions.Contains("AnyCube"))
                 {
                     CurrentTypeArguments[0] = dataTypeFeedingIn;
                 }
@@ -199,7 +199,7 @@ namespace IAmACube
 
         }
         public virtual void GenerateSubChipsets() { }
-        public virtual List<EditableChipset> GetSubChipsets() => new List<EditableChipset>();
+        public virtual List<Blockset> GetSubChipsets() => new List<Blockset>();
 
         public static ChipTop GenerateChipFromChipData(GraphicalChipData data,string name = "")
         {

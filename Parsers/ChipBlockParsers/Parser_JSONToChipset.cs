@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public static class JSONToChipBlockParser
+    public static class Parser_JSONToChipset
     {
-        public static ChipBlock ParseJsonToBlock(string json)
+        public static Chipset ParseJsonToBlock(string json)
         {
             var chipsetsJson = JsonConvert.DeserializeObject<ChipsetJSONData>(json);
             var blocksDict = chipsetsJson.GetBlocksDict();
@@ -46,7 +46,7 @@ namespace IAmACube
         }
         private static void _setControlChipTargets(ChipJSONData chipToken, Dictionary<string, ChipBlockJSONData> blocksDict)
         {
-            var chipData = chipToken.ChipData;
+            var chipData = chipToken.GraphicalChipData;
             var constructedChip = chipToken.IChip;
 
             if (chipData.Name.Equals("If"))
@@ -72,7 +72,7 @@ namespace IAmACube
 
         private static void _setChipInputs(ChipJSONData chipToken, Dictionary<string, ChipJSONData> chipsDict)
         {
-            for (int i = 0; i < chipToken.ChipData.NumInputs; i++)
+            for (int i = 0; i < chipToken.GraphicalChipData.NumInputs; i++)
             {
                 _setChipInput(chipToken, chipsDict, i);
             }

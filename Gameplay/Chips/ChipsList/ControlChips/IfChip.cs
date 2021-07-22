@@ -10,10 +10,10 @@ namespace IAmACube
 
         public bool ChipInput1 { get; set; }
 
-        public ChipBlock Yes;
-        public ChipBlock No;
+        public Chipset Yes;
+        public Chipset No;
 
-        public void Run(Block actor,UserInput input,ActionsList actions)
+        public void Run(Cube actor,UserInput input,ActionsList actions)
         {
             if(ChipInput1)
             {
@@ -25,17 +25,17 @@ namespace IAmACube
             }
         }
 
-        public List<ChipBlock> GetSubBlocks()
+        public List<Chipset> GetSubBlocks()
         {
-            var output = new List<ChipBlock>();
+            var output = new List<Chipset>();
 
             if(Yes!=null) 
             {
-                output.AddRange(Yes.GetBlockAndSubBlocks());
+                output.AddRange(Yes.GetChipsetAndSubChipsets());
             }
             if (No != null)
             {
-                output.AddRange(No.GetBlockAndSubBlocks());
+                output.AddRange(No.GetChipsetAndSubChipsets());
             }
 
             return output;

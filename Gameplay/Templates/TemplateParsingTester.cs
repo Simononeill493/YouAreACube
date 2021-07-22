@@ -9,7 +9,7 @@ namespace IAmACube
     class TemplateParsingTester
     {
         public static void TestParsingRoundTrips(TemplateDatabase templates) => TestParsingRoundTrips(templates.GetAllVersionsOfAllTemplates());
-        public static void TestParsingRoundTrips(List<BlockTemplate> templates)
+        public static void TestParsingRoundTrips(List<CubeTemplate> templates)
         {
             foreach (var template in templates)
             {
@@ -18,15 +18,15 @@ namespace IAmACube
             }
         }
 
-        public static void TestParsingRoundTrip(string name,ChipBlock chipBlock)
+        public static void TestParsingRoundTrip(string name,Chipset chipBlock)
         {
-            var initialJson = ChipBlockToJSONParser.ParseBlockToJson(chipBlock);
+            var initialJson = Parser_ChipsetToJSON.ParseChipsetToJson(chipBlock);
 
-            var editableChipset = JSONToEditableChipsetParser.ParseJsonToEditableChipset(initialJson, new DummyChipsetGenerator());
-            var chipBlockClone = JSONToChipBlockParser.ParseJsonToBlock(initialJson);
+            var editableChipset = Parser_JSONToEditableChipset.ParseJsonToBlockset(initialJson, new DummyChipsetGenerator());
+            var chipBlockClone = Parser_JSONToChipset.ParseJsonToBlock(initialJson);
 
-            var chipsetRoundTripJson = EditableChipsetToJSONParser.ParseEditableChipsetToJson(editableChipset);
-            var chipBlockRoundTripJson = ChipBlockToJSONParser.ParseBlockToJson(chipBlockClone);
+            var chipsetRoundTripJson = Parser_BlockSetToJSON.ParseEditableChipsetToJson(editableChipset);
+            var chipBlockRoundTripJson = Parser_ChipsetToJSON.ParseChipsetToJson(chipBlockClone);
 
             if (!initialJson.Equals(chipsetRoundTripJson))
             {
@@ -40,7 +40,7 @@ namespace IAmACube
                 throw new Exception(name + " template parsing mismatch");
             }
 
-            if (!ChipBlockComparer.Equivalent(chipBlock, chipBlockClone))
+            if (!ChipsetComparer.Equivalent(chipBlock, chipBlockClone))
             {
                 throw new Exception(name + " template parsing mismatch");
             }

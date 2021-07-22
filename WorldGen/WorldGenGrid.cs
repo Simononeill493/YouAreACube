@@ -50,7 +50,7 @@ namespace IAmACube
             }
         }
 
-        public void AddRandom(BlockMode blockType, BlockTemplate template, int number)
+        public void AddRandom(CubeMode blockType, CubeTemplate template, int number)
         {
             var emptyTiles = TilesDict.Values.Where(t => !t.Has(blockType)).ToList();
             emptyTiles = RandomUtils.GetShuffledList(emptyTiles, r);
@@ -68,14 +68,14 @@ namespace IAmACube
             }
         }
 
-        public void AddToSide(BlockMode blockMode, BlockTemplate template,double odds,int numTiles)
+        public void AddToSide(CubeMode blockMode, CubeTemplate template,double odds,int numTiles)
         {
             for(int i=0;i<numTiles;i++)
             {
                 AddToSide(blockMode, template, odds);
             }
         }
-        public void AddToSide(BlockMode blockMode, BlockTemplate template, double odds)
+        public void AddToSide(CubeMode blockMode, CubeTemplate template, double odds)
         {
             var tilesWithThisTemplate = TilesDict.Where(t => !t.Value.Surrounded[blockMode] & t.Value.Get(blockMode)==template).ToList();
 
@@ -111,60 +111,60 @@ namespace IAmACube
     {
         public string TileSprite;
 
-        public BlockTemplate Surface;
-        public BlockTemplate Ground;
-        public BlockTemplate Ephemeral;
+        public CubeTemplate Surface;
+        public CubeTemplate Ground;
+        public CubeTemplate Ephemeral;
 
-        public Dictionary<BlockMode, bool> Surrounded;
+        public Dictionary<CubeMode, bool> Surrounded;
         public WorldGenGridPoint()
         {
             TileSprite = "Grass";
 
-            Surrounded = new Dictionary<BlockMode, bool>();
-            Surrounded[BlockMode.Surface] = false;
-            Surrounded[BlockMode.Ground] = false;
-            Surrounded[BlockMode.Ephemeral] = false;
+            Surrounded = new Dictionary<CubeMode, bool>();
+            Surrounded[CubeMode.Surface] = false;
+            Surrounded[CubeMode.Ground] = false;
+            Surrounded[CubeMode.Ephemeral] = false;
         }
 
-        public bool Has(BlockMode blockMode)
+        public bool Has(CubeMode blockMode)
         {
             switch (blockMode)
             {
-                case BlockMode.Surface:
+                case CubeMode.Surface:
                     return Surface != null;
-                case BlockMode.Ground:
+                case CubeMode.Ground:
                     return Ground != null;
-                case BlockMode.Ephemeral:
+                case CubeMode.Ephemeral:
                     return Ephemeral != null;
             }
 
             throw new Exception();
         }
-        public BlockTemplate Get(BlockMode blockMode)
+        public CubeTemplate Get(CubeMode blockMode)
         {
             switch (blockMode)
             {
-                case BlockMode.Surface:
+                case CubeMode.Surface:
                     return Surface;
-                case BlockMode.Ground:
+                case CubeMode.Ground:
                     return Ground;
-                case BlockMode.Ephemeral:
+                case CubeMode.Ephemeral:
                     return Ephemeral;
             }
 
             throw new Exception();
         }
-        public void Set(BlockMode blockMode,BlockTemplate template)
+        public void Set(CubeMode blockMode,CubeTemplate template)
         {
             switch (blockMode)
             {
-                case BlockMode.Surface:
+                case CubeMode.Surface:
                     Surface = template;
                     break;
-                case BlockMode.Ground:
+                case CubeMode.Ground:
                     Ground = template;
                     break;
-                case BlockMode.Ephemeral:
+                case CubeMode.Ephemeral:
                     Ephemeral = template;
                     break;
             }

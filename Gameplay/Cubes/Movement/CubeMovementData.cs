@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class BlockMovementData
+    public class CubeMovementData
     {
         public readonly Tile Origin;
         public readonly Tile Destination;
@@ -24,7 +24,7 @@ namespace IAmACube
         private int _midpoint;
         private bool _passedMidpoint;
 
-        public BlockMovementData(Block mover,Tile destination,int moveTotalTicks,CardinalDirection direction)
+        public CubeMovementData(Cube mover,Tile destination,int moveTotalTicks,CardinalDirection direction)
         {
             Origin = mover.Location;
             Destination = destination;

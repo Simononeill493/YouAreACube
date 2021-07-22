@@ -5,7 +5,7 @@ namespace IAmACube
     [Serializable()]
     public class ZapManager
     {
-        public void TryZap(Block actor, BlockMode blockType)
+        public void TryZap(Cube actor, CubeMode blockType)
         {
             if (actor.Location.HasBlock(blockType) & !actor.ToBeDeleted())
             {

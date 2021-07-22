@@ -15,48 +15,48 @@ namespace IAmACube
         public IntPoint SectorID { get; }
         public bool InSector(Sector sector) => sector.AbsoluteLocation.Equals(SectorID);
 
-        public GroundBlock Ground { get; set; }
-        public SurfaceBlock Surface { get; set; }
-        public EphemeralBlock Ephemeral { get; set; }
-        public Block GetBlock(BlockMode blockMode)
+        public GroundCube Ground { get; set; }
+        public SurfaceCube Surface { get; set; }
+        public EphemeralCube Ephemeral { get; set; }
+        public Cube GetBlock(CubeMode blockMode)
         {
             switch (blockMode)
             {
-                case BlockMode.Surface:
+                case CubeMode.Surface:
                     return Surface;
-                case BlockMode.Ground:
+                case CubeMode.Ground:
                     return Ground;
-                case BlockMode.Ephemeral:
+                case CubeMode.Ephemeral:
                     return Ephemeral;
             }
 
             throw new Exception("Unrecognized block type");
         }
-        public List<Block> GetBlocks()
+        public List<Cube> GetBlocks()
         {
-            var output = new List<Block>();
+            var output = new List<Cube>();
             if (HasGround) { output.Add(Ground); }
             if (HasSurface) { output.Add(Surface); }
             if (HasEphemeral) { output.Add(Ephemeral); }
             return output;
         }
 
-        public virtual bool HasThisSurface(SurfaceBlock surface) => surface == Surface;
-        public virtual bool HasThisGround(GroundBlock ground) => ground == Ground;
-        public virtual bool HasThisEphemeral(EphemeralBlock ephemeral) => ephemeral == Ephemeral;
+        public virtual bool HasThisSurface(SurfaceCube surface) => surface == Surface;
+        public virtual bool HasThisGround(GroundCube ground) => ground == Ground;
+        public virtual bool HasThisEphemeral(EphemeralCube ephemeral) => ephemeral == Ephemeral;
 
         public bool HasGround => (Ground != null);
         public bool HasSurface => (Surface != null);
         public bool HasEphemeral => (Ephemeral != null);
-        public bool HasBlock(BlockMode blockMode)
+        public bool HasBlock(CubeMode blockMode)
         {
             switch (blockMode)
             {
-                case BlockMode.Surface:
+                case CubeMode.Surface:
                     return HasSurface;
-                case BlockMode.Ground:
+                case CubeMode.Ground:
                     return HasGround;
-                case BlockMode.Ephemeral:
+                case CubeMode.Ephemeral:
                     return HasEphemeral;
             }
             return false;
@@ -74,31 +74,31 @@ namespace IAmACube
             IsCorner = ((LocationInSector.X == 0) | (LocationInSector.X == sectorSize - 1)) & ((LocationInSector.Y == 0) | (LocationInSector.Y == sectorSize - 1));
         }
 
-        public bool ContainsBlockType(BlockMode blockType)
+        public bool ContainsBlockType(CubeMode blockType)
         {
             switch (blockType)
             {
-                case BlockMode.Surface:
+                case CubeMode.Surface:
                     return HasSurface;
-                case BlockMode.Ground:
+                case CubeMode.Ground:
                     return HasGround;
-                case BlockMode.Ephemeral:
+                case CubeMode.Ephemeral:
                     return HasEphemeral;
             }
 
             throw new Exception("Tried to scan a tile for an unrecognized block type: " + blockType);
         }
-        public void ClearBlock(Block block)
+        public void ClearBlock(Cube block)
         {
             switch (block.BlockType)
             {
-                case BlockMode.Surface:
+                case CubeMode.Surface:
                     _clearSurface(block);
                     return;
-                case BlockMode.Ephemeral:
+                case CubeMode.Ephemeral:
                     _clearEphemeral(block);
                     return;
-                case BlockMode.Ground:
+                case CubeMode.Ground:
                     _clearGround(block);
                     return;
 
@@ -107,7 +107,7 @@ namespace IAmACube
             throw new Exception("Tried to clear a block type which cannot be cleared: " + block.BlockType);
         }
 
-        private void _clearSurface(Block block)
+        private void _clearSurface(Cube block)
         {
             if (block != Surface)
             {
@@ -115,14 +115,14 @@ namespace IAmACube
             }
             Surface = null;
         }
-        private void _clearEphemeral(Block block)
+        private void _clearEphemeral(Cube block)
         {
             if (block == Ephemeral)
             {
                 throw new Exception("Ephemeral block should have been cleared when it faded, but it's still in its tile.");
             }
         }
-        private void _clearGround(Block block)
+        private void _clearGround(Cube block)
         {
             if (block != Ground)
             {

@@ -9,16 +9,16 @@ namespace IAmACube
 {
     class ChipTester
     {
-        public static ChipBlock TestEnemyBlock=> MakeEnemyBlock();
-        public static ChipBlock TestFleeBlock => MakeFleeBlock();
+        public static Chipset TestEnemyBlock=> MakeEnemyBlock();
+        public static Chipset TestFleeBlock => MakeFleeBlock();
 
-        public static ChipBlock TestShootBlock => MakeShootBlock();
+        public static Chipset TestShootBlock => MakeShootBlock();
 
-        public static ChipBlock TestPlayerBlock => MakePlayerBlock();
-        public static ChipBlock TestSpinBlock => MakeSpinBlock();
-        public static ChipBlock TestBulletBlock => MakeBulletBlock();
-        public static ChipBlock TestBulletV2Block => MakeSpinBulletBlock();
-        public static ChipBlock TestMouseFollowBlock => MakeMouseFollowBlock();
+        public static Chipset TestPlayerBlock => MakePlayerBlock();
+        public static Chipset TestSpinBlock => MakeSpinBlock();
+        public static Chipset TestBulletBlock => MakeBulletBlock();
+        public static Chipset TestBulletV2Block => MakeSpinBulletBlock();
+        public static Chipset TestMouseFollowBlock => MakeMouseFollowBlock();
 
         public static void SetTestBlocks(TemplateDatabase blockTemplates)
         {
@@ -41,16 +41,16 @@ namespace IAmACube
 
 
 
-        public static ChipBlock MakeEnemyBlock()
+        public static Chipset MakeEnemyBlock()
         {
-            var getNeighboursChip = new GetNeighbouringBlocksOfTypeChip() { Name = "GetNeighbours_1", ChipInput1 = BlockMode.Surface };
+            var getNeighboursChip = new GetNeighbouringCubesOfTypeChip() { Name = "GetNeighbours_1", ChipInput1 = CubeMode.Surface };
             var randDirChip = new RandomCardinalChip() { Name = "RandomDir_1" };
 
             var ifChip = new IfChip() { Name = "If_1" };
 
-            var isListEmptyChip = new IsListEmptyChip<Block>() { Name = "IsListEmpty_1" };
-            var firstOfListChip = new FirstOfListChip<Block>() { Name = "FirstOfList_1" };
-            var blockLocationChip = new BlockLocationChip<Block>() { Name = "BlockLocation_1" };
+            var isListEmptyChip = new IsListEmptyChip<Cube>() { Name = "IsListEmpty_1" };
+            var firstOfListChip = new FirstOfListChip<Cube>() { Name = "FirstOfList_1" };
+            var blockLocationChip = new CubeLocationChip<Cube>() { Name = "BlockLocation_1" };
             var stepToChip = new ApproachDirectionChip() { Name = "ApproachDirection_1" };
             var moveRandChip = new MoveCardinalChip() { Name = "MoveCardinal_1" };
             var moveToAdjChip = new MoveCardinalChip() { Name = "MoveCardinal_2" };
@@ -63,9 +63,9 @@ namespace IAmACube
             blockLocationChip.Targets1.Add(stepToChip);
             stepToChip.Targets1.Add(moveToAdjChip);
 
-            var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip, ifChip) { Name = "_Initial" };
-            var randomWalkBlock = new ChipBlock(randDirChip, moveRandChip) { Name = "RandomWalk" };
-            var approachBlock = new ChipBlock(firstOfListChip, blockLocationChip, stepToChip, moveToAdjChip) { Name = "Approach" };
+            var initialBlock = new Chipset(getNeighboursChip, isListEmptyChip, ifChip) { Name = "_Initial" };
+            var randomWalkBlock = new Chipset(randDirChip, moveRandChip) { Name = "RandomWalk" };
+            var approachBlock = new Chipset(firstOfListChip, blockLocationChip, stepToChip, moveToAdjChip) { Name = "Approach" };
 
             isListEmptyChip.Targets1.Add(ifChip);
             ifChip.Yes = randomWalkBlock;
@@ -73,16 +73,16 @@ namespace IAmACube
 
             return initialBlock;
         }
-        public static ChipBlock MakeFleeBlock()
+        public static Chipset MakeFleeBlock()
         {
-            var getNeighboursChip = new GetNeighbouringBlocksOfTypeChip() { Name = "GetNeighbours_1", ChipInput1 = BlockMode.Surface };
+            var getNeighboursChip = new GetNeighbouringCubesOfTypeChip() { Name = "GetNeighbours_1", ChipInput1 = CubeMode.Surface };
             var randDirChip = new RandomCardinalChip() { Name = "RandomDir_1" };
 
             var ifChip = new IfChip() { Name = "If_1" };
 
-            var isListEmptyChip = new IsListEmptyChip<Block>() { Name = "IsListEmpty_1" };
-            var firstOfListChip = new FirstOfListChip<Block>() { Name = "FirstOfList_1" };
-            var blockLocationChip = new BlockLocationChip<Block>() { Name = "BlockLocation_1" };
+            var isListEmptyChip = new IsListEmptyChip<Cube>() { Name = "IsListEmpty_1" };
+            var firstOfListChip = new FirstOfListChip<Cube>() { Name = "FirstOfList_1" };
+            var blockLocationChip = new CubeLocationChip<Cube>() { Name = "BlockLocation_1" };
             var fleeChip = new FleeDirectionChip() { Name = "FleeDirection_1" };
             var moveRandChip = new MoveCardinalChip() { Name = "MoveCardinal_1" };
             var moveToAdjChip = new MoveCardinalChip() { Name = "MoveCardinal_2" };
@@ -95,9 +95,9 @@ namespace IAmACube
             blockLocationChip.Targets1.Add(fleeChip);
             fleeChip.Targets1.Add(moveToAdjChip);
 
-            var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip, ifChip) { Name = "_Initial" };
-            var randomWalkBlock = new ChipBlock(randDirChip, moveRandChip) { Name = "RandomWalk" };
-            var fleeBlock = new ChipBlock(firstOfListChip, blockLocationChip, fleeChip, moveToAdjChip) { Name = "Flee" };
+            var initialBlock = new Chipset(getNeighboursChip, isListEmptyChip, ifChip) { Name = "_Initial" };
+            var randomWalkBlock = new Chipset(randDirChip, moveRandChip) { Name = "RandomWalk" };
+            var fleeBlock = new Chipset(firstOfListChip, blockLocationChip, fleeChip, moveToAdjChip) { Name = "Flee" };
 
             isListEmptyChip.Targets1.Add(ifChip);
             ifChip.Yes = randomWalkBlock;
@@ -106,30 +106,30 @@ namespace IAmACube
             return initialBlock;
         }
 
-        public static ChipBlock MakeShootBlock()
+        public static Chipset MakeShootBlock()
         {
             var randDirChip1 = new RandomCardinalChip() { Name = "RandomDir_1" };
             var moveRandChip1 = new MoveCardinalChip() { Name = "MoveCardinal_1" }; 
             randDirChip1.Targets1.Add(moveRandChip1);
-            var wanderBlock1 = new ChipBlock(randDirChip1, moveRandChip1) { Name = "Wander1" };
+            var wanderBlock1 = new Chipset(randDirChip1, moveRandChip1) { Name = "Wander1" };
 
             var randDirChip2 = new RandomCardinalChip() { Name = "RandomDir_2" };
             var moveRandChip2 = new MoveCardinalChip() { Name = "MoveCardinal_2" };
             randDirChip2.Targets1.Add(moveRandChip2);
-            var wanderBlock2 = new ChipBlock(randDirChip2, moveRandChip2) { Name = "Wander2" };
+            var wanderBlock2 = new Chipset(randDirChip2, moveRandChip2) { Name = "Wander2" };
 
 
-            var getNeighboursChip = new GetNeighbouringBlocksOfTypeChip() { Name = "GetNeighbours_1", ChipInput1 = BlockMode.Surface };
+            var getNeighboursChip = new GetNeighbouringCubesOfTypeChip() { Name = "GetNeighbours_1", ChipInput1 = CubeMode.Surface };
 
             var ifNoBlockExists = new IfChip() { Name = "If_1" };
             var ifBlockActive = new IfChip() { Name = "If_2" };
 
-            var isListEmptyChip = new IsListEmptyChip<Block>() { Name = "IsListEmpty_1" };
-            var firstOfListChip = new FirstOfListChip<Block>() { Name = "FirstOfList_1" };
-            var blockLocationChip = new BlockLocationChip<Block>() { Name = "BlockLocation_1" };
+            var isListEmptyChip = new IsListEmptyChip<Cube>() { Name = "IsListEmpty_1" };
+            var firstOfListChip = new FirstOfListChip<Cube>() { Name = "FirstOfList_1" };
+            var blockLocationChip = new CubeLocationChip<Cube>() { Name = "BlockLocation_1" };
             var shootDirChip = new ApproachDirectionChip() { Name = "ApproachDirection_1" };
-            var shootAdjchip = new CreateCardinalChip() { Name = "CreateEphemeralCardinal_1", ChipInput2 = Templates.Database["BigBullet"][0], ChipInput3 = BlockMode.Ephemeral };
-            var isBlockActiveChip = new IsBlockActiveChip<Block> { Name = "IsBlockActive_1" };
+            var shootAdjchip = new CreateCardinalChip() { Name = "CreateEphemeralCardinal_1", ChipInput2 = Templates.Database["BigBullet"][0], ChipInput3 = CubeMode.Ephemeral };
+            var isBlockActiveChip = new IsCubeActiveChip<Cube> { Name = "IsBlockActive_1" };
 
             getNeighboursChip.Targets1.Add(isListEmptyChip);
             getNeighboursChip.Targets1.Add(firstOfListChip);
@@ -140,9 +140,9 @@ namespace IAmACube
             isBlockActiveChip.Targets1.Add(ifBlockActive);
             isListEmptyChip.Targets1.Add(ifNoBlockExists);
 
-            var initialBlock = new ChipBlock(getNeighboursChip, isListEmptyChip, ifNoBlockExists) { Name = "_Initial" };
-            var blockExists = new ChipBlock(firstOfListChip, isBlockActiveChip, ifBlockActive) { Name = "Shoot" };
-            var shootInactiveBlock = new ChipBlock(blockLocationChip, shootDirChip, shootAdjchip) { Name = "ShootActive" };
+            var initialBlock = new Chipset(getNeighboursChip, isListEmptyChip, ifNoBlockExists) { Name = "_Initial" };
+            var blockExists = new Chipset(firstOfListChip, isBlockActiveChip, ifBlockActive) { Name = "Shoot" };
+            var shootInactiveBlock = new Chipset(blockLocationChip, shootDirChip, shootAdjchip) { Name = "ShootActive" };
 
             ifNoBlockExists.Yes = wanderBlock1;
             ifNoBlockExists.No = blockExists;
@@ -154,7 +154,7 @@ namespace IAmACube
         }
 
 
-        public static ChipBlock MakePlayerBlock()
+        public static Chipset MakePlayerBlock()
         {
             var keySwitch = new KeySwitchChip() { Name = "KeySwitch" };
             var bullet = Templates.Database["Bullet"][0];
@@ -164,23 +164,23 @@ namespace IAmACube
             var moveDown = new MoveCardinalChip() { ChipInput1 = CardinalDirection.South, Name = "MoveDown" };
             var moveLeft = new MoveCardinalChip() { ChipInput1 = CardinalDirection.West, Name = "MoveLeft" };
             var moveRight = new MoveCardinalChip() { ChipInput1 = CardinalDirection.East, Name = "MoveRight" };
-            var createEnemyNorth = new CreateCardinalChip() { ChipInput1 = CardinalDirection.North, ChipInput2 = bigBullet, ChipInput3 = BlockMode.Ephemeral, Name = "createEnemyNorth" };
-            var createEnemySouth = new CreateCardinalChip() { ChipInput1 = CardinalDirection.South, ChipInput2 = bigBullet, ChipInput3 = BlockMode.Ephemeral, Name = "createEnemySouth" };
-            var createEnemyWest = new CreateCardinalChip() { ChipInput1 = CardinalDirection.West, ChipInput2 = bullet, ChipInput3 = BlockMode.Ephemeral, Name = "createEnemyWest" };
-            var createEnemyEast = new CreateCardinalChip() { ChipInput1 = CardinalDirection.East, ChipInput2 = bullet, ChipInput3 = BlockMode.Ephemeral, Name = "createEnemyEast" };
+            var createEnemyNorth = new CreateCardinalChip() { ChipInput1 = CardinalDirection.North, ChipInput2 = bigBullet, ChipInput3 = CubeMode.Ephemeral, Name = "createEnemyNorth" };
+            var createEnemySouth = new CreateCardinalChip() { ChipInput1 = CardinalDirection.South, ChipInput2 = bigBullet, ChipInput3 = CubeMode.Ephemeral, Name = "createEnemySouth" };
+            var createEnemyWest = new CreateCardinalChip() { ChipInput1 = CardinalDirection.West, ChipInput2 = bullet, ChipInput3 = CubeMode.Ephemeral, Name = "createEnemyWest" };
+            var createEnemyEast = new CreateCardinalChip() { ChipInput1 = CardinalDirection.East, ChipInput2 = bullet, ChipInput3 = CubeMode.Ephemeral, Name = "createEnemyEast" };
 
-            keySwitch.AddKeyEffect(Keys.Up, new ChipBlock(createEnemyNorth) { Name = "UpBlock" });
-            keySwitch.AddKeyEffect(Keys.Down, new ChipBlock(createEnemySouth) { Name = "DownBlock" });
-            keySwitch.AddKeyEffect(Keys.Left, new ChipBlock(createEnemyWest) { Name = "LeftBlock" });
-            keySwitch.AddKeyEffect(Keys.Right, new ChipBlock(createEnemyEast) { Name = "RightBlock" });
-            keySwitch.AddKeyEffect(Keys.W, new ChipBlock(moveUp) { Name = "WBlock" });
-            keySwitch.AddKeyEffect(Keys.A, new ChipBlock(moveLeft) { Name = "ABlock" });
-            keySwitch.AddKeyEffect(Keys.S, new ChipBlock(moveDown) { Name = "SBlock" });
-            keySwitch.AddKeyEffect(Keys.D, new ChipBlock(moveRight) { Name = "DBlock" });
+            keySwitch.AddKeyEffect(Keys.Up, new Chipset(createEnemyNorth) { Name = "UpBlock" });
+            keySwitch.AddKeyEffect(Keys.Down, new Chipset(createEnemySouth) { Name = "DownBlock" });
+            keySwitch.AddKeyEffect(Keys.Left, new Chipset(createEnemyWest) { Name = "LeftBlock" });
+            keySwitch.AddKeyEffect(Keys.Right, new Chipset(createEnemyEast) { Name = "RightBlock" });
+            keySwitch.AddKeyEffect(Keys.W, new Chipset(moveUp) { Name = "WBlock" });
+            keySwitch.AddKeyEffect(Keys.A, new Chipset(moveLeft) { Name = "ABlock" });
+            keySwitch.AddKeyEffect(Keys.S, new Chipset(moveDown) { Name = "SBlock" });
+            keySwitch.AddKeyEffect(Keys.D, new Chipset(moveRight) { Name = "DBlock" });
 
-            return new ChipBlock(keySwitch) { Name = "_Initial" };
+            return new Chipset(keySwitch) { Name = "_Initial" };
         }
-        public static ChipBlock MakeSpinBlock()
+        public static Chipset MakeSpinBlock()
         {
             var getRotationAmountChip = new RandomNumChip() { Name = "RandomNum_1" };
             getRotationAmountChip.ChipInput1 = 3;
@@ -191,20 +191,20 @@ namespace IAmACube
             var moveForwardChip = new MoveRelativeChip() { Name = "MoveRelative_1" };
             moveForwardChip.ChipInput1 = RelativeDirection.Forward;
 
-            return new ChipBlock(getRotationAmountChip, rotateRightChip, moveForwardChip) { Name = "_Initial" };
+            return new Chipset(getRotationAmountChip, rotateRightChip, moveForwardChip) { Name = "_Initial" };
         }
-        public static ChipBlock MakeBulletBlock()
+        public static Chipset MakeBulletBlock()
         {
-            var zapSurfaceChip = new ZapChip() { Name = "ZapSurfaceChip", ChipInput1 = BlockMode.Surface };
+            var zapSurfaceChip = new ZapChip() { Name = "ZapSurfaceChip", ChipInput1 = CubeMode.Surface };
 
             var moveForwardChip = new MoveRelativeChip() { Name = "MoveRelative_1" };
             moveForwardChip.ChipInput1 = RelativeDirection.Forward;
 
-            return new ChipBlock(zapSurfaceChip,moveForwardChip) { Name = "_Initial" };
+            return new Chipset(zapSurfaceChip,moveForwardChip) { Name = "_Initial" };
         }
-        public static ChipBlock MakeSpinBulletBlock()
+        public static Chipset MakeSpinBulletBlock()
         {
-            var zapSurfaceChip = new ZapChip() { Name = "ZapSurfaceChip", ChipInput1 = BlockMode.Surface };
+            var zapSurfaceChip = new ZapChip() { Name = "ZapSurfaceChip", ChipInput1 = CubeMode.Surface };
 
             var moveForwardChip = new MoveRelativeChip() { Name = "MoveRelative_1" };
             moveForwardChip.ChipInput1 = RelativeDirection.Forward;
@@ -212,22 +212,22 @@ namespace IAmACube
             var rotationChip = new RotateChip() { Name = "Rotate_1" };
             rotationChip.ChipInput1 = 1;
 
-            return new ChipBlock(zapSurfaceChip, moveForwardChip, rotationChip) { Name = "_Initial" };
+            return new Chipset(zapSurfaceChip, moveForwardChip, rotationChip) { Name = "_Initial" };
         }
-        public static ChipBlock MakeMouseFollowBlock()
+        public static Chipset MakeMouseFollowBlock()
         {
             var getMouseChip = new GetMouseHoverChip() { Name = "MouseHover_1" };
             var approachChip = new ApproachTileChip() { Name = "ApproachMouse" };
 
             getMouseChip.Targets1.Add(approachChip);
 
-            return new ChipBlock(getMouseChip, approachChip) { Name = "_Initial" };
+            return new Chipset(getMouseChip, approachChip) { Name = "_Initial" };
         }
-        public static ChipBlock MakeFirstOfListBlock()
+        public static Chipset MakeFirstOfListBlock()
         {
             return null;
-            var getNeighboursChip = new GetNeighbouringBlocksChip() { Name = "GetNeighbours_1" };
-            var firstOfListChip = new FirstOfListChip<SurfaceBlock>() { Name = "FirstOfList_1" };
+            var getNeighboursChip = new GetNeighbouringCubesChip() { Name = "GetNeighbours_1" };
+            var firstOfListChip = new FirstOfListChip<SurfaceCube>() { Name = "FirstOfList_1" };
 
         }
 

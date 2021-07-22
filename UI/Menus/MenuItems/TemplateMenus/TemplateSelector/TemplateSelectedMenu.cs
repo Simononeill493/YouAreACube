@@ -11,13 +11,13 @@ namespace IAmACube
     class TemplateSelectedMenu : SpriteMenuItem
     {
         private TemplateVersionDictionary _template;
-        private ListMenuItem<BlockTemplate> _templateList;
+        private ListMenuItem<CubeTemplate> _templateList;
 
         private TemplateBox _templatePicture;
         private TextMenuItem _templateName;
-        private Action<BlockTemplate, TemplateSelectedAction> _templateButtonPressCallback;
+        private Action<CubeTemplate, TemplateSelectedAction> _templateButtonPressCallback;
 
-        public TemplateSelectedMenu(IHasDrawLayer parentDrawLayer, Action<BlockTemplate,TemplateSelectedAction> templateButtonPressCallback) : base(parentDrawLayer,"EmptyMenuRectangleSection")
+        public TemplateSelectedMenu(IHasDrawLayer parentDrawLayer, Action<CubeTemplate,TemplateSelectedAction> templateButtonPressCallback) : base(parentDrawLayer,"EmptyMenuRectangleSection")
         {
             _templateButtonPressCallback = templateButtonPressCallback;
 
@@ -30,7 +30,7 @@ namespace IAmACube
             _templateName.MultiplyScale(0.5f);
             AddChild(_templateName);
 
-            _templateList = new ListMenuItem<BlockTemplate>(this,new IntPoint(64,15));
+            _templateList = new ListMenuItem<CubeTemplate>(this,new IntPoint(64,15));
             _templateList.SetLocationConfig(7, 40, CoordinateMode.ParentPixelOffset);
             AddChild(_templateList);
 

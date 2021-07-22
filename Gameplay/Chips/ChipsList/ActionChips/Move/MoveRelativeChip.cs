@@ -13,7 +13,7 @@ namespace IAmACube
 
         public RelativeDirection ChipInput1 { get; set; }
 
-        public void Run(Block actor, UserInput userInput, ActionsList actions)
+        public void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
             actions.AddMoveAction(actor, ChipInput1);
         }

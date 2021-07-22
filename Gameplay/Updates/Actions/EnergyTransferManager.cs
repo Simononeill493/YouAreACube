@@ -9,7 +9,7 @@ namespace IAmACube
     [Serializable()]
     public class EnergyTransferManager
     {
-        public void TryGiveEnergy(Block actor, CardinalDirection cardinalDir,BlockMode blockMode, int energyAmount)
+        public void TryGiveEnergy(Cube actor, CardinalDirection cardinalDir,CubeMode blockMode, int energyAmount)
         {
             if(actor.Location.HasNeighbour(cardinalDir))
             {

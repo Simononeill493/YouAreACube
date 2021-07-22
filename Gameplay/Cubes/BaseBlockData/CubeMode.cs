@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public enum BlockMode
+    public enum CubeMode
     {
         Surface,
         Ground,

@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    partial class EditableChipset : DraggableMenuItem, IChipsDroppableOn
+    partial class Blockset : DraggableMenuItem, IChipsDroppableOn
     {
         public string Name;
         public List<ChipTop> Chips { get; private set; }
 
-        private Action<List<ChipTop>, UserInput, EditableChipset> _liftChipsCallback;
+        private Action<List<ChipTop>, UserInput, Blockset> _liftChipsCallback;
         public int HeightOfAllChips;
         private IEditableChipsetContainer _currentContainer;
 
-        public EditableChipset(string name,IHasDrawLayer parent,float scaleMultiplier,Action<List<ChipTop>,UserInput,EditableChipset> liftChipsCallback) : base(parent, "TopOfChipset")
+        public Blockset(string name,IHasDrawLayer parent,float scaleMultiplier,Action<List<ChipTop>,UserInput,Blockset> liftChipsCallback) : base(parent, "TopOfChipset")
         {
             Name = name;
             Chips = new List<ChipTop>();
@@ -110,15 +110,15 @@ namespace IAmACube
 
         public bool IsMouseOverAnyChip() => _getChipsetSectionMouseIsOver() != null;
 
-        public List<EditableChipset> GetThisAndSubChipsets()
+        public List<Blockset> GetThisAndSubChipsets()
         {
             var sub = GetSubChipsets();
             sub.Add(this);
             return sub;
         }
-        public List<EditableChipset> GetSubChipsets()
+        public List<Blockset> GetSubChipsets()
         {
-            var output = new List<EditableChipset>();
+            var output = new List<Blockset>();
             var subChipsets = Chips.Select(c => c.GetSubChipsets());
 
             foreach (var sublist in subChipsets)

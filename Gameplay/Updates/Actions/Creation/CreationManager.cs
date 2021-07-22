@@ -10,14 +10,14 @@ namespace IAmACube
     public class CreationManager
     {
         private Sector _creatorSector;
-        public List<(Block, IntPoint)> ToPlaceOutsideOfSector = new List<(Block, IntPoint)>();
+        public List<(Cube, IntPoint)> ToPlaceOutsideOfSector = new List<(Cube, IntPoint)>();
 
         public CreationManager(Sector sector)
         {
             _creatorSector = sector;
         }
 
-        public bool TryCreate(Block creator,BlockTemplate template,BlockMode blockType,CardinalDirection direction)
+        public bool TryCreate(Cube creator,CubeTemplate template,CubeMode blockType,CardinalDirection direction)
         {
             if(!creator.Location.DirectionIsValid(direction))
             {
@@ -26,7 +26,7 @@ namespace IAmACube
 
             return TryCreate(creator, template, blockType, direction, creator.Location.Adjacent[direction]);
         }
-        private bool TryCreate(Block creator, BlockTemplate template, BlockMode blockType, CardinalDirection direction,Tile targetPosition)
+        private bool TryCreate(Cube creator, CubeTemplate template, CubeMode blockType, CardinalDirection direction,Tile targetPosition)
         {
             if(_canThisBlockBeCreated(creator, template, targetPosition,blockType))
             {
@@ -36,7 +36,7 @@ namespace IAmACube
 
             return false;
         }
-        private void _create(Block creator, BlockTemplate template, BlockMode blockType, CardinalDirection direction, Tile targetPosition)
+        private void _create(Cube creator, CubeTemplate template, CubeMode blockType, CardinalDirection direction, Tile targetPosition)
         {
             var newBlock = template.Generate(blockType);
             newBlock.BeCreatedBy(creator);
@@ -46,7 +46,7 @@ namespace IAmACube
             _addToTargetSector(newBlock, targetPosition);
         }
 
-        private void _addToTargetSector(Block newBlock, Tile targetPosition)
+        private void _addToTargetSector(Cube newBlock, Tile targetPosition)
         {
             if (targetPosition.InSector(_creatorSector))
             {
@@ -58,22 +58,22 @@ namespace IAmACube
                 newBlock.IsMovingBetweenSectors = true;
             }
         }
-        private bool _canThisBlockBeCreated(Block creator, BlockTemplate template, Tile targetPosition, BlockMode blockType)
+        private bool _canThisBlockBeCreated(Cube creator, CubeTemplate template, Tile targetPosition, CubeMode blockType)
         {
             switch (blockType)
             {
-                case BlockMode.Surface:
+                case CubeMode.Surface:
                     return _canCreateSurface(creator, template, targetPosition);
-                case BlockMode.Ground:
+                case CubeMode.Ground:
                     return _canCreateGround(creator, template, targetPosition);
-                case BlockMode.Ephemeral:
+                case CubeMode.Ephemeral:
                     return _canCreateEphemeral(creator, template, targetPosition);
             }
 
             throw new NotImplementedException("Creating unrecognized block type");
         }
-        private bool _canCreateEphemeral(Block creator, BlockTemplate template, Tile targetPosition) => creator.IsInCentreOfBlock & (creator.Energy >= template.MaxEnergy);
-        private bool _canCreateSurface(Block creator, BlockTemplate template, Tile targetPosition) => !targetPosition.HasSurface;
-        private bool _canCreateGround(Block creator, BlockTemplate template, Tile targetPosition) => !targetPosition.HasGround;
+        private bool _canCreateEphemeral(Cube creator, CubeTemplate template, Tile targetPosition) => creator.IsInCentreOfTile & (creator.Energy >= template.MaxEnergy);
+        private bool _canCreateSurface(Cube creator, CubeTemplate template, Tile targetPosition) => !targetPosition.HasSurface;
+        private bool _canCreateGround(Cube creator, CubeTemplate template, Tile targetPosition) => !targetPosition.HasGround;
     }
 }

@@ -25,7 +25,7 @@ namespace IAmACube
             _currentCamera = _playerCamera;
 
 #if DEBUG
-            _currentCamera = _adminCamera;
+            //_currentCamera = _adminCamera;
             CameraConfiguration.DebugMode = true;
 #endif
         }

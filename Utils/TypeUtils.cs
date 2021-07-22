@@ -57,9 +57,9 @@ namespace IAmACube
             {
                 return typeof(object);
             }
-            if (name.Equals("AnyBlock"))
+            if (name.Equals("AnyCube"))
             {
-                return typeof(Block);
+                return typeof(Cube);
             }
 
             return _allTypes[name];

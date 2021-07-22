@@ -14,8 +14,8 @@ namespace IAmACube
         public readonly List<Tile> Tiles;
         public readonly IntPoint Size;
 
-        public List<Block> ActiveBlocks;
-        private List<Block> _destructibleBlocks;
+        public List<Cube> ActiveBlocks;
+        private List<Cube> _destructibleBlocks;
 
         private SectorUpdateManager _updateManager;
 
@@ -27,8 +27,8 @@ namespace IAmACube
 
             _updateManager = new SectorUpdateManager(this);
 
-            ActiveBlocks = new List<Block>();
-            _destructibleBlocks = new List<Block>();
+            ActiveBlocks = new List<Cube>();
+            _destructibleBlocks = new List<Cube>();
         }
 
         public SectorEmmigrantsList Tick(UserInput input, WorldTickManager tickManager)
@@ -53,7 +53,7 @@ namespace IAmACube
         }
 
 
-        public void AddBlockToSector(Block block)
+        public void AddBlockToSector(Cube block)
         {
             _updateManager.AddBlockToUpdates(block);
 
@@ -64,7 +64,7 @@ namespace IAmACube
                 ActiveBlocks.Add(block);
             }
         }
-        public void RemoveBlockFromSector(Block block)
+        public void RemoveBlockFromSector(Cube block)
         {
             _updateManager.RemoveBlockFromUpdates(block);
 
@@ -87,7 +87,7 @@ namespace IAmACube
         }
 
 
-        public IEnumerable<Block> GetDoomedBlocks() => _destructibleBlocks.Where(b => b.ToBeDeleted());
+        public IEnumerable<Cube> GetDoomedBlocks() => _destructibleBlocks.Where(b => b.ToBeDeleted());
         public SectorEmmigrantsList PopSectorEmmigrants()
         {
             var emmigrants = _updateManager.PopSectorEmmigrants();

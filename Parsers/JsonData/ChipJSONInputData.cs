@@ -24,7 +24,7 @@ namespace IAmACube
                 throw new Exception();
             }
 
-            if (typeName.Equals(nameof(BlockTemplate)))
+            if (typeName.Equals(nameof(CubeTemplate)))
             {
                 var splits = InputValue.Split('|');
                 if (splits.Length != 2)

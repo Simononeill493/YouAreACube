@@ -13,7 +13,7 @@ namespace IAmACube
 
         public int ChipInput1 { get; set; }
 
-        public void Run(Block actor, UserInput userInput, ActionsList actions)
+        public void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
             actions.AddRotationAction(actor, ChipInput1);
         }

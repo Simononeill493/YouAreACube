@@ -27,7 +27,7 @@ namespace IAmACube
             }
         }
 
-        private void _clearFromTile(Block block)
+        private void _clearFromTile(Cube block)
         {
             block.Location.ClearBlock(block);
             block.ClearLocation();

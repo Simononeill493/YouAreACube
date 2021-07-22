@@ -7,7 +7,7 @@ namespace IAmACube
     {
         public Tile ChipInput1 { get; set; }
 
-        public override void Run(Block actor,UserInput userInput, ActionsList actions)
+        public override void Run(Cube actor,UserInput userInput, ActionsList actions)
         {
             SetOutput(actor.Location.AbsoluteLocation.ApproachDirection(ChipInput1.AbsoluteLocation));
         }

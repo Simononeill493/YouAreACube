@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public partial class SurfaceBlock : HealthBlock
+    public partial class SurfaceCube : HealthCube
     {
-        public SurfaceBlock(BlockTemplate template) : base(template, BlockMode.Surface) { }
+        public SurfaceCube(CubeTemplate template) : base(template, CubeMode.Surface) { }
 
         public override void EnterLocation(Tile destination)
         {
@@ -20,7 +20,7 @@ namespace IAmACube
             }
             if (!Location.HasThisSurface(this))
             {
-                throw new Exception("Surface block is being moved, but its current tile does not register it as present.");
+                throw new Exception("Surface cube is being moved, but its current tile does not register it as present.");
             }
 
             Location.Surface = null;

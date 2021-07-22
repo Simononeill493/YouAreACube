@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class GroundBlock : HealthBlock
+    public class GroundCube : HealthCube
     {
-        public GroundBlock(BlockTemplate template) : base(template, BlockMode.Ground) { }
+        public GroundCube(CubeTemplate template) : base(template, CubeMode.Ground) { }
 
         public override void EnterLocation(Tile destination)
         {

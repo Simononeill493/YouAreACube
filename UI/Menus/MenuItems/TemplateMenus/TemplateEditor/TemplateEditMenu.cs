@@ -9,7 +9,7 @@ namespace IAmACube
 {
     class TemplateEditMenu : SpriteMenuItem
     {
-        private BlockTemplate _baseTemplate;
+        private CubeTemplate _baseTemplate;
         private Kernel _kernel;
 
         private ChipEditPane _editPane;
@@ -17,7 +17,7 @@ namespace IAmACube
 
         private Action _goBackToTemplateSelectScreen;
 
-        public TemplateEditMenu(IHasDrawLayer parentDrawLayer,Kernel kernel, BlockTemplate baseTemplate, Action goBackToTemplateSelectScreen) : base(parentDrawLayer, "EditPaneWindow")
+        public TemplateEditMenu(IHasDrawLayer parentDrawLayer,Kernel kernel, CubeTemplate baseTemplate, Action goBackToTemplateSelectScreen) : base(parentDrawLayer, "EditPaneWindow")
         {
             _kernel = kernel;
             _baseTemplate = baseTemplate;
@@ -119,7 +119,7 @@ namespace IAmACube
             _kernel.AddKnownTemplate(newTemplateVersions);
         }
 
-        private BlockTemplate _createNewTemplateFromThisMenu()
+        private CubeTemplate _createNewTemplateFromThisMenu()
         {
             var template = _baseTemplate.Clone();
 
@@ -128,8 +128,8 @@ namespace IAmACube
                 var chipset = _editPane.TopLevelChipsets.First();
                 chipset.Name = "_Initial";
 
-                var json = EditableChipsetToJSONParser.ParseEditableChipsetToJson(chipset);
-                var block = JSONToChipBlockParser.ParseJsonToBlock(json);
+                var json = Parser_BlockSetToJSON.ParseEditableChipsetToJson(chipset);
+                var block = Parser_JSONToChipset.ParseJsonToBlock(json);
 
                 TemplateParsingTester.TestParsingRoundTrip(chipset.Name, block);
 

@@ -16,16 +16,16 @@ namespace IAmACube
             Actions = new List<BlockAction>();
         }
 
-        public void AddApproachAction(Block block, Block target) => Actions.Add(new BlockAction(block, ActionType.ApproachBlock) { TargetBlock = target, MoveSpeed = block.Speed });
-        public void AddApproachAction(Block block, Tile target) => Actions.Add(new BlockAction(block, ActionType.ApproachTile) { TargetTile = target, MoveSpeed = block.Speed });
+        public void AddApproachAction(Cube block, Cube target) => Actions.Add(new BlockAction(block, ActionType.ApproachBlock) { TargetBlock = target, MoveSpeed = block.Speed });
+        public void AddApproachAction(Cube block, Tile target) => Actions.Add(new BlockAction(block, ActionType.ApproachTile) { TargetTile = target, MoveSpeed = block.Speed });
 
-        public void AddMoveAction(Block block, CardinalDirection direction) => Actions.Add(new BlockAction(block, ActionType.CardinalMovement) { CardinalDir = direction, MoveSpeed = block.Speed });
-        public void AddMoveAction(Block block, RelativeDirection direction) => Actions.Add(new BlockAction(block, ActionType.RelativeMovement) { RelativeDir = direction, MoveSpeed = block.Speed });
+        public void AddMoveAction(Cube block, CardinalDirection direction) => Actions.Add(new BlockAction(block, ActionType.CardinalMovement) { CardinalDir = direction, MoveSpeed = block.Speed });
+        public void AddMoveAction(Cube block, RelativeDirection direction) => Actions.Add(new BlockAction(block, ActionType.RelativeMovement) { RelativeDir = direction, MoveSpeed = block.Speed });
         
-        public void AddRotationAction(Block block, int rotation) => Actions.Add(new BlockAction(block, ActionType.Rotation) { Rotation = rotation });
+        public void AddRotationAction(Cube block, int rotation) => Actions.Add(new BlockAction(block, ActionType.Rotation) { Rotation = rotation });
 
 
-        public void AddCreationAction(Block block, BlockTemplate toCreate, BlockMode blockType, RelativeDirection direction)
+        public void AddCreationAction(Cube block, CubeTemplate toCreate, CubeMode blockType, RelativeDirection direction)
         {
             var creationAction = new BlockAction(block, ActionType.RelativeCreation)
             {
@@ -36,7 +36,7 @@ namespace IAmACube
 
             Actions.Add(creationAction);
         }
-        public void AddCreationAction(Block block, BlockTemplate toCreate, BlockMode blockType, CardinalDirection direction)
+        public void AddCreationAction(Cube block, CubeTemplate toCreate, CubeMode blockType, CardinalDirection direction)
         {
             var creationAction = new BlockAction(block, ActionType.CardinalCreation) 
             { 
@@ -50,7 +50,7 @@ namespace IAmACube
 
 
 
-        public void AddGiveEnergyAction(Block block, BlockMode blockType, CardinalDirection direction,int amount)
+        public void AddGiveEnergyAction(Cube block, CubeMode blockType, CardinalDirection direction,int amount)
         {
             var giveEnergyAction = new BlockAction(block, ActionType.CardinalGiveEnergy)
             {
@@ -61,7 +61,7 @@ namespace IAmACube
 
             Actions.Add(giveEnergyAction);
         }
-        public void AddGiveEnergyAction(Block block, BlockMode blockType, RelativeDirection direction, int amount)
+        public void AddGiveEnergyAction(Cube block, CubeMode blockType, RelativeDirection direction, int amount)
         {
             var giveEnergyAction = new BlockAction(block, ActionType.RelativeGiveEnergy)
             {
@@ -76,7 +76,7 @@ namespace IAmACube
 
 
 
-        internal void AddZapAction(Block actor, BlockMode blockMode)
+        internal void AddZapAction(Cube actor, CubeMode blockMode)
         {
             var zapAction = new BlockAction(actor, ActionType.Zap)
             {

@@ -7,9 +7,9 @@ namespace IAmACube
     [Serializable()]
     public class TemplateDatabase : Dictionary<string, TemplateVersionDictionary>
     {
-        public List<BlockTemplate> GetAllVersionsOfAllTemplates()
+        public List<CubeTemplate> GetAllVersionsOfAllTemplates()
         {
-            var output = new List<BlockTemplate>();
+            var output = new List<CubeTemplate>();
             foreach(var versionList in GetAllVersionLists())
             {
                 output.AddRange(versionList.Versions);

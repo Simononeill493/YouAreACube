@@ -8,7 +8,7 @@ namespace IAmACube
 {
     public interface IEditableChipsetContainer
     {
-        void AddChipset(EditableChipset chipset);
-        void RemoveChipset(EditableChipset chipset);
+        void AddChipset(Blockset chipset);
+        void RemoveChipset(Blockset chipset);
     }
 }

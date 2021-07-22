@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class ChipBlockComparer
+    class ChipsetComparer
     {
-        public static bool Equivalent(ChipBlock b1, ChipBlock b2)
+        public static bool Equivalent(Chipset b1, Chipset b2)
         {
             if (!b1.Name.Equals(b2.Name)) { return false; }
             if (b1.Chips.Count != b2.Chips.Count) { return false; }

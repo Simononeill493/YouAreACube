@@ -5,11 +5,11 @@ using System.Linq;
 namespace IAmACube
 {
     [Serializable()]
-    internal class GetNeighbouringBlocksChip : OutputPin<List<Block>>
+    internal class GetNeighbouringCubesChip : OutputPin<List<Cube>>
     {
-        public override void Run(Block actor, UserInput input,ActionsList actions)
+        public override void Run(Cube actor, UserInput input,ActionsList actions)
         {
-            var neighbours = new List<Block>();
+            var neighbours = new List<Cube>();
             var blocks = actor.Location.Adjacent.Values.Select(l => l.GetBlocks());
             foreach(var b in blocks)
             {

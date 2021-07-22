@@ -6,25 +6,25 @@ namespace IAmACube
     [Serializable()]
     public class SectorEmmigrantsList
     {
-        public List<(Block Block, IntPoint SectorLocation)> Moved;
-        public List<(Block Block, IntPoint SectorLocation)> Created;
+        public List<(Cube Block, IntPoint SectorLocation)> Moved;
+        public List<(Cube Block, IntPoint SectorLocation)> Created;
 
         public SectorEmmigrantsList()
         {
-            Moved = new List<(Block Block, IntPoint SectorLocation)>();
-            Created = new List<(Block Block, IntPoint SectorLocation)>();
+            Moved = new List<(Cube Block, IntPoint SectorLocation)>();
+            Created = new List<(Cube Block, IntPoint SectorLocation)>();
         }
 
-        public List<(Block Block, IntPoint SectorLocation)> GetAll()
+        public List<(Cube Block, IntPoint SectorLocation)> GetAll()
         {
-            var output = new List<(Block Block, IntPoint SectorLocation)>();
+            var output = new List<(Cube Block, IntPoint SectorLocation)>();
             output.AddRange(Moved);
             output.AddRange(Created);
             return output;
         }
 
-        public void AddMoved(List<(Block, IntPoint)> toAdd) => Moved.AddRange(toAdd);
-        public void AddCreated(List<(Block, IntPoint)> toAdd) => Created.AddRange(toAdd);
+        public void AddMoved(List<(Cube, IntPoint)> toAdd) => Moved.AddRange(toAdd);
+        public void AddCreated(List<(Cube, IntPoint)> toAdd) => Created.AddRange(toAdd);
         public void AddList(SectorEmmigrantsList toAdd)
         {
             Moved.AddRange(toAdd.Moved);

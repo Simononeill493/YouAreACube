@@ -8,17 +8,17 @@ namespace IAmACube
 { 
     class ChipTopSwitch : ChipTop
     {
-        public List<EditableChipset> SwitchChipsets;
+        public List<Blockset> SwitchChipsets;
 
         private ChipSwitchButtons _switchButtons;
         private SpriteMenuItem _switchSectionBottom;
 
-        private EditableChipset _extendedChipset;
+        private Blockset _extendedChipset;
         private bool _switchSectionExtended => (_extendedChipset!=null);
 
         public ChipTopSwitch(string name,IHasDrawLayer parent, GraphicalChipData data,List<string> switchInitialOptions) : base(name,parent, data)
         {
-            SwitchChipsets = new List<EditableChipset>();
+            SwitchChipsets = new List<Blockset>();
 
             _switchButtons = new ChipSwitchButtons(this, ColorMask, () => _closeSwitchSection(true), _openSwitchSection);
             _switchButtons.SetLocationConfig(0, GetBaseSize().Y-1,CoordinateMode.ParentPixelOffset);
@@ -106,7 +106,7 @@ namespace IAmACube
         protected void _addNewSwitchSections(List<string> sectionNames) => sectionNames.ForEach(n => _addNewSwitchSection(n));
         protected void _addNewSwitchSection(string sectionName) => AddSwitchSection(sectionName, _generator.CreateChipset(Name+"-subChip_"+(GetSubChipsets().Count+1.ToString())));
 
-        public void AddSwitchSection(string sectionName,EditableChipset switchChipset)
+        public void AddSwitchSection(string sectionName,Blockset switchChipset)
         {
             switchChipset.TopLevelRefreshAll = TopLevelRefreshAll;
             switchChipset.Enabled = false;
@@ -120,7 +120,7 @@ namespace IAmACube
         }
         #endregion
 
-        public override List<EditableChipset> GetSubChipsets() => SwitchChipsets.ToList();
+        public override List<Blockset> GetSubChipsets() => SwitchChipsets.ToList();
         public override void DropChipsOn(List<ChipTop> chips, UserInput input) 
         {
             if (!_switchSectionExtended)
@@ -145,7 +145,7 @@ namespace IAmACube
         }
 
 
-        public List<(string,EditableChipset)> GetSwitchSectionsWithNames()
+        public List<(string,Blockset)> GetSwitchSectionsWithNames()
         {
             var names = _switchButtons.SwitchSectionsNames;
             if (SwitchChipsets.Count != names.Count)
@@ -153,7 +153,7 @@ namespace IAmACube
                 throw new Exception("Tried to extract switch chip section names, but the numbers don't match up.");
             }
 
-            var output = new List<(string, EditableChipset)>();
+            var output = new List<(string, Blockset)>();
             for(int i=0;i<SwitchChipsets.Count;i++)
             {
                 output.Add((names[i],SwitchChipsets[i]));

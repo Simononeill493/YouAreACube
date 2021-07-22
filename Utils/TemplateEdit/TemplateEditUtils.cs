@@ -14,7 +14,7 @@ namespace IAmACube
             {
                 return true;
             }
-            else if (bottom.Equals("AnyBlock") & (top.Equals("Block") | top.Equals("SurfaceBlock") | top.Equals("GroundBlock") | top.Equals("EphemeralBlock")))
+            else if (bottom.Equals("AnyCube") & (top.Equals("Cube") | top.Equals("SurfaceCube") | top.Equals("GroundCube") | top.Equals("EphemeralCube")))
             {
                 return true;
             }
@@ -32,10 +32,10 @@ namespace IAmACube
 
 
 
-        public static EditableChipset PrepareChipsetForEditPane(BlockTemplate template,ChipEditPane pane)
+        public static Blockset PrepareChipsetForEditPane(CubeTemplate template,ChipEditPane pane)
         {
-            var json = ChipBlockToJSONParser.ParseBlockToJson(template.ChipBlock);
-            var newChipset = JSONToEditableChipsetParser.ParseJsonToEditableChipset(json, pane);
+            var json = Parser_ChipsetToJSON.ParseChipsetToJson(template.ChipBlock);
+            var newChipset = Parser_JSONToEditableChipset.ParseJsonToBlockset(json, pane);
 
             newChipset.RefreshAll();
             newChipset.SetLocationConfig(pane.ActualLocation + new IntPoint(10, 10), CoordinateMode.Absolute, centered: false);

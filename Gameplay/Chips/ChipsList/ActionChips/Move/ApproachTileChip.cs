@@ -12,7 +12,7 @@ namespace IAmACube
         public string Name { get; set; }
         public Tile ChipInput1 { get; set; }
 
-        public void Run(Block actor, UserInput userInput, ActionsList actions)
+        public void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
             actions.AddApproachAction(actor, ChipInput1);
         }

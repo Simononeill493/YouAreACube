@@ -15,11 +15,11 @@ namespace IAmACube
         private List<TemplateBox> _boxes;
         private TemplateSelectedMenu templateSelectedMenu;
 
-        private Action<BlockTemplate> _goToTemplateEditMenu;
+        private Action<CubeTemplate> _goToTemplateEditMenu;
 
         private TemplateVersionDictionary _currentTemplatesList;
 
-        public TemplateExplorerMenu(IHasDrawLayer parentDrawLayer,Kernel kernel,Action<BlockTemplate> goToTemplateEditMenu) : base(parentDrawLayer,"EmptyMenuRectangleFull") 
+        public TemplateExplorerMenu(IHasDrawLayer parentDrawLayer,Kernel kernel,Action<CubeTemplate> goToTemplateEditMenu) : base(parentDrawLayer,"EmptyMenuRectangleFull") 
         {
             _kernel = kernel;
             _goToTemplateEditMenu = goToTemplateEditMenu;
@@ -32,7 +32,7 @@ namespace IAmACube
             AddChild(templateSelectedMenu);
         }
 
-        private void _templateSelectedAction(BlockTemplate template, TemplateSelectedAction selectedActionType)
+        private void _templateSelectedAction(CubeTemplate template, TemplateSelectedAction selectedActionType)
         {
             if(template!=null)
             {

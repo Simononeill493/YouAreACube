@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class BlockTemplate
+    public class CubeTemplate
     {
         public string Name;
         public string Sprite;
@@ -19,38 +19,38 @@ namespace IAmACube
         public int MaxHealth = 250;
 
         [JsonIgnore]
-        public ChipBlock ChipBlock;
+        public Chipset ChipBlock;
 
         [JsonIgnore]
         public TemplateVersionDictionary Versions;
         public int Version;
 
-        public BlockTemplate(string name) => Name = name;
+        public CubeTemplate(string name) => Name = name;
 
 
-        public Block Generate(BlockMode blockType)
+        public Cube Generate(CubeMode blockType)
         {
             switch (blockType)
             {
-                case BlockMode.Surface:
+                case CubeMode.Surface:
                     return GenerateSurface();
-                case BlockMode.Ground:
+                case CubeMode.Ground:
                     return GenerateGround();
-                case BlockMode.Ephemeral:
+                case CubeMode.Ephemeral:
                     return GenerateEphemeral();
                 default:
                     throw new Exception("Tried to generate an unhandled block type");
             }
         }
-        public SurfaceBlock GenerateSurface() => new SurfaceBlock(this);
-        public GroundBlock GenerateGround() => new GroundBlock(this);
-        public EphemeralBlock GenerateEphemeral() => new EphemeralBlock(this);
-        public BlockTemplate Clone()
+        public SurfaceCube GenerateSurface() => new SurfaceCube(this);
+        public GroundCube GenerateGround() => new GroundCube(this);
+        public EphemeralCube GenerateEphemeral() => new EphemeralCube(this);
+        public CubeTemplate Clone()
         {
-            var clone = JsonConvert.DeserializeObject<BlockTemplate>(JsonConvert.SerializeObject(this));
+            var clone = JsonConvert.DeserializeObject<CubeTemplate>(JsonConvert.SerializeObject(this));
             if(this.ChipBlock!=null)
             {
-                clone.ChipBlock = JSONToChipBlockParser.ParseJsonToBlock(ChipBlockToJSONParser.ParseBlockToJson(ChipBlock));
+                clone.ChipBlock = Parser_JSONToChipset.ParseJsonToBlock(Parser_ChipsetToJSON.ParseChipsetToJson(ChipBlock));
             }
 
             clone.Version = -1;

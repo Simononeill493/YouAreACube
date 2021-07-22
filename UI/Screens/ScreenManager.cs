@@ -87,7 +87,7 @@ namespace IAmACube
             }
         }
         public void LoadGameScreen(Kernel kernel,World world) => CurrentGame = new GameScreen(SwitchScreen, kernel, world);
-        public void LoadTemplateEditScreen(BlockTemplate template) => CurrentScreen = new TemplateEditScreen(SwitchScreen, CurrentGame, template);
+        public void LoadTemplateEditScreen(CubeTemplate template) => CurrentScreen = new TemplateEditScreen(SwitchScreen, CurrentGame, template);
 
 
         private void _autoLoadTestWorld()

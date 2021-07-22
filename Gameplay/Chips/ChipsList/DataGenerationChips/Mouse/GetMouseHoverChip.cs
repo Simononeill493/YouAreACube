@@ -9,7 +9,7 @@ namespace IAmACube
     [Serializable()]
     public class GetMouseHoverChip : OutputPin<Tile>
     {
-        public override void Run(Block actor, UserInput userInput, ActionsList actions)
+        public override void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
             SetOutput(userInput.MouseHoverTile);
         }

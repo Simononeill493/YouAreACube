@@ -13,14 +13,14 @@ namespace IAmACube
 
         public string Name;
 
-        public SurfaceBlock Host { get; private set; }
+        public SurfaceCube Host { get; private set; }
         public HashSet<TemplateVersionDictionary> KnownTemplates { get; private set; }
-        public List<Block> Companions { get; private set; }
+        public List<Cube> Companions { get; private set; }
 
 
         public Kernel()
         {
-            Companions = new List<Block>();
+            Companions = new List<Cube>();
             KnownTemplates = new HashSet<TemplateVersionDictionary>();
         }
         public void InitializeSession()
@@ -40,7 +40,7 @@ namespace IAmACube
             HostLoc = Host.Location.AbsoluteLocation;
         }
 
-        public void SetHost(SurfaceBlock block)
+        public void SetHost(SurfaceCube block)
         {
             Companions.Remove(Host);
             Host = block;

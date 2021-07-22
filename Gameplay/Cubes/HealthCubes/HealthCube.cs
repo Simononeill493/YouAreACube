@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public abstract class HealthBlock : Block
+    public abstract class HealthCube : Cube
     {
         public bool Dormant = false;
         public int Health { get; private set; }
         public int MaxHealth => Template.MaxHealth;
         public float HealthRemainingPercentage => ((float)Health) / MaxHealth;
 
-        protected HealthBlock(BlockTemplate template, BlockMode blockType) : base(template,blockType)
+        protected HealthCube(CubeTemplate template, CubeMode blockType) : base(template,blockType)
         {
             Health = MaxHealth;
         }

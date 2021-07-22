@@ -54,28 +54,28 @@
     <Compile Include="Camera\KernelCamera\KernelTrackingCamera.cs" />
     <Compile Include="Camera\KernelCamera\ScrollBoundary.cs" />
     <Compile Include="Config\ConfigFiles.cs" />
-    <Compile Include="Gameplay\Blocks\BaseBlockData\Block.cs" />
-    <Compile Include="Gameplay\Blocks\BaseBlockData\BlockMode.cs" />
-    <Compile Include="Gameplay\Blocks\BaseBlockData\Block_Energy.cs" />
-    <Compile Include="Gameplay\Blocks\Movement\Block_Movement.cs" />
-    <Compile Include="Gameplay\Blocks\Movement\BlockMovementData.cs" />
-    <Compile Include="Gameplay\Blocks\EphemeralBlock.cs" />
-    <Compile Include="Gameplay\Blocks\HealthBlocks\SurfaceBlock.cs" />
-    <Compile Include="Gameplay\Blocks\HealthBlocks\HealthBlock.cs" />
-    <Compile Include="Gameplay\Chips\ChipBlockComparer.cs" />
+    <Compile Include="Gameplay\Cubes\BaseBlockData\Cube.cs" />
+    <Compile Include="Gameplay\Cubes\BaseBlockData\CubeMode.cs" />
+    <Compile Include="Gameplay\Cubes\BaseBlockData\Cube_Energy.cs" />
+    <Compile Include="Gameplay\Cubes\Movement\Cube_Movement.cs" />
+    <Compile Include="Gameplay\Cubes\Movement\CubeMovementData.cs" />
+    <Compile Include="Gameplay\Cubes\EphemeralCube.cs" />
+    <Compile Include="Gameplay\Cubes\HealthCubes\SurfaceCube.cs" />
+    <Compile Include="Gameplay\Cubes\HealthCubes\HealthCube.cs" />
+    <Compile Include="Gameplay\Chips\ChipsetComparer.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\GiveEnergy\GiveEnergyRelativeChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\GiveEnergy\GiveEnergyCardinalChip.cs" />
-    <Compile Include="Gameplay\Chips\ChipsList\ActionChips\Move\ApproachBlockChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\ActionChips\Move\ApproachCubeChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\Move\ApproachTileChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\Create\CreateRelativeChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\ZapChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Mouse\GetMouseHoverChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Randoms\RandomRelativeChip.cs" />
-    <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Surroundings\GetNeighbouringBlocksOfTypeChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Surroundings\GetNeighbouringCubesOfTypeChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Surroundings\GetNeighbouringTilesChip.cs" />
-    <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\BlockLocationChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\CubeLocationChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\EqualsChip.cs" />
-    <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\IsBlockActiveChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\IsCubeActiveChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\AddToListChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\GetListItemAtIndexChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\ShuffleListChip.cs" />
@@ -102,8 +102,8 @@
     <Compile Include="Misc\FloatPoint.cs" />
     <Compile Include="MonoGameWrapper\MouseSystemData.cs" />
     <Compile Include="MonoGameWrapper\Sound\SoundInterface.cs" />
-    <Compile Include="Parsers\ChipBlockParsers\ChipBlockToJSONParser.cs" />
-    <Compile Include="Parsers\EditableChipsetParsers\JSONToEditableChipsetParser.cs" />
+    <Compile Include="Parsers\ChipBlockParsers\Parser_ChipsetToJSON.cs" />
+    <Compile Include="Parsers\EditableChipsetParsers\Parser_JSONToEditableChipset.cs" />
     <Compile Include="Parsers\JsonData\ChipBlockJSONData.cs" />
     <Compile Include="Parsers\JsonData\ChipJSONData.cs" />
     <Compile Include="Parsers\JsonData\ChipsetJSONData.cs" />
@@ -116,8 +116,8 @@
     <Compile Include="Parsers\TemplateParser.cs" />
     <Compile Include="Parsers\GraphicalChipParser.cs" />
     <Compile Include="Gameplay\Chips\Metadata\ChipType.cs" />
-    <Compile Include="Parsers\ChipBlockParsers\JSONToChipBlockParser.cs" />
-    <Compile Include="Parsers\EditableChipsetParsers\EditableChipsetToJSONParser.cs" />
+    <Compile Include="Parsers\ChipBlockParsers\Parser_JSONToChipset.cs" />
+    <Compile Include="Parsers\EditableChipsetParsers\Parser_BlockSetToJSON.cs" />
     <Compile Include="Gameplay\Updates\Actions\Creation\CreationManager.cs" />
     <Compile Include="Gameplay\Updates\Destruction\DestructionManager.cs" />
     <Compile Include="Gameplay\Direction\DirectionEnums\RelativeDirection.cs" />
@@ -192,15 +192,15 @@
     <Compile Include="Utils\TypeUtils.cs" />
     <Compile Include="Utils\WorldUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
-    <Compile Include="Gameplay\Templates\BlockTemplate.cs" />
+    <Compile Include="Gameplay\Templates\CubeTemplate.cs" />
     <Compile Include="Camera\Camera.cs" />
-    <Compile Include="Gameplay\Chips\ChipBlock.cs" />
+    <Compile Include="Gameplay\Chips\Chipset.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\IChip.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\Pins\OutputPin.cs" />
     <Compile Include="Gameplay\Chips\ChipTester.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\IControlChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\FirstOfListChip.cs" />
-    <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Surroundings\GetNeighbouringBlocksChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Surroundings\GetNeighbouringCubesChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ControlChips\IfChip.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\Pins\InputPin.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\IsListEmptyChip.cs" />
@@ -230,7 +230,7 @@
     <Compile Include="UI\Screens\PreGameScreens\TitleScreen.cs" />
     <Compile Include="Gameplay\Templates\Templates.cs" />
     <Compile Include="Gameplay\Updates\Tick\WorldTickManager.cs" />
-    <Compile Include="Gameplay\Blocks\HealthBlocks\GroundBlock.cs" />
+    <Compile Include="Gameplay\Cubes\HealthCubes\GroundCube.cs" />
     <Compile Include="Gameplay\World\Sector.cs" />
     <Compile Include="UI\Screens\ScreenManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -267,9 +267,7 @@
     <None Include="Content\Arial.spritefont" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Gameplay\Blocks\Surface\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <Import Project="packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets')" />

@@ -8,6 +8,6 @@ namespace IAmACube
 {
     public interface IControlChip
     {
-        List<ChipBlock> GetSubBlocks();
+        List<Chipset> GetSubBlocks();
     }
 }

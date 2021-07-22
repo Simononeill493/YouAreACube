@@ -23,6 +23,6 @@ namespace IAmACube
         
         
         public void AddSector(Sector sector) => _sectorTicks[sector.AbsoluteLocation] = 0;
-        public IEnumerable<Block> GetUpdatingBlocks(Sector sector) => sector.ActiveBlocks.Where(b => ((_sectorTicks[sector.AbsoluteLocation] + b.SpeedOffset) % b.Speed == 0) & b.CanUpdate);
+        public IEnumerable<Cube> GetUpdatingBlocks(Sector sector) => sector.ActiveBlocks.Where(b => ((_sectorTicks[sector.AbsoluteLocation] + b.SpeedOffset) % b.Speed == 0) & b.CanUpdate);
     }
 }

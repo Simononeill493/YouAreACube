@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public abstract partial class Block
+    public abstract partial class Cube
     {
         public bool IsMoving;
         public bool IsMovingThroughCentre;
         public bool IsMovingBetweenSectors;
-        public bool IsInCentreOfBlock => (!IsMoving) | (IsMovingThroughCentre);
+        public bool IsInCentreOfTile => (!IsMoving) | (IsMovingThroughCentre);
 
-        public BlockMovementData MovementData { get; private set; }
+        public CubeMovementData MovementData { get; private set; }
 
-        public void StartMovement(BlockMovementData movementData) 
+        public void StartMovement(CubeMovementData movementData) 
         {
             MovementData = movementData;
             IsMoving = true;

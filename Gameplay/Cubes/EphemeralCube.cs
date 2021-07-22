@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class EphemeralBlock : Block
+    public class EphemeralCube : Cube
     {
         public bool EphemeralFading;
-        public EphemeralBlock(BlockTemplate template) : base(template, BlockMode.Ephemeral) 
+        public EphemeralCube(CubeTemplate template) : base(template, CubeMode.Ephemeral) 
         {
             AddEnergy(template.MaxEnergy);
         }
@@ -54,7 +54,7 @@ namespace IAmACube
                 FadeAway();
             }
         }
-        public override void BeCreatedBy(Block creator)
+        public override void BeCreatedBy(Cube creator)
         {
             if (creator.Energy < Template.MaxEnergy)
             {
@@ -65,15 +65,15 @@ namespace IAmACube
             creator.TakeEnergy(Template.MaxEnergy);
         }
 
-        private BlockEnergyTransferResult TryAbsorbInto(EphemeralBlock destination) => destination.TryTakeEnergyFrom(this, Energy);
-        public override BlockEnergyTransferResult TryTakeEnergyFrom(Block source, int amount)
+        private BlockEnergyTransferResult TryAbsorbInto(EphemeralCube destination) => destination.TryTakeEnergyFrom(this, Energy);
+        public override BlockEnergyTransferResult TryTakeEnergyFrom(Cube source, int amount)
         {
             if (ToBeDeleted())
             {
                 throw new Exception("Fading Ephemeral is trying to absorb energy");
             }
 
-            if (source.BlockType == BlockMode.Ephemeral)
+            if (source.BlockType == CubeMode.Ephemeral)
             {
                 if (source.ToBeDeleted())
                 {

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace IAmACube.Gameplay.Chips.ChipsList.ActionChips
 {
     [Serializable()]
-    class ApproachBlockChip<TBlock> : InputPin<TBlock> where TBlock : Block
+    class ApproachCubeChip<TCube> : InputPin<TCube> where TCube : Cube
     {
         public string Name { get; set; }
-        public TBlock ChipInput1 { get; set; }
+        public TCube ChipInput1 { get; set; }
 
-        public void Run(Block actor, UserInput userInput, ActionsList actions)
+        public void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
             actions.AddApproachAction(actor, ChipInput1);
         }

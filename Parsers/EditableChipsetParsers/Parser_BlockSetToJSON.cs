@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public static class EditableChipsetToJSONParser
+    public static class Parser_BlockSetToJSON
     {
-        public static string ParseEditableChipsetToJson(EditableChipset chipset)
+        public static string ParseEditableChipsetToJson(Blockset chipset)
         {
             var chipsetsJson = new ChipsetJSONData();
 
@@ -46,10 +46,10 @@ namespace IAmACube
 
         public static GraphicalChipData _getChipSubMapping(ChipJSONData chipJObject)
         {
-            if (chipJObject.ChipData.IsMappedToSubChips)
+            if (chipJObject.GraphicalChipData.IsMappedToSubChips)
             {
                 var selectedTypes = chipJObject.ChipTop.GetSelectedInputTypes();
-                var mappedChipType = _getFirstMatchingMapping(selectedTypes, chipJObject.ChipData.InputMappings);
+                var mappedChipType = _getFirstMatchingMapping(selectedTypes, chipJObject.GraphicalChipData.InputMappings);
 
                 chipJObject.ActualChipType = mappedChipType.Name;
                 return mappedChipType;
@@ -96,7 +96,7 @@ namespace IAmACube
 
         private static void _setControlChipTargets(ChipJSONData chipJObject)
         {
-            if(chipJObject.ChipData.Name.Equals("If"))
+            if(chipJObject.GraphicalChipData.Name.Equals("If"))
             {
                 var ifChip = (ChipTopSwitch)chipJObject.ChipTop;
 
@@ -104,7 +104,7 @@ namespace IAmACube
                 chipJObject.No = ifChip.SwitchChipsets[1].Name;
 
             }
-            if (chipJObject.ChipData.Name.Equals("KeySwitch"))
+            if (chipJObject.GraphicalChipData.Name.Equals("KeySwitch"))
             {
                 var keyChip = (ChipTopSwitch)chipJObject.ChipTop;
 

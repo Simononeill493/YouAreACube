@@ -10,8 +10,8 @@ namespace IAmACube
 {
     class Config
     {
-        public static int ScreenDefaultWidth = 1024;
-        public static int ScreenDefaultHeight = 768;
+        public static int ScreenDefaultWidth = 1280;
+        public static int ScreenDefaultHeight = 960;
 
         public static int DefaultSectorSize = 64;//25
         public static int TileSizePixels = 16;

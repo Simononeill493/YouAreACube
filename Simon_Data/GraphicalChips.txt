@@ -4,33 +4,33 @@
   	{
       "name":"Create",
 	  "datatype":"Action",
-	  "inputs":["CardinalDirection|RelativeDirection","BlockTemplate","BlockMode"],
-	  "inputDisplayNames":["Direction","Template","BlockMode"],
+	  "inputs":["CardinalDirection|RelativeDirection","CubeTemplate","CubeMode"],
+	  "inputDisplayNames":["Direction","Template","CubeMode"],
 	  "inputMappings":
 	  [
 	  	{
 		  "name":"CreateCardinal",
 		  "datatype":"Action",
-		  "inputs":["CardinalDirection","BlockTemplate","BlockMode"],
+		  "inputs":["CardinalDirection","CubeTemplate","CubeMode"],
 		},
 		{
 		  "name":"CreateRelative",
 		  "datatype":"Action",
-		  "inputs":["RelativeDirection","BlockTemplate","BlockMode"],
+		  "inputs":["RelativeDirection","CubeTemplate","CubeMode"],
 		},
 	  ]
     },
 	{
       "name":"Approach",
 	  "datatype":"Action",
-	  "inputs":["Tile|AnyBlock"],
+	  "inputs":["Tile|AnyCube"],
 	  "inputDisplayNames":["Target"],
 	  "inputMappings":
 	  [
 		{
-		  "name":"ApproachBlock",
+		  "name":"ApproachCube",
 		  "datatype":"Action",
-		  "inputs":["AnyBlock"],
+		  "inputs":["AnyCube"],
 		},
 	  	{
 		  "name":"ApproachTile",
@@ -46,28 +46,28 @@
 	  "output":"List<Tile>"
     },
 	{
-      "name":"GetNeighbouringBlocks",
+      "name":"GetNeighbouringCubes",
 	  "datatype":"Sense",
 	  "inputs":[],
-	  "output":"List<Block>"
+	  "output":"List<Cube>"
     },
 	{
-      "name":"GetNeighbouringBlocksOfType",
+      "name":"GetNeighbouringCubesOfType",
 	  "datatype":"Sense",
-	  "inputs":["BlockMode"],
-	  "output":"List<Block>"
+	  "inputs":["CubeMode"],
+	  "output":"List<Cube>"
     },
 	{
-      "name":"BlockLocation",
+      "name":"CubeLocation",
 	  "datatype":"General",
-	  "inputs":["AnyBlock"],
+	  "inputs":["AnyCube"],
 	  "output":"Tile"
     },
 	
 	{
-      "name":"IsBlockActive",
+      "name":"IsCubeActive",
 	  "datatype":"General",
-	  "inputs":["AnyBlock"],
+	  "inputs":["AnyCube"],
 	  "output":"bool"
     },
 	{
@@ -124,7 +124,7 @@
 	{
       "name":"Zap",
 	  "datatype":"Action",
-	  "inputs":["BlockMode"],
+	  "inputs":["CubeMode"],
     },
 	{
       "name":"If",
@@ -194,19 +194,19 @@
 	{
       "name":"GiveEnergy",
 	  "datatype":"Action",
-	  "inputs":["CardinalDirection|RelativeDirection","BlockMode","int"],
-	  "inputDisplayNames":["Direction","BlockMode","Amount"],
+	  "inputs":["CardinalDirection|RelativeDirection","CubeMode","int"],
+	  "inputDisplayNames":["Direction","CubeMode","Amount"],
 	  "inputMappings":
 	  [
 	  	{
 		  "name":"GiveEnergyCardinal",
 		  "datatype":"Action",
-		  "inputs":["CardinalDirection","BlockMode","int"],
+		  "inputs":["CardinalDirection","CubeMode","int"],
 		},
 		{
 		  "name":"GiveEnergyRelative",
 		  "datatype":"Action",
-		  "inputs":["RelativeDirection","BlockMode","int"],
+		  "inputs":["RelativeDirection","CubeMode","int"],
 		},
 	  ]
     }

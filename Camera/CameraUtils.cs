@@ -8,7 +8,7 @@ namespace IAmACube
 {
     class CameraUtils
     {
-        public static IntPoint GetMovementOffsets(Block block, int tileSize)
+        public static IntPoint GetMovementOffsets(Cube block, int tileSize)
         {
             if (block.IsMoving)
             {
@@ -18,7 +18,7 @@ namespace IAmACube
             return IntPoint.Zero;
         }
 
-        public static IntPoint GetBlockOffsetFromOrigin(Block block,int tileSize)
+        public static IntPoint GetBlockOffsetFromOrigin(Cube block,int tileSize)
         {
             var offset = GetMovementOffsets(block, tileSize);
             var pos = (block.Location.AbsoluteLocation * tileSize) + (offset);

@@ -9,35 +9,35 @@ namespace IAmACube
     [Serializable()]
     public class MoveManager
     {
-        public List<(Block, IntPoint)> MovedOutOfSector;
-        private List<(Block, IntPoint)> _toMoveFromSector;
+        public List<(Cube, IntPoint)> MovedOutOfSector;
+        private List<(Cube, IntPoint)> _toMoveFromSector;
 
-        private List<Block> _movingBlocks;
-        private HashSet<Block> _toRemove;
+        private List<Cube> _movingBlocks;
+        private HashSet<Cube> _toRemove;
 
         private Sector _sector;
 
         public MoveManager(Sector sector)
         {
             _sector = sector;
-            _movingBlocks = new List<Block>();
-            MovedOutOfSector = new List<(Block, IntPoint)>();
+            _movingBlocks = new List<Cube>();
+            MovedOutOfSector = new List<(Cube, IntPoint)>();
 
-            _toMoveFromSector = new List<(Block, IntPoint)>();
-            _toRemove = new HashSet<Block>();
+            _toMoveFromSector = new List<(Cube, IntPoint)>();
+            _toRemove = new HashSet<Cube>();
         }
 
-        public void TryStartMovement(Block block, CardinalDirection direction, int moveTotalTicks)
+        public void TryStartMovement(Cube block, CardinalDirection direction, int moveTotalTicks)
         {
             if (block.TryGetAdjacent(direction, out Tile destination))
             {
                 if (block.CanMoveTo(destination))
                 {
-                    _startMovement(block, new BlockMovementData(block, destination, moveTotalTicks, direction));
+                    _startMovement(block, new CubeMovementData(block, destination, moveTotalTicks, direction));
                 }
             }
         }
-        private void _startMovement(Block block, BlockMovementData movementData)
+        private void _startMovement(Cube block, CubeMovementData movementData)
         {
             block.StartMovement(movementData);
 
@@ -49,8 +49,8 @@ namespace IAmACube
             _movingBlocks.Add(block);
         }
 
-        public void AddMovingBlock(Block block) => _movingBlocks.Add(block);
-        public void RemoveMovingBlock(Block block)
+        public void AddMovingBlock(Cube block) => _movingBlocks.Add(block);
+        public void RemoveMovingBlock(Cube block)
         {
             var removed = _movingBlocks.Remove(block);
             if (!removed)
@@ -69,7 +69,7 @@ namespace IAmACube
             _extractSectorEmmigrants();
             _removeBlocksQueuedForRemoval();
         }
-        private void _tickBlock(Block block, BlockMovementData movementData)
+        private void _tickBlock(Cube block, CubeMovementData movementData)
         {
             if (block.ShouldAbortMovement())
             {
@@ -90,19 +90,19 @@ namespace IAmACube
 
             block.IsMovingThroughCentre = movementData.Finished;
         }
-        private void _moveBlockToDestination(Block block)
+        private void _moveBlockToDestination(Cube block)
         {
             block.MoveToCurrentDestination();
             _checkIfEmmigrated(block);
 
             //Console.WriteLine(block._id + " moved to tile " + block.MovementData.Destination.AbsoluteLocation);
         }
-        private void _completeMovement(Block block)
+        private void _completeMovement(Cube block)
         {
             block.CompleteMovement();
             _toRemove.Add(block);
         }
-        private void _abortMovement(Block block)
+        private void _abortMovement(Cube block)
         {
             block.AbortMovement();
             _toRemove.Add(block);
@@ -121,7 +121,7 @@ namespace IAmACube
             MovedOutOfSector.AddRange(_toMoveFromSector);
             _toMoveFromSector.Clear();
         }
-        private void _checkIfEmmigrated(Block block)
+        private void _checkIfEmmigrated(Cube block)
         {
             if (!block.InSector(_sector))
             {

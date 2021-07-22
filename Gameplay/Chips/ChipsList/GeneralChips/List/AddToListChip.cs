@@ -14,7 +14,7 @@ namespace IAmACube
         public T ChipInput1 { get; set; }
         public List<T> ChipInput2 { get; set; }
 
-        public  void Run(Block actor, UserInput input, ActionsList actions)
+        public  void Run(Cube actor, UserInput input, ActionsList actions)
         {
             ChipInput2.Add(ChipInput1);
         }

@@ -101,11 +101,11 @@ namespace IAmACube
                 }
                 return true;
             }
-            if (typeName.Contains("AnyBlock"))
+            if (typeName.Contains("AnyCube"))
             {
-                if (!DefaultTypeArguments.Contains("SurfaceBlock"))
+                if (!DefaultTypeArguments.Contains("SurfaceCube"))
                 {
-                    DefaultTypeArguments.Add("SurfaceBlock");
+                    DefaultTypeArguments.Add("SurfaceCube");
                 }
                 return true;
             }

@@ -67,7 +67,7 @@ namespace IAmACube
 
             Scale = newScale;
         }
-        public void SnapToBlock(Block block, IntPoint offset)
+        public void SnapToBlock(Cube block, IntPoint offset)
         {
             GridPosition = (block.Location.AbsoluteLocation - (VisibleGrid / 2));
             PartialGridOffset = offset + CameraUtils.GetMovementOffsets(block, TileSizePixels);
@@ -76,7 +76,7 @@ namespace IAmACube
         }
 
         public IntPoint GetCameraCentre() => (VisibleGrid / 2 * TileSizePixels);
-        public IntPoint GetPosOnScreen(Block block) => CameraUtils.GetBlockOffsetFromOrigin(block, TileSizePixels) - PixelOffset;
+        public IntPoint GetPosOnScreen(Cube block) => CameraUtils.GetBlockOffsetFromOrigin(block, TileSizePixels) - PixelOffset;
         public IntPoint GetMouseHover(UserInput input)
         {
             var mouseDivided = (input.MousePos + PixelOffset) / (float)TileSizePixels;

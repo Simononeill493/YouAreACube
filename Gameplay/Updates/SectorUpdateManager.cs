@@ -33,14 +33,14 @@ namespace IAmACube
             _destructionManager.DestroyDoomedBlocks();
         }
 
-        public void AddBlockToUpdates(Block block)
+        public void AddBlockToUpdates(Cube block)
         {
             if (block.IsMoving)
             {
                 _moveManager.AddMovingBlock(block);
             }
         }
-        public void RemoveBlockFromUpdates(Block block)
+        public void RemoveBlockFromUpdates(Cube block)
         {
             if (block.IsMoving)
             {

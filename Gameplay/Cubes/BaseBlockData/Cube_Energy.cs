@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public abstract partial class Block
+    public abstract partial class Cube
     {
         public int Energy { get; private set; }
         public int EnergyCap => Template.MaxEnergy;
@@ -39,7 +40,7 @@ namespace IAmACube
             }
         }
 
-        public virtual BlockEnergyTransferResult TryTakeEnergyFrom(Block source, int amount)
+        public virtual BlockEnergyTransferResult TryTakeEnergyFrom(Cube source, int amount)
         {
             if (amount > source.Energy)
             {

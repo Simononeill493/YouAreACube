@@ -8,13 +8,13 @@ namespace IAmACube
     public class TemplateVersionDictionary
     {
         public string Name { get; private set; }
-        public BlockTemplate Main { get; set; }
-        public List<BlockTemplate> Versions => _dict.Values.ToList();
+        public CubeTemplate Main { get; set; }
+        public List<CubeTemplate> Versions => _dict.Values.ToList();
 
-        public TemplateVersionDictionary(string name, BlockTemplate initial)
+        public TemplateVersionDictionary(string name, CubeTemplate initial)
         {
             Name = name;
-            _dict = new Dictionary<int, BlockTemplate>();
+            _dict = new Dictionary<int, CubeTemplate>();
 
             this[0] = initial;
             this.Main = initial;
@@ -34,7 +34,7 @@ namespace IAmACube
         public override string ToString() => Name;
 
         #region dictionary
-        public BlockTemplate this[int index]
+        public CubeTemplate this[int index]
         {
             get => _dict[index];
             set
@@ -44,7 +44,7 @@ namespace IAmACube
                 value.Versions = this;
             }
         }
-        private Dictionary<int, BlockTemplate> _dict;
+        private Dictionary<int, CubeTemplate> _dict;
         #endregion
     }
 }

@@ -11,7 +11,7 @@ namespace IAmACube.Gameplay.Chips.ChipsList.GeneralChips
         public int ChipInput1 { get; set; }
         public int ChipInput2 { get; set; }
 
-        public override void Run(Block actor, UserInput userInput, ActionsList actions)
+        public override void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
             SetOutput(ChipInput1 == ChipInput2);
         }

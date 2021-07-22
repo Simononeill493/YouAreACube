@@ -1,4 +1,1 @@
 KernelUnlimitedEnergy = true
-
-ScreenDefaultWidth = 1024
-ScreenDefaultHeight = 768

@@ -42,7 +42,7 @@ namespace IAmACube
             return list;
         }
 
-        public void FocusOn(Block block) => Focus = GetSector(block.Location.SectorID);
+        public void FocusOn(Cube block) => Focus = GetSector(block.Location.SectorID);
 
 
         public void InitializeSession()

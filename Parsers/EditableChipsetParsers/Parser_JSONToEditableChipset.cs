@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public static class JSONToEditableChipsetParser
+    public static class Parser_JSONToEditableChipset
     {
-        public static EditableChipset ParseJsonToEditableChipset(string json, IChipsetGenerator generator)
+        public static Blockset ParseJsonToBlockset(string json, IChipsetGenerator generator)
         {
-            var chipsetsJson = JsonConvert.DeserializeObject<ChipsetJSONData>(json);
-            var blocksDict = chipsetsJson.GetBlocksDict();
-            var chipsDict = chipsetsJson.GetChipsDict();
+            var blocksetsJson = JsonConvert.DeserializeObject<ChipsetJSONData>(json);
+            var blocksDict = blocksetsJson.GetBlocksDict();
+            var chipsDict = blocksetsJson.GetChipsDict();
 
-            chipsetsJson.SetChipData();
-            chipsetsJson.CreateEditableChipsetObjects(generator);
+            blocksetsJson.SetChipData();
+            blocksetsJson.CreateEditableChipsetObjects(generator);
 
-            _appendChipsToChipsets(chipsetsJson);
+            _appendChipsToChipsets(blocksetsJson);
 
             foreach (var chip in chipsDict.Values)
             {
@@ -26,10 +26,10 @@ namespace IAmACube
                 _setControlChipTargets(chip, blocksDict);
             }
 
-            var baseChipset = chipsetsJson.GetInitial().Chipset;
-            baseChipset.AddAndRemoveQueuedChildren_Cascade();
+            var baseBlockset = blocksetsJson.GetInitial().Blockset;
+            baseBlockset.AddAndRemoveQueuedChildren_Cascade();
 
-            return baseChipset;
+            return baseBlockset;
         }
 
         private static void _appendChipsToChipsets(ChipsetJSONData chipsetsJson)
@@ -38,26 +38,26 @@ namespace IAmACube
             {
                 foreach (var chipJson in blockJson.Chips)
                 {
-                    blockJson.Chipset.AppendToBottom(chipJson.ChipTop);
+                    blockJson.Blockset.AppendToBottom(chipJson.ChipTop);
                 }
             }
         }
         private static void _setControlChipTargets(ChipJSONData chip, Dictionary<string, ChipBlockJSONData> chipsets)
         {
-            if (chip.ChipData.Name.Equals("If"))
+            if (chip.GraphicalChipData.Name.Equals("If"))
             {
                 var ifChip = (ChipTopSwitch)chip.ChipTop;
 
-                ifChip.AddSwitchSection("Yes", chipsets[chip.Yes].Chipset);
-                ifChip.AddSwitchSection("No", chipsets[chip.No].Chipset);
+                ifChip.AddSwitchSection("Yes", chipsets[chip.Yes].Blockset);
+                ifChip.AddSwitchSection("No", chipsets[chip.No].Blockset);
             }
-            if (chip.ChipData.Name.Equals("KeySwitch"))
+            if (chip.GraphicalChipData.Name.Equals("KeySwitch"))
             {
                 var keySwitchChip = (ChipTopSwitch)chip.ChipTop;
 
                 foreach (var (keyString, blockName) in chip.KeyEffects)
                 {
-                    var block = chipsets[blockName].Chipset;
+                    var block = chipsets[blockName].Blockset;
                     keySwitchChip.AddSwitchSection(keyString, block);
                 }
             }

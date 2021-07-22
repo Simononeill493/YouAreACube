@@ -22,9 +22,9 @@ namespace IAmACube
 
         public override string ToString()
         {
-            if (BaseObject.GetType() == typeof(BlockTemplate))
+            if (BaseObject.GetType() == typeof(CubeTemplate))
             {
-                var template = (BlockTemplate)BaseObject;
+                var template = (CubeTemplate)BaseObject;
                 return template.Versions.Name + '|' + template.Version;
             }
 

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class GetNeighbouringBlocksOfTypeChip: OutputPin<List<Block>>, InputPin<BlockMode>
+    internal class GetNeighbouringCubesOfTypeChip: OutputPin<List<Cube>>, InputPin<CubeMode>
     {
-        public BlockMode ChipInput1 { get; set; }
+        public CubeMode ChipInput1 { get; set; }
 
-        public override void Run(Block actor, UserInput input, ActionsList actions)
+        public override void Run(Cube actor, UserInput input, ActionsList actions)
         {
             var neighbours = actor.Location.Adjacent.Where(l => l.Value.HasBlock(ChipInput1)).Select(l => l.Value.GetBlock(ChipInput1)).ToList();
             SetOutput(neighbours);

@@ -45,7 +45,7 @@ namespace IAmACube
                 DrawTileDebugOverlay(tile, drawPos, cameraConfig);
             }
         }
-        public void DrawBlock(Block block, IntPoint drawPos, float layer, CameraConfiguration cameraConfig)
+        public void DrawBlock(Cube block, IntPoint drawPos, float layer, CameraConfiguration cameraConfig)
         {
             drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizePixels);
             var colorMask = new Color(block.ColorMask.Item1, block.ColorMask.Item2, block.ColorMask.Item3, block.ColorMask.Item4);
@@ -69,7 +69,7 @@ namespace IAmACube
                 DrawBlockEnergyOverlay(tile.Ephemeral, drawPos, cameraConfig);
             }
         }
-        public void DrawBlockEnergyOverlay(Block block, IntPoint drawPos, CameraConfiguration cameraConfig)
+        public void DrawBlockEnergyOverlay(Cube block, IntPoint drawPos, CameraConfiguration cameraConfig)
         {
             if(block.Active)
             {
@@ -81,7 +81,7 @@ namespace IAmACube
                 _primitive.DrawRectangle(drawPos.X, drawPos.Y, (int)barCurrentLength, 8,DrawLayers.BlockInfoLayer_Front, Color.Cyan, false);
             }
         }
-        public void DrawBlockHealthOverlay(SurfaceBlock block, IntPoint drawPos, CameraConfiguration cameraConfig)
+        public void DrawBlockHealthOverlay(SurfaceCube block, IntPoint drawPos, CameraConfiguration cameraConfig)
         {
             drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizePixels);
 

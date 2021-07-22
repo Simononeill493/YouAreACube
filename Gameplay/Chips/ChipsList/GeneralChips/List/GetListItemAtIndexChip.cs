@@ -12,7 +12,7 @@ namespace IAmACube
         public List<T> ChipInput1 { get ; set; }
         public int ChipInput2 { get; set; }
 
-        public override void Run(Block actor, UserInput input, ActionsList actions)
+        public override void Run(Cube actor, UserInput input, ActionsList actions)
         {
             SetOutput(ChipInput1[ChipInput2]);
         }

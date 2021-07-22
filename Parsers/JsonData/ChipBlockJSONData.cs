@@ -9,32 +9,32 @@ namespace IAmACube
         public List<ChipJSONData> Chips;
 
         [JsonIgnore]
-        public EditableChipset Chipset;
+        public Blockset Blockset;
         public void CreateChipset(IChipsetGenerator generator)
         {
             var chipset = generator.CreateChipset(Name);
             chipset.TopLevelRefreshAll = () => { };
 
-            Chipset = chipset;
+            Blockset = chipset;
         }
 
         [JsonIgnore]
-        public ChipBlock ChipBlock;
+        public Chipset ChipBlock;
         public void CreateChipBlock()
         {
-            ChipBlock = new ChipBlock() { Name = this.Name };
+            ChipBlock = new Chipset() { Name = this.Name };
         }
 
         public ChipBlockJSONData() { }
 
-        public ChipBlockJSONData(EditableChipset chipset)
+        public ChipBlockJSONData(Blockset chipset)
         {
             Chips = new List<ChipJSONData>();
-            Chipset = chipset;
+            Blockset = chipset;
             Name = chipset.Name;
         }
 
-        public ChipBlockJSONData(ChipBlock block)
+        public ChipBlockJSONData(Chipset block)
         {
             ChipBlock = block;
             Name = block.Name;

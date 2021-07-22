@@ -15,25 +15,23 @@ namespace IAmACube
         public void CreateInputsBlank()
         {
             Inputs = new List<ChipJSONInputData>();
-            for (int i = 0; i < ChipData.NumInputs; i++)
+            for (int i = 0; i < GraphicalChipData.NumInputs; i++)
             {
                 Inputs.Add(new ChipJSONInputData("",""));
             }
         }
-        public object ParseInput(int inputIndex) => Inputs[inputIndex].Parse(ChipData.GetInputType(inputIndex));
+        public object ParseInput(int inputIndex) => Inputs[inputIndex].Parse(GraphicalChipData.GetInputType(inputIndex));
 
         public ChipJSONData() { }
 
         public ChipJSONData(IChip iChip) 
         {
-            var chipData = iChip.GetChipData();
-
             IChip = iChip;
-            ChipData = chipData;
+            GraphicalChipData = iChip.GetChipData();
 
             Name = iChip.Name;
-            GraphicalChipType = chipData.BaseMappingName;
-            ActualChipType = chipData.Name;
+            GraphicalChipType = GraphicalChipData.BaseMappingName;
+            ActualChipType = GraphicalChipData.Name;
 
             CreateInputsBlank();
         }
@@ -41,7 +39,7 @@ namespace IAmACube
         public ChipJSONData(ChipTop chip)
         {
             ChipTop = chip;
-            ChipData = chip.ChipData;
+            GraphicalChipData = chip.ChipData;
 
             Name = chip.Name;
             GraphicalChipType = chip.ChipData.BaseMappingName;
@@ -50,16 +48,16 @@ namespace IAmACube
 
 
         [JsonIgnore]
-        public GraphicalChipData ChipData;
+        public GraphicalChipData GraphicalChipData;
         public void SetChipData()
         {
             if(ActualChipType != null)
             {
-                ChipData = GraphicalChipDatabase.GraphicalChips[ActualChipType];
+                GraphicalChipData = GraphicalChipDatabase.GraphicalChips[ActualChipType];
             }
             else
             {
-                ChipData = GraphicalChipDatabase.GraphicalChips[GraphicalChipType];
+                GraphicalChipData = GraphicalChipDatabase.GraphicalChips[GraphicalChipType];
             }
         }
 
@@ -67,10 +65,10 @@ namespace IAmACube
         public ChipTop ChipTop;
         public void CreateChipTop(IChipsetGenerator generator)
         {
-            var dataToCreateWith = ChipData;
-            if(ChipData.BaseMappingChip!=null)
+            var dataToCreateWith = GraphicalChipData;
+            if(GraphicalChipData.BaseMappingChip!=null)
             {
-                dataToCreateWith = ChipData.BaseMappingChip;
+                dataToCreateWith = GraphicalChipData.BaseMappingChip;
             }
 
             ChipTop = ChipTop.GenerateChipFromChipData(dataToCreateWith, this.Name);
@@ -81,7 +79,7 @@ namespace IAmACube
         public IChip IChip;
         public void CreateIChip()
         {
-            IChip = ChipObjectGenerator.GenerateIChipFromChipData(ChipData, TypeArguments);
+            IChip = ChipObjectGenerator.GenerateIChipFromChipData(GraphicalChipData, TypeArguments);
             IChip.Name = this.Name;
         }
 

@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class ChipBlock
+    public class Chipset
     {
         public string Name;
         public List<IChip> Chips;
         public List<IControlChip> ControlChips;
 
-        public ChipBlock(List<IChip> chips)
+        public Chipset(List<IChip> chips)
         {
             Chips = new List<IChip>();
             ControlChips = new List<IControlChip>();
 
             AddChips(chips);
         }
-        public ChipBlock(params IChip[] chips) : this(chips.ToList()) { }
+        public Chipset(params IChip[] chips) : this(chips.ToList()) { }
 
         public void AddChip(IChip chip)
         {
@@ -31,33 +31,33 @@ namespace IAmACube
             }
         }
         public void AddChips(List <IChip> chips)=>chips.ForEach(c => AddChip(c));
-        public void Execute(Block actor, UserInput input, ActionsList actions) => Chips.ForEach(chip => chip.Run(actor, input, actions));
+        public void Execute(Cube actor, UserInput input, ActionsList actions) => Chips.ForEach(chip => chip.Run(actor, input, actions));
 
 
         public List<IChip> GetAllChipsAndSubChips()
         {
             var output = new List<IChip>();
-            foreach(var block in GetBlockAndSubBlocks())
+            foreach(var block in GetChipsetAndSubChipsets())
             {
                 output.AddRange(block.Chips);
             }
 
             return output;
         }
-        public List<ChipBlock> GetBlockAndSubBlocks()
+        public List<Chipset> GetChipsetAndSubChipsets()
         {
-            var output = new List<ChipBlock>() { this };
+            var output = new List<Chipset>() { this };
             output.AddRange(GetSubBlocks());
             return output;
         }
-        public List<ChipBlock> GetSubBlocks()
+        public List<Chipset> GetSubBlocks()
         {
-            var output = new List<ChipBlock>();
+            var output = new List<Chipset>();
             ControlChips.ForEach(c => output.AddRange(c.GetSubBlocks()));
             return output;
         }
 
 
-        public static ChipBlock NoAction = new ChipBlock() { Name = "No_Action" };
+        public static Chipset NoAction = new Chipset() { Name = "No_Action" };
     }
 }

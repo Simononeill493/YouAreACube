@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    class ZapChip : InputPin<BlockMode>
+    class ZapChip : InputPin<CubeMode>
     {
         public string Name { get; set; }
-        public BlockMode ChipInput1 { get; set; }
+        public CubeMode ChipInput1 { get; set; }
 
-        public void Run(Block actor, UserInput userInput, ActionsList actions)
+        public void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
             actions.AddZapAction(actor, ChipInput1);
         }
