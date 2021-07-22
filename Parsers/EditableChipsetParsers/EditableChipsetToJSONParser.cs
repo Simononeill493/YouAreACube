@@ -121,16 +121,25 @@ namespace IAmACube
         {
             foreach (var possibleMatch in possibleMatches)
             {
-                for (int i = 0; i < inputs.Count; i++)
+                if(_doesMappingMatchInputs(inputs,possibleMatch))
                 {
-                    if (TemplateEditUtils.IsValidInputFor(inputs[i], possibleMatch.Inputs[i]))
-                    {
-                        return possibleMatch;
-                    }
+                    return possibleMatch;
                 }
             }
 
             return null;
+        }
+        public static bool _doesMappingMatchInputs(List<string> inputs,GraphicalChipData possibleMatch)
+        {
+            for (int i = 0; i < inputs.Count; i++)
+            {
+                if (!TemplateEditUtils.IsValidInputFor(inputs[i], possibleMatch.Inputs[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

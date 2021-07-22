@@ -71,8 +71,13 @@ namespace IAmACube
         {
             if (t.IsEnum)
             {
-                var parsed = Enum.Parse(t, asString);
-                return parsed;
+                if(Enum.IsDefined(t, asString))
+                {
+                    var parsed = Enum.Parse(t, asString);
+                    return parsed;
+                }
+
+                return null;
             }
 
             var parseMethod = t.GetMethod("Parse", new Type[] { typeof(string) }, new ParameterModifier[] { new ParameterModifier(1) });

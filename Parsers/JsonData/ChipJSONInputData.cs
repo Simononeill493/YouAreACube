@@ -41,6 +41,12 @@ namespace IAmACube
 
             var type = TypeUtils.GetTypeByDisplayName(typeName);
             var typeValue = TypeUtils.ParseType(type, InputValue);
+
+            if(typeValue==null)
+            {
+                throw new Exception();
+            }
+
             return typeValue;
         }
     }
