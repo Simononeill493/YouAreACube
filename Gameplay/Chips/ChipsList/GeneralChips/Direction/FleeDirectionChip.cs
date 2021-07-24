@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class FleeDirectionChip : OutputPin<CardinalDirection>, InputPin<Tile>
+    internal class FleeDirectionChip : OutputPin<CardinalDirection>, InputPin1<Tile>
     {
         public Tile ChipInput1 { get; set; }
 

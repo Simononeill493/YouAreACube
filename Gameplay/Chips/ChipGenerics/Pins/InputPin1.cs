@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public interface InputPin<TInputType> : IChip
+    public interface InputPin1<TInputType> : IChip
     {
         TInputType ChipInput1 { get;  set; }
     }

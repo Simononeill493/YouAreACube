@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class GetNeighbouringCubesOfTypeChip: OutputPin<List<Cube>>, InputPin<CubeMode>
+    internal class GetNeighbouringCubesOfTypeChip: OutputPin<List<Cube>>, InputPin1<CubeMode>
     {
         public CubeMode ChipInput1 { get; set; }
 

@@ -45,7 +45,7 @@ namespace IAmACube
         }
         private static void _setControlChipTargets(ChipJSONData chipJSON, Dictionary<string, ChipsetJSONData> chipsetsDict)
         {
-            var chipData = chipJSON.GraphicalChipData;
+            var chipData = chipJSON.BlockData;
             var constructedChip = chipJSON.Chip;
 
             if (chipData.Name.Equals("If"))
@@ -71,7 +71,7 @@ namespace IAmACube
 
         private static void _setChipInputs(ChipJSONData chipToken, Dictionary<string, ChipJSONData> chipsDict)
         {
-            for (int i = 0; i < chipToken.GraphicalChipData.NumInputs; i++)
+            for (int i = 0; i < chipToken.BlockData.NumInputs; i++)
             {
                 _setChipInput(chipToken, chipsDict, i);
             }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class IsCubeActiveChip<TBlock> : OutputPin<bool>, InputPin<TBlock> where TBlock : Cube
+    public class IsCubeActiveChip<TBlock> : OutputPin<bool>, InputPin1<TBlock> where TBlock : Cube
     {
         public TBlock ChipInput1 { get; set; }
 

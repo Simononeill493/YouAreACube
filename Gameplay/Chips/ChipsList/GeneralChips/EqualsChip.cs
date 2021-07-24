@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube.Gameplay.Chips.ChipsList.GeneralChips
 {
-    internal class EqualsChip : OutputPin<bool>, InputPin<int>, InputPin2<int>
+    internal class EqualsChip : OutputPin<bool>, InputPin1<int>, InputPin2<int>
     {
         public int ChipInput1 { get; set; }
         public int ChipInput2 { get; set; }

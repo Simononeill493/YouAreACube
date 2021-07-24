@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class RotateChip : InputPin<int>
+    internal class RotateChip : InputPin1<int>
     {
         public string Name { get; set; }
 

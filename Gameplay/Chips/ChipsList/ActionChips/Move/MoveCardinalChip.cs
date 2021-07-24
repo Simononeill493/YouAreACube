@@ -3,7 +3,7 @@
 namespace IAmACube
 {
     [Serializable()]
-    internal class MoveCardinalChip : InputPin<CardinalDirection>
+    internal class MoveCardinalChip : InputPin1<CardinalDirection>
     {
         public string Name { get; set; }
 

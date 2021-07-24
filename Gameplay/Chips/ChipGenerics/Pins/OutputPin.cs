@@ -11,7 +11,7 @@ namespace IAmACube
     {
         public string Name { get; set; }
 
-        public List<InputPin<TOutputType>> Targets1 = new List<InputPin<TOutputType>>();
+        public List<InputPin1<TOutputType>> Targets1 = new List<InputPin1<TOutputType>>();
         public List<InputPin2<TOutputType>> Targets2 = new List<InputPin2<TOutputType>>();
         public List<InputPin3<TOutputType>> Targets3 = new List<InputPin3<TOutputType>>();
 

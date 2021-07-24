@@ -3,7 +3,7 @@
 namespace IAmACube
 {
     [Serializable()]
-    internal class ApproachDirectionChip : OutputPin<CardinalDirection>, InputPin<Tile>
+    internal class ApproachDirectionChip : OutputPin<CardinalDirection>, InputPin1<Tile>
     {
         public Tile ChipInput1 { get; set; }
 

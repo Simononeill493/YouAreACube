@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class MoveRelativeChip : InputPin<RelativeDirection>
+    internal class MoveRelativeChip : InputPin1<RelativeDirection>
     {
         public string Name { get; set; }
 

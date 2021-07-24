@@ -6,7 +6,7 @@ using System.Linq;
 namespace IAmACube
 {
     [Serializable()]
-    internal class IsListEmptyChip<T> : OutputPin<bool>, InputPin<List<T>>
+    internal class IsListEmptyChip<T> : OutputPin<bool>, InputPin1<List<T>>
     {
         public List<T> ChipInput1 { get; set; }
 

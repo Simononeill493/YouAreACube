@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube.Gameplay.Chips.ChipsList.ActionChips
 {
     [Serializable()]
-    class ApproachCubeChip<TCube> : InputPin<TCube> where TCube : Cube
+    class ApproachCubeChip<TCube> : InputPin1<TCube> where TCube : Cube
     {
         public string Name { get; set; }
         public TCube ChipInput1 { get; set; }

@@ -44,14 +44,14 @@ namespace IAmACube
         }
         private static void _setControlChipTargets(ChipJSONData chip, Dictionary<string, ChipsetJSONData> chipsets)
         {
-            if (chip.GraphicalChipData.Name.Equals("If"))
+            if (chip.BlockData.Name.Equals("If"))
             {
                 var ifChip = (BlockTopSwitch)chip.Block;
 
                 ifChip.AddSwitchSection("Yes", chipsets[chip.Yes].Blockset);
                 ifChip.AddSwitchSection("No", chipsets[chip.No].Blockset);
             }
-            if (chip.GraphicalChipData.Name.Equals("KeySwitch"))
+            if (chip.BlockData.Name.Equals("KeySwitch"))
             {
                 var keySwitchChip = (BlockTopSwitch)chip.Block;
 

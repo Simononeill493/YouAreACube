@@ -11,12 +11,13 @@ namespace IAmACube
 
     public static class IChipUtils
     {
+
         public static BlockData GetChipData(this IChip chip)
         {
             var chipTypeName = chip.GetType().Name;
             var chipName = chipTypeName.Substring(0, chipTypeName.IndexOf("Chip"));
 
-            return GraphicalChipDatabase.GraphicalChips[chipName];
+            return BlockDataDatabase.GraphicalChips[chipName];
         }
 
         public static bool IsControlChip(this IChip chip) => typeof(IControlChip).IsAssignableFrom(chip.GetType());
@@ -41,6 +42,16 @@ namespace IAmACube
         public static object GetInputPropertyValue(this IChip chip, int inputIndex)
         {
             return GetInputProperty(chip,inputIndex).GetValue(chip);
+        }
+        public static string GetInputPinValue(this IChip chip, int pinIndex)
+        {
+            var value = chip.GetInputPropertyValue(pinIndex);
+            if (value.GetType() == typeof(CubeTemplate))
+            {
+                var template = (CubeTemplate)value;
+                return template.Versions.Name + '|' + template.Version;
+            }
+            return value.ToString();
         }
 
         public static void SetInputProperty(this IChip chip, int inputIndex,object toSet)

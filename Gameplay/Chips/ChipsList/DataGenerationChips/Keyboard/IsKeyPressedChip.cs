@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class IsKeyPressedChip : OutputPin<bool>, InputPin<Keys>
+    internal class IsKeyPressedChip : OutputPin<bool>, InputPin1<Keys>
     {
         public Keys ChipInput1 { get; set; }
 

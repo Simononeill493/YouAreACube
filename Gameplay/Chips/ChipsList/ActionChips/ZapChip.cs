@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    class ZapChip : InputPin<CubeMode>
+    class ZapChip : InputPin1<CubeMode>
     {
         public string Name { get; set; }
         public CubeMode ChipInput1 { get; set; }

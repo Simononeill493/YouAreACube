@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class ShuffleListChip<T> : OutputPin<List<T>>, InputPin<List<T>>
+    internal class ShuffleListChip<T> : OutputPin<List<T>>, InputPin1<List<T>>
     {
         public List<T> ChipInput1 { get; set; }
 

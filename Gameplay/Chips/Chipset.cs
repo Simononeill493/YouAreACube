@@ -31,6 +31,7 @@ namespace IAmACube
             }
         }
         public void AddChips(List <IChip> chips)=>chips.ForEach(c => AddChip(c));
+        
         public void Execute(Cube actor, UserInput input, ActionsList actions) => Chips.ForEach(chip => chip.Run(actor, input, actions));
 
 

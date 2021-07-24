@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    class ApproachTileChip : InputPin<Tile>
+    class ApproachTileChip : InputPin1<Tile>
     {
         public string Name { get; set; }
         public Tile ChipInput1 { get; set; }

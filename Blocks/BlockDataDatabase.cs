@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public static class GraphicalChipDatabase
+    public static class BlockDataDatabase
     {
         public static Dictionary<string,BlockData> GraphicalChips;
         public static IEnumerable<BlockData> SearchableChips;

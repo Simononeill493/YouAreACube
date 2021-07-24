@@ -20,12 +20,9 @@ namespace IAmACube
             {
                 var chipJSON = new ChipJSONData(chip);
                 chipsDict[chip.Name] = chipJSON;
-
-                _setGenericChipAttributes(chipJSON);
-                _setControlChipAttributes(chipJSON);
             }
 
-            _setChipReferenceInputs(chipsDict);
+            _setChipReferenceTargets(chipsDict);
             _setChipValueInputs(chipsDict);
 
             foreach (var chipset in chipsetToParse.GetChipsetAndSubChipsets())
@@ -43,21 +40,21 @@ namespace IAmACube
         }
 
 
-        private static void _setChipReferenceInputs(Dictionary<string, ChipJSONData> chipsDict)
+        private static void _setChipReferenceTargets(Dictionary<string, ChipJSONData> chipsDict)
         {
             foreach (var chipJSON in chipsDict.Values)
             {
-                if (chipJSON.GraphicalChipData.HasOutput)
+                if (chipJSON.BlockData.HasOutput)
                 {
                     for (int i = 0; i < 3; i++)
                     {
                         var targets = chipJSON.Chip.GetTargetsList(i);
-                        _setChipReferenceTargets(chipJSON.Chip, i, targets, chipsDict);
+                        _setChipReferenceInputs(chipJSON.Chip, i, targets, chipsDict);
                     }
                 }
             }
         }
-        private static void _setChipReferenceTargets(IChip chip, int inputPinIndex, IList targets, Dictionary<string, ChipJSONData> chipsJsonData)
+        private static void _setChipReferenceInputs(IChip chip, int inputPinIndex, IList targets, Dictionary<string, ChipJSONData> chipsJsonData)
         {
             foreach (var target in (IEnumerable<IChip>)targets)
             {
@@ -76,50 +73,9 @@ namespace IAmACube
                     if (inputs[i].InputType.Equals(""))
                     {
                         inputs[i].InputType = "Value";
-                        inputs[i].InputValue = _getInputPinValue(chipJobject.Chip, i);
+                        inputs[i].InputValue = chipJobject.Chip.GetInputPinValue(i);
                     }
                 }
-            }
-        }
-        private static string _getInputPinValue(IChip chip, int pinIndex)
-        {
-            var value = chip.GetInputPropertyValue(pinIndex);
-            if(value.GetType() == typeof(CubeTemplate))
-            {
-                var template = (CubeTemplate)value;
-                return template.Versions.Name + '|' + template.Version;
-            }
-            return value.ToString();
-        }
-        private static void _setControlChipAttributes(ChipJSONData chipJObject)
-        {
-            if (chipJObject.GraphicalChipData.Name.Equals("If"))
-            {
-                var ifChip = (IfChip)chipJObject.Chip;
-
-                chipJObject.Yes = ifChip.Yes.Name;
-                chipJObject.No = ifChip.No.Name;
-            }
-            else if (chipJObject.GraphicalChipData.Name.Equals("KeySwitch"))
-            {
-                var keySwitchChip = (KeySwitchChip)chipJObject.Chip;
-                var keysAndEffects = new List<(string, string)>();
-
-                foreach (var keyBlock in keySwitchChip.KeyEffects)
-                {
-                    keysAndEffects.Add((keyBlock.Key.ToString(), keyBlock.Chipset.Name));
-                }
-
-                chipJObject.KeyEffects = keysAndEffects;
-            }
-        }
-        private static void _setGenericChipAttributes(ChipJSONData chipToken)
-        {
-            if (chipToken.GraphicalChipData.IsGeneric)
-            {
-                var type = chipToken.Chip.GetType();
-                var typeArguments = type.GenericTypeArguments;
-                chipToken.TypeArguments = typeArguments.Select(ta => ta.Name).ToList();
             }
         }
 

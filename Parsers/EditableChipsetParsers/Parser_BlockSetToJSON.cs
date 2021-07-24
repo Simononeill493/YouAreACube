@@ -46,10 +46,10 @@ namespace IAmACube
 
         public static BlockData _getChipSubMapping(ChipJSONData chipJObject)
         {
-            if (chipJObject.GraphicalChipData.IsMappedToSubChips)
+            if (chipJObject.BlockData.IsMappedToSubChips)
             {
                 var selectedTypes = chipJObject.Block.GetSelectedInputTypes();
-                var mappedChipType = _getFirstMatchingMapping(selectedTypes, chipJObject.GraphicalChipData.InputMappings);
+                var mappedChipType = _getFirstMatchingMapping(selectedTypes, chipJObject.BlockData.InputMappings);
 
                 chipJObject.ActualChipType = mappedChipType.Name;
                 return mappedChipType;
@@ -96,7 +96,7 @@ namespace IAmACube
 
         private static void _setControlChipTargets(ChipJSONData chipJObject)
         {
-            if(chipJObject.GraphicalChipData.Name.Equals("If"))
+            if(chipJObject.BlockData.Name.Equals("If"))
             {
                 var ifChip = (BlockTopSwitch)chipJObject.Block;
 
@@ -104,7 +104,7 @@ namespace IAmACube
                 chipJObject.No = ifChip.SwitchBlocksets[1].Name;
 
             }
-            if (chipJObject.GraphicalChipData.Name.Equals("KeySwitch"))
+            if (chipJObject.BlockData.Name.Equals("KeySwitch"))
             {
                 var keyChip = (BlockTopSwitch)chipJObject.Block;
 

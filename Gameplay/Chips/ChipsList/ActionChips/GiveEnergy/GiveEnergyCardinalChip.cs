@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube.Gameplay.Chips.ChipsList.ActionChips.GiveEnergy
 {
     [Serializable()]
-    class GiveEnergyCardinalChip : InputPin<CardinalDirection>, InputPin2<CubeMode>, InputPin3<int>
+    class GiveEnergyCardinalChip : InputPin1<CardinalDirection>, InputPin2<CubeMode>, InputPin3<int>
     {
         public CardinalDirection ChipInput1 { get; set; }
         public CubeMode ChipInput2 { get; set; }

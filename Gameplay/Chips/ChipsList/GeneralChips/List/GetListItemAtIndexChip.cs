@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    class GetListItemAtIndexChip<T> : OutputPin<T>, InputPin<List<T>>, InputPin2<int>
+    class GetListItemAtIndexChip<T> : OutputPin<T>, InputPin1<List<T>>, InputPin2<int>
     {
         public List<T> ChipInput1 { get ; set; }
         public int ChipInput2 { get; set; }

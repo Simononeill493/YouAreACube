@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class RandomNumChip : OutputPin<int>, InputPin<int>
+    public class RandomNumChip : OutputPin<int>, InputPin1<int>
     {
         public int ChipInput1 { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace IAmACube
@@ -15,31 +16,67 @@ namespace IAmACube
         public void CreateInputsBlank()
         {
             Inputs = new List<ChipJSONInputData>();
-            for (int i = 0; i < GraphicalChipData.NumInputs; i++)
+            for (int i = 0; i < BlockData.NumInputs; i++)
             {
                 Inputs.Add(new ChipJSONInputData("",""));
             }
         }
-        public object ParseInput(int inputIndex) => Inputs[inputIndex].Parse(GraphicalChipData.GetInputType(inputIndex));
+        public object ParseInput(int inputIndex) => Inputs[inputIndex].Parse(BlockData.GetInputType(inputIndex));
 
         public ChipJSONData() { }
 
         public ChipJSONData(IChip iChip) 
         {
             Chip = iChip;
-            GraphicalChipData = iChip.GetChipData();
+            BlockData = iChip.GetChipData();
 
             Name = iChip.Name;
-            GraphicalChipType = GraphicalChipData.BaseMappingName;
-            ActualChipType = GraphicalChipData.Name;
+            GraphicalChipType = BlockData.BaseMappingName;
+            ActualChipType = BlockData.Name;
 
             CreateInputsBlank();
+
+            _setTypeArgumentsFromChip();
+            _setSubChipsetsFromChip();
         }
+        private void _setTypeArgumentsFromChip()
+        {
+            if (BlockData.IsGeneric)
+            {
+                var type = Chip.GetType();
+                var typeArguments = type.GenericTypeArguments;
+                TypeArguments = typeArguments.Select(ta => TypeUtils.GetTypeDisplayName(ta)).ToList();
+            }
+        }
+        private void _setSubChipsetsFromChip()
+        {
+            if (BlockData.Name.Equals("If"))
+            {
+                var ifChip = (IfChip)Chip;
+
+                Yes = ifChip.Yes.Name;
+                No = ifChip.No.Name;
+            }
+            else if (BlockData.Name.Equals("KeySwitch"))
+            {
+                var keySwitchChip = (KeySwitchChip)Chip;
+                var keysAndEffects = new List<(string, string)>();
+
+                foreach (var keyBlock in keySwitchChip.KeyEffects)
+                {
+                    keysAndEffects.Add((keyBlock.Key.ToString(), keyBlock.Chipset.Name));
+                }
+
+                KeyEffects = keysAndEffects;
+            }
+        }
+
+
 
         public ChipJSONData(BlockTop chip)
         {
             Block = chip;
-            GraphicalChipData = chip.BlockData;
+            BlockData = chip.BlockData;
 
             Name = chip.Name;
             GraphicalChipType = chip.BlockData.BaseMappingName;
@@ -48,16 +85,16 @@ namespace IAmACube
 
 
         [JsonIgnore]
-        public BlockData GraphicalChipData;
+        public BlockData BlockData;
         public void SetChipData()
         {
             if(ActualChipType != null)
             {
-                GraphicalChipData = GraphicalChipDatabase.GraphicalChips[ActualChipType];
+                BlockData = BlockDataDatabase.GraphicalChips[ActualChipType];
             }
             else
             {
-                GraphicalChipData = GraphicalChipDatabase.GraphicalChips[GraphicalChipType];
+                BlockData = BlockDataDatabase.GraphicalChips[GraphicalChipType];
             }
         }
 
@@ -65,10 +102,10 @@ namespace IAmACube
         public BlockTop Block;
         public void CreateChipTop(IBlocksetGenerator generator)
         {
-            var dataToCreateWith = GraphicalChipData;
-            if(GraphicalChipData.BaseMappingBlock!=null)
+            var dataToCreateWith = BlockData;
+            if(BlockData.BaseMappingBlock!=null)
             {
-                dataToCreateWith = GraphicalChipData.BaseMappingBlock;
+                dataToCreateWith = BlockData.BaseMappingBlock;
             }
 
             Block = BlockTop.GenerateChipFromChipData(dataToCreateWith, this.Name);
@@ -79,11 +116,9 @@ namespace IAmACube
         public IChip Chip;
         public void CreateChip()
         {
-            Chip = ChipObjectGenerator.GenerateIChipFromChipData(GraphicalChipData, TypeArguments);
+            Chip = BlockData.GenerateChip(TypeArguments);
             Chip.Name = this.Name;
         }
-
-
 
         public string Yes;
         public string No;

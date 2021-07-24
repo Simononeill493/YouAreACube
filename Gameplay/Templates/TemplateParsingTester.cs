@@ -40,7 +40,7 @@ namespace IAmACube
                 throw new Exception(name + " template parsing mismatch");
             }
 
-            if (!ChipsetComparer.Equivalent(chipset, chipBlockClone))
+            if (!chipset.Equivalent(chipBlockClone))
             {
                 throw new Exception(name + " template parsing mismatch");
             }

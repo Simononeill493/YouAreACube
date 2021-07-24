@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace IAmACube
 {
     [Serializable()]
-    internal class IfChip : IControlChip, InputPin<bool>
+    internal class IfChip : IControlChip, InputPin1<bool>
     {
         public string Name { get; set; }
 

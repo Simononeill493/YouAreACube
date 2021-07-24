@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class AddToListChip<T> : InputPin<T>, InputPin2<List<T>>
+    internal class AddToListChip<T> : InputPin1<T>, InputPin2<List<T>>
     {
         public string Name { get; set; }
 

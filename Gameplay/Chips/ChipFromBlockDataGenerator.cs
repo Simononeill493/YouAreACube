@@ -6,17 +6,9 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class ChipObjectGenerator
+    static class ChipFromBlockDataGenerator
     {
-        public static void Test()
-        {
-            foreach (var data in GraphicalChipDatabase.GraphicalChips.Values)
-            {
-                var instance = GenerateIChipFromChipData(data);
-            }
-        }
-
-        public static IChip GenerateIChipFromChipData(BlockData data, List<string> typeArguments = null, List<string> inputMappings = null)
+        public static IChip GenerateChip(this BlockData data, List<string> typeArguments = null, List<string> inputMappings = null)
         {
             if(typeArguments== null)
             {
@@ -35,18 +27,18 @@ namespace IAmACube
                     mappedData = data.InputMappings.First(sub => sub.Inputs.SequenceEqual(inputMappings));
                 }
 
-                return GenerateIChipFromChipData(mappedData, typeArguments);
+                return mappedData.GenerateChip(typeArguments);
             }
 
             if (data.IsGeneric)
             {
-                return _generateGenericChipFromChipData(data, typeArguments, inputMappings);
+                return _generateGenericChipFromBlockData(data, typeArguments);
             }
 
-            return _generateNonGenericChipFromChipData(data, inputMappings);
+            return _generateNonGenericChipFromBlockData(data);
         }
 
-        private static IChip _generateGenericChipFromChipData(BlockData data, List<string> typeArguments, List<string> inputMappings)
+        private static IChip _generateGenericChipFromBlockData(BlockData data, List<string> typeArguments)
         {
             var genericChipType = TypeUtils.GetChipTypeByName(data.Name + "Chip`1");
             var typeArgumentsAsType = typeArguments.Select(ta => TypeUtils.GetTypeByDisplayName(ta)).ToArray();
@@ -56,7 +48,7 @@ namespace IAmACube
             return genericInstance;
         }
 
-        private static IChip _generateNonGenericChipFromChipData(BlockData data, List<string> inputMappings)
+        private static IChip _generateNonGenericChipFromBlockData(BlockData data)
         {
             var chipType = TypeUtils.GetChipTypeByName(data.Name + "Chip");
             var instance = (IChip)Activator.CreateInstance(chipType);

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class CreateCardinalChip : InputPin<CardinalDirection>, InputPin2<CubeTemplate>, InputPin3<CubeMode>
+    internal class CreateCardinalChip : InputPin1<CardinalDirection>, InputPin2<CubeTemplate>, InputPin3<CubeMode>
     {
         public string Name { get; set; }
 
