@@ -47,13 +47,13 @@ namespace IAmACube
         public List<Chipset> GetChipsetAndSubChipsets()
         {
             var output = new List<Chipset>() { this };
-            output.AddRange(GetSubBlocks());
+            output.AddRange(GetSubChipsets());
             return output;
         }
-        public List<Chipset> GetSubBlocks()
+        public List<Chipset> GetSubChipsets()
         {
             var output = new List<Chipset>();
-            ControlChips.ForEach(c => output.AddRange(c.GetSubBlocks()));
+            ControlChips.ForEach(c => output.AddRange(c.GetSubChipsets()));
             return output;
         }
 

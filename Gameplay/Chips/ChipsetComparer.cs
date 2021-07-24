@@ -22,8 +22,8 @@ namespace IAmACube
                 }
             }
 
-            var b1SubBlocks = b1.GetSubBlocks();
-            var b2SubBlocks = b2.GetSubBlocks();
+            var b1SubBlocks = b1.GetSubChipsets();
+            var b2SubBlocks = b2.GetSubChipsets();
 
             if (b1SubBlocks.Count != b2SubBlocks.Count) { return false; }
 

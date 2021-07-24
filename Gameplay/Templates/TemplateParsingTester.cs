@@ -14,13 +14,13 @@ namespace IAmACube
             foreach (var template in templates)
             {
                 if (!template.Active) { continue; }
-                TestParsingRoundTrip(template.Name, template.ChipBlock);
+                TestParsingRoundTrip(template.Name, template.Chipset);
             }
         }
 
-        public static void TestParsingRoundTrip(string name,Chipset chipBlock)
+        public static void TestParsingRoundTrip(string name,Chipset chipset)
         {
-            var initialJson = Parser_ChipsetToJSON.ParseChipsetToJson(chipBlock);
+            var initialJson = Parser_ChipsetToJSON.ParseChipsetToJson(chipset);
 
             var editableChipset = Parser_JSONToEditableChipset.ParseJsonToBlockset(initialJson, new DummyChipsetGenerator());
             var chipBlockClone = Parser_JSONToChipset.ParseJsonToBlock(initialJson);
@@ -40,7 +40,7 @@ namespace IAmACube
                 throw new Exception(name + " template parsing mismatch");
             }
 
-            if (!ChipsetComparer.Equivalent(chipBlock, chipBlockClone))
+            if (!ChipsetComparer.Equivalent(chipset, chipBlockClone))
             {
                 throw new Exception(name + " template parsing mismatch");
             }

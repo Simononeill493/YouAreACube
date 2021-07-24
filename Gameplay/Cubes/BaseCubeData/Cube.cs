@@ -39,7 +39,7 @@ namespace IAmACube
         }
 
 
-        public virtual void Update(UserInput input, ActionsList actions) => Template.ChipBlock.Execute(this, input, actions);
+        public virtual void Update(UserInput input, ActionsList actions) => Template.Chipset.Execute(this, input, actions);
         public virtual void BeCreatedBy(Cube creator) => SpeedOffset = creator.SpeedOffset + 1;
         public virtual bool CanUpdate => true;
         public abstract bool ToBeDeleted();
@@ -53,7 +53,7 @@ namespace IAmACube
 
 
         public void SetTemplateToMain() => Template = Template.Versions.Main;
-        public void SetTemplateToRuntime() => Template = Templates.GetRuntimeVersion(Template);
+        public void SetTemplateToRuntime() => Template = Templates.GetRuntimeTemplate(Template);
     }
 
     public interface ICube{}

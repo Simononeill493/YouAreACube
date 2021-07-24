@@ -11,7 +11,7 @@ namespace IAmACube
     {
         public static Blockset ParseJsonToBlockset(string json, IChipsetGenerator generator)
         {
-            var blocksetsJson = JsonConvert.DeserializeObject<ChipsetJSONData>(json);
+            var blocksetsJson = JsonConvert.DeserializeObject<FullChipsetJSONData>(json);
             var blocksDict = blocksetsJson.GetBlocksDict();
             var chipsDict = blocksetsJson.GetChipsDict();
 
@@ -32,7 +32,7 @@ namespace IAmACube
             return baseBlockset;
         }
 
-        private static void _appendChipsToChipsets(ChipsetJSONData chipsetsJson)
+        private static void _appendChipsToChipsets(FullChipsetJSONData chipsetsJson)
         {
             foreach (var blockJson in chipsetsJson)
             {
@@ -42,7 +42,7 @@ namespace IAmACube
                 }
             }
         }
-        private static void _setControlChipTargets(ChipJSONData chip, Dictionary<string, ChipBlockJSONData> chipsets)
+        private static void _setControlChipTargets(ChipJSONData chip, Dictionary<string, ChipsetJSONData> chipsets)
         {
             if (chip.GraphicalChipData.Name.Equals("If"))
             {

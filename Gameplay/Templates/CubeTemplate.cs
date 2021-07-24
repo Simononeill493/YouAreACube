@@ -19,7 +19,7 @@ namespace IAmACube
         public int MaxHealth = 250;
 
         [JsonIgnore]
-        public Chipset ChipBlock;
+        public Chipset Chipset;
 
         [JsonIgnore]
         public TemplateVersionDictionary Versions;
@@ -48,9 +48,9 @@ namespace IAmACube
         public CubeTemplate Clone()
         {
             var clone = JsonConvert.DeserializeObject<CubeTemplate>(JsonConvert.SerializeObject(this));
-            if(this.ChipBlock!=null)
+            if(this.Chipset!=null)
             {
-                clone.ChipBlock = Parser_JSONToChipset.ParseJsonToBlock(Parser_ChipsetToJSON.ParseChipsetToJson(ChipBlock));
+                clone.Chipset = Parser_JSONToChipset.ParseJsonToBlock(Parser_ChipsetToJSON.ParseChipsetToJson(Chipset));
             }
 
             clone.Version = -1;

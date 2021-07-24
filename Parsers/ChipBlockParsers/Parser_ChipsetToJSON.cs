@@ -13,7 +13,7 @@ namespace IAmACube
     {
         public static string ParseChipsetToJson(Chipset chipsetToParse)
         {
-            var chipsetsJson = new ChipsetJSONData();
+            var chipsetsJson = new FullChipsetJSONData();
             var chipNamesToJsonData = new Dictionary<string, ChipJSONData>();
 
             foreach (var iChip in chipsetToParse.GetAllChipsAndSubChips())
@@ -30,7 +30,7 @@ namespace IAmACube
 
             foreach (var chipset in chipsetToParse.GetChipsetAndSubChipsets())
             {
-                var chipsetJsonData = new ChipBlockJSONData(chipset);
+                var chipsetJsonData = new ChipsetJSONData(chipset);
                 chipsetJsonData.Chips = _getChipsInThisChipset(chipset,chipNamesToJsonData);
 
                 chipsetsJson.Add(chipsetJsonData);
@@ -111,7 +111,7 @@ namespace IAmACube
 
                 foreach (var keyBlock in keySwitchChip.KeyEffects)
                 {
-                    keysAndEffects.Add((keyBlock.Key.ToString(), keyBlock.Block.Name));
+                    keysAndEffects.Add((keyBlock.Key.ToString(), keyBlock.Chipset.Name));
                 }
 
                 chipJObject.KeyEffects = keysAndEffects;

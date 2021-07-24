@@ -25,7 +25,7 @@ namespace IAmACube
             }
         }
 
-        public List<Chipset> GetSubBlocks()
+        public List<Chipset> GetSubChipsets()
         {
             var output = new List<Chipset>();
 

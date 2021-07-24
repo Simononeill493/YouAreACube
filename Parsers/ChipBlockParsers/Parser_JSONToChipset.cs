@@ -15,7 +15,7 @@ namespace IAmACube
     {
         public static Chipset ParseJsonToBlock(string json)
         {
-            var chipsetsJson = JsonConvert.DeserializeObject<ChipsetJSONData>(json);
+            var chipsetsJson = JsonConvert.DeserializeObject<FullChipsetJSONData>(json);
             var blocksDict = chipsetsJson.GetBlocksDict();
             var chipsDict = chipsetsJson.GetChipsDict();
 
@@ -30,21 +30,21 @@ namespace IAmACube
                 _setControlChipTargets(chipToken, blocksDict);
             }
 
-            var initBlock = chipsetsJson.GetInitial().ChipBlock;
+            var initBlock = chipsetsJson.GetInitial().Chipset;
             return initBlock;
         }
 
-        private static void _appendChipsToChipBlocks(ChipsetJSONData chipsetsJson)
+        private static void _appendChipsToChipBlocks(FullChipsetJSONData chipsetsJson)
         {
             foreach (var blockToken in chipsetsJson)
             {
                 foreach (var chipToken in blockToken.Chips)
                 {
-                    blockToken.ChipBlock.AddChip(chipToken.IChip);
+                    blockToken.Chipset.AddChip(chipToken.IChip);
                 }
             }
         }
-        private static void _setControlChipTargets(ChipJSONData chipToken, Dictionary<string, ChipBlockJSONData> blocksDict)
+        private static void _setControlChipTargets(ChipJSONData chipToken, Dictionary<string, ChipsetJSONData> blocksDict)
         {
             var chipData = chipToken.GraphicalChipData;
             var constructedChip = chipToken.IChip;
@@ -53,8 +53,8 @@ namespace IAmACube
             {
                 var ifChip = (IfChip)constructedChip;
 
-                ifChip.Yes = blocksDict[chipToken.Yes].ChipBlock;
-                ifChip.No = blocksDict[chipToken.No].ChipBlock;
+                ifChip.Yes = blocksDict[chipToken.Yes].Chipset;
+                ifChip.No = blocksDict[chipToken.No].Chipset;
             }
             if (chipData.Name.Equals("KeySwitch"))
             {
@@ -63,7 +63,7 @@ namespace IAmACube
                 foreach (var (keyString, blockName) in chipToken.KeyEffects)
                 {
                     var effectKey = (Keys)Enum.Parse(typeof(Keys), keyString);
-                    var effectBlock = blocksDict[blockName].ChipBlock;
+                    var effectBlock = blocksDict[blockName].Chipset;
 
                     keySwitchChip.AddKeyEffect(effectKey, effectBlock);
                 }

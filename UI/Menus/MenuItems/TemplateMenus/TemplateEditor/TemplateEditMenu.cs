@@ -133,7 +133,7 @@ namespace IAmACube
 
                 TemplateParsingTester.TestParsingRoundTrip(chipset.Name, block);
 
-                template.ChipBlock = block;
+                template.Chipset = block;
 
                 if (!template.Active)
                 {

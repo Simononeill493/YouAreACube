@@ -12,11 +12,11 @@ namespace IAmACube
     {
         public static string ParseEditableChipsetToJson(Blockset chipset)
         {
-            var chipsetsJson = new ChipsetJSONData();
+            var chipsetsJson = new FullChipsetJSONData();
 
             foreach (var editableChipset in chipset.GetThisAndSubChipsets())
             {
-                var chipsetJson = new ChipBlockJSONData(editableChipset);
+                var chipsetJson = new ChipsetJSONData(editableChipset);
                 chipsetsJson.Add(chipsetJson);
 
                 foreach(var chip in editableChipset.Chips)

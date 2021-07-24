@@ -54,9 +54,9 @@
     <Compile Include="Camera\KernelCamera\KernelTrackingCamera.cs" />
     <Compile Include="Camera\KernelCamera\ScrollBoundary.cs" />
     <Compile Include="Config\ConfigFiles.cs" />
-    <Compile Include="Gameplay\Cubes\BaseBlockData\Cube.cs" />
-    <Compile Include="Gameplay\Cubes\BaseBlockData\CubeMode.cs" />
-    <Compile Include="Gameplay\Cubes\BaseBlockData\Cube_Energy.cs" />
+    <Compile Include="Gameplay\Cubes\BaseCubeData\Cube.cs" />
+    <Compile Include="Gameplay\Cubes\BaseCubeData\CubeMode.cs" />
+    <Compile Include="Gameplay\Cubes\BaseCubeData\Cube_Energy.cs" />
     <Compile Include="Gameplay\Cubes\Movement\Cube_Movement.cs" />
     <Compile Include="Gameplay\Cubes\Movement\CubeMovementData.cs" />
     <Compile Include="Gameplay\Cubes\EphemeralCube.cs" />
@@ -104,9 +104,9 @@
     <Compile Include="MonoGameWrapper\Sound\SoundInterface.cs" />
     <Compile Include="Parsers\ChipBlockParsers\Parser_ChipsetToJSON.cs" />
     <Compile Include="Parsers\EditableChipsetParsers\Parser_JSONToEditableChipset.cs" />
-    <Compile Include="Parsers\JsonData\ChipBlockJSONData.cs" />
-    <Compile Include="Parsers\JsonData\ChipJSONData.cs" />
     <Compile Include="Parsers\JsonData\ChipsetJSONData.cs" />
+    <Compile Include="Parsers\JsonData\ChipJSONData.cs" />
+    <Compile Include="Parsers\JsonData\FullChipsetJSONData.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateEditor\ChipsetEditor\ChipEditPane_Pan.cs" />
     <Compile Include="UI\Menus\MenuItems\TemplateMenus\TemplateSelector\TemplateSelectedAction.cs" />
     <Compile Include="UI\Screens\ScreenType.cs" />
