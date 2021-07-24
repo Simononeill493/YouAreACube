@@ -8,18 +8,18 @@ namespace IAmACube
 {
     public static class GraphicalChipDatabase
     {
-        public static Dictionary<string,GraphicalChipData> GraphicalChips;
-        public static IEnumerable<GraphicalChipData> SearchableChips;
+        public static Dictionary<string,BlockData> GraphicalChips;
+        public static IEnumerable<BlockData> SearchableChips;
 
         public static void Load()
         {
             GraphicalChips = _loadGraphicalChips();
-            SearchableChips = GraphicalChips.Values.Where(c => c.BaseMappingChip == null);
+            SearchableChips = GraphicalChips.Values.Where(c => c.BaseMappingBlock == null);
         }
 
-        public static IEnumerable<GraphicalChipData> SearchChips(string searchTerm) => SearchableChips.Where(c => c.Name.ToLower().Contains(searchTerm.ToLower()));
+        public static IEnumerable<BlockData> SearchChips(string searchTerm) => SearchableChips.Where(c => c.Name.ToLower().Contains(searchTerm.ToLower()));
 
-        private static Dictionary<string, GraphicalChipData> _loadGraphicalChips()
+        private static Dictionary<string, BlockData> _loadGraphicalChips()
         {
             var data = FileUtils.LoadJson(ConfigFiles.GraphicalChipsPath)["chips"];
             var chips =  GraphicalChipParser.ParseChips(data);
@@ -30,7 +30,7 @@ namespace IAmACube
                 {
                     chips[subMapping.Name] = subMapping;
                     subMapping.Init();
-                    subMapping.BaseMappingChip = chip;
+                    subMapping.BaseMappingBlock = chip;
                 }
             }
 

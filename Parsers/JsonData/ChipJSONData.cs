@@ -26,7 +26,7 @@ namespace IAmACube
 
         public ChipJSONData(IChip iChip) 
         {
-            IChip = iChip;
+            Chip = iChip;
             GraphicalChipData = iChip.GetChipData();
 
             Name = iChip.Name;
@@ -36,19 +36,19 @@ namespace IAmACube
             CreateInputsBlank();
         }
 
-        public ChipJSONData(ChipTop chip)
+        public ChipJSONData(BlockTop chip)
         {
-            ChipTop = chip;
-            GraphicalChipData = chip.ChipData;
+            Block = chip;
+            GraphicalChipData = chip.BlockData;
 
             Name = chip.Name;
-            GraphicalChipType = chip.ChipData.BaseMappingName;
-            ActualChipType = chip.ChipData.Name;
+            GraphicalChipType = chip.BlockData.BaseMappingName;
+            ActualChipType = chip.BlockData.Name;
         }
 
 
         [JsonIgnore]
-        public GraphicalChipData GraphicalChipData;
+        public BlockData GraphicalChipData;
         public void SetChipData()
         {
             if(ActualChipType != null)
@@ -62,25 +62,25 @@ namespace IAmACube
         }
 
         [JsonIgnore]
-        public ChipTop ChipTop;
-        public void CreateChipTop(IChipsetGenerator generator)
+        public BlockTop Block;
+        public void CreateChipTop(IBlocksetGenerator generator)
         {
             var dataToCreateWith = GraphicalChipData;
-            if(GraphicalChipData.BaseMappingChip!=null)
+            if(GraphicalChipData.BaseMappingBlock!=null)
             {
-                dataToCreateWith = GraphicalChipData.BaseMappingChip;
+                dataToCreateWith = GraphicalChipData.BaseMappingBlock;
             }
 
-            ChipTop = ChipTop.GenerateChipFromChipData(dataToCreateWith, this.Name);
-            ChipTop.SetGenerator(generator);
+            Block = BlockTop.GenerateChipFromChipData(dataToCreateWith, this.Name);
+            Block.SetGenerator(generator);
         }
 
         [JsonIgnore]
-        public IChip IChip;
-        public void CreateIChip()
+        public IChip Chip;
+        public void CreateChip()
         {
-            IChip = ChipObjectGenerator.GenerateIChipFromChipData(GraphicalChipData, TypeArguments);
-            IChip.Name = this.Name;
+            Chip = ChipObjectGenerator.GenerateIChipFromChipData(GraphicalChipData, TypeArguments);
+            Chip.Name = this.Name;
         }
 
 

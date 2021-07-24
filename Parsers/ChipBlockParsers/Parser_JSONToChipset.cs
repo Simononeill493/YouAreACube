@@ -15,55 +15,54 @@ namespace IAmACube
     {
         public static Chipset ParseJsonToBlock(string json)
         {
-            var chipsetsJson = JsonConvert.DeserializeObject<FullChipsetJSONData>(json);
-            var blocksDict = chipsetsJson.GetBlocksDict();
-            var chipsDict = chipsetsJson.GetChipsDict();
+            var fullChipsetJSON = JsonConvert.DeserializeObject<FullChipsetJSONData>(json);
+            var chipsetsDict = fullChipsetJSON.GetChipsetsDict();
+            var chipsDict = fullChipsetJSON.GetChipsDict();
 
-            chipsetsJson.SetChipData();
-            chipsetsJson.CreateChipBlockObjects();
+            fullChipsetJSON.SetChipData();
+            fullChipsetJSON.CreateChipsetObjects();
 
-            _appendChipsToChipBlocks(chipsetsJson);
+            _appendChipsToChipsets(fullChipsetJSON);
 
             foreach (var chipToken in chipsDict.Values)
             {
                 _setChipInputs(chipToken, chipsDict);
-                _setControlChipTargets(chipToken, blocksDict);
+                _setControlChipTargets(chipToken, chipsetsDict);
             }
 
-            var initBlock = chipsetsJson.GetInitial().Chipset;
-            return initBlock;
+            return fullChipsetJSON.GetInitial().Chipset;
         }
 
-        private static void _appendChipsToChipBlocks(FullChipsetJSONData chipsetsJson)
+        private static void _appendChipsToChipsets(FullChipsetJSONData chipsetsJson)
         {
-            foreach (var blockToken in chipsetsJson)
+            foreach (var chipsetJSON in chipsetsJson)
             {
-                foreach (var chipToken in blockToken.Chips)
+                foreach (var chipJSON in chipsetJSON.Chips)
                 {
-                    blockToken.Chipset.AddChip(chipToken.IChip);
+                    chipsetJSON.Chipset.AddChip(chipJSON.Chip);
                 }
             }
         }
-        private static void _setControlChipTargets(ChipJSONData chipToken, Dictionary<string, ChipsetJSONData> blocksDict)
+        private static void _setControlChipTargets(ChipJSONData chipJSON, Dictionary<string, ChipsetJSONData> chipsetsDict)
         {
-            var chipData = chipToken.GraphicalChipData;
-            var constructedChip = chipToken.IChip;
+            var chipData = chipJSON.GraphicalChipData;
+            var constructedChip = chipJSON.Chip;
 
             if (chipData.Name.Equals("If"))
             {
                 var ifChip = (IfChip)constructedChip;
 
-                ifChip.Yes = blocksDict[chipToken.Yes].Chipset;
-                ifChip.No = blocksDict[chipToken.No].Chipset;
+                ifChip.Yes = chipsetsDict[chipJSON.Yes].Chipset;
+                ifChip.No = chipsetsDict[chipJSON.No].Chipset;
             }
             if (chipData.Name.Equals("KeySwitch"))
             {
                 var keySwitchChip = (KeySwitchChip)constructedChip;
 
-                foreach (var (keyString, blockName) in chipToken.KeyEffects)
+                foreach (var (keyString, blockName) in chipJSON.KeyEffects)
                 {
                     var effectKey = (Keys)Enum.Parse(typeof(Keys), keyString);
-                    var effectBlock = blocksDict[blockName].Chipset;
+                    var effectBlock = chipsetsDict[blockName].Chipset;
 
                     keySwitchChip.AddKeyEffect(effectKey, effectBlock);
                 }
@@ -96,12 +95,12 @@ namespace IAmACube
         
         private static void _setReferenceChipInput(ChipJSONData chipToken,Dictionary<string, ChipJSONData> chipsDict, string inputChipName, int inputIndex)
         {
-            var inputChip = chipsDict[inputChipName].IChip;
-            inputChip.AddTarget(inputIndex, chipToken.IChip);
+            var inputChip = chipsDict[inputChipName].Chip;
+            inputChip.AddTarget(inputIndex, chipToken.Chip);
         }
         private static void _setValueChipInput(ChipJSONData chipToken, int inputIndex)
         {
-            var currentIChip = chipToken.IChip;
+            var currentIChip = chipToken.Chip;
             currentIChip.SetInputProperty(inputIndex,chipToken.ParseInput(inputIndex));
         }
     }

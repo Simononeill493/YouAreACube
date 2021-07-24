@@ -6,7 +6,7 @@ namespace IAmACube
 {
     public class FullChipsetJSONData : List<ChipsetJSONData>
     {
-        public Dictionary<string, ChipsetJSONData> GetBlocksDict()
+        public Dictionary<string, ChipsetJSONData> GetChipsetsDict()
         {
             var output = new Dictionary<string, ChipsetJSONData>();
             foreach (var block in this)
@@ -28,30 +28,30 @@ namespace IAmACube
         public List<ChipJSONData> GetChips()
         {
             var output = new List<ChipJSONData>();
-            foreach (var block in this)
+            foreach (var chipsetJSON in this)
             {
-                output.AddRange(block.Chips);
+                output.AddRange(chipsetJSON.Chips);
             }
             return output;
         }
     
         public void SetChipData() => GetChips().ForEach(c => c.SetChipData());
 
-        public void CreateEditableChipsetObjects(IChipsetGenerator generator)
+        public void CreateEditableChipsetObjects(IBlocksetGenerator generator)
         {
-            CreateChipsets(generator);
-            CreateChipTops(generator);
+            CreateBlocksets(generator);
+            CreateBlocksetChipTops(generator);
         }
-        public void CreateChipsets(IChipsetGenerator generator) => this.ForEach(c => c.CreateBlockset(generator));
-        public void CreateChipTops(IChipsetGenerator generator) => GetChips().ForEach(c => c.CreateChipTop(generator));
+        public void CreateBlocksets(IBlocksetGenerator generator) => this.ForEach(c => c.CreateBlockset(generator));
+        public void CreateBlocksetChipTops(IBlocksetGenerator generator) => GetChips().ForEach(c => c.CreateChipTop(generator));
         
-        public void CreateChipBlockObjects()
+        public void CreateChipsetObjects()
         {
-            CreateChipBlocks();
-            CreateIChips();
+            CreateChipsets();
+            CreateChips();
         }
-        public void CreateChipBlocks() => this.ForEach(c => c.CreateChipset());
-        public void CreateIChips() => GetChips().ForEach(c => c.CreateIChip());
+        public void CreateChipsets() => this.ForEach(c => c.CreateChipset());
+        public void CreateChips() => GetChips().ForEach(c => c.CreateChip());
 
         public ChipsetJSONData GetInitial()
         {

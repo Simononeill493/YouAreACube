@@ -16,7 +16,7 @@ namespace IAmACube
             }
         }
 
-        public static IChip GenerateIChipFromChipData(GraphicalChipData data, List<string> typeArguments = null, List<string> inputMappings = null)
+        public static IChip GenerateIChipFromChipData(BlockData data, List<string> typeArguments = null, List<string> inputMappings = null)
         {
             if(typeArguments== null)
             {
@@ -25,7 +25,7 @@ namespace IAmACube
 
             if(data.IsMappedToSubChips)
             {
-                GraphicalChipData mappedData;
+                BlockData mappedData;
                 if (inputMappings == null)
                 {
                     mappedData = data.InputMappings[0];
@@ -46,7 +46,7 @@ namespace IAmACube
             return _generateNonGenericChipFromChipData(data, inputMappings);
         }
 
-        private static IChip _generateGenericChipFromChipData(GraphicalChipData data, List<string> typeArguments, List<string> inputMappings)
+        private static IChip _generateGenericChipFromChipData(BlockData data, List<string> typeArguments, List<string> inputMappings)
         {
             var genericChipType = TypeUtils.GetChipTypeByName(data.Name + "Chip`1");
             var typeArgumentsAsType = typeArguments.Select(ta => TypeUtils.GetTypeByDisplayName(ta)).ToArray();
@@ -56,7 +56,7 @@ namespace IAmACube
             return genericInstance;
         }
 
-        private static IChip _generateNonGenericChipFromChipData(GraphicalChipData data, List<string> inputMappings)
+        private static IChip _generateNonGenericChipFromChipData(BlockData data, List<string> inputMappings)
         {
             var chipType = TypeUtils.GetChipTypeByName(data.Name + "Chip");
             var instance = (IChip)Activator.CreateInstance(chipType);

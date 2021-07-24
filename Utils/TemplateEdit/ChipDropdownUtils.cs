@@ -9,8 +9,8 @@ namespace IAmACube
 {
     class ChipDropdownUtils
     {
-        public static List<ChipInputOption> GetDefaultItems(List<string> dataTypes) => dataTypes.SelectMany(dataType => GetDefaultItems(dataType)).ToList();
-        public static List<ChipInputOption> GetDefaultItems(string dataType)
+        public static List<BlockInputOption> GetDefaultItems(List<string> dataTypes) => dataTypes.SelectMany(dataType => GetDefaultItems(dataType)).ToList();
+        public static List<BlockInputOption> GetDefaultItems(string dataType)
         {
             if (dataType.Contains('|'))
             {
@@ -18,21 +18,21 @@ namespace IAmACube
             }
             if (IsDiscreteType(dataType))
             {
-                return _getBasicSelections(dataType).Cast<ChipInputOption>().ToList();
+                return _getBasicSelections(dataType).Cast<BlockInputOption>().ToList();
             }
             else if (dataType.Equals(nameof(CubeTemplate)))
             {
                 var templates = _createOptionsFromItems(Templates.Database.Values.SelectMany(v=>v.Versions).ToList());
-                return templates.Cast<ChipInputOption>().ToList();
+                return templates.Cast<BlockInputOption>().ToList();
             }
             else
             {
-                return new List<ChipInputOption>();
+                return new List<BlockInputOption>();
             }
         }
 
 
-        private static List<ChipInputOptionValue> _getBasicSelections(string dataType)
+        private static List<BlockInputOptionValue> _getBasicSelections(string dataType)
         {
             if(TypeUtils.IsEnum(dataType))
             {
@@ -45,8 +45,8 @@ namespace IAmACube
 
             throw new Exception();
         }
-        private static List<ChipInputOptionValue> _createOptionsFromItems<T>(List<T> items) => items.Select(item => new ChipInputOptionValue(item)).ToList();
-        private static List<ChipInputOptionValue> _createOptionsFromItems(List<object> items) => items.Select(item => new ChipInputOptionValue(item)).ToList();
+        private static List<BlockInputOptionValue> _createOptionsFromItems<T>(List<T> items) => items.Select(item => new BlockInputOptionValue(item)).ToList();
+        private static List<BlockInputOptionValue> _createOptionsFromItems(List<object> items) => items.Select(item => new BlockInputOptionValue(item)).ToList();
 
 
         public static bool IsDiscreteType(string dataType) => TypeUtils.IsEnum(dataType) | dataType.Equals("bool");

@@ -13,50 +13,46 @@ namespace IAmACube
     {
         public static string ParseChipsetToJson(Chipset chipsetToParse)
         {
-            var chipsetsJson = new FullChipsetJSONData();
-            var chipNamesToJsonData = new Dictionary<string, ChipJSONData>();
+            var fullChipsetJSON = new FullChipsetJSONData();
+            var chipsDict = new Dictionary<string, ChipJSONData>();
 
-            foreach (var iChip in chipsetToParse.GetAllChipsAndSubChips())
+            foreach (var chip in chipsetToParse.GetAllChipsAndSubChips())
             {
-                var chipJsonData = new ChipJSONData(iChip);
-                chipNamesToJsonData[iChip.Name] = chipJsonData;
+                var chipJSON = new ChipJSONData(chip);
+                chipsDict[chip.Name] = chipJSON;
 
-                _setGenericChipAttributes(chipJsonData);
-                _setControlChipAttributes(chipJsonData);
+                _setGenericChipAttributes(chipJSON);
+                _setControlChipAttributes(chipJSON);
             }
 
-            _setChipReferenceInputs(chipNamesToJsonData);
-            _setChipValueInputs(chipNamesToJsonData.Values);
+            _setChipReferenceInputs(chipsDict);
+            _setChipValueInputs(chipsDict);
 
             foreach (var chipset in chipsetToParse.GetChipsetAndSubChipsets())
             {
-                var chipsetJsonData = new ChipsetJSONData(chipset);
-                chipsetJsonData.Chips = _getChipsInThisChipset(chipset,chipNamesToJsonData);
+                var chipsetJSON = new ChipsetJSONData(chipset);
+                chipsetJSON.Chips = _getChipsInThisChipset(chipset,chipsDict);
 
-                chipsetsJson.Add(chipsetJsonData);
+                fullChipsetJSON.Add(chipsetJSON);
             }
 
-            chipsetsJson.AlphabetSort();
+            fullChipsetJSON.AlphabetSort();
 
-            var jobjectList = JToken.FromObject(chipsetsJson, new JsonSerializer { NullValueHandling = NullValueHandling.Ignore });
+            var jobjectList = JToken.FromObject(fullChipsetJSON, new JsonSerializer { NullValueHandling = NullValueHandling.Ignore });
             return jobjectList.ToString();
         }
 
-        private static List<ChipJSONData> _getChipsInThisChipset(Chipset block, Dictionary<string, ChipJSONData> chipJObjects)
-        {
-            return block.Chips.Select(chip => chipJObjects[chip.Name]).ToList();
-        }
 
-        private static void _setChipReferenceInputs(Dictionary<string, ChipJSONData> chipsJsonData)
+        private static void _setChipReferenceInputs(Dictionary<string, ChipJSONData> chipsDict)
         {
-            foreach (var chipJobject in chipsJsonData.Values)
+            foreach (var chipJSON in chipsDict.Values)
             {
-                if (chipJobject.GraphicalChipData.HasOutput)
+                if (chipJSON.GraphicalChipData.HasOutput)
                 {
                     for (int i = 0; i < 3; i++)
                     {
-                        var targets = chipJobject.IChip.GetTargetsList(i);
-                        _setChipReferenceTargets(chipJobject.IChip, i, targets, chipsJsonData);
+                        var targets = chipJSON.Chip.GetTargetsList(i);
+                        _setChipReferenceTargets(chipJSON.Chip, i, targets, chipsDict);
                     }
                 }
             }
@@ -69,9 +65,9 @@ namespace IAmACube
                 targetInputs[inputPinIndex] = new ChipJSONInputData("Reference", chip.Name);
             }
         }
-        private static void _setChipValueInputs(IEnumerable<ChipJSONData> chipsJsonData)
+        private static void _setChipValueInputs(Dictionary<string, ChipJSONData> chipsJsonData)
         {
-            foreach (var chipJobject in chipsJsonData)
+            foreach (var chipJobject in chipsJsonData.Values)
             {
                 var inputs = chipJobject.Inputs;
 
@@ -80,7 +76,7 @@ namespace IAmACube
                     if (inputs[i].InputType.Equals(""))
                     {
                         inputs[i].InputType = "Value";
-                        inputs[i].InputValue = _getInputPinValue(chipJobject.IChip, i);
+                        inputs[i].InputValue = _getInputPinValue(chipJobject.Chip, i);
                     }
                 }
             }
@@ -99,14 +95,14 @@ namespace IAmACube
         {
             if (chipJObject.GraphicalChipData.Name.Equals("If"))
             {
-                var ifChip = (IfChip)chipJObject.IChip;
+                var ifChip = (IfChip)chipJObject.Chip;
 
                 chipJObject.Yes = ifChip.Yes.Name;
                 chipJObject.No = ifChip.No.Name;
             }
             else if (chipJObject.GraphicalChipData.Name.Equals("KeySwitch"))
             {
-                var keySwitchChip = (KeySwitchChip)chipJObject.IChip;
+                var keySwitchChip = (KeySwitchChip)chipJObject.Chip;
                 var keysAndEffects = new List<(string, string)>();
 
                 foreach (var keyBlock in keySwitchChip.KeyEffects)
@@ -121,10 +117,15 @@ namespace IAmACube
         {
             if (chipToken.GraphicalChipData.IsGeneric)
             {
-                var type = chipToken.IChip.GetType();
+                var type = chipToken.Chip.GetType();
                 var typeArguments = type.GenericTypeArguments;
                 chipToken.TypeArguments = typeArguments.Select(ta => ta.Name).ToList();
             }
+        }
+
+        private static List<ChipJSONData> _getChipsInThisChipset(Chipset chipset, Dictionary<string, ChipJSONData> chipJObjects)
+        {
+            return chipset.Chips.Select(chip => chipJObjects[chip.Name]).ToList();
         }
     }
 }

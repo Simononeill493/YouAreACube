@@ -19,7 +19,7 @@ namespace IAmACube
                 var chipsetJson = new ChipsetJSONData(editableChipset);
                 chipsetsJson.Add(chipsetJson);
 
-                foreach(var chip in editableChipset.Chips)
+                foreach(var chip in editableChipset.Blocks)
                 {
                     var chipJObject = _parseChipTop(chip);
                     chipsetJson.Chips.Add(chipJObject);
@@ -32,7 +32,7 @@ namespace IAmACube
             return jobjectList.ToString();
         }
 
-        private static ChipJSONData _parseChipTop(ChipTop chip)
+        private static ChipJSONData _parseChipTop(BlockTop chip)
         {
             var chipJObject = new ChipJSONData(chip);
 
@@ -44,11 +44,11 @@ namespace IAmACube
             return chipJObject;
         }
 
-        public static GraphicalChipData _getChipSubMapping(ChipJSONData chipJObject)
+        public static BlockData _getChipSubMapping(ChipJSONData chipJObject)
         {
             if (chipJObject.GraphicalChipData.IsMappedToSubChips)
             {
-                var selectedTypes = chipJObject.ChipTop.GetSelectedInputTypes();
+                var selectedTypes = chipJObject.Block.GetSelectedInputTypes();
                 var mappedChipType = _getFirstMatchingMapping(selectedTypes, chipJObject.GraphicalChipData.InputMappings);
 
                 chipJObject.ActualChipType = mappedChipType.Name;
@@ -58,9 +58,9 @@ namespace IAmACube
             return null;
         }
 
-        public static void _setChipTypeArguments(ChipJSONData chipJObject, GraphicalChipData mappedChipType)
+        public static void _setChipTypeArguments(ChipJSONData chipJObject, BlockData mappedChipType)
         {
-            var chip = chipJObject.ChipTop;
+            var chip = chipJObject.Block;
 
             if (chip.CurrentTypeArguments.Count > 0 & chip.CurrentTypeArguments.First().Length > 0 & mappedChipType == null)
             {
@@ -79,7 +79,7 @@ namespace IAmACube
         public static void _parseSelectedChipInputs(ChipJSONData chipJObject)
         {
             chipJObject.Inputs = new List<ChipJSONInputData>();
-            var inputsList = chipJObject.ChipTop.GetCurrentInputs();
+            var inputsList = chipJObject.Block.GetCurrentInputs();
             for (int i = 0; i < inputsList.Count; i++)
             {
                 var input = inputsList[i];
@@ -98,15 +98,15 @@ namespace IAmACube
         {
             if(chipJObject.GraphicalChipData.Name.Equals("If"))
             {
-                var ifChip = (ChipTopSwitch)chipJObject.ChipTop;
+                var ifChip = (BlockTopSwitch)chipJObject.Block;
 
-                chipJObject.Yes = ifChip.SwitchChipsets[0].Name;
-                chipJObject.No = ifChip.SwitchChipsets[1].Name;
+                chipJObject.Yes = ifChip.SwitchBlocksets[0].Name;
+                chipJObject.No = ifChip.SwitchBlocksets[1].Name;
 
             }
             if (chipJObject.GraphicalChipData.Name.Equals("KeySwitch"))
             {
-                var keyChip = (ChipTopSwitch)chipJObject.ChipTop;
+                var keyChip = (BlockTopSwitch)chipJObject.Block;
 
                 chipJObject.KeyEffects = new List<(string, string)>();
 
@@ -117,7 +117,7 @@ namespace IAmACube
             }
         }
 
-        public static GraphicalChipData _getFirstMatchingMapping(List<string> inputs, List<GraphicalChipData> possibleMatches)
+        public static BlockData _getFirstMatchingMapping(List<string> inputs, List<BlockData> possibleMatches)
         {
             foreach (var possibleMatch in possibleMatches)
             {
@@ -129,7 +129,7 @@ namespace IAmACube
 
             return null;
         }
-        public static bool _doesMappingMatchInputs(List<string> inputs,GraphicalChipData possibleMatch)
+        public static bool _doesMappingMatchInputs(List<string> inputs,BlockData possibleMatch)
         {
             for (int i = 0; i < inputs.Count; i++)
             {

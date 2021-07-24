@@ -22,7 +22,7 @@ namespace IAmACube
         {
             var initialJson = Parser_ChipsetToJSON.ParseChipsetToJson(chipset);
 
-            var editableChipset = Parser_JSONToEditableChipset.ParseJsonToBlockset(initialJson, new DummyChipsetGenerator());
+            var editableChipset = Parser_JSONToEditableChipset.ParseJsonToBlockset(initialJson, new DummyBlocksetGenerator());
             var chipBlockClone = Parser_JSONToChipset.ParseJsonToBlock(initialJson);
 
             var chipsetRoundTripJson = Parser_BlockSetToJSON.ParseEditableChipsetToJson(editableChipset);

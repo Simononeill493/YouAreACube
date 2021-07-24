@@ -27,12 +27,12 @@ namespace IAmACube
         }
 
 
-        public static IEnumerable<ChipTopWithOutput> GetChipsWithOutput(List<ChipTop> chips) => chips.Where(c => c.HasOutput).Cast<ChipTopWithOutput>();
+        public static IEnumerable<BlockTopWithOutput> GetChipsWithOutput(List<BlockTop> chips) => chips.Where(c => c.HasOutput).Cast<BlockTopWithOutput>();
 
 
 
 
-        public static Blockset PrepareChipsetForEditPane(CubeTemplate template,ChipEditPane pane)
+        public static Blockset PrepareChipsetForEditPane(CubeTemplate template,BlockEditPane pane)
         {
             var json = Parser_ChipsetToJSON.ParseChipsetToJson(template.Chipset);
             var newChipset = Parser_JSONToEditableChipset.ParseJsonToBlockset(json, pane);
