@@ -18,7 +18,7 @@ namespace IAmACube
             {
                 return true;
             }
-            else if (bottom.Equals("List<Variable>") | top.StartsWith("List<"))
+            else if (bottom.Equals("List<Variable>") & top.StartsWith("List<"))
             {
                 return true;
             }
