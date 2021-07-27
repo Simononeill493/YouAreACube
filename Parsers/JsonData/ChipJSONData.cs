@@ -18,7 +18,7 @@ namespace IAmACube
             Inputs = new List<ChipJSONInputData>();
             for (int i = 0; i < BlockData.NumInputs; i++)
             {
-                Inputs.Add(new ChipJSONInputData("",""));
+                Inputs.Add(new ChipJSONInputData(InputOptionType.Undefined,""));
             }
         }
         public object ParseInput(int inputIndex) => Inputs[inputIndex].Parse(BlockData.GetInputType(inputIndex));

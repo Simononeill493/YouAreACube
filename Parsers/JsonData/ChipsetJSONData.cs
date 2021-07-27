@@ -27,17 +27,17 @@ namespace IAmACube
 
         public ChipsetJSONData() { }
 
-        public ChipsetJSONData(Blockset chipset)
+        public ChipsetJSONData(Blockset blockset)
         {
             Chips = new List<ChipJSONData>();
-            Blockset = chipset;
-            Name = chipset.Name;
+            Blockset = blockset;
+            Name = blockset.Name;
         }
 
-        public ChipsetJSONData(Chipset block)
+        public ChipsetJSONData(Chipset chipset)
         {
-            Chipset = block;
-            Name = block.Name;
+            Chipset = chipset;
+            Name = chipset.Name;
         }
     }
 }

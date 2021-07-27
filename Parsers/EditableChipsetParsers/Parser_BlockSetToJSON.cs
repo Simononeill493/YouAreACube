@@ -8,43 +8,46 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public static class Parser_BlockSetToJSON
+    public static class Parser_BlocksetToJSON
     {
-        public static string ParseEditableChipsetToJson(Blockset chipset)
+        public static string ParseBlocksetToJson(Blockset chipset)
         {
-            var chipsetsJson = new FullChipsetJSONData();
+            var fullJSON = new FullChipsetJSONData();
 
-            foreach (var editableChipset in chipset.GetThisAndSubChipsets())
+            foreach (var blockset in chipset.GetThisAndSubChipsets())
             {
-                var chipsetJson = new ChipsetJSONData(editableChipset);
-                chipsetsJson.Add(chipsetJson);
+                var chipsetJSON = new ChipsetJSONData(blockset);
+                _addBlocksToChipsetJSON(chipsetJSON, blockset.Blocks);
 
-                foreach(var chip in editableChipset.Blocks)
-                {
-                    var chipJObject = _parseChipTop(chip);
-                    chipsetJson.Chips.Add(chipJObject);
-                }
+                fullJSON.Add(chipsetJSON);
             }
 
-            chipsetsJson.AlphabetSort();
-
-            var jobjectList = JToken.FromObject(chipsetsJson, new JsonSerializer { NullValueHandling = NullValueHandling.Ignore });
-            return jobjectList.ToString();
+            fullJSON.AlphabetSort();
+            return fullJSON.GenerateString();
         }
 
-        private static ChipJSONData _parseChipTop(BlockTop chip)
+        private static void _addBlocksToChipsetJSON(ChipsetJSONData chipsetJSON, List<BlockTop> blocks)
         {
-            var chipJObject = new ChipJSONData(chip);
-
-            var mappedChipType = _getChipSubMapping(chipJObject);
-            _setChipTypeArguments(chipJObject, mappedChipType);
-            _parseSelectedChipInputs(chipJObject);
-            _setControlChipTargets(chipJObject);
-
-            return chipJObject;
+            foreach (var block in blocks)
+            {
+                var chipJSON = _parseBlock(block);
+                chipsetJSON.Chips.Add(chipJSON);
+            }
         }
 
-        public static BlockData _getChipSubMapping(ChipJSONData chipJObject)
+        private static ChipJSONData _parseBlock(BlockTop block)
+        {
+            var chipJSON = new ChipJSONData(block);
+
+            var mappedBlockType = _getBlockSubMapping(chipJSON);
+            _setBlockTypeArguments(chipJSON, mappedBlockType);
+            _parseSelectedBlockInputs(chipJSON);
+            _setControlBlockTargets(chipJSON);
+
+            return chipJSON;
+        }
+
+        public static BlockData _getBlockSubMapping(ChipJSONData chipJObject)
         {
             if (chipJObject.BlockData.IsMappedToSubChips)
             {
@@ -58,7 +61,7 @@ namespace IAmACube
             return null;
         }
 
-        public static void _setChipTypeArguments(ChipJSONData chipJObject, BlockData mappedChipType)
+        public static void _setBlockTypeArguments(ChipJSONData chipJObject, BlockData mappedChipType)
         {
             var chip = chipJObject.Block;
 
@@ -76,17 +79,17 @@ namespace IAmACube
             }
         }
 
-        public static void _parseSelectedChipInputs(ChipJSONData chipJObject)
+        public static void _parseSelectedBlockInputs(ChipJSONData chipJObject)
         {
             chipJObject.Inputs = new List<ChipJSONInputData>();
             var inputsList = chipJObject.Block.GetCurrentInputs();
             for (int i = 0; i < inputsList.Count; i++)
             {
                 var input = inputsList[i];
-                var inputOptionType = input.OptionType.ToString();
-                if (inputOptionType.Equals(nameof(InputOptionType.Parseable)))
+                var inputOptionType = input.OptionType;
+                if (inputOptionType.Equals(InputOptionType.Parseable))
                 {
-                    inputOptionType = nameof(InputOptionType.Value);
+                    inputOptionType = InputOptionType.Value;
                 }
 
                 var inputData = new ChipJSONInputData(inputOptionType, input.ToString());
@@ -94,7 +97,7 @@ namespace IAmACube
             }
         }
 
-        private static void _setControlChipTargets(ChipJSONData chipJObject)
+        private static void _setControlBlockTargets(ChipJSONData chipJObject)
         {
             if(chipJObject.BlockData.Name.Equals("If"))
             {

@@ -9,6 +9,7 @@
 
     public enum InputOptionType
     {
+        Undefined = 0,
         Value,
         Reference,
         Parseable

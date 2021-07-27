@@ -103,7 +103,7 @@
     <Compile Include="MonoGameWrapper\MouseSystemData.cs" />
     <Compile Include="MonoGameWrapper\Sound\SoundInterface.cs" />
     <Compile Include="Parsers\ChipBlockParsers\Parser_ChipsetToJSON.cs" />
-    <Compile Include="Parsers\EditableChipsetParsers\Parser_JSONToEditableChipset.cs" />
+    <Compile Include="Parsers\EditableChipsetParsers\Parser_JSONToBlockset.cs" />
     <Compile Include="Parsers\JsonData\ChipsetJSONData.cs" />
     <Compile Include="Parsers\JsonData\ChipJSONData.cs" />
     <Compile Include="Parsers\JsonData\FullChipsetJSONData.cs" />
@@ -118,7 +118,7 @@
     <Compile Include="Parsers\GraphicalChipParser.cs" />
     <Compile Include="Gameplay\Chips\ChipType.cs" />
     <Compile Include="Parsers\ChipBlockParsers\Parser_JSONToChipset.cs" />
-    <Compile Include="Parsers\EditableChipsetParsers\Parser_BlockSetToJSON.cs" />
+    <Compile Include="Parsers\EditableChipsetParsers\Parser_BlocksetToJSON.cs" />
     <Compile Include="Gameplay\Updates\Actions\Creation\CreationManager.cs" />
     <Compile Include="Gameplay\Updates\Destruction\DestructionManager.cs" />
     <Compile Include="Gameplay\Direction\DirectionEnums\RelativeDirection.cs" />

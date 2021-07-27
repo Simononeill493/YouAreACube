@@ -35,7 +35,7 @@ namespace IAmACube
         public static Blockset PrepareChipsetForEditPane(CubeTemplate template,BlockEditPane pane)
         {
             var json = Parser_ChipsetToJSON.ParseChipsetToJson(template.Chipset);
-            var newChipset = Parser_JSONToEditableChipset.ParseJsonToBlockset(json, pane);
+            var newChipset = Parser_JSONToBlockset.ParseJsonToBlockset(json, pane);
 
             newChipset.RefreshAll();
             newChipset.SetLocationConfig(pane.ActualLocation + new IntPoint(10, 10), CoordinateMode.Absolute, centered: false);

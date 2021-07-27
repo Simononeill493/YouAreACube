@@ -5,13 +5,12 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-
     public class ChipJSONInputData
     {
-        public string InputType;
+        public InputOptionType InputType;
         public string InputValue;
 
-        public ChipJSONInputData(string inputType, string inputValue)
+        public ChipJSONInputData(InputOptionType inputType, string inputValue)
         {
             InputType = inputType;
             InputValue = inputValue;
@@ -19,7 +18,7 @@ namespace IAmACube
 
         public object Parse(string typeName)
         {
-            if(!InputType.Equals("Value"))
+            if(InputType != InputOptionType.Value)
             {
                 throw new Exception();
             }

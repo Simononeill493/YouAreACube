@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public static class Parser_JSONToEditableChipset
+    public static class Parser_JSONToBlockset
     {
         public static Blockset ParseJsonToBlockset(string json, IBlocksetGenerator generator)
         {
@@ -78,13 +78,13 @@ namespace IAmACube
             chip.Block.ManuallySetInputSection(inputOption, inputIndex);
         }
 
-        private static BlockInputOption _parseInputOption(ChipJSONData chip, Dictionary<string, ChipJSONData> chipsDict, string inputType, string inputValue, int inputIndex)
+        private static BlockInputOption _parseInputOption(ChipJSONData chip, Dictionary<string, ChipJSONData> chipsDict, InputOptionType inputType, string inputValue, int inputIndex)
         {
-            if (inputType.Equals("Reference"))
+            if (inputType.Equals(InputOptionType.Reference))
             {
                 return _parseReferenceChipInput(chipsDict, inputValue);
             }
-            else if (inputType.Equals("Value"))
+            else if (inputType.Equals(InputOptionType.Value))
             {
                 return _parseValueChipInput(chip, inputIndex);
             }

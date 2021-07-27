@@ -79,11 +79,11 @@ namespace IAmACube
         private static void _setChipInput(ChipJSONData chipToken, Dictionary<string, ChipJSONData> chipsDict,int inputIndex)
         {
             var input = chipToken.Inputs[inputIndex];
-            if (input.InputType.Equals("Value"))
+            if (input.InputType == InputOptionType.Value)
             {
                 _setValueChipInput(chipToken, inputIndex);
             }
-            else if (input.InputType.Equals("Reference"))
+            else if (input.InputType == InputOptionType.Reference)
             {
                 _setReferenceChipInput(chipToken, chipsDict, input.InputValue, inputIndex);
             }

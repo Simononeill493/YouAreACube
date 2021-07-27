@@ -13,15 +13,9 @@ namespace IAmACube
     {
         public static string ParseChipsetToJson(Chipset chipsetToParse)
         {
-            var fullChipsetJSON = new FullChipsetJSONData();
-            var chipsDict = new Dictionary<string, ChipJSONData>();
+            var fullJSON = new FullChipsetJSONData();
 
-            foreach (var chip in chipsetToParse.GetAllChipsAndSubChips())
-            {
-                var chipJSON = new ChipJSONData(chip);
-                chipsDict[chip.Name] = chipJSON;
-            }
-
+            var chipsDict = _buildChipsDict(chipsetToParse);
             _setChipReferenceTargets(chipsDict);
             _setChipValueInputs(chipsDict);
 
@@ -30,15 +24,25 @@ namespace IAmACube
                 var chipsetJSON = new ChipsetJSONData(chipset);
                 chipsetJSON.Chips = _getChipsInThisChipset(chipset,chipsDict);
 
-                fullChipsetJSON.Add(chipsetJSON);
+                fullJSON.Add(chipsetJSON);
             }
 
-            fullChipsetJSON.AlphabetSort();
-
-            var jobjectList = JToken.FromObject(fullChipsetJSON, new JsonSerializer { NullValueHandling = NullValueHandling.Ignore });
-            return jobjectList.ToString();
+            fullJSON.AlphabetSort();
+            return fullJSON.GenerateString();
         }
 
+        private static Dictionary<string, ChipJSONData> _buildChipsDict(Chipset chipsetToParse)
+        {
+            var chipsDict = new Dictionary<string, ChipJSONData>();
+
+            foreach (var chip in chipsetToParse.GetAllChipsAndSubChips())
+            {
+                var chipJSON = new ChipJSONData(chip);
+                chipsDict[chip.Name] = chipJSON;
+            }
+
+            return chipsDict;
+        }
 
         private static void _setChipReferenceTargets(Dictionary<string, ChipJSONData> chipsDict)
         {
@@ -59,7 +63,7 @@ namespace IAmACube
             foreach (var target in (IEnumerable<IChip>)targets)
             {
                 var targetInputs = chipsJsonData[target.Name].Inputs;
-                targetInputs[inputPinIndex] = new ChipJSONInputData("Reference", chip.Name);
+                targetInputs[inputPinIndex] = new ChipJSONInputData(InputOptionType.Reference, chip.Name);
             }
         }
         private static void _setChipValueInputs(Dictionary<string, ChipJSONData> chipsJsonData)
@@ -70,9 +74,9 @@ namespace IAmACube
 
                 for (int i = 0; i < inputs.Count; i++)
                 {
-                    if (inputs[i].InputType.Equals(""))
+                    if (inputs[i].InputType == InputOptionType.Undefined)
                     {
-                        inputs[i].InputType = "Value";
+                        inputs[i].InputType = InputOptionType.Value;
                         inputs[i].InputValue = chipJobject.Chip.GetInputPinValue(i);
                     }
                 }

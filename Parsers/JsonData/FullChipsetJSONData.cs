@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -69,5 +71,7 @@ namespace IAmACube
         }
 
         public void AlphabetSort() => Sort((c1, c2) => string.Compare(c1.Name, c2.Name));
+        public string GenerateString() => JToken.FromObject(this, new JsonSerializer { NullValueHandling = NullValueHandling.Ignore }).ToString();
     }
 }
+

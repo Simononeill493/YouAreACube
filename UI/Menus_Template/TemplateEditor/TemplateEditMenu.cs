@@ -128,7 +128,7 @@ namespace IAmACube
                 var chipset = _editPane.TopLevelChipsets.First();
                 chipset.Name = "_Initial";
 
-                var json = Parser_BlockSetToJSON.ParseEditableChipsetToJson(chipset);
+                var json = Parser_BlocksetToJSON.ParseBlocksetToJson(chipset);
                 var block = Parser_JSONToChipset.ParseJsonToBlock(json);
 
                 TemplateParsingTester.TestParsingRoundTrip(chipset.Name, block);
