@@ -15,7 +15,7 @@ namespace IAmACube
                 typeArguments = data.DefaultTypeArguments;
             }
 
-            if(data.IsMappedToSubChips)
+            if(data.IsMappedToSubBlocks)
             {
                 BlockData mappedData;
                 if (inputMappings == null)

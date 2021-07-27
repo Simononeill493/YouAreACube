@@ -46,7 +46,7 @@ namespace IAmACube
         private void _outputLabelTextChanged(string newText)
         {
             Name = newText;
-            ChipsetRefreshText();
+            BlocksetRefreshText();
         }
 
         protected override void _inputSectionDropdownChanged(BlockInputSection section,BlockInputDropdown dropdown, BlockInputOption optionSelected)

@@ -35,11 +35,11 @@ namespace IAmACube
 
         public void DropBlocksOn(List<BlockTop> blocksToDrop, UserInput input)
         {
-            var itemToDropOn = _getChipsetSectionMouseIsOver();
+            var itemToDropOn = _getBlocksetSectionMouseIsOver();
 
             if(itemToDropOn==null)
             {
-                Console.WriteLine("Warning: dropped chips onto a chipset that was supposed to be under the mouse, but wasn't");
+                Console.WriteLine("Warning: dropped blocks onto a blockset that was supposed to be under the mouse, but wasn't");
                 return;
             }
             else if(itemToDropOn==this)
@@ -60,15 +60,15 @@ namespace IAmACube
             foreach (var chip in toAdd)
             {
                 chip.UpdateDrawLayerCascade(DrawLayer);
-                chip.ChipLiftedCallback = _chipLiftedFromChipset;
-                chip.AppendChips = AppendBlocks;
-                chip.ChipsetRefreshText = RefreshText;
+                chip.BlockLiftedCallback = _blockLiftedFromBlockset;
+                chip.AppendBlocks = AppendBlocks;
+                chip.BlocksetRefreshText = RefreshText;
                 chip.TopLevelRefreshAll = TopLevelRefreshAll;
             }
 
             TopLevelRefreshAll();
         }
-        public List<BlockTop> PopChips(int index)
+        public List<BlockTop> PopBlocks(int index)
         {
             var toRemove = Blocks.Skip(index).ToList();
             Blocks.RemoveRange(index, toRemove.Count());
@@ -108,24 +108,24 @@ namespace IAmACube
         }
 
 
-        public bool IsMouseOverAnyChip() => _getChipsetSectionMouseIsOver() != null;
+        public bool IsMouseOverAnyBlock() => _getBlocksetSectionMouseIsOver() != null;
 
-        public List<Blockset> GetThisAndSubChipsets()
+        public List<Blockset> GetThisAndSubBlocksets()
         {
-            var sub = GetSubChipsets();
+            var sub = GetSubBlocksets();
             sub.Add(this);
             return sub;
         }
-        public List<Blockset> GetSubChipsets()
+        public List<Blockset> GetSubBlocksets()
         {
             var output = new List<Blockset>();
-            var subChipsets = Blocks.Select(c => c.GetSubChipsets());
+            var subBlocksets = Blocks.Select(c => c.GetSubChipsets());
 
-            foreach (var sublist in subChipsets)
+            foreach (var sublist in subBlocksets)
             {
                 foreach(var sub in sublist)
                 {
-                    output.AddRange(sub.GetThisAndSubChipsets());
+                    output.AddRange(sub.GetThisAndSubBlocksets());
                 }
             }
 
@@ -133,23 +133,23 @@ namespace IAmACube
         }
 
 
-        private void _chipLiftedFromChipset(BlockTop chip, UserInput input)
+        private void _blockLiftedFromBlockset(BlockTop block, UserInput input)
         {
-            var chipsRemoved = PopChips(chip.IndexInChipset);
-            _liftBlocksCallback(chipsRemoved, input, this);
+            var blocksRemoved = PopBlocks(block.IndexInBlockset);
+            _liftBlocksCallback(blocksRemoved, input, this);
         }
-        private IBlocksDroppableOn _getChipsetSectionMouseIsOver()
+        private IBlocksDroppableOn _getBlocksetSectionMouseIsOver()
         {
             if (MouseHovering)
             {
                 return this;
             }
 
-            foreach (var chip in Blocks)
+            foreach (var block in Blocks)
             {
-                if (chip.IsMouseOverAnySection())
+                if (block.IsMouseOverAnySection())
                 {
-                    return chip;
+                    return block;
                 }
             }
 

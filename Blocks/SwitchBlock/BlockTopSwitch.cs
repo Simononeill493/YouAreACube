@@ -93,7 +93,7 @@ namespace IAmACube
 
             if (_switchSectionExtended)
             {
-                return _switchSectionBottom.MouseHovering | _extendedBlockset.IsMouseOverAnyChip();
+                return _switchSectionBottom.MouseHovering | _extendedBlockset.IsMouseOverAnyBlock();
             }
 
             return false;
@@ -129,7 +129,7 @@ namespace IAmACube
             }
             else
             {
-                if(_extendedBlockset.IsMouseOverAnyChip())
+                if(_extendedBlockset.IsMouseOverAnyBlock())
                 {
                     _extendedBlockset.DropBlocksOn(chips, input);
                 }

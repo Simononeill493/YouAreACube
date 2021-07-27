@@ -14,15 +14,15 @@ namespace IAmACube
         public static string ParseChipsetToJson(Chipset chipsetToParse)
         {
             var fullJSON = new FullChipsetJSONData();
-
             var chipsDict = _buildChipsDict(chipsetToParse);
+
             _setChipReferenceTargets(chipsDict);
             _setChipValueInputs(chipsDict);
 
             foreach (var chipset in chipsetToParse.GetChipsetAndSubChipsets())
             {
                 var chipsetJSON = new ChipsetJSONData(chipset);
-                chipsetJSON.Chips = _getChipsInThisChipset(chipset,chipsDict);
+                chipsetJSON.Chips = _fetchJSONDataForTheseChips(chipset.Chips,chipsDict);
 
                 fullJSON.Add(chipsetJSON);
             }
@@ -50,42 +50,47 @@ namespace IAmACube
             {
                 if (chipJSON.BlockData.HasOutput)
                 {
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0; i < Config.NumChipInputPins; i++)
                     {
-                        var targets = chipJSON.Chip.GetTargetsList(i);
-                        _setChipReferenceInputs(chipJSON.Chip, i, targets, chipsDict);
+                        var targetChips = chipJSON.Chip.GetTargetsList(i);
+                        _setChipReferenceInputs(chipJSON.Chip, i, targetChips, chipsDict);
                     }
                 }
             }
         }
-        private static void _setChipReferenceInputs(IChip chip, int inputPinIndex, IList targets, Dictionary<string, ChipJSONData> chipsJsonData)
+        private static void _setChipReferenceInputs(IChip sourceChip, int inputPinIndex, IList targetChips, Dictionary<string, ChipJSONData> chipsJSON)
         {
-            foreach (var target in (IEnumerable<IChip>)targets)
+            foreach (var targetChip in (IEnumerable<IChip>)targetChips)
             {
-                var targetInputs = chipsJsonData[target.Name].Inputs;
-                targetInputs[inputPinIndex] = new ChipJSONInputData(InputOptionType.Reference, chip.Name);
+                var targetInputs = chipsJSON[targetChip.Name].Inputs;
+                targetInputs[inputPinIndex] = new ChipJSONInputData(InputOptionType.Reference, sourceChip.Name);
             }
         }
+
         private static void _setChipValueInputs(Dictionary<string, ChipJSONData> chipsJsonData)
         {
-            foreach (var chipJobject in chipsJsonData.Values)
+            foreach (var chipJSON in chipsJsonData.Values)
             {
-                var inputs = chipJobject.Inputs;
-
+                var inputs = chipJSON.Inputs;
                 for (int i = 0; i < inputs.Count; i++)
                 {
-                    if (inputs[i].InputType == InputOptionType.Undefined)
-                    {
-                        inputs[i].InputType = InputOptionType.Value;
-                        inputs[i].InputValue = chipJobject.Chip.GetInputPinValue(i);
-                    }
+                    _setChipValueInput(inputs[i], chipJSON, i);
                 }
             }
         }
-
-        private static List<ChipJSONData> _getChipsInThisChipset(Chipset chipset, Dictionary<string, ChipJSONData> chipJObjects)
+        private static void _setChipValueInput(ChipJSONInputData inputData, ChipJSONData chipJSON, int index)
         {
-            return chipset.Chips.Select(chip => chipJObjects[chip.Name]).ToList();
+            if (inputData.InputType == InputOptionType.Undefined)
+            //Chip input pin hasn't been set by a reference to another chip, so it must be a static value
+            {
+                inputData.InputType = InputOptionType.Value;
+                inputData.InputValue = chipJSON.Chip.GetInputPinValue(index);
+            }
+        }
+
+        private static List<ChipJSONData> _fetchJSONDataForTheseChips(List<IChip> chips, Dictionary<string, ChipJSONData> chipJObjects)
+        {
+            return chips.Select(chip => chipJObjects[chip.Name]).ToList();
         }
     }
 }

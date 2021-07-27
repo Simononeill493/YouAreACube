@@ -8,33 +8,33 @@ namespace IAmACube
 {
     public static class BlockDataDatabase
     {
-        public static Dictionary<string,BlockData> GraphicalChips;
-        public static IEnumerable<BlockData> SearchableChips;
+        public static Dictionary<string,BlockData> BlockDataDict;
+        public static IEnumerable<BlockData> BaseBlockDataList;
 
         public static void Load()
         {
-            GraphicalChips = _loadGraphicalChips();
-            SearchableChips = GraphicalChips.Values.Where(c => c.BaseMappingBlock == null);
+            BlockDataDict = _loadBlockDataDict();
+            BaseBlockDataList = BlockDataDict.Values.Where(c => c.BaseMappingBlock == null);
         }
 
-        public static IEnumerable<BlockData> SearchChips(string searchTerm) => SearchableChips.Where(c => c.Name.ToLower().Contains(searchTerm.ToLower()));
+        public static IEnumerable<BlockData> SearchBaseBlocks(string searchTerm) => BaseBlockDataList.Where(c => c.Name.ToLower().Contains(searchTerm.ToLower()));
 
-        private static Dictionary<string, BlockData> _loadGraphicalChips()
+        private static Dictionary<string, BlockData> _loadBlockDataDict()
         {
             var data = FileUtils.LoadJson(ConfigFiles.GraphicalChipsPath)["chips"];
-            var chips =  GraphicalChipParser.ParseChips(data);
+            var blockData =  BlockDataParser.ParseBlockDatas(data);
 
-            foreach (var chip in chips.Values.ToList())
+            foreach (var chip in blockData.Values.ToList())
             {
                 foreach(var subMapping in chip.GetAllSubMappings())
                 {
-                    chips[subMapping.Name] = subMapping;
+                    blockData[subMapping.Name] = subMapping;
                     subMapping.Init();
                     subMapping.BaseMappingBlock = chip;
                 }
             }
 
-            return chips;
+            return blockData;
         }
     }
 }

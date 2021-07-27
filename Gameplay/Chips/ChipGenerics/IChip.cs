@@ -12,12 +12,12 @@ namespace IAmACube
     public static class IChipUtils
     {
 
-        public static BlockData GetChipData(this IChip chip)
+        public static BlockData GetBlockData(this IChip chip)
         {
             var chipTypeName = chip.GetType().Name;
             var chipName = chipTypeName.Substring(0, chipTypeName.IndexOf("Chip"));
 
-            return BlockDataDatabase.GraphicalChips[chipName];
+            return BlockDataDatabase.BlockDataDict[chipName];
         }
 
         public static bool IsControlChip(this IChip chip) => typeof(IControlChip).IsAssignableFrom(chip.GetType());

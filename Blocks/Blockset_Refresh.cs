@@ -39,7 +39,7 @@ namespace IAmACube
 
             for (int i = 0; i < Blocks.Count; i++)
             {
-                Blocks[i].IndexInChipset = i;
+                Blocks[i].IndexInBlockset = i;
                 Blocks[i].SetLocationConfig(0, cumulativeYOffset - (i + 1), CoordinateMode.ParentPixelOffset, false);
                 Blocks[i].UpdateDimensions(ActualLocation, GetCurrentSize());
 

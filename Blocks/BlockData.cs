@@ -28,7 +28,7 @@ namespace IAmACube
         [JsonIgnore]
         public bool IsOutputGeneric { get; private set; }
         [JsonIgnore]
-        public bool IsMappedToSubChips { get; private set; }
+        public bool IsMappedToSubBlocks { get; private set; }
 
         [JsonIgnore]
         public List<string> DefaultTypeArguments;
@@ -116,7 +116,7 @@ namespace IAmACube
         {
             if(InputMappings!=null)
             {
-                IsMappedToSubChips = true;
+                IsMappedToSubBlocks = true;
             }
 
             _inputDataTypeOptions = new List<List<string>>();
@@ -149,5 +149,41 @@ namespace IAmACube
         }
 
         public override string ToString() => Name + " (" + ChipDataType.ToString() + ")";
+
+        public BlockData GetMappedBlockData(List<string> inputTypes)
+        {
+            if (IsMappedToSubBlocks)
+            {
+                return GetFirstMatchingMapping(inputTypes, InputMappings);
+            }
+
+            return this;
+        }
+
+        public static BlockData GetFirstMatchingMapping(List<string> inputs, List<BlockData> possibleMatches)
+        {
+            foreach (var possibleMatch in possibleMatches)
+            {
+                if (DoesMappingMatchInputs(inputs, possibleMatch))
+                {
+                    return possibleMatch;
+                }
+            }
+
+            throw new Exception("Blockdata mapping error: block input types do not map to any chip.");
+        }
+
+        public static bool DoesMappingMatchInputs(List<string> inputs, BlockData possibleMatch)
+        {
+            for (int i = 0; i < inputs.Count; i++)
+            {
+                if (!TemplateEditUtils.IsValidInputFor(inputs[i], possibleMatch.Inputs[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

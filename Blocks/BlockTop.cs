@@ -10,7 +10,7 @@ namespace IAmACube
         public string Name;
 
         public BlockData BlockData;
-        public int IndexInChipset = -1;
+        public int IndexInBlockset = -1;
 
         public bool HasOutput => BlockData.HasOutput;
         public List<string> CurrentTypeArguments;
@@ -39,29 +39,29 @@ namespace IAmACube
         }
 
         #region liftChips
-        public Action<BlockTop, UserInput> ChipLiftedCallback;
+        public Action<BlockTop, UserInput> BlockLiftedCallback;
 
         private void _onDragHandler(UserInput input)
         {
             if (!_isMouseOverInternalSections())
             {
-                ChipLiftedCallback(this, input);
+                BlockLiftedCallback(this, input);
             }
         }
         #endregion
 
         #region dropChips
-        public Action<List<BlockTop>, int> AppendChips;
+        public Action<List<BlockTop>, int> AppendBlocks;
 
         public virtual void DropBlocksOn(List<BlockTop> chips, UserInput input)
         {
             if (IsMouseOverBottomSection())
             {
-                AppendChips(chips, IndexInChipset + 1);
+                AppendBlocks(chips, IndexInBlockset + 1);
             }
             else
             {
-                AppendChips(chips, IndexInChipset);
+                AppendBlocks(chips, IndexInBlockset);
             }
         }
         #endregion
@@ -161,7 +161,7 @@ namespace IAmACube
         protected void _topLevelRefreshAll_Delayed() => _delayedTopLevelRefreshAll = true;
         private bool _delayedTopLevelRefreshAll = false;
 
-        public Action ChipsetRefreshText;
+        public Action BlocksetRefreshText;
 
         public virtual void RefreshAll() { }
         public void RefreshText()
@@ -187,16 +187,8 @@ namespace IAmACube
 
         public List<string> GetSelectedInputTypes()
         {
-            var output = new List<string>();
-
-            foreach (var section in _inputSections)
-            {
-                var baseType = section.CurrentlySelected.BaseType;
-                output.Add(baseType);
-            }
-
+            var output = _inputSections.Select(s => s.CurrentlySelected.BaseType).ToList();
             return output;
-
         }
         public virtual void GenerateSubChipsets() { }
         public virtual List<Blockset> GetSubChipsets() => new List<Blockset>();

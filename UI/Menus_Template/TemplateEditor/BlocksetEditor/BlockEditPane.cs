@@ -114,7 +114,7 @@ namespace IAmACube
             var hoveredChipset = _getCurrentlyHoveredChipset(toAttach);
             if (hoveredChipset != null)
             {
-                var chipsToDrop = toAttach.PopChips(0);
+                var chipsToDrop = toAttach.PopBlocks(0);
                 hoveredChipset.DropBlocksOn(chipsToDrop, input);
                 _destroyChipset(toAttach);
             }
@@ -141,7 +141,7 @@ namespace IAmACube
         {
             foreach (var chipset in TopLevelChipsets)
             {
-                if (chipset.IsMouseOverAnyChip() & (chipset != toAttach))
+                if (chipset.IsMouseOverAnyBlock() & (chipset != toAttach))
                 {
                     return chipset;
                 }
@@ -172,7 +172,7 @@ namespace IAmACube
             chipset.ClearContainer();
             chipset.Dispose();
             
-            foreach(var subChipset in chipset.GetSubChipsets())
+            foreach(var subChipset in chipset.GetSubBlocksets())
             {
                 _destroyChipset(subChipset);
             }

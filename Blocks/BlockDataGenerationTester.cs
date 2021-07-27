@@ -10,7 +10,7 @@ namespace IAmACube
     {
         public static void Test()
         {
-            foreach (var data in BlockDataDatabase.GraphicalChips.Values)
+            foreach (var data in BlockDataDatabase.BlockDataDict.Values)
             {
                 data.GenerateChip();
             }

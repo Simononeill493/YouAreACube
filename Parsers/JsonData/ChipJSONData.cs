@@ -13,14 +13,6 @@ namespace IAmACube
         public List<string> TypeArguments;
 
         public List<ChipJSONInputData> Inputs;
-        public void CreateInputsBlank()
-        {
-            Inputs = new List<ChipJSONInputData>();
-            for (int i = 0; i < BlockData.NumInputs; i++)
-            {
-                Inputs.Add(new ChipJSONInputData(InputOptionType.Undefined,""));
-            }
-        }
         public object ParseInput(int inputIndex) => Inputs[inputIndex].Parse(BlockData.GetInputType(inputIndex));
 
         public ChipJSONData() { }
@@ -28,16 +20,23 @@ namespace IAmACube
         public ChipJSONData(IChip iChip) 
         {
             Chip = iChip;
-            BlockData = iChip.GetChipData();
+            BlockData = iChip.GetBlockData();
 
             Name = iChip.Name;
             GraphicalChipType = BlockData.BaseMappingName;
             ActualChipType = BlockData.Name;
 
-            CreateInputsBlank();
-
+            _setBlankInputs();
             _setTypeArgumentsFromChip();
             _setSubChipsetsFromChip();
+        }
+        private void _setBlankInputs()
+        {
+            Inputs = new List<ChipJSONInputData>();
+            for (int i = 0; i < BlockData.NumInputs; i++)
+            {
+                Inputs.Add(new ChipJSONInputData(InputOptionType.Undefined, ""));
+            }
         }
         private void _setTypeArgumentsFromChip()
         {
@@ -73,16 +72,82 @@ namespace IAmACube
 
 
 
-        public ChipJSONData(BlockTop chip)
+        public ChipJSONData(BlockTop block)
         {
-            Block = chip;
-            BlockData = chip.BlockData;
+            Block = block;
+            BlockData = block.BlockData;
 
-            Name = chip.Name;
-            GraphicalChipType = chip.BlockData.BaseMappingName;
-            ActualChipType = chip.BlockData.Name;
+            Name = block.Name;
+            GraphicalChipType = block.BlockData.BaseMappingName;
+
+            _setBlockSubMapping();
+            _setTypeArgumentsFromBlock();
+            _setSelectedInputsFromBlock();
+            _setControlBlockTargets();
+        }
+        private void _setBlockSubMapping()
+        {
+            var selectedTypes = Block.GetSelectedInputTypes();
+            MappedBlockData =  BlockData.GetMappedBlockData(selectedTypes);
+            ActualChipType = MappedBlockData.Name;
+        }
+        private void _setTypeArgumentsFromBlock()
+        {
+            if (MappedBlockData.IsGeneric)
+            {
+                TypeArguments = Block.CurrentTypeArguments;
+            }
+        }
+        private void _setSelectedInputsFromBlock()
+        {
+            Inputs = new List<ChipJSONInputData>();
+            var inputsList = Block.GetCurrentInputs();
+            for (int i = 0; i < inputsList.Count; i++)
+            {
+                _addBlockInputOption(inputsList[i]);
+            }
+        }
+        private void _addBlockInputOption(BlockInputOption blockInputOption)
+        {
+            var inputOptionType = blockInputOption.OptionType;
+            if (inputOptionType.Equals(InputOptionType.Parseable))
+            {
+                inputOptionType = InputOptionType.Value;
+            }
+
+            var inputData = new ChipJSONInputData(inputOptionType, blockInputOption.ToString());
+            Inputs.Add(inputData);
+        }
+        private void _setControlBlockTargets()
+        {
+            if (BlockData.Name.Equals("If"))
+            {
+                var ifChip = (BlockTopSwitch)Block;
+
+                Yes = ifChip.SwitchBlocksets[0].Name;
+                No = ifChip.SwitchBlocksets[1].Name;
+
+            }
+            if (BlockData.Name.Equals("KeySwitch"))
+            {
+                var keyChip = (BlockTopSwitch)Block;
+
+                KeyEffects = new List<(string, string)>();
+
+                foreach (var keyAndChipset in keyChip.GetSwitchSectionsWithNames())
+                {
+                    KeyEffects.Add((keyAndChipset.Item1, keyAndChipset.Item2.Name));
+                }
+            }
         }
 
+
+
+
+
+
+        [JsonIgnore]
+        public BlockData MappedBlockData;
 
         [JsonIgnore]
         public BlockData BlockData;
@@ -90,11 +155,11 @@ namespace IAmACube
         {
             if(ActualChipType != null)
             {
-                BlockData = BlockDataDatabase.GraphicalChips[ActualChipType];
+                BlockData = BlockDataDatabase.BlockDataDict[ActualChipType];
             }
             else
             {
-                BlockData = BlockDataDatabase.GraphicalChips[GraphicalChipType];
+                BlockData = BlockDataDatabase.BlockDataDict[GraphicalChipType];
             }
         }
 
@@ -123,5 +188,6 @@ namespace IAmACube
         public string Yes;
         public string No;
         public List<(string keyString, string blockName)> KeyEffects;
+
     }
 }

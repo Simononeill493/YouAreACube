@@ -10,6 +10,8 @@ namespace IAmACube
 {
     class Config
     {
+        public const int NumChipInputPins = 3;
+
         public static int ScreenDefaultWidth = 1280;
         public static int ScreenDefaultHeight = 960;
 
