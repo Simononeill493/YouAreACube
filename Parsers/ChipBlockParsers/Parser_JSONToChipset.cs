@@ -4,10 +4,6 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IAmACube
 {
@@ -15,14 +11,14 @@ namespace IAmACube
     {
         public static Chipset ParseJsonToBlock(string json)
         {
-            var fullChipsetJSON = JsonConvert.DeserializeObject<FullChipsetJSONData>(json);
-            var chipsetsDict = fullChipsetJSON.GetChipsetsDict();
-            var chipsDict = fullChipsetJSON.GetChipsDict();
+            var fullJSON = JsonConvert.DeserializeObject<FullChipsetJSONData>(json);
 
-            fullChipsetJSON.SetChipData();
-            fullChipsetJSON.CreateChipsetObjects();
+            fullJSON.SetBlockData();
+            fullJSON.CreateChipsetObjects();
+            fullJSON.AppendChipsToChipsets();
 
-            _appendChipsToChipsets(fullChipsetJSON);
+            var chipsetsDict = fullJSON.GetChipsetsDict();
+            var chipsDict = fullJSON.GetChipsDict();
 
             foreach (var chipToken in chipsDict.Values)
             {
@@ -30,32 +26,25 @@ namespace IAmACube
                 _setControlChipTargets(chipToken, chipsetsDict);
             }
 
-            return fullChipsetJSON.GetInitial().Chipset;
+            var baseChipset = fullJSON.GetInitial().Chipset;
+
+
+            return baseChipset;
         }
 
-        private static void _appendChipsToChipsets(FullChipsetJSONData chipsetsJson)
-        {
-            foreach (var chipsetJSON in chipsetsJson)
-            {
-                foreach (var chipJSON in chipsetJSON.Chips)
-                {
-                    chipsetJSON.Chipset.AddChip(chipJSON.Chip);
-                }
-            }
-        }
         private static void _setControlChipTargets(ChipJSONData chipJSON, Dictionary<string, ChipsetJSONData> chipsetsDict)
         {
-            var chipData = chipJSON.BlockData;
+            var blockData = chipJSON.BlockData;
             var constructedChip = chipJSON.Chip;
 
-            if (chipData.Name.Equals("If"))
+            if (blockData.Name.Equals("If"))
             {
                 var ifChip = (IfChip)constructedChip;
 
                 ifChip.Yes = chipsetsDict[chipJSON.Yes].Chipset;
                 ifChip.No = chipsetsDict[chipJSON.No].Chipset;
             }
-            if (chipData.Name.Equals("KeySwitch"))
+            if (blockData.Name.Equals("KeySwitch"))
             {
                 var keySwitchChip = (KeySwitchChip)constructedChip;
 
@@ -95,13 +84,12 @@ namespace IAmACube
         
         private static void _setReferenceChipInput(ChipJSONData chipToken,Dictionary<string, ChipJSONData> chipsDict, string inputChipName, int inputIndex)
         {
-            var inputChip = chipsDict[inputChipName].Chip;
-            inputChip.AddTarget(inputIndex, chipToken.Chip);
+            var chip = chipsDict[inputChipName].Chip;
+            chip.AddTarget(inputIndex, chipToken.Chip);
         }
         private static void _setValueChipInput(ChipJSONData chipToken, int inputIndex)
         {
-            var currentIChip = chipToken.Chip;
-            currentIChip.SetInputProperty(inputIndex,chipToken.ParseInput(inputIndex));
+            chipToken.Chip.SetInputProperty(inputIndex,chipToken.ParseInput(inputIndex));
         }
     }
 }

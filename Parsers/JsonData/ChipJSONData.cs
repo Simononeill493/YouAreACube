@@ -35,7 +35,7 @@ namespace IAmACube
             Inputs = new List<ChipJSONInputData>();
             for (int i = 0; i < BlockData.NumInputs; i++)
             {
-                Inputs.Add(new ChipJSONInputData(InputOptionType.Undefined, ""));
+                Inputs.Add(new ChipJSONInputData(InputOptionType.Undefined, "",i));
             }
         }
         private void _setTypeArgumentsFromChip()
@@ -104,10 +104,10 @@ namespace IAmACube
             var inputsList = Block.GetCurrentInputs();
             for (int i = 0; i < inputsList.Count; i++)
             {
-                _addBlockInputOption(inputsList[i]);
+                _addBlockInputOption(inputsList[i],i);
             }
         }
-        private void _addBlockInputOption(BlockInputOption blockInputOption)
+        private void _addBlockInputOption(BlockInputOption blockInputOption,int index)
         {
             var inputOptionType = blockInputOption.OptionType;
             if (inputOptionType.Equals(InputOptionType.Parseable))
@@ -115,7 +115,7 @@ namespace IAmACube
                 inputOptionType = InputOptionType.Value;
             }
 
-            var inputData = new ChipJSONInputData(inputOptionType, blockInputOption.ToString());
+            var inputData = new ChipJSONInputData(inputOptionType, blockInputOption.ToString(),index);
             Inputs.Add(inputData);
         }
         private void _setControlBlockTargets()
@@ -151,7 +151,7 @@ namespace IAmACube
 
         [JsonIgnore]
         public BlockData BlockData;
-        public void SetChipData()
+        public void SetBlockData()
         {
             if(ActualChipType != null)
             {
@@ -165,7 +165,7 @@ namespace IAmACube
 
         [JsonIgnore]
         public BlockTop Block;
-        public void CreateChipTop(IBlocksetGenerator generator)
+        public void CreateBlockTop(IBlocksetGenerator generator)
         {
             var dataToCreateWith = BlockData;
             if(BlockData.BaseMappingBlock!=null)
@@ -173,7 +173,7 @@ namespace IAmACube
                 dataToCreateWith = BlockData.BaseMappingBlock;
             }
 
-            Block = BlockTop.GenerateChipFromChipData(dataToCreateWith, this.Name);
+            Block = BlockTop.GenerateBlockFromBlockData(dataToCreateWith, this.Name);
             Block.SetGenerator(generator);
         }
 

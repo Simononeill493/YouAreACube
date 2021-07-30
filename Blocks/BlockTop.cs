@@ -193,7 +193,7 @@ namespace IAmACube
         public virtual void GenerateSubChipsets() { }
         public virtual List<Blockset> GetSubChipsets() => new List<Blockset>();
 
-        public static BlockTop GenerateChipFromChipData(BlockData data,string name = "")
+        public static BlockTop GenerateBlockFromBlockData(BlockData data,string name = "")
         {
             var initialDrawLayer = ManualDrawLayer.Zero;
 

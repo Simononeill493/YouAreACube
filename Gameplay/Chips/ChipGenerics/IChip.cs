@@ -11,7 +11,6 @@ namespace IAmACube
 
     public static class IChipUtils
     {
-
         public static BlockData GetBlockData(this IChip chip)
         {
             var chipTypeName = chip.GetType().Name;

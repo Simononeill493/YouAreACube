@@ -10,10 +10,13 @@ namespace IAmACube
         public InputOptionType InputType;
         public string InputValue;
 
-        public ChipJSONInputData(InputOptionType inputType, string inputValue)
+        public int PinIndex;
+
+        public ChipJSONInputData(InputOptionType inputType, string inputValue,int pinIndex)
         {
             InputType = inputType;
             InputValue = inputValue;
+            PinIndex = pinIndex;
         }
 
         public object Parse(string typeName)

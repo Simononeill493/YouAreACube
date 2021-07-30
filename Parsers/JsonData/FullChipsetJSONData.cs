@@ -8,25 +8,19 @@ namespace IAmACube
 {
     public class FullChipsetJSONData : List<ChipsetJSONData>
     {
-        public Dictionary<string, ChipsetJSONData> GetChipsetsDict()
+        public FullChipsetJSONData() { }
+        public FullChipsetJSONData(Chipset chipsetToAdd, Dictionary<string, ChipJSONData> chipsDict)
         {
-            var output = new Dictionary<string, ChipsetJSONData>();
-            foreach (var block in this)
+            foreach (var chipset in chipsetToAdd.GetChipsetAndSubChipsets())
             {
-                output[block.Name] = block;
+                var chipsetJSON = new ChipsetJSONData(chipset);
+                chipsetJSON.Chips = chipsDict.FetchJSON(chipset.Chips);
+                this.Add(chipsetJSON);
             }
-            return output;
         }
-        public Dictionary<string, ChipJSONData> GetChipsDict()
-        {
-            var output = new Dictionary<string, ChipJSONData>();
-            foreach(var chip in GetChips())
-            {
-                output[chip.Name] = chip;
 
-            }
-            return output;
-        }
+        public Dictionary<string, ChipsetJSONData> GetChipsetsDict() => this.ToDict();
+        public Dictionary<string, ChipJSONData> GetChipsDict() => GetChips().ToDict();
         public List<ChipJSONData> GetChips()
         {
             var output = new List<ChipJSONData>();
@@ -36,17 +30,27 @@ namespace IAmACube
             }
             return output;
         }
-    
-        public void SetChipData() => GetChips().ForEach(c => c.SetChipData());
+        
+        public void SetBlockData() => GetChips().ForEach(c => c.SetBlockData());
 
-        public void CreateEditableChipsetObjects(IBlocksetGenerator generator)
+        public void CreateBlocksetObjects(IBlocksetGenerator generator)
         {
             CreateBlocksets(generator);
             CreateBlocksetChipTops(generator);
         }
         public void CreateBlocksets(IBlocksetGenerator generator) => this.ForEach(c => c.CreateBlockset(generator));
-        public void CreateBlocksetChipTops(IBlocksetGenerator generator) => GetChips().ForEach(c => c.CreateChipTop(generator));
-        
+        public void CreateBlocksetChipTops(IBlocksetGenerator generator) => GetChips().ForEach(c => c.CreateBlockTop(generator));
+        public void AppendBlocksToBlocksets()
+        {
+            foreach (var chipsetJSON in this)
+            {
+                foreach (var chipJSON in chipsetJSON.Chips)
+                {
+                    chipsetJSON.Blockset.AppendBlockToBottom(chipJSON.Block);
+                }
+            }
+        }
+
         public void CreateChipsetObjects()
         {
             CreateChipsets();
@@ -54,6 +58,16 @@ namespace IAmACube
         }
         public void CreateChipsets() => this.ForEach(c => c.CreateChipset());
         public void CreateChips() => GetChips().ForEach(c => c.CreateChip());
+        public void AppendChipsToChipsets()
+        {
+            foreach (var chipsetJSON in this)
+            {
+                foreach (var chipJSON in chipsetJSON.Chips)
+                {
+                    chipsetJSON.Chipset.AddChip(chipJSON.Chip);
+                }
+            }
+        }
 
         public ChipsetJSONData GetInitial()
         {

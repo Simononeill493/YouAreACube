@@ -73,7 +73,7 @@ namespace IAmACube
         private void _createChipAndAddToEditPane(BlockPreview preview, UserInput input)
         {
             var chipRandId = "_" + RandomUtils.RandomNumber(100000000).ToString();
-            var createdChip = BlockTop.GenerateChipFromChipData(preview.Block,preview.Block.Name + chipRandId);
+            var createdChip = BlockTop.GenerateBlockFromBlockData(preview.Block,preview.Block.Name + chipRandId);
             AddToEditPane(createdChip,input);
         }
     }

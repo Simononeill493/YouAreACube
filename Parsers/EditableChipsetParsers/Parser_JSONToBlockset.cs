@@ -11,14 +11,14 @@ namespace IAmACube
     {
         public static Blockset ParseJsonToBlockset(string json, IBlocksetGenerator generator)
         {
-            var blocksetsJson = JsonConvert.DeserializeObject<FullChipsetJSONData>(json);
-            var blocksDict = blocksetsJson.GetChipsetsDict();
-            var chipsDict = blocksetsJson.GetChipsDict();
+            var fullJSON = JsonConvert.DeserializeObject<FullChipsetJSONData>(json);
 
-            blocksetsJson.SetChipData();
-            blocksetsJson.CreateEditableChipsetObjects(generator);
+            fullJSON.SetBlockData();
+            fullJSON.CreateBlocksetObjects(generator);
+            fullJSON.AppendBlocksToBlocksets();
 
-            _appendChipsToChipsets(blocksetsJson);
+            var blocksDict = fullJSON.GetChipsetsDict();
+            var chipsDict = fullJSON.GetChipsDict();
 
             foreach (var chip in chipsDict.Values)
             {
@@ -26,36 +26,26 @@ namespace IAmACube
                 _setControlChipTargets(chip, blocksDict);
             }
 
-            var baseBlockset = blocksetsJson.GetInitial().Blockset;
+            var baseBlockset = fullJSON.GetInitial().Blockset;
             baseBlockset.AddAndRemoveQueuedChildren_Cascade();
 
             return baseBlockset;
         }
 
-        private static void _appendChipsToChipsets(FullChipsetJSONData chipsetsJson)
+        private static void _setControlChipTargets(ChipJSONData chipJSON, Dictionary<string, ChipsetJSONData> chipsets)
         {
-            foreach (var blockJson in chipsetsJson)
+            if (chipJSON.BlockData.Name.Equals("If"))
             {
-                foreach (var chipJson in blockJson.Chips)
-                {
-                    blockJson.Blockset.AppendBlockToBottom(chipJson.Block);
-                }
-            }
-        }
-        private static void _setControlChipTargets(ChipJSONData chip, Dictionary<string, ChipsetJSONData> chipsets)
-        {
-            if (chip.BlockData.Name.Equals("If"))
-            {
-                var ifChip = (BlockTopSwitch)chip.Block;
+                var ifChip = (BlockTopSwitch)chipJSON.Block;
 
-                ifChip.AddSwitchSection("Yes", chipsets[chip.Yes].Blockset);
-                ifChip.AddSwitchSection("No", chipsets[chip.No].Blockset);
+                ifChip.AddSwitchSection("Yes", chipsets[chipJSON.Yes].Blockset);
+                ifChip.AddSwitchSection("No", chipsets[chipJSON.No].Blockset);
             }
-            if (chip.BlockData.Name.Equals("KeySwitch"))
+            if (chipJSON.BlockData.Name.Equals("KeySwitch"))
             {
-                var keySwitchChip = (BlockTopSwitch)chip.Block;
+                var keySwitchChip = (BlockTopSwitch)chipJSON.Block;
 
-                foreach (var (keyString, blockName) in chip.KeyEffects)
+                foreach (var (keyString, blockName) in chipJSON.KeyEffects)
                 {
                     var block = chipsets[blockName].Blockset;
                     keySwitchChip.AddSwitchSection(keyString, block);
@@ -63,22 +53,22 @@ namespace IAmACube
             }
         }
         
-        private static void _setValuesForInputSections(ChipJSONData chip, Dictionary<string, ChipJSONData> chipsDict)
+        private static void _setValuesForInputSections(ChipJSONData chipJSON, Dictionary<string, ChipJSONData> chipsDict)
         {
-            for (int i = 0; i < chip.Inputs.Count; i++)
+            for (int i = 0; i < chipJSON.Inputs.Count; i++)
             {
-                _setValuesForInputSection(chip, chipsDict, i);
+                _setValuesForInputSection(chipJSON, chipsDict, i);
             }
         }
-        private static void _setValuesForInputSection(ChipJSONData chip,Dictionary<string,ChipJSONData> chipsDict,int inputIndex)
+        private static void _setValuesForInputSection(ChipJSONData chipJSON,Dictionary<string,ChipJSONData> chipsDict,int inputIndex)
         {
-            var jsonInputData = chip.Inputs[inputIndex];
-            var inputOption = _parseInputOption(chip,chipsDict,jsonInputData.InputType,jsonInputData.InputValue,inputIndex);
+            var jsonInputData = chipJSON.Inputs[inputIndex];
+            var inputOption = _parseInputOption(chipJSON,chipsDict,jsonInputData.InputType,jsonInputData.InputValue,inputIndex);
 
-            chip.Block.ManuallySetInputSection(inputOption, inputIndex);
+            chipJSON.Block.ManuallySetInputSection(inputOption, inputIndex);
         }
 
-        private static BlockInputOption _parseInputOption(ChipJSONData chip, Dictionary<string, ChipJSONData> chipsDict, InputOptionType inputType, string inputValue, int inputIndex)
+        private static BlockInputOption _parseInputOption(ChipJSONData chipJSON, Dictionary<string, ChipJSONData> chipsDict, InputOptionType inputType, string inputValue, int inputIndex)
         {
             if (inputType.Equals(InputOptionType.Reference))
             {
@@ -86,7 +76,7 @@ namespace IAmACube
             }
             else if (inputType.Equals(InputOptionType.Value))
             {
-                return _parseValueChipInput(chip, inputIndex);
+                return _parseValueChipInput(chipJSON, inputIndex);
             }
 
             throw new Exception("Unrecognized chip input option type");

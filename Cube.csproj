@@ -48,6 +48,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Blocks\BlockData_Mapping.cs" />
     <Compile Include="Camera\CameraConfiguration.cs" />
     <Compile Include="Camera\CameraUtils.cs" />
     <Compile Include="Camera\FixedCamera.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Parsers\JsonData\ChipJSONData.cs" />
     <Compile Include="Parsers\JsonData\FullChipsetJSONData.cs" />
     <Compile Include="Blocks\BlockDataGenerationTester.cs" />
+    <Compile Include="Parsers\JsonData\JSONDataUtils.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\BlockEditPane_Pan.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedAction.cs" />
     <Compile Include="UI\Screens\ScreenType.cs" />
