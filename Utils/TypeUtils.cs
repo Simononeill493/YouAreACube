@@ -80,11 +80,15 @@ namespace IAmACube
                 return null;
             }
 
-            var parseMethod = t.GetMethod("Parse", new Type[] { typeof(string) }, new ParameterModifier[] { new ParameterModifier(1) });
-            if (parseMethod != null)
+            var tryParseMethod = t.GetMethod("TryParse", new Type[] { typeof(string), t.MakeByRefType() }, new ParameterModifier[] { new ParameterModifier(2) });
+            if (tryParseMethod != null)
             {
-                var parsed = parseMethod.Invoke(null, new object[] { asString });
-                return parsed;
+                var parameters = new object[] { asString, null };
+                bool parsed = (bool)tryParseMethod.Invoke(null, parameters);
+                if(parsed)
+                {
+                    return parameters[1];
+                }
             }
 
             if (t == typeof(string))
@@ -110,7 +114,9 @@ namespace IAmACube
                 }
             }
 
-            throw new Exception("Cannot resolve type of string");
+            return null;
+
+            //throw new Exception("Cannot resolve type of string");
         }
 
 

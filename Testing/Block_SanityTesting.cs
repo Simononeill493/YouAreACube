@@ -8,26 +8,30 @@ namespace IAmACube
 {
     public partial class BlockTop
     {
-        public List<string> SanityTest()
+        public List<string> SanityTest((List<string> blocksetNames, List<string> blockNames) names)
         {
             var output = new List<string>();
+            var name = "unnamed_block";
 
             if (Name == null)
             {
-                output.Add("Name is null");
+                output.Add("Block name is null");
             }
-
-            foreach (var inputSection in _inputSections)
+            else
             {
-                var result = inputSection.SanityTest();
-                output.AddRange(result);
+                name = Name;
             }
 
+            for(int i=0;i<_inputSections.Count;i++)
+            {
+                var result = _inputSections[i].SanityTest(names);
+                output.AddRange(result.Select(r => name + ", Input Section " + i + ": " + r));
+            }
 
             foreach (var subBlockset in GetSubBlocksets())
             {
-                var result = subBlockset.SanityTest();
-                output.AddRange(result);
+                var result = subBlockset.SanityTest(names);
+                output.AddRange(result.Select(r => name + ": " + r));
             }
 
             return output;

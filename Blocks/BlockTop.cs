@@ -115,7 +115,7 @@ namespace IAmACube
                 var referenceOption = (BlockInputOptionReference)optionSelected;
 
                 var inputOptions = section.InputBaseTypes;
-                var dataTypeFeedingIn = referenceOption.ChipReference.OutputTypeCurrent;
+                var dataTypeFeedingIn = referenceOption.BlockReference.OutputTypeCurrent;
 
                 if (inputOptions.Contains("List<Variable>"))
                 {

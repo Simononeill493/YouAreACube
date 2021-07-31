@@ -6,15 +6,15 @@ namespace IAmACube
 {
     public class BlockInputOptionReference : BlockInputOption
     {
-        public BlockTopWithOutput ChipReference { get; }
-        public override string BaseType => ChipReference.OutputTypeCurrent;
+        public BlockTopWithOutput BlockReference { get; }
+        public override string BaseType => BlockReference.OutputTypeCurrent;
 
 
-        public BlockInputOptionReference(BlockTopWithOutput chipReference) : base(InputOptionType.Reference)
+        public BlockInputOptionReference(BlockTopWithOutput blockReference) : base(InputOptionType.Reference)
         {
-            ChipReference = chipReference;
+            BlockReference = blockReference;
         }
 
-        public override string ToString() => ChipReference.OutputName;
+        public override string ToString() => BlockReference.OutputName;
     }
 }
