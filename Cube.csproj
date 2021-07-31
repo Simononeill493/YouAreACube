@@ -110,6 +110,11 @@
     <Compile Include="Parsers\JsonData\FullChipsetJSONData.cs" />
     <Compile Include="Blocks\BlockDataGenerationTester.cs" />
     <Compile Include="Parsers\JsonData\JSONDataUtils.cs" />
+    <Compile Include="Testing\BlockInputSection_SanityTesting.cs" />
+    <Compile Include="Testing\Blockset_SanityTesting.cs" />
+    <Compile Include="Testing\Block_SanityTesting.cs" />
+    <Compile Include="Testing\Chipset_SanityTesting.cs" />
+    <Compile Include="Testing\Chip_SanityTesting.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\BlockEditPane_Pan.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedAction.cs" />
     <Compile Include="UI\Screens\ScreenType.cs" />

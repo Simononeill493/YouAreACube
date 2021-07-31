@@ -119,7 +119,7 @@ namespace IAmACube
         public List<Blockset> GetSubBlocksets()
         {
             var output = new List<Blockset>();
-            var subBlocksets = Blocks.Select(c => c.GetSubChipsets());
+            var subBlocksets = Blocks.Select(c => c.GetSubBlocksets());
 
             foreach (var sublist in subBlocksets)
             {

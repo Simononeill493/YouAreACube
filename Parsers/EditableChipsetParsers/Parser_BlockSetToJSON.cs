@@ -12,6 +12,7 @@ namespace IAmACube
     {
         public static string ParseBlocksetToJson(Blockset blocksetToParse)
         {
+            blocksetToParse.AssertSanityTest();
             var fullJSON = new FullChipsetJSONData();
 
             foreach (var blockset in blocksetToParse.GetThisAndSubBlocksets())

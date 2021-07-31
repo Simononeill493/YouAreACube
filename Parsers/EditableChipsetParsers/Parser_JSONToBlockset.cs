@@ -28,6 +28,7 @@ namespace IAmACube
 
             var baseBlockset = fullJSON.GetInitial().Blockset;
             baseBlockset.AddAndRemoveQueuedChildren_Cascade();
+            baseBlockset.AssertSanityTest();
 
             return baseBlockset;
         }

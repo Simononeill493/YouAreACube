@@ -28,7 +28,7 @@ namespace IAmACube
 
             var baseChipset = fullJSON.GetInitial().Chipset;
 
-
+            baseChipset.AssertSanityTest();
             return baseChipset;
         }
 

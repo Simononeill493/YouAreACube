@@ -13,6 +13,8 @@ namespace IAmACube
     {
         public static string ParseChipsetToJson(Chipset chipsetToParse)
         {
+            chipsetToParse.AssertSanityTest();
+
             var chipsDict = chipsetToParse.GetAllChipsAndSubChips().Select(c => new ChipJSONData(c)).ToDict();
             var fullJSON = new FullChipsetJSONData(chipsetToParse, chipsDict);
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class Chipset
+    public partial class Chipset
     {
         public string Name;
         public List<IChip> Chips;

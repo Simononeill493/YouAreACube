@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class BlockInputSection : SpriteMenuItem
+    public partial class BlockInputSection : SpriteMenuItem
     {
         public List<string> InputBaseTypes;
         public Action<BlockInputSection, BlockInputDropdown, BlockInputOption> DropdownSelectedCallback;

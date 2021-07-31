@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace IAmACube
 {
-    public class BlockTop : SpriteMenuItem, IBlocksDroppableOn
+    public partial class BlockTop : SpriteMenuItem, IBlocksDroppableOn
     {
         public string Name;
 
@@ -75,7 +75,7 @@ namespace IAmACube
         {
             _inputSections.ForEach(m => m.SetConnectionsFromAbove(chipsAbove));
 
-            foreach (var subChipset in GetSubChipsets())
+            foreach (var subChipset in GetSubBlocksets())
             {
                 var connectionsList = new List<BlockTop>();
                 connectionsList.AddRange(chipsAbove);
@@ -167,7 +167,7 @@ namespace IAmACube
         public void RefreshText()
         {
             _inputSections.ForEach(s => s.RefreshText());
-            GetSubChipsets().ForEach(s => s.RefreshText());
+            GetSubBlocksets().ForEach(s => s.RefreshText());
         }
 
         public override void Update(UserInput input)
@@ -191,7 +191,7 @@ namespace IAmACube
             return output;
         }
         public virtual void GenerateSubChipsets() { }
-        public virtual List<Blockset> GetSubChipsets() => new List<Blockset>();
+        public virtual List<Blockset> GetSubBlocksets() => new List<Blockset>();
 
         public static BlockTop GenerateBlockFromBlockData(BlockData data,string name = "")
         {

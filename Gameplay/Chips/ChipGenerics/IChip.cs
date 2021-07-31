@@ -13,10 +13,10 @@ namespace IAmACube
     {
         public static BlockData GetBlockData(this IChip chip)
         {
-            var chipTypeName = chip.GetType().Name;
-            var chipName = chipTypeName.Substring(0, chipTypeName.IndexOf("Chip"));
+            var chipTypeFullName = chip.GetType().Name;
+            var chipTypeName = chipTypeFullName.Substring(0, chipTypeFullName.IndexOf("Chip"));
 
-            return BlockDataDatabase.BlockDataDict[chipName];
+            return BlockDataDatabase.BlockDataDict[chipTypeName];
         }
 
         public static bool IsControlChip(this IChip chip) => typeof(IControlChip).IsAssignableFrom(chip.GetType());

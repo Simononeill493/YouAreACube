@@ -104,7 +104,7 @@ namespace IAmACube
         private List<string> _switchInitialOptions;
         public override void GenerateSubChipsets() => _addNewSwitchSections(_switchInitialOptions);
         protected void _addNewSwitchSections(List<string> sectionNames) => sectionNames.ForEach(n => _addNewSwitchSection(n));
-        protected void _addNewSwitchSection(string sectionName) => AddSwitchSection(sectionName, _generator.CreateBlockset(Name+"-subChip_"+(GetSubChipsets().Count+1.ToString())));
+        protected void _addNewSwitchSection(string sectionName) => AddSwitchSection(sectionName, _generator.CreateBlockset(Name+"-subChip_"+(GetSubBlocksets().Count+1.ToString())));
 
         public void AddSwitchSection(string sectionName,Blockset switchChipset)
         {
@@ -120,7 +120,7 @@ namespace IAmACube
         }
         #endregion
 
-        public override List<Blockset> GetSubChipsets() => SwitchBlocksets.ToList();
+        public override List<Blockset> GetSubBlocksets() => SwitchBlocksets.ToList();
         public override void DropBlocksOn(List<BlockTop> chips, UserInput input) 
         {
             if (!_switchSectionExtended)
