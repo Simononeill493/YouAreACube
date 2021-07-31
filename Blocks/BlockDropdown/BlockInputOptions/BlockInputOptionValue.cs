@@ -24,8 +24,7 @@ namespace IAmACube
         {
             if (BaseObject.GetType() == typeof(CubeTemplate))
             {
-                var template = (CubeTemplate)BaseObject;
-                return template.Versions.Name + '|' + template.Version;
+                return JSONDataUtils.TemplateToJSONRep((CubeTemplate)BaseObject);
             }
 
             return BaseObject.ToString();

@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace IAmACube
@@ -47,8 +50,7 @@ namespace IAmACube
             var value = chip.GetInputPropertyValue(pinIndex);
             if (value.GetType() == typeof(CubeTemplate))
             {
-                var template = (CubeTemplate)value;
-                return template.Versions.Name + '|' + template.Version;
+                return JSONDataUtils.TemplateToJSONRep((CubeTemplate)value);
             }
             return value.ToString();
         }
@@ -57,6 +59,14 @@ namespace IAmACube
         {
             var property =  chip.GetType().GetProperty("ChipInput" + (inputIndex + 1).ToString());
             property.SetValue(chip,toSet);
+        }
+
+        public static List<string> GetTypeArgumentNames(this IChip chip)
+        {
+            var genericArguments = chip.GetType().GenericTypeArguments;
+            var names =  genericArguments.Select(ta => TypeUtils.GetTypeDisplayName(ta)).ToList();
+
+            return names;
         }
 
     }

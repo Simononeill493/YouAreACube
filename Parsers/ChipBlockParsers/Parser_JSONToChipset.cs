@@ -16,14 +16,12 @@ namespace IAmACube
             fullJSON.SetBlockData();
             fullJSON.CreateChipsetObjects();
             fullJSON.AppendChipsToChipsets();
+            fullJSON.MakeDicts();
 
-            var chipsetsDict = fullJSON.GetChipsetsDict();
-            var chipsDict = fullJSON.GetChipsDict();
-
-            foreach (var chipToken in chipsDict.Values)
+            foreach (var chipJSON in fullJSON.ChipsDict.Values)
             {
-                _setChipInputs(chipToken, chipsDict);
-                _setControlChipTargets(chipToken, chipsetsDict);
+                _setChipInputs(chipJSON, fullJSON.ChipsDict);
+                _setControlChipTargets(chipJSON, fullJSON.ChipsetsDict);
             }
 
             var baseChipset = fullJSON.GetInitial().Chipset;
@@ -35,22 +33,21 @@ namespace IAmACube
         private static void _setControlChipTargets(ChipJSONData chipJSON, Dictionary<string, ChipsetJSONData> chipsetsDict)
         {
             var blockData = chipJSON.BlockData;
-            var constructedChip = chipJSON.Chip;
 
             if (blockData.Name.Equals("If"))
             {
-                var ifChip = (IfChip)constructedChip;
+                var ifChip = (IfChip)chipJSON.Chip;
 
                 ifChip.Yes = chipsetsDict[chipJSON.Yes].Chipset;
                 ifChip.No = chipsetsDict[chipJSON.No].Chipset;
             }
             if (blockData.Name.Equals("KeySwitch"))
             {
-                var keySwitchChip = (KeySwitchChip)constructedChip;
+                var keySwitchChip = (KeySwitchChip)chipJSON.Chip;
 
                 foreach (var (keyString, blockName) in chipJSON.KeyEffects)
                 {
-                    var effectKey = (Keys)Enum.Parse(typeof(Keys), keyString);
+                    var effectKey = TypeUtils.ParseType<Keys>(keyString);
                     var effectBlock = chipsetsDict[blockName].Chipset;
 
                     keySwitchChip.AddKeyEffect(effectKey, effectBlock);
@@ -58,38 +55,38 @@ namespace IAmACube
             }
         }
 
-        private static void _setChipInputs(ChipJSONData chipToken, Dictionary<string, ChipJSONData> chipsDict)
+        private static void _setChipInputs(ChipJSONData chipJSON, Dictionary<string, ChipJSONData> chipsDict)
         {
-            for (int i = 0; i < chipToken.BlockData.NumInputs; i++)
+            for (int i = 0; i < chipJSON.BlockData.NumInputs; i++)
             {
-                _setChipInput(chipToken, chipsDict, i);
+                _setChipInput(chipJSON, chipsDict, i);
             }
         }
-        private static void _setChipInput(ChipJSONData chipToken, Dictionary<string, ChipJSONData> chipsDict,int inputIndex)
+        private static void _setChipInput(ChipJSONData chipJSON, Dictionary<string, ChipJSONData> chipsDict,int inputIndex)
         {
-            var input = chipToken.Inputs[inputIndex];
+            var input = chipJSON.Inputs[inputIndex];
             if (input.InputType == InputOptionType.Value)
             {
-                _setValueChipInput(chipToken, inputIndex);
+                _setValueChipInput(chipJSON, inputIndex);
+                return;
             }
             else if (input.InputType == InputOptionType.Reference)
             {
-                _setReferenceChipInput(chipToken, chipsDict, input.InputValue, inputIndex);
+                _setReferenceChipInput(chipJSON, chipsDict, input.InputValue, inputIndex);
+                return;
             }
-            else
-            {
-                throw new Exception("Unrecognized chip input option type");
-            }
+
+            throw new Exception("Unrecognized chip input option type");
         }
         
-        private static void _setReferenceChipInput(ChipJSONData chipToken,Dictionary<string, ChipJSONData> chipsDict, string inputChipName, int inputIndex)
+        private static void _setReferenceChipInput(ChipJSONData chipJSON,Dictionary<string, ChipJSONData> chipsDict, string inputChipName, int inputIndex)
         {
-            var chip = chipsDict[inputChipName].Chip;
-            chip.AddTarget(inputIndex, chipToken.Chip);
+            var inputtingChip = chipsDict[inputChipName].Chip;
+            inputtingChip.AddTarget(inputIndex, chipJSON.Chip);
         }
-        private static void _setValueChipInput(ChipJSONData chipToken, int inputIndex)
+        private static void _setValueChipInput(ChipJSONData chipJSON, int inputIndex)
         {
-            chipToken.Chip.SetInputProperty(inputIndex,chipToken.ParseInput(inputIndex));
+            chipJSON.Chip.SetInputProperty(inputIndex,chipJSON.ParseInput(inputIndex));
         }
     }
 }

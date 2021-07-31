@@ -39,5 +39,17 @@ namespace IAmACube
 
             return output;
         }
+
+        public List<(string,string)> KeyEffectsToString()
+        {
+            var keysAndEffects = new List<(string, string)>();
+
+            foreach (var keyBlock in KeyEffects)
+            {
+                keysAndEffects.Add((keyBlock.Key.ToString(), keyBlock.Chipset.Name));
+            }
+
+            return keysAndEffects;
+        }
     }
 }

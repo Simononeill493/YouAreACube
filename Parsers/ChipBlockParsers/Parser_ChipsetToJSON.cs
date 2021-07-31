@@ -15,11 +15,10 @@ namespace IAmACube
         {
             chipsetToParse.AssertSanityTest();
 
-            var chipsDict = chipsetToParse.GetAllChipsAndSubChips().Select(c => new ChipJSONData(c)).ToDict();
-            var fullJSON = new FullChipsetJSONData(chipsetToParse, chipsDict);
+            var fullJSON = new FullChipsetJSONData(chipsetToParse);
 
-            _setReferencesForChipsWithOutputs(chipsDict);
-            _setChipValueInputs(chipsDict);
+            _setReferencesForChipsWithOutputs(fullJSON.ChipsDict);
+            _setChipValueInputs(fullJSON.ChipsDict);
 
             fullJSON.AlphabetSort();
             return fullJSON.GenerateString();
@@ -32,11 +31,11 @@ namespace IAmACube
                 for (int i = 0; i < Config.NumChipInputPins; i++)
                 {
                     var targetChips = chipJSON.Chip.GetTargetsList(i);
-                    _setChipReferenceInputs(chipJSON.Chip, i, targetChips, chipsDict);
+                    _setChipReferenceInputs(chipJSON.Chip, targetChips,i,chipsDict);
                 }
             }
         }
-        private static void _setChipReferenceInputs(IChip sourceChip, int inputPinIndex, IList targetChips, Dictionary<string, ChipJSONData> chipsDict)
+        private static void _setChipReferenceInputs(IChip sourceChip, IList targetChips,int inputPinIndex,Dictionary<string, ChipJSONData> chipsDict)
         {
             foreach (var targetChip in (IEnumerable<IChip>)targetChips)
             {
@@ -48,6 +47,7 @@ namespace IAmACube
         private static void _setChipValueInputs(Dictionary<string, ChipJSONData> chipsDict)
         {
             foreach (var (undefinedPin,chipJSON) in chipsDict.GetPinsWithUndefinedInput())
+            //any still undefined should be value types
             {
                 undefinedPin.InputType = InputOptionType.Value;
                 undefinedPin.InputValue = chipJSON.Chip.GetInputPinValue(undefinedPin.PinIndex);

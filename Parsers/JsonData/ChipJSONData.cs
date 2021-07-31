@@ -21,33 +21,19 @@ namespace IAmACube
         {
             Chip = iChip;
             BlockData = iChip.GetBlockData();
-
             Name = iChip.Name;
             GraphicalChipType = BlockData.BaseMappingName;
             ActualChipType = BlockData.Name;
 
-            _setBlankInputs();
-            _setTypeArgumentsFromChip();
-            _setSubChipsetsFromChip();
-        }
-        private void _setBlankInputs()
-        {
-            Inputs = new List<ChipJSONInputData>();
-            for (int i = 0; i < BlockData.NumInputs; i++)
-            {
-                Inputs.Add(new ChipJSONInputData(InputOptionType.Undefined, "",i));
-            }
-        }
-        private void _setTypeArgumentsFromChip()
-        {
             if (BlockData.IsGeneric)
             {
-                var type = Chip.GetType();
-                var typeArguments = type.GenericTypeArguments;
-                TypeArguments = typeArguments.Select(ta => TypeUtils.GetTypeDisplayName(ta)).ToList();
+                TypeArguments = Chip.GetTypeArgumentNames();
             }
+
+            Inputs = ChipJSONInputData.GenerateDefaultInputs(BlockData.NumInputs);
+            _setControlChipTargets();
         }
-        private void _setSubChipsetsFromChip()
+        private void _setControlChipTargets()
         {
             if (BlockData.Name.Equals("If"))
             {
@@ -59,14 +45,7 @@ namespace IAmACube
             else if (BlockData.Name.Equals("KeySwitch"))
             {
                 var keySwitchChip = (KeySwitchChip)Chip;
-                var keysAndEffects = new List<(string, string)>();
-
-                foreach (var keyBlock in keySwitchChip.KeyEffects)
-                {
-                    keysAndEffects.Add((keyBlock.Key.ToString(), keyBlock.Chipset.Name));
-                }
-
-                KeyEffects = keysAndEffects;
+                KeyEffects = keySwitchChip.KeyEffectsToString();
             }
         }
 
@@ -76,47 +55,18 @@ namespace IAmACube
         {
             Block = block;
             BlockData = block.BlockData;
-
             Name = block.Name;
             GraphicalChipType = block.BlockData.BaseMappingName;
-
-            _setBlockSubMapping();
-            _setTypeArgumentsFromBlock();
-            _setSelectedInputsFromBlock();
-            _setControlBlockTargets();
-        }
-        private void _setBlockSubMapping()
-        {
-            var selectedTypes = Block.GetSelectedInputTypes();
-            MappedBlockData =  BlockData.GetMappedBlockData(selectedTypes);
+            MappedBlockData = BlockData.GetMappedBlockData(Block.GetSelectedInputTypes());
             ActualChipType = MappedBlockData.Name;
-        }
-        private void _setTypeArgumentsFromBlock()
-        {
+
             if (MappedBlockData.IsGeneric)
             {
                 TypeArguments = Block.CurrentTypeArguments;
             }
-        }
-        private void _setSelectedInputsFromBlock()
-        {
-            Inputs = new List<ChipJSONInputData>();
-            var inputsList = Block.GetCurrentInputs();
-            for (int i = 0; i < inputsList.Count; i++)
-            {
-                _addBlockInputOption(inputsList[i],i);
-            }
-        }
-        private void _addBlockInputOption(BlockInputOption blockInputOption,int index)
-        {
-            var inputOptionType = blockInputOption.OptionType;
-            if (inputOptionType.Equals(InputOptionType.Parseable))
-            {
-                inputOptionType = InputOptionType.Value;
-            }
 
-            var inputData = new ChipJSONInputData(inputOptionType, blockInputOption.ToString(),index);
-            Inputs.Add(inputData);
+            Inputs = ChipJSONInputData.GenerateInputsFromBlock(Block);
+            _setControlBlockTargets();
         }
         private void _setControlBlockTargets()
         {

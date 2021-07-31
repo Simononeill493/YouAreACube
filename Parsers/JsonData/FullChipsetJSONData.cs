@@ -9,18 +9,31 @@ namespace IAmACube
     public class FullChipsetJSONData : List<ChipsetJSONData>
     {
         public FullChipsetJSONData() { }
-        public FullChipsetJSONData(Chipset chipsetToAdd, Dictionary<string, ChipJSONData> chipsDict)
+        public FullChipsetJSONData(Chipset chipsetToAdd)
         {
+            ChipsDict = chipsetToAdd.MakeChipsDict();
+
             foreach (var chipset in chipsetToAdd.GetChipsetAndSubChipsets())
             {
                 var chipsetJSON = new ChipsetJSONData(chipset);
-                chipsetJSON.Chips = chipsDict.FetchJSON(chipset.Chips);
+                chipsetJSON.Chips = ChipsDict.FetchJSON(chipset.Chips);
                 this.Add(chipsetJSON);
             }
         }
 
-        public Dictionary<string, ChipsetJSONData> GetChipsetsDict() => this.ToDict();
-        public Dictionary<string, ChipJSONData> GetChipsDict() => GetChips().ToDict();
+
+        [JsonIgnore]
+        public Dictionary<string, ChipsetJSONData> ChipsetsDict;
+        [JsonIgnore]
+        public Dictionary<string, ChipJSONData> ChipsDict;
+
+        public void MakeDicts()
+        {
+            ChipsetsDict = this.ToDict();
+            ChipsDict = GetChips().ToDict();
+        }
+
+
         public List<ChipJSONData> GetChips()
         {
             var output = new List<ChipJSONData>();
@@ -30,7 +43,7 @@ namespace IAmACube
             }
             return output;
         }
-        
+       
         public void SetBlockData() => GetChips().ForEach(c => c.SetBlockData());
 
         public void CreateBlocksetObjects(IBlocksetGenerator generator)

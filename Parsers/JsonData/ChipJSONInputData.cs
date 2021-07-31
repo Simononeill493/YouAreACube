@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,6 @@ namespace IAmACube
     {
         public InputOptionType InputType;
         public string InputValue;
-
         public int PinIndex;
 
         public ChipJSONInputData(InputOptionType inputType, string inputValue,int pinIndex)
@@ -23,23 +23,13 @@ namespace IAmACube
         {
             if(InputType != InputOptionType.Value)
             {
-                throw new Exception();
+                throw new Exception("Trying to parse chip input but is not a value type.");
             }
 
             if (typeName.Equals(nameof(CubeTemplate)))
             {
-                var splits = InputValue.Split('|');
-                if (splits.Length != 2)
-                {
-                    throw new Exception("Template chip input parsing error: " + InputValue);
-                }
-
-                var name = splits[0];
-                var version = int.Parse(splits[1]);
-                var template = Templates.Database[name][version];
-                return template;
+                return JSONDataUtils.JSONRepToTemplate(InputValue);
             }
-
 
             var type = TypeUtils.GetTypeByDisplayName(typeName);
             var typeValue = TypeUtils.ParseType(type, InputValue);
@@ -50,6 +40,39 @@ namespace IAmACube
             }
 
             return typeValue;
+        }
+
+        public static List<ChipJSONInputData> GenerateDefaultInputs(int num) 
+        {
+            var inputs = new List<ChipJSONInputData>();
+            for (int i = 0; i < num; i++)
+            {
+                inputs.Add(new ChipJSONInputData(InputOptionType.Undefined, "Undefined", i));
+            }
+
+            return inputs;
+        }
+
+        public static List<ChipJSONInputData> GenerateInputsFromBlock(BlockTop block)
+        {
+            var inputs = new List<ChipJSONInputData>();
+            var inputsList = block.GetCurrentInputs();
+            for (int i = 0; i < inputsList.Count; i++)
+            {
+                inputs.Add(GenerateInputFromBlockSection(inputsList[i], i));
+            }
+
+            return inputs;
+        }
+        public static ChipJSONInputData GenerateInputFromBlockSection(BlockInputOption blockInputOption, int pinIndex)
+        {
+            var inputOptionType = blockInputOption.OptionType;
+            if (inputOptionType == InputOptionType.Parseable)
+            {
+                inputOptionType = InputOptionType.Value;
+            }
+
+            return new ChipJSONInputData(inputOptionType, blockInputOption.ToString(), pinIndex);
         }
     }
 }
