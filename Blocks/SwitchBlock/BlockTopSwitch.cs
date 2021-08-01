@@ -27,10 +27,13 @@ namespace IAmACube
             _switchSectionBottom = new SpriteMenuItem(this, "ChipFullGreyed") { Visible = false };
             AddChild(_switchSectionBottom);
 
-            _actualSize.Y += _switchButtons.GetBaseSize().Y-1;
-            _unextendedSize = _actualSize;
+            _topSectionActualSize.Y += _switchButtons.GetBaseSize().Y-1;
+            _unextendedSize = _topSectionActualSize;
 
             _switchInitialOptions = switchInitialOptions;
+
+
+            SwitchBlocksets.ForEach(c => c.TopLevelRefreshAll = Callbacks.TopLevelRefreshAll);
         }
 
         private void _closeSwitchSection(bool shouldRefresh)
@@ -39,19 +42,18 @@ namespace IAmACube
             {
                 _extendedBlockset.Visible = false;
                 _extendedBlockset.Enabled = false;
-
             }
 
             _switchSectionBottom.Visible = false;
             _switchSectionBottom.Enabled = false;
 
-            _actualSize = _unextendedSize;
+            _topSectionActualSize = _unextendedSize;
 
             _extendedBlockset = null;
 
             if (shouldRefresh)
             {
-                TopLevelRefreshAll();
+                Callbacks.TopLevelRefreshAll();
             }
         }
         private void _openSwitchSection(int sectionIndex)
@@ -60,7 +62,7 @@ namespace IAmACube
 
             _extendedBlockset = SwitchBlocksets[sectionIndex];
 
-            TopLevelRefreshAll();
+            Callbacks.TopLevelRefreshAll();
         }
 
         #region dimensions
@@ -68,25 +70,25 @@ namespace IAmACube
 
         private void _setSectionLocations()
         {
-            _actualSize = _unextendedSize;
+            _topSectionActualSize = _unextendedSize;
 
             _extendedBlockset.Visible = true;
             _extendedBlockset.Enabled = true;
-            _extendedBlockset.SetLocationConfig(0, _actualSize.Y - 1, CoordinateMode.ParentPixelOffset);
+            _extendedBlockset.SetLocationConfig(0, _topSectionActualSize.Y - 1, CoordinateMode.ParentPixelOffset);
             _extendedBlockset.UpdateDrawLayerCascade(DrawLayer - DrawLayers.MinLayerDistance);
-            _actualSize.Y += _extendedBlockset.HeightOfAllBlocks - 1;
+            _topSectionActualSize.Y += _extendedBlockset.HeightOfAllBlocks - 1;
 
             _switchSectionBottom.Visible = true;
             _switchSectionBottom.Enabled = true;
 
-            _switchSectionBottom.SetLocationConfig(0, _actualSize.Y, CoordinateMode.ParentPixelOffset);
-            _actualSize.Y += _switchSectionBottom.GetBaseSize().Y;
+            _switchSectionBottom.SetLocationConfig(0, _topSectionActualSize.Y, CoordinateMode.ParentPixelOffset);
+            _topSectionActualSize.Y += _switchSectionBottom.GetBaseSize().Y;
         }
 
         public override bool IsMouseOverBottomSection() => _switchSectionExtended ? _switchSectionBottom.MouseHovering : _switchButtons.MouseHovering;
-        protected override bool _isMouseOverInternalSections()
+        protected override bool _isMouseOverLowerSection()
         {
-            if (base._isMouseOverInternalSections() | _switchButtons.MouseHovering)
+            if (base._isMouseOverLowerSection() | _switchButtons.MouseHovering)
             {
                 return true;
             }
@@ -104,11 +106,11 @@ namespace IAmACube
         private List<string> _switchInitialOptions;
         public override void GenerateSubChipsets() => _addNewSwitchSections(_switchInitialOptions);
         protected void _addNewSwitchSections(List<string> sectionNames) => sectionNames.ForEach(n => _addNewSwitchSection(n));
-        protected void _addNewSwitchSection(string sectionName) => AddSwitchSection(sectionName, _generator.CreateBlockset(Name+"-subChip_"+(GetSubBlocksets().Count+1.ToString())));
+        protected void _addNewSwitchSection(string sectionName) => AddSwitchSection(sectionName, BlocksetGenerator.CreateBlockset(Name+"-subChip_"+(GetSubBlocksets().Count+1.ToString())));
 
         public void AddSwitchSection(string sectionName,Blockset switchChipset)
         {
-            switchChipset.TopLevelRefreshAll = TopLevelRefreshAll;
+            switchChipset.TopLevelRefreshAll = Callbacks.TopLevelRefreshAll;
             switchChipset.Enabled = false;
             switchChipset.Visible = false;
             switchChipset.Draggable = false;
@@ -121,17 +123,17 @@ namespace IAmACube
         #endregion
 
         public override List<Blockset> GetSubBlocksets() => SwitchBlocksets.ToList();
-        public override void DropBlocksOn(List<BlockTop> chips, UserInput input) 
+        public override void DropBlocksOnThis(List<BlockTop> chips, UserInput input) 
         {
             if (!_switchSectionExtended)
             {
-                base.DropBlocksOn(chips, input);
+                base.DropBlocksOnThis(chips, input);
             }
             else
             {
                 if(_extendedBlockset.IsMouseOverAnyBlock())
                 {
-                    _extendedBlockset.DropBlocksOn(chips, input);
+                    _extendedBlockset.DropBlocksOnThis(chips, input);
                 }
                 else if(_switchSectionBottom.MouseHovering)
                 {
@@ -139,7 +141,7 @@ namespace IAmACube
                 }
                 else
                 {
-                    base.DropBlocksOn(chips, input);
+                    base.DropBlocksOnThis(chips, input);
                 }
             }
         }
@@ -173,11 +175,5 @@ namespace IAmACube
                 _setSectionLocations();
             }
         }
-        protected override void _setTopLevelRefreshAll(Action topLevelRefreshAll)
-        {
-            base._setTopLevelRefreshAll(topLevelRefreshAll);
-            SwitchBlocksets.ForEach(c => c.TopLevelRefreshAll = topLevelRefreshAll);
-        }
-
     }
 }

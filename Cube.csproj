@@ -48,7 +48,11 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Blocks\BlockData_Mapping.cs" />
+    <Compile Include="Blocks\BlockData\BlockData_Mapping.cs" />
+    <Compile Include="Blocks\BlockParentCallbacks.cs" />
+    <Compile Include="Blocks\Input\BlockTemplateSelector\BlockInputSectionForTemplate.cs" />
+    <Compile Include="Blocks\Input\BlockDropdown\BlockInputSectionWithDropdown.cs" />
+    <Compile Include="Blocks\Blocksets\Blockset_Container.cs" />
     <Compile Include="Camera\CameraConfiguration.cs" />
     <Compile Include="Camera\CameraUtils.cs" />
     <Compile Include="Camera\FixedCamera.cs" />
@@ -80,8 +84,8 @@
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\AddToListChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\GetListItemAtIndexChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\ShuffleListChip.cs" />
-    <Compile Include="Blocks\BlockData.cs" />
-    <Compile Include="Blocks\BlockDataDatabase.cs" />
+    <Compile Include="Blocks\BlockData\BlockData.cs" />
+    <Compile Include="Blocks\BlockData\BlockDataDatabase.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\Pins\InputPin2.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\Pins\InputPin3.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\Create\CreateCardinalChip.cs" />
@@ -108,7 +112,7 @@
     <Compile Include="Parsers\JsonData\ChipsetJSONData.cs" />
     <Compile Include="Parsers\JsonData\ChipJSONData.cs" />
     <Compile Include="Parsers\JsonData\FullChipsetJSONData.cs" />
-    <Compile Include="Blocks\BlockDataGenerationTester.cs" />
+    <Compile Include="Blocks\BlockData\BlockDataGenerationTester.cs" />
     <Compile Include="Parsers\JsonData\JSONDataUtils.cs" />
     <Compile Include="Testing\BlockInputSection_SanityTesting.cs" />
     <Compile Include="Testing\Blockset_SanityTesting.cs" />
@@ -139,6 +143,7 @@
     <Compile Include="Gameplay\Direction\DirectionUtils.cs" />
     <Compile Include="Gameplay\Updates\SectorUpdateManager.cs" />
     <Compile Include="Gameplay\Updates\Tick\WorldTicker.cs" />
+    <Compile Include="Utils\BlockUtils.cs" />
     <Compile Include="WorldGen\AttachmentUtils.cs" />
     <Compile Include="WorldGen\SectorGenerator.cs" />
     <Compile Include="Misc\LocationWithNeighbors.cs" />
@@ -150,20 +155,20 @@
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateQuitDialog\TemplateQuitButtonOption.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateQuitDialog\TemplateQuitDialog.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateSaveDialog\TemplateSaveDialog.cs" />
-    <Compile Include="Blocks\BlockDropdown\BlockInputOptions\BlockInputOptionParseable.cs" />
+    <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOptionParseable.cs" />
     <Compile Include="Blocks\SwitchBlock\BlockSwitchButtons.cs" />
     <Compile Include="Blocks\SwitchBlock\BlockTopSwitch.cs" />
     <Compile Include="Utils\TemplateEdit\ChipDropdownUtils.cs" />
-    <Compile Include="Blocks\BlockDropdown\BlockInputOptions\BlockInputOption.cs" />
-    <Compile Include="Blocks\BlockDropdown\BlockInputOptions\BlockInputOptionValue.cs" />
-    <Compile Include="Blocks\BlockDropdown\BlockDropdownFactory.cs" />
-    <Compile Include="Blocks\BlockDropdown\BlockInputOptions\BlockInputOptionReference.cs" />
-    <Compile Include="Blocks\BlockSubItems\BlockItemOutputLabel.cs" />
+    <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOption.cs" />
+    <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOptionValue.cs" />
+    <Compile Include="Blocks\Input\BlockDropdown\BlockDropdownFactory.cs" />
+    <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOptionReference.cs" />
+    <Compile Include="Blocks\Output\BlockItemOutputLabel.cs" />
     <Compile Include="Blocks\BlockTop.cs" />
-    <Compile Include="Blocks\Blockset_Refresh.cs" />
-    <Compile Include="Blocks\BlocksetInterfaces\IBlocksDroppableOn.cs" />
-    <Compile Include="Blocks\BlocksetInterfaces\IBlocksetGenerator.cs" />
-    <Compile Include="Blocks\BlocksetInterfaces\IBlocksetContainer.cs" />
+    <Compile Include="Blocks\Blocksets\Blockset_Refresh.cs" />
+    <Compile Include="Blocks\Blocksets\BlocksetInterfaces\IBlocksDroppableOn.cs" />
+    <Compile Include="Blocks\Blocksets\BlocksetInterfaces\IBlocksetGenerator.cs" />
+    <Compile Include="Blocks\Blocksets\BlocksetInterfaces\IBlocksetContainer.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateSaveDialog\TemplateSaveDialogOption.cs" />
     <Compile Include="UI\Screens\InGameScreens\InGameMenus\InGameMenuScreen.cs" />
     <Compile Include="UI\Screens\InGameScreens\InGameMenus\TemplateEditScreen.cs" />
@@ -183,13 +188,13 @@
     <Compile Include="UI\Menus_Generic\MenuItems\Base\SearchBarMenuItem.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateBox.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\BlockEditPane.cs" />
-    <Compile Include="Blocks\BlockDropdown\BlockInputDropdown.cs" />
-    <Compile Include="Blocks\BlockSections\BlockSectionFactory.cs" />
-    <Compile Include="Blocks\BlockTopWithOutput.cs" />
-    <Compile Include="Blocks\BlockSections\BlockInputSection.cs" />
+    <Compile Include="Blocks\Input\BlockDropdown\BlockInputDropdown.cs" />
+    <Compile Include="Blocks\BlockSectionFactory.cs" />
+    <Compile Include="Blocks\Output\BlockTopWithOutput.cs" />
+    <Compile Include="Blocks\Input\BlockInputSection.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlockSearcher\BlockPreview.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlockSearcher\BlockSearchPane.cs" />
-    <Compile Include="Blocks\Blockset.cs" />
+    <Compile Include="Blocks\Blocksets\Blockset.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateEditMenu.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateExplorerMenu.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedMenu.cs" />

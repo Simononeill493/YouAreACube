@@ -16,7 +16,7 @@ namespace IAmACube
                 _topLevelRefreshAll = value;
                 foreach(var c in Blocks)
                 {
-                    c.TopLevelRefreshAll = _topLevelRefreshAll;
+                    c.Callbacks.TopLevelRefreshAll = _topLevelRefreshAll;
                 }
             }
         }

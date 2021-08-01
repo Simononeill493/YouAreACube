@@ -49,7 +49,7 @@ namespace IAmACube
 
         private void _pan(UserInput input)
         {
-            var trueScale = _chipScaleMultiplier * Scale;
+            var trueScale = _blockScaleMultiplier * Scale;
             var panDiffBase = input.MousePos - _panPos;
             var panDiff = (panDiffBase / trueScale).Ceiling;
 

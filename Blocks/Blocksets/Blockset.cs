@@ -14,7 +14,6 @@ namespace IAmACube
 
         private Action<List<BlockTop>, UserInput, Blockset> _liftBlocksCallback;
         public int HeightOfAllBlocks;
-        private IBlocksetContainer _currentContainer;
 
         public Blockset(string name,IHasDrawLayer parent,float scaleMultiplier,Action<List<BlockTop>,UserInput,Blockset> liftBlocksCallback) : base(parent, "TopOfChipset")
         {
@@ -28,12 +27,12 @@ namespace IAmACube
 
 
         public void AppendBlockToTop(BlockTop blockToDrop) => AppendBlocksToTop(new List<BlockTop>() { blockToDrop });
-        public void AppendBlocksToTop(List<BlockTop> blocksToDrop) => AppendBlocks(blocksToDrop, 0);
+        public void AppendBlocksToTop(List<BlockTop> blocksToDrop) => _appendBlocks(blocksToDrop, 0);
 
-        public void AppendBlockToBottom(BlockTop chipToDrop) => AppendBlocksToBottom(new List<BlockTop>() { chipToDrop });
-        public void AppendBlocksToBottom(List<BlockTop> chipsToDrop) => AppendBlocks(chipsToDrop, Blocks.Count);
+        public void AppendBlockToBottom(BlockTop blockToDrop) => AppendBlocksToBottom(new List<BlockTop>() { blockToDrop });
+        public void AppendBlocksToBottom(List<BlockTop> blocksToDrop) => _appendBlocks(blocksToDrop, Blocks.Count);
 
-        public void DropBlocksOn(List<BlockTop> blocksToDrop, UserInput input)
+        public void DropBlocksOnThis(List<BlockTop> blocksToDrop, UserInput input)
         {
             var itemToDropOn = _getBlocksetSectionMouseIsOver();
 
@@ -48,26 +47,24 @@ namespace IAmACube
             }
             else
             {
-                itemToDropOn.DropBlocksOn(blocksToDrop, input);
+                itemToDropOn.DropBlocksOnThis(blocksToDrop, input);
             }
         }
 
-        public void AppendBlocks(List<BlockTop> toAdd, int index)
+        private void _appendBlocks(List<BlockTop> toAdd, int index)
         {
             Blocks.InsertRange(index, toAdd);
             AddChildren(toAdd);
-
-            foreach (var chip in toAdd)
-            {
-                chip.UpdateDrawLayerCascade(DrawLayer);
-                chip.BlockLiftedCallback = _blockLiftedFromBlockset;
-                chip.AppendBlocks = AppendBlocks;
-                chip.BlocksetRefreshText = RefreshText;
-                chip.TopLevelRefreshAll = TopLevelRefreshAll;
-            }
+            toAdd.ForEach(b => _setParentDataForBlock(b));
 
             TopLevelRefreshAll();
         }
+        private void _setParentDataForBlock(BlockTop block)
+        {
+            block.UpdateDrawLayerCascade(DrawLayer);
+            block.Callbacks = new BlockParentCallbacks(block,_blockLiftedFromBlockset, _appendBlocks, RefreshText, TopLevelRefreshAll);
+        }
+
         public List<BlockTop> PopBlocks(int index)
         {
             var toRemove = Blocks.Skip(index).ToList();
@@ -77,36 +74,6 @@ namespace IAmACube
             TopLevelRefreshAll();
             return toRemove;
         }
-
-
-        public void SetContainer(IBlocksetContainer newContainer)
-        {
-            if (newContainer == _currentContainer) { return; }
-
-            ClearContainer();
-
-            newContainer.AddBlockset(this);
-            _currentContainer = newContainer;
-        }
-        public void ClearContainer()
-        {
-            if (_currentContainer != null)
-            {
-                _currentContainer.RemoveBlockset(this);
-            }
-
-            _currentContainer = null;
-        }
-        public override void Dispose()
-        {
-            if (_currentContainer != null)
-            {
-                throw new Exception("Tried to dispose a chipset that is still contained!");
-            }
-
-            base.Dispose();
-        }
-
 
         public bool IsMouseOverAnyBlock() => _getBlocksetSectionMouseIsOver() != null;
 
@@ -131,6 +98,7 @@ namespace IAmACube
 
             return output;
         }
+
 
 
         private void _blockLiftedFromBlockset(BlockTop block, UserInput input)

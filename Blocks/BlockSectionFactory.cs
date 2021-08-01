@@ -15,7 +15,7 @@ namespace IAmACube
             var dataType = parent.BlockData.GetInputTypes(sectionIndex);
             var displayName = parent.BlockData.GetInputDisplayName(sectionIndex);
 
-            var inputSection = new BlockInputSection(parentDrawLayer, dataType, displayName);
+            var inputSection = new BlockInputSectionWithDropdown(parentDrawLayer, dataType, displayName);
             inputSection.ColorMask = parent.ColorMask;
 
             return inputSection;

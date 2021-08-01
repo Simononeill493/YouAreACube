@@ -46,23 +46,14 @@ namespace IAmACube
         private void _outputLabelTextChanged(string newText)
         {
             Name = newText;
-            BlocksetRefreshText();
+            Callbacks.RefreshBlocksetText();
         }
 
-        protected override void _inputSectionDropdownChanged(BlockInputSection section,BlockInputDropdown dropdown, BlockInputOption optionSelected)
+        protected override void _inputSectionSelectionChanged(BlockInputSection section, BlockInputOption optionSelected)
         {
-            base._inputSectionDropdownChanged(section, dropdown, optionSelected);
+            base._inputSectionSelectionChanged(section, optionSelected);
 
             OutputTypeCurrent = OutputTypeBase.Replace("Variable", CurrentTypeArguments.First());
-
-            /*if(OutputTypeBase.Contains("Cube"))
-            {
-                if(optionSelected.BaseType.Equals(nameof(BlockMode)))
-                {
-                    OutputTypeCurrent = OutputTypeBase.Replace("Cube", optionSelected.ToString() + "Cube");
-                }
-            }*/
-
             _topLevelRefreshAll_Delayed();
         }
     }

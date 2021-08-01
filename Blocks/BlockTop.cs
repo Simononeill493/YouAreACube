@@ -1,79 +1,76 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace IAmACube
 {
+
     public partial class BlockTop : SpriteMenuItem, IBlocksDroppableOn
     {
         public string Name;
-
-        public BlockData BlockData;
         public int IndexInBlockset = -1;
+        public BlockData BlockData;
+
+        public List<string> CurrentTypeArguments = BlockUtils.NoTypeArguments;
+        public List<BlockInputSection> InputSections = new List<BlockInputSection>();
+        public BlockParentCallbacks Callbacks;
 
         public bool HasOutput => BlockData.HasOutput;
-        public List<string> CurrentTypeArguments;
 
         public BlockTop(string name,IHasDrawLayer parent, BlockData data) : base(parent, "ChipFull") 
         {
-            CurrentTypeArguments = new List<string>() { "" };
-
             Name = name;
-            _actualSize = base.GetBaseSize();
-
             BlockData = data;
             ColorMask = BlockData.ChipDataType.GetColor();
             OnMouseDraggedOn += _onDragHandler;
 
-            _inputSections = new List<BlockInputSection>();
+            _topSectionActualSize = base.GetBaseSize();
 
-            var title = _addTextItem(BlockData.Name, 7, 6, CoordinateMode.ParentPixelOffset, false);
-            title.Color = Color.White;
-
+            _createBlockNameText();
             _createInputSections();
-            if (_inputSections.Count > 0)
-            {
-                _inputSections[_inputSections.Count - 1].SpriteName = "ChipFullEnd";
-            }
+            _setEndSpriteForLastInputSection();
         }
 
-        #region liftChips
-        public Action<BlockTop, UserInput> BlockLiftedCallback;
+        private void _createBlockNameText()
+        {
+            var title = _addTextItem(BlockData.Name, 7, 6, CoordinateMode.ParentPixelOffset, false);
+            title.Color = Color.White;
+        }
+
+        private void _setEndSpriteForLastInputSection()
+        {
+            if (InputSections.Count > 0)
+            {
+                InputSections[InputSections.Count - 1].SpriteName = "ChipFullEnd";
+            }
+        }
 
         private void _onDragHandler(UserInput input)
         {
-            if (!_isMouseOverInternalSections())
+            if (!_isMouseOverLowerSection())
             {
-                BlockLiftedCallback(this, input);
+                Callbacks.BlockLifted(this, input);
             }
         }
-        #endregion
 
-        #region dropChips
-        public Action<List<BlockTop>, int> AppendBlocks;
-
-        public virtual void DropBlocksOn(List<BlockTop> chips, UserInput input)
+        public virtual void DropBlocksOnThis(List<BlockTop> chips, UserInput input)
         {
             if (IsMouseOverBottomSection())
             {
-                AppendBlocks(chips, IndexInBlockset + 1);
+                Callbacks.AppendBlocks(chips, IndexInBlockset + 1);
             }
             else
             {
-                AppendBlocks(chips, IndexInBlockset);
+                Callbacks.AppendBlocks(chips, IndexInBlockset);
             }
         }
-        #endregion
 
-        #region inputsections
-        protected List<BlockInputSection> _inputSections;
-        public List<BlockInputOption> GetCurrentInputs() => _inputSections.Select(section => section.CurrentlySelected).ToList();
-        public void ManuallySetInputSection(BlockInputOption item,int index) =>_inputSections[index].ManuallySetDropdown(item);
+        public List<BlockInputOption> GetCurrentInputs() => InputSections.Select(section => section.CurrentlySelected).ToList();
+        public void ManuallySetInputSection(BlockInputOption item,int index) =>InputSections[index].ManuallySetInput(item);
         
         public void SetInputConnectionsFromAbove(List<BlockTop> chipsAbove)
         {
-            _inputSections.ForEach(m => m.SetConnectionsFromAbove(chipsAbove));
+            InputSections.ForEach(m => m.SetConnectionsFromAbove(chipsAbove));
 
             foreach (var subChipset in GetSubBlocksets())
             {
@@ -88,27 +85,27 @@ namespace IAmACube
             for (int i = 0; i < BlockData.NumInputs; i++)
             {
                 var section = BlockSectionFactory.CreateInputSection(this, i);
-                section.DropdownSelectedCallback = _inputSectionDropdownChanged;
-                _inputSections.Add(section);
+                section.ItemSelectedCallback = _inputSectionSelectionChanged;
+                InputSections.Add(section);
             }
 
-            AddChildren(_inputSections);
+            AddChildren(InputSections);
             _setInputSectionPositions();
         }
         protected void _setInputSectionPositions()
         {
             var height = base.GetBaseSize().Y - 1;
 
-            foreach (var section in _inputSections)
+            foreach (var section in InputSections)
             {
                 section.SetLocationConfig(0, height, CoordinateMode.ParentPixelOffset);
                 height += section.GetBaseSize().Y;
             }
 
-            _actualSize.Y = height;
+            _topSectionActualSize.Y = height;
         }
 
-        protected virtual void _inputSectionDropdownChanged(BlockInputSection section, BlockInputDropdown dropdown, BlockInputOption optionSelected)
+        protected virtual void _inputSectionSelectionChanged(BlockInputSection section, BlockInputOption optionSelected)
         {
             if (optionSelected.OptionType == InputOptionType.Reference)
             {
@@ -134,39 +131,22 @@ namespace IAmACube
 
             }
         }
-        #endregion
 
-        #region dimensions
-        public bool IsMouseOverAnySection() => MouseHovering | _isMouseOverInternalSections();
-        public virtual bool IsMouseOverBottomSection() 
-        {
-            if(_inputSections.Count == 0)
-            {
-                return true;
-            }
+        public bool IsMouseOverAnySection() => MouseHovering | _isMouseOverLowerSection();
+        public virtual bool IsMouseOverBottomSection() => (InputSections.Count == 0) || InputSections.Last().MouseHovering;
+        protected virtual bool _isMouseOverLowerSection() => InputSections.Select(s => s.MouseHovering).Any(h => h);
 
-            return _inputSections.Last().MouseHovering;
-        } 
-        protected virtual bool _isMouseOverInternalSections() => _inputSections.Select(s => s.MouseHovering).Any(h => h);
+        public override IntPoint GetBaseSize() => _topSectionActualSize;
+        protected IntPoint _topSectionActualSize;
 
-        public override IntPoint GetBaseSize() => _actualSize;
-        protected IntPoint _actualSize;
-        #endregion
-
-        #region refresh
-        public Action TopLevelRefreshAll { get { return _topLevelRefreshAll; } set { _setTopLevelRefreshAll(value); } }
-        protected virtual void _setTopLevelRefreshAll(Action topLevelRefreshAll) => _topLevelRefreshAll = topLevelRefreshAll;
-        private Action _topLevelRefreshAll;
 
         protected void _topLevelRefreshAll_Delayed() => _delayedTopLevelRefreshAll = true;
         private bool _delayedTopLevelRefreshAll = false;
 
-        public Action BlocksetRefreshText;
 
-        public virtual void RefreshAll() { }
         public void RefreshText()
         {
-            _inputSections.ForEach(s => s.RefreshText());
+            InputSections.ForEach(s => s.RefreshText());
             GetSubBlocksets().ForEach(s => s.RefreshText());
         }
 
@@ -176,44 +156,19 @@ namespace IAmACube
 
             if(_delayedTopLevelRefreshAll)
             {
-                TopLevelRefreshAll();
+                Callbacks.TopLevelRefreshAll();
                 _delayedTopLevelRefreshAll = false;
             }
         }
-        #endregion
 
-        public IBlocksetGenerator _generator;
-        public void SetGenerator(IBlocksetGenerator generator) => _generator = generator;
+        public IBlocksetGenerator BlocksetGenerator;
 
-        public List<string> GetSelectedInputTypes()
-        {
-            var output = _inputSections.Select(s => s.CurrentlySelected.BaseType).ToList();
-            return output;
-        }
-        public virtual void GenerateSubChipsets() { }
         public virtual List<Blockset> GetSubBlocksets() => new List<Blockset>();
 
-        public static BlockTop GenerateBlockFromBlockData(BlockData data,string name = "")
-        {
-            var initialDrawLayer = ManualDrawLayer.Zero;
 
-            if (data.Name.Equals("If"))
-            {
-                return new BlockTopSwitch(name,initialDrawLayer, data, new List<string>() { "Yes", "No" });
-            }
-            if (data.Name.Equals("KeySwitch"))
-            {
-                return new BlockTopSwitch(name,initialDrawLayer, data, new List<string>() {  });
-            }
-            else if(data.HasOutput)
-            {
-                return new BlockTopWithOutput(name,initialDrawLayer, data);
-            }
-            else
-            {
-                return new BlockTop(name,initialDrawLayer, data);
-            }
-        }
+
+        public virtual void RefreshAll() { }
+        public virtual void GenerateSubChipsets() { }
 
         public override string ToString() => Name;
     }

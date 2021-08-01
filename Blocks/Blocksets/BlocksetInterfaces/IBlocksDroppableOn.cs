@@ -8,6 +8,6 @@ namespace IAmACube
 {
     public interface IBlocksDroppableOn
     {
-        void DropBlocksOn(List<BlockTop> blocks, UserInput input);
+        void DropBlocksOnThis(List<BlockTop> blocks, UserInput input);
     }
 }

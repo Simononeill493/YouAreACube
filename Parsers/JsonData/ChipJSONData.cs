@@ -123,8 +123,8 @@ namespace IAmACube
                 dataToCreateWith = BlockData.BaseMappingBlock;
             }
 
-            Block = BlockTop.GenerateBlockFromBlockData(dataToCreateWith, this.Name);
-            Block.SetGenerator(generator);
+            Block = BlockUtils.GenerateBlockFromBlockData(dataToCreateWith, this.Name);
+            Block.BlocksetGenerator = generator;
         }
 
         [JsonIgnore]

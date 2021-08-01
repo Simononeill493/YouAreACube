@@ -13,15 +13,15 @@ namespace IAmACube
         public List<Blockset> TopLevelChipsets;
 
         private const float MinimumChipScale = 2.0f;
-        private float _chipScaleMultiplier = 1.0f;
-        private List<Blockset> _allChipsets;
+        private float _blockScaleMultiplier = 1.0f;
+        private List<Blockset> _allBlocksets;
 
 
         public BlockEditPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "ChipEditPane")
         {
             DrawLayer = DrawLayers.MenuBehindLayer;
 
-            _allChipsets = new List<Blockset>();
+            _allBlocksets = new List<Blockset>();
             TopLevelChipsets = new List<Blockset>();
 
             var size = GetBaseSize();
@@ -51,29 +51,29 @@ namespace IAmACube
             }
         }
 
-        public void ConfigureNewChipsetFromSearchPaneClick(BlockTop newChip, UserInput input)
+        public void ConfigureNewBlocksetFromSearchPaneClick(BlockTop newBlock, UserInput input)
         {
-            newChip.MultiplyScaleCascade(_chipScaleMultiplier);
-            newChip.SetGenerator(this);
-            newChip.GenerateSubChipsets();
+            newBlock.MultiplyScaleCascade(_blockScaleMultiplier);
+            newBlock.BlocksetGenerator = this;
+            newBlock.GenerateSubChipsets();
 
             var newChipset = _createNewChipsetForMouse(input);
-            newChipset.AppendBlockToTop(newChip);
+            newChipset.AppendBlockToTop(newBlock);
         }
-        public void ConfigureNewChipsetFromExistingChips(List<BlockTop> newChips, UserInput input, Blockset removedFrom)
+        public void ConfigureNewBlocksetFromExistingBlocks(List<BlockTop> newBlocks, UserInput input, Blockset removedFrom)
         {
-            var newChipset = _createNewChipsetForMouse(input);
-            newChipset.AppendBlocks(newChips, 0);
+            var newBlockset = _createNewChipsetForMouse(input);
+            newBlockset.AppendBlocksToTop(newBlocks);
 
             _checkForChipsetGarbageCollection(removedFrom);
         }
         public Blockset CreateBlockset(string name)
         {
-            var newChipset = new Blockset(name, this, _chipScaleMultiplier, ConfigureNewChipsetFromExistingChips);
-            newChipset.OnEndDrag += (i) => _chipsetDropped(newChipset, i);
+            var newBlockset = new Blockset(name, this, _blockScaleMultiplier, ConfigureNewBlocksetFromExistingBlocks);
+            newBlockset.OnEndDrag += (i) => _chipsetDropped(newBlockset, i);
 
-            _allChipsets.Add(newChipset);
-            return newChipset;
+            _allBlocksets.Add(newBlockset);
+            return newBlockset;
         }
 
         public void AddBlockset(Blockset newChipset)
@@ -115,7 +115,7 @@ namespace IAmACube
             if (hoveredChipset != null)
             {
                 var chipsToDrop = toAttach.PopBlocks(0);
-                hoveredChipset.DropBlocksOn(chipsToDrop, input);
+                hoveredChipset.DropBlocksOnThis(chipsToDrop, input);
                 _destroyChipset(toAttach);
             }
             else
@@ -151,7 +151,7 @@ namespace IAmACube
         }
         private Blockset _createNewChipsetForMouse(UserInput input)
         {
-            var newChipset = CreateBlockset("Chipset_" + _allChipsets.Count+1);
+            var newChipset = CreateBlockset("Chipset_" + _allBlocksets.Count+1);
             _setChipsetToTopLevel(newChipset);
 
             newChipset.SetLocationConfig(input.MousePos, CoordinateMode.Absolute, centered: true);
@@ -168,7 +168,7 @@ namespace IAmACube
         }
         private void _destroyChipset(Blockset chipset)
         {
-            _allChipsets.Remove(chipset);
+            _allBlocksets.Remove(chipset);
             chipset.ClearContainer();
             chipset.Dispose();
             
@@ -193,7 +193,7 @@ namespace IAmACube
         }
         private void _pushChipScalingUpIfTooSmall()
         {
-            var currentChipScale = GenerateScaleFromMultiplier(_chipScaleMultiplier);
+            var currentChipScale = GenerateScaleFromMultiplier(_blockScaleMultiplier);
             if (currentChipScale < MinimumChipScale)
             {
                 var toTwoMultiplier = MinimumChipScale / currentChipScale;
@@ -202,7 +202,7 @@ namespace IAmACube
         }
         private void _multiplyChipScale(float multiplier)
         {
-            _chipScaleMultiplier *= multiplier;
+            _blockScaleMultiplier *= multiplier;
             TopLevelChipsets.ForEach(chip => chip.MultiplyScaleCascade(multiplier));
             _updateChildDimensions();
         }

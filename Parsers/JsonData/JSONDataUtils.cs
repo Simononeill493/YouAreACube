@@ -72,5 +72,10 @@ namespace IAmACube
             return template.Versions.Name + '|' + template.Version;
         }
 
+        public static List<string> GetSelectedInputTypes(this BlockTop block)
+        {
+            var output = block.InputSections.Select(s => s.CurrentlySelected.BaseType).ToList();
+            return output;
+        }
     }
 }

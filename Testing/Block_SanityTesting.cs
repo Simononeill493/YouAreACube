@@ -22,9 +22,9 @@ namespace IAmACube
                 name = Name;
             }
 
-            for(int i=0;i<_inputSections.Count;i++)
+            for(int i=0;i<InputSections.Count;i++)
             {
-                var result = _inputSections[i].SanityTest(names);
+                var result = InputSections[i].SanityTest(names);
                 output.AddRange(result.Select(r => name + ", Input Section " + i + ": " + r));
             }
 

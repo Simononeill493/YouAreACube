@@ -37,7 +37,7 @@ namespace IAmACube
             AddChild(_searchPane);
 
             _editPane.IsMouseOverSearchPane = _searchPane.IsMouseOver;
-            _searchPane.AddToEditPane = _editPane.ConfigureNewChipsetFromSearchPaneClick;
+            _searchPane.AddToEditPane = _editPane.ConfigureNewBlocksetFromSearchPaneClick;
             _searchPane.RefreshFilter();
 
             _editPane.LoadTemplateForEditing(_baseTemplate);
