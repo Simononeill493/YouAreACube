@@ -22,8 +22,11 @@ namespace IAmACube
             }
             else if (dataType.Equals(nameof(CubeTemplate)))
             {
-                var templates = _createOptionsFromItems(Templates.Database.Values.SelectMany(v=>v.Versions).ToList());
-                return templates.Cast<BlockInputOption>().ToList();
+                var cubeTemplateSelect = new BlockInputOptionSubMenu("Select Template...",()=> { });
+
+                return new List<BlockInputOption>() { cubeTemplateSelect };
+                //var templates = _createOptionsFromItems(Templates.Database.Values.SelectMany(v=>v.Versions).ToList());
+                //return templates.Cast<BlockInputOption>().ToList();
             }
             else
             {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,7 +14,8 @@ namespace IAmACube
 
         public List<string> CurrentTypeArguments = BlockUtils.NoTypeArguments;
         public List<BlockInputSection> InputSections = new List<BlockInputSection>();
-        public BlockParentCallbacks Callbacks;
+        public BlockParentCallbacks Callbacks = BlockParentCallbacks.Empty;
+
 
         public bool HasOutput => BlockData.HasOutput;
 

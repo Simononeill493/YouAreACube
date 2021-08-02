@@ -71,6 +71,13 @@
 	  "output":"bool"
     },
 	{
+      "name":"GetCubeTemplate",
+	  "datatype":"General",
+	  "inputs":["AnyCube"],
+	  "output":"CubeTemplate"
+    },
+
+	{
       "name":"FirstOfList",
 	  "datatype":"General",
 	  "inputs":["List<Variable>"],

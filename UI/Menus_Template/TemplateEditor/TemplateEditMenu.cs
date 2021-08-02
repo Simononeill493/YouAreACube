@@ -40,6 +40,11 @@ namespace IAmACube
             _searchPane.AddToEditPane = _editPane.ConfigureNewBlocksetFromSearchPaneClick;
             _searchPane.RefreshFilter();
 
+            //var templateSearchPane = new TemplateExplorerMenu(this, new Kernel(), (a) => { });
+            //templateSearchPane.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
+            //templateSearchPane.UpdateDrawLayerCascade(DrawLayer - (DrawLayers.MinLayerDistance * 10));
+            //AddChild(templateSearchPane);
+
             _editPane.LoadTemplateForEditing(_baseTemplate);
         }
 

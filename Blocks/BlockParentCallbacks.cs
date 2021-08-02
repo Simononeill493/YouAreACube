@@ -15,7 +15,7 @@ namespace IAmACube
             set 
             {
                 _topLevelRefreshAll = value;
-                _parent.GetSubBlocksets().ForEach(c => c.TopLevelRefreshAll = value);
+                _parent?.GetSubBlocksets().ForEach(c => c.TopLevelRefreshAll = value);
             }
         }
         private Action _topLevelRefreshAll;
@@ -29,5 +29,7 @@ namespace IAmACube
             RefreshBlocksetText = refreshBlocksetText;
             TopLevelRefreshAll = topLevelRefreshAll;
         }
+
+        public static BlockParentCallbacks Empty => new BlockParentCallbacks(null, null, null, null, null);
     }
 }

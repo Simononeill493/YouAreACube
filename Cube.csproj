@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Blocks\BlockData\BlockData_Mapping.cs" />
     <Compile Include="Blocks\BlockParentCallbacks.cs" />
+    <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOptionSubMenu.cs" />
     <Compile Include="Blocks\Input\BlockTemplateSelector\BlockInputSectionForTemplate.cs" />
     <Compile Include="Blocks\Input\BlockDropdown\BlockInputSectionWithDropdown.cs" />
     <Compile Include="Blocks\Blocksets\Blockset_Container.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Camera\KernelCamera\KernelTrackingCamera.cs" />
     <Compile Include="Camera\KernelCamera\ScrollBoundary.cs" />
     <Compile Include="Config\ConfigFiles.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\GetCubeTemplateChip.cs" />
     <Compile Include="Gameplay\Cubes\BaseCubeData\Cube.cs" />
     <Compile Include="Gameplay\Cubes\BaseCubeData\CubeMode.cs" />
     <Compile Include="Gameplay\Cubes\BaseCubeData\Cube_Energy.cs" />

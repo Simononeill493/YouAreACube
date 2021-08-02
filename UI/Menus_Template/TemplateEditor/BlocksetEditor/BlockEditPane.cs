@@ -38,6 +38,7 @@ namespace IAmACube
             minusButton.OnMouseReleased += (i) => _multiplyChipScale(0.5f);
             AddChild(minusButton);
 
+
         }
 
         public void LoadTemplateForEditing(CubeTemplate template)
