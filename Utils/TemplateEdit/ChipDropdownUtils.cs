@@ -22,7 +22,7 @@ namespace IAmACube
             }
             else if (dataType.Equals(nameof(CubeTemplate)))
             {
-                var cubeTemplateSelect = new BlockInputOptionSubMenu("Select Template...",()=> { });
+                var cubeTemplateSelect = new BlockInputOptionSubMenu("Select Template...",InputOptionMenu.CubeTemplate);
 
                 return new List<BlockInputOption>() { cubeTemplateSelect };
                 //var templates = _createOptionsFromItems(Templates.Database.Values.SelectMany(v=>v.Versions).ToList());

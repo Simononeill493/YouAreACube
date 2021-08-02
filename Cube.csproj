@@ -50,6 +50,9 @@
   <ItemGroup>
     <Compile Include="Blocks\BlockData\BlockData_Mapping.cs" />
     <Compile Include="Blocks\BlockParentCallbacks.cs" />
+    <Compile Include="Blocks\BlockTop\BlockTop_InputSections.cs" />
+    <Compile Include="Blocks\BlockTop\BlockTop_MouseInterface.cs" />
+    <Compile Include="Blocks\BlockTop\BlockTop_Refresh.cs" />
     <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOptionSubMenu.cs" />
     <Compile Include="Blocks\Input\BlockTemplateSelector\BlockInputSectionForTemplate.cs" />
     <Compile Include="Blocks\Input\BlockDropdown\BlockInputSectionWithDropdown.cs" />
@@ -166,10 +169,10 @@
     <Compile Include="Blocks\Input\BlockDropdown\BlockDropdownFactory.cs" />
     <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOptionReference.cs" />
     <Compile Include="Blocks\Output\BlockItemOutputLabel.cs" />
-    <Compile Include="Blocks\BlockTop.cs" />
+    <Compile Include="Blocks\BlockTop\BlockTop.cs" />
     <Compile Include="Blocks\Blocksets\Blockset_Refresh.cs" />
     <Compile Include="Blocks\Blocksets\BlocksetInterfaces\IBlocksDroppableOn.cs" />
-    <Compile Include="Blocks\Blocksets\BlocksetInterfaces\IBlocksetGenerator.cs" />
+    <Compile Include="Blocks\Blocksets\BlocksetInterfaces\IBlocksetTopLevelContainer.cs" />
     <Compile Include="Blocks\Blocksets\BlocksetInterfaces\IBlocksetContainer.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateSaveDialog\TemplateSaveDialogOption.cs" />
     <Compile Include="UI\Screens\InGameScreens\InGameMenus\InGameMenuScreen.cs" />

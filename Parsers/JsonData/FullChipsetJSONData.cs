@@ -46,13 +46,13 @@ namespace IAmACube
        
         public void SetBlockData() => GetChips().ForEach(c => c.SetBlockData());
 
-        public void CreateBlocksetObjects(IBlocksetGenerator generator)
+        public void CreateBlocksetObjects(IBlocksetTopLevelContainer container)
         {
-            CreateBlocksets(generator);
-            CreateBlocksetChipTops(generator);
+            CreateBlocksets(container);
+            CreateBlocksetChipTops(container);
         }
-        public void CreateBlocksets(IBlocksetGenerator generator) => this.ForEach(c => c.CreateBlockset(generator));
-        public void CreateBlocksetChipTops(IBlocksetGenerator generator) => GetChips().ForEach(c => c.CreateBlockTop(generator));
+        public void CreateBlocksets(IBlocksetTopLevelContainer container) => this.ForEach(c => c.CreateBlockset(container));
+        public void CreateBlocksetChipTops(IBlocksetTopLevelContainer container) => GetChips().ForEach(c => c.CreateBlockTop(container));
         public void AppendBlocksToBlocksets()
         {
             foreach (var chipsetJSON in this)

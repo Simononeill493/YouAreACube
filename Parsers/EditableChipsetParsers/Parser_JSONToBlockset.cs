@@ -9,12 +9,12 @@ namespace IAmACube
 {
     public static class Parser_JSONToBlockset
     {
-        public static Blockset ParseJsonToBlockset(string json, IBlocksetGenerator generator)
+        public static Blockset ParseJsonToBlockset(string json, IBlocksetTopLevelContainer container)
         {
             var fullJSON = JsonConvert.DeserializeObject<FullChipsetJSONData>(json);
 
             fullJSON.SetBlockData();
-            fullJSON.CreateBlocksetObjects(generator);
+            fullJSON.CreateBlocksetObjects(container);
             fullJSON.AppendBlocksToBlocksets();
             fullJSON.MakeDicts();
 

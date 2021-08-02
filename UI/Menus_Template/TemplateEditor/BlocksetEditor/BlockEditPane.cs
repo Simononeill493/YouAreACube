@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    partial class BlockEditPane : SpriteMenuItem, IBlocksetContainer, IBlocksetGenerator
+    public partial class BlockEditPane : SpriteMenuItem, IBlocksetContainer, IBlocksetTopLevelContainer
     {
         public Func<UserInput, bool> IsMouseOverSearchPane;
+        Action<InputOptionMenu, BlockInputSection> SubMenuCallback;
+
         public List<Blockset> TopLevelChipsets;
 
         private const float MinimumChipScale = 2.0f;
@@ -17,7 +19,7 @@ namespace IAmACube
         private List<Blockset> _allBlocksets;
 
 
-        public BlockEditPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "ChipEditPane")
+        public BlockEditPane(IHasDrawLayer parentDrawLayer,Action<InputOptionMenu,BlockInputSection> subMenuCallback) : base(parentDrawLayer, "ChipEditPane")
         {
             DrawLayer = DrawLayers.MenuBehindLayer;
 
@@ -38,25 +40,25 @@ namespace IAmACube
             minusButton.OnMouseReleased += (i) => _multiplyChipScale(0.5f);
             AddChild(minusButton);
 
-
+            SubMenuCallback = subMenuCallback;
         }
 
         public void LoadTemplateForEditing(CubeTemplate template)
         {
             if(template.Active)
             {
-                var generatedChipset = TemplateEditUtils.PrepareChipsetForEditPane(template, this);
+                var generatedBlockset = TemplateEditUtils.PrepareBlocksetForEditPane(template, this);
 
-                _setChipsetToTopLevel(generatedChipset);
-                _dropChipsetOnPane(generatedChipset);
+                _setBlocksetToTopLevel(generatedBlockset);
+                _dropBlocksetOnPane(generatedBlockset);
             }
         }
 
         public void ConfigureNewBlocksetFromSearchPaneClick(BlockTop newBlock, UserInput input)
         {
             newBlock.MultiplyScaleCascade(_blockScaleMultiplier);
-            newBlock.BlocksetGenerator = this;
-            newBlock.GenerateSubChipsets();
+            newBlock.TopLevelContainer = this;
+            newBlock.GenerateSubBlocksets();
 
             var newChipset = _createNewChipsetForMouse(input);
             newChipset.AppendBlockToTop(newBlock);
@@ -121,11 +123,11 @@ namespace IAmACube
             }
             else
             {
-                _dropChipsetOnPane(toAttach);
+                _dropBlocksetOnPane(toAttach);
             }
         }
 
-        private void _dropChipsetOnPane(Blockset toAttach)
+        private void _dropBlocksetOnPane(Blockset toAttach)
         {
             _alignChipsetToPixels(toAttach, GetCurrentSize());
             _setChipsetVisiblity(toAttach);
@@ -153,7 +155,7 @@ namespace IAmACube
         private Blockset _createNewChipsetForMouse(UserInput input)
         {
             var newChipset = CreateBlockset("Chipset_" + _allBlocksets.Count+1);
-            _setChipsetToTopLevel(newChipset);
+            _setBlocksetToTopLevel(newChipset);
 
             newChipset.SetLocationConfig(input.MousePos, CoordinateMode.Absolute, centered: true);
             newChipset.UpdateDimensionsCascade(ActualLocation, GetBaseSize());
@@ -162,7 +164,7 @@ namespace IAmACube
             return newChipset;
         }
 
-        protected void _setChipsetToTopLevel(Blockset chipset)
+        protected void _setBlocksetToTopLevel(Blockset chipset)
         {
             chipset.SetContainer(this);
             chipset.TopLevelRefreshAll = chipset.RefreshAll;
@@ -227,5 +229,7 @@ namespace IAmACube
 
             chipset.Visible = false;
         }
+
+        public void OpenInputSubMenu(InputOptionMenu menu, BlockInputSection section) => SubMenuCallback(menu, section);
     }
 }

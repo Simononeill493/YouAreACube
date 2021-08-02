@@ -115,7 +115,7 @@ namespace IAmACube
 
         [JsonIgnore]
         public BlockTop Block;
-        public void CreateBlockTop(IBlocksetGenerator generator)
+        public void CreateBlockTop(IBlocksetTopLevelContainer container)
         {
             var dataToCreateWith = BlockData;
             if(BlockData.BaseMappingBlock!=null)
@@ -124,7 +124,7 @@ namespace IAmACube
             }
 
             Block = BlockUtils.GenerateBlockFromBlockData(dataToCreateWith, this.Name);
-            Block.BlocksetGenerator = generator;
+            Block.TopLevelContainer = container;
         }
 
         [JsonIgnore]

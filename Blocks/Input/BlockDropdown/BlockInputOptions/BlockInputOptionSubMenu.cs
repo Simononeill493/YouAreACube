@@ -11,17 +11,19 @@ namespace IAmACube
         public string Name;
         public override string BaseType => null;
 
-        private Action _onOptionClicked;
+        public InputOptionMenu MenuToOpen;
 
-        public BlockInputOptionSubMenu(string name, Action onOptionClicked) : base(InputOptionType.SubMenu)
+        public BlockInputOptionSubMenu(string name,InputOptionMenu menuToOpen) : base(InputOptionType.SubMenu)
         {
             Name = name;
-            _onOptionClicked = onOptionClicked;
+            MenuToOpen = menuToOpen;
         }
 
-        public override void OptionClicked() => _onOptionClicked();
-
         public override string ToString() => Name;
+    }
 
+    public enum InputOptionMenu
+    {
+        CubeTemplate
     }
 }

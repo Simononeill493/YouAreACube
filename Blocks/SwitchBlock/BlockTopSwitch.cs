@@ -104,9 +104,9 @@ namespace IAmACube
 
         #region addSection
         private List<string> _switchInitialOptions;
-        public override void GenerateSubChipsets() => _addNewSwitchSections(_switchInitialOptions);
+        public override void GenerateSubBlocksets() => _addNewSwitchSections(_switchInitialOptions);
         protected void _addNewSwitchSections(List<string> sectionNames) => sectionNames.ForEach(n => _addNewSwitchSection(n));
-        protected void _addNewSwitchSection(string sectionName) => AddSwitchSection(sectionName, BlocksetGenerator.CreateBlockset(Name+"-subChip_"+(GetSubBlocksets().Count+1.ToString())));
+        protected void _addNewSwitchSection(string sectionName) => AddSwitchSection(sectionName, TopLevelContainer.CreateBlockset(Name+"-subChip_"+(GetSubBlocksets().Count+1.ToString())));
 
         public void AddSwitchSection(string sectionName,Blockset switchChipset)
         {

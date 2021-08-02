@@ -32,16 +32,16 @@ namespace IAmACube
 
 
 
-        public static Blockset PrepareChipsetForEditPane(CubeTemplate template,BlockEditPane pane)
+        public static Blockset PrepareBlocksetForEditPane(CubeTemplate template,BlockEditPane pane)
         {
             var json = Parser_ChipsetToJSON.ParseChipsetToJson(template.Chipset);
-            var newChipset = Parser_JSONToBlockset.ParseJsonToBlockset(json, pane);
+            var newBlockset = Parser_JSONToBlockset.ParseJsonToBlockset(json, pane);
 
-            newChipset.RefreshAll();
-            newChipset.SetLocationConfig(pane.ActualLocation + new IntPoint(10, 10), CoordinateMode.Absolute, centered: false);
-            newChipset.UpdateDimensionsCascade(pane.ActualLocation, pane.GetCurrentSize());
+            newBlockset.RefreshAll();
+            newBlockset.SetLocationConfig(pane.ActualLocation + new IntPoint(10, 10), CoordinateMode.Absolute, centered: false);
+            newBlockset.UpdateDimensionsCascade(pane.ActualLocation, pane.GetCurrentSize());
             
-            return newChipset;
+            return newBlockset;
         }
     }
 }

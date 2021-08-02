@@ -8,8 +8,8 @@ namespace IAmACube
         BlockTop _parent;
 
         public Action<BlockTop, UserInput> BlockLifted;
-        public Action<List<BlockTop>, int> AppendBlocks;
-        public Action RefreshBlocksetText;
+        public Action<List<BlockTop>, int> ParentAppendBlocks;
+        public Action ParentRefreshText;
 
         public Action TopLevelRefreshAll { get { return _topLevelRefreshAll; } 
             set 
@@ -20,13 +20,14 @@ namespace IAmACube
         }
         private Action _topLevelRefreshAll;
 
+
         public BlockParentCallbacks(BlockTop parent,Action<BlockTop, UserInput> blockLifted, Action<List<BlockTop>, int> appendBlocks, Action refreshBlocksetText, Action topLevelRefreshAll)
         {
             _parent = parent;
 
             BlockLifted = blockLifted;
-            AppendBlocks = appendBlocks;
-            RefreshBlocksetText = refreshBlocksetText;
+            ParentAppendBlocks = appendBlocks;
+            ParentRefreshText = refreshBlocksetText;
             TopLevelRefreshAll = topLevelRefreshAll;
         }
 

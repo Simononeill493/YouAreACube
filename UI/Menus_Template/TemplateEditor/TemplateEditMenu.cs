@@ -16,6 +16,7 @@ namespace IAmACube
         private BlockSearchPane _searchPane;
 
         private Action _goBackToTemplateSelectScreen;
+        private (InputOptionMenu Menu, BlockInputSection Section) _inputMenuToOpenDetails;
 
         public TemplateEditMenu(IHasDrawLayer parentDrawLayer,Kernel kernel, CubeTemplate baseTemplate, Action goBackToTemplateSelectScreen) : base(parentDrawLayer, "EditPaneWindow")
         {
@@ -28,7 +29,7 @@ namespace IAmACube
             //saveButton.OnMouseReleased += (i) => { _saveButtonPressed(); };
             //AddChild(saveButton);
 
-            _editPane = new BlockEditPane(this);
+            _editPane = new BlockEditPane(this,(menu,section) => _inputMenuToOpenDetails = (menu, section));
             _editPane.SetLocationConfig(4, 4, CoordinateMode.ParentPixelOffset, false);
             AddChild(_editPane);
 
@@ -40,13 +41,29 @@ namespace IAmACube
             _searchPane.AddToEditPane = _editPane.ConfigureNewBlocksetFromSearchPaneClick;
             _searchPane.RefreshFilter();
 
-            //var templateSearchPane = new TemplateExplorerMenu(this, new Kernel(), (a) => { });
-            //templateSearchPane.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
-            //templateSearchPane.UpdateDrawLayerCascade(DrawLayer - (DrawLayers.MinLayerDistance * 10));
-            //AddChild(templateSearchPane);
-
             _editPane.LoadTemplateForEditing(_baseTemplate);
         }
+
+        public override void Update(UserInput input)
+        {
+            base.Update(input);
+
+            if(_inputMenuToOpenDetails.Section!=null)
+            {
+                EditPaneMenuCallback(_inputMenuToOpenDetails.Menu, _inputMenuToOpenDetails.Section);
+                _inputMenuToOpenDetails.Section = null;
+            }
+        }
+
+        public void EditPaneMenuCallback(InputOptionMenu menu, BlockInputSection section)
+        {
+            var templateSearchPane = new TemplateExplorerMenu(this, _kernel, (a) => { });
+            templateSearchPane.SpriteName = "EmptyMenuRectangleMedium";
+            templateSearchPane.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
+            templateSearchPane.UpdateDrawLayerCascade(DrawLayer - (DrawLayers.MinLayerDistance * 10));
+            AddChild(templateSearchPane);
+        }
+
 
         public void OpenQuitDialog()
         {

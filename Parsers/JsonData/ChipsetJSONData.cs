@@ -10,7 +10,7 @@ namespace IAmACube
 
         [JsonIgnore]
         public Blockset Blockset;
-        public void CreateBlockset(IBlocksetGenerator generator)
+        public void CreateBlockset(IBlocksetTopLevelContainer generator)
         {
             var chipset = generator.CreateBlockset(Name);
             chipset.TopLevelRefreshAll = () => { };
