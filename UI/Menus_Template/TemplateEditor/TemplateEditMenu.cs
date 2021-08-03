@@ -50,20 +50,19 @@ namespace IAmACube
 
             if(_inputMenuToOpenDetails.Section!=null)
             {
-                EditPaneMenuCallback(_inputMenuToOpenDetails.Menu, _inputMenuToOpenDetails.Section);
+                OpenInputSectionDialog(_inputMenuToOpenDetails.Menu, _inputMenuToOpenDetails.Section);
                 _inputMenuToOpenDetails.Section = null;
             }
         }
 
-        public void EditPaneMenuCallback(InputOptionMenu menu, BlockInputSection section)
+        public void OpenInputSectionDialog(InputOptionMenu menu, BlockInputSection section)
         {
-            var templateSearchPane = new TemplateExplorerMenu(this, _kernel, (a) => { });
-            templateSearchPane.SpriteName = "EmptyMenuRectangleMedium";
-            templateSearchPane.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
-            templateSearchPane.UpdateDrawLayerCascade(DrawLayer - (DrawLayers.MinLayerDistance * 10));
-            AddChild(templateSearchPane);
-        }
+            var dialogBox = new BlockTemplateSelectionDialog(ManualDrawLayer.Create(DrawLayers.MenuDialogLayer), this,section,_kernel);
+            dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
+            dialogBox.AddPausedItems(_editPane, _searchPane);
 
+            AddChildAfterUpdate(dialogBox);
+        }
 
         public void OpenQuitDialog()
         {

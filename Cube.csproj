@@ -125,7 +125,13 @@
     <Compile Include="Testing\Chipset_SanityTesting.cs" />
     <Compile Include="Testing\Chip_SanityTesting.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\BlockEditPane_Pan.cs" />
+    <Compile Include="UI\DialogBoxes\BlockTemplateSelectionDialog\BlockTemplateSelectionDialog.cs" />
+    <Compile Include="UI\Menus_Template\TemplateSelector\TemplateExplorerMenu\TemplateExplorerMenu.cs" />
+    <Compile Include="UI\Menus_Template\TemplateSelector\TemplateExplorerMenu\TemplateExplorerMenuInternal.cs" />
+    <Compile Include="UI\Menus_Template\TemplateSelector\TemplateExplorerMenu\TemplateExplorerMenuMain.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedAction.cs" />
+    <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedMenu\TemplateSelectedMenuInternal.cs" />
+    <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedMenu\TemplateSelectedMenuMain.cs" />
     <Compile Include="UI\Screens\ScreenType.cs" />
     <Compile Include="UserInput\UserInput_Keyboard.cs" />
     <Compile Include="UserInput\UserInput_Mouse.cs" />
@@ -157,9 +163,9 @@
     <Compile Include="UI\Menus_Generic\MenuItems\Base\ListMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\RadioButtons\RadioButtonMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\RadioButtons\RadioButtonsMenuItem.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\TemplateQuitDialog\TemplateQuitButtonOption.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\TemplateQuitDialog\TemplateQuitDialog.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\TemplateSaveDialog\TemplateSaveDialog.cs" />
+    <Compile Include="UI\DialogBoxes\TemplateQuitDialog\TemplateQuitButtonOption.cs" />
+    <Compile Include="UI\DialogBoxes\TemplateQuitDialog\TemplateQuitDialog.cs" />
+    <Compile Include="UI\DialogBoxes\TemplateSaveDialog\TemplateSaveDialog.cs" />
     <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOptionParseable.cs" />
     <Compile Include="Blocks\SwitchBlock\BlockSwitchButtons.cs" />
     <Compile Include="Blocks\SwitchBlock\BlockTopSwitch.cs" />
@@ -174,7 +180,7 @@
     <Compile Include="Blocks\Blocksets\BlocksetInterfaces\IBlocksDroppableOn.cs" />
     <Compile Include="Blocks\Blocksets\BlocksetInterfaces\IBlocksetTopLevelContainer.cs" />
     <Compile Include="Blocks\Blocksets\BlocksetInterfaces\IBlocksetContainer.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\TemplateSaveDialog\TemplateSaveDialogOption.cs" />
+    <Compile Include="UI\DialogBoxes\TemplateSaveDialog\TemplateSaveDialogOption.cs" />
     <Compile Include="UI\Screens\InGameScreens\InGameMenus\InGameMenuScreen.cs" />
     <Compile Include="UI\Screens\InGameScreens\InGameMenus\TemplateEditScreen.cs" />
     <Compile Include="UI\Screens\InGameScreens\InGameMenus\TemplateExplorerScreen.cs" />
@@ -201,8 +207,7 @@
     <Compile Include="UI\Menus_Template\TemplateEditor\BlockSearcher\BlockSearchPane.cs" />
     <Compile Include="Blocks\Blocksets\Blockset.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateEditMenu.cs" />
-    <Compile Include="UI\Menus_Template\TemplateSelector\TemplateExplorerMenu.cs" />
-    <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedMenu.cs" />
+    <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedMenu\TemplateSelectedMenu.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\TextBoxMenuItem.cs" />
     <Compile Include="Utils\DrawUtils.cs" />
     <Compile Include="Utils\IDUtils.cs" />

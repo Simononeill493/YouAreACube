@@ -4,6 +4,6 @@
     {
         Edit,
         Clone,
-        SetMain
+        SetMain,
     }
 }

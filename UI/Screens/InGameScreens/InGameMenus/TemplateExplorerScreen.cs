@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     class TemplateExplorerScreen : InGameMenuScreen
-    {
+    {   
+
         public TemplateExplorerScreen(Action<ScreenType> switchScreen, Action<CubeTemplate> openTemplateForEditing,GameScreen gameScreen) : base(ScreenType.TemplateExplorer, switchScreen,gameScreen)
         {
-            var templateMenu = new TemplateExplorerMenu(this,_gameScreen.Game.Kernel, openTemplateForEditing);
+            var templateMenu = new TemplateExplorerMenuMain(this,_gameScreen.Game.Kernel, openTemplateForEditing);
+            templateMenu.MakeBoxes();
             templateMenu.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
 
             _addMenuItem(templateMenu);
