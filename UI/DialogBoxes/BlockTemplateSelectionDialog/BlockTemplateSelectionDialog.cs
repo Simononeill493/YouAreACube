@@ -24,23 +24,9 @@ namespace IAmACube
             AddChild(_templateSearchMenu);
         }
 
-        public void CompleteSelection(InternalTemplateSelectionOption option, CubeTemplate template)
+        public void CompleteSelection(CubeTemplate template)
         {
-            object sectionInput;
-
-            switch (option)
-            {
-                case InternalTemplateSelectionOption.SpecificTemplate:
-                    sectionInput = template;
-                    break;
-                case InternalTemplateSelectionOption.Main:
-                    sectionInput = template.Name + "|Main";
-                    break;
-                default:
-                    throw new Exception();
-            }
-
-            _section.ManuallySetInput(new BlockInputOptionValue(sectionInput));
+            _section.ManuallySetInput(new BlockInputOptionValue(template));
             _section.RefreshText();
             Close();
         }

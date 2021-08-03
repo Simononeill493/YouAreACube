@@ -40,12 +40,12 @@ namespace IAmACube
                         action.Actor.Rotate(action.Rotation);
                         break;
                     case ActionType.CardinalCreation:
-                        var templateRuntimeVersion1 = Templates.Database[action.Template.Versions.Name][action.Template.Version];
+                        var templateRuntimeVersion1 = Templates.GetRuntimeTemplate(action.Template);
                         _creationManager.TryCreate(action.Actor, templateRuntimeVersion1, action.BlockType, action.CardinalDir);
                         break;
                     case ActionType.RelativeCreation:
                         var cardinal2 = DirectionUtils.ToCardinal(action.Actor.Orientation, action.RelativeDir);
-                        var templateRuntimeVersion2 = Templates.Database[action.Template.Versions.Name][action.Template.Version];
+                        var templateRuntimeVersion2 = Templates.GetRuntimeTemplate(action.Template);
                         _creationManager.TryCreate(action.Actor, templateRuntimeVersion2, action.BlockType, cardinal2);
                         break;
                     case ActionType.CardinalGiveEnergy:

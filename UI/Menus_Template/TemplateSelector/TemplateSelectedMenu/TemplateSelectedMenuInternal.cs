@@ -8,21 +8,20 @@ namespace IAmACube
 {
     class TemplateSelectedMenuInternal : TemplateSelectedMenu
     {
-        Action<InternalTemplateSelectionOption, CubeTemplate> _templateSelectedCallback;
-
-        public TemplateSelectedMenuInternal(IHasDrawLayer parentDrawLayer, Action<InternalTemplateSelectionOption, CubeTemplate> templateSelectedCallback) : base(parentDrawLayer)
+        public TemplateSelectedMenuInternal(IHasDrawLayer parentDrawLayer, Action<CubeTemplate> templateSelectedCallback) : base(parentDrawLayer)
         {
             SpriteName = "EmptyMenuRectangleSection_Extended";
-            _templateSelectedCallback = templateSelectedCallback;
 
-            _addButton("Select", 6, 141, CoordinateMode.ParentPixelOffset, false, (i) => { _templateSelectButtonPressed(); });
+            _addButton("Select", 6, 141, CoordinateMode.ParentPixelOffset, false, (i) => { templateSelectedCallback(_templateList.Selected); });
         }
 
-        public void _templateSelectButtonPressed()
+        protected override void _setTemplateListToThisTemplateDict(TemplateVersionDictionary template)
         {
-            var selectedItem = _templateList.Selected;
+            var list = new List<CubeTemplate>();
+            list.Add(new CubeTemplateMainPlaceholder(template.Name));
+            list.AddRange(template.Versions);
 
-            _templateSelectedCallback(InternalTemplateSelectionOption.SpecificTemplate, selectedItem);
+            _templateList.SetItems(list);
         }
     }
 }

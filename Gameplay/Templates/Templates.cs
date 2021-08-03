@@ -38,6 +38,7 @@ namespace IAmACube
         }
 
         public static CubeTemplate GetRuntimeTemplate(CubeTemplate savedVersion) => Database[savedVersion.Versions.Name][savedVersion.Version];
+
         public static Cube Generate(string name,int version,CubeMode blockType) => Database[name][version].Generate(blockType);
         public static SurfaceCube GenerateSurface(string name, int version) => Database[name][version].GenerateSurface();
         public static GroundCube GenerateGround(string name, int version) => Database[name][version].GenerateGround();

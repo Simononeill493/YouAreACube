@@ -62,6 +62,12 @@ namespace IAmACube
             }
 
             var name = splits[0];
+
+            if(splits[1].Equals("Main"))
+            {
+                return new CubeTemplateMainPlaceholder(name);
+            }
+
             var version = int.Parse(splits[1]);
             var templateObj = Templates.Database[name][version];
             return templateObj;

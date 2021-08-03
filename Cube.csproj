@@ -101,6 +101,7 @@
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Randoms\RandomNumChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\Direction\FleeDirectionChip.cs" />
     <Compile Include="Gameplay\Chips\ChipFromBlockDataGenerator.cs" />
+    <Compile Include="Gameplay\Templates\CubeTemplateMainPlaceholder.cs" />
     <Compile Include="Gameplay\Templates\TemplateParsingTester.cs" />
     <Compile Include="Gameplay\Templates\TemplateDatabase.cs" />
     <Compile Include="Gameplay\Templates\TemplateVersionDictionary.cs" />

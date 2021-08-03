@@ -14,7 +14,7 @@ namespace IAmACube
             {
                 return true;
             }
-            else if (bottom.Equals("AnyCube") & (top.Equals("Cube") | top.Equals("SurfaceCube") | top.Equals("GroundCube") | top.Equals("EphemeralCube")))
+            else if (bottom.Equals("AnyCube") & top.Equals(nameof(Cube)) | top.Equals(nameof(SurfaceCube)) | top.Equals(nameof(GroundCube)) | top.Equals(nameof(EphemeralCube)))
             {
                 return true;
             }
@@ -22,6 +22,11 @@ namespace IAmACube
             {
                 return true;
             }
+            else if (bottom.Equals(nameof(CubeTemplate)) & top.Equals(nameof(CubeTemplateMainPlaceholder)))
+            {
+                return true;
+            }
+
 
             return false;
         }

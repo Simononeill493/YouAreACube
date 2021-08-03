@@ -40,10 +40,15 @@ namespace IAmACube
 
             _templateName.Text = _template.Name;
 
-            _templateList.SetItems(template.Versions);
+            _setTemplateListToThisTemplateDict(template);
 
             var mainItem = _templateList.Items.First(i => i.Item == template.Main);
             mainItem.TrySelectItem();
+        }
+
+        protected virtual void _setTemplateListToThisTemplateDict(TemplateVersionDictionary template)
+        {
+            _templateList.SetItems(template.Versions);
         }
     }
 }
