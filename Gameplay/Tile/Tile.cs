@@ -90,7 +90,7 @@ namespace IAmACube
         }
         public void ClearBlock(Cube block)
         {
-            switch (block.BlockType)
+            switch (block.CubeMode)
             {
                 case CubeMode.Surface:
                     _clearSurface(block);
@@ -104,7 +104,7 @@ namespace IAmACube
 
             }
 
-            throw new Exception("Tried to clear a block type which cannot be cleared: " + block.BlockType);
+            throw new Exception("Tried to clear a block type which cannot be cleared: " + block.CubeMode);
         }
 
         private void _clearSurface(Cube block)

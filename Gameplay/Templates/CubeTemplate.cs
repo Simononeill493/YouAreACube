@@ -28,23 +28,23 @@ namespace IAmACube
         public CubeTemplate(string name) => Name = name;
 
 
-        public Cube Generate(CubeMode blockType)
+        public Cube Generate(Kernel source,CubeMode blockType)
         {
             switch (blockType)
             {
                 case CubeMode.Surface:
-                    return GenerateSurface();
+                    return GenerateSurface(source);
                 case CubeMode.Ground:
-                    return GenerateGround();
+                    return GenerateGround(source);
                 case CubeMode.Ephemeral:
-                    return GenerateEphemeral();
+                    return GenerateEphemeral(source);
                 default:
                     throw new Exception("Tried to generate an unhandled block type");
             }
         }
-        public SurfaceCube GenerateSurface() => new SurfaceCube(this);
-        public GroundCube GenerateGround() => new GroundCube(this);
-        public EphemeralCube GenerateEphemeral() => new EphemeralCube(this);
+        public SurfaceCube GenerateSurface(Kernel source) => new SurfaceCube(this,source);
+        public GroundCube GenerateGround(Kernel source) => new GroundCube(this, source);
+        public EphemeralCube GenerateEphemeral(Kernel source) => new EphemeralCube(this, source);
         public CubeTemplate Clone()
         {
             var clone = JsonConvert.DeserializeObject<CubeTemplate>(JsonConvert.SerializeObject(this));

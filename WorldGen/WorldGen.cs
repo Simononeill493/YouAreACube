@@ -12,7 +12,7 @@ namespace IAmACube
         public static World GenerateEmptyWorld(int seed)
         {
             var world = new World(new Random().Next(),Config.DefaultSectorSize);
-            var centre = GetTestSector(world.Random,new IntPoint(0, 0),world.SectorSize);
+            var centre = GetTestSector(world.Random,new IntPoint(0, 0),world.SectorSize,world.WorldKernel);
             world.AddSector(centre);
 
             //AttachmentUtils.AddOuterSectors(world);
@@ -34,18 +34,18 @@ namespace IAmACube
 
             return world;
         }
-        public static Sector GetTestSector(Random r, IntPoint coords, int sectorSize)
+        public static Sector GetTestSector(Random r, IntPoint coords, int sectorSize, Kernel worldKernel)
         {
             var sector = _getInitializedSector(coords, sectorSize);
 
-            _testWorldGeneration(r, sector);
+            _testWorldGeneration(r, sector,worldKernel);
 
             return sector;
         }
 
-        private static void _testWorldGeneration(Random r, Sector sector)
+        private static void _testWorldGeneration(Random r, Sector sector,Kernel worldKernel)
         {
-            var grid = new WorldGenGrid(sector.Size,r);
+            var grid = new WorldGenGrid(worldKernel,sector.Size,r);
 
 
             var plants = Templates.Database["Plants1"][0];

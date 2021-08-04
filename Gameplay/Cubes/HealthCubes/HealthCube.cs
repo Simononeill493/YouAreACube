@@ -14,7 +14,7 @@ namespace IAmACube
         public int MaxHealth => Template.MaxHealth;
         public float HealthRemainingPercentage => ((float)Health) / MaxHealth;
 
-        protected HealthCube(CubeTemplate template, CubeMode blockType) : base(template,blockType)
+        protected HealthCube(CubeTemplate template, Kernel source, CubeMode blockType) : base(template,source,blockType)
         {
             Health = MaxHealth;
         }

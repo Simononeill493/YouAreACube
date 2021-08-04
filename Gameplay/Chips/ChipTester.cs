@@ -223,13 +223,7 @@ namespace IAmACube
 
             return new Chipset(getMouseChip, approachChip) { Name = "_Initial" };
         }
-        public static Chipset MakeFirstOfListChipset()
-        {
-            return null;
-            var getNeighboursChip = new GetNeighbouringCubesChip() { Name = "GetNeighbours_1" };
-            var firstOfListChip = new FirstOfListChip<SurfaceCube>() { Name = "FirstOfList_1" };
 
-        }
 
     }
 }

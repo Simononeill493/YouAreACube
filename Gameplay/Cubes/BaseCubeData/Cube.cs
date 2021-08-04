@@ -16,10 +16,10 @@ namespace IAmACube
         public int Speed => Template.Speed;
 
 
-        public CubeMode BlockType { get; }
+        public CubeMode CubeMode { get; }
         public Orientation Orientation { get; private set; }
         public Tile Location { get; protected set; } = Tile.Dummy;
-
+        public Kernel Source;
 
         public int _id { get; }
         public int SpeedOffset { get; private set; }
@@ -27,12 +27,13 @@ namespace IAmACube
         public (int, int, int, int) ColorMask = (255, 255, 255, 255);
 
 
-        public Cube(CubeTemplate template, CubeMode blockType)
+        public Cube(CubeTemplate template, Kernel source, CubeMode cubeMode)
         {
             _id = IDUtils.GenerateBlockID();
 
             Template = template;
-            BlockType = blockType;
+            CubeMode = cubeMode;
+            Source = source;
 
             Energy = 0;
             SpeedOffset = _id % Config.TickCycleLength;

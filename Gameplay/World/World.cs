@@ -13,6 +13,7 @@ namespace IAmACube
         public string Name;
 
         public WorldTicker _ticker;
+        public WorldKernel WorldKernel;
 
         public Dictionary<IntPoint, Sector> SectorGrid;
         public Sector Focus;
@@ -30,6 +31,7 @@ namespace IAmACube
 
             SectorGrid = new Dictionary<IntPoint, Sector>();
             _ticker = new WorldTicker();
+            WorldKernel = new WorldKernel();
         }
 
         public void Tick(UserInput input) => _ticker.TickWorld(this, input);

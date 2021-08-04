@@ -14,7 +14,7 @@ namespace IAmACube
 
         private Random r;
 
-        public WorldGenGrid(IntPoint size,Random random)
+        public WorldGenGrid(Kernel worldKernel,IntPoint size,Random random)
         {
             Size = size;
             TilesGrid = new WorldGenGridPoint[size.X,size.Y];
@@ -23,7 +23,7 @@ namespace IAmACube
             {
                 for(int j=0;j<size.Y;j++)
                 {
-                    var point = new WorldGenGridPoint();
+                    var point = new WorldGenGridPoint(worldKernel);
                     TilesGrid[i, j] = point;
                     TilesDict[new IntPoint(i, j)] = point;
                 }
@@ -109,6 +109,8 @@ namespace IAmACube
 
     public class WorldGenGridPoint
     {
+        private Kernel _worldKernel;
+
         public string TileSprite;
 
         public CubeTemplate Surface;
@@ -116,8 +118,9 @@ namespace IAmACube
         public CubeTemplate Ephemeral;
 
         public Dictionary<CubeMode, bool> Surrounded;
-        public WorldGenGridPoint()
+        public WorldGenGridPoint(Kernel worldKernel)
         {
+            _worldKernel = worldKernel;
             TileSprite = "Grass";
 
             Surrounded = new Dictionary<CubeMode, bool>();
@@ -177,21 +180,21 @@ namespace IAmACube
 
             if (Surface != null)
             {
-                var block = Surface.GenerateSurface();
+                var block = Surface.GenerateSurface(_worldKernel);
                 block.EnterLocation(t);
                 s.AddBlockToSector(block);
             }
 
             if (Ground != null)
             {
-                var block = Ground.GenerateGround();
+                var block = Ground.GenerateGround(_worldKernel);
                 block.EnterLocation(t);
                 s.AddBlockToSector(block);
             }
 
             if (Ephemeral != null)
             {
-                var block = Ephemeral.GenerateEphemeral();
+                var block = Ephemeral.GenerateEphemeral(_worldKernel);
                 block.EnterLocation(t);
                 s.AddBlockToSector(block);
             }

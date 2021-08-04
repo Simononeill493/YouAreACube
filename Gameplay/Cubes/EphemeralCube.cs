@@ -10,7 +10,7 @@ namespace IAmACube
     public class EphemeralCube : Cube
     {
         public bool EphemeralFading;
-        public EphemeralCube(CubeTemplate template) : base(template, CubeMode.Ephemeral) 
+        public EphemeralCube(CubeTemplate template,Kernel source) : base(template, source, CubeMode.Ephemeral) 
         {
             AddEnergy(template.MaxEnergy);
         }
@@ -73,7 +73,7 @@ namespace IAmACube
                 throw new Exception("Fading Ephemeral is trying to absorb energy");
             }
 
-            if (source.BlockType == CubeMode.Ephemeral)
+            if (source.CubeMode == CubeMode.Ephemeral)
             {
                 if (source.ToBeDeleted())
                 {

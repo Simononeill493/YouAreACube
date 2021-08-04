@@ -38,7 +38,7 @@ namespace IAmACube
         }
         private void _create(Cube creator, CubeTemplate template, CubeMode blockType, CardinalDirection direction, Tile targetPosition)
         {
-            var newBlock = template.Generate(blockType);
+            var newBlock = template.Generate(creator.Source,blockType);
             newBlock.BeCreatedBy(creator);
             newBlock.SetOrientation((Orientation)direction);
             newBlock.EnterLocation(targetPosition);

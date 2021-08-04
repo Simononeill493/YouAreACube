@@ -10,7 +10,7 @@ namespace IAmACube
     [Serializable()]
     public partial class SurfaceCube : HealthCube
     {
-        public SurfaceCube(CubeTemplate template) : base(template, CubeMode.Surface) { }
+        public SurfaceCube(CubeTemplate template,Kernel source) : base(template, source,CubeMode.Surface) { }
 
         public override void EnterLocation(Tile destination)
         {

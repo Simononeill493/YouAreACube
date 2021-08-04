@@ -9,7 +9,7 @@ namespace IAmACube
     [Serializable()]
     public class GroundCube : HealthCube
     {
-        public GroundCube(CubeTemplate template) : base(template, CubeMode.Ground) { }
+        public GroundCube(CubeTemplate template,Kernel source) : base(template, source,CubeMode.Ground) { }
 
         public override void EnterLocation(Tile destination)
         {

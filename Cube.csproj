@@ -109,6 +109,7 @@
     <Compile Include="Gameplay\Updates\Actions\EnergyTransferManager.cs" />
     <Compile Include="Gameplay\Updates\Actions\ZapManager.cs" />
     <Compile Include="Gameplay\Updates\SectorEmmigrantsList.cs" />
+    <Compile Include="Gameplay\World\WorldKernel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Misc\FloatPoint.cs" />
     <Compile Include="MonoGameWrapper\MouseSystemData.cs" />
