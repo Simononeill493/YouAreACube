@@ -31,7 +31,7 @@ namespace IAmACube
 
             SectorGrid = new Dictionary<IntPoint, Sector>();
             _ticker = new WorldTicker();
-            WorldKernel = new WorldKernel();
+            WorldKernel = new WorldKernel(_ticker);
         }
 
         public void Tick(UserInput input) => _ticker.TickWorld(this, input);

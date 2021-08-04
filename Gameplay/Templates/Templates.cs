@@ -37,8 +37,6 @@ namespace IAmACube
             TemplateParsingTester.TestParsingRoundTrips(Database);
         }
 
-        public static CubeTemplate GetRuntimeTemplate(CubeTemplate savedVersion) => Database[savedVersion.Versions.Name][savedVersion.Version];
-
         public static Cube Generate(string name,int version,Kernel source,CubeMode blockType) => Database[name][version].Generate(source,blockType);
         public static SurfaceCube GenerateSurface(string name, int version, Kernel source) => Database[name][version].GenerateSurface(source);
         public static GroundCube GenerateGround(string name, int version, Kernel source) => Database[name][version].GenerateGround(source);

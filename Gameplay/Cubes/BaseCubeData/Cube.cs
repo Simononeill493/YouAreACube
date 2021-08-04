@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public abstract partial class Cube : ICube
+    public abstract partial class Cube
     {
         public CubeTemplate Template { get; private set; }
         public string Sprite => Template.Sprite;
@@ -54,8 +54,6 @@ namespace IAmACube
 
 
         public void SetTemplateToMain() => Template = Template.Versions.Main;
-        public void SetTemplateToRuntime() => Template = Templates.GetRuntimeTemplate(Template);
+        public void SetTemplateToRuntime() => Template = Template.GetRuntimeTemplate();
     }
-
-    public interface ICube{}
 }

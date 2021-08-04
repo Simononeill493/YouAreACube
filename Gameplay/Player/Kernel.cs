@@ -12,6 +12,7 @@ namespace IAmACube
         public static IntPoint HostLoc;
 
         public string Name;
+        public virtual int Age { get; private set; }
 
         public SurfaceCube Host { get; private set; }
         public HashSet<TemplateVersionDictionary> KnownTemplates { get; private set; }
@@ -36,6 +37,7 @@ namespace IAmACube
 
         public void Update()
         {
+            Age++;
             Host.AddEnergy(1);
             HostLoc = Host.Location.AbsoluteLocation;
         }

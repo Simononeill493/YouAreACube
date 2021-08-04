@@ -13,7 +13,7 @@ namespace IAmACube
 
         public override void Run(Cube actor, UserInput input, ActionsList actions)
         {
-            SetOutput(Templates.GetRuntimeTemplate(ChipInput1.Template));
+            SetOutput(ChipInput1.Template.GetRuntimeTemplate());
         }
     }
 }

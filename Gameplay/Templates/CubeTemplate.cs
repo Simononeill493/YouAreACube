@@ -57,6 +57,9 @@ namespace IAmACube
             return clone;
         }
 
+        public virtual CubeTemplate GetRuntimeTemplate() => Templates.Database[Versions.Name][Version];
+
+
         public override string ToString() => Version + ": " + Name;
     }
 }

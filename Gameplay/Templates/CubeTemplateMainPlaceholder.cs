@@ -10,6 +10,12 @@ namespace IAmACube
     {
         public CubeTemplateMainPlaceholder(string name) : base(name) { }
 
+        public override CubeTemplate GetRuntimeTemplate()
+        {
+            var versions = Templates.Database[Name];
+            return versions.Main;
+        }
+
         public override string ToString() => Name + "|Main";
 
     }

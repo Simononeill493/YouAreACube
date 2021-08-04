@@ -12,6 +12,8 @@ namespace IAmACube
         private WorldTickManager _tickManager;
         public WorldTicker() => _tickManager = new WorldTickManager();
 
+        public int WorldTicks => _tickManager.WorldTicks;
+
         public void AddSector(Sector sector) => _tickManager.AddSector(sector);
         public void TickWorld(World world,UserInput input)
         {
