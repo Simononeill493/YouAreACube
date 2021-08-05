@@ -77,7 +77,6 @@
       "name":"Plants1",
       "sprite":"Plants1",
 	  "maxHealth":5,
-	  
-    }
+    },
   ]
 }

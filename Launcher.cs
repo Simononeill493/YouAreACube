@@ -42,6 +42,7 @@ namespace IAmACube
             RandomUtils.Init(1);
             DirectionUtils.Init();
             Templates.Load();
+            CrystalDatabase.Load();
 
             TestCode();
 

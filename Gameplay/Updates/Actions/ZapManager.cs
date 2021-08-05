@@ -7,12 +7,11 @@ namespace IAmACube
     {
         public void TryZap(Cube actor, CubeMode blockType)
         {
-            if (actor.Location.HasBlock(blockType) & !actor.ToBeDeleted())
+            if (actor.Location.HasBlock(blockType) & !actor.ToBeDeleted() & actor.Energy>0)
             {
                 var energy = actor.Energy;
                 actor.TakeEnergy(energy);
                 actor.Location.GetBlock(blockType).DealDamage(energy);
-
 
                 if(actor.Location.AbsoluteLocation.DistanceFrom(Kernel.HostLoc) < 30)
                 {

@@ -18,6 +18,8 @@ namespace IAmACube
         public int MaxEnergy = 30;
         public int MaxHealth = 250;
 
+        public bool Invincible;
+
         [JsonIgnore]
         public Chipset Chipset;
 
@@ -28,7 +30,7 @@ namespace IAmACube
         public CubeTemplate(string name) => Name = name;
 
 
-        public Cube Generate(Kernel source,CubeMode blockType)
+        public virtual Cube Generate(Kernel source,CubeMode blockType)
         {
             switch (blockType)
             {
@@ -42,9 +44,9 @@ namespace IAmACube
                     throw new Exception("Tried to generate an unhandled block type");
             }
         }
-        public SurfaceCube GenerateSurface(Kernel source) => new SurfaceCube(this,source);
-        public GroundCube GenerateGround(Kernel source) => new GroundCube(this, source);
-        public EphemeralCube GenerateEphemeral(Kernel source) => new EphemeralCube(this, source);
+        public virtual SurfaceCube GenerateSurface(Kernel source) => new SurfaceCube(this,source);
+        public virtual GroundCube GenerateGround(Kernel source) => new GroundCube(this, source);
+        public virtual EphemeralCube GenerateEphemeral(Kernel source) => new EphemeralCube(this, source);
         public CubeTemplate Clone()
         {
             var clone = JsonConvert.DeserializeObject<CubeTemplate>(JsonConvert.SerializeObject(this));

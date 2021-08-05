@@ -47,6 +47,11 @@ namespace IAmACube
             Companions.Remove(Host);
             Host = block;
             Companions.Add(block);
+
+            if (Config.KernelHostInvincible)
+            {
+                Host.Invincible = true;
+            }
         }
 
 

@@ -13,6 +13,8 @@ namespace IAmACube
         {
             var world = new World(new Random().Next(),Config.DefaultSectorSize);
             var centre = GetTestSector(world.Random,new IntPoint(0, 0),world.SectorSize,world.WorldKernel);
+            //var centre = _getEmptySector(new IntPoint(0, 0), world.SectorSize);
+
             world.AddSector(centre);
 
             //AttachmentUtils.AddOuterSectors(world);
@@ -36,7 +38,7 @@ namespace IAmACube
         }
         public static Sector GetTestSector(Random r, IntPoint coords, int sectorSize, Kernel worldKernel)
         {
-            var sector = _getInitializedSector(coords, sectorSize);
+            var sector = _getEmptySector(coords, sectorSize);
 
             _testWorldGeneration(r, sector,worldKernel);
 
@@ -47,6 +49,8 @@ namespace IAmACube
         {
             var grid = new WorldGenGrid(worldKernel,sector.Size,r);
 
+            var purpleCrystals = CrystalDatabase.CrystalTemplates["Purple"];
+            grid.AddRandom(CubeMode.Surface, purpleCrystals, 5);
 
             var plants = Templates.Database["Plants1"][0];
             grid.AddRandom(CubeMode.Ground, plants, r.Next(8, 48));
@@ -108,7 +112,7 @@ namespace IAmACube
         }
 
 
-        private static Sector _getInitializedSector(IntPoint sectorOrigin,int sectorSize)
+        private static Sector _getEmptySector(IntPoint sectorOrigin,int sectorSize)
         {
             var (tiles,tilesFlattened) = _getInitializedGrid(sectorOrigin, sectorSize);
             AttachmentUtils.AttachTileGridToSelf(tiles, sectorSize);

@@ -584,6 +584,18 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Tiles/Bullet.png;Bullet.png
 
+#begin ../Simon_Data/To_Import/Tiles/CrystalPurple.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Tiles/CrystalPurple.png;CrystalPurple.png
+
 #begin ../Simon_Data/To_Import/Tiles/DarkGrass.png
 /importer:TextureImporter
 /processor:TextureProcessor

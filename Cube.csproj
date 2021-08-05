@@ -67,6 +67,8 @@
     <Compile Include="Gameplay\Cubes\BaseCubeData\Cube.cs" />
     <Compile Include="Gameplay\Cubes\BaseCubeData\CubeMode.cs" />
     <Compile Include="Gameplay\Cubes\BaseCubeData\Cube_Energy.cs" />
+    <Compile Include="Gameplay\Cubes\Crystals\CrystalCube.cs" />
+    <Compile Include="Gameplay\Cubes\Crystals\CrystalDatabase.cs" />
     <Compile Include="Gameplay\Cubes\Movement\Cube_Movement.cs" />
     <Compile Include="Gameplay\Cubes\Movement\CubeMovementData.cs" />
     <Compile Include="Gameplay\Cubes\EphemeralCube.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Randoms\RandomNumChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\Direction\FleeDirectionChip.cs" />
     <Compile Include="Gameplay\Chips\ChipFromBlockDataGenerator.cs" />
+    <Compile Include="Gameplay\Templates\CrystalTemplate.cs" />
     <Compile Include="Gameplay\Templates\CubeTemplateMainPlaceholder.cs" />
     <Compile Include="Gameplay\Templates\TemplateParsingTester.cs" />
     <Compile Include="Gameplay\Templates\TemplateDatabase.cs" />
@@ -264,6 +267,7 @@
     <Compile Include="WorldGen\TreeGen.cs" />
     <Compile Include="WorldGen\WorldGen.cs" />
     <Compile Include="WorldGen\WorldGenGrid.cs" />
+    <Compile Include="WorldGen\WorldGenGridPoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />

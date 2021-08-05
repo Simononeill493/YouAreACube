@@ -10,6 +10,7 @@ namespace IAmACube
     public abstract class HealthCube : Cube
     {
         public bool Dormant = false;
+        public bool Invincible { get; set; }
         public int Health { get; private set; }
         public int MaxHealth => Template.MaxHealth;
         public float HealthRemainingPercentage => ((float)Health) / MaxHealth;
@@ -17,12 +18,13 @@ namespace IAmACube
         protected HealthCube(CubeTemplate template, Kernel source, CubeMode blockType) : base(template,source,blockType)
         {
             Health = MaxHealth;
+            Invincible = template.Invincible;
         }
 
 
         public override void DealDamage(int amount)
         {
-            if(Dormant)
+            if(Dormant || Invincible)
             {
                 return;
             }

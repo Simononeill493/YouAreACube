@@ -51,6 +51,8 @@ namespace IAmACube
             var hostTile = World.GetTile(Kernel.Host.Location.AbsoluteLocation);
             var liveHost = hostTile.Surface;
             Kernel.SetHost(liveHost);
+
+
         }
     }
 }

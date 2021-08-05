@@ -11,6 +11,6 @@ namespace IAmACube
     {
         Surface,
         Ground,
-        Ephemeral
+        Ephemeral,
     }
 }

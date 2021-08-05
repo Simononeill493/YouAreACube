@@ -73,22 +73,24 @@ namespace IAmACube
         {
             if(block.Active)
             {
-                drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizePixels);
-
                 var energyPercentage = block.EnergyRemainingPercentage;
-                var barCurrentLength = energyPercentage * cameraConfig.TileSizePixels;
-                _primitive.DrawRectangle(drawPos.X, drawPos.Y, cameraConfig.TileSizePixels, 8, DrawLayers.BlockInfoLayer_Back, Color.Black, false);
-                _primitive.DrawRectangle(drawPos.X, drawPos.Y, (int)barCurrentLength, 8,DrawLayers.BlockInfoLayer_Front, Color.Cyan, false);
+                if(energyPercentage<1)
+                {
+                    drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizePixels);
+
+                    var barCurrentLength = energyPercentage * cameraConfig.TileSizePixels;
+                    _primitive.DrawRectangle(drawPos.X, drawPos.Y, cameraConfig.TileSizePixels, 8, DrawLayers.BlockInfoLayer_Back, Color.Black, false);
+                    _primitive.DrawRectangle(drawPos.X, drawPos.Y, (int)barCurrentLength, 8, DrawLayers.BlockInfoLayer_Front, Color.Cyan, false);
+                }
             }
         }
         public void DrawBlockHealthOverlay(SurfaceCube block, IntPoint drawPos, CameraConfiguration cameraConfig)
         {
-            drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizePixels);
-
             var healthPercentage = block.HealthRemainingPercentage;
-
             if(healthPercentage<1)
             {
+                drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizePixels);
+
                 var barCurrentLength = healthPercentage * cameraConfig.TileSizePixels;
                 _primitive.DrawRectangle(drawPos.X, drawPos.Y + 8, cameraConfig.TileSizePixels, 8, DrawLayers.BlockInfoLayer_Back, Color.Black, false);
                 _primitive.DrawRectangle(drawPos.X, drawPos.Y + 8, (int)barCurrentLength, 8, DrawLayers.BlockInfoLayer_Front, Color.Red, false);
