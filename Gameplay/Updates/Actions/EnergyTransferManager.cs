@@ -9,18 +9,32 @@ namespace IAmACube
     [Serializable()]
     public class EnergyTransferManager
     {
-        public void TryGiveEnergy(Cube actor, CardinalDirection cardinalDir,CubeMode blockMode, int energyAmount)
+        public void TryGiveEnergy(Cube giver, CardinalDirection cardinalDir,CubeMode cubeMode, int energyAmount)
         {
-            if(actor.Location.HasNeighbour(cardinalDir))
+            if(giver.Location.HasNeighbour(cardinalDir))
             {
-                var destination = actor.Location.Adjacent[cardinalDir];
-                var target = destination.GetBlock(blockMode);
+                var destination = giver.Location.Adjacent[cardinalDir];
+                var giveTarget = destination.GetBlock(cubeMode);
 
-                if (target != null)
+                if (giveTarget != null)
                 {
-                    target.TryTakeEnergyFrom(actor, energyAmount);
+                    giveTarget.TryTakeEnergyFrom(giver, energyAmount);
                 }
             }
         }
+
+        public void TrySapEnergy(Cube sapper, CardinalDirection cardinalDir, CubeMode cubeMode)
+        {
+            if (sapper.Location.HasNeighbour(cardinalDir))
+            {
+                var destination = sapper.Location.Adjacent[cardinalDir];
+                var sapTarget = destination.GetBlock(cubeMode);
+                if (sapTarget != null)
+                {
+                    sapper.TryTakeEnergyFrom(sapTarget, 1);
+                }
+            }
+        }
+
     }
 }

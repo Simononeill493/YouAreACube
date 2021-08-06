@@ -71,6 +71,12 @@
 	  "output":"bool"
     },
 	{
+      "name":"HasSameKernel",
+	  "datatype":"General",
+	  "inputs":["AnyCube"],
+	  "output":"bool"
+    },
+	{
       "name":"GetCubeTemplate",
 	  "datatype":"General",
 	  "inputs":["AnyCube"],
@@ -216,6 +222,26 @@
 		  "inputs":["RelativeDirection","CubeMode","int"],
 		},
 	  ]
+    },
+	{
+      "name":"SapEnergy",
+	  "datatype":"Action",
+	  "inputs":["CardinalDirection|RelativeDirection","CubeMode"],
+	  "inputDisplayNames":["Direction","CubeMode"],
+	  "inputMappings":
+	  [
+	  	{
+		  "name":"SapEnergyCardinal",
+		  "datatype":"Action",
+		  "inputs":["CardinalDirection","CubeMode"],
+		},
+		{
+		  "name":"SapEnergyRelative",
+		  "datatype":"Action",
+		  "inputs":["RelativeDirection","CubeMode"],
+		},
+	  ]
     }
+
   ]
 }

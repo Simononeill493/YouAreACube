@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace IAmACube
-{
+{ 
+    [Serializable()]
     class CubeTemplateMainPlaceholder : CubeTemplate
     {
         public CubeTemplateMainPlaceholder(string name) : base(name) { }

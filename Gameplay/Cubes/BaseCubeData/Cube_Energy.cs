@@ -9,7 +9,7 @@ namespace IAmACube
 {
     public abstract partial class Cube
     {
-        public int Energy { get; private set; }
+        public int Energy { get; protected set; }
         public int EnergyCap => Template.MaxEnergy;
         public float EnergyRemainingPercentage => (float)Energy / EnergyCap;
 

@@ -9,7 +9,10 @@ namespace IAmACube
     [Serializable()]
     class CrystalTemplate : CubeTemplate
     {
-        public CrystalTemplate(string color) : base(color + "Crystal") { }
+        public CrystalTemplate(string color) : base(color + "Crystal") 
+        {
+            MaxEnergy = int.MaxValue;
+        }
 
         public override SurfaceCube GenerateSurface(Kernel source) => new CrystalCube(this, source);
 

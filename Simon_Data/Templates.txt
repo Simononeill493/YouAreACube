@@ -4,14 +4,14 @@
 	{
       "name":"BasicPlayer",
       "sprite":"BasicPlayer",
-	  "maxEnergy":10000,
+	  "maxEnergy":1000,
 	  "maxHealth":10000,
       "speed":5
     },
   	{
       "name":"Bullet",
       "sprite":"Bullet",
-	  "maxEnergy":45,
+	  "maxEnergy":10,
       "speed":4
     },
     {
@@ -59,7 +59,7 @@
 	{
       "name":"BigBullet",
       "sprite":"BigBullet",
-	  "maxEnergy":300,
+	  "maxEnergy":50,
       "speed":8
     },
 

@@ -107,6 +107,7 @@ namespace IAmACube
 
             centre.AddBlockToSector(player);
             player.EnterLocation(tile);
+            player.AddEnergy(player.EnergyCap);
 
             world.FocusOn(player);
         }

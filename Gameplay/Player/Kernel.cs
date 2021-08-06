@@ -38,7 +38,10 @@ namespace IAmACube
         public void Update()
         {
             Age++;
-            Host.AddEnergy(1);
+            if(Age%10==0)
+            {
+                Host.AddEnergy(1);
+            }
             HostLoc = Host.Location.AbsoluteLocation;
         }
 

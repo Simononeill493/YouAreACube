@@ -157,8 +157,8 @@ namespace IAmACube
         public static Chipset MakePlayerChipset()
         {
             var keySwitch = new KeySwitchChip() { Name = "KeySwitch" };
-            var bullet = Templates.Database["Bullet"][0];
-            var bigBullet = Templates.Database["BigBullet"][0];
+            var bullet = new CubeTemplateMainPlaceholder("Bullet");
+            var bigBullet = new CubeTemplateMainPlaceholder("BigBullet");
 
             var moveUp = new MoveCardinalChip() { ChipInput1 = CardinalDirection.North, Name = "MoveUp" };
             var moveDown = new MoveCardinalChip() { ChipInput1 = CardinalDirection.South, Name = "MoveDown" };

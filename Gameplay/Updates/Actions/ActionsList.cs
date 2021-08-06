@@ -17,6 +17,8 @@ namespace IAmACube
         }
 
         public void AddApproachAction(Cube block, Cube target) => Actions.Add(new BlockAction(block, ActionType.ApproachBlock) { TargetBlock = target, MoveSpeed = block.Speed });
+
+
         public void AddApproachAction(Cube block, Tile target) => Actions.Add(new BlockAction(block, ActionType.ApproachTile) { TargetTile = target, MoveSpeed = block.Speed });
 
         public void AddMoveAction(Cube block, CardinalDirection direction) => Actions.Add(new BlockAction(block, ActionType.CardinalMovement) { CardinalDir = direction, MoveSpeed = block.Speed });
@@ -48,6 +50,26 @@ namespace IAmACube
             Actions.Add(creationAction);
         }
 
+        public void AddSapEnergyAction(Cube block, CubeMode blockType, CardinalDirection direction)
+        {
+            var sapEnergyAction = new BlockAction(block, ActionType.CardinalSapEnergy)
+            {
+                BlockType = blockType,
+                CardinalDir = direction,
+            };
+
+            Actions.Add(sapEnergyAction);
+        }
+        public void AddSapEnergyAction(Cube block, CubeMode blockType, RelativeDirection direction)
+        {
+            var sapEnergyAction = new BlockAction(block, ActionType.RelativeSapEnergy)
+            {
+                BlockType = blockType,
+                RelativeDir = direction,
+            };
+
+            Actions.Add(sapEnergyAction);
+        }
 
 
         public void AddGiveEnergyAction(Cube block, CubeMode blockType, CardinalDirection direction,int amount)

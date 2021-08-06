@@ -55,10 +55,22 @@ namespace IAmACube
                         var cardinal3 = DirectionUtils.ToCardinal(action.Actor.Orientation, action.RelativeDir);
                         _energyTransferManager.TryGiveEnergy(action.Actor, cardinal3, action.BlockType,action.EnergyAmount);
                         break;
+                    case ActionType.CardinalSapEnergy:
+                        _energyTransferManager.TrySapEnergy(action.Actor, action.CardinalDir, action.BlockType);
+                        break;
+                    case ActionType.RelativeSapEnergy:
+                        var cardinal4 = DirectionUtils.ToCardinal(action.Actor.Orientation, action.RelativeDir);
+                        _energyTransferManager.TrySapEnergy(action.Actor, cardinal4, action.BlockType);
+                        break;
+
                     case ActionType.Zap:
                         _zapManager.TryZap(action.Actor, action.BlockType);
                         break;
                     case ActionType.ApproachBlock:
+                        if(action.TargetBlock==null)
+                        {
+                            continue;
+                        }
                         if(action.Actor.Location.AbsoluteLocation== action.TargetBlock.Location.AbsoluteLocation)
                         {
                             continue;

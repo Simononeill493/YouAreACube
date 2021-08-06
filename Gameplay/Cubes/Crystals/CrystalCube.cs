@@ -12,7 +12,9 @@ namespace IAmACube
         public CrystalCube(CubeTemplate template, Kernel source) : base(template, source) 
         {
             Invincible = true;
+            Energy = int.MaxValue;
         }
 
+        public override void TakeEnergy(int amount) { }
     }
 }
