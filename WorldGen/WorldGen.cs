@@ -64,10 +64,10 @@ namespace IAmACube
             grid.AddRandom(CubeMode.Surface, rock2, r.Next(4, 24));
             grid.AddToSide(CubeMode.Surface, rock2, 0.1, r.Next(8, 12));
 
-            grid.AddRandom(CubeMode.Surface, Templates.Database["ShootEnemy"][0], r.Next(4, 6));
-            grid.AddRandom(CubeMode.Surface, Templates.Database["ApproachEnemy"][0], r.Next(4, 6));
-            grid.AddRandom(CubeMode.Surface, Templates.Database["FleeEnemy"][0], r.Next(4, 6));
-            grid.AddRandom(CubeMode.Surface, Templates.Database["MouseFollower"][0], r.Next(4, 6));
+            //grid.AddRandom(CubeMode.Surface, Templates.Database["ShootEnemy"][0], r.Next(4, 6));
+            //grid.AddRandom(CubeMode.Surface, Templates.Database["ApproachEnemy"][0], r.Next(4, 6));
+            //grid.AddRandom(CubeMode.Surface, Templates.Database["FleeEnemy"][0], r.Next(4, 6));
+            //grid.AddRandom(CubeMode.Surface, Templates.Database["MouseFollower"][0], r.Next(4, 6));
             //grid.AddRandom(BlockMode.Surface, Templates.Database["Spinner"][0], r.Next(4, 16));
 
             /*grid.AddRandom(BlockMode.Surface, rock, 16);

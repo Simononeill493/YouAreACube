@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IAmACube.Gameplay.Chips.ChipsList.ActionChips.GiveEnergy
+namespace IAmACube
 {
     [Serializable()]
     class GiveEnergyCardinalChip : InputPin1<CardinalDirection>, InputPin2<CubeMode>, InputPin3<int>

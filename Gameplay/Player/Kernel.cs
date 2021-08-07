@@ -42,6 +42,8 @@ namespace IAmACube
             {
                 Host.AddEnergy(1);
             }
+
+
             HostLoc = Host.Location.AbsoluteLocation;
         }
 
@@ -55,6 +57,7 @@ namespace IAmACube
             {
                 Host.Invincible = true;
             }
+
         }
 
 

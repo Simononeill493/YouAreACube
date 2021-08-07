@@ -132,6 +132,7 @@
     <Compile Include="Testing\Block_SanityTesting.cs" />
     <Compile Include="Testing\Chipset_SanityTesting.cs" />
     <Compile Include="Testing\Chip_SanityTesting.cs" />
+    <Compile Include="UI\Menus_Generic\MenuItems\Base\CheckBox\CheckBoxMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Tabs\TabArrayMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Tabs\TabButtonMenuItem.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlockEditor\BaseStatsEditor\TemplateBaseStatsEditTab.cs" />

@@ -217,11 +217,15 @@ namespace IAmACube
         public static Chipset MakeMouseFollowChipset()
         {
             var getMouseChip = new GetMouseHoverChip() { Name = "MouseHover_1" };
-            var approachChip = new ApproachTileChip() { Name = "ApproachMouse" };
+            var mouseDirectionChip = new ApproachDirectionChip() { Name = "ApproachMouse" };
+            var giveEnergyChip = new GiveEnergyCardinalChip() { Name = "GiveEnergy", ChipInput2 = CubeMode.Surface, ChipInput3 = 5 };
+            var moveChip = new MoveCardinalChip() { Name = "Move" };
 
-            getMouseChip.Targets1.Add(approachChip);
+            getMouseChip.Targets1.Add(mouseDirectionChip);
+            mouseDirectionChip.Targets1.Add(moveChip);
+            mouseDirectionChip.Targets1.Add(giveEnergyChip);
 
-            return new Chipset(getMouseChip, approachChip) { Name = "_Initial" };
+            return new Chipset(getMouseChip, mouseDirectionChip, giveEnergyChip,moveChip) { Name = "_Initial" };
         }
 
 

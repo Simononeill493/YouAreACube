@@ -34,10 +34,17 @@ namespace IAmACube
             if (destination.HasEphemeral)
             {
                 var absorbResult = TryAbsorbInto(destination.Ephemeral);
-                if (absorbResult == BlockEnergyTransferResult.Success)
+                switch (absorbResult)
                 {
-                    //Console.WriteLine("Ephemeral " + _id + " at " + Location.AbsoluteLocation + " absorbed into Ephemeral " + destination.Ephemeral._id + " at " + destination.Ephemeral.Location.AbsoluteLocation);
-                    return;
+                    case EphemeralAbsorbResult.FullyAbsorbed:
+                        return;
+                    case EphemeralAbsorbResult.PartiallyAbsorbed:
+                    case EphemeralAbsorbResult.AbsorbedIntoAlreadyFullEphemeral:
+                        FadeAway();
+                        return;
+                    case EphemeralAbsorbResult.CannotBeAbsorbed_TargetIsDying:
+                        break;
+                    throw new Exception("Ephemeral moving into an occupied space, but this case is not handled");
                 }
             }
 
@@ -65,7 +72,29 @@ namespace IAmACube
             creator.TakeEnergy(Template.MaxEnergy);
         }
 
-        private BlockEnergyTransferResult TryAbsorbInto(EphemeralCube destination) => destination.TryTakeEnergyFrom(this, Energy);
+        private EphemeralAbsorbResult TryAbsorbInto(EphemeralCube destination)
+        {
+            var result = destination.TryTakeEnergyFrom(this, Energy);
+            switch (result)
+            {
+                case BlockEnergyTransferResult.Success:
+                    if (Energy == 0)
+                    {
+                        return EphemeralAbsorbResult.FullyAbsorbed;
+                    }
+                    return EphemeralAbsorbResult.PartiallyAbsorbed;
+                case BlockEnergyTransferResult.Failure_SourceIsDyingEphemeral:
+                    return EphemeralAbsorbResult.CannotBeAbsorbed_TargetIsDying;
+                case BlockEnergyTransferResult.Failure_NoEnergyInSourceToTake:
+                    throw new Exception("Ephemerals tried to merge but the moving ephemeral has no energy.");
+                case BlockEnergyTransferResult.Failure_TargetEnergyIsMaxedOut:
+                    return EphemeralAbsorbResult.AbsorbedIntoAlreadyFullEphemeral;
+                default:
+                    throw new Exception("Ephemerals tried to merge but there is no code to handle this case");
+            }
+        }
+
+
         public override BlockEnergyTransferResult TryTakeEnergyFrom(Cube source, int amount)
         {
             if (ToBeDeleted())
@@ -103,4 +132,14 @@ namespace IAmACube
         public override bool CanOccupyDestination(Tile destination) => true;
         public override bool ToBeDeleted() => EphemeralFading;
     }
+
+    public enum EphemeralAbsorbResult
+    {
+        FullyAbsorbed,
+        PartiallyAbsorbed,
+        AbsorbedIntoAlreadyFullEphemeral,
+        CannotBeAbsorbed_TargetIsDying
+        
+    }
+
 }

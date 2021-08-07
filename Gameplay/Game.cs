@@ -31,13 +31,13 @@ namespace IAmACube
             World.Tick(input);
 
             //_sectorGenerator.GenerateAdjacentSectors(World);
-
             if (Config.KernelUnlimitedEnergy)
             {
                 Kernel.Host.AddEnergy(Kernel.Host.EnergyCap);
             }
+
         }
-        
+
         public (Kernel, World) SaveAndQuit()
         {
             return (Kernel, World);

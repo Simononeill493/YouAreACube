@@ -42,13 +42,30 @@ namespace IAmACube
 
         public virtual BlockEnergyTransferResult TryTakeEnergyFrom(Cube source, int amount)
         {
+            if(amount==0)
+            {
+                throw new Exception("Tried to take 0 energy from a cube");
+            }
+
             if (amount > source.Energy)
             {
                 amount = source.Energy;
+
+                if (amount == 0)
+                {
+                    return BlockEnergyTransferResult.Failure_NoEnergyInSourceToTake;
+                }
             }
-            if(amount == 0)
+
+            if ((amount+Energy)>EnergyCap)
             {
-                return BlockEnergyTransferResult.Failure_NoEnergyToTake;
+                var excess = (amount + Energy) - EnergyCap;
+                amount -= excess;
+
+                if(amount==0)
+                {
+                    return BlockEnergyTransferResult.Failure_TargetEnergyIsMaxedOut;
+                }
             }
 
             this.AddEnergy(amount);
@@ -62,6 +79,7 @@ namespace IAmACube
     {
         Success,
         Failure_SourceIsDyingEphemeral,
-        Failure_NoEnergyToTake,
+        Failure_NoEnergyInSourceToTake,
+        Failure_TargetEnergyIsMaxedOut,
     }
 }
