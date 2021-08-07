@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    partial class BlockEditPane
+    partial class BlocksetEditPane
     {
         private bool _panning;
         private IntPoint _panPos;
@@ -60,7 +60,7 @@ namespace IAmACube
 
             panDiff *= 2;
 
-            TopLevelChipsets.ForEach(c => c.OffsetLocationConfig(panDiff));
+            TopLevelBlockSets.ForEach(c => c.OffsetLocationConfig(panDiff));
             _updateChildDimensions();
 
             _panPos = input.MousePos;

@@ -32,5 +32,7 @@ namespace IAmACube
         {
             SwitchScreen(ScreenType.TemplateExplorer);
         }
+
+
     }
 }

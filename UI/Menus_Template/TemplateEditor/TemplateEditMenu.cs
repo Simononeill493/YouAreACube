@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,66 +8,43 @@ namespace IAmACube
 {
     class TemplateEditMenu : SpriteMenuItem
     {
-        private CubeTemplate _baseTemplate;
-        private Kernel _kernel;
+        BlocksetEditTab _blocksetEditTab;
+        Action _goBackToTemplateSelector;
+        CubeTemplate _baseTemplate;
+        Kernel _kernel;
 
-        private BlockEditPane _editPane;
-        private BlockSearchPane _searchPane;
-
-        private Action _goBackToTemplateSelectScreen;
-        private (InputOptionMenu Menu, BlockInputSection Section) _inputMenuToOpenDetails;
-
-        public TemplateEditMenu(IHasDrawLayer parentDrawLayer,Kernel kernel, CubeTemplate baseTemplate, Action goBackToTemplateSelectScreen) : base(parentDrawLayer, "EditPaneWindow")
+        public TemplateEditMenu(IHasDrawLayer parentDrawLayer, Kernel kernel, CubeTemplate baseTemplate, Action goBackToTemplateSelector) : base(parentDrawLayer, "EditPaneWindow")
         {
-            _kernel = kernel;
+            _goBackToTemplateSelector = goBackToTemplateSelector;
             _baseTemplate = baseTemplate;
-            _goBackToTemplateSelectScreen = goBackToTemplateSelectScreen;
+            _kernel = kernel;
 
-            //var saveButton = new SpriteMenuItem(this, "SaveButton");
-            //saveButton.SetLocationConfig(0, -saveButton.GetBaseSize().Y, CoordinateMode.ParentPixelOffset, false);
-            //saveButton.OnMouseReleased += (i) => { _saveButtonPressed(); };
-            //AddChild(saveButton);
+            _blocksetEditTab = new BlocksetEditTab(this, kernel, baseTemplate, goBackToTemplateSelector);
+            _blocksetEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            _blocksetEditTab.Enabled = false;
+            _blocksetEditTab.Visible = false;
+            AddChild(_blocksetEditTab);
 
-            _editPane = new BlockEditPane(this,(menu,section) => _inputMenuToOpenDetails = (menu, section));
-            _editPane.SetLocationConfig(4, 4, CoordinateMode.ParentPixelOffset, false);
-            AddChild(_editPane);
+            var blankTab = new SpriteMenuItem(this, "EmptyMenuRectangleFull");
+            blankTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            blankTab.Enabled = false;
+            blankTab.Visible = false;
+            AddChild(blankTab);
 
-            _searchPane = new BlockSearchPane(this);
-            _searchPane.SetLocationConfig(84, 50, CoordinateMode.ParentPercentageOffset, true);
-            AddChild(_searchPane);
 
-            _editPane.IsMouseOverSearchPane = _searchPane.IsMouseOver;
-            _searchPane.AddToEditPane = _editPane.ConfigureNewBlocksetFromSearchPaneClick;
-            _searchPane.RefreshFilter();
-
-            _editPane.LoadTemplateForEditing(_baseTemplate);
-        }
-
-        public override void Update(UserInput input)
-        {
-            base.Update(input);
-
-            if(_inputMenuToOpenDetails.Section!=null)
-            {
-                OpenInputSectionDialog(_inputMenuToOpenDetails.Menu, _inputMenuToOpenDetails.Section);
-                _inputMenuToOpenDetails.Section = null;
-            }
-        }
-
-        public void OpenInputSectionDialog(InputOptionMenu menu, BlockInputSection section)
-        {
-            var dialogBox = new BlockTemplateSelectionDialog(ManualDrawLayer.Create(DrawLayers.MenuDialogLayer), this,section,_kernel);
-            dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
-            dialogBox.AddPausedItems(_editPane, _searchPane);
-
-            AddChildAfterUpdate(dialogBox);
+            var tabs = new TabArrayMenuItem(this);
+            tabs.SetLocationConfig(0, 0, CoordinateMode.ParentPercentageOffset, false);
+            tabs.AddTab("Chipset", _blocksetEditTab);
+            tabs.AddTab("Blank", blankTab);
+            tabs.SwitchToFirstTab();
+            AddChild(tabs);
         }
 
         public void OpenQuitDialog()
         {
             var dialogBox = new TemplateQuitDialog(ManualDrawLayer.Create(DrawLayers.MenuDialogLayer), this, _quitDialogButtonPressed);
             dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
-            dialogBox.AddPausedItems(_editPane, _searchPane);
+            dialogBox.AddPausedItems(_blocksetEditTab);
 
             AddChildAfterUpdate(dialogBox);
         }
@@ -81,7 +57,7 @@ namespace IAmACube
                     _openSaveDialog();
                     break;
                 case TemplateQuitButtonOption.QuitWithoutSaving:
-                    _goBackToTemplateSelectScreen();
+                    _goBackToTemplateSelector();
                     break;
             }
         }
@@ -91,12 +67,12 @@ namespace IAmACube
             var versionNumber = _baseTemplate.Versions.GetNewVersionNumber();
             var dialogBox = new TemplateSaveDialog(ManualDrawLayer.Create(DrawLayers.MenuDialogLayer), this, versionNumber, _saveDialogButtonPressed);
             dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
-            dialogBox.AddPausedItems(_editPane, _searchPane);
+            dialogBox.AddPausedItems(_blocksetEditTab);
 
             AddChildAfterUpdate(dialogBox);
         }
 
-        private void _saveDialogButtonPressed(TemplateSaveDialogOption option,string name)
+        private void _saveDialogButtonPressed(TemplateSaveDialogOption option, string name)
         {
             switch (option)
             {
@@ -108,7 +84,7 @@ namespace IAmACube
                     break;
             }
 
-            _goBackToTemplateSelectScreen(); 
+            _goBackToTemplateSelector();
         }
 
         public void SaveNewVersion(string name)
@@ -129,7 +105,7 @@ namespace IAmACube
         public void SaveNewTemplate(string name)
         {
             var newTemplate = _createNewTemplateFromThisMenu();
-            if(newTemplate== null)
+            if (newTemplate == null)
             {
                 return;
             }
@@ -143,11 +119,15 @@ namespace IAmACube
         private CubeTemplate _createNewTemplateFromThisMenu()
         {
             var template = _baseTemplate.Clone();
+            _addBlocksetDataToTemplate(template);
+            return template;
+        }
 
-            if (_editPane.TopLevelChipsets.Count == 1)
+        private void _addBlocksetDataToTemplate(CubeTemplate template)
+        {
+            if (_blocksetEditTab.HasOneBlockset)
             {
-                var chipset = _editPane.TopLevelChipsets.First();
-                chipset.Name = "_Initial";
+                var chipset = _blocksetEditTab.GetInitial();
 
                 var json = Parser_BlocksetToJSON.ParseBlocksetToJson(chipset);
                 var block = Parser_JSONToChipset.ParseJsonToBlock(json);
@@ -161,16 +141,7 @@ namespace IAmACube
                     template.Active = true;
                     template.Speed = 30;
                 }
-                return template;
             }
-
-            return null;
-        }
-
-        protected override void _drawSelf(DrawingInterface drawingInterface)
-        {
-            base._drawSelf(drawingInterface);
-            this.FillRestOfScreen(drawingInterface, DrawLayer + DrawLayers.MinLayerDistance, Color.Black, 1);
         }
     }
 }

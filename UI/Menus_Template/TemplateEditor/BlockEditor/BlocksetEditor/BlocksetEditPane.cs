@@ -7,24 +7,24 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public partial class BlockEditPane : SpriteMenuItem, IBlocksetContainer, IBlocksetTopLevelContainer
+    public partial class BlocksetEditPane : SpriteMenuItem, IBlocksetContainer, IBlocksetTopLevelContainer
     {
         public Func<UserInput, bool> IsMouseOverSearchPane;
         Action<InputOptionMenu, BlockInputSection> SubMenuCallback;
 
-        public List<Blockset> TopLevelChipsets;
+        public List<Blockset> TopLevelBlockSets;
 
         private const float MinimumChipScale = 2.0f;
         private float _blockScaleMultiplier = 1.0f;
         private List<Blockset> _allBlocksets;
 
 
-        public BlockEditPane(IHasDrawLayer parentDrawLayer,Action<InputOptionMenu,BlockInputSection> subMenuCallback) : base(parentDrawLayer, "ChipEditPane")
+        public BlocksetEditPane(IHasDrawLayer parentDrawLayer,Action<InputOptionMenu,BlockInputSection> subMenuCallback) : base(parentDrawLayer, "ChipEditPane")
         {
             DrawLayer = DrawLayers.MenuBehindLayer;
 
             _allBlocksets = new List<Blockset>();
-            TopLevelChipsets = new List<Blockset>();
+            TopLevelBlockSets = new List<Blockset>();
 
             var size = GetBaseSize();
 
@@ -81,23 +81,23 @@ namespace IAmACube
 
         public void AddBlockset(Blockset newChipset)
         {
-            if (TopLevelChipsets.Contains(newChipset))
+            if (TopLevelBlockSets.Contains(newChipset))
             {
                 throw new Exception("Tried to add a chipset to the pane that was already there");
             }
 
             AddChildAfterUpdate(newChipset);
-            TopLevelChipsets.Add(newChipset);
+            TopLevelBlockSets.Add(newChipset);
         }
         public void RemoveBlockset(Blockset newChipset)
         {
-            if (!TopLevelChipsets.Contains(newChipset))
+            if (!TopLevelBlockSets.Contains(newChipset))
             {
                 throw new Exception("Tried to take a chipset from the pane that wasn't there");
             }
 
             RemoveChildAfterUpdate(newChipset);
-            TopLevelChipsets.Remove(newChipset);
+            TopLevelBlockSets.Remove(newChipset);
         }
 
         private void _chipsetDropped(Blockset droppedChipset, UserInput input)
@@ -142,7 +142,7 @@ namespace IAmACube
 
         private Blockset _getCurrentlyHoveredChipset(Blockset toAttach)
         {
-            foreach (var chipset in TopLevelChipsets)
+            foreach (var chipset in TopLevelBlockSets)
             {
                 if (chipset.IsMouseOverAnyBlock() & (chipset != toAttach))
                 {
@@ -182,7 +182,7 @@ namespace IAmACube
         }
         private void _checkForChipsetGarbageCollection(Blockset toCheck)
         {
-            if (toCheck.Blocks.Count == 0 & TopLevelChipsets.Contains(toCheck))
+            if (toCheck.Blocks.Count == 0 & TopLevelBlockSets.Contains(toCheck))
             {
                 _destroyChipset(toCheck);
             }
@@ -206,10 +206,10 @@ namespace IAmACube
         private void _multiplyChipScale(float multiplier)
         {
             _blockScaleMultiplier *= multiplier;
-            TopLevelChipsets.ForEach(chip => chip.MultiplyScaleCascade(multiplier));
+            TopLevelBlockSets.ForEach(chip => chip.MultiplyScaleCascade(multiplier));
             _updateChildDimensions();
         }
-        private void _setChipsetVisibilities() => TopLevelChipsets.ForEach(chip => _setChipsetVisiblity(chip));
+        private void _setChipsetVisibilities() => TopLevelBlockSets.ForEach(chip => _setChipsetVisiblity(chip));
         private void _setChipsetVisiblity(Blockset chipset)
         {
             if(this.IsIntersectedWith(chipset))

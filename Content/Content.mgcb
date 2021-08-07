@@ -481,6 +481,18 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/MenuSpecific/SaveButton.PNG;SaveButton.PNG
 
+#begin ../Simon_Data/To_Import/MenuSpecific/TabButton.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/MenuSpecific/TabButton.PNG;TabButton.PNG
+
 #begin ../Simon_Data/To_Import/MenuSpecific/TemplateItemContainer.png
 /importer:TextureImporter
 /processor:TextureProcessor
