@@ -8,10 +8,13 @@ namespace IAmACube
 {
     class TemplateEditMenu : SpriteMenuItem
     {
-        BlocksetEditTab _blocksetEditTab;
-        Action _goBackToTemplateSelector;
-        CubeTemplate _baseTemplate;
-        Kernel _kernel;
+        private TabArrayMenuItem _tabs;
+        private TemplateChipsetEditTab _chipsetEditTab;
+        private TemplateBaseStatsEditTab _statsEditTab;
+
+        private Action _goBackToTemplateSelector;
+        private CubeTemplate _baseTemplate;
+        private Kernel _kernel;
 
         public TemplateEditMenu(IHasDrawLayer parentDrawLayer, Kernel kernel, CubeTemplate baseTemplate, Action goBackToTemplateSelector) : base(parentDrawLayer, "EditPaneWindow")
         {
@@ -19,32 +22,31 @@ namespace IAmACube
             _baseTemplate = baseTemplate;
             _kernel = kernel;
 
-            _blocksetEditTab = new BlocksetEditTab(this, kernel, baseTemplate, goBackToTemplateSelector);
-            _blocksetEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
-            _blocksetEditTab.Enabled = false;
-            _blocksetEditTab.Visible = false;
-            AddChild(_blocksetEditTab);
+            _chipsetEditTab = new TemplateChipsetEditTab(this, kernel, baseTemplate, goBackToTemplateSelector);
+            _chipsetEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            _chipsetEditTab.Enabled = false;
+            _chipsetEditTab.Visible = false;
+            AddChild(_chipsetEditTab);
 
-            var blankTab = new SpriteMenuItem(this, "EmptyMenuRectangleFull");
-            blankTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
-            blankTab.Enabled = false;
-            blankTab.Visible = false;
-            AddChild(blankTab);
+            _statsEditTab = new TemplateBaseStatsEditTab(this,baseTemplate);
+            _statsEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            _statsEditTab.Enabled = false;
+            _statsEditTab.Visible = false;
+            AddChild(_statsEditTab);
 
-
-            var tabs = new TabArrayMenuItem(this);
-            tabs.SetLocationConfig(0, 0, CoordinateMode.ParentPercentageOffset, false);
-            tabs.AddTab("Chipset", _blocksetEditTab);
-            tabs.AddTab("Blank", blankTab);
-            tabs.SwitchToFirstTab();
-            AddChild(tabs);
+            _tabs = new TabArrayMenuItem(this);
+            _tabs.SetLocationConfig(0, 0, CoordinateMode.ParentPercentageOffset, false);
+            _tabs.AddTab("Stats", _statsEditTab);
+            _tabs.AddTab("Chipset", _chipsetEditTab);
+            _tabs.SwitchToFirstTab();
+            AddChild(_tabs);
         }
 
         public void OpenQuitDialog()
         {
-            var dialogBox = new TemplateQuitDialog(ManualDrawLayer.Create(DrawLayers.MenuDialogLayer), this, _quitDialogButtonPressed);
+            var dialogBox = new TemplateQuitDialog(ManualDrawLayer.Dialog, this, _quitDialogButtonPressed);
             dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
-            dialogBox.AddPausedItems(_blocksetEditTab);
+            dialogBox.AddPausedItems(_tabs.Tabs);
 
             AddChildAfterUpdate(dialogBox);
         }
@@ -65,9 +67,10 @@ namespace IAmACube
         private void _openSaveDialog()
         {
             var versionNumber = _baseTemplate.Versions.GetNewVersionNumber();
-            var dialogBox = new TemplateSaveDialog(ManualDrawLayer.Create(DrawLayers.MenuDialogLayer), this, versionNumber, _saveDialogButtonPressed);
+
+            var dialogBox = new TemplateSaveDialog(ManualDrawLayer.Dialog, this, versionNumber, _statsEditTab.CurrentName, _saveDialogButtonPressed);
             dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
-            dialogBox.AddPausedItems(_blocksetEditTab);
+            dialogBox.AddPausedItems(_tabs.Tabs);
 
             AddChildAfterUpdate(dialogBox);
         }
@@ -119,29 +122,10 @@ namespace IAmACube
         private CubeTemplate _createNewTemplateFromThisMenu()
         {
             var template = _baseTemplate.Clone();
-            _addBlocksetDataToTemplate(template);
+            _chipsetEditTab.AddEditedChipsetToTemplate(template);
+            _statsEditTab.AddEditedFieldsToTemplate(template);
             return template;
         }
 
-        private void _addBlocksetDataToTemplate(CubeTemplate template)
-        {
-            if (_blocksetEditTab.HasOneBlockset)
-            {
-                var chipset = _blocksetEditTab.GetInitial();
-
-                var json = Parser_BlocksetToJSON.ParseBlocksetToJson(chipset);
-                var block = Parser_JSONToChipset.ParseJsonToBlock(json);
-
-                TemplateParsingTester.TestParsingRoundTrip(chipset.Name, block);
-
-                template.Chipset = block;
-
-                if (!template.Active)
-                {
-                    template.Active = true;
-                    template.Speed = 30;
-                }
-            }
-        }
     }
 }

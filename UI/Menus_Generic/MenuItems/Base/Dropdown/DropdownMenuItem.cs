@@ -28,8 +28,7 @@ namespace IAmACube
             SpriteName = "Dropdown";
             TextItem.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
 
-            var dropdownLayer = ManualDrawLayer.Create(DrawLayers.MenuDropdownLayer);
-            _list = new ListMenuItem<T>(dropdownLayer, GetBaseSize());
+            _list = new ListMenuItem<T>(ManualDrawLayer.Dropdown, GetBaseSize());
             _list.SetLocationConfig(0, 100, CoordinateMode.ParentPercentageOffset);
             _list.Visible = false;
             _list.Enabled = false;

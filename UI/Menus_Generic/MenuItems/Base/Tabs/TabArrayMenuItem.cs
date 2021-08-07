@@ -9,13 +9,13 @@ namespace IAmACube
     class TabArrayMenuItem : SpriteMenuItem
     {
         private List<TabButtonMenuItem> _tabButtons;
-        private List<MenuItem> _tabs;
+        public List<MenuItem> Tabs;
         private TabButtonMenuItem _activeTab;
 
         public TabArrayMenuItem(IHasDrawLayer parent) : base(parent, "BlankPixel")
         {
             _tabButtons = new List<TabButtonMenuItem>();
-            _tabs = new List<MenuItem>();
+            Tabs = new List<MenuItem>();
         }
 
         public void AddTab(string name,MenuItem tab)
@@ -24,14 +24,14 @@ namespace IAmACube
             //tabButton.TextItem.Color = Microsoft.Xna.Framework.Color.White;
             var tabSize = tabButton.GetBaseSize();
 
-            var x = (tabSize.X+10) * (_tabs.Count);
+            var x = (tabSize.X+10) * (Tabs.Count);
 
             tabButton.SetLocationConfig(x, -tabSize.Y, CoordinateMode.ParentPixelOffset, false);
             tabButton.OnMouseReleased += (i) => SwitchToTab(tabButton);
             AddChild(tabButton);
 
             _tabButtons.Add(tabButton);
-            _tabs.Add(tab);
+            Tabs.Add(tab);
         }
 
         public void SwitchToTab(TabButtonMenuItem tabButton)

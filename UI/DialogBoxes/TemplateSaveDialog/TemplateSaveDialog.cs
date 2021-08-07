@@ -16,13 +16,13 @@ namespace IAmACube
 
         private Action<TemplateSaveDialogOption, string> _saveTemplateCallback;
 
-        public TemplateSaveDialog(IHasDrawLayer parentDrawLayer, MenuItem container,int newVersionNumber,Action<TemplateSaveDialogOption,string> saveTemplateCallback) : base(parentDrawLayer, container, "EmptyMenuRectangleMedium")
+        public TemplateSaveDialog(IHasDrawLayer parentDrawLayer, MenuItem container,int newVersionNumber,string currentName,Action<TemplateSaveDialogOption,string> saveTemplateCallback) : base(parentDrawLayer, container, "EmptyMenuRectangleMedium")
         {
             _saveTemplateCallback = saveTemplateCallback;
 
             _nameText = _addTextItem("", 50, 15, CoordinateMode.ParentPercentageOffset, true);
             _versionText = _addTextItem("V" + newVersionNumber + ":", 10, 30, CoordinateMode.ParentPercentageOffset, true);
-            _nameTextBox = _addTextBox("", 50, 30, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 12);
+            _nameTextBox = _addTextBox(currentName, 50, 30, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 12);
             _addButton("Save", 30, 80, CoordinateMode.ParentPercentageOffset, true, (i) => _saveButtonPressed());
             _addButton("Cancel", 70, 80, CoordinateMode.ParentPercentageOffset, true, (i) => Close());
 

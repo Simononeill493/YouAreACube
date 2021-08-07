@@ -134,6 +134,7 @@
     <Compile Include="Testing\Chip_SanityTesting.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Tabs\TabArrayMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Tabs\TabButtonMenuItem.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlockEditor\BaseStatsEditor\TemplateBaseStatsEditTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlockEditor\BlocksetEditor\BlocksetEditPane_Pan.cs" />
     <Compile Include="UI\DialogBoxes\BlockTemplateSelectionDialog\BlockTemplateSelectionDialog.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateEditMenu.cs" />
@@ -217,7 +218,7 @@
     <Compile Include="UI\Menus_Template\TemplateEditor\BlockEditor\BlocksetEditor\BlockSearcher\BlockPreview.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlockEditor\BlocksetEditor\BlockSearcher\BlockSearchPane.cs" />
     <Compile Include="Blocks\Blocksets\Blockset.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlockEditor\BlocksetEditor\BlocksetEditTab.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlockEditor\BlocksetEditor\TemplateChipsetEditTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedMenu\TemplateSelectedMenu.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\TextBoxMenuItem.cs" />
     <Compile Include="Utils\DrawUtils.cs" />

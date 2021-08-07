@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class BlocksetEditTab : SpriteMenuItem
+    class TemplateChipsetEditTab : SpriteMenuItem
     {
         private CubeTemplate _baseTemplate;
         private Kernel _kernel;
@@ -18,7 +18,7 @@ namespace IAmACube
         private Action _goBackToTemplateSelectScreen;
         private (InputOptionMenu Menu, BlockInputSection Section) _inputMenuToOpenDetails;
 
-        public BlocksetEditTab(IHasDrawLayer parentDrawLayer,Kernel kernel, CubeTemplate baseTemplate, Action goBackToTemplateSelectScreen) : base(parentDrawLayer, "EditPaneWindow")
+        public TemplateChipsetEditTab(IHasDrawLayer parentDrawLayer,Kernel kernel, CubeTemplate baseTemplate, Action goBackToTemplateSelectScreen) : base(parentDrawLayer, "EditPaneWindow")
         {
             _kernel = kernel;
             _baseTemplate = baseTemplate;
@@ -41,8 +41,31 @@ namespace IAmACube
             _searchPane.AddToEditPane = _editPane.ConfigureNewBlocksetFromSearchPaneClick;
             _searchPane.RefreshFilter();
 
-            _editPane.LoadTemplateForEditing(_baseTemplate);
+            LoadChipsetForEditing(_baseTemplate);
         }
+
+        public void LoadChipsetForEditing(CubeTemplate template) => _editPane.LoadTemplateForEditing(template);
+
+        public void AddEditedChipsetToTemplate(CubeTemplate template)
+        {
+            if (HasOneBlockset)
+            {
+                var chipset = GetInitial();
+                var json = Parser_BlocksetToJSON.ParseBlocksetToJson(chipset);
+                var block = Parser_JSONToChipset.ParseJsonToBlock(json);
+
+                TemplateParsingTester.TestParsingRoundTrip(chipset.Name, block);
+
+                template.Chipset = block;
+
+                if (!template.Active)
+                {
+                    template.Active = true;
+                    template.Speed = 30;
+                }
+            }
+        }
+
 
         public override void Update(UserInput input)
         {
@@ -57,7 +80,7 @@ namespace IAmACube
 
         public void OpenInputSectionDialog(InputOptionMenu menu, BlockInputSection section)
         {
-            var dialogBox = new BlockTemplateSelectionDialog(ManualDrawLayer.Create(DrawLayers.MenuDialogLayer), this,section,_kernel);
+            var dialogBox = new BlockTemplateSelectionDialog(ManualDrawLayer.Dialog, this,section,_kernel);
             dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
             dialogBox.AddPausedItems(_editPane, _searchPane);
 

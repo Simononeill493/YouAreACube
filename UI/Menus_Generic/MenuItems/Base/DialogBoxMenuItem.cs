@@ -20,7 +20,8 @@ namespace IAmACube
             _pausedItems = new List<MenuItem>();
         }
 
-        public void AddPausedItems(params MenuItem[] items)
+        public void AddPausedItems(params MenuItem[] items) => AddPausedItems(items.ToList());
+        public void AddPausedItems(IEnumerable<MenuItem> items)
         {
             foreach(var item in items)
             {
