@@ -10,7 +10,7 @@ namespace IAmACube
     public struct FloatPoint
     {
         public static FloatPoint Zero => new FloatPoint(0, 0);
-        public static FloatPoint Min => new FloatPoint(float.MinValue, float.MinValue);
+        public static FloatPoint MinValue => new FloatPoint(float.MinValue, float.MinValue);
 
         public float X;
         public float Y;
@@ -25,6 +25,9 @@ namespace IAmACube
         public IntPoint Ceiling => new IntPoint((int)Math.Ceiling(X), (int)Math.Ceiling(Y));
         public IntPoint Floor => new IntPoint((int)Math.Floor(X), (int)Math.Floor(Y));
         public IntPoint Round => new IntPoint((int)Math.Round(X), (int)Math.Round(Y));
+        public float Max => Math.Max(X, Y);
+        public float Min => Math.Min(X, Y);
+
 
         public static FloatPoint operator +(FloatPoint p) => p;
         public static FloatPoint operator -(FloatPoint p) => new FloatPoint(-p.X, -p.Y);

@@ -44,7 +44,15 @@ namespace IAmACube
                 child.MultiplyScaleCascade(multiplier);
             }
         }
-        public void MultiplyScale(float multiplier) => ScaleMultiplier *= multiplier;
+        public void MultiplyScale(float multiplier)
+        {
+            if(Math.Abs(multiplier)<0.0001f)
+            {
+                throw new Exception("Scale should never be mutiplied by zero");
+
+            }
+            ScaleMultiplier *= multiplier;
+        }
         
 
         protected void _updateLocation(IntPoint parentlocation, IntPoint parentSize)

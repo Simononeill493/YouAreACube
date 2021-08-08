@@ -25,7 +25,7 @@ namespace IAmACube
         public static bool KernelHostInvincible = true;
         public static bool KernelLearnAllTemplates = true;
 
-        public static int MenuItemScale = 4;
+        public static int DefaultMenuItemScale = 4;
         public static Color DefaultTextColor = Color.Black;
 
         public static int DefaultBlockSpeed = 30;

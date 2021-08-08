@@ -206,9 +206,11 @@ namespace IAmACube
         private void _multiplyChipScale(float multiplier)
         {
             _blockScaleMultiplier *= multiplier;
+
             TopLevelBlockSets.ForEach(chip => chip.MultiplyScaleCascade(multiplier));
             _updateChildDimensions();
         }
+
         private void _setChipsetVisibilities() => TopLevelBlockSets.ForEach(chip => _setChipsetVisiblity(chip));
         private void _setChipsetVisiblity(Blockset chipset)
         {

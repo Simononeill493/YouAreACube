@@ -10,7 +10,8 @@ namespace IAmACube
     public struct IntPoint
     {
         public static IntPoint Zero => new IntPoint(0, 0);
-        public static IntPoint Min => new IntPoint(int.MinValue, int.MinValue);
+        public static IntPoint MinValue => new IntPoint(int.MinValue, int.MinValue);
+
 
         public int X;
         public int Y;
@@ -44,7 +45,8 @@ namespace IAmACube
         public static bool operator ==(IntPoint a, IntPoint b)=>a.Equals(b);
         public static bool operator !=(IntPoint a, IntPoint b)=>!a.Equals(b);
 
-
+        public int Max => Math.Max(X, Y);
+        public int Min => Math.Min(X, Y);
 
 
         public int DistanceFrom(IntPoint other)
