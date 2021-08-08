@@ -10,14 +10,15 @@ namespace IAmACube
 {
     static class SpriteManager
     {
+        public static Dictionary<string, Texture2D> Sprites;
+
         private static bool _initialized = false;
-        private static Dictionary<string, Texture2D> _sprites;
         private static ContentManager _contentManager;
         private static SpriteFont _gameFont;
 
         public static void LoadContent(ContentManager contentManager, SpriteFont gameFont)
         {
-            _sprites = new Dictionary<string, Texture2D>();
+            Sprites = new Dictionary<string, Texture2D>();
             _contentManager = contentManager;
             _gameFont = gameFont;
 
@@ -26,14 +27,14 @@ namespace IAmACube
 
         public static Texture2D GetSprite(string spriteName)
         {
-            if (_sprites.ContainsKey(spriteName))
+            if (Sprites.ContainsKey(spriteName))
             {
-                return _sprites[spriteName];
+                return Sprites[spriteName];
             }
             else
             {
                 var sprite = _contentManager.Load<Texture2D>(spriteName);
-                _sprites[spriteName] = sprite;
+                Sprites[spriteName] = sprite;
                 return sprite;
             }
         }

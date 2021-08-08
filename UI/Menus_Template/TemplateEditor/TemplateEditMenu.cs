@@ -11,6 +11,7 @@ namespace IAmACube
         private TabArrayMenuItem _tabs;
         private TemplateChipsetEditTab _chipsetEditTab;
         private TemplateBaseStatsEditTab _statsEditTab;
+        private TemplateAppearanceEditTab _appearanceEditTab;
 
         private Action _goBackToTemplateSelector;
         private CubeTemplate _baseTemplate;
@@ -34,10 +35,17 @@ namespace IAmACube
             _statsEditTab.Visible = false;
             AddChild(_statsEditTab);
 
+            _appearanceEditTab = new TemplateAppearanceEditTab(this, baseTemplate);
+            _appearanceEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            _appearanceEditTab.Enabled = false;
+            _appearanceEditTab.Visible = false;
+            AddChild(_appearanceEditTab);
+
             _tabs = new TabArrayMenuItem(this);
             _tabs.SetLocationConfig(0, 0, CoordinateMode.ParentPercentageOffset, false);
             _tabs.AddTab("Stats", _statsEditTab);
             _tabs.AddTab("Chipset", _chipsetEditTab);
+            _tabs.AddTab("Appearance", _appearanceEditTab);
             _tabs.SwitchToFirstTab();
             AddChild(_tabs);
         }

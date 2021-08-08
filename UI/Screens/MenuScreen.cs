@@ -13,7 +13,7 @@ namespace IAmACube
             get => _scale; 
             set 
             {
-                if(value<1) { value = 1; }
+                if(value<2) { value = 2; }
                 _scale = value; 
             } 
         }
@@ -38,7 +38,6 @@ namespace IAmACube
         private void _setScaleToReccomended()
         {
             var sc = (_currentScreenDimensions.Min / 400) * 2;
-            if(sc<2) { sc = 2; }
             Scale = sc;
         }
 

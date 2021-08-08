@@ -135,6 +135,7 @@
     <Compile Include="UI\Menus_Generic\MenuItems\Base\CheckBox\CheckBoxMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Tabs\TabArrayMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Tabs\TabButtonMenuItem.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlockEditor\AppearanceEditor\TemplateAppearanceEditTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlockEditor\BaseStatsEditor\TemplateBaseStatsEditTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlockEditor\BlocksetEditor\BlocksetEditPane_Pan.cs" />
     <Compile Include="UI\DialogBoxes\BlockTemplateSelectionDialog\BlockTemplateSelectionDialog.cs" />
