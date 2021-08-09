@@ -11,7 +11,11 @@ namespace IAmACube
 
         public TemplateAppearanceEditTab(IHasDrawLayer parent, CubeTemplate baseTemplate) : base(parent, "EmptyMenuRectangleFull")
         {
-            var appearances = new DropdownMenuItem<string>(this);
+            var eyesButton = new ButtonMenuItem(this, "E") { SpriteName = "AppearanceEditOptionButton" };
+            eyesButton.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, false);
+            AddChild(eyesButton);
+
+            /*var appearances = new DropdownMenuItem<string>(this);
             appearances.SetLocationConfig(50, 10, CoordinateMode.ParentPercentageOffset, true);
 
             var validPics = new List<string>();
@@ -24,7 +28,12 @@ namespace IAmACube
             }
             appearances.AddItems(validPics);
 
-            AddChild(appearances);
+            AddChild(appearances);*/
+
+            var spriteBox = new AppearanceEditSpriteBox(this, baseTemplate.Sprite);
+            spriteBox.SetLocationConfig(85, 20, CoordinateMode.ParentPercentageOffset, true);
+            spriteBox.MultiplyScaleCascade(2.0f);
+            AddChild(spriteBox);
         }
 
         public void LoadFieldsForEditing(CubeTemplate template)

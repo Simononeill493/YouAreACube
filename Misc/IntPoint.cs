@@ -10,6 +10,8 @@ namespace IAmACube
     public struct IntPoint
     {
         public static IntPoint Zero => new IntPoint(0, 0);
+        public static IntPoint One => new IntPoint(1, 1);
+
         public static IntPoint MinValue => new IntPoint(int.MinValue, int.MinValue);
 
 

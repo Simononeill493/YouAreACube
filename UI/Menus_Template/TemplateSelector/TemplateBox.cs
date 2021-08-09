@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class TemplateBox : SpriteMenuItem
+    class TemplateBox : CubeSpriteBox
     {
         private TemplateVersionDictionary _template;
         private TextBoxMenuItem _templateHoverBox;
-        private SpriteMenuItem _sprite;
 
-        public TemplateBox(IHasDrawLayer parentDrawLayer,Action<TemplateVersionDictionary> selectTemplate) : base(parentDrawLayer,"TemplateItemContainer")
+        public TemplateBox(IHasDrawLayer parentDrawLayer,Action<TemplateVersionDictionary> selectTemplate) : base(parentDrawLayer)
         {
             OnMouseReleased += (i) => selectTemplate(_template);
             OnMouseStartHover += (i) => TemplateBox_OnMouseStartHover();
@@ -31,16 +30,7 @@ namespace IAmACube
         {
             _template = template;
             _templateHoverBox.SetText(_template.Name);
-
-            if (_sprite != null)
-            {
-                RemoveChild(_sprite);
-            }
-
-            _sprite = new SpriteMenuItem(this, template.Main.Sprite);
-            _sprite.SetLocationConfig(14, 14, CoordinateMode.ParentPercentageOffset);
-
-            AddChild(_sprite);
+            _sprite.SpriteName = template.Main.Sprite;
         }
         private void TemplateBox_OnMouseStartHover()
         {

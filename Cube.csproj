@@ -133,13 +133,16 @@
     <Compile Include="Testing\Chipset_SanityTesting.cs" />
     <Compile Include="Testing\Chip_SanityTesting.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\CheckBox\CheckBoxMenuItem.cs" />
+    <Compile Include="UI\Menus_Generic\MenuItems\Base\ContainerMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Tabs\TabArrayMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Tabs\TabButtonMenuItem.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlockEditor\AppearanceEditor\AppearanceEditSpriteBox.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlockEditor\AppearanceEditor\TemplateAppearanceEditTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlockEditor\BaseStatsEditor\TemplateBaseStatsEditTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlockEditor\BlocksetEditor\BlocksetEditPane_Pan.cs" />
     <Compile Include="UI\DialogBoxes\BlockTemplateSelectionDialog\BlockTemplateSelectionDialog.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateEditMenu.cs" />
+    <Compile Include="UI\Menus_Generic\MenuItems\Abstract\CubeSpriteBox.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateExplorerMenu\TemplateExplorerMenu.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateExplorerMenu\TemplateExplorerMenuInternal.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateExplorerMenu\TemplateExplorerMenuMain.cs" />

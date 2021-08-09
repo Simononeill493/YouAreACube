@@ -8,9 +8,10 @@ namespace IAmACube
 {
     class TabArrayMenuItem : SpriteMenuItem
     {
-        private List<TabButtonMenuItem> _tabButtons;
         public List<MenuItem> Tabs;
+        private List<TabButtonMenuItem> _tabButtons;
         private TabButtonMenuItem _activeTab;
+        private int _countOfTabsInLine;
 
         public TabArrayMenuItem(IHasDrawLayer parent) : base(parent, "BlankPixel")
         {
@@ -18,21 +19,40 @@ namespace IAmACube
             Tabs = new List<MenuItem>();
         }
 
-        public void AddTab(string name,MenuItem tab)
+        public void AddTabButton(string name,MenuItem tab)
         {
-            var tabButton = new TabButtonMenuItem(this, tab,name);
-            //tabButton.TextItem.Color = Microsoft.Xna.Framework.Color.White;
+            var tabButton = _makeNewButton(name, tab);
+
             var tabSize = tabButton.GetBaseSize();
+            var x = (tabSize.X+10) * (_countOfTabsInLine);
+            tabButton.SetLocationConfig(x, 0, CoordinateMode.ParentPixelOffset, false);
 
-            var x = (tabSize.X+10) * (Tabs.Count);
+            _countOfTabsInLine++;
+        }
 
-            tabButton.SetLocationConfig(x, -tabSize.Y, CoordinateMode.ParentPixelOffset, false);
+        public void AddTabButtonWithManualLocation(string name, MenuItem tab, int x, int y, CoordinateMode coordinateMode, bool centered)
+        {
+            var tabButton = _makeNewButton(name, tab);
+            tabButton.SetLocationConfig(x,y,coordinateMode,centered);
+        }
+
+
+        private TabButtonMenuItem _makeNewButton(string name, MenuItem tab)
+        {
+            var tabButton = new TabButtonMenuItem(this, tab, name);
             tabButton.OnMouseReleased += (i) => SwitchToTab(tabButton);
-            AddChild(tabButton);
+            tab.Visible = false;
+            tab.Enabled = false;
 
+            AddChild(tabButton);
             _tabButtons.Add(tabButton);
             Tabs.Add(tab);
+
+            return tabButton;
         }
+
+
+
 
         public void SwitchToTab(TabButtonMenuItem tabButton)
         {
