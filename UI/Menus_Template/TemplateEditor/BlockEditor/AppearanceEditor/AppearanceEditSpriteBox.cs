@@ -8,9 +8,13 @@ namespace IAmACube
 {
     class AppearanceEditSpriteBox : CubeSpriteBox
     {
-        public AppearanceEditSpriteBox(IHasDrawLayer parent,string originalSprite) : base(parent)
+        public AppearanceEditSpriteBox(IHasDrawLayer parent) : base(parent)
         {
-            _sprite.SpriteName = originalSprite;
+        }
+
+        public void SetSpriteToSingleImage(string spriteName)
+        {
+            _sprite.SpriteName = spriteName;
         }
     }
 }

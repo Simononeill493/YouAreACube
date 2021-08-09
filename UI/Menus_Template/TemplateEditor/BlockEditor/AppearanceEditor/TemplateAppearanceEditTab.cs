@@ -8,39 +8,37 @@ namespace IAmACube
 {
     class TemplateAppearanceEditTab : SpriteMenuItem
     {
+        private AppearanceEditSpriteBox _spriteBox;
 
         public TemplateAppearanceEditTab(IHasDrawLayer parent, CubeTemplate baseTemplate) : base(parent, "EmptyMenuRectangleFull")
         {
-            var eyesButton = new ButtonMenuItem(this, "E") { SpriteName = "AppearanceEditOptionButton" };
-            eyesButton.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, false);
-            AddChild(eyesButton);
+            var eyeSelectorTab = new TemplateSpriteSelectorTab(this);
+            eyeSelectorTab.SetLocationConfig(20, 5, CoordinateMode.ParentPixelOffset,false);
+            AddChild(eyeSelectorTab);
 
-            /*var appearances = new DropdownMenuItem<string>(this);
-            appearances.SetLocationConfig(50, 10, CoordinateMode.ParentPercentageOffset, true);
+            var appearanceEditTabs = new TabArrayMenuItem(this, MenuOrientation.Vertical, -1, "AppearanceEditOptionButton");
+            appearanceEditTabs.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, false);
+            appearanceEditTabs.AddTabButton("E", eyeSelectorTab);
+            appearanceEditTabs.AddTabButton("B", new ContainerMenuItem(this));
+            appearanceEditTabs.AddTabButton("C", new ContainerMenuItem(this));
+            appearanceEditTabs.AddTabButton("D", new ContainerMenuItem(this));
+            appearanceEditTabs.AddTabButton("L", new ContainerMenuItem(this));
+            AddChild(appearanceEditTabs);
 
-            var validPics = new List<string>();
-            foreach(var kvp in SpriteManager.Sprites)
-            {
-                if(kvp.Value.Width==16 & kvp.Value.Height == 16)
-                {
-                    validPics.Add(kvp.Key);
-                }
-            }
-            appearances.AddItems(validPics);
+            _spriteBox = new AppearanceEditSpriteBox(this);
+            _spriteBox.SetLocationConfig(85, 20, CoordinateMode.ParentPercentageOffset, true);
+            _spriteBox.MultiplyScaleCascade(2.0f);
+            AddChild(_spriteBox);
 
-            AddChild(appearances);*/
-
-            var spriteBox = new AppearanceEditSpriteBox(this, baseTemplate.Sprite);
-            spriteBox.SetLocationConfig(85, 20, CoordinateMode.ParentPercentageOffset, true);
-            spriteBox.MultiplyScaleCascade(2.0f);
-            AddChild(spriteBox);
+            LoadAppearanceForEditing(baseTemplate);
         }
 
-        public void LoadFieldsForEditing(CubeTemplate template)
+        public void LoadAppearanceForEditing(CubeTemplate template)
         {
+            _spriteBox.SetSpriteToSingleImage(template.Sprite);
         }
 
-        public void AddEditedFieldsToTemplate(CubeTemplate template)
+        public void AddEditedAppearanceToTemplate(CubeTemplate template)
         {
         }
     }

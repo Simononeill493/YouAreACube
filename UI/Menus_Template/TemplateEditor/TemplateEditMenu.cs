@@ -35,7 +35,7 @@ namespace IAmACube
             _appearanceEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
             AddChild(_appearanceEditTab);
 
-            _tabs = new TabArrayMenuItem(this);
+            _tabs = new TabArrayMenuItem(this,MenuOrientation.Horizontal,10);
             _tabs.SetLocationConfig(0, -SpriteManager.GetSpriteSize("TabButton").Y, CoordinateMode.ParentPixelOffset, false);
             _tabs.AddTabButton("Stats", _statsEditTab);
             _tabs.AddTabButton("Chipset", _chipsetEditTab);
@@ -126,6 +126,7 @@ namespace IAmACube
             var template = _baseTemplate.Clone();
             _chipsetEditTab.AddEditedChipsetToTemplate(template);
             _statsEditTab.AddEditedFieldsToTemplate(template);
+            _appearanceEditTab.AddEditedAppearanceToTemplate(template);
             return template;
         }
 

@@ -13,9 +13,17 @@ namespace IAmACube
         private TabButtonMenuItem _activeTab;
         private int _countOfTabsInLine;
 
-        public TabArrayMenuItem(IHasDrawLayer parent) : base(parent, "BlankPixel")
+        private MenuOrientation _orientation;
+        private int _buttonDistance;
+        private string _buttonSprite;
+
+        public TabArrayMenuItem(IHasDrawLayer parent,MenuOrientation orientation,int buttonDistance,string buttonSprite = "TabButton") : base(parent, "BlankPixel")
         {
             _tabButtons = new List<TabButtonMenuItem>();
+            _orientation = orientation;
+            _buttonDistance = buttonDistance;
+            _buttonSprite = buttonSprite;
+
             Tabs = new List<MenuItem>();
         }
 
@@ -24,9 +32,17 @@ namespace IAmACube
             var tabButton = _makeNewButton(name, tab);
 
             var tabSize = tabButton.GetBaseSize();
-            var x = (tabSize.X+10) * (_countOfTabsInLine);
-            tabButton.SetLocationConfig(x, 0, CoordinateMode.ParentPixelOffset, false);
+            var locationConfig = IntPoint.Zero;
+            if(_orientation == MenuOrientation.Horizontal)
+            {
+                locationConfig.X = (tabSize.X + _buttonDistance) * (_countOfTabsInLine);
+            }
+            else if(_orientation == MenuOrientation.Vertical)
+            {
+                locationConfig.Y = (tabSize.Y + _buttonDistance) * (_countOfTabsInLine);
+            }
 
+            tabButton.SetLocationConfig(locationConfig, CoordinateMode.ParentPixelOffset, false);
             _countOfTabsInLine++;
         }
 
@@ -39,7 +55,7 @@ namespace IAmACube
 
         private TabButtonMenuItem _makeNewButton(string name, MenuItem tab)
         {
-            var tabButton = new TabButtonMenuItem(this, tab, name);
+            var tabButton = new TabButtonMenuItem(this, tab, name,_buttonSprite);
             tabButton.OnMouseReleased += (i) => SwitchToTab(tabButton);
             tab.Visible = false;
             tab.Enabled = false;

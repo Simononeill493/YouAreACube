@@ -9,10 +9,10 @@ namespace IAmACube
     public class TabButtonMenuItem : TextBoxMenuItem
     {
         public MenuItem Tab;
-        public TabButtonMenuItem(IHasDrawLayer parentDrawLayer, MenuItem tab,string initialString) : base(parentDrawLayer, initialString)
+        public TabButtonMenuItem(IHasDrawLayer parentDrawLayer, MenuItem tab,string initialString,string buttonSprite) : base(parentDrawLayer, initialString)
         {
             Tab = tab;
-            SpriteName = "TabButton";
+            SpriteName = buttonSprite;
             TextItem.MultiplyScale(0.5f);
         }
     }

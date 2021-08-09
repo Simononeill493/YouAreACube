@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    abstract class CubeSpriteBox : SpriteMenuItem
+    public class CubeSpriteBox : SpriteMenuItem
     {
         protected SpriteMenuItem _sprite;
 
