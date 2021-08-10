@@ -56,14 +56,14 @@ namespace IAmACube
         public static string SwitchBlockSideArrow = "SwitchChipSideArrow";
         public static string IfBlockSwitchButton = "IfChipSwitchButton";
 
-        public static void ConfigureMenuSprites(List<(string fullname,string friendlyName)> allSprites)
+        public static void ConfigureMenuSprites(List<(string fullname,string friendlyName)> allSprites,string directory)
         {
             var spriteFieldProperties = typeof(BuiltInMenuSprites).GetFields(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
 
             foreach (var property in spriteFieldProperties.ToList())
             {
                 var spriteNameFriendly = (string)property.GetValue(null);
-                var spriteNameFull = BuiltInSprites.MenuSpritesDirectory + spriteNameFriendly;
+                var spriteNameFull = directory + '/' + spriteNameFriendly;
 
                 allSprites.Add((spriteNameFull, spriteNameFriendly));
             }

@@ -1,3 +1,4 @@
+/Tiles
 BasicPlayer
 Bullet
 ApproachEnemy
@@ -12,3 +13,18 @@ Rock1
 Rock2
 Plants1
 Black
+
+/Eyes
+Eyes1
+Eyes2
+Eyes3
+Eyes4
+Eyes5
+
+/Bodies
+Body1
+Body2
+Body3
+Body4
+Body5
+Body6

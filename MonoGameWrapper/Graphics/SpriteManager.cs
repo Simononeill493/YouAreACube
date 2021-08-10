@@ -12,6 +12,8 @@ namespace IAmACube
     {
         public static Dictionary<string, Texture2D> Sprites;
 
+
+
         private static bool _initialized = false;
         private static ContentManager _contentManager;
         private static SpriteFont _gameFont;
@@ -36,6 +38,7 @@ namespace IAmACube
 
             return spritesDict;
         }
+
 
 
         public static Texture2D GetSprite(string spriteName) => Sprites[spriteName];

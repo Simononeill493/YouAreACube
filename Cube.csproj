@@ -117,8 +117,9 @@
     <Compile Include="Gameplay\World\WorldKernel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Misc\FloatPoint.cs" />
-    <Compile Include="MonoGameWrapper\Graphics\BuiltInMenuSprites.cs" />
-    <Compile Include="MonoGameWrapper\Graphics\BuiltInSprites.cs" />
+    <Compile Include="MonoGameWrapper\Graphics\SpriteLoading\BuiltInMenuSprites.cs" />
+    <Compile Include="MonoGameWrapper\Graphics\SpriteLoading\BuiltInSprites.cs" />
+    <Compile Include="MonoGameWrapper\Graphics\SpriteLoading\BuiltInTileSprites.cs" />
     <Compile Include="MonoGameWrapper\MouseSystemData.cs" />
     <Compile Include="MonoGameWrapper\Sound\SoundInterface.cs" />
     <Compile Include="Parsers\ChipBlockParsers\Parser_ChipsetToJSON.cs" />
