@@ -54,7 +54,6 @@
     <Compile Include="Blocks\BlockTop\BlockTop_MouseInterface.cs" />
     <Compile Include="Blocks\BlockTop\BlockTop_Refresh.cs" />
     <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOptionSubMenu.cs" />
-    <Compile Include="Blocks\Input\BlockTemplateSelector\BlockInputSectionForTemplate.cs" />
     <Compile Include="Blocks\Input\BlockDropdown\BlockInputSectionWithDropdown.cs" />
     <Compile Include="Blocks\Blocksets\Blockset_Container.cs" />
     <Compile Include="Camera\CameraConfiguration.cs" />
@@ -118,6 +117,8 @@
     <Compile Include="Gameplay\World\WorldKernel.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Misc\FloatPoint.cs" />
+    <Compile Include="MonoGameWrapper\Graphics\BuiltInMenuSprites.cs" />
+    <Compile Include="MonoGameWrapper\Graphics\BuiltInSprites.cs" />
     <Compile Include="MonoGameWrapper\MouseSystemData.cs" />
     <Compile Include="MonoGameWrapper\Sound\SoundInterface.cs" />
     <Compile Include="Parsers\ChipBlockParsers\Parser_ChipsetToJSON.cs" />
@@ -279,7 +280,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Gameplay\Tile\Tile.cs" />
     <Compile Include="Gameplay\World\World.cs" />
-    <Compile Include="WorldGen\TreeGen.cs" />
     <Compile Include="WorldGen\WorldGen.cs" />
     <Compile Include="WorldGen\WorldGenGrid.cs" />
     <Compile Include="WorldGen\WorldGenGridPoint.cs" />

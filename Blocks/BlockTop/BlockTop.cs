@@ -17,7 +17,7 @@ namespace IAmACube
         public IBlocksetTopLevelContainer TopLevelContainer;
         public BlockParentCallbacks Callbacks = BlockParentCallbacks.Empty;
 
-        public BlockTop(string name,IHasDrawLayer parent, BlockData data) : base(parent, "ChipFull") 
+        public BlockTop(string name,IHasDrawLayer parent, BlockData data) : base(parent, BuiltInMenuSprites.Block) 
         {
             Name = name;
             BlockData = data;

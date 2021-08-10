@@ -19,7 +19,7 @@ namespace IAmACube
         private List<Blockset> _allBlocksets;
 
 
-        public BlocksetEditPane(IHasDrawLayer parentDrawLayer,Action<InputOptionMenu,BlockInputSection> subMenuCallback) : base(parentDrawLayer, "ChipEditPane")
+        public BlocksetEditPane(IHasDrawLayer parentDrawLayer,Action<InputOptionMenu,BlockInputSection> subMenuCallback) : base(parentDrawLayer,BuiltInMenuSprites.BlocksetEditPane)
         {
             DrawLayer = DrawLayers.MenuBehindLayer;
 
@@ -28,13 +28,13 @@ namespace IAmACube
 
             var size = GetBaseSize();
 
-            var plusButton = new SpriteMenuItem(this, "PlusButton");
+            var plusButton = new SpriteMenuItem(this, BuiltInMenuSprites.PlusButton);
             plusButton.SetLocationConfig(size.X - 9, 0, CoordinateMode.ParentPixelOffset, false);
             plusButton.UpdateDrawLayerCascade(DrawLayer - (DrawLayers.MinLayerDistance * 10));
             plusButton.OnMouseReleased += (i) => _multiplyChipScale(2);
             AddChild(plusButton);
 
-            var minusButton = new SpriteMenuItem(this, "MinusButton_Partial");
+            var minusButton = new SpriteMenuItem(this, BuiltInMenuSprites.MinusButton_Partial);
             minusButton.SetLocationConfig(size.X - 17, 0, CoordinateMode.ParentPixelOffset, false);
             minusButton.UpdateDrawLayerCascade(DrawLayer - (DrawLayers.MinLayerDistance * 10));
             minusButton.OnMouseReleased += (i) => _multiplyChipScale(0.5f);

@@ -18,7 +18,7 @@ namespace IAmACube
         private Action _goBackToTemplateSelectScreen;
         private (InputOptionMenu Menu, BlockInputSection Section) _inputMenuToOpenDetails;
 
-        public TemplateChipsetEditTab(IHasDrawLayer parentDrawLayer,Kernel kernel, CubeTemplate baseTemplate, Action goBackToTemplateSelectScreen) : base(parentDrawLayer, "EditPaneWindow")
+        public TemplateChipsetEditTab(IHasDrawLayer parentDrawLayer,Kernel kernel, CubeTemplate baseTemplate, Action goBackToTemplateSelectScreen) : base(parentDrawLayer, BuiltInMenuSprites.LargeMenuRectangle_BlocksetEditWindow)
         {
             _kernel = kernel;
             _baseTemplate = baseTemplate;

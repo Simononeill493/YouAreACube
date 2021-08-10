@@ -15,7 +15,7 @@ namespace IAmACube
         protected Kernel _kernel;
         protected TemplateSelectedMenu templateSelectedMenu;
 
-        public TemplateExplorerMenu(IHasDrawLayer parentDrawLayer,Kernel kernel) : base(parentDrawLayer,"EmptyMenuRectangleFull") 
+        public TemplateExplorerMenu(IHasDrawLayer parentDrawLayer,Kernel kernel) : base(parentDrawLayer,BuiltInMenuSprites.LargeMenuRectangle) 
         {
             _kernel = kernel;
 

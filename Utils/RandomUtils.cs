@@ -10,7 +10,7 @@ namespace IAmACube
     {
         public static Random R { get; private set; }
         public static void Init() => R = new Random();
-        public static void Init(int seed) => R = new Random(seed);
+        public static void Init(int seed = 1) => R = new Random(seed);
 
         public static CardinalDirection RandomCardinal() => (CardinalDirection)R.Next(0, DirectionUtils.NumCardinalDirections);
         public static RelativeDirection RandomRelative() => (RelativeDirection)R.Next(0, DirectionUtils.NumRelativeDirections);

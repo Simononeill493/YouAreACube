@@ -13,7 +13,7 @@ namespace IAmACube
         public BlockData Block;
         private TextMenuItem _text;
 
-        public BlockPreview(IHasDrawLayer parent, BlockData chip) : base(parent, "ChipSmall")
+        public BlockPreview(IHasDrawLayer parent, BlockData chip) : base(parent, BuiltInMenuSprites.PreviewBlock)
         {
             Block = chip;
             ColorMask = Block.ChipDataType.GetColor();

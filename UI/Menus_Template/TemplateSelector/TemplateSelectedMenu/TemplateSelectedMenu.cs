@@ -16,7 +16,7 @@ namespace IAmACube
         protected TemplateBox _templatePicture;
         protected TextMenuItem _templateName;
 
-        public TemplateSelectedMenu(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer,"EmptyMenuRectangleSection")
+        public TemplateSelectedMenu(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer,BuiltInMenuSprites.TemplateListMenuSection)
         {
             _templatePicture = new TemplateBox(this, (t) => { });
             _templatePicture.SetLocationConfig(6, 8, CoordinateMode.ParentPixelOffset);

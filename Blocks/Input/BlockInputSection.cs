@@ -14,7 +14,7 @@ namespace IAmACube
 
         public List<string> InputBaseTypes;
 
-        public BlockInputSection(IHasDrawLayer parent,List<string> inputTypes,string inputDisplayName) : base(parent, "ChipFullMiddle") 
+        public BlockInputSection(IHasDrawLayer parent,List<string> inputTypes,string inputDisplayName) : base(parent, BuiltInMenuSprites.BlockMiddle) 
         {
             InputBaseTypes = inputTypes;
 

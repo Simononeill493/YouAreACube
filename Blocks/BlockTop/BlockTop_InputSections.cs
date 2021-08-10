@@ -87,7 +87,7 @@ namespace IAmACube
         {
             if (InputSections.Count > 0)
             {
-                InputSections[InputSections.Count - 1].SpriteName = "ChipFullEnd";
+                InputSections[InputSections.Count - 1].SpriteName = BuiltInMenuSprites.BlockBottom;
             }
         }
     }

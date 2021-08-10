@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IAmACube
 {
@@ -23,8 +21,13 @@ namespace IAmACube
         public static string GraphicalChipsFileDefaultLocation = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data";
         public static string GraphicalChipsFileName = @"GraphicalChips.txt";
 
+        public static string TileSpritesFileDefaultLocation = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data";
+        public static string TileSpritesFileName = @"BuiltInTileSprites.txt";
+
         public static string TemplatesPath;
         public static string GraphicalChipsPath;
+        public static string TileSpritesPath;
+
         public static string SaveDirectory;
 
         public static void Init()
@@ -33,6 +36,8 @@ namespace IAmACube
 
             TemplatesPath = FileUtils.GetFilePath(TemplatesFileDefaultLocation, TemplatesFileName);
             GraphicalChipsPath = FileUtils.GetFilePath(GraphicalChipsFileDefaultLocation, GraphicalChipsFileName);
+            TileSpritesPath = FileUtils.GetFilePath(TileSpritesFileDefaultLocation, TileSpritesFileName);
+
             SaveDirectory = _getOrMakeSaveDirectory();
 
             if (TemplatesPath == null)
@@ -43,6 +48,11 @@ namespace IAmACube
             {
                 throw new FileNotFoundException(GraphicalChipsFileName + " not found. Please add to the application directory at " + Directory.GetCurrentDirectory());
             }
+            if (TileSpritesPath == null)
+            {
+                throw new FileNotFoundException(TileSpritesFileName + " not found. Please add to the application directory at " + Directory.GetCurrentDirectory());
+            }
+
         }
 
         private static string _getOrMakeSaveDirectory()

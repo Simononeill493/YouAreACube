@@ -28,12 +28,12 @@ namespace IAmACube
             {
                 content = contentManager;
 
-                wind = contentManager.Load<SoundEffect>("wind");
+                wind = contentManager.Load<SoundEffect>("Sounds/wind");
                 pops = new SoundEffect[3];
 
-                pop1 = contentManager.Load<SoundEffect>("pop1");
-                pop2 = contentManager.Load<SoundEffect>("pop2");
-                pop3 = contentManager.Load<SoundEffect>("pop3");
+                pop1 = contentManager.Load<SoundEffect>("Sounds/pop1");
+                pop2 = contentManager.Load<SoundEffect>("Sounds/pop2");
+                pop3 = contentManager.Load<SoundEffect>("Sounds/pop3");
 
                 pops[0] = pop1;
                 pops[1] = pop2;

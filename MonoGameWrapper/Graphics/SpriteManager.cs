@@ -18,26 +18,28 @@ namespace IAmACube
 
         public static void LoadContent(ContentManager contentManager, SpriteFont gameFont)
         {
-            Sprites = new Dictionary<string, Texture2D>();
             _contentManager = contentManager;
-            _gameFont = gameFont;
+            Sprites = _loadSpritesDict();
 
+            _gameFont = gameFont;
             _initialized = true;
         }
 
-        public static Texture2D GetSprite(string spriteName)
+        private static Dictionary<string, Texture2D> _loadSpritesDict()
         {
-            if (Sprites.ContainsKey(spriteName))
+            var spritesDict = new Dictionary<string, Texture2D>();
+            foreach((string fullname,string friendlyName) in BuiltInSprites.AllSprites)
             {
-                return Sprites[spriteName];
+                var sprite = _contentManager.Load<Texture2D>(fullname);
+                spritesDict[friendlyName] = sprite;
             }
-            else
-            {
-                var sprite = _contentManager.Load<Texture2D>(spriteName);
-                Sprites[spriteName] = sprite;
-                return sprite;
-            }
+
+            return spritesDict;
         }
+
+
+        public static Texture2D GetSprite(string spriteName) => Sprites[spriteName];
+
         public static IntPoint GetSpriteSize(string spriteName)
         {
             if(!_initialized)

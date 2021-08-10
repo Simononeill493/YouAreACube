@@ -14,11 +14,11 @@ namespace IAmACube
 
         public NewGameScreen(Action<ScreenType> switchScreen) : base(ScreenType.NewGame, switchScreen)
         {
-            Background = "TitleBackground";
+            Background = BuiltInMenuSprites.TitleBackground;
 
             textBox = new TextBoxMenuItem(this, "test") { Editable = true, Focused = true };
-            var okButton = new SpriteMenuItem(this, "OkButton");
-            var cancelButton = new SpriteMenuItem(this, "CancelButton");
+            var okButton = new SpriteMenuItem(this, BuiltInMenuSprites.MainMenuOkButton);
+            var cancelButton = new SpriteMenuItem(this, BuiltInMenuSprites.MainMenuCancelButton);
 
             okButton.OnMouseReleased += (i) => NewGameClicked();
             cancelButton.OnMouseReleased += (i) => BackToTitleScreen();

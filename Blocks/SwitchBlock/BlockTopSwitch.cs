@@ -24,7 +24,7 @@ namespace IAmACube
             _switchButtons.SetLocationConfig(0, GetBaseSize().Y-1,CoordinateMode.ParentPixelOffset);
             AddChild(_switchButtons);
 
-            _switchSectionBottom = new SpriteMenuItem(this, "ChipFullGreyed") { Visible = false };
+            _switchSectionBottom = new SpriteMenuItem(this, BuiltInMenuSprites.BlockGreyed) { Visible = false };
             AddChild(_switchSectionBottom);
 
             _topSectionActualSize.Y += _switchButtons.GetBaseSize().Y-1;

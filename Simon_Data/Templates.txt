@@ -41,7 +41,7 @@
     },
 	{
       "name":"grassPatch",
-      "sprite":"grass",
+      "sprite":"Grass",
       "speed":0
     },
 	{

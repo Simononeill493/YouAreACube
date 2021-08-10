@@ -36,11 +36,13 @@ namespace IAmACube
         private static void Run()
         {
             Config.Init();
+            BuiltInSprites.Init();
+            RandomUtils.Init();
+            DirectionUtils.Init();
+
             TypeUtils.Load();
             BlockDataDatabase.Load();
             BlockDataGenerationTester.Test();
-            RandomUtils.Init(1);
-            DirectionUtils.Init();
             Templates.Load();
             CrystalDatabase.Load();
 
@@ -52,7 +54,6 @@ namespace IAmACube
 
         public static void TestCode()
         {
-            TreeGen.Test();
 
         }
     }

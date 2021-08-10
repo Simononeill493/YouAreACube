@@ -19,7 +19,7 @@ namespace IAmACube
         {
             Option = option;
 
-            _buttonSprite = new SpriteMenuItem(this, "RadioButtonUnchecked");
+            _buttonSprite = new SpriteMenuItem(this, BuiltInMenuSprites.UncheckedRadioButton);
             _buttonSprite.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, false);
             AddChild(_buttonSprite);
 
@@ -28,8 +28,8 @@ namespace IAmACube
             _baseSize.X += radioButtonText.GetBaseSize().X;
         }
 
-        public void SetButton() => _buttonSprite.SpriteName = "RadioButtonChecked";
-        public void ClearButton() => _buttonSprite.SpriteName = "RadioButtonUnchecked";
+        public void SetButton() => _buttonSprite.SpriteName = BuiltInMenuSprites.CheckedRadioButton;
+        public void ClearButton() => _buttonSprite.SpriteName = BuiltInMenuSprites.UncheckedRadioButton;
         public override IntPoint GetBaseSize() => _baseSize;
     }
 }

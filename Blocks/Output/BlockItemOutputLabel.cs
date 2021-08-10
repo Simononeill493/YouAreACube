@@ -17,7 +17,7 @@ namespace IAmACube
         private TextBoxMenuItem _textBox;
         private TextMenuItem _outputDataTypeLabel;
 
-        public BlockItemOutputLabel(IHasDrawLayer parent,string chipName) : base(parent, "BlankPixel")
+        public BlockItemOutputLabel(IHasDrawLayer parent,string chipName) : base(parent, BuiltInMenuSprites.BlankPixel)
         {
             _textBox = _addTextBox(chipName, 0, 0, CoordinateMode.ParentPixelOffset, false);
             _textBox.OnTextChanged += OutputLabelTextTyped;
@@ -28,7 +28,7 @@ namespace IAmACube
             _outputDataTypeLabel.SetLocationConfig(50, 18, CoordinateMode.ParentPercentageOffset, true);
             _textBox.AddChild(_outputDataTypeLabel);
 
-            _popButton = new SpriteMenuItem(ManualDrawLayer.Create(DrawLayer - (DrawLayers.MinLayerDistance * 5)), "MinusButton");
+            _popButton = new SpriteMenuItem(ManualDrawLayer.Create(DrawLayer - (DrawLayers.MinLayerDistance * 5)), BuiltInMenuSprites.MinusButton);
             _popButton.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, false);
             _popButton.OnMouseReleased += (i) => PopInOrOut();
             AddChild(_popButton);
@@ -50,7 +50,7 @@ namespace IAmACube
 
         private void _extend()
         {
-            _popButton.SpriteName = "MinusButton";
+            _popButton.SpriteName = BuiltInMenuSprites.MinusButton;
 
             _textBox.Visible = true;
             _textBox.Editable = true;
@@ -60,7 +60,7 @@ namespace IAmACube
 
         private void _retract()
         {
-            _popButton.SpriteName = "PlusButton";
+            _popButton.SpriteName = BuiltInMenuSprites.PlusButton;
 
             _textBox.Visible = false;
             _textBox.Editable = false;

@@ -8,7 +8,7 @@ namespace IAmACube
 {
     partial class TemplateQuitDialog: DialogBoxMenuItem
     {
-        public TemplateQuitDialog(IHasDrawLayer parentDrawLayer, MenuItem container, Action<TemplateQuitButtonOption> onButtonPressed) : base(parentDrawLayer, container, "EmptyMenuRectangleMedium")
+        public TemplateQuitDialog(IHasDrawLayer parentDrawLayer, MenuItem container, Action<TemplateQuitButtonOption> onButtonPressed) : base(parentDrawLayer, container, BuiltInMenuSprites.MediumMenuRectangle)
         {
             _addTextItem("Save before quitting?", 50, 20, CoordinateMode.ParentPercentageOffset, true);
             _addButton("Cancel", 50, 80, CoordinateMode.ParentPercentageOffset, true, (i) => Close());

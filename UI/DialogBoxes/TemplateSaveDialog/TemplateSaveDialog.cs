@@ -16,7 +16,7 @@ namespace IAmACube
 
         private Action<TemplateSaveDialogOption, string> _saveTemplateCallback;
 
-        public TemplateSaveDialog(IHasDrawLayer parentDrawLayer, MenuItem container,int newVersionNumber,string currentName,Action<TemplateSaveDialogOption,string> saveTemplateCallback) : base(parentDrawLayer, container, "EmptyMenuRectangleMedium")
+        public TemplateSaveDialog(IHasDrawLayer parentDrawLayer, MenuItem container,int newVersionNumber,string currentName,Action<TemplateSaveDialogOption,string> saveTemplateCallback) : base(parentDrawLayer, container, BuiltInMenuSprites.MediumMenuRectangle)
         {
             _saveTemplateCallback = saveTemplateCallback;
 

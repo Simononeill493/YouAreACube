@@ -17,7 +17,7 @@ namespace IAmACube
             OnMouseStartHover += (i) => TemplateBox_OnMouseStartHover();
             OnMouseEndHover += (i) => TemplateBox_OnMouseEndHover();
 
-            HighlightedSpriteName = "TemplateItemContainerHighlight";
+            HighlightedSpriteName = BuiltInMenuSprites.SpriteBox_Highlighted;
 
             _templateHoverBox = new TextBoxMenuItem(this,"null");
             _templateHoverBox.UpdateDrawLayerCascade(DrawLayers.MenuHoverLayer);

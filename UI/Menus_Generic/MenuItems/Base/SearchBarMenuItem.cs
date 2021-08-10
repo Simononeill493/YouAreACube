@@ -11,7 +11,7 @@ namespace IAmACube
         public SearchBarMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer,"")
         {
             TextItem.SetLocationConfig(4, 3, CoordinateMode.ParentPixelOffset, false);
-            SpriteName = "SearchBar";
+            SpriteName = BuiltInMenuSprites.SearchBar;
             Editable = true;
             MaxTextLength = 7;
         }

@@ -26,7 +26,7 @@ namespace IAmACube
             _boxes = new List<TBox>();
             _width = width;
             _height = height;
-            _increment = increment + SpriteManager.GetSpriteSize("TemplateItemContainer").X;
+            _increment = increment + SpriteManager.GetSpriteSize(BuiltInMenuSprites.SpriteBox).X;
         }
 
         public void AddBoxes(List<TBox> boxes)

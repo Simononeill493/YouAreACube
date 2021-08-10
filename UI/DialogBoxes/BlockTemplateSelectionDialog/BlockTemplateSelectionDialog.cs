@@ -11,7 +11,7 @@ namespace IAmACube
         TemplateExplorerMenu _templateSearchMenu;
         BlockInputSection _section;
 
-        public BlockTemplateSelectionDialog(IHasDrawLayer parentDrawLayer, MenuItem container, BlockInputSection section,Kernel kernel) : base(parentDrawLayer, container, "BlankPixel")
+        public BlockTemplateSelectionDialog(IHasDrawLayer parentDrawLayer, MenuItem container, BlockInputSection section,Kernel kernel) : base(parentDrawLayer, container, BuiltInMenuSprites.BlankPixel)
         {
             _section = section;
 

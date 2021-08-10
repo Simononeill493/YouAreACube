@@ -15,7 +15,7 @@ namespace IAmACube
         private Action<List<BlockTop>, UserInput, Blockset> _liftBlocksCallback;
         public int HeightOfAllBlocks;
 
-        public Blockset(string name,IHasDrawLayer parent,float scaleMultiplier,Action<List<BlockTop>,UserInput,Blockset> liftBlocksCallback) : base(parent, "TopOfChipset")
+        public Blockset(string name,IHasDrawLayer parent,float scaleMultiplier,Action<List<BlockTop>,UserInput,Blockset> liftBlocksCallback) : base(parent, BuiltInMenuSprites.Blockset_TopHandle)
         {
             Name = name;
             Blocks = new List<BlockTop>();

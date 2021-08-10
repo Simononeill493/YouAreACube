@@ -11,19 +11,12 @@ namespace IAmACube
     {
         public TitleScreen(Action<ScreenType> switchScreen) : base(ScreenType.Title,switchScreen)
         {
-            Background = "TitleBackground";
+            Background = BuiltInMenuSprites.TitleBackground;
 
-            var newGameButton = new SpriteMenuItem(this, "NewGameMenu") 
-            { 
-                HighlightedSpriteName = "NewGameMenu_Highlight"
-            };
+            var newGameButton = new SpriteMenuItem(this, BuiltInMenuSprites.MainMenuNewGameButton) { HighlightedSpriteName = BuiltInMenuSprites.MainMenuNewGameButton_Highlighted };
+            var loadGameButton = new SpriteMenuItem(this, BuiltInMenuSprites.MainMenuLoadGameButton) { HighlightedSpriteName = BuiltInMenuSprites.MainMenuLoadGameButton_Highlighted };
 
-            var loadGameButton = new SpriteMenuItem(this, "LoadGameMenu") 
-            { 
-                HighlightedSpriteName = "LoadGameMenu_Highlight"
-            };
-
-            newGameButton.OnMouseReleased += (i)=>GoToNewGame();
+            newGameButton.OnMouseReleased += (i) => GoToNewGame();
             loadGameButton.OnMouseReleased += (i) => GoToLoadGame();
 
             newGameButton.SetLocationConfig(50, 25, CoordinateMode.ParentPercentageOffset, centered: true);

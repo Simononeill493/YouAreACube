@@ -17,7 +17,7 @@ namespace IAmACube
         public LoadGameScreen(Action<ScreenType> switchScreen,Action<Kernel, World> loadSaveToScreen) : base(ScreenType.LoadGame,switchScreen)
         {
             _loadSaveToScreen = loadSaveToScreen;
-            Background = "TitleBackground";
+            Background = BuiltInMenuSprites.TitleBackground;
 
             _saves = Directory.GetFiles(ConfigFiles.SaveDirectory).Where(s => s.Contains(ConfigFiles.SaveWorldExtension)).ToList();
             _generateTextBoxes();

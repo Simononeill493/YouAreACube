@@ -16,7 +16,7 @@ namespace IAmACube
         private TextBoxMenuItem _speedTextBox;
         private CheckBoxMenuItem _activeCheckBox;
 
-        public TemplateBaseStatsEditTab(IHasDrawLayer parent,CubeTemplate baseTemplate) : base(parent, "EmptyMenuRectangleFull")
+        public TemplateBaseStatsEditTab(IHasDrawLayer parent,CubeTemplate baseTemplate) : base(parent, BuiltInMenuSprites.LargeMenuRectangle)
         {
             _addTextItem("Name:", 20, 10, CoordinateMode.ParentPercentageOffset, true);
             _addTextItem("Health:", 20, 25, CoordinateMode.ParentPercentageOffset, true);

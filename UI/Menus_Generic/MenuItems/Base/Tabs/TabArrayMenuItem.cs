@@ -17,8 +17,9 @@ namespace IAmACube
         private int _buttonDistance;
         private string _buttonSprite;
 
-        public TabArrayMenuItem(IHasDrawLayer parent,MenuOrientation orientation,int buttonDistance,string buttonSprite = "TabButton") : base(parent, "BlankPixel")
+        public TabArrayMenuItem(IHasDrawLayer parent,MenuOrientation orientation,int buttonDistance,string buttonSprite = null) : base(parent, BuiltInMenuSprites.BlankPixel)
         {
+            if(buttonSprite==null) { buttonSprite = BuiltInMenuSprites.BasicTabButton; }
             _tabButtons = new List<TabButtonMenuItem>();
             _orientation = orientation;
             _buttonDistance = buttonDistance;

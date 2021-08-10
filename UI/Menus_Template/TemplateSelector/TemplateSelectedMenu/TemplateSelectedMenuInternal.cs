@@ -10,7 +10,7 @@ namespace IAmACube
     {
         public TemplateSelectedMenuInternal(IHasDrawLayer parentDrawLayer, Action<CubeTemplate> templateSelectedCallback) : base(parentDrawLayer)
         {
-            SpriteName = "EmptyMenuRectangleSection_Extended";
+            SpriteName = BuiltInMenuSprites.TemplateListMenuSection_Extended;
 
             _addButton("Select", 6, 141, CoordinateMode.ParentPixelOffset, false, (i) => { templateSelectedCallback(_templateList.Selected); });
         }

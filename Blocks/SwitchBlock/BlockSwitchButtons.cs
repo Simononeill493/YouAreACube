@@ -19,7 +19,7 @@ namespace IAmACube
         private Action _switchSectionClosedCallback;
         private Action<int> _switchSectionOpenedCallback;
 
-        public BlockSwitchButtons(IHasDrawLayer parent,Color parentColor,Action switchSectionClosedCallback,Action<int> switchSectionOpenedCallback) : base(parent, "ChipFullEnd")
+        public BlockSwitchButtons(IHasDrawLayer parent,Color parentColor,Action switchSectionClosedCallback,Action<int> switchSectionOpenedCallback) : base(parent,BuiltInMenuSprites.BlockBottom)
         {
             _switchSectionClosedCallback = switchSectionClosedCallback;
             _switchSectionOpenedCallback = switchSectionOpenedCallback;
@@ -42,12 +42,12 @@ namespace IAmACube
 
         private void _addArrowButtons()
         {
-            var switchArrowButtonLeft = new SpriteMenuItem(this, "SwitchChipSideArrow");
+            var switchArrowButtonLeft = new SpriteMenuItem(this, BuiltInMenuSprites.SwitchBlockSideArrow);
             switchArrowButtonLeft.SetLocationConfig(140, 0, CoordinateMode.ParentPixelOffset);
             switchArrowButtonLeft.OnMouseReleased += (i) => { UpdateButtonOffset(-1); };
             AddChild(switchArrowButtonLeft);
 
-            var switchArrowButtonRight = new SpriteMenuItem(this, "SwitchChipSideArrow");
+            var switchArrowButtonRight = new SpriteMenuItem(this, BuiltInMenuSprites.SwitchBlockSideArrow);
             switchArrowButtonRight.FlipHorizontal = true;
             switchArrowButtonRight.SetLocationConfig(140 + switchArrowButtonLeft.GetBaseSize().X, 0, CoordinateMode.ParentPixelOffset);
             switchArrowButtonRight.OnMouseReleased += (i) => { UpdateButtonOffset(1); };
@@ -120,7 +120,7 @@ namespace IAmACube
 
         public BlockSwitchButton(IHasDrawLayer parentDrawLayer, string initialString,int buttonIndex) : base(parentDrawLayer, initialString)
         {
-            SpriteName = "IfChipSwitchButton";
+            SpriteName = BuiltInMenuSprites.IfBlockSwitchButton;
             ButtonIndex = buttonIndex;
             Editable = false;
         }

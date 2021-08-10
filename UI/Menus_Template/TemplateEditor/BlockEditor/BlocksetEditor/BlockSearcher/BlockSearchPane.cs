@@ -19,7 +19,7 @@ namespace IAmACube
         private DropdownMenuItem<ChipType> _dropdown;
         private List<BlockPreview> _chipPreviews;
 
-        public BlockSearchPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "SearchPane")
+        public BlockSearchPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, BuiltInMenuSprites.SearchPane)
         {
             _chipPreviews = new List<BlockPreview>();
 

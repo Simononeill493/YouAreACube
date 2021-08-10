@@ -23,7 +23,7 @@ namespace IAmACube
         {
             _graphicsDevice = graphicsDevice;
             _spriteBatch = new SpriteBatch(graphicsDevice);
-            _gameFont = contentManager.Load<SpriteFont>("PressStart2P");
+            _gameFont = contentManager.Load<SpriteFont>("Fonts/PressStart2P");
 
             _standardTexture = new Texture2D(graphicsDevice, 1, 1, false, SurfaceFormat.Color);
             _standardTexture.SetData(new[] { Color.White });

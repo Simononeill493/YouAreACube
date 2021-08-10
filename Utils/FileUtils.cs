@@ -37,6 +37,35 @@ namespace IAmACube
             return contents;
         }
 
+        public static List<string> GetDirectoryContentsFullpath(string path)
+        {
+            var contents = Directory.GetFiles(path).ToList();
+            var subDirectories = Directory.GetDirectories(path).ToList();
+            contents.AddRange(subDirectories);
+            return contents;
+        }
+
+        public static List<string> GetDirectoryContentsRecursive(string path)
+        {
+            var contents = GetDirectoryContentsFullpath(path);
+
+            foreach (var item in contents.ToList())
+            {
+                if(Directory.Exists(item))
+                {
+                    var subItems = GetDirectoryContentsRecursive(item);
+                    contents.AddRange(subItems);
+                }
+            }
+
+            return contents;
+        }
+
+        public static List<string> RemovePathFrom(List<string> files,string pathToRemove)
+        {
+            return files.Select(p => p.Replace(pathToRemove, "")).ToList();
+        }
+
         public static T LoadBinary<T>(string path, string name, string extension = "")
         {
             var savePath = Path.Combine(path, name + extension);
