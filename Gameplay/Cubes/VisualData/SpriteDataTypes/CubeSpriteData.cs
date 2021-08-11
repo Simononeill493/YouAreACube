@@ -17,11 +17,14 @@ namespace IAmACube
 
         public bool HorizontalFlip;
         public bool VerticalFlip;
+        public float RadianRotation;
 
         public CubeSpriteData(CubeSpriteDataType spriteDataType)
         {
             SpriteDataType = spriteDataType;
             ColorMask = XnaColors.ClearColorMask;
         }
+
+        public virtual void AttachSpriteToNeighbours(CubeMode cubeMode,Dictionary<CardinalDirection, Tile> adjacents){}
     }
 }

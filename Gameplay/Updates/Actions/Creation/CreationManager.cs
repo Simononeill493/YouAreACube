@@ -43,6 +43,9 @@ namespace IAmACube
             newBlock.SetOrientation((Orientation)direction);
             newBlock.EnterLocation(targetPosition);
 
+            newBlock.AttachSpriteToNeighbours();
+            newBlock.UpdateNeighbourSprites();
+
             _addToTargetSector(newBlock, targetPosition);
         }
 

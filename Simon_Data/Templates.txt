@@ -91,5 +91,11 @@
 	  "spriteType":"SingleSprite",
 	  "maxHealth":5,
     },
+	{
+      "name":"Test4Pipe",
+      "sprite":"Test4Pipe",
+	  "spriteType":"Attach4",
+	  "maxHealth":100,
+    },
   ]
 }

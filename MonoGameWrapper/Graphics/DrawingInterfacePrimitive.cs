@@ -47,7 +47,7 @@ namespace IAmACube
 
             _spriteBatch.Draw(_standardTexture, new Rectangle(x, y, width, height), null, color, 0, Vector2.Zero, SpriteEffects.None, layer);
         }
-        public void DrawSprite(string spriteName, int x, int y, int scale, float layer,Color colorMask,bool centered,bool flipHorizontal,bool flipVertical)
+        public void DrawSprite(string spriteName, int x, int y, int scale, float layer, Color colorMask, bool centered, bool flipHorizontal, bool flipVertical, float rotation = 0)
         {
             var sprite = SpriteManager.GetSprite(spriteName);
             if (centered)
@@ -55,10 +55,17 @@ namespace IAmACube
                 (x,y) = DrawUtils.GetCenteredCoords(sprite.Width, sprite.Height, x, y, scale);
             }
 
+            if(rotation>0.0001)
+            {
+                x += (sprite.Width * scale);
+            }
+
+            //rotation = 0;
+
             var spriteEffects = (flipHorizontal ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
             spriteEffects |= (flipVertical ? SpriteEffects.FlipVertically : SpriteEffects.None);
 
-            _spriteBatch.Draw(sprite, new Vector2(x, y), null, colorMask, 0, Vector2.Zero, scale, spriteEffects, layer);
+            _spriteBatch.Draw(sprite, new Vector2(x, y), null, colorMask, rotation, Vector2.Zero, scale, spriteEffects, layer);
         }
         public void DrawText(string text, int x, int y, int scale, float layer, Color color, bool centered)
         {

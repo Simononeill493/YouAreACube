@@ -29,3 +29,6 @@ Body3
 Body4
 Body5
 Body6
+
+/Attach4
+Test4Pipe

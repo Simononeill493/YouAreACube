@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    class FlipVerticalChip :IChip
+    class FlipVerticalChip : IChip
     {
         public string Name { get; set; }
 

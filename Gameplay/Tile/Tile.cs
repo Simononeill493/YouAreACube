@@ -48,7 +48,7 @@ namespace IAmACube
         public bool HasGround => (Ground != null);
         public bool HasSurface => (Surface != null);
         public bool HasEphemeral => (Ephemeral != null);
-        public bool HasBlock(CubeMode blockMode)
+        public bool HasCube(CubeMode blockMode)
         {
             switch (blockMode)
             {
@@ -129,6 +129,14 @@ namespace IAmACube
                 throw new Exception("Deleted a ground block whose tile thinks it's not there.");
             }
             Ground = null;
+        }
+
+        public void UpdateNeighbourSprites(CubeMode cubeMode)
+        {
+            foreach (var neighbour in Adjacent)
+            {
+                neighbour.Value.GetBlock(cubeMode)?.AttachSpriteToNeighbours();
+            }
         }
 
         #region dummyTile

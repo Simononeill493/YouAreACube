@@ -50,7 +50,7 @@ namespace IAmACube
             drawPos += CameraUtils.GetMovementOffsets(cube, cameraConfig.TileSizePixels);
             var spriteData = cube.SpriteData;
 
-            _primitive.DrawSprite(spriteData.CurrentSprite, drawPos.X, drawPos.Y, cameraConfig.Scale, layer, ColorLookup.ColorsDict[spriteData.ColorMask], false,spriteData.HorizontalFlip,spriteData.VerticalFlip);
+            _primitive.DrawSprite(spriteData.CurrentSprite, drawPos.X, drawPos.Y, cameraConfig.Scale, layer, ColorLookup.ColorsDict[spriteData.ColorMask], false,spriteData.HorizontalFlip,spriteData.VerticalFlip,spriteData.RadianRotation);
         }
         public void DrawVoid(IntPoint drawPos, CameraConfiguration cameraConfig) => _primitive.DrawSprite("Black", drawPos.X, drawPos.Y, cameraConfig.Scale, DrawLayers.GroundLayer, Color.White, false, false, false);
 
