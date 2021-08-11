@@ -16,5 +16,10 @@ namespace IAmACube
         }
 
         public override void TakeEnergy(int amount) { }
+
+        public override BlockEnergyTransferResult TryTakeEnergyFrom(Cube source, int amount)
+        {
+            return BlockEnergyTransferResult.Failure_CrystalCannotTakeEnergy;
+        }
     }
 }

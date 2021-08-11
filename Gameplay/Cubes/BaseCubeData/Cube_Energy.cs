@@ -25,6 +25,7 @@ namespace IAmACube
             { 
                 Energy = EnergyCap; 
             }
+
         }
         public virtual void TakeEnergy(int amount)
         {
@@ -81,5 +82,6 @@ namespace IAmACube
         Failure_SourceIsDyingEphemeral,
         Failure_NoEnergyInSourceToTake,
         Failure_TargetEnergyIsMaxedOut,
+        Failure_CrystalCannotTakeEnergy
     }
 }

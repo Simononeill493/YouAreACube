@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
+    [Serializable()]
     class CubeSpriteDataAttach4 : CubeSpriteData
     {
         private Attach4SpriteSet _spriteSet;

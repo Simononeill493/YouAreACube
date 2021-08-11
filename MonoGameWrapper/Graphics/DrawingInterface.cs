@@ -74,7 +74,8 @@ namespace IAmACube
             if(block.Active)
             {
                 var energyPercentage = block.EnergyRemainingPercentage;
-                if(energyPercentage<1)
+                //if (energyPercentage < 1)
+                if (true)
                 {
                     drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizePixels);
 
