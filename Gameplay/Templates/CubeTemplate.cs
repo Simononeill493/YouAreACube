@@ -11,7 +11,6 @@ namespace IAmACube
     public class CubeTemplate
     {
         public string Name;
-        public string Sprite;
         public bool Active;
         public int Speed;
 
@@ -19,6 +18,9 @@ namespace IAmACube
         public int MaxHealth = 250;
 
         public bool Invincible;
+
+        public string Sprite;
+        public CubeSpriteDataType SpriteType;
 
         [JsonIgnore]
         public Chipset Chipset;

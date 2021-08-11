@@ -113,8 +113,17 @@
 	  "output":"Variable"
     },
 	
-	
-	
+	{
+      "name":"FlipHorizontal",
+	  "datatype":"Animation",
+	  "inputs":[],
+    },
+	{
+      "name":"FlipVertical",
+	  "datatype":"Animation",
+	  "inputs":[],
+    },
+
 	
 	{
       "name":"ApproachDirection",

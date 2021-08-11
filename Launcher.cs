@@ -36,6 +36,7 @@ namespace IAmACube
         private static void Run()
         {
             Config.Init();
+            ColorLookup.Init();
             BuiltInSprites.Init();
             RandomUtils.Init();
             DirectionUtils.Init();

@@ -41,7 +41,7 @@ namespace IAmACube
         public void GoDormant()
         {
             Dormant = true;
-            ColorMask = (128, 128, 128, 255);
+            SpriteData.ColorMask = XnaColors.DeadCubeColor;
         }
 
         public override bool ToBeDeleted() => (Dormant & !Active);

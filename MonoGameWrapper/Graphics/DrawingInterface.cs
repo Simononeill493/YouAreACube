@@ -29,15 +29,15 @@ namespace IAmACube
 
             if (tile.HasGround)
             {
-                DrawBlock(tile.Ground, drawPos, DrawLayers.GroundLayer, cameraConfig);
+                DrawCube(tile.Ground, drawPos, DrawLayers.GroundLayer, cameraConfig);
             }
             if (tile.HasSurface)
             {
-                DrawBlock(tile.Surface, drawPos, DrawLayers.SurfaceLayer, cameraConfig);
+                DrawCube(tile.Surface, drawPos, DrawLayers.SurfaceLayer, cameraConfig);
             }
             if (tile.HasEphemeral)
             {
-                DrawBlock(tile.Ephemeral, drawPos, DrawLayers.EphemeralLayer, cameraConfig);
+                DrawCube(tile.Ephemeral, drawPos, DrawLayers.EphemeralLayer, cameraConfig);
             }
 
             if(CameraConfiguration.DebugMode)
@@ -45,12 +45,12 @@ namespace IAmACube
                 DrawTileDebugOverlay(tile, drawPos, cameraConfig);
             }
         }
-        public void DrawBlock(Cube block, IntPoint drawPos, float layer, CameraConfiguration cameraConfig)
+        public void DrawCube(Cube cube, IntPoint drawPos, float layer, CameraConfiguration cameraConfig)
         {
-            drawPos += CameraUtils.GetMovementOffsets(block, cameraConfig.TileSizePixels);
-            var colorMask = new Color(block.ColorMask.Item1, block.ColorMask.Item2, block.ColorMask.Item3, block.ColorMask.Item4);
+            drawPos += CameraUtils.GetMovementOffsets(cube, cameraConfig.TileSizePixels);
+            var spriteData = cube.SpriteData;
 
-            _primitive.DrawSprite(block.Sprite, drawPos.X, drawPos.Y, cameraConfig.Scale, layer, colorMask, false,false,false);
+            _primitive.DrawSprite(spriteData.CurrentSprite, drawPos.X, drawPos.Y, cameraConfig.Scale, layer, ColorLookup.ColorsDict[spriteData.ColorMask], false,spriteData.HorizontalFlip,spriteData.VerticalFlip);
         }
         public void DrawVoid(IntPoint drawPos, CameraConfiguration cameraConfig) => _primitive.DrawSprite("Black", drawPos.X, drawPos.Y, cameraConfig.Scale, DrawLayers.GroundLayer, Color.White, false, false, false);
 

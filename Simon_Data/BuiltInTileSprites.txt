@@ -13,6 +13,7 @@ Rock1
 Rock2
 Plants1
 Black
+CrystalPurple
 
 /Eyes
 Eyes1

@@ -4,6 +4,7 @@
 	{
       "name":"BasicPlayer",
       "sprite":"BasicPlayer",
+	  "spriteType":"SingleSprite",
 	  "maxEnergy":1000,
 	  "maxHealth":10000,
       "speed":5
@@ -11,24 +12,28 @@
   	{
       "name":"Bullet",
       "sprite":"Bullet",
+	  "spriteType":"SingleSprite",
 	  "maxEnergy":10,
       "speed":4
     },
     {
       "name":"ApproachEnemy",
       "sprite":"ApproachEnemy",
+	  "spriteType":"SingleSprite",
       "speed":16,
 	  "maxEnergy":10000
     },
 	{
       "name":"FleeEnemy",
       "sprite":"FleeEnemy",
+	  "spriteType":"SingleSprite",
 	  "maxEnergy":10000,
       "speed":15
     },
 	{
       "name":"ShootEnemy",
       "sprite":"ShootEnemy",
+	  "spriteType":"SingleSprite",
 	  "maxEnergy":1000000,
 	  "maxHealth":1000000,
       "speed":8
@@ -36,29 +41,34 @@
 	{
       "name":"MouseFollower",
       "sprite":"MouseFollower",
+	  "spriteType":"SingleSprite",
 	  "maxEnergy":1000,
       "speed":4
     },
 	{
       "name":"grassPatch",
       "sprite":"Grass",
+	  "spriteType":"SingleSprite",
       "speed":0
     },
 	{
       "name":"Spinner",
       "sprite":"Spinner",
+	  "spriteType":"SingleSprite",
       "speed":54,
 	  "maxEnergy":1000
     },
 	{
       "name":"MiniBullet",
       "sprite":"MiniBullet",
+	  "spriteType":"SingleSprite",
 	  "maxEnergy":5,
       "speed":3
     },
 	{
       "name":"BigBullet",
       "sprite":"BigBullet",
+	  "spriteType":"SingleSprite",
 	  "maxEnergy":50,
       "speed":8
     },
@@ -66,16 +76,19 @@
 	{
       "name":"Rock1",
       "sprite":"Rock1",
+	  "spriteType":"SingleSprite",
 	  "maxHealth":500,
     },
 	{
       "name":"Rock2",
       "sprite":"Rock2",
+	  "spriteType":"SingleSprite",
 	  "maxHealth":1500,
     },
 	{
       "name":"Plants1",
       "sprite":"Plants1",
+	  "spriteType":"SingleSprite",
 	  "maxHealth":5,
     },
   ]

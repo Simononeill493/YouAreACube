@@ -11,10 +11,8 @@ namespace IAmACube
     public abstract partial class Cube
     {
         public CubeTemplate Template { get; private set; }
-        public string Sprite => Template.Sprite;
         public bool Active => Template.Active;
         public int Speed => Template.Speed;
-
 
         public CubeMode CubeMode { get; }
         public Orientation Orientation { get; private set; }
@@ -24,12 +22,12 @@ namespace IAmACube
         public int _id { get; }
         public int SpeedOffset { get; private set; }
 
-        public (int, int, int, int) ColorMask = (255, 255, 255, 255);
 
 
         public Cube(CubeTemplate template, Kernel source, CubeMode cubeMode)
         {
             _id = IDUtils.GenerateBlockID();
+            SpriteData = CubeSpriteDataFactory.Generate(template);
 
             Template = template;
             CubeMode = cubeMode;

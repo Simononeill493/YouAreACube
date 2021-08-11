@@ -12,7 +12,8 @@ namespace IAmACube
         Action,
         Control,
         Sense,
-        General
+        General,
+        Animation
     }
 
     public static class ChipTypeUtils
@@ -29,6 +30,8 @@ namespace IAmACube
                     return Color.DarkBlue;
                 case ChipType.General:
                     return Color.DimGray;
+                case ChipType.Animation:
+                    return Color.DarkGoldenrod;
                 default:
                     throw new Exception("Tried to get a chip color for the chip type '" + chiptype.ToString() + "', which does not have a set color.");
             }
