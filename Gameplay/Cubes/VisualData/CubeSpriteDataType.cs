@@ -9,6 +9,7 @@ namespace IAmACube
     [Serializable()]
     public enum CubeSpriteDataType
     {
+        Undefined,
         SingleSprite,
         Attach4
     }

@@ -63,7 +63,7 @@ namespace IAmACube
 
         public void AddKnownTemplate(TemplateVersionDictionary template) => KnownTemplates.Add(template);
         public void LearnAllLoadedTemplates() => Templates.Database.GetAllVersionLists().ForEach(t => AddKnownTemplate(t));
-        public void UpdateCompanionTemplates() => Companions.ForEach(t => t.SetTemplateToMain());
+        public void UpdateCompanionTemplates() => Companions.ForEach(t => t.UpdateAsCompanion());
         private void _refreshKnownTemplates()
         {
             var templatesList = KnownTemplates.ToList();

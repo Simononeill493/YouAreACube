@@ -30,8 +30,9 @@ namespace IAmACube
         {
             _template = template;
             _templateHoverBox.SetText(_template.Name);
-            _sprite.SpriteName = template.Main.Sprite;
+            _sprite.SpriteName = _template.Main.Sprite;
         }
+
         private void TemplateBox_OnMouseStartHover()
         {
             if(_template!=null)

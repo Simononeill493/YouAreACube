@@ -11,6 +11,7 @@ namespace IAmACube
     {
         public CrystalTemplate(string color) : base(color + "Crystal") 
         {
+            SpriteType = CubeSpriteDataType.SingleSprite;
             MaxEnergy = int.MaxValue;
         }
 

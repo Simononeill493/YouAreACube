@@ -9,7 +9,7 @@ namespace IAmACube
     partial class Cube
     {
         public CubeSpriteData SpriteData;
-        //public string Sprite => SpriteData => CurrentSprite;
+        public void InitializeSpriteData() => SpriteData = CubeSpriteDataFactory.Generate(Template);
 
         public void AttachSpriteToNeighbours() => SpriteData.AttachSpriteToNeighbours(this.CubeMode,Location.Adjacent);
 

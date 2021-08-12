@@ -12,23 +12,15 @@ namespace IAmACube
 
         public TemplateAppearanceEditTab(IHasDrawLayer parent, CubeTemplate baseTemplate) : base(parent, BuiltInMenuSprites.LargeMenuRectangle)
         {
-            var singleSpriteSelectorTab = new TemplateSpriteSelectorTab(this, BuiltInTileSprites.EyeSprites);
+            var singleSpriteSelectorTab = new TemplateSpriteSelectorTab(this, BuiltInTileSprites.CanBeFullBodySprites, SpriteSelected);
             singleSpriteSelectorTab.SetLocationConfig(20, 5, CoordinateMode.ParentPixelOffset, false);
             AddChild(singleSpriteSelectorTab);
 
-            var eyeSelectorTab = new TemplateSpriteSelectorTab(this,BuiltInTileSprites.EyeSprites);
-            eyeSelectorTab.SetLocationConfig(20, 5, CoordinateMode.ParentPixelOffset,false);
-            AddChild(eyeSelectorTab);
-
-            var bodySelectorTab = new TemplateSpriteSelectorTab(this, BuiltInTileSprites.BodySprites);
-            bodySelectorTab.SetLocationConfig(20, 5, CoordinateMode.ParentPixelOffset, false);
-            AddChild(bodySelectorTab);
-
             var appearanceEditTabs = new TabArrayMenuItem(this, MenuOrientation.Vertical, -1, BuiltInMenuSprites.AppearanceEditTab);
             appearanceEditTabs.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, false);
-            appearanceEditTabs.AddTabButton("I", new ContainerMenuItem(this));//Individual
-            appearanceEditTabs.AddTabButton("E", eyeSelectorTab);
-            appearanceEditTabs.AddTabButton("B", bodySelectorTab);
+            appearanceEditTabs.AddTabButton("I", singleSpriteSelectorTab);//Individual
+            appearanceEditTabs.AddTabButton("E", new ContainerMenuItem(this));
+            appearanceEditTabs.AddTabButton("B", new ContainerMenuItem(this));
             appearanceEditTabs.AddTabButton("C", new ContainerMenuItem(this));//Color
             appearanceEditTabs.AddTabButton("L", new ContainerMenuItem(this));//Load
             appearanceEditTabs.SwitchToFirstTab();
@@ -42,13 +34,19 @@ namespace IAmACube
             LoadAppearanceForEditing(baseTemplate);
         }
 
+        public void SpriteSelected(string sprite, CubeSpriteDataType spriteType) => _spriteBox.SetSpriteToSingleSpriteType(sprite, spriteType);
+
         public void LoadAppearanceForEditing(CubeTemplate template)
         {
-            _spriteBox.SetSpriteToSingleImage(template.Sprite);
+            _spriteBox.SetSpriteToSingleSpriteType(template.Sprite,template.SpriteType);
         }
 
         public void AddEditedAppearanceToTemplate(CubeTemplate template)
         {
+            var (spriteName, spriteType) = _spriteBox.GenerateSpriteDataForTemplate();
+
+            template.Sprite = spriteName;
+            template.SpriteType = spriteType;
         }
     }
 }

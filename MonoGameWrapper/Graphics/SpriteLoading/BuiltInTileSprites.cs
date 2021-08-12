@@ -14,13 +14,15 @@ namespace IAmACube
         public const string TileMainDirectory = "Sprites/Tiles";
         public const string TileAttach4Directory = "Sprites/Attach4";
 
-        public static Dictionary<CubeSpriteDataType, List<string>> SpritesByType;
+        //public static Dictionary<CubeSpriteDataType, List<string>> SpritesByType;
         public static Dictionary<string, Attach4SpriteSet> Attach4Spritesets;
 
         public static List<string> GeneralSprites;
         public static List<string> EyeSprites;
         public static List<string> BodySprites;
         public static List<string> Attach4Sprites;
+
+        public static List<(string, CubeSpriteDataType)> CanBeFullBodySprites;
 
         public static void ConfigureTileSprites(List<(string fullName, string friendlyName)> allSprites, string directory)
         {
@@ -39,14 +41,19 @@ namespace IAmACube
             allSprites.AddRange(GetBothNames(GeneralSprites, TileMainDirectory));
             allSprites.AddRange(allAttach4NamesAndPaths);
 
-            var allSingleSprites = new List<string>();
+            /*var allSingleSprites = new List<string>();
             allSingleSprites.AddRange(EyeSprites);
             allSingleSprites.AddRange(BodySprites);
             allSingleSprites.AddRange(GeneralSprites);
 
             SpritesByType = new Dictionary<CubeSpriteDataType, List<string>>();
             SpritesByType[CubeSpriteDataType.SingleSprite] = allSingleSprites;
-            SpritesByType[CubeSpriteDataType.Attach4] = Attach4Sprites;
+            SpritesByType[CubeSpriteDataType.Attach4] = Attach4Sprites;*/
+
+            CanBeFullBodySprites = new List<(string, CubeSpriteDataType)>();
+            CanBeFullBodySprites.AddRange(GeneralSprites.Select(s => (s, CubeSpriteDataType.SingleSprite)));
+            CanBeFullBodySprites.AddRange(BodySprites.Select(s => (s, CubeSpriteDataType.SingleSprite)));
+            CanBeFullBodySprites.AddRange(Attach4Sprites.Select(s => (s, CubeSpriteDataType.Attach4)));
         }
 
         public static Dictionary<string, Attach4SpriteSet> MakeAttach4Spritesets(List<string> attach4Sprites)

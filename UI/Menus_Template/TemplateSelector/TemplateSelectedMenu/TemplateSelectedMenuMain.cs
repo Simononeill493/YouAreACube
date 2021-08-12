@@ -8,7 +8,6 @@ namespace IAmACube
 {
     class TemplateSelectedMenuMain : TemplateSelectedMenu
     {
-        protected Action<CubeTemplate> _templateSelectedCallback;
         private Action<CubeTemplate, TemplateSelectedAction> _templateButtonPressCallback;
 
         public TemplateSelectedMenuMain(IHasDrawLayer parentDrawLayer, Action<CubeTemplate, TemplateSelectedAction> templateButtonPressCallback) : base(parentDrawLayer)
@@ -20,27 +19,11 @@ namespace IAmACube
             _addButton("Edit", 6, 141, CoordinateMode.ParentPixelOffset, false, (i) => { _buttonPressAction(TemplateSelectedAction.Edit); });
         }
 
-        protected void _templateSelectedAction(CubeTemplate template, TemplateSelectedAction selectedActionType)
-        {
-            if (template != null)
-            {
-                switch (selectedActionType)
-                {
-                    case TemplateSelectedAction.Edit:
-                        _templateSelectedCallback(template);
-                        break;
-                    case TemplateSelectedAction.Clone:
-                        break;
-                }
-            }
-        }
-
         protected void _buttonPressAction(TemplateSelectedAction selectedAction)
         {
             if (_template != null)
             {
                 var version = _template[_templateList.Selected.Version];
-
                 if (selectedAction == TemplateSelectedAction.SetMain)
                 {
                     _template.Main = version;
@@ -49,7 +32,5 @@ namespace IAmACube
                 _templateButtonPressCallback(version, selectedAction);
             }
         }
-
-
     }
 }

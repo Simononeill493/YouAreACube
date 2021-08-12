@@ -26,15 +26,15 @@ namespace IAmACube
 
         public Cube(CubeTemplate template, Kernel source, CubeMode cubeMode)
         {
-            _id = IDUtils.GenerateBlockID();
-            SpriteData = CubeSpriteDataFactory.Generate(template);
-
             Template = template;
             CubeMode = cubeMode;
             Source = source;
-
             Energy = 0;
+
+            _id = IDUtils.GenerateBlockID();
             SpeedOffset = _id % Config.TickCycleLength;
+
+            InitializeSpriteData();
         }
 
 
@@ -50,6 +50,13 @@ namespace IAmACube
         public bool InSector(Sector sector) => Location.InSector(sector);
         public void ClearLocation() => Location = null;
 
+
+
+        public void UpdateAsCompanion()
+        {
+            SetTemplateToMain();
+            InitializeSpriteData();
+        }
 
         public void SetTemplateToMain() => Template = Template.Versions.Main;
         public void SetTemplateToRuntime() => Template = Template.GetRuntimeTemplate();
