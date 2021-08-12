@@ -12,6 +12,10 @@ namespace IAmACube
 
         public TemplateAppearanceEditTab(IHasDrawLayer parent, CubeTemplate baseTemplate) : base(parent, BuiltInMenuSprites.LargeMenuRectangle)
         {
+            var singleSpriteSelectorTab = new TemplateSpriteSelectorTab(this, BuiltInTileSprites.EyeSprites);
+            singleSpriteSelectorTab.SetLocationConfig(20, 5, CoordinateMode.ParentPixelOffset, false);
+            AddChild(singleSpriteSelectorTab);
+
             var eyeSelectorTab = new TemplateSpriteSelectorTab(this,BuiltInTileSprites.EyeSprites);
             eyeSelectorTab.SetLocationConfig(20, 5, CoordinateMode.ParentPixelOffset,false);
             AddChild(eyeSelectorTab);
@@ -22,11 +26,11 @@ namespace IAmACube
 
             var appearanceEditTabs = new TabArrayMenuItem(this, MenuOrientation.Vertical, -1, BuiltInMenuSprites.AppearanceEditTab);
             appearanceEditTabs.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, false);
+            appearanceEditTabs.AddTabButton("I", new ContainerMenuItem(this));//Individual
             appearanceEditTabs.AddTabButton("E", eyeSelectorTab);
             appearanceEditTabs.AddTabButton("B", bodySelectorTab);
-            appearanceEditTabs.AddTabButton("C", new ContainerMenuItem(this));
-            appearanceEditTabs.AddTabButton("D", new ContainerMenuItem(this));
-            appearanceEditTabs.AddTabButton("L", new ContainerMenuItem(this));
+            appearanceEditTabs.AddTabButton("C", new ContainerMenuItem(this));//Color
+            appearanceEditTabs.AddTabButton("L", new ContainerMenuItem(this));//Load
             appearanceEditTabs.SwitchToFirstTab();
             AddChild(appearanceEditTabs);
 
