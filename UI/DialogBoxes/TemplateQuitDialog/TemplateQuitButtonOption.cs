@@ -3,6 +3,8 @@
     public enum TemplateQuitButtonOption
     {
         SaveAndQuit,
+        SaveAppearanceOnly,
         QuitWithoutSaving,
+
     }
 }

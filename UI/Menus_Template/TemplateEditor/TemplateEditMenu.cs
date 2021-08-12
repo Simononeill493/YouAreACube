@@ -63,6 +63,11 @@ namespace IAmACube
                 case TemplateQuitButtonOption.QuitWithoutSaving:
                     _goBackToTemplateSelector();
                     break;
+                case TemplateQuitButtonOption.SaveAppearanceOnly:
+                    UpdateCurrentTemplateAppearance();
+                    _goBackToTemplateSelector();
+                    break;
+
             }
         }
 
@@ -87,6 +92,8 @@ namespace IAmACube
                 case TemplateSaveDialogOption.SaveAsNewVersion:
                     SaveNewVersion(name);
                     break;
+                default:
+                    throw new Exception();
             }
 
             _goBackToTemplateSelector();
@@ -120,6 +127,14 @@ namespace IAmACube
             var newTemplateVersions = new TemplateVersionDictionary(name, newTemplate);
             _kernel.AddKnownTemplate(newTemplateVersions);
         }
+
+        public void UpdateCurrentTemplateAppearance()
+        {
+            var (spriteName, spriteType) = _appearanceEditTab.GenerateSpriteData();
+            _baseTemplate.Sprite = spriteName;
+            _baseTemplate.SpriteType = spriteType;
+        }
+
 
         private CubeTemplate _createNewTemplateFromThisMenu()
         {

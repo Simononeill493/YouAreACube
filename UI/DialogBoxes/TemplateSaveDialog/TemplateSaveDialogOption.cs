@@ -3,6 +3,6 @@
     public enum TemplateSaveDialogOption
     {
         SaveAsNewTemplate,
-        SaveAsNewVersion
+        SaveAsNewVersion,
     }
 }

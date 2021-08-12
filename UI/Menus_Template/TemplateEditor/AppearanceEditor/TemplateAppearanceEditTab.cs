@@ -43,10 +43,13 @@ namespace IAmACube
 
         public void AddEditedAppearanceToTemplate(CubeTemplate template)
         {
-            var (spriteName, spriteType) = _spriteBox.GenerateSpriteDataForTemplate();
+            var (spriteName, spriteType) = GenerateSpriteData();
 
             template.Sprite = spriteName;
             template.SpriteType = spriteType;
         }
+
+        public (string,CubeSpriteDataType) GenerateSpriteData() => _spriteBox.GenerateSpriteDataForTemplate();
+
     }
 }

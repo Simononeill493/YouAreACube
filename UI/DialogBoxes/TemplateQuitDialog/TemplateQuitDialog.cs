@@ -19,6 +19,12 @@ namespace IAmACube
                 onButtonPressed(TemplateQuitButtonOption.SaveAndQuit);
             });
 
+            _addButton("Save appearance only", 50, 50, CoordinateMode.ParentPercentageOffset, true, (i) =>
+            {
+                Close();
+                onButtonPressed(TemplateQuitButtonOption.SaveAppearanceOnly);
+            });
+
             _addButton("Quit without saving", 50, 60, CoordinateMode.ParentPercentageOffset, true, (i) =>
             {
                 Close();
