@@ -7,7 +7,7 @@
 	  "spriteType":"SingleSprite",
 	  "maxEnergy":1000,
 	  "maxHealth":10000,
-      "speed":5
+      "speed":3
     },
   	{
       "name":"Bullet",
@@ -69,7 +69,7 @@
       "name":"BigBullet",
       "sprite":"BigBullet",
 	  "spriteType":"SingleSprite",
-	  "maxEnergy":50,
+	  "maxEnergy":300,
       "speed":8
     },
 

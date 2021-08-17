@@ -23,11 +23,20 @@ namespace IAmACube
                 throw new Exception("Surface cube is being moved, but its current tile does not register it as present.");
             }
 
+            _getZapsFromSurroundings();
+
             Location.Surface = null;
             this.Location = destination;
             Location.Surface = this;
+
+            _getZapsFromSurroundings();
         }
 
+        private void _getZapsFromSurroundings()
+        {
+            ZapUtils.TryZapOutOfTurn(Location.Ground);
+            ZapUtils.TryZapOutOfTurn(Location.Ephemeral);
+        }
 
         public override bool CanOccupyDestination(Tile destination) => !destination.HasSurface;
     }

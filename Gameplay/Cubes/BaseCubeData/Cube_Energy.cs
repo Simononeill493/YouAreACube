@@ -13,6 +13,9 @@ namespace IAmACube
         public int EnergyCap => Template.MaxEnergy;
         public float EnergyRemainingPercentage => (float)Energy / EnergyCap;
 
+        public bool Zapping;
+        public CubeMode ZapTarget;
+
         public void AddEnergy(int amount)
         {
             if (amount < 1)

@@ -187,6 +187,7 @@
     <Compile Include="Gameplay\Direction\DirectionUtils.cs" />
     <Compile Include="Gameplay\Updates\SectorUpdateManager.cs" />
     <Compile Include="Gameplay\Updates\Tick\WorldTicker.cs" />
+    <Compile Include="Utils\ActionUtils\ZapUtils.cs" />
     <Compile Include="Utils\BlockUtils.cs" />
     <Compile Include="WorldGen\AttachmentUtils.cs" />
     <Compile Include="WorldGen\SectorGenerator.cs" />

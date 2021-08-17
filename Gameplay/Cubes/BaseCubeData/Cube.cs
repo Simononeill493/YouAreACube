@@ -38,7 +38,12 @@ namespace IAmACube
         }
 
 
-        public virtual void Update(UserInput input, ActionsList actions) => Template.Chipset.Execute(this, input, actions);
+        public virtual void Update(UserInput input, ActionsList actions) 
+        {
+            Zapping = false;
+            Template.Chipset.Execute(this, input, actions); 
+        }
+
         public virtual void BeCreatedBy(Cube creator) => SpeedOffset = creator.SpeedOffset + 1;
         public virtual bool CanUpdate => true;
         public abstract bool ToBeDeleted();

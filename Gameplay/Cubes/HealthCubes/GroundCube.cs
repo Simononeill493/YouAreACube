@@ -22,9 +22,19 @@ namespace IAmACube
                 throw new Exception("Ground block is being moved, but its current tile does not register it as present.");
             }
 
+            _getZapsFromSurroundings();
+
             Location.Ground = null;
             this.Location = destination;
             Location.Ground = this;
+
+            _getZapsFromSurroundings();
+        }
+
+        private void _getZapsFromSurroundings()
+        {
+            ZapUtils.TryZapOutOfTurn(Location.Surface);
+            ZapUtils.TryZapOutOfTurn(Location.Ephemeral);
         }
 
         public override bool CanOccupyDestination(Tile destination) => !destination.HasGround;
