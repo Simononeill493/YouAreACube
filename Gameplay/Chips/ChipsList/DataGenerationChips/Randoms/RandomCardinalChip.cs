@@ -5,9 +5,13 @@ namespace IAmACube
     [Serializable()]
     internal class RandomCardinalChip : OutputPin<CardinalDirection>
     {
-        public override void Run(Cube actor, UserInput userInput, ActionsList actions)
+        public string Name { get; set; }
+
+        public CardinalDirection Value { get; set; }
+
+        public void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
-            SetOutput(RandomUtils.RandomCardinal());
+            Value = (RandomUtils.RandomCardinal());
         }
     }
 }

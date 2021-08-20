@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    class GetListItemAtIndexChip<T> : OutputPin<T>, InputPin1<List<T>>, InputPin2<int>
+    class GetListItemAtIndexChip<T> : InputPin2<List<T>, int>, OutputPin<T>
     {
-        public List<T> ChipInput1 { get ; set; }
-        public int ChipInput2 { get; set; }
+        public T Value { get; set; }
 
         public override void Run(Cube actor, UserInput input, ActionsList actions)
         {
-            SetOutput(ChipInput1[ChipInput2]);
+            Value = (ChipInput1[ChipInput2]);
         }
     }
 }

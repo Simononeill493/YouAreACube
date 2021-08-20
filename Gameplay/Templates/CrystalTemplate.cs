@@ -20,5 +20,7 @@ namespace IAmACube
         public override Cube Generate(Kernel source, CubeMode blockType) => throw new NotImplementedException();
         public override GroundCube GenerateGround(Kernel source) => throw new NotImplementedException();
         public override EphemeralCube GenerateEphemeral(Kernel source) => throw new NotImplementedException();
+
+        public override string ToJsonRep() => throw new NotImplementedException();
     }
 }

@@ -26,31 +26,7 @@ namespace IAmACube
                 throw new Exception("Trying to parse chip input but is not a value type.");
             }
 
-            if (typeName.Equals(nameof(CubeTemplate)))
-            {
-                return JSONDataUtils.JSONRepToTemplate(InputValue);
-            }
-
-            var type = TypeUtils.GetTypeByDisplayName(typeName);
-            var typeValue = TypeUtils.ParseType(type, InputValue);
-
-            if(typeValue==null)
-            {
-                throw new Exception();
-            }
-
-            return typeValue;
-        }
-
-        public static List<ChipJSONInputData> GenerateDefaultInputs(int num) 
-        {
-            var inputs = new List<ChipJSONInputData>();
-            for (int i = 0; i < num; i++)
-            {
-                inputs.Add(new ChipJSONInputData(InputOptionType.Undefined, "Undefined", i));
-            }
-
-            return inputs;
+            return JSONDataUtils.JSONRepToObject(InputValue, typeName);
         }
 
         public static List<ChipJSONInputData> GenerateInputsFromBlock(BlockTop block)

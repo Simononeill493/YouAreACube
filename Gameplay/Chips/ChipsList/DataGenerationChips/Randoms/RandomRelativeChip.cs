@@ -5,9 +5,13 @@ namespace IAmACube
     [Serializable()]
     internal class RandomRelativeChip : OutputPin<RelativeDirection>
     {
-        public override void Run(Cube actor, UserInput userInput, ActionsList actions)
+        public string Name { get; set; }
+
+        public RelativeDirection Value { get; set; }
+
+        public void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
-            SetOutput(RandomUtils.RandomRelative());
+            Value = (RandomUtils.RandomRelative());
         }
     }
 }

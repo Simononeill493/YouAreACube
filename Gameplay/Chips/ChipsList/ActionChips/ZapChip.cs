@@ -9,10 +9,7 @@ namespace IAmACube
     [Serializable()]
     class ZapChip : InputPin1<CubeMode>
     {
-        public string Name { get; set; }
-        public CubeMode ChipInput1 { get; set; }
-
-        public void Run(Cube actor, UserInput userInput, ActionsList actions)
+        public override void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
             actions.AddZapAction(actor, ChipInput1);
         }

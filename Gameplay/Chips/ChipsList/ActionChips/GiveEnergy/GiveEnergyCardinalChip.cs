@@ -7,15 +7,10 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    class GiveEnergyCardinalChip : InputPin1<CardinalDirection>, InputPin2<CubeMode>, InputPin3<int>
+    class GiveEnergyCardinalChip : InputPin3<CardinalDirection, CubeMode, int>
     {
-        public CardinalDirection ChipInput1 { get; set; }
-        public CubeMode ChipInput2 { get; set; }
-        public int ChipInput3 { get; set; }
 
-        public string Name { get; set; }
-
-        public void Run(Cube actor, UserInput userInput, ActionsList actions)
+        public override void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
             actions.AddGiveEnergyAction(actor, ChipInput2, ChipInput1, ChipInput3);
         }

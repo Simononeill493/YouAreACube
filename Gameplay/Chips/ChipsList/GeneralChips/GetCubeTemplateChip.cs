@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class GetCubeTemplateChip<TCube> : OutputPin<CubeTemplate>, InputPin1<TCube> where TCube : Cube
+    public class GetCubeTemplateChip<TCube> : InputPin1<TCube>, OutputPin<CubeTemplate> where TCube : Cube
     {
-        public TCube ChipInput1 { get; set; }
+        public CubeTemplate Value { get; set; }
 
         public override void Run(Cube actor, UserInput input, ActionsList actions)
         {
-            SetOutput(ChipInput1.Template.GetRuntimeTemplate());
+            Value = (ChipInput1.Template.GetRuntimeTemplate());
         }
     }
 }

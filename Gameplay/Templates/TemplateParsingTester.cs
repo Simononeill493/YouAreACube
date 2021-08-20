@@ -14,7 +14,10 @@ namespace IAmACube
             foreach (var template in templates)
             {
                 if (!template.Active) { continue; }
-                TestParsingRoundTrip(template.Name, template.Chipset);
+                if(template.Chipset!=null)
+                {
+                    TestParsingRoundTrip(template.Name, template.Chipset);
+                }
             }
         }
 

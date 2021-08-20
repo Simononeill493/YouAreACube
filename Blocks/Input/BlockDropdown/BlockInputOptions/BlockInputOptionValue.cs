@@ -22,9 +22,10 @@ namespace IAmACube
 
         public override string ToString()
         {
-            if (BaseObject.GetType() == typeof(CubeTemplate))
+            var asTemplate = (BaseObject as CubeTemplate);
+            if (asTemplate!= null)
             {
-                return JSONDataUtils.TemplateToJSONRep((CubeTemplate)BaseObject);
+                return asTemplate.ToJsonRep();
             }
 
             return BaseObject.ToString();

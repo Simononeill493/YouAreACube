@@ -7,7 +7,11 @@ namespace IAmACube
     [Serializable()]
     internal class GetNeighbouringCubesChip : OutputPin<List<Cube>>
     {
-        public override void Run(Cube actor, UserInput input,ActionsList actions)
+        public string Name { get; set; }
+
+        public List<Cube> Value { get; set; }
+
+        public void Run(Cube actor, UserInput input,ActionsList actions)
         {
             var neighbours = new List<Cube>();
             var blocks = actor.Location.Adjacent.Values.Select(l => l.GetBlocks());
@@ -15,7 +19,7 @@ namespace IAmACube
             {
                 neighbours.AddRange(b);
             }
-            SetOutput(neighbours);
+            Value = (neighbours);
         }
     }
 }

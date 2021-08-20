@@ -18,6 +18,7 @@ namespace IAmACube
         }
 
         public override string ToString() => Name + "|Main";
+        public override string ToJsonRep() => ToString();
 
     }
 }

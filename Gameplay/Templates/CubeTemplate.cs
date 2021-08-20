@@ -65,5 +65,6 @@ namespace IAmACube
 
 
         public override string ToString() => Version + ": " + Name;
+        public virtual string ToJsonRep() => Versions.Name + '|' + Version;
     }
 }

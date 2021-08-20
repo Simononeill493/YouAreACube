@@ -7,14 +7,9 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class AddToListChip<T> : InputPin1<T>, InputPin2<List<T>>
+    internal class AddToListChip<T> : InputPin2<T,List<T>>
     {
-        public string Name { get; set; }
-
-        public T ChipInput1 { get; set; }
-        public List<T> ChipInput2 { get; set; }
-
-        public  void Run(Cube actor, UserInput input, ActionsList actions)
+        public override void Run(Cube actor, UserInput input, ActionsList actions)
         {
             ChipInput2.Add(ChipInput1);
         }

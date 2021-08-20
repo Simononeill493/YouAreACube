@@ -9,9 +9,13 @@ namespace IAmACube.Gameplay.Chips.ChipsList.DataGenerationChips
     [Serializable()]
     internal class GetNeighbouringTilesChip : OutputPin<List<Tile>>
     {
-        public override void Run(Cube actor, UserInput input, ActionsList actions)
+        public string Name { get; set; }
+
+        public List<Tile> Value { get; set; }
+
+        public void Run(Cube actor, UserInput input, ActionsList actions)
         {
-            SetOutput(actor.Location.Neighbours);
+            Value = (actor.Location.Neighbours);
         }
     }
 }

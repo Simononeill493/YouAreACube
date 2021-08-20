@@ -30,7 +30,6 @@ namespace IAmACube
                 TypeArguments = Chip.GetTypeArgumentNames();
             }
 
-            Inputs = ChipJSONInputData.GenerateDefaultInputs(BlockData.NumInputs);
             _setControlChipTargets();
         }
         private void _setControlChipTargets()

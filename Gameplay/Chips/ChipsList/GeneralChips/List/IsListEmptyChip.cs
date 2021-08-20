@@ -6,13 +6,13 @@ using System.Linq;
 namespace IAmACube
 {
     [Serializable()]
-    internal class IsListEmptyChip<T> : OutputPin<bool>, InputPin1<List<T>>
+    internal class IsListEmptyChip<T> : InputPin1<List<T>>, OutputPin<bool>
     {
-        public List<T> ChipInput1 { get; set; }
+        public bool Value { get; set; }
 
         public override void Run(Cube actor, UserInput input, ActionsList actions)
         {
-            SetOutput(!ChipInput1.Any());
+            Value = (!ChipInput1.Any());
         }
     }
 }

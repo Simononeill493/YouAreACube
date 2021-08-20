@@ -82,11 +82,11 @@ namespace IAmACube
         private static void _setReferenceChipInput(ChipJSONData chipJSON,Dictionary<string, ChipJSONData> chipsDict, string inputChipName, int inputIndex)
         {
             var inputtingChip = chipsDict[inputChipName].Chip;
-            inputtingChip.AddTarget(inputIndex, chipJSON.Chip);
+            chipJSON.Chip.SetReferenceProperty(inputtingChip,inputIndex);
         }
         private static void _setValueChipInput(ChipJSONData chipJSON, int inputIndex)
         {
-            chipJSON.Chip.SetInputProperty(inputIndex,chipJSON.ParseInput(inputIndex));
+            chipJSON.Chip.SetValueProperty(chipJSON.ParseInput(inputIndex), inputIndex);
         }
     }
 }

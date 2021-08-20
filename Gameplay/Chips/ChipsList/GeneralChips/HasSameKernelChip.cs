@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class HasSameKernelChip<TCube> : OutputPin<bool>, InputPin1<TCube> where TCube : Cube
+    public class HasSameKernelChip<TCube> : InputPin1<TCube>, OutputPin<bool> where TCube : Cube
     {
-        public TCube ChipInput1 { get; set; }
+        public bool Value { get; set; }
 
         public override void Run(Cube actor, UserInput input, ActionsList actions)
         {
             if(ChipInput1==null)
             {
-                SetOutput(false);
+                Value = (false);
             }
             else
             {
-                SetOutput(actor.Source.Equals(ChipInput1.Source));
+                Value = (actor.Source.Equals(ChipInput1.Source));
             }
         }
     }

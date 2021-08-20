@@ -17,41 +17,46 @@ namespace IAmACube
 
             var fullJSON = new FullChipsetJSONData(chipsetToParse);
 
-            _setReferencesForChipsWithOutputs(fullJSON.ChipsDict);
-            _setChipValueInputs(fullJSON.ChipsDict);
+            _setChipsInputs(fullJSON.ChipsDict);
 
             fullJSON.AlphabetSort();
             return fullJSON.GenerateString();
         }
 
-        private static void _setReferencesForChipsWithOutputs(Dictionary<string, ChipJSONData> chipsDict)
+        private static void _setChipsInputs(Dictionary<string, ChipJSONData> chipsDict)
         {
-            foreach (var chipJSON in chipsDict.ChipsWithOutput())
+            foreach (var chipJson in chipsDict.Values)
             {
-                for (int i = 0; i < Config.NumChipInputPins; i++)
-                {
-                    var targetChips = chipJSON.Chip.GetTargetsList(i);
-                    _setChipReferenceInputs(chipJSON.Chip, targetChips,i,chipsDict);
-                }
-            }
-        }
-        private static void _setChipReferenceInputs(IChip sourceChip, IList targetChips,int inputPinIndex,Dictionary<string, ChipJSONData> chipsDict)
-        {
-            foreach (var targetChip in (IEnumerable<IChip>)targetChips)
-            {
-                var targetInputs = chipsDict[targetChip.Name].Inputs;
-                targetInputs[inputPinIndex] = new ChipJSONInputData(InputOptionType.Reference, sourceChip.Name,inputPinIndex);
+                chipJson.Inputs = new List<ChipJSONInputData>();
+                _setChipInputs(chipJson, chipJson.Chip);
             }
         }
 
-        private static void _setChipValueInputs(Dictionary<string, ChipJSONData> chipsDict)
+        private static void _setChipInputs(ChipJSONData chipJson,IChip chip)
         {
-            foreach (var (undefinedPin,chipJSON) in chipsDict.GetPinsWithUndefinedInput())
-            //any still undefined should be value types
+            var chipInputPinData = chip.GetInputPinValues(chipJson.BlockData);
+
+            for(int i = 0;i<chipInputPinData.Count;i++)
             {
-                undefinedPin.InputType = InputOptionType.Value;
-                undefinedPin.InputValue = chipJSON.Chip.GetInputPinValue(undefinedPin.PinIndex);
+                var inputPinData = chipInputPinData[i];
+                var inputData = _generateInputData(inputPinData.Item1, inputPinData.Item2, i);
+                chipJson.Inputs.Add(inputData);
             }
         }
+
+        private static ChipJSONInputData _generateInputData(InputOptionType inputType,object value,int pin)
+        {
+            switch (inputType)
+            {
+                case InputOptionType.Value:
+                    return new ChipJSONInputData(inputType, JSONDataUtils.ObjectToJSONRep(value), pin);
+                case InputOptionType.Reference:
+                    var referenceChip = (IChip)value;
+                    return new ChipJSONInputData(inputType, referenceChip.Name, pin);
+                default:
+                    throw new Exception();
+            }
+        }
+
     }
 }

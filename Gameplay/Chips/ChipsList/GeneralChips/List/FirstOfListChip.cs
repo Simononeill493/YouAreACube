@@ -5,13 +5,13 @@ using System.Linq;
 namespace IAmACube
 {
     [Serializable()]
-    internal class FirstOfListChip<T> : OutputPin<T>, InputPin1<List<T>>
+    internal class FirstOfListChip<T> : InputPin1<List<T>>, OutputPin<T>
     {
-        public List<T> ChipInput1 { get; set; }
+        public T Value { get; set; }
 
         public override void Run(Cube actor, UserInput input, ActionsList actions)
         {
-            SetOutput(ChipInput1.FirstOrDefault());
+            Value = (ChipInput1.FirstOrDefault());
         }
     }
 }

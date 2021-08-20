@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class ShuffleListChip<T> : OutputPin<List<T>>, InputPin1<List<T>>
+    internal class ShuffleListChip<T> : InputPin1<List<T>>, OutputPin<List<T>>
     {
-        public List<T> ChipInput1 { get; set; }
+        public List<T> Value { get; set; }
 
         public override void Run(Cube actor, UserInput input, ActionsList actions)
         {
             var shuffled = RandomUtils.GetShuffledList(ChipInput1);
-            SetOutput(shuffled);
+            Value = (shuffled);
         }
     }
 }

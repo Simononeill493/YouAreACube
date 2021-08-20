@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    internal class IsKeyPressedChip : OutputPin<bool>, InputPin1<Keys>
+    internal class IsKeyPressedChip : InputPin1<Keys>, OutputPin<bool>
     {
-        public Keys ChipInput1 { get; set; }
+        public bool Value { get; set; }
 
         public override void Run(Cube actor, UserInput input, ActionsList actions)
         {
-            SetOutput(input.KeyboardState.IsKeyDown(ChipInput1));
+            Value = (input.KeyboardState.IsKeyDown(ChipInput1));
         }
     }
 }

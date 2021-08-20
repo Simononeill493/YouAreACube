@@ -24,42 +24,51 @@ namespace IAmACube
 
         public static bool IsControlChip(this IChip chip) => typeof(IControlChip).IsAssignableFrom(chip.GetType());
 
-        public static IList GetTargetsList(this IChip chip, int targetIndex)
-        {
-            var inputChipType = chip.GetType();
-            var targetField = inputChipType.GetField("Targets" + (targetIndex + 1).ToString());
-            return (IList)targetField.GetValue(chip);
-        }
-        public static void AddTarget(this IChip chip, int targetIndex,object toAdd)
-        {
-            var targetsList = chip.GetTargetsList(targetIndex);
-            targetsList.Add(toAdd);
-        }
 
+        public static List<(InputOptionType, object)> GetInputPinValues(this IChip chip, BlockData chipData)
+        {
+            var output = new List<(InputOptionType, object)>();
+            var chipType = chip.GetType();
+            var properties = chipType.GetProperties();
 
-        public static PropertyInfo GetInputProperty(this IChip chip, int inputIndex)
-        {
-            return chip.GetType().GetProperty("ChipInput" + (inputIndex + 1).ToString());
-        }
-        public static object GetInputPropertyValue(this IChip chip, int inputIndex)
-        {
-            return GetInputProperty(chip,inputIndex).GetValue(chip);
-        }
-        public static string GetInputPinValue(this IChip chip, int pinIndex)
-        {
-            var value = chip.GetInputPropertyValue(pinIndex);
-            if (value.GetType() == typeof(CubeTemplate))
+            for (int i = 1; i < chipData.NumInputs+1; i++)
             {
-                return JSONDataUtils.TemplateToJSONRep((CubeTemplate)value);
+                var inputTypeProperty = properties.Where(p => p.Name.Equals("InputType" + i)).FirstOrDefault();
+                InputOptionType inputType = (InputOptionType)inputTypeProperty.GetValue(chip);
+                object inputValue = null;
+
+                switch (inputType)
+                {
+                    case InputOptionType.Value:
+                        var valueProperty = properties.Where(p => p.Name.Equals("InputValue" + i)).FirstOrDefault();
+                        inputValue = valueProperty.GetValue(chip);
+                        break;
+                    case InputOptionType.Reference:
+                        var referenceProperty = properties.Where(p => p.Name.Equals("InputReference" + i)).FirstOrDefault();
+                        inputValue = referenceProperty.GetValue(chip);
+                        break;
+                    default:
+                        throw new Exception();
+                }
+
+                output.Add((inputType, inputValue));
             }
-            return value.ToString();
+
+            return output;
         }
 
-        public static void SetInputProperty(this IChip chip, int inputIndex,object toSet)
+        public static void SetReferenceProperty(this IChip chip,IChip referencedChip,int pin)
         {
-            var property =  chip.GetType().GetProperty("ChipInput" + (inputIndex + 1).ToString());
-            property.SetValue(chip,toSet);
+            var referenceProperty = chip.GetType().GetProperties().Where(p => p.Name.Equals("InputReference" + (pin+1))).FirstOrDefault();
+            referenceProperty.SetValue(chip, referencedChip);
         }
+
+        public static void SetValueProperty(this IChip chip, object value, int pin)
+        {
+            var referenceProperty = chip.GetType().GetProperties().Where(p => p.Name.Equals("InputValue" + (pin+1))).FirstOrDefault();
+            referenceProperty.SetValue(chip, value);
+        }
+
 
         public static List<string> GetTypeArgumentNames(this IChip chip)
         {
@@ -69,5 +78,6 @@ namespace IAmACube
             return names;
         }
 
+       
     }
 }

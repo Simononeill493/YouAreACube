@@ -4,16 +4,13 @@ using System.Collections.Generic;
 namespace IAmACube
 {
     [Serializable()]
-    internal class IfChip : IControlChip, InputPin1<bool>
+    internal class IfChip : InputPin1<bool>, IControlChip
     {
-        public string Name { get; set; }
-
-        public bool ChipInput1 { get; set; }
 
         public Chipset Yes;
         public Chipset No;
 
-        public void Run(Cube actor,UserInput input,ActionsList actions)
+        public override void Run(Cube actor,UserInput input,ActionsList actions)
         {
             if(ChipInput1)
             {

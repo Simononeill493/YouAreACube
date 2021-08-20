@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class CubeLocationChip<TBlock> : OutputPin<Tile>, InputPin1<TBlock> where TBlock : Cube 
+    public class CubeLocationChip<TBlock> : InputPin1<TBlock>, OutputPin<Tile> where TBlock : Cube
     {
-        public TBlock ChipInput1 { get; set; }
+        public Tile Value { get; set; }
 
         public override void Run(Cube actor, UserInput input, ActionsList actions)
         {
-            SetOutput(ChipInput1.Location);
+            Value = (ChipInput1.Location);
         }
     }
 }

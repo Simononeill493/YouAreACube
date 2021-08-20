@@ -48,9 +48,22 @@ namespace IAmACube
             return chipsDict.Values.Where(c => c.BlockData.HasOutput);
         }
 
-        public static IEnumerable<(ChipJSONInputData,ChipJSONData)> GetPinsWithUndefinedInput(this Dictionary<string, ChipJSONData> chipsDict)
+        public static object JSONRepToObject(string stringToParse,string typeName)
         {
-            return chipsDict.Values.SelectMany(c => c.Inputs.Where(i => i.InputType == InputOptionType.Undefined).Select(i => (i, c)));
+            if (typeName.Equals(nameof(CubeTemplate)))
+            {
+                return JSONRepToTemplate(stringToParse);
+            }
+
+            var type = TypeUtils.GetTypeByDisplayName(typeName);
+            var typeValue = TypeUtils.ParseType(type, stringToParse);
+
+            if (typeValue == null)
+            {
+                throw new Exception();
+            }
+
+            return typeValue;
         }
 
         public static CubeTemplate JSONRepToTemplate(string inputValue)
@@ -73,9 +86,15 @@ namespace IAmACube
             return templateObj;
         }
 
-        public static string TemplateToJSONRep(CubeTemplate template)
+        public static string ObjectToJSONRep(object objectToParse)
         {
-            return template.Versions.Name + '|' + template.Version;
+            var asTemplate = (objectToParse as CubeTemplate);
+            if (asTemplate != null)
+            {
+                return asTemplate.ToJsonRep();
+            }
+
+            return objectToParse.ToString();
         }
 
         public static List<string> GetSelectedInputTypes(this BlockTop block)
