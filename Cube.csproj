@@ -159,6 +159,8 @@
     <Compile Include="UI\DialogBoxes\BlockTemplateSelectionDialog\BlockTemplateSelectionDialog.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateEditMenu.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\SpriteBoxes\CubeSpriteBox.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\VariableEditor\TemplateVariableEditItem.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\VariableEditor\TemplateVariableEditTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateExplorerMenu\TemplateExplorerMenu.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateExplorerMenu\TemplateExplorerMenuInternal.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateExplorerMenu\TemplateExplorerMenuMain.cs" />
@@ -189,6 +191,7 @@
     <Compile Include="Gameplay\Updates\Tick\WorldTicker.cs" />
     <Compile Include="Utils\ActionUtils\ZapUtils.cs" />
     <Compile Include="Utils\BlockUtils.cs" />
+    <Compile Include="Utils\InGameTypeUtils.cs" />
     <Compile Include="WorldGen\AttachmentUtils.cs" />
     <Compile Include="WorldGen\SectorGenerator.cs" />
     <Compile Include="Misc\LocationWithNeighbors.cs" />

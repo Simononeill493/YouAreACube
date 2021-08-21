@@ -19,7 +19,7 @@ namespace IAmACube
 
         public event Action<string> OnTextChanged;
 
-        public TextBoxMenuItem(IHasDrawLayer parentDrawLayer,string initialString) : base(parentDrawLayer, BuiltInMenuSprites.BasicTextBox)
+        public TextBoxMenuItem(IHasDrawLayer parentDrawLayer,string initialString = "") : base(parentDrawLayer, BuiltInMenuSprites.BasicTextBox)
         {
             TextItem = new TextMenuItem(this) { Text = initialString };
             TextItem.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);

@@ -15,14 +15,12 @@ namespace IAmACube
         private BlocksetEditPane _editPane;
         private BlockSearchPane _searchPane;
 
-        private Action _goBackToTemplateSelectScreen;
         private (InputOptionMenu Menu, BlockInputSection Section) _inputMenuToOpenDetails;
 
-        public TemplateChipsetEditTab(IHasDrawLayer parentDrawLayer,Kernel kernel, CubeTemplate baseTemplate, Action goBackToTemplateSelectScreen) : base(parentDrawLayer, BuiltInMenuSprites.LargeMenuRectangle_BlocksetEditWindow)
+        public TemplateChipsetEditTab(IHasDrawLayer parentDrawLayer,Kernel kernel, CubeTemplate baseTemplate) : base(parentDrawLayer, BuiltInMenuSprites.LargeMenuRectangle_BlocksetEditWindow)
         {
             _kernel = kernel;
             _baseTemplate = baseTemplate;
-            _goBackToTemplateSelectScreen = goBackToTemplateSelectScreen;
 
             //var saveButton = new SpriteMenuItem(this, "SaveButton");
             //saveButton.SetLocationConfig(0, -saveButton.GetBaseSize().Y, CoordinateMode.ParentPixelOffset, false);

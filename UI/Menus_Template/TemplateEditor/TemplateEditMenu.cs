@@ -10,6 +10,7 @@ namespace IAmACube
     {
         private TabArrayMenuItem _tabs;
         private TemplateChipsetEditTab _chipsetEditTab;
+        private TemplateVariableEditTab _variableEditTab;
         private TemplateBaseStatsEditTab _statsEditTab;
         private TemplateAppearanceEditTab _appearanceEditTab;
 
@@ -23,9 +24,13 @@ namespace IAmACube
             _baseTemplate = baseTemplate;
             _kernel = kernel;
 
-            _chipsetEditTab = new TemplateChipsetEditTab(this, kernel, baseTemplate, goBackToTemplateSelector);
+            _chipsetEditTab = new TemplateChipsetEditTab(this, kernel, baseTemplate);
             _chipsetEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
             AddChild(_chipsetEditTab);
+
+            _variableEditTab = new TemplateVariableEditTab(this, baseTemplate);
+            _variableEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            AddChild(_variableEditTab);
 
             _statsEditTab = new TemplateBaseStatsEditTab(this,baseTemplate);
             _statsEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
@@ -38,6 +43,7 @@ namespace IAmACube
             _tabs = new TabArrayMenuItem(this,MenuOrientation.Horizontal,10);
             _tabs.SetLocationConfig(0, -SpriteManager.GetSpriteSize(BuiltInMenuSprites.BasicTabButton).Y, CoordinateMode.ParentPixelOffset, false);
             _tabs.AddTabButton("Stats", _statsEditTab);
+            _tabs.AddTabButton("Variables", _variableEditTab);
             _tabs.AddTabButton("Chipset", _chipsetEditTab);
             _tabs.AddTabButton("Appearance", _appearanceEditTab);
             _tabs.SwitchToFirstTab();

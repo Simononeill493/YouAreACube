@@ -30,6 +30,11 @@ namespace IAmACube
 
         public void AddTabButton(string name,MenuItem tab)
         {
+            if(Tabs.Contains(tab))
+            {
+                throw new Exception("Tried to add the same tab twice to a tabarray");
+            }
+
             var tabButton = _makeNewButton(name, tab);
 
             var tabSize = tabButton.GetBaseSize();

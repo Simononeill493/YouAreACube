@@ -24,7 +24,6 @@ namespace IAmACube
 
         public static bool IsControlChip(this IChip chip) => typeof(IControlChip).IsAssignableFrom(chip.GetType());
 
-
         public static List<(InputOptionType, object)> GetInputPinValues(this IChip chip, BlockData chipData)
         {
             var output = new List<(InputOptionType, object)>();
@@ -69,7 +68,6 @@ namespace IAmACube
             referenceProperty.SetValue(chip, value);
         }
 
-
         public static List<string> GetTypeArgumentNames(this IChip chip)
         {
             var genericArguments = chip.GetType().GenericTypeArguments;
@@ -77,7 +75,5 @@ namespace IAmACube
 
             return names;
         }
-
-       
     }
 }

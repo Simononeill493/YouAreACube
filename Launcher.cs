@@ -40,6 +40,7 @@ namespace IAmACube
             BuiltInSprites.Init();
             RandomUtils.Init();
             DirectionUtils.Init();
+            InGameTypeUtils.Init();
 
             TypeUtils.Load();
             BlockDataDatabase.Load();
