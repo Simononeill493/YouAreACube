@@ -28,7 +28,7 @@ namespace IAmACube
             Tabs = new List<MenuItem>();
         }
 
-        public void AddTabButton(string name,MenuItem tab)
+        public TabButtonMenuItem AddTabButton(string name,MenuItem tab)
         {
             if(Tabs.Contains(tab))
             {
@@ -50,6 +50,8 @@ namespace IAmACube
 
             tabButton.SetLocationConfig(locationConfig, CoordinateMode.ParentPixelOffset, false);
             _countOfTabsInLine++;
+
+            return tabButton;
         }
 
         public void AddTabButtonWithManualLocation(string name, MenuItem tab, int x, int y, CoordinateMode coordinateMode, bool centered)

@@ -23,6 +23,10 @@ namespace IAmACube
         }
         private bool _dropped;
 
+        public DropdownMenuItem(IHasDrawLayer parentDrawLayer, List<T> initialItems) : this(parentDrawLayer)
+        {
+            AddItems(initialItems);
+        }
         public DropdownMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "")
         {
             SpriteName = BuiltInMenuSprites.BasicDropdown;
@@ -40,9 +44,9 @@ namespace IAmACube
             dropButton.SetLocationConfig(92, 50, CoordinateMode.ParentPercentageOffset, true);
             AddChild(dropButton);
 
-
             this.OnMouseReleased += (i) => { Dropped = !Dropped; };
         }
+
 
         public void ManuallySetItem(T item) => SelectedItem = item;
         public void SetItems(List<T> items) => _list.SetItems(items);

@@ -746,6 +746,30 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Sprites/Menus/TopOfChipset.png;Sprites/Menus/TopOfChipset.png
 
+#begin ../Simon_Data/To_Import/Sprites/Menus/VariableMinusButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Menus/VariableMinusButton.png;Sprites/Menus/VariableMinusButton.png
+
+#begin ../Simon_Data/To_Import/Sprites/Menus/VariablePlusButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Menus/VariablePlusButton.png;Sprites/Menus/VariablePlusButton.png
+
 #begin ../Simon_Data/To_Import/Sprites/Tiles/ApproachEnemy.png
 /importer:TextureImporter
 /processor:TextureProcessor

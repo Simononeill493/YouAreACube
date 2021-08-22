@@ -33,6 +33,9 @@ namespace IAmACube
         public static string MinusButton_Partial = "MinusButton_Partial";
         public static string MinusButton = "MinusButton";
 
+        public static string VariablePlusButton = "VariablePlusButton";
+        public static string VariableMinusButton = "VariableMinusButton";
+
         public static string TemplateListMenuSection = "EmptyMenuRectangleSection";
         public static string TemplateListMenuSection_Extended = "EmptyMenuRectangleSection_Extended";
 

@@ -233,5 +233,9 @@ namespace IAmACube
         }
 
         public void OpenInputSubMenu(InputOptionMenu menu, BlockInputSection section) => SubMenuCallback(menu, section);
+
+
+        public void RefreshAllBlocksets() => TopLevelBlockSets.ForEach(t => t.RefreshAll());
+
     }
 }

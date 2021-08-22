@@ -84,7 +84,6 @@ namespace IAmACube
 
             AddChildAfterUpdate(dialogBox);
         }
-
  
 
         protected override void _drawSelf(DrawingInterface drawingInterface)
@@ -107,5 +106,9 @@ namespace IAmACube
 
             return init;
         }
+
+
+        public void RefreshAllBlocksets() => _editPane.RefreshAllBlocksets();
+
     }
 }

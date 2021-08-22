@@ -44,7 +44,7 @@ namespace IAmACube
             _tabs.SetLocationConfig(0, -SpriteManager.GetSpriteSize(BuiltInMenuSprites.BasicTabButton).Y, CoordinateMode.ParentPixelOffset, false);
             _tabs.AddTabButton("Stats", _statsEditTab);
             _tabs.AddTabButton("Variables", _variableEditTab);
-            _tabs.AddTabButton("Chipset", _chipsetEditTab);
+            _tabs.AddTabButton("Chipset", _chipsetEditTab).OnMouseReleased += (i) => _chipsetEditTab.RefreshAllBlocksets();
             _tabs.AddTabButton("Appearance", _appearanceEditTab);
             _tabs.SwitchToFirstTab();
             AddChild(_tabs);
