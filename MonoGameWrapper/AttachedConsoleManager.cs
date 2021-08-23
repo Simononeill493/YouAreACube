@@ -28,9 +28,9 @@ namespace IAmACube
             var bounds = _graphicsDevice.PresentationParameters.Bounds;
             MoveWindow(GetConsoleWindow(), _lastRecordedPosition.X + bounds.Width, _lastRecordedPosition.Y, 400, bounds.Height, true);
         }
-        public void CheckWindowPositionAndUpdateConsole(Point currentPosition)
+        public void CheckWindowPositionAndUpdateConsole(Point currentPosition,bool isFullScreenToggled)
         {
-            if(currentPosition!=_lastRecordedPosition)
+            if(currentPosition!=_lastRecordedPosition | isFullScreenToggled)
             {
                 _lastRecordedPosition = currentPosition;
                 MoveConsoleToWindow();

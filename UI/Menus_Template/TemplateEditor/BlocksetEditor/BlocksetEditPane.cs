@@ -9,17 +9,18 @@ namespace IAmACube
 {
     public partial class BlocksetEditPane : SpriteMenuItem, IBlocksetContainer, IBlocksetTopLevelContainer
     {
-        public Func<UserInput, bool> IsMouseOverSearchPane;
-        Action<InputOptionMenu, BlockInputSection> SubMenuCallback;
-
         public List<Blockset> TopLevelBlockSets;
+        public Func<UserInput, bool> IsMouseOverSearchPane;
+
+        private Action<InputOptionMenu, BlockInputSection> _subMenuCallback;
+        private IVariableProvider _variableProvider;
 
         private const float MinimumChipScale = 2.0f;
         private float _blockScaleMultiplier = 1.0f;
         private List<Blockset> _allBlocksets;
 
 
-        public BlocksetEditPane(IHasDrawLayer parentDrawLayer,Action<InputOptionMenu,BlockInputSection> subMenuCallback) : base(parentDrawLayer,BuiltInMenuSprites.BlocksetEditPane)
+        public BlocksetEditPane(IHasDrawLayer parentDrawLayer,Action<InputOptionMenu,BlockInputSection> subMenuCallback,IVariableProvider variableProvider) : base(parentDrawLayer,BuiltInMenuSprites.BlocksetEditPane)
         {
             DrawLayer = DrawLayers.MenuBehindLayer;
 
@@ -40,7 +41,8 @@ namespace IAmACube
             minusButton.OnMouseReleased += (i) => _multiplyChipScale(0.5f);
             AddChild(minusButton);
 
-            SubMenuCallback = subMenuCallback;
+            _subMenuCallback = subMenuCallback;
+            _variableProvider = variableProvider;
         }
 
         public void LoadTemplateForEditing(CubeTemplate template)
@@ -72,7 +74,7 @@ namespace IAmACube
         }
         public Blockset CreateBlockset(string name)
         {
-            var newBlockset = new Blockset(name, this, _blockScaleMultiplier, ConfigureNewBlocksetFromExistingBlocks);
+            var newBlockset = new Blockset(name, this, _blockScaleMultiplier, ConfigureNewBlocksetFromExistingBlocks,_variableProvider);
             newBlockset.OnEndDrag += (i) => _chipsetDropped(newBlockset, i);
 
             _allBlocksets.Add(newBlockset);
@@ -232,7 +234,7 @@ namespace IAmACube
             chipset.Visible = false;
         }
 
-        public void OpenInputSubMenu(InputOptionMenu menu, BlockInputSection section) => SubMenuCallback(menu, section);
+        public void OpenInputSubMenu(InputOptionMenu menu, BlockInputSection section) => _subMenuCallback(menu, section);
 
 
         public void RefreshAllBlocksets() => TopLevelBlockSets.ForEach(t => t.RefreshAll());

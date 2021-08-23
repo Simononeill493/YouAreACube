@@ -25,9 +25,11 @@ namespace IAmACube
             _dropdown.ManuallySetItem(option);
         }
 
-        public override void SetConnectionsFromAbove(List<BlockTop> chipsAbove)
+        public override void SetConnectionsFromAbove(List<BlockTop> chipsAbove, List<TemplateVariable> variables)
         {
-            _dropdown.SetItems(_getValidInputsFromAbove(chipsAbove));
+            _dropdown.SetItems(_getValidInputsFromVariables(variables));
+            _dropdown.AddItems(_getValidInputsFromAbove(chipsAbove));
+
             foreach (var typeName in InputBaseTypes)
             {
                 _dropdown.AddItems(ChipDropdownUtils.GetDefaultItems(typeName));

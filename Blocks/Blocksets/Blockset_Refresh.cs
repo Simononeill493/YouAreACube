@@ -49,13 +49,13 @@ namespace IAmACube
             HeightOfAllBlocks = cumulativeYOffset - Blocks.Count;
         }
 
-        public void SetInputConnectionsFromAbove(List<BlockTop> chipsAbove) => _setInputConnections(chipsAbove);
-        public void UpdateInputConnections() => _setInputConnections(new List<BlockTop>());
-        private void _setInputConnections(List<BlockTop> chipsAboveCurrent)
+        public void SetInputConnectionsFromAbove(List<BlockTop> chipsAbove, List<TemplateVariable> variables) => _setInputConnections(chipsAbove,variables);
+        public void UpdateInputConnections() => _setInputConnections(new List<BlockTop>(),_variableProvider.GetVariables());
+        private void _setInputConnections(List<BlockTop> chipsAboveCurrent,List<TemplateVariable> variables)
         {
             foreach (var chip in Blocks)
             {
-                chip.SetInputConnectionsFromAbove(chipsAboveCurrent);
+                chip.SetInputConnectionsFromAbove(chipsAboveCurrent,variables);
                 chipsAboveCurrent.Add(chip);
             }
         }

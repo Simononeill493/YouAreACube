@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class TemplateVariableEditTab : SpriteMenuItem
+    class TemplateVariableEditTab : SpriteMenuItem, IVariableProvider
     {
         public const int ItemBaseXOffset = 10;
         public const int ItemBaseYOffset = 15;
@@ -34,5 +34,12 @@ namespace IAmACube
             AddChild(editItem);
             _items.Add(editItem);
         }
+
+        public List<TemplateVariable> GetVariables() => _items.Where(i => i.VariableEnabled).Select(ie => ie.MakeVariable()).ToList();
+    }
+
+    public interface IVariableProvider
+    {
+        List<TemplateVariable> GetVariables();
     }
 }

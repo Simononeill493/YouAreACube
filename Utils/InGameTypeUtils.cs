@@ -31,15 +31,15 @@ namespace IAmACube
 
     public class InGameType
     {
-        private string _name;
+        public string Name;
         public InGameType(string name)
         {
-            _name = name;
+            Name = name;
         }
 
         public override string ToString()
         {
-            return _name;
+            return Name;
         }
     }
 }

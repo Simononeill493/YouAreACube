@@ -14,6 +14,7 @@
         Undefined = 0,
         Value,
         Reference,
+        Variable,
         Parseable,
         SubMenu
     }

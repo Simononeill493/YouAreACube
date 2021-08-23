@@ -17,7 +17,7 @@ namespace IAmACube
 
         private (InputOptionMenu Menu, BlockInputSection Section) _inputMenuToOpenDetails;
 
-        public TemplateChipsetEditTab(IHasDrawLayer parentDrawLayer,Kernel kernel, CubeTemplate baseTemplate) : base(parentDrawLayer, BuiltInMenuSprites.LargeMenuRectangle_BlocksetEditWindow)
+        public TemplateChipsetEditTab(IHasDrawLayer parentDrawLayer,Kernel kernel, CubeTemplate baseTemplate,IVariableProvider variableProvider) : base(parentDrawLayer, BuiltInMenuSprites.LargeMenuRectangle_BlocksetEditWindow)
         {
             _kernel = kernel;
             _baseTemplate = baseTemplate;
@@ -27,7 +27,7 @@ namespace IAmACube
             //saveButton.OnMouseReleased += (i) => { _saveButtonPressed(); };
             //AddChild(saveButton);
 
-            _editPane = new BlocksetEditPane(this,(menu,section) => _inputMenuToOpenDetails = (menu, section));
+            _editPane = new BlocksetEditPane(this,(menu,section) => _inputMenuToOpenDetails = (menu, section), variableProvider);
             _editPane.SetLocationConfig(4, 4, CoordinateMode.ParentPixelOffset, false);
             AddChild(_editPane);
 

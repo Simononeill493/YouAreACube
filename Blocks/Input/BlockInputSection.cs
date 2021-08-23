@@ -33,7 +33,7 @@ namespace IAmACube
         protected abstract void _manuallySetInput(BlockInputOption option);
 
         
-        public abstract void SetConnectionsFromAbove(List<BlockTop> chipsAbove);
+        public abstract void SetConnectionsFromAbove(List<BlockTop> chipsAbove, List<TemplateVariable> variables);
         public abstract void RefreshText();
 
         protected List<BlockInputOption> _getValidInputsFromAbove(List<BlockTop> chipsAbove)
@@ -44,6 +44,20 @@ namespace IAmACube
                 if(_isValidInput(chip))
                 {
                     output.Add(new BlockInputOptionReference(chip));
+                }
+            }
+
+            return output;
+        }
+
+        protected List<BlockInputOption> _getValidInputsFromVariables(List<TemplateVariable> variables)
+        {
+            var output = new List<BlockInputOption>();
+            foreach (var variable in variables)
+            {
+                if (_isValidInput(variable))
+                {
+                    output.Add(new BlockInputOptionVariable(variable));
                 }
             }
 
@@ -64,5 +78,17 @@ namespace IAmACube
             return false;
         }
 
+        protected bool _isValidInput(TemplateVariable variable)
+        {
+            foreach (var inputType in InputBaseTypes)
+            {
+                if (TemplateEditUtils.IsValidInputFor(variable.VariableType.Name, inputType))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

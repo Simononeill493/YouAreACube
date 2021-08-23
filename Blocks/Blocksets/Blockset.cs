@@ -13,9 +13,11 @@ namespace IAmACube
         public List<BlockTop> Blocks { get; private set; }
 
         private Action<List<BlockTop>, UserInput, Blockset> _liftBlocksCallback;
+        private IVariableProvider _variableProvider;
+
         public int HeightOfAllBlocks;
 
-        public Blockset(string name,IHasDrawLayer parent,float scaleMultiplier,Action<List<BlockTop>,UserInput,Blockset> liftBlocksCallback) : base(parent, BuiltInMenuSprites.Blockset_TopHandle)
+        public Blockset(string name,IHasDrawLayer parent,float scaleMultiplier,Action<List<BlockTop>,UserInput,Blockset> liftBlocksCallback,IVariableProvider variableProvider) : base(parent, BuiltInMenuSprites.Blockset_TopHandle)
         {
             Name = name;
             Blocks = new List<BlockTop>();
@@ -23,6 +25,7 @@ namespace IAmACube
 
             _liftBlocksCallback = liftBlocksCallback;
             HeightOfAllBlocks += GetBaseSize().Y;
+            _variableProvider = variableProvider;
         }
 
 
@@ -123,6 +126,8 @@ namespace IAmACube
 
             return null;
         }
+
+
 
         public override string ToString() => Name;
     }

@@ -24,13 +24,14 @@ namespace IAmACube
             _baseTemplate = baseTemplate;
             _kernel = kernel;
 
-            _chipsetEditTab = new TemplateChipsetEditTab(this, kernel, baseTemplate);
-            _chipsetEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
-            AddChild(_chipsetEditTab);
-
             _variableEditTab = new TemplateVariableEditTab(this, baseTemplate);
             _variableEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
             AddChild(_variableEditTab);
+
+            _chipsetEditTab = new TemplateChipsetEditTab(this, kernel, baseTemplate, _variableEditTab);
+            _chipsetEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            AddChild(_chipsetEditTab);
+
 
             _statsEditTab = new TemplateBaseStatsEditTab(this,baseTemplate);
             _statsEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);

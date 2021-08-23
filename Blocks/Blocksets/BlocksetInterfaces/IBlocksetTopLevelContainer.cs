@@ -17,7 +17,7 @@ namespace IAmACube
     {
         public Blockset CreateBlockset(string name)
         {
-            return new Blockset(name, ManualDrawLayer.Zero, 1.0f, (a1, a2, a3) => { });
+            return new Blockset(name, ManualDrawLayer.Zero, 1.0f, (a1, a2, a3) => { },null);
         }
 
         public void OpenInputSubMenu(InputOptionMenu menu, BlockInputSection section) => throw new NotImplementedException();

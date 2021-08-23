@@ -54,6 +54,7 @@
     <Compile Include="Blocks\BlockTop\BlockTop_MouseInterface.cs" />
     <Compile Include="Blocks\BlockTop\BlockTop_Refresh.cs" />
     <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOptionSubMenu.cs" />
+    <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOptionVariable.cs" />
     <Compile Include="Blocks\Input\BlockDropdown\BlockInputSectionWithDropdown.cs" />
     <Compile Include="Blocks\Blocksets\Blockset_Container.cs" />
     <Compile Include="Camera\CameraConfiguration.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="UI\DialogBoxes\BlockTemplateSelectionDialog\BlockTemplateSelectionDialog.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateEditMenu.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\SpriteBoxes\CubeSpriteBox.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\VariableEditor\TemplateVariable.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\VariableEditor\TemplateVariableEditItem.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\VariableEditor\TemplateVariableEditTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateExplorerMenu\TemplateExplorerMenu.cs" />
