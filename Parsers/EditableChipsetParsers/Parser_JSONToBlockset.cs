@@ -56,32 +56,28 @@ namespace IAmACube
         {
             for (int i = 0; i < chipJSON.Inputs.Count; i++)
             {
-                _setBlockInput(chipJSON, chipsDict, i);
+                _setBlockInput(chipJSON, chipsDict,i);
             }
         }
         private static void _setBlockInput(ChipJSONData chipJSON,Dictionary<string,ChipJSONData> chipsDict,int inputIndex)
         {
             var inputDataJSON = chipJSON.Inputs[inputIndex];
-            var inputOption = _parseInputOption(chipJSON,chipsDict,inputDataJSON.InputType,inputDataJSON.InputValue,inputIndex);
+            var inputOption = _parseInputOption(chipJSON,chipsDict,inputDataJSON,inputIndex);
 
             chipJSON.Block.ManuallySetInputSection(inputOption, inputIndex);
         }
 
-        private static BlockInputOption _parseInputOption(ChipJSONData chipJSON, Dictionary<string, ChipJSONData> chipsDict, InputOptionType inputType, string inputValue, int inputIndex)
+        private static BlockInputOption _parseInputOption(ChipJSONData chipJSON, Dictionary<string, ChipJSONData> chipsDict, ChipJSONInputData inputData, int inputIndex)
         {
-            if (inputType.Equals(InputOptionType.Reference))
+            switch (inputData.InputType)
             {
-                return _parseReferenceChipInput(chipsDict, inputValue);
+                case InputOptionType.Value:
+                    return _parseValueChipInput(chipJSON, inputIndex);
+                case InputOptionType.Reference:
+                    return _parseReferenceChipInput(chipsDict, inputData.InputValue);
+                case InputOptionType.Variable:
+                    return _parseVariableChipInput(int.Parse(inputData.InputValue));
             }
-            else if (inputType.Equals(InputOptionType.Value))
-            {
-                return _parseValueChipInput(chipJSON, inputIndex);
-            }
-            else if (inputType.Equals(InputOptionType.Variable))
-            {
-                return _parseVariableChipInput(chipJSON, int.Parse(inputValue));
-            }
-
 
             throw new Exception("Unrecognized chip input option type");
         }
@@ -95,12 +91,9 @@ namespace IAmACube
             var value = chip.ParseInput(inputIndex);
             return new BlockInputOptionValue(value);
         }
-        private static BlockInputOption _parseVariableChipInput(ChipJSONData chip, int variableIndex)
+        private static BlockInputOption _parseVariableChipInput(int variableIndex)
         {
-            var variableJSON = Variables[variableIndex];
-            var templateVariable = new TemplateVariable(variableJSON);
-
-            return new BlockInputOptionVariable(templateVariable);
+            return new BlockInputOptionVariable(new TemplateVariable(variableIndex,"_nameNotSet_", new InGameType(TemplateEditUtils.PlaceholderType)));
         }
 
     }

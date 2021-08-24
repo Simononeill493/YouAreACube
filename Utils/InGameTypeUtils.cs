@@ -33,6 +33,7 @@ namespace IAmACube
     }
 
 
+    [Serializable()]
     public class InGameType
     {
         public string Name;

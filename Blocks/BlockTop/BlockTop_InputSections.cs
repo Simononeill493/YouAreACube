@@ -12,15 +12,15 @@ namespace IAmACube
         public List<BlockInputOption> GetCurrentInputs() => InputSections.Select(section => section.CurrentlySelected).ToList();
         public void ManuallySetInputSection(BlockInputOption item, int index) => InputSections[index].ManuallySetInput(item);
 
-        public void SetInputConnectionsFromAbove(List<BlockTop> chipsAbove, List<TemplateVariable> variables)
+        public void RefreshInputConnections(List<BlockTop> chipsAbove, TemplateVariableSet variables)
         {
-            InputSections.ForEach(m => m.SetConnectionsFromAbove(chipsAbove,variables));
+            InputSections.ForEach(m => m.RefreshInputConnections(chipsAbove,variables));
 
             foreach (var subBlockset in GetSubBlocksets())
             {
                 var connectionsList = new List<BlockTop>();
                 connectionsList.AddRange(chipsAbove);
-                subBlockset.SetInputConnectionsFromAbove(connectionsList,variables);
+                subBlockset.RefreshInputConnections(connectionsList,variables);
             }
         }
 

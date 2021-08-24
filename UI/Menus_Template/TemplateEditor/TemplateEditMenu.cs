@@ -146,6 +146,7 @@ namespace IAmACube
         private CubeTemplate _createNewTemplateFromThisMenu()
         {
             var template = _baseTemplate.Clone();
+            _variableEditTab.AddEditedVariablesToTemplate(template);
             _chipsetEditTab.AddEditedChipsetToTemplate(template);
             _statsEditTab.AddEditedFieldsToTemplate(template);
             _appearanceEditTab.AddEditedAppearanceToTemplate(template);

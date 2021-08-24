@@ -33,7 +33,7 @@ namespace IAmACube
         protected abstract void _manuallySetInput(BlockInputOption option);
 
         
-        public abstract void SetConnectionsFromAbove(List<BlockTop> chipsAbove, List<TemplateVariable> variables);
+        public abstract void RefreshInputConnections(List<BlockTop> chipsAbove, TemplateVariableSet variables);
         public abstract void RefreshText();
 
         protected List<BlockInputOption> _getValidInputsFromAbove(List<BlockTop> chipsAbove)

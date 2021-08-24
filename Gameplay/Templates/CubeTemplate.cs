@@ -29,8 +29,9 @@ namespace IAmACube
         public TemplateVersionDictionary Versions;
         public int Version;
 
-        public CubeTemplate(string name) => Name = name;
+        public TemplateVariableSet Variables;
 
+        public CubeTemplate(string name) => Name = name;
 
         public virtual Cube Generate(Kernel source,CubeMode blockType)
         {

@@ -25,14 +25,22 @@ namespace IAmACube
             _dropdown.ManuallySetItem(option);
         }
 
-        public override void SetConnectionsFromAbove(List<BlockTop> chipsAbove, List<TemplateVariable> variables)
+        public override void RefreshInputConnections(List<BlockTop> chipsAbove, TemplateVariableSet variables)
         {
-            _dropdown.SetItems(_getValidInputsFromVariables(variables));
+            _dropdown.SetItems(_getValidInputsFromVariables(variables.Dict.Values.ToList()));
             _dropdown.AddItems(_getValidInputsFromAbove(chipsAbove));
 
             foreach (var typeName in InputBaseTypes)
             {
                 _dropdown.AddItems(ChipDropdownUtils.GetDefaultItems(typeName));
+            }
+
+            if(CurrentlySelected != null && CurrentlySelected.OptionType == InputOptionType.Variable)
+            {
+                var variableIndex = int.Parse(CurrentlySelected.ToJSONRep());
+                var variableReference = variables.Dict[variableIndex];
+                var refreshedInputType = new BlockInputOptionVariable(variableReference);
+                _manuallySetInput(refreshedInputType);
             }
         }
 

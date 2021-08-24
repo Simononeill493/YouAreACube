@@ -121,6 +121,7 @@
     <Compile Include="Gameplay\Templates\TemplateParsingTester.cs" />
     <Compile Include="Gameplay\Templates\TemplateDatabase.cs" />
     <Compile Include="Gameplay\Templates\TemplateVersionDictionary.cs" />
+    <Compile Include="Gameplay\Templates\Variables\TemplateVariableSet.cs" />
     <Compile Include="Gameplay\Tile\DummyTile.cs" />
     <Compile Include="Gameplay\Updates\Actions\EnergyTransferManager.cs" />
     <Compile Include="Gameplay\Updates\Actions\ZapManager.cs" />
@@ -141,8 +142,6 @@
     <Compile Include="Parsers\JsonData\FullChipsetJSONData.cs" />
     <Compile Include="Blocks\BlockData\BlockDataGenerationTester.cs" />
     <Compile Include="Parsers\JsonData\JSONDataUtils.cs" />
-    <Compile Include="Parsers\JsonData\VariableJSONData.cs" />
-    <Compile Include="Parsers\JsonData\VariableSetJSONData.cs" />
     <Compile Include="Testing\BlockInputSection_SanityTesting.cs" />
     <Compile Include="Testing\Blockset_SanityTesting.cs" />
     <Compile Include="Testing\Block_SanityTesting.cs" />
@@ -163,7 +162,7 @@
     <Compile Include="UI\DialogBoxes\BlockTemplateSelectionDialog\BlockTemplateSelectionDialog.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateEditMenu.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\SpriteBoxes\CubeSpriteBox.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\VariableEditor\TemplateVariable.cs" />
+    <Compile Include="Gameplay\Templates\Variables\TemplateVariable.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\VariableEditor\TemplateVariableEditItem.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\VariableEditor\TemplateVariableEditTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateExplorerMenu\TemplateExplorerMenu.cs" />

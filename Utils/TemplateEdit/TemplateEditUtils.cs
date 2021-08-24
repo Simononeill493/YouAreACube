@@ -8,9 +8,11 @@ namespace IAmACube
 {
     class TemplateEditUtils
     {
+        public const string PlaceholderType = "PlaceholderType";
+
         public static bool IsValidInputFor(string top, string bottom)
         {
-            if (bottom.Equals(top) | bottom.Equals("Variable"))
+            if (bottom.Equals(top) | bottom.Equals("Variable") | top.Equals(PlaceholderType))
             {
                 return true;
             }

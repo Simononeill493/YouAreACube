@@ -42,6 +42,16 @@ namespace IAmACube
             DisableVariable();
         }
 
+        public void SetData(TemplateVariable variable)
+        {
+            _nameBox.SetText(variable.VariableName);
+            _dataTypeDropdown.ManuallySetItem(variable.VariableType);
+            _dataTypeDropdown.RefreshText();
+
+            EnableVariable();
+        }
+
+
         public void DisableVariable()
         {
             _number.Color = Color.Gray;
@@ -59,6 +69,8 @@ namespace IAmACube
 
             VariableEnabled = false;
         }
+
+
 
         public void EnableVariable()
         {

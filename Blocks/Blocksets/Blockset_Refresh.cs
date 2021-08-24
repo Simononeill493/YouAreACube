@@ -26,7 +26,7 @@ namespace IAmACube
         {
             Blocks.ForEach(c => c.RefreshAll());
 
-            UpdateInputConnections();
+            RefreshInputConnections();
             _updateChipPositions();
             _updateChildDimensions();
             RefreshText();
@@ -49,13 +49,13 @@ namespace IAmACube
             HeightOfAllBlocks = cumulativeYOffset - Blocks.Count;
         }
 
-        public void SetInputConnectionsFromAbove(List<BlockTop> chipsAbove, List<TemplateVariable> variables) => _setInputConnections(chipsAbove,variables);
-        public void UpdateInputConnections() => _setInputConnections(new List<BlockTop>(),_variableProvider.GetVariables());
-        private void _setInputConnections(List<BlockTop> chipsAboveCurrent,List<TemplateVariable> variables)
+        public void RefreshInputConnections(List<BlockTop> chipsAbove, TemplateVariableSet variables) => _refreshInputConnections(chipsAbove,variables);
+        public void RefreshInputConnections() => _refreshInputConnections(new List<BlockTop>(),_variableProvider.GetVariables());
+        private void _refreshInputConnections(List<BlockTop> chipsAboveCurrent, TemplateVariableSet variables)
         {
             foreach (var chip in Blocks)
             {
-                chip.SetInputConnectionsFromAbove(chipsAboveCurrent,variables);
+                chip.RefreshInputConnections(chipsAboveCurrent,variables);
                 chipsAboveCurrent.Add(chip);
             }
         }

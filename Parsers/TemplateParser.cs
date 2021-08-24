@@ -30,6 +30,7 @@ namespace IAmACube
             {
                 template.Active = true;
             }
+            template.Variables = new TemplateVariableSet();
 
             return template;
         }

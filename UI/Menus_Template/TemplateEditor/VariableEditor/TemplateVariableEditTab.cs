@@ -18,6 +18,8 @@ namespace IAmACube
         {
             _items = new List<TemplateVariableEditItem>();
             _addVariableItems();
+
+            LoadVariablesForEditing(baseTemplate);
         }
 
         private void _addVariableItems()
@@ -35,11 +37,37 @@ namespace IAmACube
             _items.Add(editItem);
         }
 
-        public List<TemplateVariable> GetVariables() => _items.Where(i => i.VariableEnabled).Select(ie => ie.MakeVariable()).ToList();
+        public void LoadVariablesForEditing(CubeTemplate template)
+        {
+            foreach(var variable in template.Variables.Dict)
+            {
+                var item = _items[variable.Key];
+                item.SetData(variable.Value);
+            }
+        }
+
+        public void AddEditedVariablesToTemplate(CubeTemplate template)
+        {
+            template.Variables = GetVariables();
+        }
+
+        public TemplateVariableSet GetVariables() 
+        {
+            var variableSet = new TemplateVariableSet();
+            foreach(var item in _items)
+            {
+                if(item.VariableEnabled)
+                {
+                    variableSet.Dict[item.VariableNumber] = item.MakeVariable();
+                }
+            }
+
+            return variableSet;
+        } 
     }
 
     public interface IVariableProvider
     {
-        List<TemplateVariable> GetVariables();
+        TemplateVariableSet GetVariables();
     }
 }
