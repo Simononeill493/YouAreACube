@@ -8,7 +8,7 @@ namespace IAmACube
 
         public override void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
-            actions.AddSapEnergyAction(actor, ChipInput2,ChipInput1);
+            actions.AddSapEnergyAction(actor, ChipInput2(actor), ChipInput1(actor));
         }
     }
 }

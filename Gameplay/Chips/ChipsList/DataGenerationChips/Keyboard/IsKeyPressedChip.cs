@@ -14,7 +14,7 @@ namespace IAmACube
 
         public override void Run(Cube actor, UserInput input, ActionsList actions)
         {
-            Value = (input.KeyboardState.IsKeyDown(ChipInput1));
+            Value = (input.KeyboardState.IsKeyDown(ChipInput1(actor)));
         }
     }
 }

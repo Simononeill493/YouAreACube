@@ -13,13 +13,13 @@ namespace IAmACube
 
         public override void Run(Cube actor, UserInput input, ActionsList actions)
         {
-            if(ChipInput1==null)
+            if(ChipInput1(actor) == null)
             {
                 Value = (false);
             }
             else
             {
-                Value = (actor.Source.Equals(ChipInput1.Source));
+                Value = (actor.Source.Equals(ChipInput1(actor).Source));
             }
         }
     }

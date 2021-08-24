@@ -77,6 +77,11 @@ namespace IAmACube
             {
                 return _parseValueChipInput(chipJSON, inputIndex);
             }
+            else if (inputType.Equals(InputOptionType.Variable))
+            {
+                return _parseVariableChipInput(chipJSON, int.Parse(inputValue));
+            }
+
 
             throw new Exception("Unrecognized chip input option type");
         }
@@ -90,5 +95,13 @@ namespace IAmACube
             var value = chip.ParseInput(inputIndex);
             return new BlockInputOptionValue(value);
         }
+        private static BlockInputOption _parseVariableChipInput(ChipJSONData chip, int variableIndex)
+        {
+            var variableJSON = Variables[variableIndex];
+            var templateVariable = new TemplateVariable(variableJSON);
+
+            return new BlockInputOptionVariable(templateVariable);
+        }
+
     }
 }

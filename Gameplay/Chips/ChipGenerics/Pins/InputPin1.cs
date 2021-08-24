@@ -12,19 +12,18 @@ namespace IAmACube
         public string Name { get; set; }
         public abstract void Run(Cube actor, UserInput userInput, ActionsList actions);
 
-        public TInputType1 ChipInput1 
+        public TInputType1 ChipInput1(Cube actor)
         { 
-            get
+            switch (InputType1)
             {
-                switch (InputType1)
-                {
-                    case InputOptionType.Value:
-                        return InputValue1;
-                    case InputOptionType.Reference:
-                        return InputReference1.Value;
-                };
-                return default;
-            }
+                case InputOptionType.Value:
+                    return InputValue1;
+                case InputOptionType.Reference:
+                    return InputReference1.Value;
+                case InputOptionType.Variable:
+                    return (TInputType1)(actor.Variables[InputVariable1]);
+            };
+            return default;
         }
 
 
@@ -57,5 +56,21 @@ namespace IAmACube
             }
         }
         private TInputType1 _inputValue1;
+
+
+        public int InputVariable1
+        {
+            get
+            {
+                return _inputVariable1;
+            }
+            set
+            {
+                _inputVariable1 = value;
+                InputType1 = InputOptionType.Variable;
+            }
+        }
+        private int _inputVariable1;
+
     }
 }

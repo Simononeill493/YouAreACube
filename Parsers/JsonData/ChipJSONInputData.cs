@@ -48,7 +48,7 @@ namespace IAmACube
                 inputOptionType = InputOptionType.Value;
             }
 
-            return new ChipJSONInputData(inputOptionType, blockInputOption.ToString(), pinIndex);
+            return new ChipJSONInputData(inputOptionType, blockInputOption.ToJSONRep(), pinIndex);
         }
     }
 }

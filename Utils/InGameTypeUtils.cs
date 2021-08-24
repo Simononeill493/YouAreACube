@@ -8,23 +8,27 @@ namespace IAmACube
 {
     class InGameTypeUtils
     {
-        public static List<InGameType> InGameTypes;
+        public static Dictionary<string,InGameType> InGameTypes;
         public static void Init()
         {
-            InGameTypes = new List<InGameType>();
-            InGameTypes.Add(new InGameType("CardinalDirection"));
-            InGameTypes.Add(new InGameType("RelativeDirection"));
-            InGameTypes.Add(new InGameType("CubeTemplate"));
-            InGameTypes.Add(new InGameType("CubeMode"));
-            InGameTypes.Add(new InGameType("Tile"));
-            InGameTypes.Add(new InGameType("int"));
-            InGameTypes.Add(new InGameType("bool"));
-            InGameTypes.Add(new InGameType("string"));
-            InGameTypes.Add(new InGameType("keys"));
+            InGameTypes = new Dictionary<string, InGameType>();
+            _addInGameType("CardinalDirection");
+            _addInGameType("RelativeDirection");
+            _addInGameType("CubeTemplate");
+            _addInGameType("CubeMode");
+            _addInGameType("Tile");
+            _addInGameType("int");
+            _addInGameType("bool");
+            _addInGameType("string");
+            _addInGameType("keys");
+            _addInGameType("AnyCube");
+            _addInGameType("Variable");
+            _addInGameType("List<Variable>");
+        }
 
-            InGameTypes.Add(new InGameType("AnyCube"));
-            InGameTypes.Add(new InGameType("Variable"));
-            InGameTypes.Add(new InGameType("List<Variable>"));
+        private static void _addInGameType(string name)
+        {
+            InGameTypes[name] = new InGameType(name);
         }
     }
 

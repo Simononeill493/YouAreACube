@@ -12,7 +12,7 @@ namespace IAmACube.Gameplay.Chips.ChipsList.GeneralChips
 
         public override void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
-            Value = (ChipInput1 == ChipInput2);
+            Value = (ChipInput1(actor) == ChipInput2(actor));
         }
     }
 }

@@ -53,6 +53,8 @@ namespace IAmACube
                 case InputOptionType.Reference:
                     var referenceChip = (IChip)value;
                     return new ChipJSONInputData(inputType, referenceChip.Name, pin);
+                case InputOptionType.Variable:
+                    return new ChipJSONInputData(inputType, value.ToString(),pin);
                 default:
                     throw new Exception();
             }

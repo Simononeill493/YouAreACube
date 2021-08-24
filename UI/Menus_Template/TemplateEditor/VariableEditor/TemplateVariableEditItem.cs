@@ -25,7 +25,7 @@ namespace IAmACube
 
             _number = new TextMenuItem(this, (num+1).ToString() + ":");
             _nameBox = new TextBoxMenuItem(this) { Editable = true };
-            _dataTypeDropdown = new DropdownMenuItem<InGameType>(this, InGameTypeUtils.InGameTypes);
+            _dataTypeDropdown = new DropdownMenuItem<InGameType>(this, InGameTypeUtils.InGameTypes.Values.ToList());
 
             _buttonRemove = new SpriteMenuItem(this, BuiltInMenuSprites.VariableMinusButton);
             _buttonRemove.OnMouseReleased +=(i) => DisableVariable();

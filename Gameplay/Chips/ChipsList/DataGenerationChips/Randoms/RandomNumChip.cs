@@ -13,7 +13,7 @@ namespace IAmACube
 
         public override void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
-            Value = (RandomUtils.RandomNumber(ChipInput1));
+            Value = (RandomUtils.RandomNumber(ChipInput1(actor)));
         }
     }
 }

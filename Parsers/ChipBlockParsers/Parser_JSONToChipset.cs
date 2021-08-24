@@ -75,6 +75,12 @@ namespace IAmACube
                 _setReferenceChipInput(chipJSON, chipsDict, input.InputValue, inputIndex);
                 return;
             }
+            else if (input.InputType == InputOptionType.Variable)
+            {
+                _setVariableChipInput(chipJSON, int.Parse(input.InputValue), inputIndex);
+                return;
+            }
+
 
             throw new Exception("Unrecognized chip input option type");
         }
@@ -88,5 +94,11 @@ namespace IAmACube
         {
             chipJSON.Chip.SetValueProperty(chipJSON.ParseInput(inputIndex), inputIndex);
         }
+
+        private static void _setVariableChipInput(ChipJSONData chipJSON, int variableIndex, int inputIndex)
+        {
+            chipJSON.Chip.SetVariableProperty(variableIndex, inputIndex);
+        }
+
     }
 }

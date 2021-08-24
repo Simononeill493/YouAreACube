@@ -19,7 +19,9 @@ namespace IAmACube
             MenuToOpen = menuToOpen;
         }
 
+        public override string ToJSONRep() => throw new NotImplementedException();
         public override string ToString() => Name;
+
     }
 
     public enum InputOptionMenu

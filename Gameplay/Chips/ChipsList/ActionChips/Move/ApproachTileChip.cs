@@ -11,7 +11,7 @@ namespace IAmACube
     {
         public override void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
-            actions.AddApproachAction(actor, ChipInput1);
+            actions.AddApproachAction(actor, ChipInput1(actor));
         }
     }
 }

@@ -18,6 +18,7 @@ namespace IAmACube
             _baseTypes = baseTypes;
         }
 
+        public override string ToJSONRep() => throw new NotImplementedException();
         public override string ToString() => StringRepresentation;
     }
 }

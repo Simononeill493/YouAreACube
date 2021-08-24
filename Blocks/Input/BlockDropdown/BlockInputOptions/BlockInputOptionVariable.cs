@@ -16,6 +16,7 @@ namespace IAmACube
             VariableReference = variableReference;
         }
 
+        public override string ToJSONRep() => VariableReference.VariableNumber.ToString();
         public override string ToString() => VariableReference.VariableName;
     }
 }

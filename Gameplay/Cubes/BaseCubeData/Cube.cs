@@ -22,8 +22,6 @@ namespace IAmACube
         public int _id { get; }
         public int SpeedOffset { get; private set; }
 
-
-
         public Cube(CubeTemplate template, Kernel source, CubeMode cubeMode)
         {
             Template = template;
@@ -35,8 +33,8 @@ namespace IAmACube
             SpeedOffset = _id % Config.TickCycleLength;
 
             InitializeSpriteData();
+            InitializeVariableData();
         }
-
 
         public virtual void Update(UserInput input, ActionsList actions) 
         {

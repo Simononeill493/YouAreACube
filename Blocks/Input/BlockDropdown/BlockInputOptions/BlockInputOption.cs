@@ -7,6 +7,8 @@
         public BlockInputOption(InputOptionType optionType) { OptionType = optionType; }
 
         public virtual void OptionClicked() { }
+
+        public abstract string ToJSONRep();
     }
 
     public enum InputOptionType

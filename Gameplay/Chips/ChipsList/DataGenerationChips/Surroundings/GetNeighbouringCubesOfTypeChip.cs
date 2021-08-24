@@ -13,7 +13,7 @@ namespace IAmACube
 
         public override void Run(Cube actor, UserInput input, ActionsList actions)
         {
-            var neighbours = actor.Location.Adjacent.Where(l => l.Value.HasCube(ChipInput1)).Select(l => l.Value.GetBlock(ChipInput1)).ToList();
+            var neighbours = actor.Location.Adjacent.Where(l => l.Value.HasCube(ChipInput1(actor))).Select(l => l.Value.GetBlock(ChipInput1(actor))).ToList();
             Value = (neighbours);
         }
     }

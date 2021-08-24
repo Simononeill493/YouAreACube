@@ -30,5 +30,9 @@ namespace IAmACube
 
             return BaseObject.ToString();
         }
+
+
+        public override string ToJSONRep() => ToString();
+
     }
 }

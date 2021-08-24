@@ -46,6 +46,11 @@ namespace IAmACube
                         var referenceProperty = properties.Where(p => p.Name.Equals("InputReference" + i)).FirstOrDefault();
                         inputValue = referenceProperty.GetValue(chip);
                         break;
+                    case InputOptionType.Variable:
+                        var variableProperty = properties.Where(p => p.Name.Equals("InputVariable" + i)).FirstOrDefault();
+                        inputValue = variableProperty.GetValue(chip);
+                        break;
+
                     default:
                         throw new Exception();
                 }
@@ -64,9 +69,16 @@ namespace IAmACube
 
         public static void SetValueProperty(this IChip chip, object value, int pin)
         {
-            var referenceProperty = chip.GetType().GetProperties().Where(p => p.Name.Equals("InputValue" + (pin+1))).FirstOrDefault();
-            referenceProperty.SetValue(chip, value);
+            var valueProperty = chip.GetType().GetProperties().Where(p => p.Name.Equals("InputValue" + (pin+1))).FirstOrDefault();
+            valueProperty.SetValue(chip, value);
         }
+
+        public static void SetVariableProperty(this IChip chip, int variableIndex, int pin)
+        {
+            var variableProperty = chip.GetType().GetProperties().Where(p => p.Name.Equals("InputVariable" + (pin + 1))).FirstOrDefault();
+            variableProperty.SetValue(chip, variableIndex);
+        }
+
 
         public static List<string> GetTypeArgumentNames(this IChip chip)
         {

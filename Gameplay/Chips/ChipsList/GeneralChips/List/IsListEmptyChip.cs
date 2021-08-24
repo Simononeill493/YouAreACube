@@ -12,7 +12,7 @@ namespace IAmACube
 
         public override void Run(Cube actor, UserInput input, ActionsList actions)
         {
-            Value = (!ChipInput1.Any());
+            Value = (!ChipInput1(actor).Any());
         }
     }
 }

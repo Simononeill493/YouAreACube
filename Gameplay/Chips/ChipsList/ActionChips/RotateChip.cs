@@ -12,7 +12,7 @@ namespace IAmACube
 
         public override void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
-            actions.AddRotationAction(actor, ChipInput1);
+            actions.AddRotationAction(actor, ChipInput1(actor));
         }
     }
 }

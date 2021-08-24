@@ -15,6 +15,8 @@ namespace IAmACube
             BlockReference = blockReference;
         }
 
+        public override string ToJSONRep() => BlockReference.OutputName;
         public override string ToString() => BlockReference.OutputName;
+
     }
 }

@@ -9,19 +9,18 @@ namespace IAmACube
     [Serializable()]
     public abstract class InputPin3<TInputType1, TInputType2, TInputType3> : InputPin2<TInputType1,TInputType2>
     {
-        public TInputType3 ChipInput3
+        public TInputType3 ChipInput3(Cube actor)
         {
-            get
+            switch (InputType3)
             {
-                switch (InputType3)
-                {
-                    case InputOptionType.Value:
-                        return InputValue3;
-                    case InputOptionType.Reference:
-                        return InputReference3.Value;
-                };
-                return default;
-            }
+                case InputOptionType.Value:
+                    return InputValue3;
+                case InputOptionType.Reference:
+                    return InputReference3.Value;
+                case InputOptionType.Variable:
+                    return (TInputType3)(actor.Variables[InputVariable3]);
+            };
+            return default;
         }
 
         public InputOptionType InputType3 { get; set; }
@@ -53,5 +52,19 @@ namespace IAmACube
             }
         }
         private TInputType3 _inputValue3;
+
+        public int InputVariable3
+        {
+            get
+            {
+                return _inputVariable3;
+            }
+            set
+            {
+                _inputVariable3 = value;
+                InputType3 = InputOptionType.Variable;
+            }
+        }
+        private int _inputVariable3;
     }
 }

@@ -73,6 +73,7 @@
     <Compile Include="Gameplay\Cubes\BaseCubeData\CubeMode.cs" />
     <Compile Include="Gameplay\Cubes\BaseCubeData\Cube_Energy.cs" />
     <Compile Include="Gameplay\Cubes\BaseCubeData\Cube_Sprite.cs" />
+    <Compile Include="Gameplay\Cubes\BaseCubeData\Cube_Variables.cs" />
     <Compile Include="Gameplay\Cubes\Crystals\CrystalCube.cs" />
     <Compile Include="Gameplay\Cubes\Crystals\CrystalDatabase.cs" />
     <Compile Include="Gameplay\Cubes\Movement\Cube_Movement.cs" />
@@ -140,6 +141,8 @@
     <Compile Include="Parsers\JsonData\FullChipsetJSONData.cs" />
     <Compile Include="Blocks\BlockData\BlockDataGenerationTester.cs" />
     <Compile Include="Parsers\JsonData\JSONDataUtils.cs" />
+    <Compile Include="Parsers\JsonData\VariableJSONData.cs" />
+    <Compile Include="Parsers\JsonData\VariableSetJSONData.cs" />
     <Compile Include="Testing\BlockInputSection_SanityTesting.cs" />
     <Compile Include="Testing\Blockset_SanityTesting.cs" />
     <Compile Include="Testing\Block_SanityTesting.cs" />

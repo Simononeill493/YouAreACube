@@ -8,7 +8,7 @@ namespace IAmACube
 
         public override void Run(Cube actor, UserInput userInput,ActionsList actions)
         {
-            actions.AddMoveAction(actor, ChipInput1);
+            actions.AddMoveAction(actor, ChipInput1(actor));
         }
     }
 }
