@@ -8,6 +8,8 @@ namespace IAmACube
 {
     class InGameTypeUtils
     {
+        public const string AllVariablesType = "CubeVar";
+
         public static Dictionary<string,InGameType> InGameTypes;
         public static void Init()
         {

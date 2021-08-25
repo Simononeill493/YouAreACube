@@ -29,7 +29,7 @@ namespace IAmACube
             var title = _addTextItem(BlockData.Name, 7, 6, CoordinateMode.ParentPixelOffset, false);
             title.Color = Color.White;
 
-            _createInputSections();
+            _addInputSections();
             _setEndSpriteForLastInputSection();
         }
 
@@ -52,5 +52,8 @@ namespace IAmACube
         public virtual void GenerateSubBlocksets() { }
 
         public override string ToString() => Name;
+
+        public List<string> GetInputTypes(int sectionIndex) => BlockData.GetInputTypes(sectionIndex);
+        public string GetInputDisplayName(int sectionIndex) => BlockData.GetInputDisplayName(sectionIndex);
     }
 }

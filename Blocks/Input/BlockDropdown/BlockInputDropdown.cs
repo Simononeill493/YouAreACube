@@ -12,10 +12,15 @@ namespace IAmACube
         
         public BlockInputDropdown(IHasDrawLayer parent, List<string> inputTypeNames) : base(parent) 
         {
+            SetInputTypes(inputTypeNames);
+        }
+
+        public void SetInputTypes(List<string> inputTypeNames)
+        {
             var isTextEntry = inputTypeNames.All(name => ChipDropdownUtils.IsTextEntryType(name));
             if (isTextEntry)
             {
-                _inputTypes = inputTypeNames.Select(n=>TypeUtils.GetTypeByDisplayName(n)).ToList();
+                _inputTypes = inputTypeNames.Select(n => TypeUtils.GetTypeByDisplayName(n)).ToList();
                 OnTextChanged += TextChanged;
                 Editable = true;
             }

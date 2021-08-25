@@ -26,6 +26,10 @@ namespace IAmACube
             {
                 return new BlockTopWithOutput(name, initialDrawLayer, data);
             }
+            else if(data.Name == "SetVariable")
+            {
+                return new BlockTopVariableSetter(name, initialDrawLayer, data);
+            }
             else
             {
                 return new BlockTop(name, initialDrawLayer, data);

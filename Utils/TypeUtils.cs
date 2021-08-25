@@ -61,6 +61,10 @@ namespace IAmACube
             {
                 return typeof(Cube);
             }
+            if (name.Equals("object"))
+            {
+                return typeof(object);
+            }
 
             return _allTypes[name];
         }

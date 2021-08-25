@@ -12,7 +12,7 @@ namespace IAmACube
         public List<BlockInputOption> GetCurrentInputs() => InputSections.Select(section => section.CurrentlySelected).ToList();
         public void ManuallySetInputSection(BlockInputOption item, int index) => InputSections[index].ManuallySetInput(item);
 
-        public void RefreshInputConnections(List<BlockTop> chipsAbove, TemplateVariableSet variables)
+        public virtual void RefreshInputConnections(List<BlockTop> chipsAbove, TemplateVariableSet variables)
         {
             InputSections.ForEach(m => m.RefreshInputConnections(chipsAbove,variables));
 
@@ -24,17 +24,21 @@ namespace IAmACube
             }
         }
 
-        protected void _createInputSections()
+        protected void _addInputSections()
         {
-            for (int i = 0; i < BlockData.NumInputs; i++)
-            {
-                var section = BlockSectionFactory.CreateInputSection(this, i);
-                section.ItemSelectedCallback = _inputSectionSelectionChanged;
-                InputSections.Add(section);
-            }
+            var sections = _createInputSections();
 
+            sections.ForEach(s => _setInputSectionData(s));
             AddChildren(InputSections);
             _setInputSectionPositions();
+        }
+
+        protected virtual List<BlockInputSection> _createInputSections() => BlockSectionFactory.CreateInputSectionsBasic(this, BlockData.NumInputs);
+
+        private void _setInputSectionData(BlockInputSection section)
+        {
+            section.ItemSelectedCallback = _inputSectionSelectionChanged;
+            InputSections.Add(section);
         }
 
         protected virtual void _inputSectionSelectionChanged(BlockInputSection section, BlockInputOption optionSelected)

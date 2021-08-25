@@ -10,7 +10,7 @@ namespace IAmACube
     public partial class BlockInputSectionWithDropdown : BlockInputSection
     {
         public override BlockInputOption CurrentlySelected => _dropdown.SelectedItem;
-        private BlockInputDropdown _dropdown;
+        protected BlockInputDropdown _dropdown;
 
         public BlockInputSectionWithDropdown(IHasDrawLayer parent, List<string> inputTypes, string inputDisplayName) : base(parent, inputTypes,inputDisplayName)
         {
@@ -35,7 +35,12 @@ namespace IAmACube
                 _dropdown.AddItems(ChipDropdownUtils.GetDefaultItems(typeName));
             }
 
-            if(CurrentlySelected != null && CurrentlySelected.OptionType == InputOptionType.Variable)
+            _refreshSelectedVariable(variables);
+        }
+
+        protected void _refreshSelectedVariable(TemplateVariableSet variables)
+        {
+            if (CurrentlySelected != null && CurrentlySelected.OptionType == InputOptionType.Variable)
             {
                 var variableIndex = int.Parse(CurrentlySelected.ToJSONRep());
                 var variableReference = variables.Dict[variableIndex];

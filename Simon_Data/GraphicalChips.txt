@@ -64,6 +64,13 @@
 	  "output":"Tile"
     },
 	
+	
+	{
+      "name":"SetVariable",
+	  "datatype":"General",
+	  "inputs":["CubeVar","Variable"],
+    },
+	
 	{
       "name":"IsCubeActive",
 	  "datatype":"General",
