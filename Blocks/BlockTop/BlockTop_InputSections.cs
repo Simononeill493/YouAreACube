@@ -43,13 +43,26 @@ namespace IAmACube
 
         protected virtual void _inputSectionSelectionChanged(BlockInputSection section, BlockInputOption optionSelected)
         {
-            if (optionSelected.OptionType == InputOptionType.Reference)
+            if (optionSelected.OptionType == InputOptionType.Reference | optionSelected.OptionType == InputOptionType.Variable)
             {
-                var referenceOption = (BlockInputOptionReference)optionSelected;
+                string dataTypeFeedingIn;
+                if(optionSelected.OptionType == InputOptionType.Reference)
+                {
+                    var referenceOption = (BlockInputOptionReference)optionSelected;
+                    dataTypeFeedingIn = referenceOption.BlockReference.OutputTypeCurrent;
+
+                }
+                else if(optionSelected.OptionType == InputOptionType.Variable)
+                {
+                    var variableOption = (BlockInputOptionVariable)optionSelected;
+                    dataTypeFeedingIn = variableOption.VariableReference.VariableType.Name;
+                }
+                else
+                {
+                    throw new Exception();
+                }
 
                 var inputOptions = section.InputBaseTypes;
-                var dataTypeFeedingIn = referenceOption.BlockReference.OutputTypeCurrent;
-
                 if (inputOptions.Contains("List<Variable>"))
                 {
                     var afterOpeningList = dataTypeFeedingIn.Substring(5);
@@ -66,7 +79,7 @@ namespace IAmACube
                 }
             }
 
-            if(optionSelected.OptionType == InputOptionType.SubMenu)
+            if (optionSelected.OptionType == InputOptionType.SubMenu)
             {
                 var menuOption = (BlockInputOptionSubMenu)optionSelected;
 

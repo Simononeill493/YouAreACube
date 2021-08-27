@@ -11,7 +11,7 @@ namespace IAmACube
         public BlockData BlockData;
         public int IndexInBlockset = -1;
 
-        public List<string> CurrentTypeArguments = BlockUtils.NoTypeArguments;
+        public List<string> CurrentTypeArguments = BlockDataUtils.NoTypeArguments;
         public bool HasOutput => BlockData.HasOutput;
 
         public IBlocksetTopLevelContainer TopLevelContainer;

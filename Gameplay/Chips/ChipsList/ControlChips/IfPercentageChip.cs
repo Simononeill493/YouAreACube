@@ -4,14 +4,14 @@ using System.Collections.Generic;
 namespace IAmACube
 {
     [Serializable()]
-    internal class IfChip : InputPin1<bool>, IControlChip, IIfChip
+    internal class IfPercentageChip : InputPin2<int,int>, IControlChip, IIfChip
     {
         public Chipset Yes { get; set; }
         public Chipset No { get; set; }
 
-        public override void Run(Cube actor,UserInput input,ActionsList actions)
+        public override void Run(Cube actor, UserInput input, ActionsList actions)
         {
-            if(ChipInput1(actor))
+            if (RandomUtils.RandomNumber(ChipInput2(actor)+1) <= ChipInput1(actor))
             {
                 Yes.Execute(actor, input, actions);
             }
@@ -25,7 +25,7 @@ namespace IAmACube
         {
             var output = new List<Chipset>();
 
-            if(Yes!=null) 
+            if (Yes != null)
             {
                 output.AddRange(Yes.GetChipsetAndSubChipsets());
             }

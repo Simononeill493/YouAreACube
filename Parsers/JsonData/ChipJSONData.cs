@@ -46,9 +46,9 @@ namespace IAmACube
         }
         private void _setControlChipTargets()
         {
-            if (BlockData.Name.Equals("If"))
+            if (BlockDataUtils.IsIfBlock(BlockData))
             {
-                var ifChip = (IfChip)Chip;
+                var ifChip = (IIfChip)Chip;
 
                 Yes = ifChip.Yes.Name;
                 No = ifChip.No.Name;
@@ -71,7 +71,7 @@ namespace IAmACube
             MappedBlockData = BlockData.GetMappedBlockData(Block.GetSelectedInputTypes());
             ActualChipType = MappedBlockData.Name;
 
-            if (MappedBlockData.IsGeneric)
+            if (MappedBlockData.IsGeneric && !Block.CurrentTypeArguments.Contains(TemplateEditUtils.PlaceholderType))
             {
                 TypeArguments = Block.CurrentTypeArguments;
             }
@@ -81,7 +81,7 @@ namespace IAmACube
         }
         private void _setControlBlockTargets()
         {
-            if (BlockData.Name.Equals("If"))
+            if (BlockDataUtils.IsIfBlock(BlockData))
             {
                 var ifChip = (BlockTopSwitch)Block;
 
@@ -134,7 +134,7 @@ namespace IAmACube
                 dataToCreateWith = BlockData.BaseMappingBlock;
             }
 
-            Block = BlockUtils.GenerateBlockFromBlockData(dataToCreateWith, this.Name);
+            Block = BlockDataUtils.GenerateBlockFromBlockData(dataToCreateWith, this.Name);
             Block.SetInitialTypeArguments(TypeArguments);
             Block.TopLevelContainer = container;
         }

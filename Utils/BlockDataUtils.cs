@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public static class BlockUtils
+    public static class BlockDataUtils
     {
         public static List<string> NoTypeArguments => new List<string>() { "" };
 
@@ -14,11 +14,11 @@ namespace IAmACube
         {
             var initialDrawLayer = ManualDrawLayer.Zero;
 
-            if (data.Name.Equals("If"))
+            if (IsIfBlock(data))
             {
                 return new BlockTopSwitch(name, initialDrawLayer, data, new List<string>() { "Yes", "No" });
             }
-            if (data.Name.Equals("KeySwitch"))
+            else if (data.Name.Equals("KeySwitch"))
             {
                 return new BlockTopSwitch(name, initialDrawLayer, data, new List<string>() { });
             }
@@ -34,6 +34,11 @@ namespace IAmACube
             {
                 return new BlockTop(name, initialDrawLayer, data);
             }
+        }
+
+        public static bool IsIfBlock(BlockData data)
+        {
+            return data.Name.Equals("If") | data.Name.Equals("IfPercentage");
         }
     }
 }

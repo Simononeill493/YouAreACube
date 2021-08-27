@@ -71,7 +71,11 @@ namespace IAmACube
                         {
                             continue;
                         }
-                        if(action.Actor.Location.AbsoluteLocation== action.TargetBlock.Location.AbsoluteLocation)
+                        if (action.TargetBlock.Location == null)
+                        {
+                            continue;
+                        }
+                        if (action.Actor.Location.AbsoluteLocation== action.TargetBlock.Location.AbsoluteLocation)
                         {
                             continue;
                         }

@@ -168,6 +168,12 @@
 	  "inputs":["bool"],
     },
 	{
+      "name":"IfPercentage",
+	  "datatype":"Control",
+	  "inputs":["int","int"],
+	  "inputDisplayNames":["Odds","In"],
+    },
+	{
       "name":"KeySwitch",
 	  "datatype":"Control",
 	  "inputs":[],

@@ -9,7 +9,11 @@ namespace IAmACube
 
         public override void Run(Cube actor,UserInput userInput, ActionsList actions)
         {
-            Value = (actor.Location.AbsoluteLocation.ApproachDirection(ChipInput1(actor).AbsoluteLocation));
+            var targetTile = ChipInput1(actor);
+            if(targetTile!=null)
+            {
+                Value = (actor.Location.AbsoluteLocation.ApproachDirection(targetTile.AbsoluteLocation));
+            }
         }
     }
 }

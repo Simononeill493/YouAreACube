@@ -33,7 +33,7 @@ namespace IAmACube
 
         private static void _setControlBlockTargets(ChipJSONData chipJSON, Dictionary<string, ChipsetJSONData> chipsets)
         {
-            if (chipJSON.BlockData.Name.Equals("If"))
+            if (BlockDataUtils.IsIfBlock(chipJSON.BlockData))
             {
                 var ifBlock = (BlockTopSwitch)chipJSON.Block;
 
@@ -76,7 +76,7 @@ namespace IAmACube
                 case InputOptionType.Reference:
                     return _parseReferenceChipInput(chipsDict, inputData.InputValue);
                 case InputOptionType.Variable:
-                    return _parseVariableChipInput(int.Parse(inputData.InputValue));
+                    return _parseVariableChipInput(int.Parse(inputData.InputValue),chipJSON.TypeArguments.First());
             }
 
             throw new Exception("Unrecognized chip input option type");
@@ -91,9 +91,9 @@ namespace IAmACube
             var value = chip.ParseInput(inputIndex);
             return new BlockInputOptionValue(value);
         }
-        private static BlockInputOption _parseVariableChipInput(int variableIndex)
+        private static BlockInputOption _parseVariableChipInput(int variableIndex,string typeArgument)
         {
-            return new BlockInputOptionVariable(new TemplateVariable(variableIndex,"_nameNotSet_", new InGameType(TemplateEditUtils.PlaceholderType,null)));
+            return new BlockInputOptionVariable(new TemplateVariable(variableIndex,"_nameNotSet_", new InGameType(typeArgument,null)));
         }
 
     }

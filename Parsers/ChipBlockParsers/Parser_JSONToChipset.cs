@@ -34,9 +34,9 @@ namespace IAmACube
         {
             var blockData = chipJSON.BlockData;
 
-            if (blockData.Name.Equals("If"))
+            if (BlockDataUtils.IsIfBlock(blockData))
             {
-                var ifChip = (IfChip)chipJSON.Chip;
+                var ifChip = (IIfChip)chipJSON.Chip;
 
                 ifChip.Yes = chipsetsDict[chipJSON.Yes].Chipset;
                 ifChip.No = chipsetsDict[chipJSON.No].Chipset;
