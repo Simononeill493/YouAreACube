@@ -8,7 +8,7 @@ namespace IAmACube
 {
     class BlockInputOptionParseable : BlockInputOption
     {
-        public override string BaseType => TypeUtils.GetTypeOfStringRepresentation(StringRepresentation, _baseTypes);
+        public override string BaseType => TypeUtils.GetTypeDisplayNameOfStringRepresentation(StringRepresentation, _baseTypes);
         public string StringRepresentation;
         private List<Type> _baseTypes;
 
@@ -18,7 +18,7 @@ namespace IAmACube
             _baseTypes = baseTypes;
         }
 
-        public override string ToJSONRep() => throw new NotImplementedException();
+        public override string ToJSONRep() => StringRepresentation;
         public override string ToString() => StringRepresentation;
     }
 }

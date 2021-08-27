@@ -4,6 +4,7 @@ Bullet
 ApproachEnemy
 FleeEnemy
 ShootEnemy
+TrackerEnemy
 MouseFollower
 Grass
 Spinner

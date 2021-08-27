@@ -93,7 +93,7 @@ namespace IAmACube
         }
         private static BlockInputOption _parseVariableChipInput(int variableIndex)
         {
-            return new BlockInputOptionVariable(new TemplateVariable(variableIndex,"_nameNotSet_", new InGameType(TemplateEditUtils.PlaceholderType)));
+            return new BlockInputOptionVariable(new TemplateVariable(variableIndex,"_nameNotSet_", new InGameType(TemplateEditUtils.PlaceholderType,null)));
         }
 
     }

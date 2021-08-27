@@ -22,7 +22,7 @@ namespace IAmACube
 
         protected List<BlockInputOption> _getAllValidVariables(TemplateVariableSet variables)
         {
-            return variables.Dict.Values.Select(v => new BlockInputOptionVariable(v)).Cast<BlockInputOption>().ToList();
+            return variables.Dict.Values.Select(v => new BlockInputOptionVariableAccess(v)).Cast<BlockInputOption>().ToList();
         }
     }
 }

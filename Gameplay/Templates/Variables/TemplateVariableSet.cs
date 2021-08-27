@@ -16,5 +16,20 @@ namespace IAmACube
             Dict = new Dictionary<int, TemplateVariable>();
         }
 
+        public virtual Dictionary<int, object> GenerateVariables()
+        {
+            if (!Dict.Any())
+            {
+                return null;
+            }
+
+            var varDict = new Dictionary<int, object>();
+            foreach(var kvp in Dict)
+            {
+                varDict[kvp.Key] = kvp.Value.VariableType.DefaultValue;
+            }
+
+            return varDict;
+        }
     }
 }

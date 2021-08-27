@@ -12,7 +12,7 @@ namespace IAmACube
 
         public void InitializeVariableData()
         {
-            //Variables = new Dictionary<int, object>();
+            Variables = Template.GenerateVariables();
         }
     }
 }

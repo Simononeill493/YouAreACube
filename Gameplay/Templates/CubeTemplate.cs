@@ -64,6 +64,7 @@ namespace IAmACube
 
         public virtual CubeTemplate GetRuntimeTemplate() => Templates.Database[Versions.Name][Version];
 
+        public virtual Dictionary<int, object> GenerateVariables() => Variables.GenerateVariables();
 
         public override string ToString() => Version + ": " + Name;
         public virtual string ToJsonRep() => Versions.Name + '|' + Version;

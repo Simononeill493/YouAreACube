@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class RandomUtils
+    static class RandomUtils
     {
         public static Random R { get; private set; }
         public static void Init() => R = new Random();
@@ -19,5 +19,6 @@ namespace IAmACube
         public static List<T> GetShuffledList<T>(List<T> toShuffle) => toShuffle.OrderBy(x => R.Next()).ToList();
         public static List<T> GetShuffledList<T>(List<T> toShuffle, Random r) => toShuffle.OrderBy(x => r.Next()).ToList();
 
+        public static T GetRandom<T>(this List<T> list) => list[R.Next(0,list.Count)];
     }
 }

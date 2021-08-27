@@ -20,7 +20,8 @@ namespace IAmACube
             _setChipsInputs(fullJSON.ChipsDict);
 
             fullJSON.AlphabetSort();
-            return fullJSON.GenerateString();
+            var asString = fullJSON.GenerateString();
+            return asString;
         }
 
         private static void _setChipsInputs(Dictionary<string, ChipJSONData> chipsDict)

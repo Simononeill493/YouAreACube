@@ -59,6 +59,7 @@ namespace IAmACube
         {
             SetTemplateToMain();
             InitializeSpriteData();
+            InitializeVariableData();
         }
 
         public void SetTemplateToMain() => Template = Template.Versions.Main;

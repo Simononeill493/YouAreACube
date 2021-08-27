@@ -13,7 +13,19 @@ namespace IAmACube
         public List<string> TypeArguments;
 
         public List<ChipJSONInputData> Inputs;
-        public object ParseInput(int inputIndex) => Inputs[inputIndex].Parse(BlockData.GetInputType(inputIndex));
+        public object ParseInput(int inputIndex)
+        {
+            var inputData = Inputs[inputIndex];
+            var inputType = BlockData.GetInputType(inputIndex);
+
+            if(inputType.Equals("Variable"))
+            {
+                inputType = TypeArguments.First();
+            }
+
+            return inputData.Parse(inputType);
+        }
+        
 
         public ChipJSONData() { }
 
@@ -123,6 +135,7 @@ namespace IAmACube
             }
 
             Block = BlockUtils.GenerateBlockFromBlockData(dataToCreateWith, this.Name);
+            Block.SetInitialTypeArguments(TypeArguments);
             Block.TopLevelContainer = container;
         }
 

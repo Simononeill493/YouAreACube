@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
+    [Serializable()]
     class SetVariableChip<TVariableType> : InputPin2<int,TVariableType>
     {
         public override void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
-            actor.Variables[ChipInput1(actor)] = ChipInput2(actor);
+            var num = ChipInput1(actor);
+            var val = ChipInput2(actor);
+            actor.Variables[num] = val;
         }
     }
 }

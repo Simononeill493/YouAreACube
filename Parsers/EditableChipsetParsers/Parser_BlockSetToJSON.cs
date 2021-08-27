@@ -24,7 +24,8 @@ namespace IAmACube
             }
 
             fullJSON.AlphabetSort();
-            return fullJSON.GenerateString();
+            var outputStr = fullJSON.GenerateString();
+            return outputStr;
         }
 
         private static void _addBlocksToChipsetJSON(ChipsetJSONData chipsetJSON, List<BlockTop> blocks)

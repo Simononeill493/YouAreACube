@@ -68,8 +68,15 @@
 	{
       "name":"SetVariable",
 	  "datatype":"General",
-	  "inputs":["CubeVar","Variable"],
+	  "inputs":["int","Variable"],
     },
+	{
+      "name":"GetActiveCubeInSector",
+	  "inputs":[],
+	  "datatype":"Sense",
+	  "output":"Cube"
+    },
+
 	
 	{
       "name":"IsCubeActive",

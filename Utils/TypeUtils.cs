@@ -71,6 +71,7 @@ namespace IAmACube
         public static Type GetChipTypeByName(string name) => _assemblyChipTypes.FirstOrDefault(c => c.Value.Name.Equals(name)).Value;
 
         public static T ParseType<T>(string asString) => (T)ParseType(typeof(T), asString);
+
         public static object ParseType(Type t, string asString)
         {
             if (t.IsEnum)
@@ -108,7 +109,7 @@ namespace IAmACube
 
             return null;
         }
-        public static string GetTypeOfStringRepresentation(string stringRepresentation,List<Type> possibleTypes)
+        public static string GetTypeDisplayNameOfStringRepresentation(string stringRepresentation,List<Type> possibleTypes)
         {
             foreach (var type in possibleTypes)
             {

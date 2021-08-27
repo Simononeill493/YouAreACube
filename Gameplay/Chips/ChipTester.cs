@@ -13,6 +13,8 @@ namespace IAmACube
         public static Chipset TestBulletChipset => MakeBulletChipset();
         public static Chipset TestBulletV2Chipset => MakeSpinBulletChipset();
 
+        public static Chipset TestTrackerChipset => MakeTrackerChipset();
+
         public static Chipset TestEnemyChipset => MakeEnemyChipset();
         public static Chipset TestFleeChipset => MakeFleeChipset();
 
@@ -32,6 +34,7 @@ namespace IAmACube
             ChipsetTemplates["ApproachEnemy"][0].Chipset = TestEnemyChipset;
             ChipsetTemplates["FleeEnemy"][0].Chipset = TestFleeChipset;
             ChipsetTemplates["ShootEnemy"][0].Chipset = TestShootChipset;
+            ChipsetTemplates["TrackerEnemy"][0].Chipset = TestTrackerChipset;
 
             ChipsetTemplates["Spinner"][0].Chipset = TestSpinChipset;
             ChipsetTemplates["MiniBullet"][0].Chipset = TestBulletChipset;
@@ -157,6 +160,19 @@ namespace IAmACube
 
             return initialChipset;
         }
+
+        public static Chipset MakeTrackerChipset()
+        {
+            var randDirChip1 = new RandomCardinalChip() { Name = "RandomDir_1" };
+            var moveRandChip1 = new MoveCardinalChip() { Name = "MoveCardinal_1" };
+            moveRandChip1.InputReference1 = randDirChip1;
+            //var wanderChipset1 = new Chipset(randDirChip1, moveRandChip1) { Name = "Wander1" };
+
+            var initialChipset = new Chipset(randDirChip1, moveRandChip1) { Name = "_Initial" };
+
+            return initialChipset;
+        }
+
 
 
         public static Chipset MakePlayerChipset()

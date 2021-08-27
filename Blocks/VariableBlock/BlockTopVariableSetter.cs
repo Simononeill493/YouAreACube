@@ -19,13 +19,21 @@ namespace IAmACube
 
         public void VariableDropdownChanged(BlockInputOption optionSelected)
         {
-            var variable = ((BlockInputOptionVariable)optionSelected).VariableReference;
+            var variable = ((BlockInputOptionVariableAccess)optionSelected).VariableReference;
             var typeName = variable.VariableType.Name;
 
+            CurrentTypeArguments = new List<string>() { typeName };
             _toSetDropdown.SetCurrentType(typeName);
             _topLevelRefreshAll_Delayed();
         }
 
         protected override List<BlockInputSection> _createInputSections() => BlockSectionFactory.CreateInputSectionsVariableSetter(this);
+
+        public override void SetInitialTypeArguments(List<string> typeArgumentsInitial) 
+        {
+            CurrentTypeArguments = typeArgumentsInitial;
+            _toSetDropdown.SetCurrentType(typeArgumentsInitial.First());
+        }
+
     }
 }

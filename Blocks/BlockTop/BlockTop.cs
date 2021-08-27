@@ -55,5 +55,13 @@ namespace IAmACube
 
         public List<string> GetInputTypes(int sectionIndex) => BlockData.GetInputTypes(sectionIndex);
         public string GetInputDisplayName(int sectionIndex) => BlockData.GetInputDisplayName(sectionIndex);
+
+        public virtual void SetInitialTypeArguments(List<string> typeArgumentsInitial) 
+        {
+            if (typeArgumentsInitial != null)
+            {
+                CurrentTypeArguments = typeArgumentsInitial;
+            }
+        }
     }
 }

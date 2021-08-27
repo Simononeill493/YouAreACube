@@ -8,8 +8,8 @@ namespace IAmACube
 {
     public class Game
     {
+        public static World World { get; set; }
         public Kernel Kernel { get; }
-        public World World { get; }
 
         private SectorGenerator _sectorGenerator;
 

@@ -9,7 +9,7 @@ namespace IAmACube
     [Serializable()]
     class CrystalTemplate : CubeTemplate
     {
-        public CrystalTemplate(string color) : base(color + "Crystal") 
+        public CrystalTemplate(string color) : base(color + "Crystal")
         {
             SpriteType = CubeSpriteDataType.SingleSprite;
             MaxEnergy = int.MaxValue;
@@ -22,5 +22,8 @@ namespace IAmACube
         public override EphemeralCube GenerateEphemeral(Kernel source) => throw new NotImplementedException();
 
         public override string ToJsonRep() => throw new NotImplementedException();
+
+        public override Dictionary<int, object> GenerateVariables() => null;
     }
 }
+

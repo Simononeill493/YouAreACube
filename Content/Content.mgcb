@@ -986,6 +986,18 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Sprites/Tiles/Spinner.png;Sprites/Tiles/Spinner.png
 
+#begin ../Simon_Data/To_Import/Sprites/Tiles/TrackerEnemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tiles/TrackerEnemy.png;Sprites/Tiles/TrackerEnemy.png
+
 #begin ../Simon_Data/To_Import/Sprites/Tiles/Water.png
 /importer:TextureImporter
 /processor:TextureProcessor

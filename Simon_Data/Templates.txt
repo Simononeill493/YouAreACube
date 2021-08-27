@@ -39,6 +39,14 @@
       "speed":8
     },
 	{
+      "name":"TrackerEnemy",
+      "sprite":"TrackerEnemy",
+	  "spriteType":"SingleSprite",
+	  "maxEnergy":100000,
+	  "maxHealth":100000,
+      "speed":15
+    },
+	{
       "name":"MouseFollower",
       "sprite":"MouseFollower",
 	  "spriteType":"SingleSprite",

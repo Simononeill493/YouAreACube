@@ -14,23 +14,23 @@ namespace IAmACube
         public static void Init()
         {
             InGameTypes = new Dictionary<string, InGameType>();
-            _addInGameType("CardinalDirection");
-            _addInGameType("RelativeDirection");
-            _addInGameType("CubeTemplate");
-            _addInGameType("CubeMode");
-            _addInGameType("Tile");
-            _addInGameType("int");
-            _addInGameType("bool");
-            _addInGameType("string");
-            _addInGameType("keys");
-            _addInGameType("AnyCube");
-            _addInGameType("Variable");
-            _addInGameType("List<Variable>");
+            _addInGameType<CardinalDirection>("CardinalDirection");
+            _addInGameType<RelativeDirection>("RelativeDirection");
+            _addInGameType<CubeTemplate>("CubeTemplate");
+            _addInGameType<CubeMode>("CubeMode");
+            _addInGameType<Tile>("Tile");
+            _addInGameType<int>("int");
+            _addInGameType<bool>("bool");
+            _addInGameType<string>("string");
+            _addInGameType<Microsoft.Xna.Framework.Input.Keys>("keys");
+            _addInGameType<Cube>("AnyCube");
+            _addInGameType<object>("Variable");
+            _addInGameType<List<object>>("List<Variable>");
         }
 
-        private static void _addInGameType(string name)
+        private static void _addInGameType<TType>(string name)
         {
-            InGameTypes[name] = new InGameType(name);
+            InGameTypes[name] = new InGameType(name,default(TType));
         }
     }
 
@@ -39,9 +39,11 @@ namespace IAmACube
     public class InGameType
     {
         public string Name;
-        public InGameType(string name)
+        public object DefaultValue;
+        public InGameType(string name,object defaultValue)
         {
             Name = name;
+            DefaultValue = defaultValue;
         }
 
         public override string ToString()
