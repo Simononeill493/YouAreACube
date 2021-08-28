@@ -58,6 +58,18 @@
 	  "output":"List<Cube>"
     },
 	{
+      "name":"GetTouchingCubeOfType",
+	  "datatype":"Sense",
+	  "inputs":["CubeMode"],
+	  "output":"Cube"
+    },
+	{
+      "name":"IsTouchingCubeOfType",
+	  "datatype":"Sense",
+	  "inputs":["CubeMode"],
+	  "output":"bool"
+    },
+	{
       "name":"CubeLocation",
 	  "datatype":"General",
 	  "inputs":["AnyCube"],

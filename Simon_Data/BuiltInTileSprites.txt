@@ -7,6 +7,8 @@ ShootEnemy
 TrackerEnemy
 MouseFollower
 Grass
+DarkGrass
+PurpleGrass
 Spinner
 MiniBullet
 BigBullet

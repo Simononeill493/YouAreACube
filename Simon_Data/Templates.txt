@@ -44,7 +44,7 @@
 	  "spriteType":"SingleSprite",
 	  "maxEnergy":100000,
 	  "maxHealth":100000,
-      "speed":15
+      "speed":8
     },
 	{
       "name":"MouseFollower",

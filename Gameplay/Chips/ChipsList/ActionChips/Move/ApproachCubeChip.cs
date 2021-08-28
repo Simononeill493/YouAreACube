@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IAmACube.Gameplay.Chips.ChipsList.ActionChips
+namespace IAmACube
 {
     [Serializable()]
     class ApproachCubeChip<TCube> : InputPin1<TCube> where TCube : Cube

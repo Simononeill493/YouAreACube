@@ -43,7 +43,10 @@ namespace IAmACube
             var bullet2 = ChipsetTemplates["Bullet"][0].Clone();
             bullet2.Chipset = TestBulletV2Chipset;
             ChipsetTemplates["Bullet"][1] = bullet2;
-        }
+
+            var trackerTemplate = ChipsetTemplates["TrackerEnemy"][0];
+            trackerTemplate.Variables.Dict[0] = new TemplateVariable(0, "target", InGameTypeUtils.InGameTypes["AnyCube"]);
+        } 
 
 
 
@@ -163,12 +166,16 @@ namespace IAmACube
 
         public static Chipset MakeTrackerChipset()
         {
-            var randDirChip1 = new RandomCardinalChip() { Name = "RandomDir_1" };
-            var moveRandChip1 = new MoveCardinalChip() { Name = "MoveCardinal_1" };
-            moveRandChip1.InputReference1 = randDirChip1;
-            //var wanderChipset1 = new Chipset(randDirChip1, moveRandChip1) { Name = "Wander1" };
+            var approachChip = new ApproachCubeChip<Cube>() { InputVariable1 = 0, Name="Approach" };
+            var ifPercentageChip = new IfPercentageChip() { InputValue1 = 1, InputValue2 = 25, Name = "If" };
+            var initialChipset = new Chipset(approachChip, ifPercentageChip) { Name = "_Initial" };
 
-            var initialChipset = new Chipset(randDirChip1, moveRandChip1) { Name = "_Initial" };
+            var randomCubeChip = new GetActiveCubeInSectorChip() {Name="GetCube" };
+            var setVariableChip = new SetVariableChip<Cube>() { InputValue1 = 0, InputReference2 = randomCubeChip, Name = "SetVar" };
+            var changeVariableChipset = new Chipset(randomCubeChip, setVariableChip) { Name="ChangeVar" };
+
+            ifPercentageChip.Yes = changeVariableChipset;
+            ifPercentageChip.No = Chipset.NoAction;
 
             return initialChipset;
         }

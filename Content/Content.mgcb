@@ -938,6 +938,18 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Sprites/Tiles/Plants1.png;Sprites/Tiles/Plants1.png
 
+#begin ../Simon_Data/To_Import/Sprites/Tiles/PurpleGrass.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tiles/PurpleGrass.png;Sprites/Tiles/PurpleGrass.png
+
 #begin ../Simon_Data/To_Import/Sprites/Tiles/Rock1.png
 /importer:TextureImporter
 /processor:TextureProcessor

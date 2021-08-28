@@ -13,23 +13,39 @@ namespace IAmACube
         public readonly Dictionary<IntPoint,WorldGenGridPoint> TilesDict;
 
         private Random r;
+        private string tileBaseSprite;
 
         public WorldGenGrid(Kernel worldKernel,IntPoint size,Random random)
         {
             Size = size;
             TilesGrid = new WorldGenGridPoint[size.X,size.Y];
             TilesDict = new Dictionary<IntPoint, WorldGenGridPoint>();
+            r = random;
+
+            var tileNum = r.Next(1, 4);
+            if(tileNum==1)
+            {
+                tileBaseSprite = "Grass";
+            }
+            else if(tileNum==2)
+            {
+                tileBaseSprite = "DarkGrass";
+            }
+            else if(tileNum==3)
+            {
+                tileBaseSprite = "PurpleGrass";
+            }
+
             for(int i=0;i<size.X;i++)
             {
                 for(int j=0;j<size.Y;j++)
                 {
-                    var point = new WorldGenGridPoint(worldKernel);
+                    var point = new WorldGenGridPoint(worldKernel, tileBaseSprite);
                     TilesGrid[i, j] = point;
                     TilesDict[new IntPoint(i, j)] = point;
                 }
             }
 
-            r = random;   
         }
 
         public void OverlayOnSector(Sector s)

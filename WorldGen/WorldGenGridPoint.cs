@@ -14,10 +14,10 @@ namespace IAmACube
         public CubeTemplate Ephemeral;
 
         public Dictionary<CubeMode, bool> Surrounded;
-        public WorldGenGridPoint(Kernel worldKernel)
+        public WorldGenGridPoint(Kernel worldKernel,string tileSprite)
         {
             _worldKernel = worldKernel;
-            TileSprite = "Grass";
+            TileSprite = tileSprite;
 
             Surrounded = new Dictionary<CubeMode, bool>();
             Surrounded[CubeMode.Surface] = false;
