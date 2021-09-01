@@ -160,7 +160,7 @@
     <Compile Include="UI\Menus_Generic\MenuItems\Abstract\BasicMenuItem\MenuItem_Drag.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\CheckBox\CheckBoxMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\ContainerMenuItem.cs" />
-    <Compile Include="UI\Menus_Generic\MenuItems\Base\Dropdown\ObservableDropdownMenuItem.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockInputDropdown_2.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\SpriteBoxes\SpriteBoxMatrix.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Tabs\TabArrayMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Tabs\TabButtonMenuItem.cs" />
@@ -170,6 +170,10 @@
     <Compile Include="UI\Menus_Template\TemplateEditor\AppearanceEditor\TemplateAppearanceEditTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\AppearanceEditor\AppearanceSubTabs\TemplateSpriteSelectorTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BaseStatsEditor\TemplateBaseStatsEditTab.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\InputCompareUtils.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Model\BlockInputModel.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Model\BlockInputOption_2.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Model\BlockModel.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Blockset_2.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Block_2.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockFactory.cs" />
@@ -177,6 +181,8 @@
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlocksetEditPane_2.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockSwitchSection_2.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockTop_2.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Model\BlocksetModel.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Model\FullModel.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Old\BlocksetEditPane_Pan.cs" />
     <Compile Include="UI\DialogBoxes\BlockTemplateSelectionDialog\BlockTemplateSelectionDialog.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateEditMenu.cs" />
@@ -217,6 +223,7 @@
     <Compile Include="Utils\BlockUtils.cs" />
     <Compile Include="Utils\InGameTypeUtils.cs" />
     <Compile Include="Utils\ParserUtils.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockDropdownUtils.cs" />
     <Compile Include="WorldGen\AttachmentUtils.cs" />
     <Compile Include="WorldGen\SectorGenerator.cs" />
     <Compile Include="Misc\LocationWithNeighbors.cs" />

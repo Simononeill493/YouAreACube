@@ -30,7 +30,9 @@ namespace IAmACube
             switchArrowButtonRight.SetLocationConfig(140 + switchArrowButtonLeft.GetBaseSize().X, 0, CoordinateMode.ParentPixelOffset);
             //switchArrowButtonRight.OnMouseReleased += (i) => { UpdateButtonOffset(1); };
             AddChild(switchArrowButtonRight);
-
         }
+
+        public void SetGenerator(Func<Blockset_2> generator) => GenerateInternalBlockset = generator;
+        public Func<Blockset_2> GenerateInternalBlockset;
     }
 }

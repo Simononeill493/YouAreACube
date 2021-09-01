@@ -9,9 +9,9 @@ namespace IAmACube
     public class DropdownMenuItem<T> : TextBoxMenuItem
     {
         public T SelectedItem { get; private set; }
-        private ListMenuItem<T> _list;
+        protected ListMenuItem<T> _list;
 
-        public bool Dropped
+        public virtual bool Dropped
         {
             get { return _dropped; }
             set
@@ -21,7 +21,7 @@ namespace IAmACube
                 _list.Enabled = value;
             }
         }
-        private bool _dropped;
+        protected bool _dropped;
 
         public DropdownMenuItem(IHasDrawLayer parentDrawLayer, List<T> initialItems) : this(parentDrawLayer)
         {
@@ -51,6 +51,7 @@ namespace IAmACube
         public void ManuallySetItem(T item) => SelectedItem = item;
         public void SetItems(List<T> items) => _list.SetItems(items);
         public void AddItems(List<T> toAdd) =>_list.AddItems(toAdd);
+        public void ClearItems() => _list.ClearItems();
 
         private void ListItemSelected(T item)
         {
@@ -65,7 +66,7 @@ namespace IAmACube
         public override void Update(UserInput input)
         {
             base.Update(input);
-            if(input.MouseLeftJustPressed & !MouseHovering)
+            if(Dropped & input.MouseLeftJustPressed & !MouseHovering)
             {
                 Dropped = false;
             }

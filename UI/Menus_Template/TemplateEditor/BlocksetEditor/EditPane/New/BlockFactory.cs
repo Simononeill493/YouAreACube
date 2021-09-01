@@ -8,18 +8,18 @@ namespace IAmACube
 {
     class BlockFactory
     {
-        public static Blockset_2 MakeBlockset(IHasDrawLayer parent)
+        public static Blockset_2 MakeBlockset(BlocksetModel model)
         {
-            var blockset = new Blockset_2();
+            var blockset = new Blockset_2(model);
             return blockset;
         }
 
-        public static Block_2 MakeBlock(IHasDrawLayer parent,BlockData data)
+        public static Block_2 MakeBlock(BlockData data,BlockModel model)
         {
-            var block = new Block_2();
+            var block = new Block_2(model);
 
             AddBlockTop(block, data);
-            AddInputSections(block, data);
+            AddInputSections(block, data,model.Inputs);
             AddSwitchSections(block, data);
 
             ConfigureBlockAppearance(block,data);
@@ -35,11 +35,11 @@ namespace IAmACube
             _addSection(block, blockTop);
         }
 
-        public static void AddInputSections(Block_2 block, BlockData data)
+        public static void AddInputSections(Block_2 block, BlockData data,List<BlockInputModel> inputs)
         {
             for(int i=0;i<data.NumInputs;i++)
             {
-                var inputSection = MakeInputSection(data, GetDrawLayerForNewSection(block), i);
+                var inputSection = MakeInputSection(GetDrawLayerForNewSection(block), data,inputs[i],block.Model,i);
                 _addSection(block, inputSection);
             }
         }
@@ -53,24 +53,24 @@ namespace IAmACube
             }
         }
 
-        public static BlockInputSection_2 MakeInputSection(BlockData data, IHasDrawLayer layer,int inputIndex)
+        public static BlockInputSection_2 MakeInputSection(IHasDrawLayer layer, BlockData data, BlockInputModel model, BlockModel blockModel, int inputIndex)
         {
             var name = data.GetInputDisplayName(inputIndex);
             var inputSection = new BlockInputSection_2(layer, name);
 
-            var dropdown = MakeDropdown(inputSection);
+            var dropdown = MakeDropdown(inputSection, data.GetInputTypes(inputIndex), model);
+            dropdown.Block = blockModel;
             dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentageOffset, true);
-            inputSection.AddChild(dropdown);
 
+            inputSection.AddChild(dropdown);
             return inputSection;
         }
 
-        public static ObservableDropdownMenuItem MakeDropdown(BlockInputSection_2 inputSection)
+        public static BlockInputDropdown_2 MakeDropdown(BlockInputSection_2 inputSection,List<string> inputTypes, BlockInputModel model)
         {
-            var dropdown = new ObservableDropdownMenuItem(inputSection);
+            var dropdown = new BlockInputDropdown_2(inputSection,inputTypes,model);
             return dropdown;
         }
-
 
         public static BlockSwitchSection_2 MakeSwitchSection(BlockData data, IHasDrawLayer layer)
         {

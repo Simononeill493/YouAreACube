@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class ListMenuItem<T> : MenuItem
+    public class ListMenuItem<T> : MenuItem
     {
         public T Selected
         {
@@ -60,7 +60,7 @@ namespace IAmACube
                 listItem.SetLocationConfig(0, yOffset, CoordinateMode.ParentPixelOffset, false);
 
                 Items.Add(listItem);
-                AddChild(listItem);
+                AddChildAfterUpdate(listItem);
 
                 yOffset += _listItemSize.Y;
             }
@@ -74,7 +74,7 @@ namespace IAmACube
 
         public void ClearItems()
         {
-            RemoveChildren(Items);
+            RemoveChildrenAfterUpdate(Items);
             Items.Clear();
         }
 

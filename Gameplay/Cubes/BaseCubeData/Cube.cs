@@ -29,7 +29,7 @@ namespace IAmACube
             Source = source;
             Energy = 0;
 
-            _id = IDUtils.GenerateBlockID();
+            _id = IDUtils.GenerateCubeID();
             SpeedOffset = _id % Config.TickCycleLength;
 
             InitializeSpriteData();

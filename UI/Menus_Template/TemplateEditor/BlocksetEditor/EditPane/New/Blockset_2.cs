@@ -8,13 +8,18 @@ namespace IAmACube
 {
     class Blockset_2 : SpriteMenuItem
     {
+        public string Name => Model.Name;
+        public BlocksetModel Model;
+
         public bool Internal;
 
         public List<Block_2> Blocks;
         public BlocksetEditPane_2 Pane;
 
-        public Blockset_2() : base(ManualDrawLayer.Create(DrawLayers.MenuBlockLayer), BuiltInMenuSprites.Blockset_TopHandle)
+        public Blockset_2(BlocksetModel model) : base(ManualDrawLayer.Create(DrawLayers.MenuBlockLayer), BuiltInMenuSprites.Blockset_TopHandle)
         {
+            Model = model;
+
             Draggable = true;
             OnEndDrag += (i) => Pane.BlocksetDropped(this,i);
             Blocks = new List<Block_2>();
@@ -27,23 +32,31 @@ namespace IAmACube
             TryStartDragAtMousePosition(input);
         }
 
-        public void BlockRemoved(Block_2 block, UserInput input)
+        public void BlockLifted(Block_2 block, UserInput input)
         {
             var toRemove = this.GetThisAndAllBlocksAfter(block);
+            RemoveBlocks(toRemove);
 
+            Pane.MakeNewBlocksetWithLiftedBlocks(toRemove, input);
+        }
+
+        public void RemoveBlocks(List<Block_2> toRemove)
+        {
+            Model.RemoveBlocks(toRemove);
             Blocks = Blocks.Except(toRemove).ToList();
             RemoveChildrenAfterUpdate(toRemove);
 
-            Pane.BlocksLiftedFromBlockset(this,toRemove, input);
+            Pane.BlocksRemovedFromBlockset(this, toRemove);
         }
 
         public void AddBlock(Block_2 block,int index) => AddBlocks(new List<Block_2>() { block },index);
         public void AddBlocks(List<Block_2> blocks,int index)
         {
-            blocks.ForEach(b=>b.Parent = this);
-
+            Model.AddBlocks(blocks, index);
             Blocks.InsertRange(index,blocks);
             AddChildren(blocks);
+
+            blocks.ForEach(b => b.Parent = this);
             _setBlockPositions();
         }
 

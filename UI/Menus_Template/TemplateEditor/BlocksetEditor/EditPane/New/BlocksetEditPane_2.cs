@@ -8,25 +8,31 @@ namespace IAmACube
 {
     class BlocksetEditPane_2 : SpriteMenuItem
     {
+        public static FullModel Model;
+
         public List<Blockset_2> Blocksets;
 
         public BlocksetEditPane_2() : base(ManualDrawLayer.Create(DrawLayers.BackgroundLayer),BuiltInMenuSprites.BlocksetEditPane)
         {
+            Model = new FullModel();
             Blocksets = new List<Blockset_2>();
         }
 
-        public void BlocksLiftedFromBlockset(Blockset_2 blockset,List<Block_2> blocks, UserInput input)
+        public void BlocksRemovedFromBlockset(Blockset_2 blockset,List<Block_2> blocks)
         {
             if (blockset.Empty & !blockset.Internal)
             {
                 _disposeBlockset(blockset);
             }
+        }
 
+        public void MakeNewBlocksetWithLiftedBlocks(List<Block_2> blocks, UserInput input)
+        {
             blocks.First().ManuallyEndDrag(input);
 
             var newBlockset = _makeBlockset();
             newBlockset.SetInitialDragState(this, input);
-            newBlockset.AddBlocks(blocks,0);
+            newBlockset.AddBlocks(blocks, 0);
         }
 
         public void BlocksetDropped(Blockset_2 blockset, UserInput input)
@@ -36,7 +42,7 @@ namespace IAmACube
             {
 
             }
-            if(hoveringOver!=null)
+            if(hoveringOver.Any())
             {
                 AppendBlockset(blockset, hoveringOver.First());
             }
@@ -50,7 +56,9 @@ namespace IAmACube
 
         public void RecieveFromSearchPane(BlockData data, UserInput input)
         {
-            var block = BlockFactory.MakeBlock(this, data);
+            var newModel = Model.MakeBlock(IDUtils.GenerateBlockID(data),data);
+            var block = BlockFactory.MakeBlock(data,newModel);
+            block.SwitchSection?.SetGenerator(_makeBlockset);
         
             var blockset = _makeBlockset();
             blockset.SetInitialDragState(this,input);
@@ -59,7 +67,9 @@ namespace IAmACube
 
         private Blockset_2 _makeBlockset()
         {
-            var blockset = BlockFactory.MakeBlockset(this);
+            var newModel = Model.MakeBlockset(IDUtils.GenerateBlocksetID()); 
+            var blockset = BlockFactory.MakeBlockset(newModel);
+
             blockset.Pane = this;
             AddChildAfterUpdate(blockset);
             Blocksets.Add(blockset);
@@ -68,11 +78,12 @@ namespace IAmACube
 
         private void _disposeBlockset(Blockset_2 blockset)
         {
+            Model.RemoveBlockset(blockset.Model);
+
             RemoveChildAfterUpdate(blockset);
             Blocksets.Remove(blockset);
             blockset.Dispose();
         }
-
 
         public void LoadChipsetForEditing(CubeTemplate template) 
         {
