@@ -40,5 +40,18 @@ namespace IAmACube
         {
             return data.Name.Equals("If") | data.Name.Equals("IfPercentage");
         }
+
+        public static bool IsSwitchBlock(BlockData data) => IsIfBlock(data) | data.Name.Equals("KeySwitch");
+
+        public static List<string> GetDefaultSwitchSections(BlockData data)
+        {
+            if(IsIfBlock(data))
+            {
+                return new List<string>() { "Yes", "No" };
+            }
+
+            return new List<string>();
+        }
+        
     }
 }

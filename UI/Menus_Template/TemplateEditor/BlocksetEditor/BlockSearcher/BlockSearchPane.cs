@@ -13,7 +13,7 @@ namespace IAmACube
         public const int PreviewPixeYInit = 45;
         public const int PreviewPixeYDistance = 20;
 
-        public Action<BlockTop, UserInput> AddToEditPane;
+        public Action<BlockData,UserInput> SendToEditPane;
 
         private SearchBarMenuItem _searchBar;
         private DropdownMenuItem<ChipType> _dropdown;
@@ -33,6 +33,8 @@ namespace IAmACube
             _dropdown.SetItems(typeof(ChipType).GetEnumValues().Cast<ChipType>().ToList());
             _dropdown.OnSelectedChanged += _chipTypeChanged;
             AddChild(_dropdown);
+
+            RefreshFilter();
         }
         
         public void RefreshFilter()
@@ -61,6 +63,7 @@ namespace IAmACube
 
             AddChildrenAfterUpdate(_chipPreviews);
         }
+
         private void _clearPreviews()
         {
             RemoveChildrenAfterUpdate(_chipPreviews);
@@ -69,12 +72,7 @@ namespace IAmACube
 
         private void _searchTermChanged(string searchTerm) => RefreshFilter();
         private void _chipTypeChanged(ChipType chipType) => RefreshFilter();
-    
-        private void _createChipAndAddToEditPane(BlockPreview preview, UserInput input)
-        {
-            var chipRandId = "_" + RandomUtils.RandomNumber(100000000).ToString();
-            var createdChip = BlockDataUtils.GenerateBlockFromBlockData(preview.Block,preview.Block.Name + chipRandId);
-            AddToEditPane(createdChip,input);
-        }
+
+        private void _createChipAndAddToEditPane(BlockPreview preview, UserInput input) => SendToEditPane(preview.Block, input);
     }
 }

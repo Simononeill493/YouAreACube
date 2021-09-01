@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public interface IBlocksetTopLevelContainer
+    public interface IBlocksetTopLevelContainer : IBlocksetGenerator
     {
-        Blockset CreateBlockset(string name);
-
         void OpenInputSubMenu(InputOptionMenu menu, BlockInputSection section);
     }
 
-    public class DummyBlocksetContainer : IBlocksetTopLevelContainer
+    public interface IBlocksetGenerator
+    {
+        Blockset CreateBlockset(string name);
+    }
+
+    public class DummyBlocksetContainer: IBlocksetTopLevelContainer
     {
         public Blockset CreateBlockset(string name)
         {
@@ -22,5 +25,4 @@ namespace IAmACube
 
         public void OpenInputSubMenu(InputOptionMenu menu, BlockInputSection section) => throw new NotImplementedException();
     }
-
 }

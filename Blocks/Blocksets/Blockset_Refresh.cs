@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public partial class Blockset : DraggableMenuItem
+    public partial class Blockset : SpriteMenuItem
     {
         public Action TopLevelRefreshAll 
         { 

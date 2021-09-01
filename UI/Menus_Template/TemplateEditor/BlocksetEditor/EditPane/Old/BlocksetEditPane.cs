@@ -22,7 +22,7 @@ namespace IAmACube
 
         public BlocksetEditPane(IHasDrawLayer parentDrawLayer,Action<InputOptionMenu,BlockInputSection> subMenuCallback,IVariableProvider variableProvider) : base(parentDrawLayer,BuiltInMenuSprites.BlocksetEditPane)
         {
-            DrawLayer = DrawLayers.MenuBehindLayer;
+            DrawLayer = DrawLayers.BackgroundLayer;
 
             _allBlocksets = new List<Blockset>();
             TopLevelBlockSets = new List<Blockset>();

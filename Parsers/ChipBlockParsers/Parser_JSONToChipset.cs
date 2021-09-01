@@ -9,7 +9,7 @@ namespace IAmACube
 {
     public static class Parser_JSONToChipset
     {
-        public static Chipset ParseJsonToBlock(string json)
+        public static Chipset ParseJsonToChipset(string json)
         {
             var fullJSON = JsonConvert.DeserializeObject<FullChipsetJSONData>(json);
 

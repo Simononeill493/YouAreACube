@@ -117,7 +117,7 @@ namespace IAmACube
 
 
         public override string ToString() => Name + " (" + ChipDataType.ToString() + ")";
-
+        public Color GetColor() => ChipDataType.GetColor();
 
     }
 }

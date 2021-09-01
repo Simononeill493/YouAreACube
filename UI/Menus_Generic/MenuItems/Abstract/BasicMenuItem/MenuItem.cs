@@ -14,7 +14,23 @@ namespace IAmACube
         public bool Enabled = true;
         public bool Disposed { get; private set; } = false;
 
-        public float DrawLayer { get; set; }
+        public float DrawLayer 
+        { 
+            get 
+            { 
+                return _drawLayer; 
+            }
+            set 
+            {
+                _drawLayer = value;
+
+                if(_drawLayer<-0.001 | _drawLayer>1.001)
+                {
+                    throw new Exception();
+                }
+            } 
+        }
+        private float _drawLayer;
 
         public event Action<UserInput> OnMouseReleased;
         public event Action<UserInput> OnMousePressed;
@@ -39,8 +55,16 @@ namespace IAmACube
 
             if (Visible)
             {
+                var oldDrawLayer = DrawLayer;
+                if(_thisOrParentDragged)
+                {
+                    DrawLayer -= DrawLayers.MenuDragOffset;
+                }
+
                 _drawSelf(drawingInterface);
                 _drawChildren(drawingInterface);
+
+                DrawLayer = oldDrawLayer;
             }
         }
         public virtual void Update(UserInput input)
@@ -73,6 +97,8 @@ namespace IAmACube
                     _mousePressedOn = true;
                     _lastMousePressedLocation = input.MousePos;
                     OnMousePressed?.Invoke(input);
+
+                    TryStartDragAtMousePosition(input);
                 }
                 else if(input.MouseLeftReleased) //Mouse released
                 {
@@ -91,12 +117,14 @@ namespace IAmACube
 
             _updateChildren(input);
             _addAndRemoveQueuedChildren();
+
+            _dragUpdate(input);
         }
 
-        public void OffsetDrawLayerCascade(float offset)
+        public void SetDragStateCascade(bool state)
         {
-            DrawLayer += offset;
-            _children.ForEach(child => child.OffsetDrawLayerCascade(offset));
+            _thisOrParentDragged = state;
+            _children.ForEach(c => c.SetDragStateCascade(state));
         }
         public void UpdateDrawLayerCascade(float newLayer)
         {

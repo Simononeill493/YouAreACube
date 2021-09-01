@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    partial class Blockset : DraggableMenuItem, IBlocksDroppableOn
+    partial class Blockset : SpriteMenuItem, IBlocksDroppableOn
     {
         public string Name;
         public List<BlockTop> Blocks { get; private set; }

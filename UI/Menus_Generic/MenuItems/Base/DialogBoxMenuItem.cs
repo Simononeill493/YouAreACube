@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class DialogBoxMenuItem : DraggableMenuItem
+    class DialogBoxMenuItem : SpriteMenuItem
     {
         private MenuItem _container;
         public event Action OnClosed;

@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public abstract class DraggableMenuItem : SpriteMenuItem
+    public partial class MenuItem 
     {
         public event System.Action<UserInput> OnStartDrag;
         public event System.Action<UserInput> OnEndDrag;
         public event System.Action<UserInput> OnMoved;
 
         public bool Dragging { get; private set; } = false;
-        public bool Draggable = true;
+        private bool _thisOrParentDragged;
+
+        public bool Draggable = false;
 
         private IntPoint _dragOffset;
 
-        public DraggableMenuItem(IHasDrawLayer parent, string sprite) : base(parent, sprite)
+        public void _dragUpdate(UserInput input)
         {
-            OnMousePressed += TryStartDragAtMousePosition;
-        }
-
-        public override void Update(UserInput input) 
-        {
-            base.Update(input);
+            if(_thisOrParentDragged)
+            {
+                SetDragStateCascade(true);
+            }
 
             _draggableUpdateLocation(input);
             _checkForEndDrag(input);
@@ -32,18 +32,22 @@ namespace IAmACube
 
         public virtual bool TryStartDrag(UserInput input, IntPoint offset)
         {
-            if (Draggable & !Dragging & !MenuScreen.IsUserDragging)
+            if (_canStartDragging())
             {
-                _startDrag(input,offset);
+                _startDrag(input, offset);
                 return true;
             }
 
             return false;
         }
-        
-        protected void _startDrag(UserInput input,IntPoint offset)
+
+        protected virtual bool _canStartDragging() => (Draggable & !Dragging & !MenuScreen.IsUserDragging);
+
+        protected void _startDrag(UserInput input, IntPoint offset)
         {
-            OffsetDrawLayerCascade(-DrawLayers.MenuDragOffset);
+            if (Dragging) { throw new Exception(); }
+
+            SetDragStateCascade(true);
 
             MenuScreen.DraggedItem = this;
             Dragging = true;
@@ -54,7 +58,9 @@ namespace IAmACube
         }
         private void _endDrag(UserInput input)
         {
-            OffsetDrawLayerCascade(DrawLayers.MenuDragOffset);
+            if (!Dragging) { throw new Exception(); }
+
+            SetDragStateCascade(false);
 
             MenuScreen.DraggedItem = null;
             Dragging = false;
@@ -62,7 +68,9 @@ namespace IAmACube
             OnEndDrag?.Invoke(input);
         }
 
-        public void TryStartDragAtMousePosition(UserInput input) => TryStartDrag(input, GetLocationOffset(input.MousePos));
+        public virtual void TryStartDragAtMousePosition(UserInput input) => TryStartDrag(input, GetLocationOffset(input.MousePos));
+
+        public void MoveToMousePosition(UserInput input) => SetLocationConfig(input.MousePos, CoordinateMode.Absolute);
 
         private void _draggableUpdateLocation(UserInput input)
         {
@@ -73,7 +81,7 @@ namespace IAmACube
                 SetLocationConfig(input.MousePos - _dragOffset, CoordinateMode.Absolute);
                 UpdateDimensionsCascade(IntPoint.Zero, IntPoint.Zero);
 
-                if(ActualLocation!=oldLocation)
+                if (ActualLocation != oldLocation)
                 {
                     OnMoved?.Invoke(input);
                 }
@@ -86,5 +94,7 @@ namespace IAmACube
                 _endDrag(input);
             }
         }
+
+        public void ManuallyEndDrag(UserInput input) => _endDrag(input);
     }
 }

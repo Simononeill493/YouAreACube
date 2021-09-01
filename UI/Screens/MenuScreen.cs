@@ -19,7 +19,7 @@ namespace IAmACube
         }
         private static int _scale = Config.DefaultMenuItemScale;
 
-        public static DraggableMenuItem DraggedItem = null;
+        public static MenuItem DraggedItem = null;
         public static bool IsUserDragging => (DraggedItem != null);
 
         public float DrawLayer { get; } = DrawLayers.MenuBaseLayer;
