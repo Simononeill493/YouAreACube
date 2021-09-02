@@ -36,9 +36,11 @@ namespace IAmACube
             return false;
         }
 
-        public static List<BlockInputOption_2> GetInputsFromModel(this FullModel fullModel,BlockModel block, List<string> inputTypes)
+        public static List<BlockInputOption_2> GetInputsFromModel(this FullModel fullModel,BlockInputModel inputModel, List<string> inputTypes)
         {
-            var candidates = fullModel.Blocks.Values.Where(b => IsValidInputFor(b.OutputTypeName, inputTypes)).ToList();
+            var block = fullModel.InputParents[inputModel];
+
+            var candidates = fullModel.Blocks.Values.Where(b => IsValidInputFor(b.OutputType, inputTypes) & !b.Equals(block)).ToList();
             var matching = candidates.Where(c => fullModel.GetAllBlocksBelow(c).Contains(block));
             return matching.Select(b => BlockInputOption_2.CreateReference(b)).ToList();
         }
@@ -49,6 +51,14 @@ namespace IAmACube
             var index = blocks.IndexOf(block);
             var allAfter = blocks.GetRange(index, blocks.Count() - index);
             return allAfter;
+        }
+
+        public static List<BlockInputOption_2> GetInputsFromVariables(this IVariableProvider variableProvider,List<string> inputTypes)
+        {
+            var variables = variableProvider.GetVariables().Dict.Values;
+            var matching = variables.Where(v => IsValidInputFor(v.VariableType.Name, inputTypes));
+
+            return matching.Select(v => BlockInputOption_2.CreateVariable(v)).ToList();
         }
 
     }

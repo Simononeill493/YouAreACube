@@ -20,7 +20,7 @@ namespace IAmACube
             _kernel = kernel;
             _baseTemplate = baseTemplate;
 
-            _editPane = new BlocksetEditPane_2();
+            _editPane = new BlocksetEditPane_2(variableProvider);
             _editPane.SetLocationConfig(4, 4, CoordinateMode.ParentPixelOffset, false);
             AddChild(_editPane);
 

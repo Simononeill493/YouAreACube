@@ -6,34 +6,43 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class BlockInputDropdown_2 : DropdownMenuItem<BlockInputOption_2>
+    class BlockInputDropdown_2 : ObservableDropdownMenuItem<BlockInputOption_2>
     {
-        public BlockInputModel Model;
-        public BlockModel Block;
-
         public List<string> InputTypes;
+        public BlockInputModel Model;
 
-        public override bool Dropped
+        public BlockInputDropdown_2(IHasDrawLayer parent, List<string> inputTypes,BlockInputModel model,Func<string> textProvider) : base(parent,textProvider)
         {
-            get { return _dropped; }
-            set
-            {
-                if (value) { PopulateItems(); }
-                base.Dropped = value;
-            }
+            SetInputTypes(inputTypes);
+            Model = model;
+
+            ObservableText.ObservableTextChanged += TextTyped;
         }
 
-        public BlockInputDropdown_2(IHasDrawLayer parent, List<string> inputTypes,BlockInputModel model) : base(parent)
+        public void SetInputTypes(List<string> inputTypes)
         {
             InputTypes = inputTypes;
-            Model = model;
+            Editable = inputTypes.Any(t => ChipDropdownUtils.IsTextEntryType(t));
         }
 
-        public void PopulateItems()
+        public override void PopulateItems()
         {
             ClearItems();
-            AddItems(BlocksetEditPane_2.Model.GetInputsFromModel(Block, InputTypes));
+
+            AddItems(BlocksetEditPane_2.VariableProvider.GetInputsFromVariables(InputTypes));
+            AddItems(BlocksetEditPane_2.Model.GetInputsFromModel(Model, InputTypes));
             AddItems(BlockDropdownUtils.GetDefaultItems(InputTypes));
+        }
+
+        protected override void ListItemSelected(BlockInputOption_2 inputOption)
+        {
+            base.ListItemSelected(inputOption);
+            Model.SetInputOption = inputOption;
+        }
+
+        private void TextTyped(string newText)
+        {
+            Model.SetInputOption = BlockInputOption_2.CreateParseable(newText);
         }
     }
 }

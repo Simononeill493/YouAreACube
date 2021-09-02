@@ -9,7 +9,7 @@ namespace IAmACube
 {
     public class TextMenuItem : MenuItem
     {
-        public string Text;
+        public virtual string Text { get; set; }
         public Color Color = Config.DefaultTextColor;
 
         public TextMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer) { }

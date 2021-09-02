@@ -8,12 +8,14 @@ namespace IAmACube
 {
     class BlocksetEditPane_2 : SpriteMenuItem
     {
+        public static IVariableProvider VariableProvider;
         public static FullModel Model;
 
         public List<Blockset_2> Blocksets;
 
-        public BlocksetEditPane_2() : base(ManualDrawLayer.Create(DrawLayers.BackgroundLayer),BuiltInMenuSprites.BlocksetEditPane)
+        public BlocksetEditPane_2(IVariableProvider variableProvider) : base(ManualDrawLayer.Create(DrawLayers.BackgroundLayer),BuiltInMenuSprites.BlocksetEditPane)
         {
+            VariableProvider = variableProvider;
             Model = new FullModel();
             Blocksets = new List<Blockset_2>();
         }
@@ -57,8 +59,8 @@ namespace IAmACube
         public void RecieveFromSearchPane(BlockData data, UserInput input)
         {
             var newModel = Model.MakeBlock(IDUtils.GenerateBlockID(data),data);
-            var block = BlockFactory.MakeBlock(data,newModel);
-            block.SwitchSection?.SetGenerator(_makeBlockset);
+            var block = BlockFactory.MakeBlock(data,newModel,_makeBlockset);
+            block.SwitchSection?.GenerateDefaultSections();
         
             var blockset = _makeBlockset();
             blockset.SetInitialDragState(this,input);

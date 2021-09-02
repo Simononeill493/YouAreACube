@@ -10,11 +10,13 @@ namespace IAmACube
     {
         public Dictionary<string,BlocksetModel> Blocksets;
         public Dictionary<string,BlockModel> Blocks;
+        public Dictionary<BlockInputModel, BlockModel> InputParents;
 
         public FullModel()
         {
             Blocksets = new Dictionary<string, BlocksetModel>();
             Blocks = new Dictionary<string, BlockModel>();
+            InputParents = new Dictionary<BlockInputModel, BlockModel>();
         }
 
         public BlocksetModel MakeBlockset(string name)
@@ -28,6 +30,8 @@ namespace IAmACube
         {
             var block = new BlockModel(name, data);
             Blocks[name] = block;
+
+            block.Inputs.ForEach(i => InputParents[i] = block);
             return block;
         }
 

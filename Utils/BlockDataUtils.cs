@@ -43,7 +43,7 @@ namespace IAmACube
 
         public static bool IsSwitchBlock(BlockData data) => IsIfBlock(data) | data.Name.Equals("KeySwitch");
 
-        public static List<string> GetDefaultSwitchSections(BlockData data)
+        public static List<string> GetDefaultSwitchSections(this BlockData data)
         {
             if(IsIfBlock(data))
             {

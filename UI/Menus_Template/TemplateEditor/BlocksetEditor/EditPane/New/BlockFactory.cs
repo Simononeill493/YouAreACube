@@ -14,16 +14,17 @@ namespace IAmACube
             return blockset;
         }
 
-        public static Block_2 MakeBlock(BlockData data,BlockModel model)
+        public static Block_2 MakeBlock(BlockData data,BlockModel model,Func<Blockset_2> generator)
         {
             var block = new Block_2(model);
 
             AddBlockTop(block, data);
-            AddInputSections(block, data,model.Inputs);
+            AddInputSections(block, data);
             AddSwitchSections(block, data);
 
             ConfigureBlockAppearance(block,data);
 
+            block.SwitchSection?.SetGenerator(generator);
             return block;
         }
 
@@ -35,11 +36,13 @@ namespace IAmACube
             _addSection(block, blockTop);
         }
 
-        public static void AddInputSections(Block_2 block, BlockData data,List<BlockInputModel> inputs)
+        public static void AddInputSections(Block_2 block, BlockData data)
         {
+            var inputs = block.Model.Inputs;
+
             for(int i=0;i<data.NumInputs;i++)
             {
-                var inputSection = MakeInputSection(GetDrawLayerForNewSection(block), data,inputs[i],block.Model,i);
+                var inputSection = MakeInputSection(GetDrawLayerForNewSection(block), data,inputs[i],i);
                 _addSection(block, inputSection);
             }
         }
@@ -48,18 +51,18 @@ namespace IAmACube
         {
             if (BlockDataUtils.IsSwitchBlock(data))
             {
-                var switchSection = MakeSwitchSection(data, GetDrawLayerForNewSection(block));
+                var switchSection = MakeSwitchSection(data, block.Model,GetDrawLayerForNewSection(block));
                 _addSection(block, switchSection);
+                block.SwitchSection = switchSection;
             }
         }
 
-        public static BlockInputSection_2 MakeInputSection(IHasDrawLayer layer, BlockData data, BlockInputModel model, BlockModel blockModel, int inputIndex)
+        public static BlockInputSection_2 MakeInputSection(IHasDrawLayer layer, BlockData data, BlockInputModel model, int inputIndex)
         {
             var name = data.GetInputDisplayName(inputIndex);
             var inputSection = new BlockInputSection_2(layer, name);
 
             var dropdown = MakeDropdown(inputSection, data.GetInputTypes(inputIndex), model);
-            dropdown.Block = blockModel;
             dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentageOffset, true);
 
             inputSection.AddChild(dropdown);
@@ -68,13 +71,13 @@ namespace IAmACube
 
         public static BlockInputDropdown_2 MakeDropdown(BlockInputSection_2 inputSection,List<string> inputTypes, BlockInputModel model)
         {
-            var dropdown = new BlockInputDropdown_2(inputSection,inputTypes,model);
+            var dropdown = new BlockInputDropdown_2(inputSection,inputTypes,model,()=>model.DisplayValue);
             return dropdown;
         }
 
-        public static BlockSwitchSection_2 MakeSwitchSection(BlockData data, IHasDrawLayer layer)
+        public static BlockSwitchSection_2 MakeSwitchSection(BlockData data, BlockModel model,IHasDrawLayer layer)
         {
-            var switchSection = new BlockSwitchSection_2(layer);
+            var switchSection = new BlockSwitchSection_2(layer,model,data.GetDefaultSwitchSections());
             return switchSection;
         }
 

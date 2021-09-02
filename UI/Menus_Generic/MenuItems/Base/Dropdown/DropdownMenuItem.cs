@@ -8,7 +8,7 @@ namespace IAmACube
 {
     public class DropdownMenuItem<T> : TextBoxMenuItem
     {
-        public T SelectedItem { get; private set; }
+        public virtual T SelectedItem { get; protected set; }
         protected ListMenuItem<T> _list;
 
         public virtual bool Dropped
@@ -23,10 +23,6 @@ namespace IAmACube
         }
         protected bool _dropped;
 
-        public DropdownMenuItem(IHasDrawLayer parentDrawLayer, List<T> initialItems) : this(parentDrawLayer)
-        {
-            AddItems(initialItems);
-        }
         public DropdownMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "")
         {
             SpriteName = BuiltInMenuSprites.BasicDropdown;
@@ -48,12 +44,12 @@ namespace IAmACube
         }
 
 
-        public void ManuallySetItem(T item) => SelectedItem = item;
+        public virtual void ManuallySetItem(T item) => SelectedItem = item;
         public void SetItems(List<T> items) => _list.SetItems(items);
         public void AddItems(List<T> toAdd) =>_list.AddItems(toAdd);
         public void ClearItems() => _list.ClearItems();
 
-        private void ListItemSelected(T item)
+        protected virtual void ListItemSelected(T item)
         {
             SelectedItem = item;
             Dropped = false;
@@ -62,6 +58,7 @@ namespace IAmACube
             OnSelectedChanged?.Invoke(item);
         }
 
+        public void InvokeSelectedChanged(T item) => OnSelectedChanged?.Invoke(item);
 
         public override void Update(UserInput input)
         {
@@ -71,9 +68,8 @@ namespace IAmACube
                 Dropped = false;
             }
         }
-
         
-        public void RefreshText()
+        public virtual void RefreshText()
         {
             if(IsItemSelected)
             {

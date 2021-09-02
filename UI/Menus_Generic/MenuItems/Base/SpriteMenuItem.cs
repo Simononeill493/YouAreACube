@@ -9,7 +9,15 @@ namespace IAmACube
 {
     public class SpriteMenuItem : MenuItem
     {
-        public string SpriteName;
+        public string SpriteName { get { return _spriteName; } 
+            set 
+            { 
+                _spriteName = value;
+                _spriteSize = SpriteManager.GetSpriteSize(SpriteName);
+            } 
+        }
+        private string _spriteName;
+
         public string HighlightedSpriteName;
 
         public Color ColorMask = Color.White;
@@ -28,6 +36,7 @@ namespace IAmACube
             drawingInterface.DrawSprite(_currentSprite, ActualLocation.X, ActualLocation.Y, Scale, DrawLayer, ColorMask, flipHorizontal: FlipHorizontal);
         }
 
-        public override IntPoint GetBaseSize() => SpriteManager.GetSpriteSize(SpriteName);
+        public override IntPoint GetBaseSize() => _spriteSize;
+        private IntPoint _spriteSize;
     }
 }

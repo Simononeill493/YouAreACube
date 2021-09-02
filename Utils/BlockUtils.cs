@@ -25,6 +25,46 @@ namespace IAmACube
             return total;
         }
 
+        public static IntPoint GetSizeIncludingBlocks(this Blockset_2 blockset)
+        {
+            IntPoint total = blockset.GetBaseSize();
+
+            foreach (var block in blockset.Blocks)
+            {
+                var size = block.GetBaseSize();
+                if (size.X > total.X)
+                {
+                    total.X = size.X;
+                }
+                total.Y += size.Y - 1;
+            }
+
+            return total;
+        }
+
+        public static IntPoint GetSizeWithSubBlockset(this BlockSwitchSection_2 switchSection)
+        {
+            IntPoint total = switchSection.GetSizeWithoutSubBlockset();
+
+            if(switchSection.ActiveSection!=null)
+            {
+                var size = switchSection.ActiveSection.GetSizeIncludingBlocks();
+                if (size.X > total.X)
+                {
+                    total.X = size.X;
+                }
+                total.Y += size.Y - 1;
+
+                var bottomSize = switchSection.SwitchSectionBottom.GetBaseSize();
+                if (bottomSize.X > total.X)
+                {
+                    total.X = bottomSize.X;
+                }
+
+                total.Y += bottomSize.Y - 1;
+            }
+            return total;
+        }
 
         public static List<Block_2> GetThisAndAllBlocksAfter(this Blockset_2 blockset,Block_2 block)
         {

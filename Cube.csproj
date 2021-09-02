@@ -160,6 +160,8 @@
     <Compile Include="UI\Menus_Generic\MenuItems\Abstract\BasicMenuItem\MenuItem_Drag.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\CheckBox\CheckBoxMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\ContainerMenuItem.cs" />
+    <Compile Include="UI\Menus_Generic\MenuItems\Base\Dropdown\ObservableDropdownMenuItem.cs" />
+    <Compile Include="UI\Menus_Generic\MenuItems\Base\Text\ObservableTextMenuItem.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockInputDropdown_2.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\SpriteBoxes\SpriteBoxMatrix.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Tabs\TabArrayMenuItem.cs" />
@@ -262,7 +264,7 @@
     <Compile Include="UI\Menus_Generic\MenuItems\_Misc\CoordinateMode.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\RectangleMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\SpriteMenuItem.cs" />
-    <Compile Include="UI\Menus_Generic\MenuItems\Base\TextMenuItem.cs" />
+    <Compile Include="UI\Menus_Generic\MenuItems\Base\Text\TextMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\ButtonMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\SearchBarMenuItem.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateBox.cs" />

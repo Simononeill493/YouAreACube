@@ -21,10 +21,16 @@ namespace IAmACube
 
         public TextBoxMenuItem(IHasDrawLayer parentDrawLayer,string initialString = "") : base(parentDrawLayer, BuiltInMenuSprites.BasicTextBox)
         {
+            _setTextItem(initialString);
+        }
+
+        protected virtual void _setTextItem(string initialString = "")
+        {
             TextItem = new TextMenuItem(this) { Text = initialString };
             TextItem.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
             AddChild(TextItem);
         }
+
 
         public void SetText(string textToSet) => TextItem.Text = textToSet;
 

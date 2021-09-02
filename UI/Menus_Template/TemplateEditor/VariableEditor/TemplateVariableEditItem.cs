@@ -25,7 +25,8 @@ namespace IAmACube
 
             _number = new TextMenuItem(this, (num+1).ToString() + ":");
             _nameBox = new TextBoxMenuItem(this) { Editable = true };
-            _dataTypeDropdown = new DropdownMenuItem<InGameType>(this, InGameTypeUtils.InGameTypes.Values.ToList());
+            _dataTypeDropdown = new DropdownMenuItem<InGameType>(this);
+            _dataTypeDropdown.AddItems(InGameTypeUtils.InGameTypes.Values.ToList());
 
             _buttonRemove = new SpriteMenuItem(this, BuiltInMenuSprites.VariableMinusButton);
             _buttonRemove.OnMouseReleased +=(i) => DisableVariable();
@@ -69,8 +70,6 @@ namespace IAmACube
 
             VariableEnabled = false;
         }
-
-
 
         public void EnableVariable()
         {
