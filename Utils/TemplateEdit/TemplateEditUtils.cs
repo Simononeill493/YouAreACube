@@ -46,7 +46,7 @@ namespace IAmACube
 
             newBlockset.RefreshAll();
             newBlockset.SetLocationConfig(pane.ActualLocation + new IntPoint(10, 10), CoordinateMode.Absolute, centered: false);
-            newBlockset.UpdateDimensionsCascade(pane.ActualLocation, pane.GetCurrentSize());
+            newBlockset.UpdateLocationCascade(pane.ActualLocation, pane.GetCurrentSize());
             
             return newBlockset;
         }

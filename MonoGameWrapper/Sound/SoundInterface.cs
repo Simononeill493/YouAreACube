@@ -15,6 +15,7 @@ namespace IAmACube
         public static bool Initialized;
 
         public static ContentManager content;
+
         public static SoundEffect wind;
         public static SoundEffect pop1;
         public static SoundEffect pop2;
@@ -41,7 +42,7 @@ namespace IAmACube
 
                 Initialized = true;
             }
-            catch(NoAudioHardwareException e)
+            catch(NoAudioHardwareException)
             {
                 Console.WriteLine("No sound device detected. Sounds will not play.");
             }

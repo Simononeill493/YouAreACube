@@ -58,7 +58,7 @@ namespace IAmACube
             foreach (var item in _menuItems)
             {
                 item.Update(input);
-                item.UpdateDimensionsCascade(IntPoint.Zero, _currentScreenDimensions);
+                item.UpdateLocationCascade(IntPoint.Zero, _currentScreenDimensions);
             }
 
             if (input.ScrollDirection == 1)
@@ -83,9 +83,9 @@ namespace IAmACube
         protected void _addMenuItem(MenuItem item)
         {
             _menuItems.Add(item);
-            item.UpdateDimensionsCascade(IntPoint.Zero, _currentScreenDimensions);
+            item.UpdateLocationCascade(IntPoint.Zero, _currentScreenDimensions);
         }
-        protected void _updateAllItemPositions() => _menuItems.ForEach(item => item.UpdateDimensionsCascade(IntPoint.Zero, _currentScreenDimensions));
+        protected void _updateAllItemPositions() => _menuItems.ForEach(item => item.UpdateLocationCascade(IntPoint.Zero, _currentScreenDimensions));
 
         private void _refreshIfScreenSizeChanged()
         {

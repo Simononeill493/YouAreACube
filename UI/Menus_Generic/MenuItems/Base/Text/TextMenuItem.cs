@@ -23,7 +23,7 @@ namespace IAmACube
             }
         }
 
-        public override bool IsMouseOver(UserInput input) => false;
+        protected override bool _isMouseOver(UserInput input) => false;
         public override IntPoint GetBaseSize() => SpriteManager.GetTextSize(Text);
     }
 }

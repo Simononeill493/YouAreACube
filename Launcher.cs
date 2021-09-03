@@ -16,7 +16,9 @@ namespace IAmACube
             return;
 #endif
 
+#pragma warning disable CS0162 // Unreachable code not an issue here
             try
+#pragma warning restore CS0162
             {
                 Run();
             }

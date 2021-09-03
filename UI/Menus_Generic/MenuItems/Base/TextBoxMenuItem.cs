@@ -52,7 +52,7 @@ namespace IAmACube
 
                     if (_shouldTypeCharacter(key))
                     {
-                        TextItem.Text = TextItem.Text + KeyUtils.KeyToChar(key);
+                        TextItem.Text += KeyUtils.KeyToChar(key);
                         TextItem.UpdateDimensions(ActualLocation, size);
                         OnTextChanged?.Invoke(Text);
                     }

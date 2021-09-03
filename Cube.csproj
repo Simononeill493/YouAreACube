@@ -172,6 +172,7 @@
     <Compile Include="UI\Menus_Template\TemplateEditor\AppearanceEditor\TemplateAppearanceEditTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\AppearanceEditor\AppearanceSubTabs\TemplateSpriteSelectorTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BaseStatsEditor\TemplateBaseStatsEditTab.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlocksetEditPane_2_Pan.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\InputCompareUtils.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Model\BlockInputModel.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Model\BlockInputOption_2.cs" />

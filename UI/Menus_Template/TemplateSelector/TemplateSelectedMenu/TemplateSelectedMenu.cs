@@ -36,7 +36,7 @@ namespace IAmACube
         {
             _template = template;
             _templatePicture.SetTemplate(template);
-            _templatePicture.UpdateDimensionsCascade(ActualLocation, GetCurrentSize());
+            _templatePicture.UpdateLocationCascade(ActualLocation, GetCurrentSize());
 
             _templateName.Text = _template.Name;
 

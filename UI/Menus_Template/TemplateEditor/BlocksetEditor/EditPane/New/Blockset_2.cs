@@ -67,11 +67,12 @@ namespace IAmACube
         public void SetInitialDragState(MenuItem parent, UserInput input)
         {
             SetLocationConfig(input.MousePos.X - (GetCurrentSize().X / 2), input.MousePos.Y - 2, CoordinateMode.Absolute);
-            UpdateDimensionsCascade(parent);
+            UpdateLocationCascade(parent);
             TryStartDragAtMousePosition(input);
         }
 
-        public bool CanDropThisOn(Blockset_2 toDrop) => !Equals(toDrop) && MouseOverAnyBlock && Visible;
+        public bool CanDropThisOn(Blockset_2 toDrop) => !Equals(toDrop) && Visible && (MouseOverAnyBlock | MouseOverInternalBottom);
+        public bool MouseOverInternalBottom => (InternalBlocksetBottom != null && InternalBlocksetBottom.MouseHovering);
 
         protected override void _drawSelf(DrawingInterface drawingInterface)
         {
@@ -106,8 +107,7 @@ namespace IAmACube
 
             return index;
         }
-        public bool MouseOverAnyBlock => Blocks.Any(b => b.MouseHovering) | (MouseOverInternalBottom);
-        public bool MouseOverInternalBottom => (InternalBlocksetBottom != null && InternalBlocksetBottom.MouseHovering);
+        public bool MouseOverAnyBlock => Blocks.Any(b => b.MouseHovering) ;
 
         public bool ShouldDispose() => (Empty & !Internal) | _manuallyDispose;
         public bool ManuallyDispose() => _manuallyDispose = true;

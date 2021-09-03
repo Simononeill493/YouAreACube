@@ -11,7 +11,7 @@ namespace IAmACube
     public abstract partial class MenuItem : IHasDrawLayer
     {
         public IntPoint ActualLocation { get; private set; }
-        public int Scale { get; private set; } = MenuScreen.Scale;
+        public int Scale => (int)(MenuScreen.Scale * ScaleMultiplier);
         public float ScaleMultiplier { get; set; } = 1;
 
         protected (IntPoint loc, CoordinateMode mode, bool centered) _locationConfig;
@@ -25,16 +25,11 @@ namespace IAmACube
         public void SetLocationConfig(IntPoint location, CoordinateMode coordinateMode, bool centered = false) => _locationConfig = (location, coordinateMode, centered);
         public void OffsetLocationConfig(IntPoint offset) => _locationConfig.loc += offset;
 
-        public void UpdateDimensionsCascade(MenuItem parent) => UpdateDimensionsCascade(parent.ActualLocation, parent.GetCurrentSize());
-        public void UpdateDimensionsCascade(IntPoint parentlocation, IntPoint parentSize)
+        public void UpdateLocationCascade(MenuItem parent) => UpdateLocationCascade(parent.ActualLocation, parent.GetCurrentSize());
+        public void UpdateLocationCascade(IntPoint parentlocation, IntPoint parentSize)
         {
-            UpdateDimensions(parentlocation, parentSize);
-            _updateChildDimensions();
-        }
-        public virtual void UpdateDimensions(IntPoint parentlocation, IntPoint parentSize)
-        {
-            _updateScale();
             _updateLocation(parentlocation, parentSize);
+            _updateChildDimensions();
         }
 
         public void MultiplyScaleCascade(float multiplier)
@@ -80,13 +75,12 @@ namespace IAmACube
 
             ActualLocation = location;
         }
-        protected void _updateScale() => Scale = GenerateScaleFromMultiplier(ScaleMultiplier);
 
 
         protected virtual void _updateChildDimensions()
         {
             var size = GetCurrentSize();
-            _children.ForEach(child => child.UpdateDimensionsCascade(ActualLocation, size));
+            _children.ForEach(child => child.UpdateLocationCascade(ActualLocation, size));
         }
 
         public static int GenerateScaleFromMultiplier(float multiplier) => (int)(MenuScreen.Scale * multiplier);

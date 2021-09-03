@@ -76,7 +76,7 @@ namespace IAmACube
             if (Disposed) { throw new ObjectDisposedException("Updating disposed MenuItem"); }
             if(!Enabled) { return; }
             var oldHoverState = MouseHovering;
-            var newHoverState = IsMouseOver(input);
+            var newHoverState = _isMouseOver(input);
 
             if(!oldHoverState & newHoverState)
             {
@@ -136,7 +136,7 @@ namespace IAmACube
             _children.ForEach(child => child.UpdateDrawLayerCascade(newLayer - DrawLayers.MinLayerDistance));
         }
         
-        public virtual bool IsMouseOver(UserInput input) 
+        protected virtual bool _isMouseOver(UserInput input) 
         {
             var size = GetCurrentSize();
             var rect = new Rectangle(ActualLocation.X, ActualLocation.Y, size.X, size.Y);

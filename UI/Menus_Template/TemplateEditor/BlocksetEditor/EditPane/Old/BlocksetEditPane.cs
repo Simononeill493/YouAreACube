@@ -139,7 +139,7 @@ namespace IAmACube
             var pixelDisplacement = this.GetLocationOffset(chip.ActualLocation) / chip.Scale;
 
             chip.SetLocationConfig(pixelDisplacement, CoordinateMode.ParentPixelOffset, false);
-            chip.UpdateDimensionsCascade(ActualLocation, planeSize);
+            chip.UpdateLocationCascade(ActualLocation, planeSize);
         }
 
         private Blockset _getCurrentlyHoveredChipset(Blockset toAttach)
@@ -160,7 +160,7 @@ namespace IAmACube
             _setBlocksetToTopLevel(newChipset);
 
             newChipset.SetLocationConfig(input.MousePos, CoordinateMode.Absolute, centered: true);
-            newChipset.UpdateDimensionsCascade(ActualLocation, GetBaseSize());
+            newChipset.UpdateLocationCascade(ActualLocation, GetBaseSize());
             newChipset.TryStartDragAtMousePosition(input);
 
             return newChipset;

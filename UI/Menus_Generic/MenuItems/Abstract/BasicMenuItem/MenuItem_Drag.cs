@@ -79,7 +79,7 @@ namespace IAmACube
                 var oldLocation = ActualLocation;
 
                 SetLocationConfig(input.MousePos - _dragOffset, CoordinateMode.Absolute);
-                UpdateDimensionsCascade(IntPoint.Zero, IntPoint.Zero);
+                UpdateLocationCascade(IntPoint.Zero, IntPoint.Zero);
 
                 if (ActualLocation != oldLocation)
                 {

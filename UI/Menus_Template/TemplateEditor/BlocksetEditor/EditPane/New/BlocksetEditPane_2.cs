@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class BlocksetEditPane_2 : SpriteMenuItem
+    partial class BlocksetEditPane_2 : SpriteMenuItem
     {
         public static IVariableProvider VariableProvider;
         public static FullModel Model;
@@ -21,6 +21,22 @@ namespace IAmACube
 
             Model = new FullModel();
             Blocksets = new List<Blockset_2>();
+
+            var plusButton = new SpriteMenuItem(ManualDrawLayer.Create(DrawLayers.MenuBaseLayer), BuiltInMenuSprites.PlusButton);
+            plusButton.SetLocationConfig(GetBaseSize().X - 9, 0, CoordinateMode.ParentPixelOffset, false);
+            plusButton.OnMouseReleased += (i) => _changeChipScale(2);
+            AddChild(plusButton);
+
+            var minusButton = new SpriteMenuItem(ManualDrawLayer.Create(DrawLayers.MenuBaseLayer), BuiltInMenuSprites.MinusButton_Partial);
+            minusButton.SetLocationConfig(GetBaseSize().X - 17, 0, CoordinateMode.ParentPixelOffset, false);
+            minusButton.OnMouseReleased += (i) => _changeChipScale(0.5f);
+            AddChild(minusButton);
+        }
+
+
+        private void _changeChipScale(float multiplier)
+        {
+
         }
 
         public void RecieveFromSearchPane(BlockData data, UserInput input)
@@ -57,26 +73,16 @@ namespace IAmACube
                 return;
             }
 
-            var hoveringOver = Blocksets.Where(b => b.CanDropThisOn(blockset));
-            if(hoveringOver.Count()>1)
+            var allHovering = Blocksets.Where(b => b.CanDropThisOn(blockset)).OrderBy(c => c.DrawLayer);
+            var hoveringOver = allHovering.FirstOrDefault();
+            if(hoveringOver!=null)
             {
-                var overBottom = hoveringOver.Where(h => h.MouseOverInternalBottom);
-                if(overBottom.Count()!=1)
-                {
+                AppendBlockset(blockset, hoveringOver);
+                return;
+            }
 
-                }
-                else
-                {
-                    AppendBlockset(blockset, overBottom.First());
-                }
-            }
-            if(hoveringOver.Any())
-            {
-                AppendBlockset(blockset, hoveringOver.First());
-            }
+            _alignToPixelGrid(blockset);
         }
-
-
 
 
 
@@ -84,6 +90,7 @@ namespace IAmACube
         {
 
         }
+
         public void AddEditedChipsetToTemplate(CubeTemplate template) 
         { 
 
@@ -113,6 +120,8 @@ namespace IAmACube
 
             var toDispose = Blocksets.Where(b => b.ShouldDispose()).ToList();
             toDispose.ForEach(b => _disposeBlockset(b));
+
+            _checkForPan(input);
         }
 
         private void _disposeBlockset(Blockset_2 blockset)
@@ -134,6 +143,13 @@ namespace IAmACube
                 block.GetSubBlocksets().ForEach(s => _disposeBlockset(s));
                 block.Dispose();
             }
+        }
+
+        private void _alignToPixelGrid(Blockset_2 blockset)
+        {
+            var totalDist = blockset.ActualLocation - ActualLocation;
+            var pixelDist = (totalDist / Scale);
+            blockset.SetLocationConfig(pixelDist, CoordinateMode.ParentPixelOffset, false);
         }
     }
 }
