@@ -15,7 +15,7 @@ namespace IAmACube
         public Blockset_2 ActiveSection;
         public SpriteMenuItem SwitchSectionBottom;
 
-        private List<Blockset_2> _subBlocksets;
+        public List<Blockset_2> SubBlocksets;
 
         private List<SwitchChipsetButton_2> _buttons;
 
@@ -26,7 +26,7 @@ namespace IAmACube
         {
             Model = model;
             _defaultSwitchSections = defaultSwitchSections;
-            _subBlocksets = new List<Blockset_2>();
+            SubBlocksets = new List<Blockset_2>();
             _buttons = new List<SwitchChipsetButton_2>();
 
             var leftButton = _addItem(new SwitchChipsetButton_2(this,0), 0, 0, CoordinateMode.ParentPixelOffset);
@@ -50,7 +50,7 @@ namespace IAmACube
 
         private void _buttonClicked(SwitchChipsetButton_2 button)
         {
-            if (button.Index > _subBlocksets.Count() - 1)
+            if (button.Index > SubBlocksets.Count() - 1)
             {
                 return;
             }
@@ -71,7 +71,7 @@ namespace IAmACube
 
         public void ActivateSection(SwitchChipsetButton_2 button)
         {
-            var section = _subBlocksets[button.Index];
+            var section = SubBlocksets[button.Index];
 
             button.Activate();
             section.ShowAndEnable();
@@ -101,18 +101,19 @@ namespace IAmACube
             blockset.HideAndDisable();
             blockset.Draggable = false;
             blockset.Internal = true;
+            blockset.InternalBlocksetBottom = SwitchSectionBottom;
 
-            _subBlocksets.Add(blockset);
+            SubBlocksets.Add(blockset);
             AddChild(blockset);
         }
 
-        public override void Update(UserInput input)
+        protected override void _drawSelf(DrawingInterface drawingInterface)
         {
-            if(IsAnySectionActivated)
+            base._drawSelf(drawingInterface);
+            if (IsAnySectionActivated)
             {
                 _setSubBlocksetPosition();
             }
-            base.Update(input);
         }
 
         private void _setSubBlocksetPosition()

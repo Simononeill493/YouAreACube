@@ -10,15 +10,25 @@ namespace IAmACube
 {
     public abstract partial class MenuItem : IHasDrawLayer
     {
+        public MenuItem _parent;
+
         private List<MenuItem> _children = new List<MenuItem>();
         private List<MenuItem> _toAdd = new List<MenuItem>();
         private List<MenuItem> _toRemove = new List<MenuItem>();
 
-        public void AddChild(MenuItem item) =>_children.Add(item);
-        public void RemoveChild(MenuItem item) => _children.Remove(item);
+        public void AddChild(MenuItem item)
+        {
+            item._parent = this;
+            _children.Add(item);
+        }
+        public void RemoveChild(MenuItem item)
+        {
+            item._parent = null;
+            _children.Remove(item);
+        }
 
-        public void AddChildren<T>(List<T> items) where T : MenuItem => _children.AddRange(items);
-        public void RemoveChildren<T>(List<T> toRemove) where T : MenuItem => toRemove.ForEach(item => _children.Remove(item));
+        public void AddChildren<T>(List<T> toAdd) where T : MenuItem => toAdd.ForEach(c => AddChild(c));
+        public void RemoveChildren<T>(List<T> toRemove) where T : MenuItem => toRemove.ForEach(c => RemoveChild(c));
         
         public void AddChildAfterUpdate(MenuItem item) => _toAdd.Add(item);
         public void AddChildrenAfterUpdate<T>(List<T> items) where T : MenuItem => _toAdd.AddRange(items);
@@ -40,12 +50,9 @@ namespace IAmACube
         }
         private void _addAndRemoveQueuedChildren()
         {
-            if (_toAdd.Any())
-            {
-                _children.AddRange(_toAdd);
-            }
+            AddChildren(_toAdd);
+            RemoveChildren(_toRemove);
 
-            _toRemove.ForEach(child => _children.Remove(child));
             _toAdd.Clear();
             _toRemove.Clear();
         }

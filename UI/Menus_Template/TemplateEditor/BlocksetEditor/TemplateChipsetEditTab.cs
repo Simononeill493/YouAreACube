@@ -20,13 +20,13 @@ namespace IAmACube
             _kernel = kernel;
             _baseTemplate = baseTemplate;
 
-            _editPane = new BlocksetEditPane_2(variableProvider);
-            _editPane.SetLocationConfig(4, 4, CoordinateMode.ParentPixelOffset, false);
-            AddChild(_editPane);
-
             _searchPane = new BlockSearchPane(this);
             _searchPane.SetLocationConfig(84, 50, CoordinateMode.ParentPercentageOffset, true);
             AddChild(_searchPane);
+
+            _editPane = new BlocksetEditPane_2(variableProvider,_searchPane);
+            _editPane.SetLocationConfig(4, 4, CoordinateMode.ParentPixelOffset, false);
+            AddChild(_editPane);
 
             _searchPane.SendToEditPane = _editPane.RecieveFromSearchPane;
 

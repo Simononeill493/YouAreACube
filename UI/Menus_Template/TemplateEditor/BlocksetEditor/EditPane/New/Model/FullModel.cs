@@ -19,14 +19,14 @@ namespace IAmACube
             InputParents = new Dictionary<BlockInputModel, BlockModel>();
         }
 
-        public BlocksetModel MakeBlockset(string name)
+        public BlocksetModel CreateBlockset(string name)
         {
             var blockset = new BlocksetModel(name);
             Blocksets[name] = blockset;
             return blockset;
         }
 
-        public BlockModel MakeBlock(string name,BlockData data)
+        public BlockModel CreateBlock(string name,BlockData data)
         {
             var block = new BlockModel(name, data);
             Blocks[name] = block;
@@ -35,8 +35,15 @@ namespace IAmACube
             return block;
         }
 
-        public void RemoveBlockset(BlocksetModel blockset) => Blocksets.Remove(blockset.Name);
-        public void RemoveBlocks(List<Block_2> blocks) => RemoveBlocks(blocks.Select(b => b.Model).ToList());
-        public void RemoveBlocks(List<BlockModel> blocks) => blocks.ForEach(b => Blocks.Remove(b.Name));
+        public void DeleteBlockset(BlocksetModel blockset) => Blocksets.Remove(blockset.Name);
+        public void DeleteBlocks(List<Block_2> blocks) => DeleteBlocks(blocks.Select(b => b.Model).ToList());
+        public void DeleteBlocks(List<BlockModel> blocks)
+        {
+            foreach(var b in blocks)
+            {
+                Blocks.Remove(b.Name);
+                b.Inputs.ForEach(i => InputParents.Remove(i));
+            }
+        }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public abstract partial class MenuItem : IHasDrawLayer
+    public abstract partial class MenuItem : IHasDrawLayer, IDisposable
     {
         public bool Visible = true;
         public bool Enabled = true;

@@ -24,10 +24,12 @@ namespace IAmACube
             Draggable = true;
             Sections = new List<SpriteMenuItem>();
 
-            OnStartDrag += BlockDragged;
+            OnStartDrag += _blockDragged;
         }
 
-        private void BlockDragged(UserInput input) => Parent.BlockLifted(this,input);
+        public List<Blockset_2> GetSubBlocksets() => SwitchSection != null ? SwitchSection.SubBlocksets : new List<Blockset_2>();
+
+        private void _blockDragged(UserInput input) => Parent.LiftBlocks(this,input);
 
         public override IntPoint GetBaseSize() => this.GetCurrentBlockSize();
         protected override bool _canStartDragging() => base._canStartDragging() & Top.MouseHovering;
