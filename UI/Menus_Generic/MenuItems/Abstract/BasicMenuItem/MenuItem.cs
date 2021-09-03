@@ -12,6 +12,10 @@ namespace IAmACube
     {
         public bool Visible = true;
         public bool Enabled = true;
+
+        public void HideAndDisable() => Visible = Enabled = false;
+        public void ShowAndEnable() => Visible = Enabled = true;
+
         public bool Disposed { get; private set; } = false;
 
         public float DrawLayer 

@@ -181,10 +181,11 @@
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockFactory.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockInputSection_2.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlocksetEditPane_2.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockSwitchSection_2.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Switch\BlockSwitchSection_2.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockTop_2.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Model\BlocksetModel.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Model\FullModel.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Switch\SwitchChipsetButton_2.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Old\BlocksetEditPane_Pan.cs" />
     <Compile Include="UI\DialogBoxes\BlockTemplateSelectionDialog\BlockTemplateSelectionDialog.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateEditMenu.cs" />

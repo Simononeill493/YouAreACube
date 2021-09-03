@@ -51,6 +51,21 @@ namespace IAmACube
         }
 
 
+        protected T _addItem<T>(T item, int x, int y, CoordinateMode mode, bool centered = false) where T : MenuItem
+        {
+            item.SetLocationConfig(x, y, mode, centered);
+            AddChild(item);
+            return item;
+        }
+
+        protected SpriteMenuItem _addSpriteItem(string spriteName, int x, int y, CoordinateMode mode, bool centered)
+        {
+            var spriteItem = new SpriteMenuItem(this, spriteName);
+            spriteItem.SetLocationConfig(x, y, mode, centered);
+            AddChild(spriteItem);
+            return spriteItem;
+        }
+
         protected TextMenuItem _addTextItem(string text, int x, int y, CoordinateMode mode, bool centered)
         {
             var textItem = new TextMenuItem(this, text);
@@ -58,7 +73,6 @@ namespace IAmACube
             AddChild(textItem);
             return textItem;
         }
-
 
         protected TextBoxMenuItem _addTextBox(string text, int x, int y, CoordinateMode mode, bool centered, bool editable = false, int maxTextLength =9)
         {
