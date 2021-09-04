@@ -31,19 +31,17 @@ namespace IAmACube
             minusButton.SetLocationConfig(GetBaseSize().X - 17, 0, CoordinateMode.ParentPixelOffset, false);
             minusButton.OnMouseReleased += (i) => _changeChipScale(0.5f);
             AddChild(minusButton);
+
+            _blocksetScaleProvider = new MenuItemScaleProviderParent_WithMultiplierFetcher(() => _chipScale);
         }
 
-
-        private void _changeChipScale(float multiplier)
-        {
-
-        }
 
         public void RecieveFromSearchPane(BlockData data, UserInput input)
         {
             var block = _makeAndConfigureNewBlock(data);
 
             var blockset = _makeBlockset();
+            blockset.ScaleProvider = _blocksetScaleProvider;
             blockset.SetInitialDragState(this, input);
             blockset.AddBlock(block, 0);
             AddChildAfterUpdate(blockset);
@@ -54,6 +52,7 @@ namespace IAmACube
             blocks.First().ManuallyEndDrag(input);
 
             var blockset = _makeBlockset();
+            blockset.ScaleProvider = _blocksetScaleProvider;
             blockset.SetInitialDragState(this, input);
             blockset.AddBlocks(blocks, 0);
             AddChildAfterUpdate(blockset);
@@ -148,8 +147,20 @@ namespace IAmACube
         private void _alignToPixelGrid(Blockset_2 blockset)
         {
             var totalDist = blockset.ActualLocation - ActualLocation;
-            var pixelDist = (totalDist / Scale);
+            var trueScale = (int)(Scale * _chipScale);
+            var pixelDist = (totalDist / trueScale);
             blockset.SetLocationConfig(pixelDist, CoordinateMode.ParentPixelOffset, false);
+        }
+
+        private MenuItemScaleProviderParent_WithMultiplierFetcher _blocksetScaleProvider;
+        private float _chipScale = 1.0f;
+        private void _changeChipScale(float multiplier)
+        {
+            var newMultipier = _blocksetScaleProvider.GetScale(this) * multiplier;
+            if (newMultipier > 2.995)
+            {
+                _chipScale *= multiplier;
+            }
         }
     }
 }

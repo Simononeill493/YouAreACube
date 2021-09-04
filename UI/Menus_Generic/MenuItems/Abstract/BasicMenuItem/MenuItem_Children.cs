@@ -23,7 +23,10 @@ namespace IAmACube
         }
         public void RemoveChild(MenuItem item)
         {
-            item._parent = null;
+            if(item._parent==this)
+            {
+                item._parent = null;
+            }
             _children.Remove(item);
         }
 
@@ -36,7 +39,10 @@ namespace IAmACube
         public void RemoveChildAfterUpdate(MenuItem item) => _toRemove.Add(item);
         public void RemoveChildrenAfterUpdate<T>(List<T> toRemove) where T : MenuItem => _toRemove.AddRange(toRemove);
 
-        private void _updateChildren(UserInput input) => _children.ForEach(child => child.Update(input));
+        private void _updateChildren(UserInput input)
+        {
+            _children.ForEach(child => child.Update(input));
+        }
         private void _drawChildren(DrawingInterface drawingInterface)=>_children.ForEach(child => child.Draw(drawingInterface));
 
 

@@ -58,7 +58,7 @@ namespace IAmACube
 
         public void ConfigureNewBlocksetFromSearchPaneClick(BlockTop newBlock, UserInput input)
         {
-            newBlock.MultiplyScaleCascade(_blockScaleMultiplier);
+            newBlock.MultiplyScale(_blockScaleMultiplier);
             newBlock.TopLevelContainer = this;
             newBlock.GenerateSubBlocksets();
 
@@ -190,10 +190,10 @@ namespace IAmACube
             }
         }
 
-        protected override void _updateChildDimensions()
+        protected override void _updateChildLocations()
         {
             _pushChipScalingUpIfTooSmall();
-            base._updateChildDimensions();
+            base._updateChildLocations();
             _setChipsetVisibilities();
         }
         private void _pushChipScalingUpIfTooSmall()
@@ -209,8 +209,8 @@ namespace IAmACube
         {
             _blockScaleMultiplier *= multiplier;
 
-            TopLevelBlockSets.ForEach(chip => chip.MultiplyScaleCascade(multiplier));
-            _updateChildDimensions();
+            TopLevelBlockSets.ForEach(chip => chip.MultiplyScale(multiplier));
+            _updateChildLocations();
         }
 
         private void _setChipsetVisibilities() => TopLevelBlockSets.ForEach(chip => _setChipsetVisiblity(chip));

@@ -59,7 +59,7 @@ namespace IAmACube
                 blockset.OffsetLocationConfig(panDiff);
             }
 
-            _updateChildDimensions();
+            _updateChildLocations();
 
             _panPos = input.MousePos;
         }

@@ -28,7 +28,7 @@ namespace IAmACube
 
             _spriteBox = new AppearanceEditSpriteBox(this);
             _spriteBox.SetLocationConfig(85, 20, CoordinateMode.ParentPercentageOffset, true);
-            _spriteBox.MultiplyScaleCascade(2.0f);
+            _spriteBox.MultiplyScale(2.0f);
             AddChild(_spriteBox);
 
             LoadAppearanceForEditing(baseTemplate);

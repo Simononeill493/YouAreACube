@@ -83,6 +83,7 @@ namespace IAmACube
         protected void _addMenuItem(MenuItem item)
         {
             _menuItems.Add(item);
+            item.ScaleProvider = new MenuItemScaleProviderMenuScreen();
             item.UpdateLocationCascade(IntPoint.Zero, _currentScreenDimensions);
         }
         protected void _updateAllItemPositions() => _menuItems.ForEach(item => item.UpdateLocationCascade(IntPoint.Zero, _currentScreenDimensions));

@@ -55,7 +55,6 @@ namespace IAmACube
             {
                 var listItem = new ListItemMenuItem<T>(this,item, _itemSelected);
                 listItem.Hoverable = _hoverHighlight;
-                listItem.MultiplyScaleCascade(this.ScaleMultiplier);
                 listItem.Size = _listItemSize;
                 listItem.SetLocationConfig(0, yOffset, CoordinateMode.ParentPixelOffset, false);
 

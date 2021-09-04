@@ -21,7 +21,7 @@ namespace IAmACube
         {
             Name = name;
             Blocks = new List<BlockTop>();
-            MultiplyScaleCascade(scaleMultiplier);
+            MultiplyScale(scaleMultiplier);
 
             _liftBlocksCallback = liftBlocksCallback;
             HeightOfAllBlocks += GetBaseSize().Y;

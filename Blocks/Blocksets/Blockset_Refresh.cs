@@ -28,7 +28,7 @@ namespace IAmACube
 
             RefreshInputConnections();
             _updateChipPositions();
-            _updateChildDimensions();
+            _updateChildLocations();
             RefreshText();
         }
 
@@ -41,7 +41,7 @@ namespace IAmACube
             {
                 Blocks[i].IndexInBlockset = i;
                 Blocks[i].SetLocationConfig(0, cumulativeYOffset - (i + 1), CoordinateMode.ParentPixelOffset, false);
-                Blocks[i].UpdateDimensions(ActualLocation, GetCurrentSize());
+                Blocks[i].UpdateLocation(ActualLocation, GetCurrentSize());
 
                 cumulativeYOffset += Blocks[i].GetBaseSize().Y;
             }

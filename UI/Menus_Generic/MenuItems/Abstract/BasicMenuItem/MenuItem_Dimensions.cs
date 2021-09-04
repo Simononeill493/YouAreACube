@@ -8,11 +8,55 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
+    public abstract class MenuItemScaleProvider
+    {
+        public abstract int GetScale(MenuItem item);
+
+        public virtual float Multiplier => _manualMultiplier;
+        private float _manualMultiplier = 1.0f;
+
+        public void MultiplyManualScale(float multiplier)
+        {
+            if (Math.Abs(multiplier) < 0.0001f)
+            {
+                throw new Exception("Scale should never be mutiplied by zero");
+
+            }
+            _manualMultiplier *= multiplier;
+        }
+    }
+
+    public class MenuItemScaleProviderParent : MenuItemScaleProvider
+    {
+        public override int GetScale(MenuItem item) => (item._parent == null) ? 1 : (int)(item._parent.Scale * Multiplier);
+    }
+
+    public class MenuItemScaleProviderParent_WithMultiplierFetcher : MenuItemScaleProviderParent
+    {
+        private Func<float> _fetchMultiplier;
+        public MenuItemScaleProviderParent_WithMultiplierFetcher(Func<float> fetchMultiplier)
+        {
+            _fetchMultiplier = fetchMultiplier;
+        }
+
+        public override float Multiplier => _fetchMultiplier();
+    }
+
+    public class MenuItemScaleProviderMenuScreen : MenuItemScaleProvider
+    {
+        public override int GetScale(MenuItem item) => (int)(MenuScreen.Scale * Multiplier);
+    }
+
+
+
     public abstract partial class MenuItem : IHasDrawLayer
     {
         public IntPoint ActualLocation { get; private set; }
-        public int Scale => (int)(MenuScreen.Scale * ScaleMultiplier);
-        public float ScaleMultiplier { get; set; } = 1;
+
+        public int Scale => ScaleProvider.GetScale(this);
+        public void MultiplyScale(float multiplier) => ScaleProvider.MultiplyManualScale(multiplier);
+
+        public MenuItemScaleProvider ScaleProvider = new MenuItemScaleProviderParent();
 
         protected (IntPoint loc, CoordinateMode mode, bool centered) _locationConfig;
         public void ScaleLocation(float factor)
@@ -28,30 +72,12 @@ namespace IAmACube
         public void UpdateLocationCascade(MenuItem parent) => UpdateLocationCascade(parent.ActualLocation, parent.GetCurrentSize());
         public void UpdateLocationCascade(IntPoint parentlocation, IntPoint parentSize)
         {
-            _updateLocation(parentlocation, parentSize);
-            _updateChildDimensions();
+            UpdateLocation(parentlocation, parentSize);
+            _updateChildLocations();
         }
 
-        public void MultiplyScaleCascade(float multiplier)
-        {
-            MultiplyScale(multiplier);
-            foreach(var child in _children)
-            {
-                child.MultiplyScaleCascade(multiplier);
-            }
-        }
-        public void MultiplyScale(float multiplier)
-        {
-            if(Math.Abs(multiplier)<0.0001f)
-            {
-                throw new Exception("Scale should never be mutiplied by zero");
-
-            }
-            ScaleMultiplier *= multiplier;
-        }
         
-
-        protected void _updateLocation(IntPoint parentlocation, IntPoint parentSize)
+        public void UpdateLocation(IntPoint parentlocation, IntPoint parentSize)
         {
             IntPoint location = _locationConfig.loc;
 
@@ -77,7 +103,7 @@ namespace IAmACube
         }
 
 
-        protected virtual void _updateChildDimensions()
+        protected virtual void _updateChildLocations()
         {
             var size = GetCurrentSize();
             _children.ForEach(child => child.UpdateLocationCascade(ActualLocation, size));

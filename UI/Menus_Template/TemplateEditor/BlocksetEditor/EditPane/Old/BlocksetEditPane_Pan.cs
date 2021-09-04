@@ -61,7 +61,7 @@ namespace IAmACube
             panDiff *= 2;
 
             TopLevelBlockSets.ForEach(c => c.OffsetLocationConfig(panDiff));
-            _updateChildDimensions();
+            _updateChildLocations();
 
             _panPos = input.MousePos;
         }

@@ -53,13 +53,13 @@ namespace IAmACube
                     if (_shouldTypeCharacter(key))
                     {
                         TextItem.Text += KeyUtils.KeyToChar(key);
-                        TextItem.UpdateDimensions(ActualLocation, size);
+                        TextItem.UpdateLocation(ActualLocation, size);
                         OnTextChanged?.Invoke(Text);
                     }
                     else if (_shouldTypeBackspace(key))
                     {
                         TextItem.Text = TextItem.Text.Substring(0, TextItem.Text.Length - 1);
-                        TextItem.UpdateDimensions(ActualLocation, size);
+                        TextItem.UpdateLocation(ActualLocation, size);
                         OnTextChanged?.Invoke(Text);
                     }
                 }
