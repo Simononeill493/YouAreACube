@@ -157,6 +157,9 @@
     <Compile Include="Testing\Block_SanityTesting.cs" />
     <Compile Include="Testing\Chipset_SanityTesting.cs" />
     <Compile Include="Testing\Chip_SanityTesting.cs" />
+    <Compile Include="UI\Menus_Generic\MenuItems\Abstract\BasicMenuItem\Scale\MenuItemScaleProvider.cs" />
+    <Compile Include="UI\Menus_Generic\MenuItems\Abstract\BasicMenuItem\Scale\MenuItemScaleProviderMenuScreen.cs" />
+    <Compile Include="UI\Menus_Generic\MenuItems\Abstract\BasicMenuItem\Scale\MenuItemScaleProviderParent.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Abstract\BasicMenuItem\MenuItem_Drag.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\CheckBox\CheckBoxMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\ContainerMenuItem.cs" />

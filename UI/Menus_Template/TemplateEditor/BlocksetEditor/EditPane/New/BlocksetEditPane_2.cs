@@ -32,7 +32,7 @@ namespace IAmACube
             minusButton.OnMouseReleased += (i) => _changeChipScale(0.5f);
             AddChild(minusButton);
 
-            _blocksetScaleProvider = new MenuItemScaleProviderParent_WithMultiplierFetcher(() => _chipScale);
+            _blocksetScaleProvider = new MenuItemScaleProviderParent();
         }
 
 
@@ -121,6 +121,7 @@ namespace IAmACube
             toDispose.ForEach(b => _disposeBlockset(b));
 
             _checkForPan(input);
+            _correctScale();
         }
 
         private void _disposeBlockset(Blockset_2 blockset)
@@ -152,14 +153,24 @@ namespace IAmACube
             blockset.SetLocationConfig(pixelDist, CoordinateMode.ParentPixelOffset, false);
         }
 
-        private MenuItemScaleProviderParent_WithMultiplierFetcher _blocksetScaleProvider;
-        private float _chipScale = 1.0f;
+        private MenuItemScaleProviderParent _blocksetScaleProvider;
+        private float _chipScale { get => _blocksetScaleProvider.Multiplier; set => _blocksetScaleProvider.SetManualScale(value); }
+
         private void _changeChipScale(float multiplier)
         {
             var newMultipier = _blocksetScaleProvider.GetScale(this) * multiplier;
-            if (newMultipier > 2.995)
+            if (newMultipier > 1.995)
             {
                 _chipScale *= multiplier;
+            }
+        }
+
+        private void _correctScale()
+        {
+            var currentChipScale = _blocksetScaleProvider.GetScale(this);
+            if (currentChipScale < 2)
+            {
+                _chipScale = 2.0f / MenuScreen.Scale;
             }
         }
     }

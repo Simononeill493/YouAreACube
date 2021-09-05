@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,44 +7,6 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public abstract class MenuItemScaleProvider
-    {
-        public abstract int GetScale(MenuItem item);
-
-        public virtual float Multiplier => _manualMultiplier;
-        private float _manualMultiplier = 1.0f;
-
-        public void MultiplyManualScale(float multiplier)
-        {
-            if (Math.Abs(multiplier) < 0.0001f)
-            {
-                throw new Exception("Scale should never be mutiplied by zero");
-
-            }
-            _manualMultiplier *= multiplier;
-        }
-    }
-
-    public class MenuItemScaleProviderParent : MenuItemScaleProvider
-    {
-        public override int GetScale(MenuItem item) => (item._parent == null) ? 1 : (int)(item._parent.Scale * Multiplier);
-    }
-
-    public class MenuItemScaleProviderParent_WithMultiplierFetcher : MenuItemScaleProviderParent
-    {
-        private Func<float> _fetchMultiplier;
-        public MenuItemScaleProviderParent_WithMultiplierFetcher(Func<float> fetchMultiplier)
-        {
-            _fetchMultiplier = fetchMultiplier;
-        }
-
-        public override float Multiplier => _fetchMultiplier();
-    }
-
-    public class MenuItemScaleProviderMenuScreen : MenuItemScaleProvider
-    {
-        public override int GetScale(MenuItem item) => (int)(MenuScreen.Scale * Multiplier);
-    }
 
 
 
