@@ -31,5 +31,7 @@ namespace IAmACube
         }
 
         public void AddSection(string name, BlocksetModel blockset) => SubBlocksets.Add((name, blockset));
+
+        public BlockData GetBlockData() => BlockDataDatabase.BlockDataDict[ChipName];
     }
 }

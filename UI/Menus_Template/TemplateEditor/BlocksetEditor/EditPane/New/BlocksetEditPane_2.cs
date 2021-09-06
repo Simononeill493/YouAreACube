@@ -8,10 +8,12 @@ namespace IAmACube
 {
     partial class BlocksetEditPane_2 : SpriteMenuItem
     {
-        public static IVariableProvider VariableProvider;
-        public static FullModel Model;
+        public static Dictionary<BlocksetModel, Blockset_2> Blocksets;
+        public static Dictionary<BlockModel, Block_2> Blocks;
 
-        public List<Blockset_2> Blocksets;
+        public static FullModel Model;
+        public static IVariableProvider VariableProvider;
+
         private MenuItem _bin;
 
         public BlocksetEditPane_2(IVariableProvider variableProvider,MenuItem bin) : base(ManualDrawLayer.Create(DrawLayers.BackgroundLayer),BuiltInMenuSprites.BlocksetEditPane)
@@ -20,7 +22,8 @@ namespace IAmACube
             _bin = bin;
 
             Model = new FullModel();
-            Blocksets = new List<Blockset_2>();
+            Blocksets = new Dictionary<BlocksetModel, Blockset_2>();
+            Blocks = new Dictionary<BlockModel, Block_2>();
 
             var plusButton = new SpriteMenuItem(ManualDrawLayer.Create(DrawLayers.MenuBaseLayer), BuiltInMenuSprites.PlusButton);
             plusButton.SetLocationConfig(GetBaseSize().X - 9, 0, CoordinateMode.ParentPixelOffset, false);
@@ -35,33 +38,31 @@ namespace IAmACube
             _blocksetScaleProvider = new MenuItemScaleProviderParent();
         }
 
+        public override void Update(UserInput input)
+        {
+            base.Update(input);
+
+            _cleanUpDisposedBlocksets();
+            _checkForPan(input);
+            _correctScale();
+        }
 
         public void RecieveFromSearchPane(BlockData data, UserInput input)
         {
-            var block = _makeAndConfigureNewBlock(data);
+            var block = _makeNewBlock(data);
 
-            var blockset = _makeBlockset();
-            blockset.ScaleProvider = _blocksetScaleProvider;
+            var blockset = _makeNewBlockset();
             blockset.SetInitialDragState(this, input);
             blockset.AddBlock(block, 0);
-            AddChildAfterUpdate(blockset);
         }
 
         public void MakeNewBlocksetWithLiftedBlocks(List<Block_2> blocks, UserInput input)
         {
             blocks.First().ManuallyEndDrag(input);
 
-            var blockset = _makeBlockset();
-            blockset.ScaleProvider = _blocksetScaleProvider;
+            var blockset = _makeNewBlockset();
             blockset.SetInitialDragState(this, input);
             blockset.AddBlocks(blocks, 0);
-            AddChildAfterUpdate(blockset);
-        }
-
-        public void AppendBlockset(Blockset_2 toAppend, Blockset_2 target)
-        {
-            var blocks = toAppend.DetachAllBlocks();
-            target.DropBlocks(blocks);
         }
 
         public void BlocksetDropped(Blockset_2 blockset, UserInput input)
@@ -72,8 +73,7 @@ namespace IAmACube
                 return;
             }
 
-            var allHovering = Blocksets.Where(b => b.CanDropThisOn(blockset)).OrderBy(c => c.DrawLayer);
-            var hoveringOver = allHovering.FirstOrDefault();
+            var hoveringOver = _getBlocksetMouseIsOver(blockset);
             if(hoveringOver!=null)
             {
                 AppendBlockset(blockset, hoveringOver);
@@ -82,6 +82,9 @@ namespace IAmACube
 
             _alignToPixelGrid(blockset);
         }
+
+        public void AppendBlockset(Blockset_2 toAppend, Blockset_2 target) => target.DropBlocks(toAppend.DetachAllBlocks());
+
 
 
 
@@ -95,40 +98,53 @@ namespace IAmACube
 
         }
 
-        private Block_2 _makeAndConfigureNewBlock(BlockData data)
+
+
+        private Block_2 _makeNewBlock(BlockData data)
         {
             var newModel = Model.CreateBlock(IDUtils.GenerateBlockID(data), data);
-            var block = BlockFactory.MakeBlock(data, newModel, _makeBlockset);
-            block.SwitchSection?.GenerateDefaultSections();
-            return block;
+            return _makeBlockFromModel(newModel);
         }
 
-        private Blockset_2 _makeBlockset()
+        private Blockset_2 _makeNewBlockset()
         {
             var newModel = Model.CreateBlockset(IDUtils.GenerateBlocksetID());
-            var blockset = BlockFactory.MakeBlockset(newModel);
-
-            blockset.Pane = this;
-            Blocksets.Add(blockset);
+            var blockset = _makeBlocksetFromModel(newModel);
             return blockset;
         }
 
-        public override void Update(UserInput input)
+        private Block_2 _makeBlockFromModel(BlockModel model)
         {
-            base.Update(input);
+            var block = BlockFactory.MakeBlock(model, _makeNewBlockset);
+            block.SwitchSection?.GenerateDefaultSections();
+            block.ScaleProvider = _blocksetScaleProvider;
 
-            var toDispose = Blocksets.Where(b => b.ShouldDispose()).ToList();
-            toDispose.ForEach(b => _disposeBlockset(b));
-
-            _checkForPan(input);
-            _correctScale();
+            Blocks[model] = block;
+            AddChildAfterUpdate(block);
+            return block;
         }
+
+        private Blockset_2 _makeBlocksetFromModel(BlocksetModel model)
+        {
+            var blockset = BlockFactory.MakeBlockset(model);
+
+            blockset.ScaleProvider = _blocksetScaleProvider;
+            blockset.BlockLiftedFromThisCallback = MakeNewBlocksetWithLiftedBlocks;
+            blockset.ThisDroppedCallback = BlocksetDropped;
+
+            Blocksets[model] = blockset;
+            AddChildAfterUpdate(blockset);
+            return blockset;
+        }
+
+
 
         private void _disposeBlockset(Blockset_2 blockset)
         {
             Model.DeleteBlockset(blockset.Model);
-            if (!blockset.Internal) { RemoveChild(blockset); }
-            Blocksets.Remove(blockset);
+            RemoveChild(blockset); 
+
+            Blocksets.Remove(blockset.Model);
 
             var blocks = blockset.DetachAllBlocks();
             _disposeBlocks(blocks);
@@ -138,6 +154,8 @@ namespace IAmACube
         private void _disposeBlocks(List<Block_2> blocks)
         {
             Model.DeleteBlocks(blocks);
+            RemoveChildren(blocks);
+
             foreach (var block in blocks)
             {
                 block.GetSubBlocksets().ForEach(s => _disposeBlockset(s));
@@ -172,6 +190,14 @@ namespace IAmACube
             {
                 _chipScale = 2.0f / MenuScreen.Scale;
             }
+        }
+
+        private Blockset_2 _getBlocksetMouseIsOver(Blockset_2 held) => Blocksets.Values.Where(b => b.CanDropThisOn(held)).OrderBy(c => c.DrawLayer).FirstOrDefault();
+
+        private void _cleanUpDisposedBlocksets()
+        {
+            var toDispose = Blocksets.Values.Where(b => b.ShouldDispose).ToList();
+            toDispose.ForEach(b => _disposeBlockset(b));
         }
     }
 }

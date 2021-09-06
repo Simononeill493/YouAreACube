@@ -37,6 +37,7 @@ namespace IAmACube
             _updateChildLocations();
         }
 
+        public MenuItem VisualParent;
         
         public void UpdateLocation(IntPoint parentlocation, IntPoint parentSize)
         {
@@ -45,6 +46,10 @@ namespace IAmACube
             if (_locationConfig.mode == CoordinateMode.ParentPixelOffset)
             {
                 location = parentlocation + (location * Scale);
+            }
+            if (_locationConfig.mode == CoordinateMode.VisualParentPixelOffset)
+            {
+                location = VisualParent.ActualLocation + (location * Scale);
             }
             else if (_locationConfig.mode == CoordinateMode.ParentPercentageOffset)
             {

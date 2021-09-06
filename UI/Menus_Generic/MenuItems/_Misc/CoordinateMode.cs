@@ -5,6 +5,7 @@
         Undefined,
         Absolute,
         ParentPixelOffset,
-        ParentPercentageOffset
+        ParentPercentageOffset,
+        VisualParentPixelOffset
     }
 }

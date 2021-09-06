@@ -9,20 +9,20 @@ namespace IAmACube
     class Blockset_2 : SpriteMenuItem
     {
         public BlocksetModel Model;
-        public List<Block_2> Blocks;
+        public IEnumerable<Block_2> Blocks => Model.Blocks.Select(b=>BlocksetEditPane_2.Blocks[b]);
 
-        public BlocksetEditPane_2 Pane;
-        public bool Internal;
-
+        public bool IsInternal;
         public MenuItem InternalBlocksetBottom;
+
+        public Action<Blockset_2, UserInput> ThisDroppedCallback;
+        public Action<List<Block_2>, UserInput> BlockLiftedFromThisCallback;
 
         public Blockset_2(BlocksetModel model) : base(ManualDrawLayer.Create(DrawLayers.MenuBlockLayer), BuiltInMenuSprites.Blockset_TopHandle)
         {
             Model = model;
 
             Draggable = true;
-            OnEndDrag += (i) => Pane.BlocksetDropped(this,i);
-            Blocks = new List<Block_2>();
+            OnEndDrag += (i) => ThisDroppedCallback(this,i);
         }
 
         public void LiftBlocks(Block_2 block, UserInput input)
@@ -30,39 +30,29 @@ namespace IAmACube
             var toRemove = this.GetThisAndAllBlocksAfter(block);
             RemoveBlocks(toRemove);
 
-            Pane.MakeNewBlocksetWithLiftedBlocks(toRemove, input);
+            BlockLiftedFromThisCallback(toRemove, input);
         }
 
-        public void DropBlocks(List<Block_2> blocks)
-        {
-            var index = _getIndexMouseIsHoveringOver();
-            AddBlocks(blocks, index);
-        }
+        public void DropBlocks(List<Block_2> blocks) => AddBlocks(blocks, _getIndexMouseIsHoveringOver());
 
-        public void RemoveBlocks(List<Block_2> toRemove)
-        {
-            RemoveChildrenAfterUpdate(toRemove);
-            Model.RemoveBlocks(toRemove);
-            Blocks = Blocks.Except(toRemove).ToList();
-        }
+        public void RemoveBlocks(List<Block_2> toRemove) => Model.RemoveBlocks(toRemove);
+
         public List<Block_2> DetachAllBlocks()
         {
-            var blocks = Blocks;
+            var blocks = Blocks.ToList();
             RemoveBlocks(blocks);
             return blocks;
         }
 
         public void AddBlock(Block_2 block,int index) => AddBlocks(new List<Block_2>() { block },index);
+
         public void AddBlocks(List<Block_2> blocks,int index)
         {
             Model.AddBlocks(blocks, index);
-            Blocks.InsertRange(index,blocks);
-            AddChildren(blocks);
+            blocks.ForEach(b => b.SetBlocksetParent(this));
 
-            blocks.ForEach(b => b.Parent = this);
             _setBlockPositions();
         }
-
 
         public void SetInitialDragState(MenuItem parent, UserInput input)
         {
@@ -71,29 +61,41 @@ namespace IAmACube
             TryStartDragAtMousePosition(input);
         }
 
-        public bool CanDropThisOn(Blockset_2 toDrop) => !Equals(toDrop) && Visible && (MouseOverAnyBlock | MouseOverInternalBottom);
-        public bool MouseOverInternalBottom => (InternalBlocksetBottom != null && InternalBlocksetBottom.MouseHovering);
+        public bool CanDropThisOn(Blockset_2 toDrop) => !Equals(toDrop) && Visible && (_mouseOverAnyBlock | _mouseOverInternalBottom);
+
+        public bool ShouldDispose => (_empty & !IsInternal) | _manuallyDispose;
+
+        public bool ManuallyDispose() => _manuallyDispose = true;
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            if (Blocks.Any())
+            {
+                throw new Exception("Disposing a blockset which still contains blocks");
+            }
+        }
 
         protected override void _drawSelf(DrawingInterface drawingInterface)
         {
             base._drawSelf(drawingInterface);
             _setBlockPositions();
         }
+
         private void _setBlockPositions()
         {
             var offs = IntPoint.Zero;
             offs.Y += GetBaseSize().Y-1;
             foreach(var block in Blocks)
             {
-                block.SetLocationConfig(offs, CoordinateMode.ParentPixelOffset);
+                block.SetLocationConfig(offs, CoordinateMode.VisualParentPixelOffset);
                 offs.Y += block.GetBaseSize().Y;
             }
         }
-        public bool Empty => !Blocks.Any();
 
         private int _getIndexMouseIsHoveringOver()
         {
-            if(MouseOverInternalBottom)
+            if(_mouseOverInternalBottom)
             {
                 return Blocks.Count();
             }
@@ -107,19 +109,11 @@ namespace IAmACube
 
             return index;
         }
-        public bool MouseOverAnyBlock => Blocks.Any(b => b.MouseHovering) ;
 
-        public bool ShouldDispose() => (Empty & !Internal) | _manuallyDispose;
-        public bool ManuallyDispose() => _manuallyDispose = true;
+        protected override bool _canStartDragging() => base._canStartDragging() & !IsInternal;
         private bool _manuallyDispose;
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            if (Blocks.Any())
-            {
-                throw new Exception("Disposing a blockset which still contains blocks");
-            }
-        }
+        private bool _empty => !Blocks.Any();
+        private bool _mouseOverInternalBottom => (InternalBlocksetBottom != null && InternalBlocksetBottom.MouseHovering);
+        private bool _mouseOverAnyBlock => Blocks.Any(b => b.MouseHovering);
     }
 }

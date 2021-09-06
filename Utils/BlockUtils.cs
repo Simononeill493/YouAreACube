@@ -10,9 +10,9 @@ namespace IAmACube
     {
         public static IntPoint GetCurrentBlockSize(this Block_2 block)
         {
-            IntPoint total= IntPoint.Zero;
+            IntPoint total = IntPoint.Zero;
 
-            foreach(var section in block.Sections)
+            foreach (var section in block.Sections)
             {
                 var size = section.GetBaseSize();
                 if(size.X>total.X)
@@ -68,13 +68,14 @@ namespace IAmACube
 
         public static List<Block_2> GetThisAndAllBlocksAfter(this Blockset_2 blockset,Block_2 block)
         {
-            var blockToRemoveTopIndex = blockset.Blocks.IndexOf(block);
+            var blocks = blockset.Blocks.ToList();
+            var blockToRemoveTopIndex = blocks.IndexOf(block);
             var numToRemove = blockset.Blocks.Count() - blockToRemoveTopIndex;
 
-            var removed = blockset.Blocks.GetRange(blockToRemoveTopIndex, numToRemove);
+            var removed = blocks.GetRange(blockToRemoveTopIndex, numToRemove);
             return removed;
         }
 
-        public static int IndexOf(this Blockset_2 blockset, Block_2 block)=> blockset.Blocks.IndexOf(block);
+        public static int IndexOf(this Blockset_2 blockset, Block_2 block)=> blockset.Blocks.ToList().IndexOf(block);
     }
 }

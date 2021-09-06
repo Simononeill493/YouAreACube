@@ -15,7 +15,7 @@ namespace IAmACube
         public Blockset_2 ActiveSection;
         public SpriteMenuItem SwitchSectionBottom;
 
-        public List<Blockset_2> SubBlocksets;
+        public IEnumerable<Blockset_2> SubBlocksets => Model.SubBlocksets.Select(b => BlocksetEditPane_2.Blocksets[b.Item2]);
 
         private List<SwitchChipsetButton_2> _buttons;
 
@@ -26,7 +26,7 @@ namespace IAmACube
         {
             Model = model;
             _defaultSwitchSections = defaultSwitchSections;
-            SubBlocksets = new List<Blockset_2>();
+            //SubBlocksets = new List<Blockset_2>();
             _buttons = new List<SwitchChipsetButton_2>();
 
             var leftButton = _addItem(new SwitchChipsetButton_2(this,0), 0, 0, CoordinateMode.ParentPixelOffset);
@@ -71,10 +71,12 @@ namespace IAmACube
 
         public void ActivateSection(SwitchChipsetButton_2 button)
         {
-            var section = SubBlocksets[button.Index];
+            var section = SubBlocksets.ToList()[button.Index];
 
             button.Activate();
             section.ShowAndEnable();
+            section.Blocks.ToList().ForEach(b => b.ShowAndEnable());
+
             SwitchSectionBottom.ShowAndEnable();
 
             ActiveSection = section;
@@ -84,6 +86,7 @@ namespace IAmACube
         {
             _buttons.ForEach(b => b.Deactivate());
             ActiveSection.HideAndDisable();
+            ActiveSection.Blocks.ToList().ForEach(b => b.HideAndDisable());
             SwitchSectionBottom.HideAndDisable();
 
             ActiveSection = null;
@@ -92,19 +95,13 @@ namespace IAmACube
         public void CreateAndAddSection(string name)
         {
             var blockset = GenerateInternalBlockset();
-            AddSection(blockset);
-            Model.AddSection(name, blockset.Model);
-        }
+            blockset.IsInternal = true;
+            blockset.VisualParent = this;
 
-        public void AddSection(Blockset_2 blockset)
-        {
             blockset.HideAndDisable();
-            blockset.Draggable = false;
-            blockset.Internal = true;
             blockset.InternalBlocksetBottom = SwitchSectionBottom;
 
-            SubBlocksets.Add(blockset);
-            AddChild(blockset);
+            Model.AddSection(name, blockset.Model);
         }
 
         protected override void _drawSelf(DrawingInterface drawingInterface)
@@ -119,7 +116,7 @@ namespace IAmACube
         private void _setSubBlocksetPosition()
         {
             var sizeY = GetSizeWithoutSubBlockset().Y-1;
-            ActiveSection.SetLocationConfig(0, sizeY, CoordinateMode.ParentPixelOffset);
+            ActiveSection.SetLocationConfig(0, sizeY, CoordinateMode.VisualParentPixelOffset);
 
             var blocksetY = ActiveSection.GetSizeIncludingBlocks().Y-1;
             SwitchSectionBottom.SetLocationConfig(0, sizeY + blocksetY, CoordinateMode.ParentPixelOffset);

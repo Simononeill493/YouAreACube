@@ -14,9 +14,10 @@ namespace IAmACube
             return blockset;
         }
 
-        public static Block_2 MakeBlock(BlockData data,BlockModel model,Func<Blockset_2> generator)
+        public static Block_2 MakeBlock(BlockModel model,Func<Blockset_2> generator)
         {
             var block = new Block_2(model);
+            var data = model.GetBlockData();
 
             AddBlockTop(block, data);
             AddInputSections(block, data);

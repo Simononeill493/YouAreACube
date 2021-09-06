@@ -54,7 +54,7 @@ namespace IAmACube
 
             panDiff *= 2;
 
-            foreach(var blockset in Blocksets.Where(b => !b.Internal))
+            foreach(var blockset in Blocksets.Values.Where(b => !b.IsInternal))
             {
                 blockset.OffsetLocationConfig(panDiff);
             }

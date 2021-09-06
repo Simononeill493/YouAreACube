@@ -11,11 +11,11 @@ namespace IAmACube
         public string Name => Model.Name;
         public BlockModel Model;
 
-        public Blockset_2 Parent;
-
         public BlockTop_2 Top;
         public List<SpriteMenuItem> Sections;
         public BlockSwitchSection_2 SwitchSection;
+
+        private Action<Block_2,UserInput> _draggedCallback;
 
         public Block_2(BlockModel model) : base(ManualDrawLayer.Create(DrawLayers.MenuBlockLayer))
         {
@@ -27,13 +27,18 @@ namespace IAmACube
             OnStartDrag += _blockDragged;
         }
 
-        public List<Blockset_2> GetSubBlocksets() => SwitchSection != null ? SwitchSection.SubBlocksets : new List<Blockset_2>();
+        public void SetBlocksetParent(Blockset_2 parent)
+        {
+            _draggedCallback = parent.LiftBlocks;
+            VisualParent = parent;
+        }
 
-        private void _blockDragged(UserInput input) => Parent.LiftBlocks(this,input);
-
+        public List<Blockset_2> GetSubBlocksets() => SwitchSection != null ? SwitchSection.SubBlocksets.ToList() : new List<Blockset_2>();
         public override IntPoint GetBaseSize() => this.GetCurrentBlockSize();
-        protected override bool _canStartDragging() => base._canStartDragging() & Top.MouseHovering;
-
         public bool IsHoveringOnBottom => Sections.Last().MouseHovering;
+
+        protected override bool _canStartDragging() => base._canStartDragging() & Top.MouseHovering;
+        private void _blockDragged(UserInput input) => _draggedCallback(this, input);
+
     }
 }
