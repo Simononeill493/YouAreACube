@@ -72,6 +72,7 @@ namespace IAmACube
             offs.Y += blockset.GetBaseSize().Y - 1;
             foreach (var block in blockset.Blocks)
             {
+                block.SetBlocksetParent(blockset);
                 block.SetLocationConfig(offs, CoordinateMode.VisualParentPixelOffset);
                 offs.Y += block.GetBaseSize().Y;
             }

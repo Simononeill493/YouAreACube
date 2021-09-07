@@ -70,13 +70,20 @@ namespace IAmACube
         public void CreateAndAddSection(string name)
         {
             var blockset = GenerateInternalBlockset();
+            _initializeSection(blockset);
+            Model.AddSection(name, blockset.Model);
+        }
+
+        public void InitializeAllSections() => SubBlocksets.ToList().ForEach(b => _initializeSection(b));
+
+        private void _initializeSection(Blockset_2 blockset)
+        {
             blockset.IsInternal = true;
             blockset.VisualParent = this;
             blockset.InternalBlocksetBottom = SwitchSectionBottom;
             blockset.HideAndDisable();
-
-            Model.AddSection(name, blockset.Model);
         }
+
 
         private void _buttonClicked(SwitchChipsetButton_2 button)
         {

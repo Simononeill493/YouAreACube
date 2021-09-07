@@ -17,6 +17,8 @@ namespace IAmACube
             Model = model;
 
             ObservableText.ObservableTextChanged += TextTyped;
+
+            base.ListItemSelected(model.InputOption);
         }
 
         public void SetInputTypes(List<string> inputTypes)
@@ -37,12 +39,12 @@ namespace IAmACube
         protected override void ListItemSelected(BlockInputOption_2 inputOption)
         {
             base.ListItemSelected(inputOption);
-            Model.SetInputOption = inputOption;
+            Model.InputOption = inputOption;
         }
 
         private void TextTyped(string newText)
         {
-            Model.SetInputOption = BlockInputOption_2.CreateParseable(newText);
+            Model.InputOption = BlockInputOption_2.CreateParseable(newText);
         }
     }
 }

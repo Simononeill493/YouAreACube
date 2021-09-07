@@ -30,7 +30,6 @@ namespace IAmACube
         public void AddBlocks(List<Block_2> blocks, int index)
         {
             Model.AddBlocks(blocks, index);
-            blocks.ForEach(b => b.SetBlocksetParent(this));
 
             this.SetBlockPositions();
         }

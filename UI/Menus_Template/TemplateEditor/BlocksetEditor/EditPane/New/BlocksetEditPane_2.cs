@@ -21,7 +21,6 @@ namespace IAmACube
             VariableProvider = variableProvider;
             _bin = bin;
 
-            Model = new FullModel();
             Blocksets = new Dictionary<BlocksetModel, Blockset_2>();
             Blocks = new Dictionary<BlockModel, Block_2>();
 
@@ -49,7 +48,9 @@ namespace IAmACube
 
         public void LoadChipsetForEditing(CubeTemplate template)
         {
-
+            var model = template.Chipset.ToBlockModel(VariableProvider.GetVariables());
+            var initial = _loadModel(model);
+            initial.SetLocationConfig(10, 10, CoordinateMode.ParentPixelOffset);
         }
 
         public void AddEditedChipsetToTemplate(CubeTemplate template)
@@ -105,6 +106,8 @@ namespace IAmACube
         private Block_2 _makeNewBlock(BlockData data)
         {
             var newModel = Model.CreateBlock(IDUtils.GenerateBlockID(data), data);
+            newModel.MakeBlankInputs();
+
             var newBlock = _makeBlockFromModel(newModel);
             newBlock.SwitchSection?.GenerateDefaultSections();
 
@@ -117,6 +120,39 @@ namespace IAmACube
             var newBlockset = _makeBlocksetFromModel(newModel);
 
             return newBlockset;
+        }
+
+        private Blockset_2 _loadModel(FullModel model)
+        {
+            Model = model;
+
+            foreach (var blocksetModel in model.Blocksets.Values)
+            {
+                var blockset = _makeBlocksetFromModel(blocksetModel);
+            }
+
+            foreach (var blocksetModel in model.Blocks.Values)
+            {
+                _makeBlockFromModel(blocksetModel);
+            }
+
+            foreach (var block in Blocks.Values)
+            {
+                block.SwitchSection?.InitializeAllSections();
+            }
+
+            var externals = Blocksets.Values.Where(b => !b.IsInternal);
+            if (externals.Count()!=1)
+            {
+                throw new Exception();
+            }
+
+            var initial = Blocksets.Values.Where(b => b.Model.Name == "_Initial").FirstOrDefault();
+            if(initial == null)
+            {
+                throw new Exception();
+            }
+            return initial;
         }
 
         private Block_2 _makeBlockFromModel(BlockModel model)

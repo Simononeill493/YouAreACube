@@ -9,5 +9,8 @@ namespace IAmACube
     public interface IControlChip
     {
         List<Chipset> GetSubChipsets();
+
+        List<(string,Chipset)> GetBaseSubChipsets();
+
     }
 }

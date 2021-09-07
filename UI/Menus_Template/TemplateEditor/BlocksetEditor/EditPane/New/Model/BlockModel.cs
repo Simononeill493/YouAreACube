@@ -22,16 +22,19 @@ namespace IAmACube
             OutputType = data.Output;
            
             Inputs = new List<BlockInputModel>();
-            for(int i=0;i<data.NumInputs;i++)
-            {
-                Inputs.Add(new BlockInputModel());
-            }
-
             SubBlocksets = new List<(string, BlocksetModel)>();
         }
 
         public void AddSection(string name, BlocksetModel blockset) => SubBlocksets.Add((name, blockset));
 
         public BlockData GetBlockData() => BlockDataDatabase.BlockDataDict[ChipName];
+
+        public void MakeBlankInputs()
+        {
+            for (int i = 0; i < GetBlockData().NumInputs; i++)
+            {
+                Inputs.Add(new BlockInputModel());
+            }
+        }
     }
 }

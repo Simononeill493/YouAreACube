@@ -54,6 +54,13 @@ namespace IAmACube
             throw new Exception();
         }
 
+        public BlockInputOption_2() { }
+
+        public BlockInputOption_2(InputOptionType optionType,object optionValue)
+        {
+
+        }
+
         public override string ToString() => GetDisplayValue();
 
         public static BlockInputOption_2 CreateValue(object value) => new BlockInputOption_2() { InputOptionType = InputOptionType.Value, Value = value };

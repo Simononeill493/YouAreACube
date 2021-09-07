@@ -40,6 +40,9 @@ namespace IAmACube
             return output;
         }
 
+        public List<(string, Chipset)> GetBaseSubChipsets() => KeyEffects.Select(k => (k.Key.ToString(), k.Chipset)).ToList();
+
+
         public List<(string,string)> KeyEffectsToString()
         {
             var keysAndEffects = new List<(string, string)>();

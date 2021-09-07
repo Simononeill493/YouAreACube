@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-
-
-
     public abstract partial class MenuItem : IHasDrawLayer
     {
         public IntPoint ActualLocation { get; private set; }

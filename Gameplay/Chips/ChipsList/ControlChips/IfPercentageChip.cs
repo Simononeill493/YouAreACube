@@ -36,5 +36,7 @@ namespace IAmACube
 
             return output;
         }
+
+        public List<(string, Chipset)> GetBaseSubChipsets() => new List<(string, Chipset)>() { ("Yes", Yes), ("No", No) };
     }
 }
