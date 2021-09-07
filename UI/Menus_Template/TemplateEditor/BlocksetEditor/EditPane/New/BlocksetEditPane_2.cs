@@ -35,7 +35,7 @@ namespace IAmACube
             minusButton.OnMouseReleased += (i) => _changeChipScale(0.5f);
             AddChild(minusButton);
 
-            _blocksetScaleProvider = new MenuItemScaleProviderParent();
+            _blockScaler = new MenuItemScaleProviderParent();
         }
 
         public override void Update(UserInput input)
@@ -45,6 +45,16 @@ namespace IAmACube
             _cleanUpDisposedBlocksets();
             _checkForPan(input);
             _correctScale();
+        }
+
+        public void LoadChipsetForEditing(CubeTemplate template)
+        {
+
+        }
+
+        public void AddEditedChipsetToTemplate(CubeTemplate template)
+        {
+
         }
 
         public void RecieveFromSearchPane(BlockData data, UserInput input)
@@ -88,36 +98,32 @@ namespace IAmACube
 
 
 
-        public void LoadChipsetForEditing(CubeTemplate template) 
-        {
 
-        }
-
-        public void AddEditedChipsetToTemplate(CubeTemplate template) 
-        { 
-
-        }
 
 
 
         private Block_2 _makeNewBlock(BlockData data)
         {
             var newModel = Model.CreateBlock(IDUtils.GenerateBlockID(data), data);
-            return _makeBlockFromModel(newModel);
+            var newBlock = _makeBlockFromModel(newModel);
+            newBlock.SwitchSection?.GenerateDefaultSections();
+
+            return newBlock;
         }
 
         private Blockset_2 _makeNewBlockset()
         {
             var newModel = Model.CreateBlockset(IDUtils.GenerateBlocksetID());
-            var blockset = _makeBlocksetFromModel(newModel);
-            return blockset;
+            var newBlockset = _makeBlocksetFromModel(newModel);
+
+            return newBlockset;
         }
 
         private Block_2 _makeBlockFromModel(BlockModel model)
         {
-            var block = BlockFactory.MakeBlock(model, _makeNewBlockset);
-            block.SwitchSection?.GenerateDefaultSections();
-            block.ScaleProvider = _blocksetScaleProvider;
+            var block = BlockFactory.MakeBlock(model);
+            block.SwitchSection?.SetGenerator(_makeNewBlockset);
+            block.ScaleProvider = _blockScaler;
 
             Blocks[model] = block;
             AddChildAfterUpdate(block);
@@ -128,7 +134,7 @@ namespace IAmACube
         {
             var blockset = BlockFactory.MakeBlockset(model);
 
-            blockset.ScaleProvider = _blocksetScaleProvider;
+            blockset.ScaleProvider = _blockScaler;
             blockset.BlockLiftedFromThisCallback = MakeNewBlocksetWithLiftedBlocks;
             blockset.ThisDroppedCallback = BlocksetDropped;
 
@@ -137,67 +143,68 @@ namespace IAmACube
             return blockset;
         }
 
-
-
         private void _disposeBlockset(Blockset_2 blockset)
         {
             Model.DeleteBlockset(blockset.Model);
-            RemoveChild(blockset); 
-
             Blocksets.Remove(blockset.Model);
 
-            var blocks = blockset.DetachAllBlocks();
-            _disposeBlocks(blocks);
+            _disposeBlocks(blockset.DetachAllBlocks());
+
+            RemoveChild(blockset);
             blockset.Dispose();
         }
 
         private void _disposeBlocks(List<Block_2> blocks)
         {
             Model.DeleteBlocks(blocks);
-            RemoveChildren(blocks);
-
+            
             foreach (var block in blocks)
             {
+                Blocks.Remove(block.Model);
+
                 block.GetSubBlocksets().ForEach(s => _disposeBlockset(s));
+
+                RemoveChild(block);
                 block.Dispose();
             }
         }
-
-        private void _alignToPixelGrid(Blockset_2 blockset)
-        {
-            var totalDist = blockset.ActualLocation - ActualLocation;
-            var trueScale = (int)(Scale * _chipScale);
-            var pixelDist = (totalDist / trueScale);
-            blockset.SetLocationConfig(pixelDist, CoordinateMode.ParentPixelOffset, false);
-        }
-
-        private MenuItemScaleProviderParent _blocksetScaleProvider;
-        private float _chipScale { get => _blocksetScaleProvider.Multiplier; set => _blocksetScaleProvider.SetManualScale(value); }
-
-        private void _changeChipScale(float multiplier)
-        {
-            var newMultipier = _blocksetScaleProvider.GetScale(this) * multiplier;
-            if (newMultipier > 1.995)
-            {
-                _chipScale *= multiplier;
-            }
-        }
-
-        private void _correctScale()
-        {
-            var currentChipScale = _blocksetScaleProvider.GetScale(this);
-            if (currentChipScale < 2)
-            {
-                _chipScale = 2.0f / MenuScreen.Scale;
-            }
-        }
-
-        private Blockset_2 _getBlocksetMouseIsOver(Blockset_2 held) => Blocksets.Values.Where(b => b.CanDropThisOn(held)).OrderBy(c => c.DrawLayer).FirstOrDefault();
 
         private void _cleanUpDisposedBlocksets()
         {
             var toDispose = Blocksets.Values.Where(b => b.ShouldDispose).ToList();
             toDispose.ForEach(b => _disposeBlockset(b));
         }
+
+        private void _alignToPixelGrid(Blockset_2 blockset)
+        {
+            var totalDist = blockset.ActualLocation - ActualLocation;
+            var trueScale = (int)(Scale * _blockScale);
+            var pixelDist = (totalDist / trueScale);
+            blockset.SetLocationConfig(pixelDist, CoordinateMode.ParentPixelOffset, false);
+        }
+
+        private MenuItemScaleProviderParent _blockScaler;
+        private float _blockScale { get => _blockScaler.Multiplier; set => _blockScaler.SetManualScale(value); }
+
+        private void _changeChipScale(float multiplier)
+        {
+            var newMultipier = _blockScaler.GetScale(this) * multiplier;
+            if (newMultipier > 1.995)
+            {
+                _blockScale *= multiplier;
+            }
+        }
+
+        private void _correctScale()
+        {
+            var currentChipScale = _blockScaler.GetScale(this);
+            if (currentChipScale < 2)
+            {
+                _blockScale = 2.0f / MenuScreen.Scale;
+            }
+        }
+
+        private Blockset_2 _getBlocksetMouseIsOver(Blockset_2 held) => Blocksets.Values.Where(b => b.CanDropThisOn(held)).OrderBy(c => c.DrawLayer).FirstOrDefault();
+
     }
 }

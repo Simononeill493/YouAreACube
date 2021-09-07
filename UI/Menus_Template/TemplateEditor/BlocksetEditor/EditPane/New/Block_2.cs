@@ -8,7 +8,6 @@ namespace IAmACube
 {
     class Block_2 : ContainerMenuItem
     {
-        public string Name => Model.Name;
         public BlockModel Model;
 
         public BlockTop_2 Top;
@@ -33,12 +32,22 @@ namespace IAmACube
             VisualParent = parent;
         }
 
+        public override void HideAndDisable()
+        {
+            base.HideAndDisable();
+            GetSubBlocksets().ForEach(b => b.HideAndDisable());
+        }
+        public override void ShowAndEnable()
+        {
+            base.ShowAndEnable();
+            SwitchSection?.ActiveSection?.ShowAndEnable();
+        }
+
         public List<Blockset_2> GetSubBlocksets() => SwitchSection != null ? SwitchSection.SubBlocksets.ToList() : new List<Blockset_2>();
         public override IntPoint GetBaseSize() => this.GetCurrentBlockSize();
         public bool IsHoveringOnBottom => Sections.Last().MouseHovering;
 
         protected override bool _canStartDragging() => base._canStartDragging() & Top.MouseHovering;
         private void _blockDragged(UserInput input) => _draggedCallback(this, input);
-
     }
 }

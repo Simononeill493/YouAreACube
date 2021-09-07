@@ -26,7 +26,6 @@ namespace IAmACube
         {
             Model = model;
             _defaultSwitchSections = defaultSwitchSections;
-            //SubBlocksets = new List<Blockset_2>();
             _buttons = new List<SwitchChipsetButton_2>();
 
             var leftButton = _addItem(new SwitchChipsetButton_2(this,0), 0, 0, CoordinateMode.ParentPixelOffset);
@@ -46,6 +45,37 @@ namespace IAmACube
 
             _buttons.Add(leftButton);
             _buttons.Add(rightButton);
+        }
+
+        public void ActivateSection(SwitchChipsetButton_2 button)
+        {
+            var section = SubBlocksets.ToList()[button.Index];
+
+            button.Activate();
+
+            SwitchSectionBottom.ShowAndEnable();
+            section.ShowAndEnable();
+            ActiveSection = section;
+        }
+
+        public void DeactivateCurrentSection()
+        {
+            _buttons.ForEach(b => b.Deactivate());
+            SwitchSectionBottom.HideAndDisable();
+
+            ActiveSection.HideAndDisable();
+            ActiveSection = null;
+        }
+
+        public void CreateAndAddSection(string name)
+        {
+            var blockset = GenerateInternalBlockset();
+            blockset.IsInternal = true;
+            blockset.VisualParent = this;
+            blockset.InternalBlocksetBottom = SwitchSectionBottom;
+            blockset.HideAndDisable();
+
+            Model.AddSection(name, blockset.Model);
         }
 
         private void _buttonClicked(SwitchChipsetButton_2 button)
@@ -69,57 +99,15 @@ namespace IAmACube
         }
 
 
-        public void ActivateSection(SwitchChipsetButton_2 button)
-        {
-            var section = SubBlocksets.ToList()[button.Index];
 
-            button.Activate();
-            section.ShowAndEnable();
-            section.Blocks.ToList().ForEach(b => b.ShowAndEnable());
-
-            SwitchSectionBottom.ShowAndEnable();
-
-            ActiveSection = section;
-        }
-        
-        public void DeactivateCurrentSection()
-        {
-            _buttons.ForEach(b => b.Deactivate());
-            ActiveSection.HideAndDisable();
-            ActiveSection.Blocks.ToList().ForEach(b => b.HideAndDisable());
-            SwitchSectionBottom.HideAndDisable();
-
-            ActiveSection = null;
-        }
-
-        public void CreateAndAddSection(string name)
-        {
-            var blockset = GenerateInternalBlockset();
-            blockset.IsInternal = true;
-            blockset.VisualParent = this;
-
-            blockset.HideAndDisable();
-            blockset.InternalBlocksetBottom = SwitchSectionBottom;
-
-            Model.AddSection(name, blockset.Model);
-        }
 
         protected override void _drawSelf(DrawingInterface drawingInterface)
         {
             base._drawSelf(drawingInterface);
             if (IsAnySectionActivated)
             {
-                _setSubBlocksetPosition();
+                this.SetSubBlocksetPosition();
             }
-        }
-
-        private void _setSubBlocksetPosition()
-        {
-            var sizeY = GetSizeWithoutSubBlockset().Y-1;
-            ActiveSection.SetLocationConfig(0, sizeY, CoordinateMode.VisualParentPixelOffset);
-
-            var blocksetY = ActiveSection.GetSizeIncludingBlocks().Y-1;
-            SwitchSectionBottom.SetLocationConfig(0, sizeY + blocksetY, CoordinateMode.ParentPixelOffset);
         }
 
         public IntPoint GetSizeWithoutSubBlockset() => base.GetBaseSize();

@@ -14,7 +14,7 @@ namespace IAmACube
             return blockset;
         }
 
-        public static Block_2 MakeBlock(BlockModel model,Func<Blockset_2> generator)
+        public static Block_2 MakeBlock(BlockModel model)
         {
             var block = new Block_2(model);
             var data = model.GetBlockData();
@@ -25,7 +25,6 @@ namespace IAmACube
 
             ConfigureBlockAppearance(block,data);
 
-            block.SwitchSection?.SetGenerator(generator);
             return block;
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    static class BlockUtils
+    static class BlockPositioningUtils
     {
         public static IntPoint GetCurrentBlockSize(this Block_2 block)
         {
@@ -15,11 +15,11 @@ namespace IAmACube
             foreach (var section in block.Sections)
             {
                 var size = section.GetBaseSize();
-                if(size.X>total.X)
+                if (size.X > total.X)
                 {
                     total.X = size.X;
                 }
-                total.Y += size.Y-1;
+                total.Y += size.Y - 1;
             }
 
             return total;
@@ -46,7 +46,7 @@ namespace IAmACube
         {
             IntPoint total = switchSection.GetSizeWithoutSubBlockset();
 
-            if(switchSection.ActiveSection!=null)
+            if (switchSection.ActiveSection != null)
             {
                 var size = switchSection.ActiveSection.GetSizeIncludingBlocks();
                 if (size.X > total.X)
@@ -66,16 +66,29 @@ namespace IAmACube
             return total;
         }
 
-        public static List<Block_2> GetThisAndAllBlocksAfter(this Blockset_2 blockset,Block_2 block)
+        public static  void SetBlockPositions(this Blockset_2 blockset)
         {
-            var blocks = blockset.Blocks.ToList();
-            var blockToRemoveTopIndex = blocks.IndexOf(block);
-            var numToRemove = blockset.Blocks.Count() - blockToRemoveTopIndex;
-
-            var removed = blocks.GetRange(blockToRemoveTopIndex, numToRemove);
-            return removed;
+            var offs = IntPoint.Zero;
+            offs.Y += blockset.GetBaseSize().Y - 1;
+            foreach (var block in blockset.Blocks)
+            {
+                block.SetLocationConfig(offs, CoordinateMode.VisualParentPixelOffset);
+                offs.Y += block.GetBaseSize().Y;
+            }
         }
 
-        public static int IndexOf(this Blockset_2 blockset, Block_2 block)=> blockset.Blocks.ToList().IndexOf(block);
+        public static void SetSubBlocksetPosition(this BlockSwitchSection_2 switchSection)
+        {
+            var sizeY = switchSection.GetSizeWithoutSubBlockset().Y - 1;
+            switchSection.ActiveSection.SetLocationConfig(0, sizeY, CoordinateMode.VisualParentPixelOffset);
+
+            var blocksetY = switchSection.ActiveSection.GetSizeIncludingBlocks().Y - 1;
+            switchSection.SwitchSectionBottom.SetLocationConfig(0, sizeY + blocksetY, CoordinateMode.ParentPixelOffset);
+        }
+
+
+
+
+
     }
 }

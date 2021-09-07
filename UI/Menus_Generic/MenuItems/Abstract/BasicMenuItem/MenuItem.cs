@@ -13,8 +13,8 @@ namespace IAmACube
         public bool Visible = true;
         public bool Enabled = true;
 
-        public void HideAndDisable() => Visible = Enabled = false;
-        public void ShowAndEnable() => Visible = Enabled = true;
+        public virtual void HideAndDisable() => Visible = Enabled = false;
+        public virtual void ShowAndEnable() => Visible = Enabled = true;
 
         public bool Disposed { get; private set; } = false;
 
@@ -56,25 +56,24 @@ namespace IAmACube
         public void Draw(DrawingInterface drawingInterface)
         {
             if (Disposed) { throw new ObjectDisposedException("Drawing disposed MenuItem"); }
+            if(!Visible) { return; }
 
-            if (Visible)
+            var oldDrawLayer = DrawLayer;
+            if(_thisOrParentDragged)
             {
-                var oldDrawLayer = DrawLayer;
-                if(_thisOrParentDragged)
-                {
-                    DrawLayer -= DrawLayers.MenuDragOffset;
-                }
-
-                _drawSelf(drawingInterface);
-                _drawChildren(drawingInterface);
-
-                DrawLayer = oldDrawLayer;
+                DrawLayer -= DrawLayers.MenuDragOffset;
             }
+
+            _drawSelf(drawingInterface);
+            _drawChildren(drawingInterface);
+
+            DrawLayer = oldDrawLayer;
         }
         public virtual void Update(UserInput input)
         {
             if (Disposed) { throw new ObjectDisposedException("Updating disposed MenuItem"); }
             if(!Enabled) { return; }
+
             var oldHoverState = MouseHovering;
             var newHoverState = _isMouseOver(input);
 

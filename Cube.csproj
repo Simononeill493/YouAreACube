@@ -175,6 +175,7 @@
     <Compile Include="UI\Menus_Template\TemplateEditor\AppearanceEditor\TemplateAppearanceEditTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\AppearanceEditor\AppearanceSubTabs\TemplateSpriteSelectorTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BaseStatsEditor\TemplateBaseStatsEditTab.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockPositioningUtils.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlocksetEditPane_2_Pan.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\InputCompareUtils.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Model\BlockInputModel.cs" />
@@ -227,7 +228,7 @@
     <Compile Include="Gameplay\Updates\Tick\WorldTicker.cs" />
     <Compile Include="Utils\ActionUtils\ZapUtils.cs" />
     <Compile Include="Utils\BlockDataUtils.cs" />
-    <Compile Include="Utils\BlockUtils.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockUtils.cs" />
     <Compile Include="Utils\InGameTypeUtils.cs" />
     <Compile Include="Utils\ParserUtils.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockDropdownUtils.cs" />
