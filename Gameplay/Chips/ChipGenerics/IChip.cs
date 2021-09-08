@@ -12,6 +12,26 @@ namespace IAmACube
         void Run(Cube actor,UserInput userInput,ActionsList actions);
     }
 
+    public class ChipInputValue : Tuple<InputOptionType, object>
+    {
+        public InputOptionType OptionType => Item1;
+        public object OptionValue => Item2;
+
+        public ChipInputValue(InputOptionType item1, object item2) : base(item1, item2) { }
+    }
+
+    public class ChipInputValues
+    {
+        public List<ChipInputValue> List => _list;
+        List<ChipInputValue> _list = new List<ChipInputValue>();
+
+        public void Add(InputOptionType optionType,object optionValue)
+        {
+            _list.Add(new ChipInputValue(optionType, optionValue));
+        }
+
+    }
+
     public static class IChipUtils
     {
         public static BlockData GetBlockData(this IChip chip)
@@ -24,9 +44,10 @@ namespace IAmACube
 
         public static bool IsControlChip(this IChip chip) => typeof(IControlChip).IsAssignableFrom(chip.GetType());
 
-        public static List<(InputOptionType, object)> GetInputPinValues(this IChip chip, BlockData chipData)
+        public static ChipInputValues GetInputPinValues(this IChip chip)
         {
-            var output = new List<(InputOptionType, object)>();
+            var chipData = chip.GetBlockData();
+            var output = new ChipInputValues();
             var chipType = chip.GetType();
             var properties = chipType.GetProperties();
 
@@ -55,7 +76,7 @@ namespace IAmACube
                         throw new Exception();
                 }
 
-                output.Add((inputType, inputValue));
+                output.Add(inputType, inputValue);
             }
 
             return output;

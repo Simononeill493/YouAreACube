@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public partial class BlockInputSection
+    /*public partial class BlockInputSection
     {
         public List<string> SanityTest((List<string> blocksetNames, List<string> blockNames) names)
         {
@@ -64,5 +64,5 @@ namespace IAmACube
             return output;
         }
 
-    }
+    }*/
 }

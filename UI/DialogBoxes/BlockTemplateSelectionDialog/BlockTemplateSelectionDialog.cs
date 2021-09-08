@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class BlockTemplateSelectionDialog : DialogBoxMenuItem
+    /*class BlockTemplateSelectionDialog : DialogBoxMenuItem
     {
         TemplateExplorerMenu _templateSearchMenu;
         BlockInputSection _section;
@@ -31,5 +31,5 @@ namespace IAmACube
 
         public override IntPoint GetBaseSize() => _templateSearchMenu.GetBaseSize();
 
-    }
+    }*/
 }

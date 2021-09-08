@@ -25,13 +25,13 @@ namespace IAmACube
         {
             var initialJson = Parser_ChipsetToJSON.ParseChipsetToJson(chipset);
 
-            var editableChipset = Parser_JSONToBlockset.ParseJsonToBlockset(initialJson, new DummyBlocksetContainer());
+            //var editableChipset = Parser_JSONToBlockset.ParseJsonToBlockset(initialJson, new DummyBlocksetContainer());
             var chipBlockClone = Parser_JSONToChipset.ParseJsonToChipset(initialJson);
 
-            var chipsetRoundTripJson = Parser_BlocksetToJSON.ParseBlocksetToJson(editableChipset);
+            //var chipsetRoundTripJson = Parser_BlocksetToJSON.ParseBlocksetToJson(editableChipset);
             var chipBlockRoundTripJson = Parser_ChipsetToJSON.ParseChipsetToJson(chipBlockClone);
 
-            if (!initialJson.Equals(chipsetRoundTripJson))
+            /*if (!initialJson.Equals(chipsetRoundTripJson))
             {
                 var l = initialJson.Length;
                 var m = chipsetRoundTripJson.Length;
@@ -41,7 +41,7 @@ namespace IAmACube
             if (!chipsetRoundTripJson.Equals(chipBlockRoundTripJson))
             {
                 throw new Exception(name + " template parsing mismatch");
-            }
+            }*/
 
             if (!chipset.Equivalent(chipBlockClone))
             {

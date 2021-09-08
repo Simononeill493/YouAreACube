@@ -35,17 +35,18 @@ namespace IAmACube
         public void Execute(Cube actor, UserInput input, ActionsList actions) => Chips.ForEach(chip => chip.Run(actor, input, actions));
 
 
-        public List<IChip> GetAllChipsAndSubChips()
+        public List<IControlChip> GetControlChipsCascade() => GetThisAndAllChipsetsCascade().SelectMany(c => c.ControlChips).ToList();
+        public List<IChip> GetAllChipsCascade()
         {
             var output = new List<IChip>();
-            foreach(var block in GetChipsetAndSubChipsets())
+            foreach(var block in GetThisAndAllChipsetsCascade())
             {
                 output.AddRange(block.Chips);
             }
 
             return output;
         }
-        public List<Chipset> GetChipsetAndSubChipsets()
+        public List<Chipset> GetThisAndAllChipsetsCascade()
         {
             var output = new List<Chipset>() { this };
             output.AddRange(GetSubChipsets());

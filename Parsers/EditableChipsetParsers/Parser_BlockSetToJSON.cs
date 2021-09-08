@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public static class Parser_BlocksetToJSON
+    /*public static class Parser_BlocksetToJSON
     {
         public static string ParseBlocksetToJson(Blockset blocksetToParse)
         {
@@ -36,5 +36,5 @@ namespace IAmACube
                 chipsetJSON.Chips.Add(chipJSON);
             }
         }
-    }
+    }*/
 }

@@ -32,7 +32,7 @@ namespace IAmACube
 
         public static Dictionary<string, ChipJSONData> MakeChipsDict(this Chipset chipset)
         {
-            var output = chipset.GetAllChipsAndSubChips().Select(c => new ChipJSONData(c)).ToDict();
+            var output = chipset.GetAllChipsCascade().Select(c => new ChipJSONData(c)).ToDict();
             return output;
         }
 
@@ -97,10 +97,10 @@ namespace IAmACube
             return objectToParse.ToString();
         }
 
-        public static List<string> GetSelectedInputTypes(this BlockTop block)
+        /*public static List<string> GetSelectedInputTypes(this BlockTop block)
         {
             var output = block.InputSections.Select(s => s.CurrentlySelected.BaseType).ToList();
             return output;
-        }
+        }*/
     }
 }

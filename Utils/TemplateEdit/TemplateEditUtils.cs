@@ -34,12 +34,12 @@ namespace IAmACube
         }
 
 
-        public static IEnumerable<BlockTopWithOutput> GetChipsWithOutput(List<BlockTop> chips) => chips.Where(c => c.HasOutput).Cast<BlockTopWithOutput>();
+        //public static IEnumerable<BlockTopWithOutput> GetChipsWithOutput(List<BlockTop> chips) => chips.Where(c => c.HasOutput).Cast<BlockTopWithOutput>();
 
 
 
 
-        public static Blockset PrepareBlocksetForEditPane(CubeTemplate template,BlocksetEditPane pane)
+        /*public static Blockset PrepareBlocksetForEditPane(CubeTemplate template,BlocksetEditPane pane)
         {
             var json = Parser_ChipsetToJSON.ParseChipsetToJson(template.Chipset);
             var newBlockset = Parser_JSONToBlockset.ParseJsonToBlockset(json, pane);
@@ -49,6 +49,6 @@ namespace IAmACube
             newBlockset.UpdateLocationCascade(pane.ActualLocation, pane.GetCurrentSize());
             
             return newBlockset;
-        }
+        }*/
     }
 }

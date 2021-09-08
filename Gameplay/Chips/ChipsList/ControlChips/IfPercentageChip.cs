@@ -27,11 +27,11 @@ namespace IAmACube
 
             if (Yes != null)
             {
-                output.AddRange(Yes.GetChipsetAndSubChipsets());
+                output.AddRange(Yes.GetThisAndAllChipsetsCascade());
             }
             if (No != null)
             {
-                output.AddRange(No.GetChipsetAndSubChipsets());
+                output.AddRange(No.GetThisAndAllChipsetsCascade());
             }
 
             return output;

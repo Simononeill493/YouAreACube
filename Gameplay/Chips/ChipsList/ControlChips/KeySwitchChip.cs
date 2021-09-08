@@ -34,7 +34,7 @@ namespace IAmACube
 
             foreach(var block in KeyEffects.Select(k=>k.Chipset))
             {
-                output.AddRange(block.GetChipsetAndSubChipsets());
+                output.AddRange(block.GetThisAndAllChipsetsCascade());
             }
 
             return output;

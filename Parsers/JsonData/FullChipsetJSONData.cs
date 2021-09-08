@@ -13,7 +13,7 @@ namespace IAmACube
         {
             ChipsDict = chipsetToAdd.MakeChipsDict();
 
-            foreach (var chipset in chipsetToAdd.GetChipsetAndSubChipsets())
+            foreach (var chipset in chipsetToAdd.GetThisAndAllChipsetsCascade())
             {
                 var chipsetJSON = new ChipsetJSONData(chipset);
                 chipsetJSON.Chips = ChipsDict.FetchJSON(chipset.Chips);
@@ -46,7 +46,7 @@ namespace IAmACube
        
         public void SetBlockData() => GetChips().ForEach(c => c.SetBlockData());
 
-        public void CreateBlocksetObjects(IBlocksetTopLevelContainer container)
+        /*public void CreateBlocksetObjects(IBlocksetTopLevelContainer container)
         {
             CreateBlocksets(container);
             CreateBlocksetChipTops(container);
@@ -62,7 +62,7 @@ namespace IAmACube
                     chipsetJSON.Blockset.AppendBlockToBottom(chipJSON.Block);
                 }
             }
-        }
+        }*/
 
         public void CreateChipsetObjects()
         {

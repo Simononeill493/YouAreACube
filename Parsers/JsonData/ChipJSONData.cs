@@ -62,7 +62,7 @@ namespace IAmACube
 
 
 
-        public ChipJSONData(BlockTop block)
+        /*public ChipJSONData(BlockTop block)
         {
             Block = block;
             BlockData = block.BlockData;
@@ -100,7 +100,7 @@ namespace IAmACube
                     KeyEffects.Add((keyAndChipset.Item1, keyAndChipset.Item2.Name));
                 }
             }
-        }
+        }*/
 
 
 
@@ -124,7 +124,7 @@ namespace IAmACube
             }
         }
 
-        [JsonIgnore]
+        /*[JsonIgnore]
         public BlockTop Block;
         public void CreateBlockTop(IBlocksetTopLevelContainer container)
         {
@@ -137,7 +137,7 @@ namespace IAmACube
             Block = BlockDataUtils.GenerateBlockFromBlockData(dataToCreateWith, this.Name);
             Block.SetInitialTypeArguments(TypeArguments);
             Block.TopLevelContainer = container;
-        }
+        }*/
 
         [JsonIgnore]
         public IChip Chip;

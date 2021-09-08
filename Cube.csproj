@@ -48,19 +48,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Blocks\BlockData\BlockData_Mapping.cs" />
-    <Compile Include="Blocks\BlockParentCallbacks.cs" />
-    <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOptionVariableAccess.cs" />
-    <Compile Include="Blocks\VariableBlock\BlockInputSectionDynamicType.cs" />
-    <Compile Include="Blocks\VariableBlock\BlockTopVariableSetter.cs" />
-    <Compile Include="Blocks\BlockTop\BlockTop_InputSections.cs" />
-    <Compile Include="Blocks\BlockTop\BlockTop_MouseInterface.cs" />
-    <Compile Include="Blocks\BlockTop\BlockTop_Refresh.cs" />
-    <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOptionSubMenu.cs" />
-    <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOptionVariable.cs" />
-    <Compile Include="Blocks\VariableBlock\BlockInputSectionVariableAccess.cs" />
-    <Compile Include="Blocks\Input\BlockDropdown\BlockInputSectionWithDropdown.cs" />
-    <Compile Include="Blocks\Blocksets\Blockset_Container.cs" />
+    <Compile Include="BlockData\BlockData_Mapping.cs" />
     <Compile Include="Camera\CameraConfiguration.cs" />
     <Compile Include="Camera\CameraUtils.cs" />
     <Compile Include="Camera\FixedCamera.cs" />
@@ -108,8 +96,8 @@
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\AddToListChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\GetListItemAtIndexChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\ShuffleListChip.cs" />
-    <Compile Include="Blocks\BlockData\BlockData.cs" />
-    <Compile Include="Blocks\BlockData\BlockDataDatabase.cs" />
+    <Compile Include="BlockData\BlockData.cs" />
+    <Compile Include="BlockData\BlockDataDatabase.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\Pins\InputPin2.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\Pins\InputPin3.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\Create\CreateCardinalChip.cs" />
@@ -150,7 +138,7 @@
     <Compile Include="Parsers\JsonData\ChipsetJSONData.cs" />
     <Compile Include="Parsers\JsonData\ChipJSONData.cs" />
     <Compile Include="Parsers\JsonData\FullChipsetJSONData.cs" />
-    <Compile Include="Blocks\BlockData\BlockDataGenerationTester.cs" />
+    <Compile Include="BlockData\BlockDataGenerationTester.cs" />
     <Compile Include="Parsers\JsonData\JSONDataUtils.cs" />
     <Compile Include="Testing\BlockInputSection_SanityTesting.cs" />
     <Compile Include="Testing\Blockset_SanityTesting.cs" />
@@ -165,7 +153,7 @@
     <Compile Include="UI\Menus_Generic\MenuItems\Base\ContainerMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Dropdown\ObservableDropdownMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Text\ObservableTextMenuItem.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockInputDropdown_2.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\BlockInputDropdown.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\SpriteBoxes\SpriteBoxMatrix.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Tabs\TabArrayMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Tabs\TabButtonMenuItem.cs" />
@@ -175,25 +163,25 @@
     <Compile Include="UI\Menus_Template\TemplateEditor\AppearanceEditor\TemplateAppearanceEditTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\AppearanceEditor\AppearanceSubTabs\TemplateSpriteSelectorTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BaseStatsEditor\TemplateBaseStatsEditTab.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockPositioningUtils.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlocksetEditPane_2_Pan.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\InputCompareUtils.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Model\BlockInputModel.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Model\BlockInputOption_2.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Model\BlockModel.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Blockset_2.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Block_2.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockFactory.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockInputSection_2.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlocksetEditPane_2.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Parser_ChipsetToBlockModel.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Switch\BlockSwitchSection_2.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockTop_2.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Model\BlocksetModel.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Model\FullModel.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\Switch\SwitchChipsetButton_2.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Old\BlocksetEditPane_Pan.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\BlockPositioningUtils.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\BlocksetEditPane_Pan.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\InputCompareUtils.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Model\BlockInputModel.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Model\BlockInputOption.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Model\BlockModel.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Blockset.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Block\Block.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\BlockFactory.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\BlockInputSection.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\BlocksetEditPane.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Parser_ChipsetToBlockModel.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Switch\BlockSwitchSection_2.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Block\BlockTop.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Model\BlocksetModel.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Model\FullModel.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Switch\SwitchChipsetButton_2.cs" />
     <Compile Include="UI\DialogBoxes\BlockTemplateSelectionDialog\BlockTemplateSelectionDialog.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Parser_BlockModelToChipset.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateEditMenu.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\SpriteBoxes\CubeSpriteBox.cs" />
     <Compile Include="Gameplay\Templates\Variables\TemplateVariable.cs" />
@@ -229,10 +217,10 @@
     <Compile Include="Gameplay\Updates\Tick\WorldTicker.cs" />
     <Compile Include="Utils\ActionUtils\ZapUtils.cs" />
     <Compile Include="Utils\BlockDataUtils.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockUtils.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Block\BlockUtils.cs" />
     <Compile Include="Utils\InGameTypeUtils.cs" />
     <Compile Include="Utils\ParserUtils.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\New\BlockDropdownUtils.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\BlockDropdownUtils.cs" />
     <Compile Include="WorldGen\AttachmentUtils.cs" />
     <Compile Include="WorldGen\SectorGenerator.cs" />
     <Compile Include="Misc\LocationWithNeighbors.cs" />
@@ -244,20 +232,8 @@
     <Compile Include="UI\DialogBoxes\TemplateQuitDialog\TemplateQuitButtonOption.cs" />
     <Compile Include="UI\DialogBoxes\TemplateQuitDialog\TemplateQuitDialog.cs" />
     <Compile Include="UI\DialogBoxes\TemplateSaveDialog\TemplateSaveDialog.cs" />
-    <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOptionParseable.cs" />
-    <Compile Include="Blocks\SwitchBlock\BlockSwitchButtons.cs" />
-    <Compile Include="Blocks\SwitchBlock\BlockTopSwitch.cs" />
     <Compile Include="Utils\TemplateEdit\ChipDropdownUtils.cs" />
-    <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOption.cs" />
-    <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOptionValue.cs" />
-    <Compile Include="Blocks\Input\BlockDropdown\BlockDropdownFactory.cs" />
-    <Compile Include="Blocks\Input\BlockDropdown\BlockInputOptions\BlockInputOptionReference.cs" />
-    <Compile Include="Blocks\Output\BlockItemOutputLabel.cs" />
-    <Compile Include="Blocks\BlockTop\BlockTop.cs" />
-    <Compile Include="Blocks\Blocksets\Blockset_Refresh.cs" />
-    <Compile Include="Blocks\Blocksets\BlocksetInterfaces\IBlocksDroppableOn.cs" />
-    <Compile Include="Blocks\Blocksets\BlocksetInterfaces\IBlocksetTopLevelContainer.cs" />
-    <Compile Include="Blocks\Blocksets\BlocksetInterfaces\IBlocksetContainer.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\InputOptionType.cs" />
     <Compile Include="UI\DialogBoxes\TemplateSaveDialog\TemplateSaveDialogOption.cs" />
     <Compile Include="UI\Screens\InGameScreens\InGameMenus\InGameMenuScreen.cs" />
     <Compile Include="UI\Screens\InGameScreens\InGameMenus\TemplateEditScreen.cs" />
@@ -275,14 +251,8 @@
     <Compile Include="UI\Menus_Generic\MenuItems\Base\ButtonMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\SearchBarMenuItem.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateBox.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Old\BlocksetEditPane.cs" />
-    <Compile Include="Blocks\Input\BlockDropdown\BlockInputDropdown.cs" />
-    <Compile Include="Blocks\BlockSectionFactory.cs" />
-    <Compile Include="Blocks\Output\BlockTopWithOutput.cs" />
-    <Compile Include="Blocks\Input\BlockInputSection.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\BlockSearcher\BlockPreview.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\BlockSearcher\BlockSearchPane.cs" />
-    <Compile Include="Blocks\Blocksets\Blockset.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\TemplateChipsetEditTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedMenu\TemplateSelectedMenu.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\TextBoxMenuItem.cs" />
@@ -367,7 +337,9 @@
     <None Include="Content\Arial.spritefont" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Blocks\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <Import Project="packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets')" />

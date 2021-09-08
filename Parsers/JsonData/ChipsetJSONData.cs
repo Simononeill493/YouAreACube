@@ -8,7 +8,7 @@ namespace IAmACube
         public string Name;
         public List<ChipJSONData> Chips;
 
-        [JsonIgnore]
+        /*[JsonIgnore]
         public Blockset Blockset;
         public void CreateBlockset(IBlocksetGenerator generator)
         {
@@ -16,7 +16,7 @@ namespace IAmACube
             chipset.TopLevelRefreshAll = () => { };
 
             Blockset = chipset;
-        }
+        }*/
 
         [JsonIgnore]
         public Chipset Chipset;
@@ -27,12 +27,12 @@ namespace IAmACube
 
         public ChipsetJSONData() { }
 
-        public ChipsetJSONData(Blockset blockset)
+        /*public ChipsetJSONData(Blockset blockset)
         {
             Chips = new List<ChipJSONData>();
             Blockset = blockset;
             Name = blockset.Name;
-        }
+        }*/
 
         public ChipsetJSONData(Chipset chipset)
         {

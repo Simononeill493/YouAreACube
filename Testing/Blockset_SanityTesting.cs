@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    partial class Blockset
+    /*partial class Blockset
     {
         public void AssertSanityTest()
         {
@@ -47,5 +47,5 @@ namespace IAmACube
 
             return output;
         }
-    }
+    }*/
 }

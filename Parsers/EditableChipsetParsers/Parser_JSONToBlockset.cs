@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public static class Parser_JSONToBlockset
+    /*public static class Parser_JSONToBlockset
     {
         public static Blockset ParseJsonToBlockset(string json, IBlocksetTopLevelContainer container)
         {
@@ -96,5 +96,5 @@ namespace IAmACube
             return new BlockInputOptionVariable(new TemplateVariable(variableIndex,"_nameNotSet_", new InGameType(typeArgument,null)));
         }
 
-    }
+    }*/
 }

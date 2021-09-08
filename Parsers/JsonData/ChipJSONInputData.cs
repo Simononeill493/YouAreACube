@@ -29,7 +29,7 @@ namespace IAmACube
             return JSONDataUtils.JSONRepToObject(InputValue, typeName);
         }
 
-        public static List<ChipJSONInputData> GenerateInputsFromBlock(BlockTop block)
+        /*public static List<ChipJSONInputData> GenerateInputsFromBlock(BlockTop block)
         {
             var inputs = new List<ChipJSONInputData>();
             var inputsList = block.GetCurrentInputs();
@@ -51,6 +51,6 @@ namespace IAmACube
             var jsonData = new ChipJSONInputData(inputOptionType, blockInputOption.ToJSONRep(), pinIndex);
 
             return jsonData;
-        }
+        }*/
     }
 }

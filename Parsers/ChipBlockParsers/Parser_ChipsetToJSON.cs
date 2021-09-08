@@ -35,11 +35,11 @@ namespace IAmACube
 
         private static void _setChipInputs(ChipJSONData chipJson,IChip chip)
         {
-            var chipInputPinData = chip.GetInputPinValues(chipJson.BlockData);
+            var chipInputPinData = chip.GetInputPinValues();
 
-            for(int i = 0;i<chipInputPinData.Count;i++)
+            for(int i = 0;i<chipInputPinData.List.Count;i++)
             {
-                var inputPinData = chipInputPinData[i];
+                var inputPinData = chipInputPinData.List[i];
                 var inputData = _generateInputData(inputPinData.Item1, inputPinData.Item2, i);
                 chipJson.Inputs.Add(inputData);
             }
