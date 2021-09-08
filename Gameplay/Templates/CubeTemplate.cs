@@ -55,7 +55,7 @@ namespace IAmACube
             var clone = JsonConvert.DeserializeObject<CubeTemplate>(JsonConvert.SerializeObject(this));
             if(this.Chipset!=null)
             {
-                clone.Chipset = Parser_JSONToChipset.ParseJsonToChipset(Parser_ChipsetToJSON.ParseChipsetToJson(Chipset));
+                clone.Chipset = Chipset.ToJson().ToChipset();
             }
 
             clone.Version = -1;

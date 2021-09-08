@@ -16,34 +16,40 @@ namespace IAmACube
                 if (!template.Active) { continue; }
                 if(template.Chipset!=null)
                 {
-                    TestParsingRoundTrip(template.Name, template.Chipset);
+                    TestParsingRoundTrip(template.Name, template.Chipset,template.Variables);
                 }
             }
         }
 
-        public static void TestParsingRoundTrip(string name,Chipset chipset)
+        public static void TestParsingRoundTrip(string name,Chipset chipset,TemplateVariableSet variables)
         {
-            var initialJson = Parser_ChipsetToJSON.ParseChipsetToJson(chipset);
+            var initialJson = chipset.ToJson();
 
-            //var editableChipset = Parser_JSONToBlockset.ParseJsonToBlockset(initialJson, new DummyBlocksetContainer());
-            var chipBlockClone = Parser_JSONToChipset.ParseJsonToChipset(initialJson);
+            var blockModel = chipset.ToBlockModel(variables);
+            var chipsetFromBlockModel = blockModel.ToChipset();
+            var blockModelRoundTripJson = chipsetFromBlockModel.ToJson();
 
-            //var chipsetRoundTripJson = Parser_BlocksetToJSON.ParseBlocksetToJson(editableChipset);
-            var chipBlockRoundTripJson = Parser_ChipsetToJSON.ParseChipsetToJson(chipBlockClone);
+            var chipsetClone = initialJson.ToChipset();
+            var chipsetRoundTripJson = chipsetClone.ToJson();
 
-            /*if (!initialJson.Equals(chipsetRoundTripJson))
+            if (!initialJson.Equals(chipsetRoundTripJson))
             {
                 var l = initialJson.Length;
                 var m = chipsetRoundTripJson.Length;
+                throw new Exception(name + " template parsing mismatch. Lengths are " + l + " and " + m);
+            }
+
+            if (!chipsetRoundTripJson.Equals(blockModelRoundTripJson))
+            {
                 throw new Exception(name + " template parsing mismatch");
             }
 
-            if (!chipsetRoundTripJson.Equals(chipBlockRoundTripJson))
+            if (!chipset.Equivalent(chipsetClone))
             {
                 throw new Exception(name + " template parsing mismatch");
-            }*/
+            }
 
-            if (!chipset.Equivalent(chipBlockClone))
+            if (!chipset.Equivalent(chipsetFromBlockModel))
             {
                 throw new Exception(name + " template parsing mismatch");
             }

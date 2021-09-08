@@ -11,7 +11,6 @@ namespace IAmACube
         public BlockInputOption InputOption = BlockInputOption.Undefined;
 
         public InputOptionType InputOptionType => InputOption.InputOptionType;
-        public string StoredValue => InputOption.GetStoredValue();
         public string DisplayValue => InputOption.GetDisplayValue();
     }
 }

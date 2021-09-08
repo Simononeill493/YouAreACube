@@ -24,7 +24,7 @@ namespace IAmACube
         public void SetInputTypes(List<string> inputTypes)
         {
             InputTypes = inputTypes;
-            Editable = inputTypes.Any(t => ChipDropdownUtils.IsTextEntryType(t));
+            Editable = inputTypes.Any(t => InGameTypeUtils.IsTextEntryType(t));
         }
 
         public override void PopulateItems()

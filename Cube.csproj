@@ -134,7 +134,6 @@
     <Compile Include="MonoGameWrapper\MouseSystemData.cs" />
     <Compile Include="MonoGameWrapper\Sound\SoundInterface.cs" />
     <Compile Include="Parsers\ChipBlockParsers\Parser_ChipsetToJSON.cs" />
-    <Compile Include="Parsers\EditableChipsetParsers\Parser_JSONToBlockset.cs" />
     <Compile Include="Parsers\JsonData\ChipsetJSONData.cs" />
     <Compile Include="Parsers\JsonData\ChipJSONData.cs" />
     <Compile Include="Parsers\JsonData\FullChipsetJSONData.cs" />
@@ -174,14 +173,14 @@
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\BlockFactory.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\BlockInputSection.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\BlocksetEditPane.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Parser_ChipsetToBlockModel.cs" />
+    <Compile Include="Parsers\BlockModelParsers\Parser_ChipsetToBlockModel.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Switch\BlockSwitchSection_2.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Block\BlockTop.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Model\BlocksetModel.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Model\FullModel.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Switch\SwitchChipsetButton_2.cs" />
     <Compile Include="UI\DialogBoxes\BlockTemplateSelectionDialog\BlockTemplateSelectionDialog.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Parser_BlockModelToChipset.cs" />
+    <Compile Include="Parsers\BlockModelParsers\Parser_BlockModelToChipset.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateEditMenu.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\SpriteBoxes\CubeSpriteBox.cs" />
     <Compile Include="Gameplay\Templates\Variables\TemplateVariable.cs" />
@@ -201,7 +200,6 @@
     <Compile Include="Parsers\BlockDataParser.cs" />
     <Compile Include="Gameplay\Chips\ChipType.cs" />
     <Compile Include="Parsers\ChipBlockParsers\Parser_JSONToChipset.cs" />
-    <Compile Include="Parsers\EditableChipsetParsers\Parser_BlocksetToJSON.cs" />
     <Compile Include="Gameplay\Updates\Actions\Creation\CreationManager.cs" />
     <Compile Include="Gameplay\Updates\Destruction\DestructionManager.cs" />
     <Compile Include="Gameplay\Direction\DirectionEnums\RelativeDirection.cs" />
@@ -219,7 +217,6 @@
     <Compile Include="Utils\BlockDataUtils.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Block\BlockUtils.cs" />
     <Compile Include="Utils\InGameTypeUtils.cs" />
-    <Compile Include="Utils\ParserUtils.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\BlockDropdownUtils.cs" />
     <Compile Include="WorldGen\AttachmentUtils.cs" />
     <Compile Include="WorldGen\SectorGenerator.cs" />
@@ -232,7 +229,6 @@
     <Compile Include="UI\DialogBoxes\TemplateQuitDialog\TemplateQuitButtonOption.cs" />
     <Compile Include="UI\DialogBoxes\TemplateQuitDialog\TemplateQuitDialog.cs" />
     <Compile Include="UI\DialogBoxes\TemplateSaveDialog\TemplateSaveDialog.cs" />
-    <Compile Include="Utils\TemplateEdit\ChipDropdownUtils.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\InputOptionType.cs" />
     <Compile Include="UI\DialogBoxes\TemplateSaveDialog\TemplateSaveDialogOption.cs" />
     <Compile Include="UI\Screens\InGameScreens\InGameMenus\InGameMenuScreen.cs" />
@@ -258,7 +254,6 @@
     <Compile Include="UI\Menus_Generic\MenuItems\Base\TextBoxMenuItem.cs" />
     <Compile Include="Utils\DrawUtils.cs" />
     <Compile Include="Utils\IDUtils.cs" />
-    <Compile Include="Utils\TemplateEdit\TemplateEditUtils.cs" />
     <Compile Include="Utils\TypeUtils.cs" />
     <Compile Include="Utils\WorldUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
@@ -337,9 +332,7 @@
     <None Include="Content\Arial.spritefont" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Blocks\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <Import Project="packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('packages\MonoGame.Framework.DesktopGL.3.8.0.1641\build\MonoGame.Framework.DesktopGL.targets')" />

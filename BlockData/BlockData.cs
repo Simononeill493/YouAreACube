@@ -75,25 +75,27 @@ namespace IAmACube
         {
             for (int i = 0; i < NumInputs; i++)
             {
-                IsInputGeneric |= _checkIsGeneric(Inputs[i]);
+                IsInputGeneric |= TypeUtils.IsGeneric(Inputs[i]);
+                _setDefaultTypeArgs(Inputs[i]);
             }
 
             if (Output != null)
             {
-                IsOutputGeneric = _checkIsGeneric(Output);
+                IsOutputGeneric = TypeUtils.IsGeneric(Output);
+                _setDefaultTypeArgs(Output);
             }
 
             IsGeneric = IsInputGeneric | IsOutputGeneric;
         }
-        private bool _checkIsGeneric(string typeName)
+
+        private void _setDefaultTypeArgs(string typeName)
         {
-            if(typeName.Contains("Variable"))
+            if (typeName.Contains("Variable"))
             {
-                if(!DefaultTypeArguments.Contains("Object"))
+                if (!DefaultTypeArguments.Contains("Object"))
                 {
                     DefaultTypeArguments.Add("Object");
                 }
-                return true;
             }
             if (typeName.Contains("AnyCube"))
             {
@@ -101,10 +103,7 @@ namespace IAmACube
                 {
                     DefaultTypeArguments.Add("SurfaceCube");
                 }
-                return true;
             }
-
-            return false;
         }
 
 

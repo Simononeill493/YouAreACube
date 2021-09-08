@@ -11,7 +11,7 @@ namespace IAmACube
 {
     public static class Parser_ChipsetToJSON
     {
-        public static string ParseChipsetToJson(Chipset chipsetToParse)
+        public static string ToJson(this Chipset chipsetToParse)
         {
             chipsetToParse.AssertSanityTest();
 

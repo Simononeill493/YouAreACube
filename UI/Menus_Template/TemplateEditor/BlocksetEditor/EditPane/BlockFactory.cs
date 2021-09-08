@@ -17,7 +17,7 @@ namespace IAmACube
         public static Block MakeBlock(BlockModel model)
         {
             var block = new Block(model);
-            var data = model.GetBlockData();
+            var data = model.GetVisualBlockData();
 
             AddBlockTop(block, data);
             AddInputSections(block, data);

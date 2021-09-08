@@ -48,6 +48,7 @@ namespace IAmACube
             return chipsDict.Values.Where(c => c.BlockData.HasOutput);
         }
 
+
         public static object JSONRepToObject(string stringToParse,string typeName)
         {
             if (typeName.Equals(nameof(CubeTemplate)))

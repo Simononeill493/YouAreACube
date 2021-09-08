@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IAmACube
 {
@@ -21,7 +22,7 @@ namespace IAmACube
             }
         }
 
-        public List<Chipset> GetSubChipsets()
+        public List<Chipset> GetSubChipsetsCascade()
         {
             var output = new List<Chipset>();
 
@@ -37,6 +38,14 @@ namespace IAmACube
             return output;
         }
 
-        public List<(string, Chipset)> GetBaseSubChipsets() => new List<(string, Chipset)>() { ("Yes", Yes), ("No", No) };
+        public List<(string, Chipset)> GetSubChipsets() => new List<(string, Chipset)>() { ("Yes", Yes), ("No", No) };
+
+        public void SetSubChipsets(List<(string, Chipset)> subChipsets)
+        {
+            if (subChipsets.Count != 2) { throw new Exception(); }
+
+            Yes = subChipsets.Where(s => s.Item1 == "Yes").First().Item2;
+            No = subChipsets.Where(s => s.Item1 == "No").First().Item2;
+        }
     }
 }

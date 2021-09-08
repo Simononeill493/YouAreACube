@@ -21,6 +21,7 @@ namespace IAmACube
             AddChips(chips);
         }
         public Chipset(params IChip[] chips) : this(chips.ToList()) { }
+        public Chipset(string name) : this() { Name = name; }
 
         public void AddChip(IChip chip)
         {
@@ -55,7 +56,7 @@ namespace IAmACube
         public List<Chipset> GetSubChipsets()
         {
             var output = new List<Chipset>();
-            ControlChips.ForEach(c => output.AddRange(c.GetSubChipsets()));
+            ControlChips.ForEach(c => output.AddRange(c.GetSubChipsetsCascade()));
             return output;
         }
 

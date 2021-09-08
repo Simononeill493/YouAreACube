@@ -28,7 +28,7 @@ namespace IAmACube
         }
 
 
-        public List<Chipset> GetSubChipsets()
+        public List<Chipset> GetSubChipsetsCascade()
         {
             var output = new List<Chipset>();
 
@@ -40,8 +40,16 @@ namespace IAmACube
             return output;
         }
 
-        public List<(string, Chipset)> GetBaseSubChipsets() => KeyEffects.Select(k => (k.Key.ToString(), k.Chipset)).ToList();
+        public List<(string, Chipset)> GetSubChipsets() => KeyEffects.Select(k => (k.Key.ToString(), k.Chipset)).ToList();
 
+        public void SetSubChipsets(List<(string, Chipset)> subChipsets)
+        {
+            foreach(var subChipset in subChipsets)
+            {
+                var key = (Keys)Enum.Parse(typeof(Keys), subChipset.Item1);
+                KeyEffects.Add((key, subChipset.Item2));
+            }
+        }
 
         public List<(string,string)> KeyEffectsToString()
         {

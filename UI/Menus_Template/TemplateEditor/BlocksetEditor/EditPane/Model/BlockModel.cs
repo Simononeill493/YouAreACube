@@ -15,23 +15,23 @@ namespace IAmACube
         public List<BlockInputModel> Inputs = new List<BlockInputModel>();
         public List<(string, BlocksetModel)> SubBlocksets;
 
-        public BlockModel(string name,BlockData data)
+        public BlockModel(string name, BlockData data)
         {
             Name = name;
             ChipName = data.Name;
             OutputType = data.Output;
-           
+
             Inputs = new List<BlockInputModel>();
             SubBlocksets = new List<(string, BlocksetModel)>();
         }
 
         public void AddSection(string name, BlocksetModel blockset) => SubBlocksets.Add((name, blockset));
 
-        public BlockData GetBlockData() => BlockDataDatabase.BlockDataDict[ChipName];
+        public BlockData GetVisualBlockData() => BlockDataDatabase.BlockDataDict[ChipName];
 
         public void MakeBlankInputs()
         {
-            for (int i = 0; i < GetBlockData().NumInputs; i++)
+            for (int i = 0; i < GetVisualBlockData().NumInputs; i++)
             {
                 Inputs.Add(new BlockInputModel());
             }

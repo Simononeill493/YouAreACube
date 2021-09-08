@@ -74,7 +74,7 @@ namespace IAmACube
         {
             for (int i = 0; i < inputs.Count; i++)
             {
-                if (!TemplateEditUtils.IsValidInputFor(inputs[i], possibleMatch.Inputs[i]))
+                if (!InGameTypeUtils.IsValidInputFor(inputs[i], possibleMatch.Inputs[i]))
                 {
                     return false;
                 }

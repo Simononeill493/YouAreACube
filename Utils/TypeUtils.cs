@@ -72,6 +72,19 @@ namespace IAmACube
 
         public static T ParseType<T>(string asString) => (T)ParseType(typeof(T), asString);
 
+        public static object ParseType(IEnumerable<Type> types,string asString)
+        {
+            foreach(var t in types)
+            {
+                var result = ParseType(t, asString);
+                if(result!=null)
+                {
+                    return result;
+                }
+            }
+
+            throw new Exception();
+        }
         public static object ParseType(Type t, string asString)
         {
             if (t.IsEnum)
@@ -109,7 +122,7 @@ namespace IAmACube
 
             return null;
         }
-        public static string GetTypeDisplayNameOfStringRepresentation(string stringRepresentation,List<Type> possibleTypes)
+        public static string GetTypeDisplayNameOfStringRepresentation(string stringRepresentation,IEnumerable<Type> possibleTypes)
         {
             foreach (var type in possibleTypes)
             {
@@ -128,6 +141,19 @@ namespace IAmACube
         public static bool IsEnum(string typeName) => GetTypeByDisplayName(typeName).IsEnum;
         public static List<object> GetEnumValues(string typeName) => GetTypeByDisplayName(typeName).GetEnumValues().Cast<object>().ToList();
 
+        public static bool IsGeneric(string typeName)
+        {
+            if (typeName.Contains("Variable"))
+            {
+                return true;
+            }
+            if (typeName.Contains("AnyCube"))
+            {
+                return true;
+            }
+
+            return false;
+        }
 
 
         private static Dictionary<string, Type> _loadAllTypes()

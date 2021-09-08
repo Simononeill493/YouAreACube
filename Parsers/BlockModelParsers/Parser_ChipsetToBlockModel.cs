@@ -43,7 +43,7 @@ namespace IAmACube
             foreach (var controlChip in chipset.GetControlChipsCascade())
             {
                 var controlChipModel = fullModel.Blocks[((IChip)controlChip).Name];
-                foreach (var subChipset in controlChip.GetBaseSubChipsets())
+                foreach (var subChipset in controlChip.GetSubChipsets())
                 {
                     var referencedChipset = fullModel.Blocksets[subChipset.Item2.Name];
                     controlChipModel.SubBlocksets.Add((subChipset.Item1, referencedChipset));

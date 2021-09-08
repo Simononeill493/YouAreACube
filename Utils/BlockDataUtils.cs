@@ -20,6 +20,5 @@ namespace IAmACube
 
             return new List<string>();
         }
-        
     }
 }
