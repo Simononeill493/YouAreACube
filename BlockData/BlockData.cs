@@ -75,13 +75,13 @@ namespace IAmACube
         {
             for (int i = 0; i < NumInputs; i++)
             {
-                IsInputGeneric |= TypeUtils.IsGeneric(Inputs[i]);
+                IsInputGeneric |= InGameTypeUtils.IsGeneric(Inputs[i]);
                 _setDefaultTypeArgs(Inputs[i]);
             }
 
             if (Output != null)
             {
-                IsOutputGeneric = TypeUtils.IsGeneric(Output);
+                IsOutputGeneric = InGameTypeUtils.IsGeneric(Output);
                 _setDefaultTypeArgs(Output);
             }
 
@@ -106,6 +106,41 @@ namespace IAmACube
             }
         }
 
+        public List<string> GetTypeArguments(List<string> selectedTypes)
+        {
+            if(selectedTypes.Count!= NumInputs) { throw new Exception(); }
+            var argus = new List<string>();
+
+            for(int i=0;i<NumInputs;i++)
+            {
+                if(InGameTypeUtils.IsGeneric(Inputs[i]))
+                {
+                    argus.Add(GetTypeArgument(Inputs[i],selectedTypes[i]));
+                }
+            }
+
+            return argus;
+        }
+
+        private string GetTypeArgument(string inputType,string selectedType)
+        {
+
+            if (inputType.StartsWith("List<") & selectedType.StartsWith("List<"))
+            {
+                var selectedSnipped = selectedType.Substring(5, selectedType.Length - 6);
+                return selectedSnipped;
+            }
+            if (inputType.Equals("AnyCube") & (selectedType.Equals("AnyCube") | selectedType.Equals("Cube") | selectedType.Equals("SurfaceCube") | selectedType.Equals("GroundCube") | selectedType.Equals("EphemeralCube")))
+            {
+                return selectedType;
+            }
+            if (inputType.Equals("Variable"))
+            {
+                return selectedType;
+            }
+
+            throw new Exception("Block has a generic input type that hasn't been handled.");
+        }
 
         public string GetInputType(int index) => Inputs[index];
         public List<string> GetInputTypes(int index) => _inputDataTypeOptions[index];

@@ -30,9 +30,12 @@ namespace IAmACube
         {
             var block = new BlockModel(name, data);
             Blocks[name] = block;
-
-            block.Inputs.ForEach(i => InputParents[i] = block);
             return block;
+        }
+
+        public void AddInputs(BlockModel block)
+        {
+            block.Inputs.ForEach(i => InputParents[i] = block);
         }
 
         public void DeleteBlockset(BlocksetModel blockset) => Blocksets.Remove(blockset.Name);

@@ -71,7 +71,7 @@ namespace IAmACube
 
         public static BlockInputDropdown MakeDropdown(BlockInputSection inputSection,List<string> inputTypes, BlockInputModel model)
         {
-            var dropdown = new BlockInputDropdown(inputSection,inputTypes,model,()=>model.DisplayValue);
+            var dropdown = new BlockInputDropdown(inputSection, inputTypes, model, () => model.DisplayValue);
             return dropdown;
         }
 

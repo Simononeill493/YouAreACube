@@ -8,9 +8,14 @@ namespace IAmACube
 {
     class BlockInputModel
     {
+        public string DisplayValue => InputOption.GetDisplayValue();
+        public string StoredType => InputOption.GetStoredType();
+
         public BlockInputOption InputOption = BlockInputOption.Undefined;
 
-        public InputOptionType InputOptionType => InputOption.InputOptionType;
-        public string DisplayValue => InputOption.GetDisplayValue();
+        public BlockInputModel()
+        {
+            InputOption = BlockInputOption.Undefined;
+        }
     }
 }

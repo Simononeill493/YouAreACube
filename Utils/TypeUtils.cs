@@ -72,18 +72,29 @@ namespace IAmACube
 
         public static T ParseType<T>(string asString) => (T)ParseType(typeof(T), asString);
 
-        public static object ParseType(IEnumerable<Type> types,string asString)
+        public static object ParseType(List<string> inGameTypes, string asString) => ParseType(inGameTypes.Select(t => GetTypeByDisplayName(t)), asString);
+        public static object ParseType(IEnumerable<Type> types, string asString)
         {
-            foreach(var t in types)
+            foreach (var t in types)
             {
                 var result = ParseType(t, asString);
-                if(result!=null)
+                if (result != null)
                 {
                     return result;
                 }
             }
 
-            throw new Exception();
+            return null;
+        }
+        public static object TryParseType(IEnumerable<Type> types, string asString)
+        {
+            var result = ParseType(types, asString);
+            if (result == null)
+            {
+                throw new Exception();
+            }
+
+            return result;
         }
         public static object ParseType(Type t, string asString)
         {
@@ -122,38 +133,13 @@ namespace IAmACube
 
             return null;
         }
-        public static string GetTypeDisplayNameOfStringRepresentation(string stringRepresentation,IEnumerable<Type> possibleTypes)
-        {
-            foreach (var type in possibleTypes)
-            {
-                if (ParseType(type, stringRepresentation) != null)
-                {
-                    return GetTypeDisplayName(type);
-                }
-            }
-
-            return null;
-
-            //throw new Exception("Cannot resolve type of string");
-        }
-
+        
+       
 
         public static bool IsEnum(string typeName) => GetTypeByDisplayName(typeName).IsEnum;
         public static List<object> GetEnumValues(string typeName) => GetTypeByDisplayName(typeName).GetEnumValues().Cast<object>().ToList();
 
-        public static bool IsGeneric(string typeName)
-        {
-            if (typeName.Contains("Variable"))
-            {
-                return true;
-            }
-            if (typeName.Contains("AnyCube"))
-            {
-                return true;
-            }
 
-            return false;
-        }
 
 
         private static Dictionary<string, Type> _loadAllTypes()

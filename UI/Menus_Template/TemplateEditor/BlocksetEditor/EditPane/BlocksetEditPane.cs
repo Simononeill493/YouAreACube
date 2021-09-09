@@ -107,6 +107,7 @@ namespace IAmACube
         {
             var newModel = Model.CreateBlock(IDUtils.GenerateBlockID(data), data);
             newModel.MakeBlankInputs();
+            Model.AddInputs(newModel);
 
             var newBlock = _makeBlockFromModel(newModel);
             newBlock.SwitchSection?.GenerateDefaultSections();

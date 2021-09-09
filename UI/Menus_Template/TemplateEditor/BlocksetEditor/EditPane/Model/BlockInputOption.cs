@@ -16,7 +16,6 @@ namespace IAmACube
         public string Message;
         public string ToParse;
 
-
         public string GetStoredType()
         {
             switch (InputOptionType)
@@ -24,12 +23,9 @@ namespace IAmACube
                 case InputOptionType.Value:
                     return TypeUtils.GetTypeDisplayName(Value.GetType());
                 case InputOptionType.Reference:
-                    return Block.OutputType;
+                    return Block.GetCurrentOutputType();
                 case InputOptionType.Variable:
                     return Variable.VariableType.Name;
-                case InputOptionType.Parseable:
-                    //return TypeUtils.GetTypeDisplayNameOfStringRepresentation(ToParse, possibleParsingTypes);
-                    throw new Exception();
                 default:
                     throw new NotImplementedException();
             }
@@ -45,7 +41,7 @@ namespace IAmACube
                     return Block.Name;
                 case InputOptionType.Variable:
                     return Variable.VariableName;
-                case InputOptionType.Parseable:
+                case InputOptionType.Unparseable:
                     return ToParse;
                 case InputOptionType.SubMenu:
                     return Message;
@@ -63,7 +59,7 @@ namespace IAmACube
         public static BlockInputOption CreateValue(object value) => new BlockInputOption() { InputOptionType = InputOptionType.Value, Value = value };
         public static BlockInputOption CreateReference(BlockModel block) => new BlockInputOption() { InputOptionType = InputOptionType.Reference, Block = block};
         public static BlockInputOption CreateVariable(TemplateVariable variable) => new BlockInputOption() { InputOptionType = InputOptionType.Variable, Variable = variable};
-        public static BlockInputOption CreateParseable(string stringRep) => new BlockInputOption() { InputOptionType = InputOptionType.Parseable, ToParse = stringRep };
+        public static BlockInputOption CreateUnparseable(string stringRep) => new BlockInputOption() { InputOptionType = InputOptionType.Unparseable, ToParse = stringRep };
         public static BlockInputOption CreateSubMenu(string message) => new BlockInputOption() { InputOptionType = InputOptionType.SubMenu, Message = message };
         public static BlockInputOption Undefined => new BlockInputOption() { InputOptionType = InputOptionType.Undefined };
     }

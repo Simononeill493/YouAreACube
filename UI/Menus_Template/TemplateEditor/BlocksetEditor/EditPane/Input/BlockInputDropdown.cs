@@ -11,7 +11,7 @@ namespace IAmACube
         public List<string> InputTypes;
         public BlockInputModel Model;
 
-        public BlockInputDropdown(IHasDrawLayer parent, List<string> inputTypes,BlockInputModel model,Func<string> textProvider) : base(parent,textProvider)
+        public BlockInputDropdown(IHasDrawLayer parent, List<string> inputTypes, BlockInputModel model,Func<string> textProvider) : base(parent,textProvider)
         {
             SetInputTypes(inputTypes);
             Model = model;
@@ -44,7 +44,15 @@ namespace IAmACube
 
         private void TextTyped(string newText)
         {
-            Model.InputOption = BlockInputOption.CreateParseable(newText);
+            var attemptedParsedValue = TypeUtils.ParseType(InputTypes, newText);
+            if(attemptedParsedValue!=null)
+            {
+                Model.InputOption = BlockInputOption.CreateValue(attemptedParsedValue);
+            }
+            else
+            {
+                Model.InputOption = BlockInputOption.CreateUnparseable(newText);
+            }
         }
     }
 }

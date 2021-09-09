@@ -17,7 +17,7 @@
         Value,
         Reference,
         Variable,
-        Parseable,
-        SubMenu
+        SubMenu,
+        Unparseable
     }
 }

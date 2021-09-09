@@ -18,8 +18,7 @@ namespace IAmACube
 
             foreach(var block in fullmodel.Blocks.Values)
             {
-                //var chip = block.GetChipsetBlockData().GenerateChip();
-                IChip chip = null;
+                var chip = block.GetChipBlockData().GenerateChip(typeArguments: block.GetTypeArguments());
                 chip.Name = block.Name;
 
                 chips[chip.Name] = chip;
@@ -37,8 +36,6 @@ namespace IAmACube
             foreach(var block in fullmodel.Blocks.Values)
             {
                 var chip = chips[block.Name];
-                //var chipsetData = block.GetChipsetBlockData();
-                BlockData chipsetData = null;
 
                 if (block.SubBlocksets.Any())
                 {
@@ -48,7 +45,7 @@ namespace IAmACube
 
                 for(int i=0;i<block.Inputs.Count;i++)
                 {
-                    chip.SetInputProperty(block.Inputs[i].InputOption, i,chipsetData, chips);
+                    chip.SetInputProperty(block.Inputs[i].InputOption, i, chips);
                 }
             }
 
@@ -57,16 +54,12 @@ namespace IAmACube
             return initial.First();
         }
 
-        public static void SetInputProperty(this IChip chip,BlockInputOption inputOption,int pin,BlockData chipsetData,ChipsDict chipsDict)
+        public static void SetInputProperty(this IChip chip,BlockInputOption inputOption,int pin,ChipsDict chipsDict)
         {
             switch (inputOption.InputOptionType)
             {
                 case InputOptionType.Value:
                     chip.SetValueProperty(inputOption.Value, pin);
-                    break;
-                case InputOptionType.Parseable:
-                    //var defaultTypes = chipsetData.DefaultTypeArguments.Select(d => TypeUtils.GetTypeByDisplayName(d));
-                    //var parsedValue = TypeUtils.ParseType(defaultTypes,inputOption.ToParse);
                     break;
                 case InputOptionType.Reference:
                     chip.SetReferenceProperty(chipsDict[inputOption.Block.Name], pin);

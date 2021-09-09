@@ -10,7 +10,7 @@ namespace IAmACube
     {
         public string Name;
         public string ChipName;
-        public string OutputType;
+        private string _baseOutputType;
 
         public List<BlockInputModel> Inputs = new List<BlockInputModel>();
         public List<(string, BlocksetModel)> SubBlocksets;
@@ -19,7 +19,7 @@ namespace IAmACube
         {
             Name = name;
             ChipName = data.Name;
-            OutputType = data.Output;
+            _baseOutputType = data.Output;
 
             Inputs = new List<BlockInputModel>();
             SubBlocksets = new List<(string, BlocksetModel)>();
@@ -27,14 +27,52 @@ namespace IAmACube
 
         public void AddSection(string name, BlocksetModel blockset) => SubBlocksets.Add((name, blockset));
 
-        public BlockData GetVisualBlockData() => BlockDataDatabase.BlockDataDict[ChipName];
-
         public void MakeBlankInputs()
         {
             for (int i = 0; i < GetVisualBlockData().NumInputs; i++)
             {
                 Inputs.Add(new BlockInputModel());
             }
+        }
+
+        public BlockData GetVisualBlockData() => BlockDataDatabase.BlockDataDict[ChipName].GetThisOrBaseMappingBlock();
+        public BlockData GetChipBlockData()
+        {
+            var visualData = GetVisualBlockData();
+            var inputTypes = GetInputTypes();
+
+            var chipBlockData = visualData.GetMappedBlockData(inputTypes);
+            return chipBlockData;
+        } 
+
+        public List<string> GetInputTypes() => Inputs.Select(i => i.StoredType).ToList();
+        public List<string> GetTypeArguments()
+        {
+            var data = GetChipBlockData();
+            var typeArgs = data.GetTypeArguments(GetInputTypes());
+
+            return typeArgs;
+        }
+
+        public string GetCurrentOutputType()
+        {
+            if(Inputs.Any(i=>i.InputOption.InputOptionType == InputOptionType.Undefined))
+            {
+                return _baseOutputType;
+            }
+
+            if(!GetChipBlockData().IsOutputGeneric)
+            {
+                return _baseOutputType;
+            }
+
+            var typeArguments = GetTypeArguments();
+            if(typeArguments.Count==1)
+            {
+                return typeArguments.First();
+            }
+
+            throw new Exception("Block has generic output but multiple type arguments. This could happen in the future but isn't handled.");
         }
     }
 }

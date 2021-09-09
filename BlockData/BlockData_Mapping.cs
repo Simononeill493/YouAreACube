@@ -13,7 +13,9 @@ namespace IAmACube
 
         [JsonIgnore]
         public BlockData BaseMappingBlock { get; set; }
-        public string BaseMappingName => BaseMappingBlock == null ? Name : BaseMappingBlock.Name;
+        [JsonIgnore]
+        public string BaseMappingName => GetThisOrBaseMappingBlock().Name;
+        public BlockData GetThisOrBaseMappingBlock() => BaseMappingBlock == null ? this : BaseMappingBlock.GetThisOrBaseMappingBlock();
 
         [JsonIgnore]
         public bool IsMappedToSubBlocks { get; private set; }

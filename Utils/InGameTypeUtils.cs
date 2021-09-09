@@ -58,6 +58,21 @@ namespace IAmACube
 
         public static bool IsDiscreteType(string dataType) => TypeUtils.IsEnum(dataType) | dataType.Equals("bool");
         public static bool IsTextEntryType(string dataType) => dataType.Equals("int") | dataType.Equals("string") | dataType.Equals("Keys");
+
+
+        public static bool IsGeneric(string typeName)
+        {
+            if (typeName.Contains("Variable"))
+            {
+                return true;
+            }
+            if (typeName.Contains("AnyCube"))
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 
 

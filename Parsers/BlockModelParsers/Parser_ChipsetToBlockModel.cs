@@ -21,6 +21,7 @@ namespace IAmACube
                 foreach (var chip in subChipset.Chips)
                 {
                     var blockModel = fullModel.CreateBlock(chip.Name, chip.GetBlockData());
+                    fullModel.AddInputs(blockModel);
                     blocksetModel.Blocks.Add(blockModel);
 
                     var inputPinValues = chip.GetInputPinValues();
