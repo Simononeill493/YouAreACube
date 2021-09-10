@@ -45,7 +45,7 @@ namespace IAmACube
             ChipsetTemplates["Bullet"][1] = bullet2;
 
             var trackerTemplate = ChipsetTemplates["TrackerEnemy"][0];
-            trackerTemplate.Variables.Dict[0] = new TemplateVariable(0, "target", InGameTypeUtils.InGameTypes["AnyCube"]);
+            trackerTemplate.Variables.Dict[0] = new TemplateVariable(0, "target", InGameTypeUtils.InGameTypes[InGameTypeUtils.AnyCube]);
         } 
 
 

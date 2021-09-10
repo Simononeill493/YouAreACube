@@ -44,7 +44,7 @@ namespace IAmACube
 
         private void TextTyped(string newText)
         {
-            var attemptedParsedValue = TypeUtils.ParseType(InputTypes, newText);
+            var attemptedParsedValue = InGameTypeUtils.ParseType(InputTypes, newText);
             if(attemptedParsedValue!=null)
             {
                 Model.InputOption = BlockInputOption.CreateValue(attemptedParsedValue);

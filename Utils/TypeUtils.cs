@@ -9,70 +9,21 @@ namespace IAmACube
 {
     class TypeUtils
     {
-        private static Dictionary<string, Type> _allTypes;
-        private static Dictionary<string, Type> _assemblyChipTypes;
+        public static Dictionary<string, Type> AllTypes;
+        public static Dictionary<string, Type> _assemblyChipTypes;
 
         public static void Load()
         {
-            _allTypes = _loadAllTypes();
+            AllTypes = _loadAllTypes();
             _assemblyChipTypes = _loadAssemblyChipTypes();
         }
 
-        public static string GetTypeDisplayName(Type type)
-        {
-            if (type.Equals(typeof(int)))
-            {
-                return "int";
-            }
-            if (type.Equals(typeof(bool)))
-            {
-                return "bool";
-            }
-            if (type.Equals(typeof(TemplateVersionDictionary)))
-            {
-                return "Template";
-            }
 
-            return type.Name;
-        }
-        public static Type GetTypeByDisplayName(string name)
-        {
-            if (name.Equals("int"))
-            {
-                return typeof(int);
-            }
-            if (name.Equals("bool"))
-            {
-                return typeof(bool);
-            }
-            if (name.Equals("Template"))
-            {
-                return typeof(TemplateVersionDictionary);
-            }
-            if (name.Equals("List<Variable>"))
-            {
-                return typeof(List<object>);
-            }
-            if (name.Equals("Variable"))
-            {
-                return typeof(object);
-            }
-            if (name.Equals("AnyCube"))
-            {
-                return typeof(Cube);
-            }
-            if (name.Equals("object"))
-            {
-                return typeof(object);
-            }
 
-            return _allTypes[name];
-        }
         public static Type GetChipTypeByName(string name) => _assemblyChipTypes.FirstOrDefault(c => c.Value.Name.Equals(name)).Value;
 
         public static T ParseType<T>(string asString) => (T)ParseType(typeof(T), asString);
 
-        public static object ParseType(List<string> inGameTypes, string asString) => ParseType(inGameTypes.Select(t => GetTypeByDisplayName(t)), asString);
         public static object ParseType(IEnumerable<Type> types, string asString)
         {
             foreach (var t in types)
@@ -133,11 +84,8 @@ namespace IAmACube
 
             return null;
         }
-        
-       
 
-        public static bool IsEnum(string typeName) => GetTypeByDisplayName(typeName).IsEnum;
-        public static List<object> GetEnumValues(string typeName) => GetTypeByDisplayName(typeName).GetEnumValues().Cast<object>().ToList();
+
 
 
 
@@ -156,7 +104,7 @@ namespace IAmACube
         }
         private static Dictionary<string, Type> _loadAssemblyChipTypes()
         {
-            var allIChips = _allTypes.Values.Where(x => typeof(IChip).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).ToList();
+            var allIChips = AllTypes.Values.Where(x => typeof(IChip).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).ToList();
 
             var dict = new Dictionary<string, Type>();
             foreach (var iChip in allIChips)

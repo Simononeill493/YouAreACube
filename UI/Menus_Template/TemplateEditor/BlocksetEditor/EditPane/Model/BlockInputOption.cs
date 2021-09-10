@@ -21,7 +21,7 @@ namespace IAmACube
             switch (InputOptionType)
             {
                 case InputOptionType.Value:
-                    return TypeUtils.GetTypeDisplayName(Value.GetType());
+                    return InGameTypeUtils.RealTypeToInGameType(Value.GetType());
                 case InputOptionType.Reference:
                     return Block.GetCurrentOutputType();
                 case InputOptionType.Variable:

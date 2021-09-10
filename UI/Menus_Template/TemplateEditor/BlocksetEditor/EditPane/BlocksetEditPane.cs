@@ -55,7 +55,9 @@ namespace IAmACube
 
         public void AddEditedChipsetToTemplate(CubeTemplate template)
         {
-
+            var newModel = Model.ToChipset();
+            TemplateParsingTester.TestParsingRoundTrip(template.Name, newModel, VariableProvider.GetVariables());
+            template.Chipset = newModel;
         }
 
         public void RecieveFromSearchPane(BlockData data, UserInput input)

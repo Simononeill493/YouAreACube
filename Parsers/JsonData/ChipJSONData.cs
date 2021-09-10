@@ -18,7 +18,7 @@ namespace IAmACube
             var inputData = Inputs[inputIndex];
             var inputType = BlockData.GetInputType(inputIndex);
 
-            if(inputType.Equals("Variable"))
+            if(inputType.Equals(InGameTypeUtils.Variable))
             {
                 inputType = TypeArguments.First();
             }

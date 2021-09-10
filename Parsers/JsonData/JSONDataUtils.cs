@@ -56,7 +56,7 @@ namespace IAmACube
                 return JSONRepToTemplate(stringToParse);
             }
 
-            var type = TypeUtils.GetTypeByDisplayName(typeName);
+            var type = InGameTypeUtils.InGameTypeToRealType(typeName);
             var typeValue = TypeUtils.ParseType(type, stringToParse);
 
             if (typeValue == null)

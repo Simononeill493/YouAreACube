@@ -15,7 +15,7 @@ namespace IAmACube
             {
                 return GetDefaultItems(dataType.Split('|').ToList());
             }
-            if (IsDiscreteType(dataType))
+            if (InGameTypeUtils.IsDiscreteType(dataType))
             {
                 return _getBasicSelections(dataType).Cast<BlockInputOption>().ToList();
             }
@@ -31,9 +31,9 @@ namespace IAmACube
 
         private static List<BlockInputOption> _getBasicSelections(string dataType)
         {
-            if (TypeUtils.IsEnum(dataType))
+            if (InGameTypeUtils.IsEnum(dataType))
             {
-                return _createOptionsFromItems(TypeUtils.GetEnumValues(dataType));
+                return _createOptionsFromItems(InGameTypeUtils.GetEnumValues(dataType));
             }
             else if (dataType.Equals("bool"))
             {
@@ -46,7 +46,5 @@ namespace IAmACube
         private static List<BlockInputOption> _createOptionsFromItems(List<object> items) => items.Select(item => BlockInputOption.CreateValue(item)).ToList();
 
 
-        public static bool IsDiscreteType(string dataType) => TypeUtils.IsEnum(dataType) | dataType.Equals("bool");
-        public static bool IsTextEntryType(string dataType) => dataType.Equals("int") | dataType.Equals("string") | dataType.Equals("Keys");
     }
 }

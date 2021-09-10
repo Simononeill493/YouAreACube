@@ -90,18 +90,12 @@ namespace IAmACube
 
         private void _setDefaultTypeArgs(string typeName)
         {
-            if (typeName.Contains("Variable"))
+            var defaultArg = InGameTypeUtils.GetDefaultTypeArgument(typeName);
+            if(defaultArg!=null)
             {
-                if (!DefaultTypeArguments.Contains("Object"))
+                if (!DefaultTypeArguments.Contains(defaultArg))
                 {
-                    DefaultTypeArguments.Add("Object");
-                }
-            }
-            if (typeName.Contains("AnyCube"))
-            {
-                if (!DefaultTypeArguments.Contains("SurfaceCube"))
-                {
-                    DefaultTypeArguments.Add("SurfaceCube");
+                    DefaultTypeArguments.Add(defaultArg);
                 }
             }
         }
@@ -115,31 +109,11 @@ namespace IAmACube
             {
                 if(InGameTypeUtils.IsGeneric(Inputs[i]))
                 {
-                    argus.Add(GetTypeArgument(Inputs[i],selectedTypes[i]));
+                    argus.Add(InGameTypeUtils.GetTypeArgument(Inputs[i],selectedTypes[i]));
                 }
             }
 
             return argus;
-        }
-
-        private string GetTypeArgument(string inputType,string selectedType)
-        {
-
-            if (inputType.StartsWith("List<") & selectedType.StartsWith("List<"))
-            {
-                var selectedSnipped = selectedType.Substring(5, selectedType.Length - 6);
-                return selectedSnipped;
-            }
-            if (inputType.Equals("AnyCube") & (selectedType.Equals("AnyCube") | selectedType.Equals("Cube") | selectedType.Equals("SurfaceCube") | selectedType.Equals("GroundCube") | selectedType.Equals("EphemeralCube")))
-            {
-                return selectedType;
-            }
-            if (inputType.Equals("Variable"))
-            {
-                return selectedType;
-            }
-
-            throw new Exception("Block has a generic input type that hasn't been handled.");
         }
 
         public string GetInputType(int index) => Inputs[index];

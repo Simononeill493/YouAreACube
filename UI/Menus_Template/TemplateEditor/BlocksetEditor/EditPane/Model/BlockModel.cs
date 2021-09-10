@@ -49,7 +49,8 @@ namespace IAmACube
         public List<string> GetTypeArguments()
         {
             var data = GetChipBlockData();
-            var typeArgs = data.GetTypeArguments(GetInputTypes());
+            var inputTypes = GetInputTypes();
+            var typeArgs = data.GetTypeArguments(inputTypes);
 
             return typeArgs;
         }

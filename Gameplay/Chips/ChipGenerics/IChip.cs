@@ -104,7 +104,7 @@ namespace IAmACube
         public static List<string> GetTypeArgumentNames(this IChip chip)
         {
             var genericArguments = chip.GetType().GenericTypeArguments;
-            var names =  genericArguments.Select(ta => TypeUtils.GetTypeDisplayName(ta)).ToList();
+            var names =  genericArguments.Select(ta => InGameTypeUtils.RealTypeToInGameType(ta)).ToList();
 
             return names;
         }

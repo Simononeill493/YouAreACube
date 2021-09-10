@@ -41,7 +41,7 @@ namespace IAmACube
         private static IChip _generateGenericChipFromBlockData(BlockData data, List<string> typeArguments)
         {
             var genericChipType = TypeUtils.GetChipTypeByName(data.Name + "Chip`1");
-            var typeArgumentsAsType = typeArguments.Select(ta => TypeUtils.GetTypeByDisplayName(ta)).ToArray();
+            var typeArgumentsAsType = typeArguments.Select(ta => InGameTypeUtils.InGameTypeToRealType(ta)).ToArray();
             var genericRuntimeType = genericChipType.MakeGenericType(typeArgumentsAsType);
             var genericInstance = (IChip)Activator.CreateInstance(genericRuntimeType);
 
