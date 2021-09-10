@@ -8,12 +8,16 @@ namespace IAmACube
 {
     class BlockInputDropdown : ObservableDropdownMenuItem<BlockInputOption>
     {
-        public List<string> InputTypes;
+        public List<string> InputTypes => _inputTypesProvider();
+        public Func<List<string>> _inputTypesProvider;
+
+        public override bool Editable { get => InputTypes.Any(t => InGameTypeUtils.IsTextEntryType(t)); set => throw new NotImplementedException(); }
+
         public BlockInputModel Model;
 
         public BlockInputDropdown(IHasDrawLayer parent, List<string> inputTypes, BlockInputModel model,Func<string> textProvider) : base(parent,textProvider)
         {
-            SetInputTypes(inputTypes);
+            SetStaticInputTypes(inputTypes);
             Model = model;
 
             ObservableText.ObservableTextChanged += TextTyped;
@@ -21,10 +25,14 @@ namespace IAmACube
             base.ListItemSelected(model.InputOption);
         }
 
-        public void SetInputTypes(List<string> inputTypes)
+        public void SetInputTypeProvider(Func<List<string>> inputTypesProvider)
         {
-            InputTypes = inputTypes;
-            Editable = inputTypes.Any(t => InGameTypeUtils.IsTextEntryType(t));
+            _inputTypesProvider = inputTypesProvider;
+        }
+
+        public void SetStaticInputTypes(List<string> inputTypes)
+        {
+            _inputTypesProvider = () => inputTypes;
         }
 
         public override void PopulateItems()

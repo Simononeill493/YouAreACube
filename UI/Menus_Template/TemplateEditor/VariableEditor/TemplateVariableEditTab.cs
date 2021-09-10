@@ -64,10 +64,18 @@ namespace IAmACube
 
             return variableSet;
         } 
+
+        public TemplateVariable GetVariable(int index)
+        {
+            var matching = _items.Where(i => i.VariableEnabled & i.VariableNumber == index).FirstOrDefault();
+            return matching?.MakeVariable();
+        }
     }
 
     public interface IVariableProvider
     {
         TemplateVariableSet GetVariables();
+        TemplateVariable GetVariable(int index);
+
     }
 }

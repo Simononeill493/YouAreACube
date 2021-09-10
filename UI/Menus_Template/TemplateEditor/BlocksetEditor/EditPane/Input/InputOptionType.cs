@@ -17,6 +17,7 @@
         Value,
         Reference,
         Variable,
+        MetaVariable,
         SubMenu,
         Unparseable
     }

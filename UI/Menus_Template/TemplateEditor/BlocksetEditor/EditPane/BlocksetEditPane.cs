@@ -243,7 +243,7 @@ namespace IAmACube
             }
         }
 
-        private Blockset _getBlocksetMouseIsOver(Blockset held) => Blocksets.Values.Where(b => b.CanDropThisOn(held)).OrderBy(c => c.DrawLayer).FirstOrDefault();
+        private Blockset _getBlocksetMouseIsOver(Blockset held) => Blocksets.Values.Where(b => b.CanDropThisOn(held)).OrderByDescending(c => c.DrawLayer).FirstOrDefault();
 
     }
 }

@@ -32,5 +32,14 @@ namespace IAmACube
 
             return matching.Select(v => BlockInputOption.CreateVariable(v)).ToList();
         }
+
+        public static List<BlockInputOption> GetMetaInputsFromVariables(this IVariableProvider variableProvider)
+        {
+            var variables = variableProvider.GetVariables().Dict.Values;
+
+            return variables.Select(v => BlockInputOption.CreateMetaVariable(v.VariableNumber)).ToList();
+        }
+
+
     }
 }

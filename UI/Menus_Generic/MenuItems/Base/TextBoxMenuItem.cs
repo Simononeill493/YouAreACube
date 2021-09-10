@@ -14,7 +14,7 @@ namespace IAmACube
 
         public int MaxTextLength = 9;
 
-        public bool Editable;
+        public virtual bool Editable { get; set; }
         public bool Focused;
 
         public event Action<string> OnTextChanged;

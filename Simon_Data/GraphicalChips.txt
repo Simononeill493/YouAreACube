@@ -80,7 +80,8 @@
 	{
       "name":"SetVariable",
 	  "datatype":"General",
-	  "inputs":["int","Variable"],
+	  "inputDisplayNames":["Variable","Set To"],
+	  "inputs":["int","Variable"]
     },
 	{
       "name":"GetActiveCubeInSector",

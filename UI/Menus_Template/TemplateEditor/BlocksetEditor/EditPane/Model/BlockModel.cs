@@ -40,12 +40,32 @@ namespace IAmACube
         {
             var visualData = GetVisualBlockData();
             var inputTypes = GetInputTypes();
-
             var chipBlockData = visualData.GetMappedBlockData(inputTypes);
             return chipBlockData;
-        } 
+        }
 
-        public List<string> GetInputTypes() => Inputs.Select(i => i.StoredType).ToList();
+        public List<string> GetInputTypes()
+        {
+            var baseData = GetVisualBlockData();
+            var inputTypes = new List<string>();
+
+            for(int i=0;i<baseData.NumInputs;i++)
+            {
+                var storedType = Inputs[i].StoredType;
+                if(storedType==null)
+                {
+                    storedType = baseData.Inputs[i];
+                    if(storedType.Contains("|"))
+                    {
+                        throw new Exception();
+                    }
+                }
+
+                inputTypes.Add(storedType);
+            }
+
+            return inputTypes;
+        }
         public List<string> GetTypeArguments()
         {
             var data = GetChipBlockData();

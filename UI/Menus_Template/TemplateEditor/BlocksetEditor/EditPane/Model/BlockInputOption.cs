@@ -26,8 +26,10 @@ namespace IAmACube
                     return Block.GetCurrentOutputType();
                 case InputOptionType.Variable:
                     return Variable.VariableType.Name;
+                case InputOptionType.MetaVariable:
+                    return "int";
                 default:
-                    throw new NotImplementedException();
+                    return null;
             }
         }
 
@@ -41,6 +43,8 @@ namespace IAmACube
                     return Block.Name;
                 case InputOptionType.Variable:
                     return Variable.VariableName;
+                case InputOptionType.MetaVariable:
+                    return BlocksetEditPane.VariableProvider.GetVariable((int)Value).VariableName;
                 case InputOptionType.Unparseable:
                     return ToParse;
                 case InputOptionType.SubMenu:
@@ -59,6 +63,8 @@ namespace IAmACube
         public static BlockInputOption CreateValue(object value) => new BlockInputOption() { InputOptionType = InputOptionType.Value, Value = value };
         public static BlockInputOption CreateReference(BlockModel block) => new BlockInputOption() { InputOptionType = InputOptionType.Reference, Block = block};
         public static BlockInputOption CreateVariable(TemplateVariable variable) => new BlockInputOption() { InputOptionType = InputOptionType.Variable, Variable = variable};
+        public static BlockInputOption CreateMetaVariable(int variableIndex) => new BlockInputOption() { InputOptionType = InputOptionType.MetaVariable, Value = variableIndex };
+
         public static BlockInputOption CreateUnparseable(string stringRep) => new BlockInputOption() { InputOptionType = InputOptionType.Unparseable, ToParse = stringRep };
         public static BlockInputOption CreateSubMenu(string message) => new BlockInputOption() { InputOptionType = InputOptionType.SubMenu, Message = message };
         public static BlockInputOption Undefined => new BlockInputOption() { InputOptionType = InputOptionType.Undefined };

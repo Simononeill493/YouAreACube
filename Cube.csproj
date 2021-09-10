@@ -152,7 +152,7 @@
     <Compile Include="UI\Menus_Generic\MenuItems\Base\ContainerMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Dropdown\ObservableDropdownMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Text\ObservableTextMenuItem.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\BlockInputDropdown.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\Dropdown\BlockInputDropdown.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\SpriteBoxes\SpriteBoxMatrix.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Tabs\TabArrayMenuItem.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\Tabs\TabButtonMenuItem.cs" />
@@ -164,6 +164,7 @@
     <Compile Include="UI\Menus_Template\TemplateEditor\BaseStatsEditor\TemplateBaseStatsEditTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\BlockPositioningUtils.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\BlocksetEditPane_Pan.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\Dropdown\BlockInputDropdownMetaVariable.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\InputCompareUtils.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Model\BlockInputModel.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Model\BlockInputOption.cs" />
@@ -217,7 +218,7 @@
     <Compile Include="Utils\BlockDataUtils.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Block\BlockUtils.cs" />
     <Compile Include="Utils\InGameTypeUtils.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\BlockDropdownUtils.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\Dropdown\BlockDropdownUtils.cs" />
     <Compile Include="WorldGen\AttachmentUtils.cs" />
     <Compile Include="WorldGen\SectorGenerator.cs" />
     <Compile Include="Misc\LocationWithNeighbors.cs" />

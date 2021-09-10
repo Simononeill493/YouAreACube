@@ -67,6 +67,9 @@ namespace IAmACube
                 case InputOptionType.Variable:
                     chip.SetVariableProperty(inputOption.Variable.VariableNumber, pin);
                     break;
+                case InputOptionType.MetaVariable:
+                    chip.SetValueProperty(inputOption.Value, pin);
+                    break;
                 default:
                     throw new Exception();
             }
