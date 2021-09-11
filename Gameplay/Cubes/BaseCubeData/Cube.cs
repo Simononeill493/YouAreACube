@@ -11,6 +11,8 @@ namespace IAmACube
     public abstract partial class Cube
     {
         public CubeTemplate Template { get; private set; }
+        public int ChipsetMode { get; set; }
+
         public bool Active => Template.Active;
         public int Speed => Template.Speed;
 
@@ -25,6 +27,7 @@ namespace IAmACube
         public Cube(CubeTemplate template, Kernel source, CubeMode cubeMode)
         {
             Template = template;
+            ChipsetMode = 0;
             CubeMode = cubeMode;
             Source = source;
             Energy = 0;
@@ -39,7 +42,7 @@ namespace IAmACube
         public virtual void Update(UserInput input, ActionsList actions) 
         {
             Zapping = false;
-            Template.Chipset.Execute(this, input, actions); 
+            Template.Chipsets.Modes[ChipsetMode].Execute(this, input, actions); 
         }
 
         public virtual void BeCreatedBy(Cube creator) => SpeedOffset = creator.SpeedOffset + 1;

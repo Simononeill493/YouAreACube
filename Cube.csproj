@@ -55,6 +55,7 @@
     <Compile Include="Camera\KernelCamera\KernelTrackingCamera.cs" />
     <Compile Include="Camera\KernelCamera\ScrollBoundary.cs" />
     <Compile Include="Config\ConfigFiles.cs" />
+    <Compile Include="Gameplay\Chips\Chipsets\ChipsetCollection.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\Sap\SapEnergyRelativeChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\Sap\SapEnergyCardinalChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\AnimationChips\FlipVerticalChip.cs" />
@@ -80,7 +81,7 @@
     <Compile Include="Gameplay\Cubes\EphemeralCube.cs" />
     <Compile Include="Gameplay\Cubes\HealthCubes\SurfaceCube.cs" />
     <Compile Include="Gameplay\Cubes\HealthCubes\HealthCube.cs" />
-    <Compile Include="Gameplay\Chips\ChipsetComparer.cs" />
+    <Compile Include="Gameplay\Chips\Chipsets\ChipsetComparer.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\GiveEnergy\GiveEnergyRelativeChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\GiveEnergy\GiveEnergyCardinalChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\Move\ApproachCubeChip.cs" />
@@ -137,7 +138,7 @@
     <Compile Include="Parsers\ChipBlockParsers\Parser_ChipsetToJSON.cs" />
     <Compile Include="Parsers\JsonData\ChipsetJSONData.cs" />
     <Compile Include="Parsers\JsonData\ChipJSONData.cs" />
-    <Compile Include="Parsers\JsonData\FullChipsetJSONData.cs" />
+    <Compile Include="Parsers\JsonData\ChipsetModeJSONData.cs" />
     <Compile Include="BlockData\BlockDataGenerationTester.cs" />
     <Compile Include="Parsers\JsonData\JSONDataUtils.cs" />
     <Compile Include="Testing\BlockInputSection_SanityTesting.cs" />
@@ -261,10 +262,10 @@
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Gameplay\Templates\CubeTemplate.cs" />
     <Compile Include="Camera\Camera.cs" />
-    <Compile Include="Gameplay\Chips\Chipset.cs" />
+    <Compile Include="Gameplay\Chips\Chipsets\Chipset.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\IChip.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\Pins\OutputPin.cs" />
-    <Compile Include="Gameplay\Chips\ChipTester.cs" />
+    <Compile Include="Gameplay\Chips\Chipsets\ChipTester.cs" />
     <Compile Include="Gameplay\Chips\ChipGenerics\IControlChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\GeneralChips\List\FirstOfListChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Surroundings\GetNeighbouringCubesChip.cs" />

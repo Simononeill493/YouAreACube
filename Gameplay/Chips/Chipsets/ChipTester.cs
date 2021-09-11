@@ -25,23 +25,23 @@ namespace IAmACube
 
         public static void SetTestChipsets(TemplateDatabase ChipsetTemplates)
         {
-            ChipsetTemplates["BasicPlayer"][0].Chipset = TestPlayerChipset;
-            ChipsetTemplates["Bullet"][0].Chipset = TestBulletChipset;
-            ChipsetTemplates["BigBullet"][0].Chipset = TestBulletChipset;
+            ChipsetTemplates["BasicPlayer"][0].Chipsets = new ChipsetCollection(TestPlayerChipset);
+            ChipsetTemplates["Bullet"][0].Chipsets = new ChipsetCollection(TestBulletChipset);
+            ChipsetTemplates["BigBullet"][0].Chipsets = new ChipsetCollection(TestBulletChipset);
 
-            ChipsetTemplates["MouseFollower"][0].Chipset = TestMouseFollowChipset;
+            ChipsetTemplates["MouseFollower"][0].Chipsets = new ChipsetCollection(TestMouseFollowChipset);
 
-            ChipsetTemplates["ApproachEnemy"][0].Chipset = TestEnemyChipset;
-            ChipsetTemplates["FleeEnemy"][0].Chipset = TestFleeChipset;
-            ChipsetTemplates["ShootEnemy"][0].Chipset = TestShootChipset;
-            ChipsetTemplates["TrackerEnemy"][0].Chipset = TestTrackerChipset;
+            ChipsetTemplates["ApproachEnemy"][0].Chipsets = new ChipsetCollection(TestEnemyChipset);
+            ChipsetTemplates["FleeEnemy"][0].Chipsets = new ChipsetCollection(TestFleeChipset);
+            ChipsetTemplates["ShootEnemy"][0].Chipsets = new ChipsetCollection(TestShootChipset);
+            ChipsetTemplates["TrackerEnemy"][0].Chipsets = new ChipsetCollection(TestTrackerChipset);
 
-            ChipsetTemplates["Spinner"][0].Chipset = TestSpinChipset;
-            ChipsetTemplates["MiniBullet"][0].Chipset = TestBulletChipset;
+            ChipsetTemplates["Spinner"][0].Chipsets = new ChipsetCollection(TestSpinChipset);
+            ChipsetTemplates["MiniBullet"][0].Chipsets = new ChipsetCollection(TestBulletChipset);
 
 
             var bullet2 = ChipsetTemplates["Bullet"][0].Clone();
-            bullet2.Chipset = TestBulletV2Chipset;
+            bullet2.Chipsets = new ChipsetCollection(TestBulletV2Chipset);
             ChipsetTemplates["Bullet"][1] = bullet2;
 
             var trackerTemplate = ChipsetTemplates["TrackerEnemy"][0];

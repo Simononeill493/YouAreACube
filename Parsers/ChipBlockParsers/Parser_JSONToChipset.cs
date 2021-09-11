@@ -11,7 +11,7 @@ namespace IAmACube
     {
         public static Chipset ToChipset(this string json)
         {
-            var fullJSON = JsonConvert.DeserializeObject<FullChipsetJSONData>(json);
+            var fullJSON = JsonConvert.DeserializeObject<ChipsetModeJSONData>(json);
 
             fullJSON.SetBlockData();
             fullJSON.CreateChipsetObjects();

@@ -6,10 +6,10 @@ using System.Linq;
 
 namespace IAmACube
 {
-    public class FullChipsetJSONData : List<ChipsetJSONData>
+    public class ChipsetModeJSONData : List<ChipsetJSONData>
     {
-        public FullChipsetJSONData() { }
-        public FullChipsetJSONData(Chipset chipsetToAdd)
+        public ChipsetModeJSONData() { }
+        public ChipsetModeJSONData(Chipset chipsetToAdd)
         {
             ChipsDict = chipsetToAdd.MakeChipsDict();
 

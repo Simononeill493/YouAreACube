@@ -23,7 +23,7 @@ namespace IAmACube
         public CubeSpriteDataType SpriteType;
 
         [JsonIgnore]
-        public Chipset Chipset;
+        public ChipsetCollection Chipsets;
 
         [JsonIgnore]
         public TemplateVersionDictionary Versions;
@@ -53,9 +53,9 @@ namespace IAmACube
         public CubeTemplate Clone()
         {
             var clone = JsonConvert.DeserializeObject<CubeTemplate>(JsonConvert.SerializeObject(this));
-            if(this.Chipset!=null)
+            if(this.Chipsets!=null)
             {
-                clone.Chipset = Chipset.ToJson().ToChipset();
+                clone.Chipsets = Chipsets.Clone();
             }
 
             clone.Version = -1;

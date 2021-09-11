@@ -15,7 +15,7 @@ namespace IAmACube
         {
             chipsetToParse.AssertSanityTest();
 
-            var fullJSON = new FullChipsetJSONData(chipsetToParse);
+            var fullJSON = new ChipsetModeJSONData(chipsetToParse);
 
             _setChipsInputs(fullJSON.ChipsDict);
 

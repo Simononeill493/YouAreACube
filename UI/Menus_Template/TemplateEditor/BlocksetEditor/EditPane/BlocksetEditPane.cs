@@ -48,7 +48,7 @@ namespace IAmACube
 
         public void LoadChipsetForEditing(CubeTemplate template)
         {
-            var model = template.Chipset.ToBlockModel(VariableProvider.GetVariables());
+            var model = template.Chipsets.Initial.ToBlockModel(VariableProvider.GetVariables());
             var initial = _loadModel(model);
             initial.SetLocationConfig(10, 10, CoordinateMode.ParentPixelOffset);
         }
@@ -59,7 +59,7 @@ namespace IAmACube
 
             var newModel = Model.ToChipset();
             TemplateParsingTester.TestParsingRoundTrip(template.Name, newModel, VariableProvider.GetVariables());
-            template.Chipset = newModel;
+            template.Chipsets = new ChipsetCollection(newModel);
         }
 
 

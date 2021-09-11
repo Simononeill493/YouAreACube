@@ -14,13 +14,20 @@ namespace IAmACube
             foreach (var template in templates)
             {
                 if (!template.Active) { continue; }
-                if(template.Chipset!=null)
+                if(template.Chipsets!=null)
                 {
-                    TestParsingRoundTrip(template.Name, template.Chipset,template.Variables);
+                    TestParsingRoundTrip(template.Name, template.Chipsets, template.Variables);
                 }
             }
         }
 
+        public static void TestParsingRoundTrip(string name, ChipsetCollection chipsets, TemplateVariableSet variables)
+        {
+            foreach (var mode in chipsets.Modes.Values)
+            {
+                TestParsingRoundTrip(name, mode, variables);
+            }
+        }
         public static void TestParsingRoundTrip(string name,Chipset chipset,TemplateVariableSet variables)
         {
             var initialJson = chipset.ToJson();
