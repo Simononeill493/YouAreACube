@@ -43,6 +43,10 @@ namespace IAmACube
             {
                 AddSetVariableInputSections(block, data);
             }
+            else if (data.Name.Equals("IsVariableSet"))
+            {
+                AddCheckVariableSetInputSections(block, data);
+            }
             else
             {
                 AddDefaultInputSections(block, data);
@@ -80,6 +84,14 @@ namespace IAmACube
             _addSection(block, inputSection2);
 
             dropdown2.SetInputTypeProvider(dropdown.GetTypesOfSelectedVariable);
+        }
+
+        public static void AddCheckVariableSetInputSections(Block block, BlockData data)
+        {
+            var inputSection = MakeInputSection(block, data, 0);
+            var dropdown = MakeMetaVariableDropdown(inputSection, block.Model.Inputs[0]);
+            inputSection.AddChild(dropdown);
+            _addSection(block, inputSection);
         }
 
         public static BlockInputSection MakeInputSection(Block block, BlockData data, int index) => new BlockInputSection(GetDrawLayerForNewSection(block), data.GetInputDisplayName(index));

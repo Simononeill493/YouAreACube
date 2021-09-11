@@ -55,10 +55,13 @@ namespace IAmACube
 
         public void AddEditedChipsetToTemplate(CubeTemplate template)
         {
+            _setInitial();
+
             var newModel = Model.ToChipset();
             TemplateParsingTester.TestParsingRoundTrip(template.Name, newModel, VariableProvider.GetVariables());
             template.Chipset = newModel;
         }
+
 
         public void RecieveFromSearchPane(BlockData data, UserInput input)
         {
@@ -242,6 +245,16 @@ namespace IAmACube
             {
                 _blockScale = 2.0f / MenuScreen.Scale;
             }
+        }
+
+        private void _setInitial()
+        {
+            var topLevelBlocksets = Blocksets.Values.Where(b => !b.IsInternal);
+            if (topLevelBlocksets.Count() != 1)
+            {
+                throw new Exception("Multiple top level blocksets");
+            }
+            topLevelBlocksets.First().Model.Name = "_Initial";
         }
     }
 }

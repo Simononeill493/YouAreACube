@@ -84,6 +84,13 @@
 	  "inputs":["int","Variable"]
     },
 	{
+      "name":"IsVariableSet",
+	  "datatype":"General",
+	  "inputDisplayNames":["Variable"],
+	  "inputs":["int"],
+	  "output":"bool"
+    },
+	{
       "name":"GetActiveCubeInSector",
 	  "inputs":[],
 	  "datatype":"Sense",
