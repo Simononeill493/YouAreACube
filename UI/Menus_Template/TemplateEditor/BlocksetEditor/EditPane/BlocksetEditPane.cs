@@ -86,7 +86,8 @@ namespace IAmACube
                 return;
             }
 
-            var hoveringOver = _getBlocksetMouseIsOver(blockset);
+            var droppable = Blocksets.Values.Where(b => b.CanDropThisOn(blockset));
+            var hoveringOver = droppable.OrderByDescending(c => Blocksets.GetDepth(c)).FirstOrDefault();
             if(hoveringOver!=null)
             {
                 AppendBlockset(blockset, hoveringOver);
@@ -242,8 +243,5 @@ namespace IAmACube
                 _blockScale = 2.0f / MenuScreen.Scale;
             }
         }
-
-        private Blockset _getBlocksetMouseIsOver(Blockset held) => Blocksets.Values.Where(b => b.CanDropThisOn(held)).OrderByDescending(c => c.DrawLayer).FirstOrDefault();
-
     }
 }

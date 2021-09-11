@@ -23,7 +23,7 @@ namespace IAmACube
                 case InputOptionType.Value:
                     return InGameTypeUtils.RealTypeToInGameType(Value.GetType());
                 case InputOptionType.Reference:
-                    return Block.GetCurrentOutputType();
+                    return Block.GetOutputType();
                 case InputOptionType.Variable:
                     return Variable.VariableType.Name;
                 case InputOptionType.MetaVariable:

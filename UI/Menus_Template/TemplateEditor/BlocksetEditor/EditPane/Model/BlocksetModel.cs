@@ -28,5 +28,7 @@ namespace IAmACube
         {
             Blocks = Blocks.Except(toRemove).ToList();
         }
+
+        //public List<BlocksetModel> GetSubBlocksets() => Blocks.SelectMany(b => b.SubBlocksets.Select(s=>s.Item2)).ToList();
     }
 }

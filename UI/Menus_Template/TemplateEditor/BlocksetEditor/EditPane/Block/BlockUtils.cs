@@ -19,5 +19,35 @@ namespace IAmACube
         }
 
         public static int IndexOf(this Blockset blockset, Block block)=> blockset.Blocks.ToList().IndexOf(block);
+
+
+        public static int GetDepth(this Dictionary<BlocksetModel, Blockset> allBlocksets, Blockset toFind)
+        {
+            var nonInternals = allBlocksets.Values.Where(b => !b.IsInternal);
+            var depth = _getDepth(allBlocksets, nonInternals, toFind, 0);
+            return depth;
+        }
+
+        private static int _getDepth(Dictionary<BlocksetModel, Blockset> allBlocksets,IEnumerable<Blockset> blocksetsToSearch, Blockset toFind, int currentDepth)
+        {
+            foreach(var blockset in blocksetsToSearch)
+            {
+                if(toFind.Equals(blockset))
+                {
+                    return currentDepth;
+                }
+
+                foreach(var subBlocksets in blockset.Blocks.Select(b=>b.Model.SubBlocksets.Select(s=>allBlocksets[s.Item2])))
+                {
+                    var depth = _getDepth(allBlocksets, subBlocksets, toFind, currentDepth + 1);
+                    if(depth>=0)
+                    {
+                        return depth;
+                    }
+                }
+            }
+
+            return -1;
+        }
     }
 }

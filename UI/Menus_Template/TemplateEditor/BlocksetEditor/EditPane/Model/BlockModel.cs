@@ -66,16 +66,7 @@ namespace IAmACube
 
             return inputTypes;
         }
-        public List<string> GetTypeArguments()
-        {
-            var data = GetChipBlockData();
-            var inputTypes = GetInputTypes();
-            var typeArgs = data.GetTypeArguments(inputTypes);
-
-            return typeArgs;
-        }
-
-        public string GetCurrentOutputType()
+        public string GetOutputType()
         {
             if(Inputs.Any(i=>i.InputOption.InputOptionType == InputOptionType.Undefined))
             {
@@ -94,6 +85,15 @@ namespace IAmACube
             }
 
             throw new Exception("Block has generic output but multiple type arguments. This could happen in the future but isn't handled.");
+        }
+
+        public List<string> GetTypeArguments()
+        {
+            var data = GetChipBlockData();
+            var inputTypes = GetInputTypes();
+            var typeArgs = data.GetTypeArguments(inputTypes);
+
+            return typeArgs;
         }
     }
 }

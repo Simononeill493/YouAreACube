@@ -12,7 +12,7 @@ namespace IAmACube
         {
             var block = fullModel.InputParents[inputModel];
 
-            var candidates = fullModel.Blocks.Values.Where(b => InGameTypeUtils.IsValidInputFor(b.GetCurrentOutputType(), inputTypes) & !b.Equals(block)).ToList();
+            var candidates = fullModel.Blocks.Values.Where(b => InGameTypeUtils.IsValidInputFor(b.GetOutputType(), inputTypes) & !b.Equals(block)).ToList();
             var matching = candidates.Where(c => fullModel.GetAllBlocksBelow(c).Contains(block));
             return matching.Select(b => BlockInputOption.CreateReference(b)).ToList();
         }
