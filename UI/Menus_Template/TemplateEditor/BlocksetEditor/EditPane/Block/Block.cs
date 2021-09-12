@@ -12,9 +12,10 @@ namespace IAmACube
 
         public BlockTop Top;
         public List<SpriteMenuItem> Sections;
-        public BlockSwitchSection_2 SwitchSection;
+        public BlockSwitchSection SwitchSection;
 
         private Action<Block,UserInput> _draggedCallback;
+        private Action<BlockInputOption, BlockInputModel> _subMenuCallback;
 
         public Block(BlockModel model) : base(ManualDrawLayer.Create(DrawLayers.MenuBlockLayer))
         {
@@ -29,7 +30,16 @@ namespace IAmACube
         public void SetBlocksetParent(Blockset parent)
         {
             _draggedCallback = parent.LiftBlocks;
+            _subMenuCallback = parent.OpenSubMenu;
             VisualParent = parent;
+        }
+
+        public void DropdownItemSelected(BlockInputOption selectedOption,BlockInputModel seletedModel)
+        {
+            if(selectedOption.InputOptionType == InputOptionType.SubMenu)
+            {
+                _subMenuCallback(selectedOption, seletedModel);
+            }
         }
 
         public override void HideAndDisable()

@@ -11,7 +11,7 @@ namespace IAmACube
     {
         public static World GenerateEmptyWorld(int seed)
         {
-            var world = new World(new Random().Next(),Config.DefaultSectorSize);
+            var world = new World(seed, Config.DefaultSectorSize);
             var centre = GetTestSector(world.Random,new IntPoint(0, 0),world.SectorSize,world.WorldKernel);
             //var centre = _getEmptySector(new IntPoint(0, 0), world.SectorSize);
 

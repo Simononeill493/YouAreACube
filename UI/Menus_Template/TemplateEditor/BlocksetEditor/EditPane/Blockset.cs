@@ -17,6 +17,7 @@ namespace IAmACube
 
         public Action<Blockset, UserInput> ThisDroppedCallback;
         public Action<List<Block>, UserInput> BlockLiftedFromThisCallback;
+        public Action<BlockInputOption, BlockInputModel> OpenSubMenuCallback;
 
         public Blockset(BlocksetModel model) : base(ManualDrawLayer.Create(DrawLayers.MenuBlockLayer), BuiltInMenuSprites.Blockset_TopHandle)
         {
@@ -25,6 +26,7 @@ namespace IAmACube
             Draggable = true;
             OnEndDrag += (i) => ThisDroppedCallback(this,i);
         }
+
 
         public void AddBlock(Block block, int index) => AddBlocks(new List<Block>() { block }, index);
         public void AddBlocks(List<Block> blocks, int index)
@@ -78,17 +80,13 @@ namespace IAmACube
             base.ShowAndEnable();
             Blocks.ToList().ForEach(b => b.ShowAndEnable());
         }
-        
+
+        public void OpenSubMenu(BlockInputOption option, BlockInputModel model) => OpenSubMenuCallback(option, model);
 
 
 
 
 
-        protected override void _drawSelf(DrawingInterface drawingInterface)
-        {
-            base._drawSelf(drawingInterface);
-            this.SetBlockPositions();
-        }
 
         protected override bool _canStartDragging() => base._canStartDragging() & !IsInternal;
 

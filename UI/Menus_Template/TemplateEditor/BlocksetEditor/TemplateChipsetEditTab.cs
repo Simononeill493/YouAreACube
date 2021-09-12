@@ -15,7 +15,7 @@ namespace IAmACube
         private BlocksetEditPane _editPane;
         private BlockSearchPane _searchPane;
 
-        public TemplateChipsetEditTab(IHasDrawLayer parentDrawLayer, Kernel kernel, CubeTemplate baseTemplate, IVariableProvider variableProvider) : base(parentDrawLayer, BuiltInMenuSprites.LargeMenuRectangle_BlocksetEditWindow)
+        public TemplateChipsetEditTab(TemplateEditMenu parent, Kernel kernel, CubeTemplate baseTemplate, IVariableProvider variableProvider) : base(parent, BuiltInMenuSprites.LargeMenuRectangle_BlocksetEditWindow)
         {
             _kernel = kernel;
             _baseTemplate = baseTemplate;
@@ -26,6 +26,7 @@ namespace IAmACube
 
             _editPane = new BlocksetEditPane(variableProvider,_searchPane);
             _editPane.SetLocationConfig(4, 4, CoordinateMode.ParentPixelOffset, false);
+            _editPane.OpenSubMenuCallback = parent.OpenBlocksetEditDialog;
             AddChild(_editPane);
 
             _searchPane.SendToEditPane = _editPane.RecieveFromSearchPane;

@@ -43,11 +43,6 @@ namespace IAmACube
             return chips.Select(chip => chipJObjects[chip.Name]).ToList();
         }
 
-        public static IEnumerable<ChipJSONData> ChipsWithOutput(this Dictionary<string, ChipJSONData> chipsDict)
-        {
-            return chipsDict.Values.Where(c => c.BlockData.HasOutput);
-        }
-
 
         public static object JSONRepToObject(string stringToParse,string typeName)
         {
@@ -97,11 +92,5 @@ namespace IAmACube
 
             return objectToParse.ToString();
         }
-
-        /*public static List<string> GetSelectedInputTypes(this BlockTop block)
-        {
-            var output = block.InputSections.Select(s => s.CurrentlySelected.BaseType).ToList();
-            return output;
-        }*/
     }
 }

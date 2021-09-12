@@ -14,6 +14,7 @@ namespace IAmACube
         public TemplateVariable Variable;
         public object Value;
         public string Message;
+        public InputOptionSubmenuType SubMenu;
         public string ToParse;
 
         public string GetStoredType()
@@ -66,7 +67,13 @@ namespace IAmACube
         public static BlockInputOption CreateMetaVariable(int variableIndex) => new BlockInputOption() { InputOptionType = InputOptionType.MetaVariable, Value = variableIndex };
 
         public static BlockInputOption CreateUnparseable(string stringRep) => new BlockInputOption() { InputOptionType = InputOptionType.Unparseable, ToParse = stringRep };
-        public static BlockInputOption CreateSubMenu(string message) => new BlockInputOption() { InputOptionType = InputOptionType.SubMenu, Message = message };
+        public static BlockInputOption CreateSubMenu(string message,InputOptionSubmenuType subMenu) => new BlockInputOption() { InputOptionType = InputOptionType.SubMenu, Message = message, SubMenu = subMenu };
         public static BlockInputOption Undefined => new BlockInputOption() { InputOptionType = InputOptionType.Undefined };
     }
+
+    public enum InputOptionSubmenuType
+    {
+        TemplateSelect
+    }
+
 }

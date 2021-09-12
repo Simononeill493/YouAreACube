@@ -32,7 +32,6 @@ namespace IAmACube
             _chipsetEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
             AddChild(_chipsetEditTab);
 
-
             _statsEditTab = new TemplateBaseStatsEditTab(this,baseTemplate);
             _statsEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
             AddChild(_statsEditTab);
@@ -49,6 +48,26 @@ namespace IAmACube
             _tabs.AddTabButton("Appearance", _appearanceEditTab);
             _tabs.SwitchToFirstTab();
             AddChild(_tabs);
+        }
+
+        public void OpenBlocksetEditDialog(BlockInputOption selectedOption, BlockInputModel selectedModel)
+        {
+            switch (selectedOption.SubMenu)
+            {
+                case InputOptionSubmenuType.TemplateSelect:
+                    OpenTemplateSelectDialog(selectedModel);
+                    return;
+                default:
+                    throw new Exception();
+            }
+        }
+
+        public void OpenTemplateSelectDialog(BlockInputModel selectedModel)
+        {
+            var dialogBox = new BlockTemplateSelectionDialog(ManualDrawLayer.Dialog, this, selectedModel,_kernel);
+            dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
+            dialogBox.AddPausedItems(_tabs.Tabs);
+            AddChildAfterUpdate(dialogBox);
         }
 
         public void OpenQuitDialog()

@@ -21,7 +21,7 @@ namespace IAmACube
             }
             else if (dataType.Equals(nameof(CubeTemplate)))
             {
-                return new List<BlockInputOption>() { BlockInputOption.CreateSubMenu("Select Template...") };
+                return new List<BlockInputOption>() { BlockInputOption.CreateSubMenu("Select Template...",InputOptionSubmenuType.TemplateSelect) };
             }
             else
             {

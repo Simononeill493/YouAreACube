@@ -64,7 +64,7 @@ namespace IAmACube
         public static void AddDefaultInputSection(Block block, BlockData data,int index)
         {
             var inputSection = MakeInputSection(block, data, index);
-            var dropdown = MakeDefaultDropdown(inputSection, data.GetInputTypes(index), block.Model.Inputs[index]);
+            var dropdown = MakeDefaultDropdown(block, inputSection, data.GetInputTypes(index), block.Model.Inputs[index]);
             inputSection.AddChild(dropdown);
             _addSection(block, inputSection);
         }
@@ -74,8 +74,8 @@ namespace IAmACube
             var inputSection = MakeInputSection(block, data, 0);
             var inputSection2 = MakeInputSection(block, data, 1);
 
-            var dropdown = MakeMetaVariableDropdown(inputSection, block.Model.Inputs[0]);
-            var dropdown2 = MakeDefaultDropdown(inputSection2, data.GetInputTypes(1), block.Model.Inputs[1]);
+            var dropdown = MakeMetaVariableDropdown(block, inputSection, block.Model.Inputs[0]);
+            var dropdown2 = MakeDefaultDropdown(block, inputSection2, data.GetInputTypes(1), block.Model.Inputs[1]);
 
             inputSection.AddChild(dropdown);
             inputSection2.AddChild(dropdown2);
@@ -89,24 +89,26 @@ namespace IAmACube
         public static void AddCheckVariableSetInputSections(Block block, BlockData data)
         {
             var inputSection = MakeInputSection(block, data, 0);
-            var dropdown = MakeMetaVariableDropdown(inputSection, block.Model.Inputs[0]);
+            var dropdown = MakeMetaVariableDropdown(block, inputSection, block.Model.Inputs[0]);
             inputSection.AddChild(dropdown);
             _addSection(block, inputSection);
         }
 
         public static BlockInputSection MakeInputSection(Block block, BlockData data, int index) => new BlockInputSection(GetDrawLayerForNewSection(block), data.GetInputDisplayName(index));
 
-        public static BlockInputDropdown MakeDefaultDropdown(BlockInputSection inputSection, List<string> inputTypes, BlockInputModel model)
+        public static BlockInputDropdown MakeDefaultDropdown(Block block,BlockInputSection inputSection, List<string> inputTypes, BlockInputModel model)
         {
             var dropdown = new BlockInputDropdown(inputSection, inputTypes, model, () => model.DisplayValue);
             dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentageOffset, true);
+            dropdown.OnSelectedChanged += (o) => block.DropdownItemSelected(o, dropdown.Model);
             return dropdown;
         }
 
-        public static BlockInputDropdownMetaVariable MakeMetaVariableDropdown(BlockInputSection inputSection, BlockInputModel model)
+        public static BlockInputDropdownMetaVariable MakeMetaVariableDropdown(Block block,BlockInputSection inputSection, BlockInputModel model)
         {
             var dropdown = new BlockInputDropdownMetaVariable(inputSection, model, () => model.DisplayValue);
             dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentageOffset, true);
+            dropdown.OnSelectedChanged += (o) => block.DropdownItemSelected(o, dropdown.Model);
 
             return dropdown;
         }
@@ -124,9 +126,9 @@ namespace IAmACube
 
 
 
-        public static BlockSwitchSection_2 MakeSwitchSection(BlockData data, BlockModel model,IHasDrawLayer layer)
+        public static BlockSwitchSection MakeSwitchSection(BlockData data, BlockModel model,IHasDrawLayer layer)
         {
-            var switchSection = new BlockSwitchSection_2(layer,model,data.GetDefaultSwitchSections());
+            var switchSection = new BlockSwitchSection(layer,model,data.GetDefaultSwitchSections());
             return switchSection;
         }
 

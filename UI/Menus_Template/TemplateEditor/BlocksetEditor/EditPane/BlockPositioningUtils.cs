@@ -42,7 +42,7 @@ namespace IAmACube
             return total;
         }
 
-        public static IntPoint GetSizeWithSubBlockset(this BlockSwitchSection_2 switchSection)
+        public static IntPoint GetSizeWithSubBlockset(this BlockSwitchSection switchSection)
         {
             IntPoint total = switchSection.GetSizeWithoutSubBlockset();
 
@@ -78,18 +78,34 @@ namespace IAmACube
             }
         }
 
-        public static void SetSubBlocksetPosition(this BlockSwitchSection_2 switchSection)
+        public static void SetSubBlocksetPosition(this BlockSwitchSection switchSection)
         {
-            var sizeY = switchSection.GetSizeWithoutSubBlockset().Y - 1;
-            switchSection.ActiveSection.SetLocationConfig(0, sizeY, CoordinateMode.VisualParentPixelOffset);
+            if(switchSection.IsAnySectionActivated)
+            {
+                var sizeY = switchSection.GetSizeWithoutSubBlockset().Y - 1;
+                switchSection.ActiveSection.SetLocationConfig(0, sizeY, CoordinateMode.VisualParentPixelOffset);
 
-            var blocksetY = switchSection.ActiveSection.GetSizeIncludingBlocks().Y - 1;
-            switchSection.SwitchSectionBottom.SetLocationConfig(0, sizeY + blocksetY, CoordinateMode.ParentPixelOffset);
+                var blocksetY = switchSection.ActiveSection.GetSizeIncludingBlocks().Y - 1;
+                switchSection.SwitchSectionBottom.SetLocationConfig(0, sizeY + blocksetY, CoordinateMode.ParentPixelOffset);
+            }
         }
 
-
-
-
-
+        public static void SetPositions(this BlocksetEditPane pane)
+        {
+            foreach (var blockset in BlocksetEditPane.Blocksets.Values)
+            {
+                if(blockset.Visible)
+                {
+                    blockset.SetBlockPositions();
+                }
+            }
+            foreach (var block in BlocksetEditPane.Blocks.Values)
+            {
+                if(block.Visible)
+                {
+                    block.SwitchSection?.SetSubBlocksetPosition();
+                }
+            }
+        }
     }
 }

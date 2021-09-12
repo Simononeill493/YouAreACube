@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    /*class BlockTemplateSelectionDialog : DialogBoxMenuItem
+    class BlockTemplateSelectionDialog : DialogBoxMenuItem
     {
         TemplateExplorerMenu _templateSearchMenu;
-        BlockInputSection _section;
+        BlockInputModel _model;
 
-        public BlockTemplateSelectionDialog(IHasDrawLayer parentDrawLayer, MenuItem container, BlockInputSection section,Kernel kernel) : base(parentDrawLayer, container, BuiltInMenuSprites.BlankPixel)
+        public BlockTemplateSelectionDialog(IHasDrawLayer parentDrawLayer, MenuItem container, BlockInputModel model,Kernel kernel) : base(parentDrawLayer, container, BuiltInMenuSprites.BlankPixel)
         {
-            _section = section;
+            _model = model;
 
             _templateSearchMenu = new TemplateExplorerMenuInternal(this, kernel, CompleteSelection);
-            //_templateSearchMenu.SpriteName = "EmptyMenuRectangleMedium";
             _templateSearchMenu.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
             _templateSearchMenu.UpdateDrawLayerCascade(DrawLayer - (DrawLayers.MinLayerDistance * 10));
             AddChild(_templateSearchMenu);
@@ -24,12 +23,11 @@ namespace IAmACube
 
         public void CompleteSelection(CubeTemplate template)
         {
-            _section.ManuallySetInput(new BlockInputOptionValue(template));
-            _section.RefreshText();
+            var option = BlockInputOption.CreateValue(template);
+            _model.InputOption = option;
             Close();
         }
 
         public override IntPoint GetBaseSize() => _templateSearchMenu.GetBaseSize();
-
-    }*/
+    }
 }

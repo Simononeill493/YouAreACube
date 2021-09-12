@@ -2,11 +2,11 @@
 
 namespace IAmACube
 {
-    public class SwitchChipsetButton_2 : SpriteMenuItem
+    public class SwitchChipsetButton : SpriteMenuItem
     {
         public int Index;
         public bool ButtonCurrentlyActive;
-        public SwitchChipsetButton_2(IHasDrawLayer parent,int index) : base(parent, BuiltInMenuSprites.IfBlockSwitchButton) 
+        public SwitchChipsetButton(IHasDrawLayer parent,int index) : base(parent, BuiltInMenuSprites.IfBlockSwitchButton) 
         {
             Index = index;
         }

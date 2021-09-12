@@ -14,6 +14,8 @@ namespace IAmACube
         public static FullModel Model;
         public static IVariableProvider VariableProvider;
 
+        public Action<BlockInputOption, BlockInputModel> OpenSubMenuCallback;
+
         private MenuItem _bin;
 
         public BlocksetEditPane(IVariableProvider variableProvider,MenuItem bin) : base(ManualDrawLayer.Create(DrawLayers.BackgroundLayer),BuiltInMenuSprites.BlocksetEditPane)
@@ -43,7 +45,6 @@ namespace IAmACube
 
             _cleanUpDisposedBlocksets();
             _checkForPan(input);
-            _correctScale();
         }
 
         public void LoadChipsetForEditing(CubeTemplate template)
@@ -154,7 +155,7 @@ namespace IAmACube
                 throw new Exception();
             }
 
-            var initial = Blocksets.Values.Where(b => b.Model.Name == "_Initial").FirstOrDefault();
+            var initial = Blocksets.Values.Where(b => b.Model.Name == ChipsetCollection.InitialChipName).FirstOrDefault();
             if(initial == null)
             {
                 throw new Exception();
@@ -173,6 +174,7 @@ namespace IAmACube
             return block;
         }
 
+
         private Blockset _makeBlocksetFromModel(BlocksetModel model)
         {
             var blockset = BlockFactory.MakeBlockset(model);
@@ -180,6 +182,7 @@ namespace IAmACube
             blockset.ScaleProvider = _blockScaler;
             blockset.BlockLiftedFromThisCallback = MakeNewBlocksetWithLiftedBlocks;
             blockset.ThisDroppedCallback = BlocksetDropped;
+            blockset.OpenSubMenuCallback = OpenSubMenuCallback;
 
             Blocksets[model] = blockset;
             AddChildAfterUpdate(blockset);
@@ -226,6 +229,23 @@ namespace IAmACube
             blockset.SetLocationConfig(pixelDist, CoordinateMode.ParentPixelOffset, false);
         }
 
+        protected override void _drawSelf(DrawingInterface drawingInterface)
+        {
+            _correctScale();
+            this.SetPositions();
+            _updateChildLocations();
+
+            base._drawSelf(drawingInterface);
+        }
+        private void _correctScale()
+        {
+            var currentChipScale = _blockScaler.GetScale(this);
+            if (currentChipScale < 2)
+            {
+                _blockScale = 2.0f / MenuScreen.Scale;
+            }
+        }
+
         private MenuItemScaleProviderParent _blockScaler;
         private float _blockScale { get => _blockScaler.Multiplier; set => _blockScaler.SetManualScale(value); }
 
@@ -238,14 +258,6 @@ namespace IAmACube
             }
         }
 
-        private void _correctScale()
-        {
-            var currentChipScale = _blockScaler.GetScale(this);
-            if (currentChipScale < 2)
-            {
-                _blockScale = 2.0f / MenuScreen.Scale;
-            }
-        }
 
         private void _setInitial()
         {
@@ -254,7 +266,7 @@ namespace IAmACube
             {
                 throw new Exception("Multiple top level blocksets");
             }
-            topLevelBlocksets.First().Model.Name = "_Initial";
+            topLevelBlocksets.First().Model.Name = ChipsetCollection.InitialChipName;
         }
     }
 }

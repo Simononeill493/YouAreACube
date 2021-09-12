@@ -46,24 +46,6 @@ namespace IAmACube
        
         public void SetBlockData() => GetChips().ForEach(c => c.SetBlockData());
 
-        /*public void CreateBlocksetObjects(IBlocksetTopLevelContainer container)
-        {
-            CreateBlocksets(container);
-            CreateBlocksetChipTops(container);
-        }
-        public void CreateBlocksets(IBlocksetTopLevelContainer container) => this.ForEach(c => c.CreateBlockset(container));
-        public void CreateBlocksetChipTops(IBlocksetTopLevelContainer container) => GetChips().ForEach(c => c.CreateBlockTop(container));
-        public void AppendBlocksToBlocksets()
-        {
-            foreach (var chipsetJSON in this)
-            {
-                foreach (var chipJSON in chipsetJSON.Chips)
-                {
-                    chipsetJSON.Blockset.AppendBlockToBottom(chipJSON.Block);
-                }
-            }
-        }*/
-
         public void CreateChipsetObjects()
         {
             CreateChipsets();
@@ -84,7 +66,7 @@ namespace IAmACube
 
         public ChipsetJSONData GetInitial()
         {
-            var init = this.Where(c => c.Name.Equals("_Initial"));
+            var init = this.Where(c => c.Name.Equals(ChipsetCollection.InitialChipName));
             if(init.Count()>1)
             {
                 throw new Exception("Multiple initial chip blocks");

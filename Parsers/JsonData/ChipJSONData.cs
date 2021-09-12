@@ -60,53 +60,6 @@ namespace IAmACube
             }
         }
 
-
-
-        /*public ChipJSONData(BlockTop block)
-        {
-            Block = block;
-            BlockData = block.BlockData;
-            Name = block.Name;
-            GraphicalChipType = block.BlockData.BaseMappingName;
-            MappedBlockData = BlockData.GetMappedBlockData(Block.GetSelectedInputTypes());
-            ActualChipType = MappedBlockData.Name;
-
-            if (MappedBlockData.IsGeneric && !Block.CurrentTypeArguments.Contains(TemplateEditUtils.PlaceholderType))
-            {
-                TypeArguments = Block.CurrentTypeArguments;
-            }
-
-            Inputs = ChipJSONInputData.GenerateInputsFromBlock(Block);
-            _setControlBlockTargets();
-        }
-        private void _setControlBlockTargets()
-        {
-            if (BlockDataUtils.IsIfBlock(BlockData))
-            {
-                var ifChip = (BlockTopSwitch)Block;
-
-                Yes = ifChip.SwitchBlocksets[0].Name;
-                No = ifChip.SwitchBlocksets[1].Name;
-
-            }
-            if (BlockData.Name.Equals("KeySwitch"))
-            {
-                var keyChip = (BlockTopSwitch)Block;
-
-                KeyEffects = new List<(string, string)>();
-
-                foreach (var keyAndChipset in keyChip.GetSwitchSectionsWithNames())
-                {
-                    KeyEffects.Add((keyAndChipset.Item1, keyAndChipset.Item2.Name));
-                }
-            }
-        }*/
-
-
-
-
-
-
         [JsonIgnore]
         public BlockData MappedBlockData;
 
@@ -123,21 +76,6 @@ namespace IAmACube
                 BlockData = BlockDataDatabase.BlockDataDict[GraphicalChipType];
             }
         }
-
-        /*[JsonIgnore]
-        public BlockTop Block;
-        public void CreateBlockTop(IBlocksetTopLevelContainer container)
-        {
-            var dataToCreateWith = BlockData;
-            if(BlockData.BaseMappingBlock!=null)
-            {
-                dataToCreateWith = BlockData.BaseMappingBlock;
-            }
-
-            Block = BlockDataUtils.GenerateBlockFromBlockData(dataToCreateWith, this.Name);
-            Block.SetInitialTypeArguments(TypeArguments);
-            Block.TopLevelContainer = container;
-        }*/
 
         [JsonIgnore]
         public IChip Chip;

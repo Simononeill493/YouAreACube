@@ -49,7 +49,7 @@ namespace IAmACube
                 }
             }
 
-            var initial = chipsets.Values.Where(c => c.Name == "_Initial");
+            var initial = chipsets.Values.Where(c => c.Name == ChipsetCollection.InitialChipName);
             if(initial.Count()>1) 
             {
                 throw new Exception("Multiple initials?");

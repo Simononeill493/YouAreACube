@@ -9,6 +9,8 @@ namespace IAmACube
     [Serializable()]
     public class ChipsetCollection
     {
+        public const string InitialChipName = "_Initial";
+
         public Dictionary<int, Chipset> Modes;
         public Chipset Initial => Modes[0];
 
@@ -18,7 +20,7 @@ namespace IAmACube
         }
         public ChipsetCollection(Chipset initial) : this()
         {
-            initial.Name = "_Initial";
+            initial.Name = InitialChipName;
             Modes[0] = initial;
         }
 

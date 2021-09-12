@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class BlockSwitchSection_2 : SpriteMenuItem
+    class BlockSwitchSection : SpriteMenuItem
     {
         public BlockModel Model;
         private List<string> _defaultSwitchSections;
@@ -17,19 +17,21 @@ namespace IAmACube
 
         public IEnumerable<Blockset> SubBlocksets => Model.SubBlocksets.Select(b => BlocksetEditPane.Blocksets[b.Item2]);
 
-        private List<SwitchChipsetButton_2> _buttons;
+        private List<SwitchChipsetButton> _buttons;
 
         public Func<Blockset> GenerateInternalBlockset;
         public void SetGenerator(Func<Blockset> generator) => GenerateInternalBlockset = generator;
 
-        public BlockSwitchSection_2(IHasDrawLayer parent, BlockModel model, List<string> defaultSwitchSections) : base(parent, BuiltInMenuSprites.BlockBottom)
+        private int _currentOffset;
+
+        public BlockSwitchSection(IHasDrawLayer parent, BlockModel model, List<string> defaultSwitchSections) : base(parent, BuiltInMenuSprites.BlockBottom)
         {
             Model = model;
             _defaultSwitchSections = defaultSwitchSections;
-            _buttons = new List<SwitchChipsetButton_2>();
+            _buttons = new List<SwitchChipsetButton>();
 
-            var leftButton = _addItem(new SwitchChipsetButton_2(this,0), 0, 0, CoordinateMode.ParentPixelOffset);
-            var rightButton = _addItem(new SwitchChipsetButton_2(this, 1), 70, 0, CoordinateMode.ParentPixelOffset);
+            var leftButton = _addItem(new SwitchChipsetButton(this,0), 0, 0, CoordinateMode.ParentPixelOffset);
+            var rightButton = _addItem(new SwitchChipsetButton(this, 1), 70, 0, CoordinateMode.ParentPixelOffset);
             var switchArrowButtonLeft = _addSpriteItem(BuiltInMenuSprites.SwitchBlockSideArrow, 140, 0, CoordinateMode.ParentPixelOffset, false);
             var switchArrowButtonRight = _addSpriteItem(BuiltInMenuSprites.SwitchBlockSideArrow, 140 + switchArrowButtonLeft.GetBaseSize().X, 0, CoordinateMode.ParentPixelOffset, false);
             var leftText = _addItem(new ObservableTextMenuItem(ManualDrawLayer.InFrontOf(this, 3)), 35, 10, CoordinateMode.ParentPixelOffset, true);
@@ -38,8 +40,11 @@ namespace IAmACube
 
             leftButton.OnMouseReleased += (i) => _buttonClicked(leftButton);
             rightButton.OnMouseReleased += (i) => _buttonClicked(rightButton);
+            switchArrowButtonLeft.OnMouseReleased += (i) => ChangeOffset(-1);
+            switchArrowButtonRight.OnMouseReleased += (i) => ChangeOffset(1);
             leftText.TextProvider = () => GetBlocksetName(0);
             rightText.TextProvider = () => GetBlocksetName(1);
+
             switchArrowButtonRight.FlipHorizontal = true;
             SwitchSectionBottom.Visible = false;
 
@@ -47,9 +52,32 @@ namespace IAmACube
             _buttons.Add(rightButton);
         }
 
-        public void ActivateSection(SwitchChipsetButton_2 button)
+        public void ChangeOffset(int amount)
         {
-            var section = SubBlocksets.ToList()[button.Index];
+            var newOffset = _currentOffset + amount;
+            if(newOffset<0 | (newOffset+_buttons.Count())>Model.SubBlocksets.Count())
+            {
+                return;
+            }
+
+            _currentOffset = newOffset;
+            if(IsAnySectionActivated)
+            {
+                _refreshOpenSection();
+            }
+        }
+
+        private void _refreshOpenSection()
+        {
+            var currentActiveButton = _buttons.FirstOrDefault(b => b.ButtonCurrentlyActive);
+
+            DeactivateCurrentSection();
+            ActivateSection(currentActiveButton);
+        }
+
+        public void ActivateSection(SwitchChipsetButton button)
+        {
+            var section = SubBlocksets.ToList()[button.Index + _currentOffset];
 
             button.Activate();
 
@@ -85,7 +113,7 @@ namespace IAmACube
         }
 
 
-        private void _buttonClicked(SwitchChipsetButton_2 button)
+        private void _buttonClicked(SwitchChipsetButton button)
         {
             if (button.Index > SubBlocksets.Count() - 1)
             {
@@ -105,22 +133,10 @@ namespace IAmACube
             }
         }
 
-
-
-
-        protected override void _drawSelf(DrawingInterface drawingInterface)
-        {
-            base._drawSelf(drawingInterface);
-            if (IsAnySectionActivated)
-            {
-                this.SetSubBlocksetPosition();
-            }
-        }
-
         public IntPoint GetSizeWithoutSubBlockset() => base.GetBaseSize();
         public override IntPoint GetBaseSize() => this.GetSizeWithSubBlockset();
 
         public void GenerateDefaultSections() => _defaultSwitchSections.ForEach(s => CreateAndAddSection(s));
-        public string GetBlocksetName(int defaultOffset) => (defaultOffset > Model.SubBlocksets.Count() - 1) ? "" : Model.SubBlocksets[defaultOffset].Item1;
+        public string GetBlocksetName(int defaultOffset) => (defaultOffset+_currentOffset > Model.SubBlocksets.Count() - 1) ? "" : Model.SubBlocksets[defaultOffset + _currentOffset].Item1;
     }
 }

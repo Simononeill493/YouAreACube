@@ -177,11 +177,11 @@
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\BlockInputSection.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\BlocksetEditPane.cs" />
     <Compile Include="Parsers\BlockModelParsers\Parser_ChipsetToBlockModel.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Switch\BlockSwitchSection_2.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Switch\BlockSwitchSection.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Block\BlockTop.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Model\BlocksetModel.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Model\FullModel.cs" />
-    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Switch\SwitchChipsetButton_2.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Switch\SwitchChipsetButton.cs" />
     <Compile Include="UI\DialogBoxes\BlockTemplateSelectionDialog\BlockTemplateSelectionDialog.cs" />
     <Compile Include="Parsers\BlockModelParsers\Parser_BlockModelToChipset.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateEditMenu.cs" />

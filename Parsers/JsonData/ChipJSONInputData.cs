@@ -28,29 +28,5 @@ namespace IAmACube
 
             return JSONDataUtils.JSONRepToObject(InputValue, typeName);
         }
-
-        /*public static List<ChipJSONInputData> GenerateInputsFromBlock(BlockTop block)
-        {
-            var inputs = new List<ChipJSONInputData>();
-            var inputsList = block.GetCurrentInputs();
-            for (int i = 0; i < inputsList.Count; i++)
-            {
-                inputs.Add(GenerateInputFromBlockSection(inputsList[i], i));
-            }
-
-            return inputs;
-        }
-        public static ChipJSONInputData GenerateInputFromBlockSection(BlockInputOption blockInputOption, int pinIndex)
-        {
-            var inputOptionType = blockInputOption.OptionType;
-            if (inputOptionType == InputOptionType.Parseable)
-            {
-                inputOptionType = InputOptionType.Value;
-            }
-
-            var jsonData = new ChipJSONInputData(inputOptionType, blockInputOption.ToJSONRep(), pinIndex);
-
-            return jsonData;
-        }*/
     }
 }
