@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ namespace IAmACube
         private string _baseOutputType;
 
         public List<BlockInputModel> Inputs = new List<BlockInputModel>();
+
+        [JsonIgnore]
         public List<(string, BlocksetModel)> SubBlocksets;
 
         public BlockModel(string name, BlockData data)
@@ -95,5 +98,7 @@ namespace IAmACube
 
             return typeArgs;
         }
+
+        public List<(string, string)> SubBlocksetsNames => SubBlocksets.Select(s => (s.Item1, s.Item2.Name)).ToList();
     }
 }

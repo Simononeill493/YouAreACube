@@ -24,12 +24,12 @@ namespace IAmACube
             Modes[0] = initial;
         }
 
-        public ChipsetCollection Clone()
+        public ChipsetCollection Clone(TemplateVariableSet variables)
         {
             var output = new ChipsetCollection();
             foreach(var mode in Modes)
             {
-                output.Modes[mode.Key] = mode.Value.ToJson().ToChipset();
+                output.Modes[mode.Key] = mode.Value.ToBlockModel(variables).ToChipset();
             }
 
             return output;

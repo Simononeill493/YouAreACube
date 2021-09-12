@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace IAmACube
             Name = name;
         }
 
+        [JsonIgnore]
         public List<BlockModel> Blocks = new List<BlockModel>();
 
         public void AddBlocks(List<Block> toAdd, int index) => AddBlocks(toAdd.Select(b => b.Model).ToList(),index);
@@ -29,6 +31,7 @@ namespace IAmACube
             Blocks = Blocks.Except(toRemove).ToList();
         }
 
+        public List<string> BlockNames => Blocks.Select(b=>b.Name).ToList();
         //public List<BlocksetModel> GetSubBlocksets() => Blocks.SelectMany(b => b.SubBlocksets.Select(s=>s.Item2)).ToList();
     }
 }

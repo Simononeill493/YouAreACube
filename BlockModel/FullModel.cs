@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace IAmACube
     {
         public Dictionary<string,BlocksetModel> Blocksets;
         public Dictionary<string,BlockModel> Blocks;
+        [JsonIgnore]
         public Dictionary<BlockInputModel, BlockModel> InputParents;
 
         public FullModel()

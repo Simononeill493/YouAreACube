@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,36 +32,31 @@ namespace IAmACube
         }
         public static void TestParsingRoundTrip(string name,Chipset chipset,TemplateVariableSet variables)
         {
-            var initialJson = chipset.ToJson();
-
             var blockModel = chipset.ToBlockModel(variables);
             var chipsetFromBlockModel = blockModel.ToChipset();
-            var blockModelRoundTripJson = chipsetFromBlockModel.ToJson();
-
-            var chipsetClone = initialJson.ToChipset();
-            var chipsetRoundTripJson = chipsetClone.ToJson();
-
-            if (!initialJson.Equals(chipsetRoundTripJson))
-            {
-                var l = initialJson.Length;
-                var m = chipsetRoundTripJson.Length;
-                throw new Exception(name + " template parsing mismatch. Lengths are " + l + " and " + m);
-            }
-
-            if (!chipsetRoundTripJson.Equals(blockModelRoundTripJson))
-            {
-                throw new Exception(name + " template parsing mismatch");
-            }
-
-            if (!chipset.Equivalent(chipsetClone))
-            {
-                throw new Exception(name + " template parsing mismatch");
-            }
 
             if (!chipset.Equivalent(chipsetFromBlockModel))
             {
                 throw new Exception(name + " template parsing mismatch");
             }
         }
+
+        public static void TestParsingRoundTrip(string name, FullModel model,TemplateVariableSet variables)
+        {
+            var chipset = model.ToChipset();
+            var newModel = chipset.ToBlockModel(variables);
+
+            var blockJson = JToken.FromObject(model, new JsonSerializer { NullValueHandling = NullValueHandling.Ignore }).ToString();
+            var newJson = JToken.FromObject(newModel, new JsonSerializer { NullValueHandling = NullValueHandling.Ignore }).ToString();
+
+            if (!blockJson.Equals(newJson))
+            {
+                var l1 = blockJson.Length;
+                var l2 = newJson.Length;
+
+                throw new Exception(name + " template parsing mismatch");
+            }
+        }
+
     }
 }

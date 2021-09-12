@@ -55,7 +55,7 @@ namespace IAmACube
             var clone = JsonConvert.DeserializeObject<CubeTemplate>(JsonConvert.SerializeObject(this));
             if(this.Chipsets!=null)
             {
-                clone.Chipsets = Chipsets.Clone();
+                clone.Chipsets = Chipsets.Clone(Variables);
             }
 
             clone.Version = -1;

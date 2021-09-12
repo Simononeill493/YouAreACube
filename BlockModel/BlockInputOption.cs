@@ -57,6 +57,29 @@ namespace IAmACube
             throw new Exception();
         }
 
+        public string GetJsonValue()
+        {
+            switch (InputOptionType)
+            {
+                case InputOptionType.Value:
+                    if(Value as CubeTemplate != null)
+                    {
+                        return ((CubeTemplate)Value).ToJsonRep();
+                    }
+                    return Value.ToString();
+                case InputOptionType.Reference:
+                    return Block.Name;
+                case InputOptionType.Variable:
+                    return Variable.VariableNumber.ToString();
+                case InputOptionType.MetaVariable:
+                    return ((int)Value).ToString();
+                case InputOptionType.Undefined:
+                    return "";
+            }
+
+            throw new Exception();
+        }
+
         public BlockInputOption() { }
 
         public override string ToString() => GetDisplayValue();
