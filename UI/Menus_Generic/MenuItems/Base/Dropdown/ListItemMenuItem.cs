@@ -50,7 +50,7 @@ namespace IAmACube
 
             Item = item;
 
-            _text = new TextMenuItem(this) { Text = item.ToString() };
+            _text = new TextMenuItem(this, item.ToString());
             _text.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
             AddChild(_text);
 

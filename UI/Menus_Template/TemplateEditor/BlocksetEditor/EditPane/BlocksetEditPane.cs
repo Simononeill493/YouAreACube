@@ -58,9 +58,8 @@ namespace IAmACube
         {
             _setInitial();
 
-            var newModel = Model.ToChipset();
-            TemplateParsingTester.TestParsingRoundTrip(template.Name, newModel, VariableProvider.GetVariables());
-            template.Chipsets = new ChipsetCollection(newModel);
+            TemplateParsingTester.TestParsingRoundTrip(template.Name, Model, VariableProvider.GetVariables());
+            template.Chipsets = new ChipsetCollection(Model.ToChipset());
         }
 
 

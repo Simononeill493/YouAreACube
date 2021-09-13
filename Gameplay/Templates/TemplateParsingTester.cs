@@ -57,6 +57,5 @@ namespace IAmACube
                 throw new Exception(name + " template parsing mismatch");
             }
         }
-
     }
 }

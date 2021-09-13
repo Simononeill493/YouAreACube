@@ -247,7 +247,7 @@
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\BlockSearcher\BlockSearchPane.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\TemplateChipsetEditTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedMenu\TemplateSelectedMenu.cs" />
-    <Compile Include="UI\Menus_Generic\MenuItems\Base\TextBoxMenuItem.cs" />
+    <Compile Include="UI\Menus_Generic\MenuItems\Base\TextBox\TextBoxMenuItem.cs" />
     <Compile Include="Utils\DrawUtils.cs" />
     <Compile Include="Utils\IDUtils.cs" />
     <Compile Include="Utils\TypeUtils.cs" />
