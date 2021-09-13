@@ -18,8 +18,8 @@ namespace IAmACube
 
         public override void PopulateItems()
         {
-            ClearItems();
-            AddItems(BlocksetEditPane.VariableProvider.GetMetaInputsFromVariables());
+            _list.ClearItems();
+            _list.AddItems(BlocksetEditPane.VariableProvider.GetMetaInputsFromVariables());
         }
 
         public List<string> GetTypesOfSelectedVariable()

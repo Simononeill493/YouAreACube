@@ -17,12 +17,20 @@ namespace IAmACube
             return matching.Select(b => BlockInputOption.CreateReference(b)).ToList();
         }
 
-        public static List<BlockModel> GetAllBlocksBelow(this FullModel fullModel,BlockModel block)
+        public static IEnumerable<BlockModel> GetAllBlocksBelow(this FullModel fullModel,BlockModel block)
         {
             var blocks = fullModel.Blocksets.Values.Where(b => b.Blocks.Contains(block)).FirstOrDefault().Blocks;
             var index = blocks.IndexOf(block);
             var allAfter = blocks.GetRange(index, blocks.Count() - index);
-            return allAfter;
+            var allAfterCascade = allAfter.SelectMany(a => a.GetThisAndAllSubBlocks());
+            return allAfterCascade;
+        }
+
+        public static List<BlockModel> GetThisAndAllSubBlocks(this BlockModel block)
+        {
+            var subBlocks = block.SubBlocksets.SelectMany(s => s.Item2.Blocks.SelectMany(s2 => s2.GetThisAndAllSubBlocks())).ToList();
+            subBlocks.Add(block);
+            return subBlocks;
         }
 
         public static List<BlockInputOption> GetInputsFromVariables(this IVariableProvider variableProvider,List<string> inputTypes)

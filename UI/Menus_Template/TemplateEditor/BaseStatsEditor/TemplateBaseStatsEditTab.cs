@@ -8,26 +8,26 @@ namespace IAmACube
 {
     class TemplateBaseStatsEditTab :SpriteMenuItem
     {
-        public string CurrentName => _nameTextbox.Text;
+        public string CurrentName => name;
 
-        private TextBoxMenuItem _nameTextbox;
-        private TextBoxMenuItem _healthTextBox;
-        private TextBoxMenuItem _energyTextBox;
-        private TextBoxMenuItem _speedTextBox;
+        private string name;
+        private string health;
+        private string energy;
+        private string speed;
         private CheckBoxMenuItem _activeCheckBox;
 
         public TemplateBaseStatsEditTab(IHasDrawLayer parent,CubeTemplate baseTemplate) : base(parent, BuiltInMenuSprites.LargeMenuRectangle)
         {
-            _addTextItem("Name:", 20, 10, CoordinateMode.ParentPercentageOffset, true);
-            _addTextItem("Health:", 20, 25, CoordinateMode.ParentPercentageOffset, true);
-            _addTextItem("Energy:", 20, 40, CoordinateMode.ParentPercentageOffset, true);
-            _addTextItem("Speed:", 20, 55, CoordinateMode.ParentPercentageOffset, true);
-            _addTextItem("Active:", 20, 80, CoordinateMode.ParentPercentageOffset, true);
+            _addStaticTextItem("Name:", 20, 10, CoordinateMode.ParentPercentageOffset, true);
+            _addStaticTextItem("Health:", 20, 25, CoordinateMode.ParentPercentageOffset, true);
+            _addStaticTextItem("Energy:", 20, 40, CoordinateMode.ParentPercentageOffset, true);
+            _addStaticTextItem("Speed:", 20, 55, CoordinateMode.ParentPercentageOffset, true);
+            _addStaticTextItem("Active:", 20, 80, CoordinateMode.ParentPercentageOffset, true);
 
-            _nameTextbox = _addTextBox("", 60, 10, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 15); ;
-            _healthTextBox = _addTextBox("", 60, 25, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 4);
-            _energyTextBox = _addTextBox("", 60, 40, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 4);
-            _speedTextBox = _addTextBox("", 60, 55, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 6);
+            _addTextBox(() => name, (s) => { name = s; }, 60, 10, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 15); ;
+            _addTextBox(() => health, (s) => { health = s; }, 60, 25, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 4);
+            _addTextBox(() => energy, (s) => { energy = s; }, 60, 40, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 4);
+            _addTextBox(() => speed, (s) => { speed = s; }, 60, 55, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 6);
 
             _activeCheckBox = new CheckBoxMenuItem(this);
             _activeCheckBox.SetLocationConfig(35, 80, CoordinateMode.ParentPercentageOffset, true);
@@ -38,22 +38,20 @@ namespace IAmACube
 
         public void LoadFieldsForEditing(CubeTemplate template)
         {
-            _nameTextbox.SetText(template.Name);
-            _healthTextBox.SetText(template.MaxHealth.ToString());
-            _energyTextBox.SetText(template.MaxEnergy.ToString());
-            _speedTextBox.SetText(template.Speed.ToString());
+            name = template.Name;
+            health = template.MaxHealth.ToString();
+            energy = template.MaxEnergy.ToString();
+            speed = template.Speed.ToString();
             _activeCheckBox.Set(template.Active);
         }
 
         public void AddEditedFieldsToTemplate(CubeTemplate template)
         {
-            template.Name = _nameTextbox.Text;
-            template.MaxHealth = int.Parse(_healthTextBox.Text);
-            template.MaxEnergy = int.Parse(_energyTextBox.Text);
-            template.Speed = int.Parse(_speedTextBox.Text);
+            template.Name = name;
+            template.MaxHealth = int.Parse(health);
+            template.MaxEnergy = int.Parse(energy);
+            template.Speed = int.Parse(speed);
             template.Active = _activeCheckBox.Checked;
         }
-
-
     }
 }

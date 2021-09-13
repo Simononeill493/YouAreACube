@@ -13,7 +13,7 @@ namespace IAmACube
         {
             Tab = tab;
             SpriteName = buttonSprite;
-            TextItem.MultiplyScale(0.5f);
+            _textItem.MultiplyScale(0.5f);
         }
     }
 }

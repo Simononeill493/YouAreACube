@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,21 +10,67 @@ namespace IAmACube
 {
     public class TextMenuItem : MenuItem
     {
-        public virtual string Text { get; set; }
-        public Color Color = Config.DefaultTextColor;
+        public string GetText()
+        {
+            var fetchedText = _textProvider();
+            if(fetchedText == null)
+            {
+                return "_null_";
+            }
 
-        public TextMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer) { }
-        public TextMenuItem(IHasDrawLayer parentDrawLayer,string initial) : base(parentDrawLayer) { Text = initial; }
+            return fetchedText;
+        }
+        private Func<string> _textProvider;
+
+        public Color Color = Config.DefaultTextColor;
+        public event Action<string> OnTextTyped;
+
+        public TextMenuItem(IHasDrawLayer parentDrawLayer, Func<string> textProvider) : base(parentDrawLayer)
+        {
+            _textProvider = textProvider;
+        }
+
+        public void TextTyped(string newValue) => OnTextTyped.Invoke(newValue);
+
+        public void AppendKey(char toAppend) => TextTyped(_textProvider() + toAppend);
+        public void Backspace()
+        {
+            var oldText = _textProvider();
+            var newText = oldText.Substring(0, oldText.Length - 1);
+            TextTyped(newText);
+        }
+
+        public bool KeyboardEdit(UserInput input,int maxLength)
+        {
+            bool edited = false;
+            foreach (var key in input.KeysJustPressed)
+            {
+                var size = this.GetCurrentSize();
+
+                if (_shouldTypeCharacter(key, maxLength))
+                {
+                    AppendKey(KeyUtils.KeyToChar(key));
+                    edited = true;
+                }
+                else if (_shouldTypeBackspace(key))
+                {
+                    Backspace();
+                    edited = true;
+                }
+            }
+
+            return edited;
+        }
+
+        private bool _shouldTypeCharacter(Keys key,int maxLength) => (KeyUtils.IsTypeable(key) && GetText().Length < maxLength);
+        private bool _shouldTypeBackspace(Keys key) => (key == Keys.Back && GetText().Length > 0);
 
         protected override void _drawSelf(DrawingInterface drawingInterface)
         {
-            if(Text!=null)
-            {
-                drawingInterface.DrawText(Text, ActualLocation.X, ActualLocation.Y, Scale, DrawLayer, Color);
-            }
+            drawingInterface.DrawText(GetText(), ActualLocation.X, ActualLocation.Y, Scale, DrawLayer, Color);
         }
 
         protected override bool _isMouseOver(UserInput input) => false;
-        public override IntPoint GetBaseSize() => SpriteManager.GetTextSize(Text);
+        public override IntPoint GetBaseSize() => SpriteManager.GetTextSize(GetText());
     }
 }

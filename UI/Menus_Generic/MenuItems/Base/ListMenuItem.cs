@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class ListMenuItem<T> : MenuItem
+    public class ListMenuItem<T> : ContainerMenuItem
     {
         public T Selected
         {
@@ -76,8 +76,6 @@ namespace IAmACube
             RemoveChildrenAfterUpdate(Items);
             Items.Clear();
         }
-
-        public void RefreshText() => Items.ForEach(item => item.RefreshText());
 
         public override IntPoint GetBaseSize()
         {

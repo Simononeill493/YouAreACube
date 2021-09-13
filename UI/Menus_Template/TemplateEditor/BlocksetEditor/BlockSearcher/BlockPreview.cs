@@ -18,7 +18,7 @@ namespace IAmACube
             Block = chip;
             ColorMask = Block.ChipDataType.GetColor();
 
-            _text = new TextMenuItem(this, chip.Name);
+            _text = new TextMenuItem(this, ()=>chip.Name);
             _text.Color = Color.White;
             _text.MultiplyScale(0.5f);
 

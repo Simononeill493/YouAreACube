@@ -19,7 +19,7 @@ namespace IAmACube
 
             HighlightedSpriteName = BuiltInMenuSprites.SpriteBox_Highlighted;
 
-            _templateHoverBox = new TextBoxMenuItem(this,"null");
+            _templateHoverBox = new TextBoxMenuItem(this,()=> _template?.Name,(t)=> { throw new NotImplementedException(); });
             _templateHoverBox.UpdateDrawLayerCascade(DrawLayers.MenuHoverLayer);
             _templateHoverBox.Visible = false;
 
@@ -29,7 +29,6 @@ namespace IAmACube
         public void SetTemplate(TemplateVersionDictionary template)
         {
             _template = template;
-            _templateHoverBox.SetText(_template.Name);
             _sprite.SpriteName = _template.Main.Sprite;
         }
 

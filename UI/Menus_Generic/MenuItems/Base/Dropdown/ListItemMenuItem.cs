@@ -50,7 +50,7 @@ namespace IAmACube
 
             Item = item;
 
-            _text = new TextMenuItem(this, item.ToString());
+            _text = new TextMenuItem(this, ()=>item.ToString());
             _text.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
             AddChild(_text);
 
@@ -64,9 +64,6 @@ namespace IAmACube
             Selected = true;
             _selectedCallback(Item);
         }
-
-        public void RefreshText() => _text.Text = Item.ToString();
-
 
         private void _startHover()
         {

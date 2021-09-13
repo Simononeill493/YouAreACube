@@ -23,7 +23,7 @@ namespace IAmACube
             _buttonSprite.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, false);
             AddChild(_buttonSprite);
 
-            var radioButtonText = _addTextItem(text, _buttonSprite.GetBaseSize().X + 3, 0, CoordinateMode.ParentPixelOffset, false);
+            var radioButtonText = _addStaticTextItem(text, _buttonSprite.GetBaseSize().X + 3, 0, CoordinateMode.ParentPixelOffset, false);
             _baseSize = _buttonSprite.GetBaseSize();
             _baseSize.X += radioButtonText.GetBaseSize().X;
         }

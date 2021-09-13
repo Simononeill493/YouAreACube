@@ -19,14 +19,17 @@ namespace IAmACube
         private SpriteMenuItem _buttonRemove;
         private SpriteMenuItem _buttonAdd;
 
+        private string _variableName = "";
+        private InGameType _selectedType;
+        private string _formattedVariableNumber => (VariableNumber + 1).ToString() + ":";
+
         public TemplateVariableEditItem(IHasDrawLayer parent,int num) : base(parent)
         {
             VariableNumber = num;
 
-            _number = new TextMenuItem(this, (num+1).ToString() + ":");
-            _nameBox = new TextBoxMenuItem(this) { Editable = true };
-            _dataTypeDropdown = new DropdownMenuItem<InGameType>(this);
-            _dataTypeDropdown.AddItems(InGameTypeUtils.InGameTypes.Values.ToList());
+            _number = new TextMenuItem(this, ()=>_formattedVariableNumber);
+            _nameBox = new TextBoxMenuItem(this, () => _variableName, (v) => { _variableName = v; }) { Editable = true };
+            _dataTypeDropdown = new DropdownMenuItem<InGameType>(this,()=>_selectedType,(v)=> { _selectedType = v; },()=> InGameTypeUtils.InGameTypes.Values.ToList());
 
             _buttonRemove = new SpriteMenuItem(this, BuiltInMenuSprites.VariableMinusButton);
             _buttonRemove.OnMouseReleased +=(i) => DisableVariable();
@@ -34,20 +37,19 @@ namespace IAmACube
             _buttonAdd = new SpriteMenuItem(this, BuiltInMenuSprites.VariablePlusButton);
             _buttonAdd.OnMouseReleased += (i) => EnableVariable();
 
-            AddToContainer(_number, 0, -SpriteManager.GetTextSize(_number.Text).Y / 2, CoordinateMode.ParentPixelOffset, false);
-            AddToContainer(_nameBox, 20, -SpriteManager.GetSpriteSize(_nameBox.SpriteName).Y/2, CoordinateMode.ParentPixelOffset, false);
-            AddToContainer(_dataTypeDropdown, 130, -SpriteManager.GetSpriteSize(_dataTypeDropdown.SpriteName).Y / 2, CoordinateMode.ParentPixelOffset, false);
-            AddToContainer(_buttonRemove,208, -SpriteManager.GetSpriteSize(_buttonRemove.SpriteName).Y / 2,CoordinateMode.ParentPixelOffset, false);
-            AddToContainer(_buttonAdd, 208, -SpriteManager.GetSpriteSize(_buttonAdd.SpriteName).Y / 2, CoordinateMode.ParentPixelOffset, false);
+            _addItem(_number, 0, -SpriteManager.GetTextSize(_formattedVariableNumber).Y / 2, CoordinateMode.ParentPixelOffset, false);
+            _addItem(_nameBox, 20, -SpriteManager.GetSpriteSize(_nameBox.SpriteName).Y/2, CoordinateMode.ParentPixelOffset, false);
+            _addItem(_dataTypeDropdown, 130, -SpriteManager.GetSpriteSize(_dataTypeDropdown.SpriteName).Y / 2, CoordinateMode.ParentPixelOffset, false);
+            _addItem(_buttonRemove,208, -SpriteManager.GetSpriteSize(_buttonRemove.SpriteName).Y / 2,CoordinateMode.ParentPixelOffset, false);
+            _addItem(_buttonAdd, 208, -SpriteManager.GetSpriteSize(_buttonAdd.SpriteName).Y / 2, CoordinateMode.ParentPixelOffset, false);
 
             DisableVariable();
         }
 
         public void SetData(TemplateVariable variable)
         {
-            _nameBox.SetText(variable.VariableName);
-            _dataTypeDropdown.ManuallySetItem(variable.VariableType);
-            _dataTypeDropdown.RefreshText();
+            _variableName = variable.VariableName;
+            _selectedType = variable.VariableType;
 
             EnableVariable();
         }
@@ -89,7 +91,7 @@ namespace IAmACube
             VariableEnabled = true;
         }
 
-        public TemplateVariable MakeVariable() => new TemplateVariable(VariableNumber, _nameBox.Text, _dataTypeDropdown.SelectedItem);
+        public TemplateVariable MakeVariable() => new TemplateVariable(VariableNumber, _variableName, _selectedType);
 
         public override IntPoint GetBaseSize()
         {

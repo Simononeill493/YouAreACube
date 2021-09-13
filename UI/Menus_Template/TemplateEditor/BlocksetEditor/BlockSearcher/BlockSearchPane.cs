@@ -15,22 +15,24 @@ namespace IAmACube
 
         public Action<BlockData,UserInput> SendToEditPane;
 
-        private SearchBarMenuItem _searchBar;
-        private DropdownMenuItem<ChipType> _dropdown;
+        //private SearchBarMenuItem _searchBar;
+        //private DropdownMenuItem<ChipType> _dropdown;
         private List<BlockPreview> _chipPreviews;
+
+        private string _searchTerm = "";
+        private ChipType _selectedChipType;
 
         public BlockSearchPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, BuiltInMenuSprites.SearchPane)
         {
             _chipPreviews = new List<BlockPreview>();
 
-            _searchBar = new SearchBarMenuItem(this);
+            var _searchBar = new SearchBarMenuItem(this,()=>_searchTerm,_searchTermChanged);
             _searchBar.SetLocationConfig(50, 6, CoordinateMode.ParentPercentageOffset, true);
-            _searchBar.OnTextChanged += _searchTermChanged;
             AddChild(_searchBar);
 
-            _dropdown = new DropdownMenuItem<ChipType>(this);
+
+            var _dropdown = new DropdownMenuItem<ChipType>(this, () => _selectedChipType, (v) => { _selectedChipType = v; }, () => typeof(ChipType).GetEnumValues().Cast<ChipType>().ToList());
             _dropdown.SetLocationConfig(50, 19, CoordinateMode.ParentPercentageOffset, true);
-            _dropdown.SetItems(typeof(ChipType).GetEnumValues().Cast<ChipType>().ToList());
             _dropdown.OnSelectedChanged += _chipTypeChanged;
             AddChild(_dropdown);
 
@@ -39,8 +41,8 @@ namespace IAmACube
         
         public void RefreshFilter()
         {
-            var filtered = BlockDataDatabase.SearchBaseBlocks(_searchBar.Text);
-            filtered = _dropdown.IsItemSelected ? filtered.Where(c => c.ChipDataType == _dropdown.SelectedItem) : filtered;
+            var filtered = BlockDataDatabase.SearchBaseBlocks(_searchTerm);
+            filtered = filtered.Where(c => c.ChipDataType == _selectedChipType);
 
             _setPreviews(filtered.ToList());
         }
@@ -70,7 +72,11 @@ namespace IAmACube
             _chipPreviews.Clear();
         }
 
-        private void _searchTermChanged(string searchTerm) => RefreshFilter();
+        private void _searchTermChanged(string searchTerm)
+        {
+            _searchTerm = searchTerm;
+            RefreshFilter();
+        }
         private void _chipTypeChanged(ChipType chipType) => RefreshFilter();
 
         private void _createChipAndAddToEditPane(BlockPreview preview, UserInput input) => SendToEditPane(preview.Block, input);

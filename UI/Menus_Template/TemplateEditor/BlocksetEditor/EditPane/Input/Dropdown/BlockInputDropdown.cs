@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class BlockInputDropdown : ObservableDropdownMenuItem<BlockInputOption>
+    class BlockInputDropdown : DropdownMenuItem<BlockInputOption>
     {
         public List<string> InputTypes => _inputTypesProvider();
         public Func<List<string>> _inputTypesProvider;
@@ -15,14 +15,14 @@ namespace IAmACube
 
         public BlockInputModel Model;
 
-        public BlockInputDropdown(IHasDrawLayer parent, List<string> inputTypes, BlockInputModel model,Func<string> textProvider) : base(parent,textProvider)
+        public BlockInputDropdown(IHasDrawLayer parent, List<string> inputTypes, BlockInputModel model, Func<string> textProvider) : base(parent, () => model.InputOption, (o) => { model.InputOption = o; },()=> null)
         {
             SetStaticInputTypes(inputTypes);
             Model = model;
 
-            ObservableText.ObservableTextChanged += TextTyped;
-
             base.ListItemSelected(model.InputOption);
+
+            OnTextTyped += TextTyped;
         }
 
         public void SetInputTypeProvider(Func<List<string>> inputTypesProvider)
@@ -37,11 +37,11 @@ namespace IAmACube
 
         public override void PopulateItems()
         {
-            ClearItems();
+            _list.ClearItems();
 
-            AddItems(BlocksetEditPane.VariableProvider.GetInputsFromVariables(InputTypes));
-            AddItems(BlocksetEditPane.Model.GetInputsFromModel(Model, InputTypes));
-            AddItems(BlockDropdownUtils.GetDefaultItems(InputTypes));
+            _list.AddItems(BlocksetEditPane.VariableProvider.GetInputsFromVariables(InputTypes));
+            _list.AddItems(BlocksetEditPane.Model.GetInputsFromModel(Model, InputTypes));
+            _list.AddItems(BlockDropdownUtils.GetDefaultItems(InputTypes));
         }
 
         protected override void ListItemSelected(BlockInputOption inputOption)

@@ -79,22 +79,24 @@ namespace IAmACube
             return spriteItem;
         }
 
-        protected TextMenuItem _addTextItem(string text, int x, int y, CoordinateMode mode, bool centered)
+        protected TextMenuItem _addStaticTextItem(string text, int x, int y, CoordinateMode mode, bool centered) => _addTextItem(() => text, x, y, mode, centered);
+        protected TextMenuItem _addTextItem(Func<string> textProvider, int x, int y, CoordinateMode mode, bool centered)
         {
-            var textItem = new TextMenuItem(this, text);
+            var textItem = new TextMenuItem(this, textProvider);
             textItem.SetLocationConfig(x, y, mode, centered);
             AddChild(textItem);
             return textItem;
         }
 
-        protected TextBoxMenuItem _addTextBox(string text, int x, int y, CoordinateMode mode, bool centered, bool editable = false, int maxTextLength =9)
+        protected TextBoxMenuItem _addTextBox(Func<string> getText, Action<string> setText, int x, int y, CoordinateMode mode, bool centered, bool editable = false, int maxTextLength = 9)
         {
-            var textBox = new TextBoxMenuItem(this, text) { Editable = editable, MaxTextLength = maxTextLength };
-            textBox.SetLocationConfig(x,y,mode,centered);
+            var textBox = new TextBoxMenuItem(this, getText,setText) { Editable = editable, MaxTextLength = maxTextLength };
+            textBox.SetLocationConfig(x, y, mode, centered);
             AddChild(textBox);
 
             return textBox;
         }
+
 
         protected ButtonMenuItem _addButton(string text, int x, int y, CoordinateMode mode, bool centered, Action<UserInput> clicked)
         {

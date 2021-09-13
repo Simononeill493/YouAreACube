@@ -9,14 +9,14 @@ namespace IAmACube
 {
     class NewGameScreen : MenuScreen
     {
-        public string SaveName => textBox.Text;
+        public string SaveName = "test";
         private TextBoxMenuItem textBox;
 
         public NewGameScreen(Action<ScreenType> switchScreen) : base(ScreenType.NewGame, switchScreen)
         {
             Background = BuiltInMenuSprites.TitleBackground;
 
-            textBox = new TextBoxMenuItem(this, "test") { Editable = true, Focused = true };
+            textBox = new TextBoxMenuItem(this, ()=> SaveName, (s)=> { SaveName = s; }) { Editable = true, Focused = true };
             var okButton = new SpriteMenuItem(this, BuiltInMenuSprites.MainMenuOkButton);
             var cancelButton = new SpriteMenuItem(this, BuiltInMenuSprites.MainMenuCancelButton);
 

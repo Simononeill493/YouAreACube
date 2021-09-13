@@ -11,18 +11,20 @@ namespace IAmACube
         public TemplateSaveDialogOption SelectedDialogOption;
 
         private TextMenuItem _versionText;
-        private TextMenuItem _nameText;
-        private TextBoxMenuItem _nameTextBox;
 
         private Action<TemplateSaveDialogOption, string> _saveTemplateCallback;
+        private string _saveTextName;
+
+        private string _selectedName;
 
         public TemplateSaveDialog(IHasDrawLayer parentDrawLayer, MenuItem container,int newVersionNumber,string currentName,Action<TemplateSaveDialogOption,string> saveTemplateCallback) : base(parentDrawLayer, container, BuiltInMenuSprites.MediumMenuRectangle)
         {
+            _selectedName = currentName;
             _saveTemplateCallback = saveTemplateCallback;
 
-            _nameText = _addTextItem("", 50, 15, CoordinateMode.ParentPercentageOffset, true);
-            _versionText = _addTextItem("V" + newVersionNumber + ":", 10, 30, CoordinateMode.ParentPercentageOffset, true);
-            _nameTextBox = _addTextBox(currentName, 50, 30, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 12);
+            _addTextItem(()=>_saveTextName, 50, 15, CoordinateMode.ParentPercentageOffset, true);
+            _versionText = _addStaticTextItem("V" + newVersionNumber + ":", 10, 30, CoordinateMode.ParentPercentageOffset, true);
+            _addTextBox(()=>_selectedName,(s)=> { _selectedName = s; }, 50, 30, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 12);
             _addButton("Save", 30, 80, CoordinateMode.ParentPercentageOffset, true, (i) => _saveButtonPressed());
             _addButton("Cancel", 70, 80, CoordinateMode.ParentPercentageOffset, true, (i) => Close());
 
@@ -38,7 +40,7 @@ namespace IAmACube
 
         private void _saveButtonPressed()
         {
-            _saveTemplateCallback(SelectedDialogOption, _nameTextBox.Text);
+            _saveTemplateCallback(SelectedDialogOption, _selectedName);
             Close();
         }
 
@@ -50,11 +52,11 @@ namespace IAmACube
             {
                 case TemplateSaveDialogOption.SaveAsNewTemplate:
                     _versionText.Visible = false;
-                    _nameText.Text = "Template name";
+                    _saveTextName = "Template name";
                     break;
                 case TemplateSaveDialogOption.SaveAsNewVersion:
                     _versionText.Visible = true;
-                    _nameText.Text = "Version name";
+                    _saveTextName = "Version name";
                     break;
             }
         }

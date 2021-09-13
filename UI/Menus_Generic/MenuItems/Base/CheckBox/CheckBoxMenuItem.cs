@@ -17,7 +17,7 @@ namespace IAmACube
             this.Color = Microsoft.Xna.Framework.Color.White;
             OnMouseReleased += (i) => { Set(!this.Checked); };
 
-            X = _addTextItem("X", 50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            X = _addStaticTextItem("X", 50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
             Set(true);
         }
 

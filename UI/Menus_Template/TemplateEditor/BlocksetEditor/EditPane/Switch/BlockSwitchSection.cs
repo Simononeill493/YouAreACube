@@ -34,16 +34,14 @@ namespace IAmACube
             var rightButton = _addItem(new SwitchChipsetButton(this, 1), 70, 0, CoordinateMode.ParentPixelOffset);
             var switchArrowButtonLeft = _addSpriteItem(BuiltInMenuSprites.SwitchBlockSideArrow, 140, 0, CoordinateMode.ParentPixelOffset, false);
             var switchArrowButtonRight = _addSpriteItem(BuiltInMenuSprites.SwitchBlockSideArrow, 140 + switchArrowButtonLeft.GetBaseSize().X, 0, CoordinateMode.ParentPixelOffset, false);
-            var leftText = _addItem(new ObservableTextMenuItem(ManualDrawLayer.InFrontOf(this, 3)), 35, 10, CoordinateMode.ParentPixelOffset, true);
-            var rightText = _addItem(new ObservableTextMenuItem(ManualDrawLayer.InFrontOf(this, 3)), 105, 10, CoordinateMode.ParentPixelOffset, true);
+            var leftText = _addItem(new TextMenuItem(ManualDrawLayer.InFrontOf(this, 3), () => GetBlocksetName(0)), 35, 10, CoordinateMode.ParentPixelOffset, true);
+            var rightText = _addItem(new TextMenuItem(ManualDrawLayer.InFrontOf(this, 3), () => GetBlocksetName(1)), 105, 10, CoordinateMode.ParentPixelOffset, true);
             SwitchSectionBottom = _addSpriteItem(BuiltInMenuSprites.BlockGreyed, 0, 0, CoordinateMode.Absolute, false);
 
             leftButton.OnMouseReleased += (i) => _buttonClicked(leftButton);
             rightButton.OnMouseReleased += (i) => _buttonClicked(rightButton);
             switchArrowButtonLeft.OnMouseReleased += (i) => ChangeOffset(-1);
             switchArrowButtonRight.OnMouseReleased += (i) => ChangeOffset(1);
-            leftText.TextProvider = () => GetBlocksetName(0);
-            rightText.TextProvider = () => GetBlocksetName(1);
 
             switchArrowButtonRight.FlipHorizontal = true;
             SwitchSectionBottom.Visible = false;

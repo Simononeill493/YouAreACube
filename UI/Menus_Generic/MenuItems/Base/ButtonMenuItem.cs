@@ -8,7 +8,7 @@ namespace IAmACube
 {
     public class ButtonMenuItem : TextBoxMenuItem
     {
-        public ButtonMenuItem(IHasDrawLayer parentDrawLayer, string initialString) : base(parentDrawLayer,initialString)
+        public ButtonMenuItem(IHasDrawLayer parentDrawLayer, string buttontext) : base(parentDrawLayer, buttontext)
         {
             SpriteName = BuiltInMenuSprites.SmallRectangularButton;
         }

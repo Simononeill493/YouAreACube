@@ -8,14 +8,15 @@ namespace IAmACube
 {
     public class DropdownMenuItem<T> : TextBoxMenuItem
     {
-        public virtual T SelectedItem { get; protected set; }
-        protected ListMenuItem<T> _list;
+        public event Action<T> OnSelectedChanged;
 
-        public virtual bool Dropped
+        public bool Dropped
         {
             get { return _dropped; }
             set
             {
+                if (value) { PopulateItems(); }
+
                 _dropped = value;
                 _list.Visible = value;
                 _list.Enabled = value;
@@ -23,10 +24,19 @@ namespace IAmACube
         }
         protected bool _dropped;
 
-        public DropdownMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, "")
+        protected ListMenuItem<T> _list;
+        private Action<T> _selectItem;
+        private Func<T> _getSelectedItem;
+        private Func<List<T>> _getOptionsDefault;
+
+        public DropdownMenuItem(IHasDrawLayer parentDrawLayer,Func<T> getSelectedItem,Action<T> selectItem,Func<List<T>> getOptions) : base(parentDrawLayer,()=>_selectedItemToString(getSelectedItem()))
         {
+            _getSelectedItem = getSelectedItem;
+            _selectItem = selectItem;
+            _getOptionsDefault = getOptions;
+
             SpriteName = BuiltInMenuSprites.BasicDropdown;
-            TextItem.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
+            _textItem.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
 
             _list = new ListMenuItem<T>(ManualDrawLayer.Dropdown, GetBaseSize());
             _list.SetLocationConfig(0, 100, CoordinateMode.ParentPercentageOffset);
@@ -43,22 +53,17 @@ namespace IAmACube
             this.OnMouseReleased += (i) => { Dropped = !Dropped; };
         }
 
-
-        public virtual void ManuallySetItem(T item) => SelectedItem = item;
-        public void SetItems(List<T> items) => _list.SetItems(items);
-        public void AddItems(List<T> toAdd) =>_list.AddItems(toAdd);
-        public void ClearItems() => _list.ClearItems();
+        public virtual void PopulateItems()
+        {
+            _list.SetItems(_getOptionsDefault());
+        }
 
         protected virtual void ListItemSelected(T item)
         {
-            SelectedItem = item;
+            _selectItem(item);
             Dropped = false;
-
-            TextItem.Text = item.ToString();
             OnSelectedChanged?.Invoke(item);
         }
-
-        public void InvokeSelectedChanged(T item) => OnSelectedChanged?.Invoke(item);
 
         public override void Update(UserInput input)
         {
@@ -68,18 +73,17 @@ namespace IAmACube
                 Dropped = false;
             }
         }
-        
-        public virtual void RefreshText()
+
+        private static string _selectedItemToString(T item)
         {
-            if(IsItemSelected)
+            if (item == null)
             {
-                TextItem.Text = SelectedItem.ToString();
+                return "";
             }
 
-            _list.RefreshText();
+            return item.ToString();
         }
 
-        public event Action<T> OnSelectedChanged;
-        public bool IsItemSelected => (SelectedItem != null);
+        public bool _isItemSelected => (_getSelectedItem() != null);
     }
 }

@@ -22,7 +22,7 @@ namespace IAmACube
             _templatePicture.SetLocationConfig(6, 8, CoordinateMode.ParentPixelOffset);
             AddChild(_templatePicture);
 
-            _templateName = new TextMenuItem(this);
+            _templateName = new TextMenuItem(this,()=>_template?.Name);
             _templateName.SetLocationConfig(12, 65, CoordinateMode.ParentPixelOffset);
             _templateName.MultiplyScale(0.5f);
             AddChild(_templateName);
@@ -37,8 +37,6 @@ namespace IAmACube
             _template = template;
             _templatePicture.SetTemplate(template);
             _templatePicture.UpdateLocationCascade(ActualLocation, GetCurrentSize());
-
-            _templateName.Text = _template.Name;
 
             _setTemplateListToThisTemplateDict(template);
 
