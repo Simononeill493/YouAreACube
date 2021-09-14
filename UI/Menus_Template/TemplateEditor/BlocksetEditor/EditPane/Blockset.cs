@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class Blockset : SpriteMenuItem
+    class Blockset : TextBoxMenuItem
     {
         public BlocksetModel Model;
         public IEnumerable<Block> Blocks => Model.Blocks.Select(b=>BlocksetEditPane.Blocks[b]);
@@ -19,12 +19,18 @@ namespace IAmACube
         public Action<List<Block>, UserInput> BlockLiftedFromThisCallback;
         public Action<BlockInputOption, BlockInputModel> OpenSubMenuCallback;
 
-        public Blockset(BlocksetModel model) : base(ManualDrawLayer.Create(DrawLayers.MenuBlockLayer), BuiltInMenuSprites.Blockset_TopHandle)
+        public Blockset(BlocksetModel model) : base(ManualDrawLayer.Create(DrawLayers.MenuBlockLayer), ()=>model.Name,(s)=>model.Name=s)
         {
             Model = model;
+            SpriteName = BuiltInMenuSprites.Blockset_TopHandle;
+
+            Editable = true;
+            MaxTextLength = 50;
 
             Draggable = true;
             OnEndDrag += (i) => ThisDroppedCallback(this,i);
+
+            _textItem.MultiplyScale(0.5f);
         }
 
 
