@@ -23,17 +23,10 @@ namespace IAmACube
             }
         }
 
-        public static void TestParsingRoundTrip(string name, ChipsetCollection chipsets, TemplateVariableSet variables)
-        {
-            foreach (var mode in chipsets.Modes.Values)
-            {
-                TestParsingRoundTrip(name, mode, variables);
-            }
-        }
-        public static void TestParsingRoundTrip(string name,Chipset chipset,TemplateVariableSet variables)
+        public static void TestParsingRoundTrip(string name, ChipsetCollection chipset,TemplateVariableSet variables)
         {
             var blockModel = chipset.ToBlockModel(variables);
-            var chipsetFromBlockModel = blockModel.ToChipset();
+            var chipsetFromBlockModel = blockModel.ToChipsets();
 
             if (!chipset.Equivalent(chipsetFromBlockModel))
             {
@@ -43,7 +36,7 @@ namespace IAmACube
 
         public static void TestParsingRoundTrip(string name, FullModel model,TemplateVariableSet variables)
         {
-            var chipset = model.ToChipset();
+            var chipset = model.ToChipsets();
             var newModel = chipset.ToBlockModel(variables);
 
             var blockJson = JToken.FromObject(model, new JsonSerializer { NullValueHandling = NullValueHandling.Ignore }).ToString();

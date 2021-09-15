@@ -136,9 +136,7 @@
     <Compile Include="MonoGameWrapper\MouseSystemData.cs" />
     <Compile Include="MonoGameWrapper\Sound\SoundInterface.cs" />
     <Compile Include="BlockData\BlockDataGenerationTester.cs" />
-    <Compile Include="Testing\BlockInputSection_SanityTesting.cs" />
-    <Compile Include="Testing\Blockset_SanityTesting.cs" />
-    <Compile Include="Testing\Block_SanityTesting.cs" />
+    <Compile Include="Testing\ChipsetCollection_SanityTesting.cs" />
     <Compile Include="Testing\Chipset_SanityTesting.cs" />
     <Compile Include="Testing\Chip_SanityTesting.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Abstract\BasicMenuItem\Scale\MenuItemScaleProvider.cs" />
@@ -169,14 +167,14 @@
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\BlockFactory.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\BlockInputSection.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\BlocksetEditPane.cs" />
-    <Compile Include="Parsers\BlockModelParsers\Parser_ChipsetToBlockModel.cs" />
+    <Compile Include="Parsers\BlockModelParsers\Parser_ChipsetsToBlockModel.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Switch\BlockSwitchSection.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Block\BlockTop.cs" />
     <Compile Include="BlockModel\BlocksetModel.cs" />
     <Compile Include="BlockModel\FullModel.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Switch\SwitchChipsetButton.cs" />
     <Compile Include="UI\DialogBoxes\BlockTemplateSelectionDialog\BlockTemplateSelectionDialog.cs" />
-    <Compile Include="Parsers\BlockModelParsers\Parser_BlockModelToChipset.cs" />
+    <Compile Include="Parsers\BlockModelParsers\Parser_BlockModelToChipsets.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\TemplateEditMenu.cs" />
     <Compile Include="UI\Menus_Generic\MenuItems\Base\SpriteBoxes\CubeSpriteBox.cs" />
     <Compile Include="Gameplay\Templates\Variables\TemplateVariable.cs" />

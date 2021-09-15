@@ -9,9 +9,8 @@ namespace IAmACube
 {
     class BlocksetModel
     {
-        public string Name;
+        public string Name { get; set; }
         public bool Internal { get; }
-        public bool Initial { get; set; }
 
         public int ModeIndex = -1;
 

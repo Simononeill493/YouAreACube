@@ -8,19 +8,19 @@ using BlockValues = System.Tuple<IAmACube.BlockModel, IAmACube.ChipInputValues>;
 
 namespace IAmACube
 {
-    static class Parser_ChipsetToBlockModel
+    static class Parser_ChipsetsToBlockModel
     {
-        public static FullModel ToBlockModel(this Chipset chipset, TemplateVariableSet variables)
+        public static FullModel ToBlockModel(this ChipsetCollection chipsetCollection, TemplateVariableSet variables)
         {
             var fullModel = new FullModel();
             var inputValues = new List<BlockValues>();
 
-            foreach (var subChipset in chipset.GetThisAndAllChipsetsCascade())
+            foreach (var subChipset in chipsetCollection.GetAllChipsets())
             {
-                var blocksetModel = fullModel.CreateBlockset(subChipset.Name,!subChipset.Equals(chipset));
+                var blocksetModel = fullModel.CreateBlockset(subChipset.Name,isInternal: !chipsetCollection.HasMode(subChipset));
                 foreach (var chip in subChipset.Chips)
                 {
-                    var blockModel = fullModel.CreateBlock(chip.Name, chip.GetBlockData());
+                    var blockModel = fullModel.CreateBlock(chip.Name, chip.GetBlockData().GetThisOrBaseMappingBlock());
                     fullModel.AddInputs(blockModel);
                     blocksetModel.Blocks.Add(blockModel);
 
@@ -41,7 +41,7 @@ namespace IAmACube
                 }
             }
 
-            foreach (var controlChip in chipset.GetControlChipsCascade())
+            foreach (var controlChip in chipsetCollection.GetAllControlChips())
             {
                 var controlChipModel = fullModel.Blocks[((IChip)controlChip).Name];
                 foreach (var subChipset in controlChip.GetSubChipsets())
@@ -51,6 +51,7 @@ namespace IAmACube
                 }
             }
 
+            fullModel.Initial = fullModel.Blocksets[chipsetCollection.Initial.Name];
             return fullModel;
         }
 

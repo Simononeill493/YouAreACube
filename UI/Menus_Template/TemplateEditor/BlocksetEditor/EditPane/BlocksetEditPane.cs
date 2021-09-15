@@ -49,18 +49,22 @@ namespace IAmACube
 
         public void LoadChipsetForEditing(CubeTemplate template)
         {
-            if(!template.Active) { return; }
-            var model = template.Chipsets.Initial.ToBlockModel(VariableProvider.GetVariables());
-            var initial = _loadModel(model);
-            initial.SetLocationConfig(10, 10, CoordinateMode.ParentPixel);
+            if(!template.Active)
+            {
+                Model = new FullModel();
+                return; 
+            }
+
+            var model = template.Chipsets.ToBlockModel(VariableProvider.GetVariables());
+            var modes = _loadModel(model);
+
+            _setModePositions(modes);
         }
 
         public void AddEditedChipsetToTemplate(CubeTemplate template)
         {
-            _setInitial();
-
             TemplateParsingTester.TestParsingRoundTrip(template.Name, Model, VariableProvider.GetVariables());
-            template.Chipsets = new ChipsetCollection(Model.ToChipset());
+            template.Chipsets = Model.ToChipsets();
         }
 
 
@@ -77,7 +81,7 @@ namespace IAmACube
         {
             blocks.First().ManuallyEndDrag(input);
 
-            var heldBlockset = (blockset.Empty) ? blockset : _makeNewBlockset(isInternal: false);
+            var heldBlockset = (blockset.Empty & !blockset.IsInternal) ? blockset : _makeNewBlockset(isInternal: false);
             heldBlockset.SetInitialDragState(this, input);
             heldBlockset.AddBlocks(blocks, 0);
         }
@@ -130,7 +134,7 @@ namespace IAmACube
             return newBlockset;
         }
 
-        private Blockset _loadModel(FullModel model)
+        private IEnumerable<Blockset> _loadModel(FullModel model)
         {
             Model = model;
 
@@ -149,19 +153,25 @@ namespace IAmACube
                 block.SwitchSection?.InitializeAllSections();
             }
 
-            var externals = Blocksets.Values.Where(b => !b.IsInternal);
-            if (externals.Count()!=1)
+            var modes = Blocksets.Values.Where(b => !b.IsInternal);
+            if (modes.Count()<1)
             {
                 throw new Exception();
             }
 
-            var initial = Blocksets.Values.Where(b => b.Model.Name == ChipsetCollection.InitialChipName).FirstOrDefault();
-            if(initial == null)
-            {
-                throw new Exception();
-            }
-            return initial;
+            return modes;
         }
+
+        private void _setModePositions(IEnumerable<Blockset> modes)
+        {
+            int x = 10;
+            foreach (var mode in modes)
+            {
+                mode.SetLocationConfig(x, 10, CoordinateMode.ParentPixel);
+                x += (mode.GetBaseSize().X + 10);
+            }
+        }
+
 
         private Block _makeBlockFromModel(BlockModel model)
         {
@@ -256,17 +266,6 @@ namespace IAmACube
             {
                 _blockScale *= multiplier;
             }
-        }
-
-
-        private void _setInitial()
-        {
-            var topLevelBlocksets = Blocksets.Values.Where(b => !b.IsInternal);
-            if (topLevelBlocksets.Count() != 1)
-            {
-                throw new Exception("Multiple top level blocksets");
-            }
-            topLevelBlocksets.First().Model.Name = ChipsetCollection.InitialChipName;
         }
     }
 }

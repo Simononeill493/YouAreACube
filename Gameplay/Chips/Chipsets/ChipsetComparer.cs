@@ -10,6 +10,26 @@ namespace IAmACube
 {
     static class ChipsetComparer
     {
+        public static bool Equivalent(this ChipsetCollection c1, ChipsetCollection c2)
+        {
+            if (!c1.Initial.Name.Equals(c1.Initial.Name)) { return false; }
+            if (c1.Modes.Count != c2.Modes.Count) { return false; }
+            if (!c1.Modes.Keys.SequenceEqual(c2.Modes.Keys)) { return false; }
+
+            foreach (var kvp in c1.Modes)
+            {
+                var mode1 = c1.Modes[kvp.Key];
+                var mode2 = c2.Modes[kvp.Key];
+
+                if (!mode1.Equivalent(mode2))
+                {
+                    return false;
+                }
+            }
+ 
+            return true;
+        }
+
         public static bool Equivalent(this Chipset b1, Chipset b2)
         {
             if (!b1.Name.Equals(b2.Name)) { return false; }
@@ -73,11 +93,9 @@ namespace IAmACube
                         return false;
                     }
                 }
-
             }
 
             return true;
-
         }
 
         public static bool Equivalent(this ChipInputValues inputs1,ChipInputValues inputs2)

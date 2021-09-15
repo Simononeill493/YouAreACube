@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
     [Serializable()]
-    public class ChipsetCollection
+    public partial class ChipsetCollection
     {
-        public const string InitialChipName = "_Initial";
-
         public Dictionary<int, Chipset> Modes;
         public Chipset Initial => Modes[0];
 
@@ -20,19 +18,19 @@ namespace IAmACube
         }
         public ChipsetCollection(Chipset initial) : this()
         {
-            initial.Name = InitialChipName;
             Modes[0] = initial;
         }
 
         public ChipsetCollection Clone(TemplateVariableSet variables)
         {
-            var output = new ChipsetCollection();
-            foreach(var mode in Modes)
-            {
-                output.Modes[mode.Key] = mode.Value.ToBlockModel(variables).ToChipset();
-            }
-
+            var output = this.ToBlockModel(variables).ToChipsets();
             return output;
         }
+
+        public IEnumerable<Chipset> GetAllChipsets() => Modes.Values.SelectMany(c => c.GetThisAndAllChipsetsCascade());
+        public IEnumerable<IChip> GetAllChips() => Modes.Values.SelectMany(c => c.GetAllChipsCascade());
+        public IEnumerable<IControlChip> GetAllControlChips() => Modes.Values.SelectMany(c => c.GetControlChipsCascade());
+        public bool HasMode(Chipset chipset) => Modes.ContainsValue(chipset);
+
     }
 }

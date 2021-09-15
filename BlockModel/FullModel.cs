@@ -10,7 +10,17 @@ namespace IAmACube
     class FullModel
     {
         [JsonIgnore]
-        public BlocksetModel Initial;
+        public BlocksetModel Initial
+        {
+            get { return _initial; }
+            set
+            {
+                if(_initial!=null) { _initial.ModeIndex = _getNewModeIndex(); }
+                value.ModeIndex = 0;
+                _initial = value;
+            }
+        }
+        private BlocksetModel _initial;
         public Dictionary<string,BlocksetModel> Blocksets;
         public Dictionary<string,BlockModel> Blocks;
         [JsonIgnore]
@@ -27,6 +37,12 @@ namespace IAmACube
         {
             var blockset = new BlocksetModel(name,isInternal);
             Blocksets[name] = blockset;
+
+            if(!isInternal)
+            {
+                blockset.ModeIndex = _getNewModeIndex();
+            }
+
             return blockset;
         }
 
@@ -52,6 +68,9 @@ namespace IAmACube
                 b.Inputs.ForEach(i => InputParents.Remove(i));
             }
         }
+
+        public IEnumerable<BlocksetModel> GetModes() => Blocksets.Values.Where(v => !v.Internal);
+        private int _getNewModeIndex() => Math.Max(1,Blocksets.Values.Max(v => v.ModeIndex) + 1);
 
         public string InitialName => Initial.Name;
     }

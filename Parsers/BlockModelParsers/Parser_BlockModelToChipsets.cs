@@ -9,10 +9,11 @@ using ChipsetsDict = System.Collections.Generic.Dictionary<System.String, IAmACu
 
 namespace IAmACube
 { 
-    static class Parser_BlockModelToChipset
+    static class Parser_BlockModelToChipsets
     {
-        public static Chipset ToChipset(this FullModel fullmodel)
+        public static ChipsetCollection ToChipsets(this FullModel fullmodel)
         {
+            var output = new ChipsetCollection();
             var chips = new ChipsDict();
             var chipsets = new ChipsetsDict();
 
@@ -49,16 +50,13 @@ namespace IAmACube
                 }
             }
 
-            var initial = chipsets.Values.Where(c => c.Name == ChipsetCollection.InitialChipName);
-            if(initial.Count()>1) 
+            foreach(var mode in fullmodel.GetModes())
             {
-                throw new Exception("Multiple initials?");
+                output.Modes[mode.ModeIndex] = chipsets[mode.Name];
             }
-            if (initial.Count() == 0)
-            {
-                throw new Exception("No initials");
-            }
-            return initial.First();
+
+            output.AssertSanityTest();
+            return output;
         }
 
         public static void SetInputProperty(this IChip chip,BlockInputOption inputOption,int pin,ChipsDict chipsDict)
