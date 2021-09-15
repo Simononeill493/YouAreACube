@@ -21,7 +21,7 @@ namespace IAmACube
         {
             _textItem = new TextMenuItem(this, getText);
             _textItem.OnTextTyped += (s) => OnTextTyped?.Invoke(s);
-            _textItem.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            _textItem.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, centered: true);
             AddChild(_textItem);
         }
         public TextBoxMenuItem(IHasDrawLayer parentDrawLayer, Func<string> getText, Action<string> setText) : this(parentDrawLayer, getText)

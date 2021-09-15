@@ -32,7 +32,7 @@ namespace IAmACube
         private void _addVariableItem()
         {
             var editItem = new TemplateVariableEditItem(this,_items.Count());
-            editItem.SetLocationConfig(ItemBaseXOffset, ItemBaseYOffset + (_items.Count*(editItem.GetBaseSize().Y+2)), CoordinateMode.ParentPixelOffset, false);
+            editItem.SetLocationConfig(ItemBaseXOffset, ItemBaseYOffset + (_items.Count*(editItem.GetBaseSize().Y+2)), CoordinateMode.ParentPixel, false);
             AddChild(editItem);
             _items.Add(editItem);
         }

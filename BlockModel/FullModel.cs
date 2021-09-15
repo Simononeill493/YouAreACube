@@ -9,6 +9,8 @@ namespace IAmACube
 {
     class FullModel
     {
+        [JsonIgnore]
+        public BlocksetModel Initial;
         public Dictionary<string,BlocksetModel> Blocksets;
         public Dictionary<string,BlockModel> Blocks;
         [JsonIgnore]
@@ -21,9 +23,9 @@ namespace IAmACube
             InputParents = new Dictionary<BlockInputModel, BlockModel>();
         }
 
-        public BlocksetModel CreateBlockset(string name)
+        public BlocksetModel CreateBlockset(string name,bool isInternal)
         {
-            var blockset = new BlocksetModel(name);
+            var blockset = new BlocksetModel(name,isInternal);
             Blocksets[name] = blockset;
             return blockset;
         }
@@ -50,5 +52,7 @@ namespace IAmACube
                 b.Inputs.ForEach(i => InputParents.Remove(i));
             }
         }
+
+        public string InitialName => Initial.Name;
     }
 }

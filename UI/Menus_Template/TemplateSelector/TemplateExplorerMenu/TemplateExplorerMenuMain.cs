@@ -15,7 +15,7 @@ namespace IAmACube
             _templateSelectedCallback = templateSelectedCallback;
 
             templateSelectedMenu = new TemplateSelectedMenuMain(this, _templateSelectedAction);
-            templateSelectedMenu.SetLocationConfig(65, 0, CoordinateMode.ParentPercentageOffset);
+            templateSelectedMenu.SetLocationConfig(65, 0, CoordinateMode.ParentPercentage);
             AddChild(templateSelectedMenu);
         }
 

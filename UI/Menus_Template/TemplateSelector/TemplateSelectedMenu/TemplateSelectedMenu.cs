@@ -19,16 +19,16 @@ namespace IAmACube
         public TemplateSelectedMenu(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer,BuiltInMenuSprites.TemplateListMenuSection)
         {
             _templatePicture = new TemplateBox(this, (t) => { });
-            _templatePicture.SetLocationConfig(6, 8, CoordinateMode.ParentPixelOffset);
+            _templatePicture.SetLocationConfig(6, 8, CoordinateMode.ParentPixel);
             AddChild(_templatePicture);
 
             _templateName = new TextMenuItem(this,()=>_template?.Name);
-            _templateName.SetLocationConfig(12, 65, CoordinateMode.ParentPixelOffset);
+            _templateName.SetLocationConfig(12, 65, CoordinateMode.ParentPixel);
             _templateName.MultiplyScale(0.5f);
             AddChild(_templateName);
 
             _templateList = new ListMenuItem<CubeTemplate>(this,new IntPoint(64,15));
-            _templateList.SetLocationConfig(7, 40, CoordinateMode.ParentPixelOffset);
+            _templateList.SetLocationConfig(7, 40, CoordinateMode.ParentPixel);
             AddChild(_templateList);
         }
 

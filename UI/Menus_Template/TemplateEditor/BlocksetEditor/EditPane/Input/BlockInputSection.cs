@@ -11,7 +11,7 @@ namespace IAmACube
     {
         public BlockInputSection(IHasDrawLayer parent,string name): base(parent,BuiltInMenuSprites.BlockMiddle)
         {
-            var textItem = _addStaticTextItem(name, 4, 40, CoordinateMode.ParentPercentageOffset, false);
+            var textItem = _addStaticTextItem(name, 4, 40, CoordinateMode.ParentPercentage, false);
             textItem.MultiplyScale(0.5f);
             textItem.Color = Color.White;
         }

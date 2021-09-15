@@ -99,7 +99,7 @@ namespace IAmACube
         public static BlockInputDropdown MakeDefaultDropdown(Block block,BlockInputSection inputSection, List<string> inputTypes, BlockInputModel model)
         {
             var dropdown = new BlockInputDropdown(inputSection, inputTypes, model, () => model.DisplayValue);
-            dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentageOffset, true);
+            dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentage, true);
             dropdown.OnSelectedChanged += (o) => block.DropdownItemSelected(o, dropdown.Model);
             return dropdown;
         }
@@ -107,7 +107,7 @@ namespace IAmACube
         public static BlockInputDropdownMetaVariable MakeMetaVariableDropdown(Block block,BlockInputSection inputSection, BlockInputModel model)
         {
             var dropdown = new BlockInputDropdownMetaVariable(inputSection, model, () => model.DisplayValue);
-            dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentageOffset, true);
+            dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentage, true);
             dropdown.OnSelectedChanged += (o) => block.DropdownItemSelected(o, dropdown.Model);
 
             return dropdown;
@@ -138,7 +138,7 @@ namespace IAmACube
         {
             var currentSize = block.GetBaseSize();
 
-            section.SetLocationConfig(0, currentSize.Y, CoordinateMode.ParentPixelOffset, false);
+            section.SetLocationConfig(0, currentSize.Y, CoordinateMode.ParentPixel, false);
             block.AddChild(section);
             block.Sections.Add(section);
         }

@@ -30,12 +30,12 @@ namespace IAmACube
             _defaultSwitchSections = defaultSwitchSections;
             _buttons = new List<SwitchChipsetButton>();
 
-            var leftButton = _addItem(new SwitchChipsetButton(this,0), 0, 0, CoordinateMode.ParentPixelOffset);
-            var rightButton = _addItem(new SwitchChipsetButton(this, 1), 70, 0, CoordinateMode.ParentPixelOffset);
-            var switchArrowButtonLeft = _addSpriteItem(BuiltInMenuSprites.SwitchBlockSideArrow, 140, 0, CoordinateMode.ParentPixelOffset, false);
-            var switchArrowButtonRight = _addSpriteItem(BuiltInMenuSprites.SwitchBlockSideArrow, 140 + switchArrowButtonLeft.GetBaseSize().X, 0, CoordinateMode.ParentPixelOffset, false);
-            var leftText = _addItem(new TextMenuItem(ManualDrawLayer.InFrontOf(this, 3), () => GetBlocksetName(0)), 35, 10, CoordinateMode.ParentPixelOffset, true);
-            var rightText = _addItem(new TextMenuItem(ManualDrawLayer.InFrontOf(this, 3), () => GetBlocksetName(1)), 105, 10, CoordinateMode.ParentPixelOffset, true);
+            var leftButton = _addItem(new SwitchChipsetButton(this,0), 0, 0, CoordinateMode.ParentPixel);
+            var rightButton = _addItem(new SwitchChipsetButton(this, 1), 70, 0, CoordinateMode.ParentPixel);
+            var switchArrowButtonLeft = _addSpriteItem(BuiltInMenuSprites.SwitchBlockSideArrow, 140, 0, CoordinateMode.ParentPixel, false);
+            var switchArrowButtonRight = _addSpriteItem(BuiltInMenuSprites.SwitchBlockSideArrow, 140 + switchArrowButtonLeft.GetBaseSize().X, 0, CoordinateMode.ParentPixel, false);
+            var leftText = _addItem(new TextMenuItem(ManualDrawLayer.InFrontOf(this, 3), () => GetBlocksetName(0)), 35, 10, CoordinateMode.ParentPixel, true);
+            var rightText = _addItem(new TextMenuItem(ManualDrawLayer.InFrontOf(this, 3), () => GetBlocksetName(1)), 105, 10, CoordinateMode.ParentPixel, true);
             SwitchSectionBottom = _addSpriteItem(BuiltInMenuSprites.BlockGreyed, 0, 0, CoordinateMode.Absolute, false);
 
             leftButton.OnMouseReleased += (i) => _buttonClicked(leftButton);
@@ -104,7 +104,6 @@ namespace IAmACube
 
         private void _initializeSection(Blockset blockset)
         {
-            blockset.IsInternal = true;
             blockset.VisualParent = this;
             blockset.InternalBlocksetBottom = SwitchSectionBottom;
             blockset.HideAndDisable();

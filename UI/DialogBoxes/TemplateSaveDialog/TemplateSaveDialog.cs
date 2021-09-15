@@ -22,17 +22,17 @@ namespace IAmACube
             _selectedName = currentName;
             _saveTemplateCallback = saveTemplateCallback;
 
-            _addTextItem(()=>_saveTextName, 50, 15, CoordinateMode.ParentPercentageOffset, true);
-            _versionText = _addStaticTextItem("V" + newVersionNumber + ":", 10, 30, CoordinateMode.ParentPercentageOffset, true);
-            _addTextBox(()=>_selectedName,(s)=> { _selectedName = s; }, 50, 30, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 12);
-            _addButton("Save", 30, 80, CoordinateMode.ParentPercentageOffset, true, (i) => _saveButtonPressed());
-            _addButton("Cancel", 70, 80, CoordinateMode.ParentPercentageOffset, true, (i) => Close());
+            _addTextItem(()=>_saveTextName, 50, 15, CoordinateMode.ParentPercentage, true);
+            _versionText = _addStaticTextItem("V" + newVersionNumber + ":", 10, 30, CoordinateMode.ParentPercentage, true);
+            _addTextBox(()=>_selectedName,(s)=> { _selectedName = s; }, 50, 30, CoordinateMode.ParentPercentage, true, editable: true, maxTextLength: 12);
+            _addButton("Save", 30, 80, CoordinateMode.ParentPercentage, true, (i) => _saveButtonPressed());
+            _addButton("Cancel", 70, 80, CoordinateMode.ParentPercentage, true, (i) => Close());
 
             var saveTypeRadioButtons = new RadioButtonsMenuItem<TemplateSaveDialogOption>(this);
             saveTypeRadioButtons.AddOption(TemplateSaveDialogOption.SaveAsNewTemplate,"As new template");
             saveTypeRadioButtons.AddOption(TemplateSaveDialogOption.SaveAsNewVersion, "As new version");
             saveTypeRadioButtons.OnItemSelected += _dialogOptionSelected;
-            saveTypeRadioButtons.SetLocationConfig(10, 50, CoordinateMode.ParentPercentageOffset, false);
+            saveTypeRadioButtons.SetLocationConfig(10, 50, CoordinateMode.ParentPercentage, false);
             AddChild(saveTypeRadioButtons);
 
             saveTypeRadioButtons.SelectRadioButton(1);

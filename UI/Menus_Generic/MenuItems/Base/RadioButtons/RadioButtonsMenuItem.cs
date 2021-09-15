@@ -23,7 +23,7 @@ namespace IAmACube
 
             var button = new RadioButtonMenuItem<T>(this, option,text);
             button.ButtonIndex = _buttons.Count;
-            button.SetLocationConfig(0, currentSize.Y, CoordinateMode.ParentPixelOffset);
+            button.SetLocationConfig(0, currentSize.Y, CoordinateMode.ParentPixel);
             button.OnMouseReleased += (i) => SelectRadioButton(button.ButtonIndex);
 
             _buttons.Add(button);

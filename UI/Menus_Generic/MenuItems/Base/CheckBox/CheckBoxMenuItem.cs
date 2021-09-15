@@ -8,23 +8,29 @@ namespace IAmACube
 {
     class CheckBoxMenuItem: RectangleMenuItem
     {
-        public bool Checked;
-        private TextMenuItem X;
+        private Func<bool> _checkedProvider;
+        private Action<bool> _onSet;
 
-        public CheckBoxMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer) 
+        public CheckBoxMenuItem(IHasDrawLayer parentDrawLayer,Func<bool> checkedProvider,Action<bool> onSet) : base(parentDrawLayer) 
         {
+            _checkedProvider = checkedProvider;
+            _onSet = onSet;
+
             this.Size = new IntPoint(10, 10);
             this.Color = Microsoft.Xna.Framework.Color.White;
-            OnMouseReleased += (i) => { Set(!this.Checked); };
+            OnMouseReleased += (i) => { _onSet(!checkedProvider()); };
 
-            X = _addStaticTextItem("X", 50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
-            Set(true);
+            _addTextItem(_getCheckedString, 50, 50, CoordinateMode.ParentPercentage, centered: true);
         }
 
-        public void Set(bool toSetTo)
+        private string _getCheckedString()
         {
-            Checked = toSetTo;
-            X.Visible = toSetTo;
+            if(_checkedProvider())
+            {
+                return "X";
+            }
+
+            return "";
         }
     }
 }

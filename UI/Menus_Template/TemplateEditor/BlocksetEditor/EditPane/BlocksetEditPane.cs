@@ -27,12 +27,12 @@ namespace IAmACube
             Blocks = new Dictionary<BlockModel, Block>();
 
             var plusButton = new SpriteMenuItem(ManualDrawLayer.Create(DrawLayers.MenuBaseLayer), BuiltInMenuSprites.PlusButton);
-            plusButton.SetLocationConfig(GetBaseSize().X - 9, 0, CoordinateMode.ParentPixelOffset, false);
+            plusButton.SetLocationConfig(GetBaseSize().X - 9, 0, CoordinateMode.ParentPixel, false);
             plusButton.OnMouseReleased += (i) => _changeChipScale(2);
             AddChild(plusButton);
 
             var minusButton = new SpriteMenuItem(ManualDrawLayer.Create(DrawLayers.MenuBaseLayer), BuiltInMenuSprites.MinusButton_Partial);
-            minusButton.SetLocationConfig(GetBaseSize().X - 17, 0, CoordinateMode.ParentPixelOffset, false);
+            minusButton.SetLocationConfig(GetBaseSize().X - 17, 0, CoordinateMode.ParentPixel, false);
             minusButton.OnMouseReleased += (i) => _changeChipScale(0.5f);
             AddChild(minusButton);
 
@@ -49,9 +49,10 @@ namespace IAmACube
 
         public void LoadChipsetForEditing(CubeTemplate template)
         {
+            if(!template.Active) { return; }
             var model = template.Chipsets.Initial.ToBlockModel(VariableProvider.GetVariables());
             var initial = _loadModel(model);
-            initial.SetLocationConfig(10, 10, CoordinateMode.ParentPixelOffset);
+            initial.SetLocationConfig(10, 10, CoordinateMode.ParentPixel);
         }
 
         public void AddEditedChipsetToTemplate(CubeTemplate template)
@@ -67,18 +68,18 @@ namespace IAmACube
         {
             var block = _makeNewBlock(data);
 
-            var blockset = _makeNewBlockset();
+            var blockset = _makeNewBlockset(isInternal: false);
             blockset.SetInitialDragState(this, input);
             blockset.AddBlock(block, 0);
         }
 
-        public void MakeNewBlocksetWithLiftedBlocks(List<Block> blocks, UserInput input)
+        public void BlocksLifted(Blockset blockset,List<Block> blocks, UserInput input)
         {
             blocks.First().ManuallyEndDrag(input);
 
-            var blockset = _makeNewBlockset();
-            blockset.SetInitialDragState(this, input);
-            blockset.AddBlocks(blocks, 0);
+            var heldBlockset = (blockset.Empty) ? blockset : _makeNewBlockset(isInternal: false);
+            heldBlockset.SetInitialDragState(this, input);
+            heldBlockset.AddBlocks(blocks, 0);
         }
 
         public void BlocksetDropped(Blockset blockset, UserInput input)
@@ -121,9 +122,9 @@ namespace IAmACube
             return newBlock;
         }
 
-        private Blockset _makeNewBlockset()
+        private Blockset _makeNewBlockset(bool isInternal)
         {
-            var newModel = Model.CreateBlockset(IDUtils.GenerateBlocksetID());
+            var newModel = Model.CreateBlockset(IDUtils.GenerateBlocksetID(),isInternal);
             var newBlockset = _makeBlocksetFromModel(newModel);
 
             return newBlockset;
@@ -165,7 +166,7 @@ namespace IAmACube
         private Block _makeBlockFromModel(BlockModel model)
         {
             var block = BlockFactory.MakeBlock(model);
-            block.SwitchSection?.SetGenerator(_makeNewBlockset);
+            block.SwitchSection?.SetGenerator(()=>_makeNewBlockset(isInternal: true));
             block.ScaleProvider = _blockScaler;
 
             Blocks[model] = block;
@@ -179,7 +180,7 @@ namespace IAmACube
             var blockset = BlockFactory.MakeBlockset(model);
 
             blockset.ScaleProvider = _blockScaler;
-            blockset.BlockLiftedFromThisCallback = MakeNewBlocksetWithLiftedBlocks;
+            blockset.BlocksLiftedFromThisCallback = BlocksLifted;
             blockset.ThisDroppedCallback = BlocksetDropped;
             blockset.OpenSubMenuCallback = OpenSubMenuCallback;
 
@@ -225,7 +226,7 @@ namespace IAmACube
             var totalDist = blockset.ActualLocation - ActualLocation;
             var trueScale = (int)(Scale * _blockScale);
             var pixelDist = (totalDist / trueScale);
-            blockset.SetLocationConfig(pixelDist, CoordinateMode.ParentPixelOffset, false);
+            blockset.SetLocationConfig(pixelDist, CoordinateMode.ParentPixel, false);
         }
 
         protected override void _drawSelf(DrawingInterface drawingInterface)

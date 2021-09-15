@@ -23,7 +23,7 @@ namespace IAmACube
             templateMatrix.XPadding = 8;
             templateMatrix.YPadding = 8;
 
-            templateMatrix.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, false);
+            templateMatrix.SetLocationConfig(0, 0, CoordinateMode.ParentPixel, false);
             templateMatrix.AddBoxes(_generateTemplateBoxes(templateMatrix.Capacity));
             templateMatrix.PadToCapacity(_generateEmptyTemplateBox);
             templateMatrix.UpdateBoxLocations();

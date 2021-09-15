@@ -51,7 +51,7 @@ namespace IAmACube
             Item = item;
 
             _text = new TextMenuItem(this, ()=>item.ToString());
-            _text.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
+            _text.SetLocationConfig(5, 20, CoordinateMode.ParentPercentage, false);
             AddChild(_text);
 
             OnMousePressed += (i) => TrySelectItem();

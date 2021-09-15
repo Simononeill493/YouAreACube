@@ -25,23 +25,23 @@ namespace IAmACube
             _kernel = kernel;
 
             _variableEditTab = new TemplateVariableEditTab(this, baseTemplate);
-            _variableEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            _variableEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, centered: true);
             AddChild(_variableEditTab);
 
             _chipsetEditTab = new TemplateChipsetEditTab(this, kernel, baseTemplate, _variableEditTab);
-            _chipsetEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            _chipsetEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, centered: true);
             AddChild(_chipsetEditTab);
 
             _statsEditTab = new TemplateBaseStatsEditTab(this,baseTemplate);
-            _statsEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            _statsEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, centered: true);
             AddChild(_statsEditTab);
 
             _appearanceEditTab = new TemplateAppearanceEditTab(this, baseTemplate);
-            _appearanceEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            _appearanceEditTab.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, centered: true);
             AddChild(_appearanceEditTab);
 
             _tabs = new TabArrayMenuItem(this,MenuOrientation.Horizontal,10);
-            _tabs.SetLocationConfig(0, -SpriteManager.GetSpriteSize(BuiltInMenuSprites.BasicTabButton).Y, CoordinateMode.ParentPixelOffset, false);
+            _tabs.SetLocationConfig(0, -SpriteManager.GetSpriteSize(BuiltInMenuSprites.BasicTabButton).Y, CoordinateMode.ParentPixel, false);
             _tabs.AddTabButton("Stats", _statsEditTab);
             _tabs.AddTabButton("Variables", _variableEditTab);
             _tabs.AddTabButton("Chipset", _chipsetEditTab);
@@ -65,7 +65,7 @@ namespace IAmACube
         public void OpenTemplateSelectDialog(BlockInputModel selectedModel)
         {
             var dialogBox = new BlockTemplateSelectionDialog(ManualDrawLayer.Dialog, this, selectedModel,_kernel);
-            dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
+            dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, true);
             dialogBox.AddPausedItems(_tabs.Tabs);
             AddChildAfterUpdate(dialogBox);
         }
@@ -73,7 +73,7 @@ namespace IAmACube
         public void OpenQuitDialog()
         {
             var dialogBox = new TemplateQuitDialog(ManualDrawLayer.Dialog, this, _quitDialogButtonPressed);
-            dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
+            dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, true);
             dialogBox.AddPausedItems(_tabs.Tabs);
 
             AddChildAfterUpdate(dialogBox);
@@ -102,7 +102,7 @@ namespace IAmACube
             var versionNumber = _baseTemplate.Versions.GetNewVersionNumber();
 
             var dialogBox = new TemplateSaveDialog(ManualDrawLayer.Dialog, this, versionNumber, _statsEditTab.CurrentName, _saveDialogButtonPressed);
-            dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
+            dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, true);
             dialogBox.AddPausedItems(_tabs.Tabs);
 
             AddChildAfterUpdate(dialogBox);

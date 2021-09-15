@@ -37,11 +37,11 @@ namespace IAmACube
             _buttonAdd = new SpriteMenuItem(this, BuiltInMenuSprites.VariablePlusButton);
             _buttonAdd.OnMouseReleased += (i) => EnableVariable();
 
-            _addItem(_number, 0, -SpriteManager.GetTextSize(_formattedVariableNumber).Y / 2, CoordinateMode.ParentPixelOffset, false);
-            _addItem(_nameBox, 20, -SpriteManager.GetSpriteSize(_nameBox.SpriteName).Y/2, CoordinateMode.ParentPixelOffset, false);
-            _addItem(_dataTypeDropdown, 130, -SpriteManager.GetSpriteSize(_dataTypeDropdown.SpriteName).Y / 2, CoordinateMode.ParentPixelOffset, false);
-            _addItem(_buttonRemove,208, -SpriteManager.GetSpriteSize(_buttonRemove.SpriteName).Y / 2,CoordinateMode.ParentPixelOffset, false);
-            _addItem(_buttonAdd, 208, -SpriteManager.GetSpriteSize(_buttonAdd.SpriteName).Y / 2, CoordinateMode.ParentPixelOffset, false);
+            _addItem(_number, 0, -SpriteManager.GetTextSize(_formattedVariableNumber).Y / 2, CoordinateMode.ParentPixel, false);
+            _addItem(_nameBox, 20, -SpriteManager.GetSpriteSize(_nameBox.SpriteName).Y/2, CoordinateMode.ParentPixel, false);
+            _addItem(_dataTypeDropdown, 130, -SpriteManager.GetSpriteSize(_dataTypeDropdown.SpriteName).Y / 2, CoordinateMode.ParentPixel, false);
+            _addItem(_buttonRemove,208, -SpriteManager.GetSpriteSize(_buttonRemove.SpriteName).Y / 2,CoordinateMode.ParentPixel, false);
+            _addItem(_buttonAdd, 208, -SpriteManager.GetSpriteSize(_buttonAdd.SpriteName).Y / 2, CoordinateMode.ParentPixel, false);
 
             DisableVariable();
         }

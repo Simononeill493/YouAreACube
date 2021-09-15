@@ -9,14 +9,16 @@ namespace IAmACube
     class Blockset : TextBoxMenuItem
     {
         public BlocksetModel Model;
+        public bool IsInternal => Model.Internal;
+
         public IEnumerable<Block> Blocks => Model.Blocks.Select(b=>BlocksetEditPane.Blocks[b]);
 
         public MenuItem InternalBlocksetBottom;
-        public bool IsInternal;
-        public bool ShouldDispose => (_empty & !IsInternal) | _manuallyDisposeBlockset;
+        public bool ShouldDispose => (Empty & !IsInternal) | _manuallyDisposeBlockset;
+        public bool Empty => !Blocks.Any();
 
         public Action<Blockset, UserInput> ThisDroppedCallback;
-        public Action<List<Block>, UserInput> BlockLiftedFromThisCallback;
+        public Action<Blockset,List<Block>, UserInput> BlocksLiftedFromThisCallback;
         public Action<BlockInputOption, BlockInputModel> OpenSubMenuCallback;
 
         public Blockset(BlocksetModel model) : base(ManualDrawLayer.Create(DrawLayers.MenuBlockLayer), ()=>model.Name,(s)=>model.Name=s)
@@ -26,11 +28,21 @@ namespace IAmACube
 
             Editable = true;
             MaxTextLength = 50;
-
-            Draggable = true;
-            OnEndDrag += (i) => ThisDroppedCallback(this,i);
-
             _textItem.MultiplyScale(0.5f);
+
+            if(!IsInternal)
+            {
+                Draggable = true;
+                OnEndDrag += (i) => ThisDroppedCallback(this, i);
+
+                var modeIndexText = _addTextItem(() => Model.ModeIndex.ToString(), 4, 50, CoordinateMode.ParentPercentage, true);
+                modeIndexText.MultiplyScale(0.5f);
+
+                var initalCheckBox = new CheckBoxMenuItem(this, () => model.Equals(BlocksetEditPane.Model.Initial), (b) => _tryMakeInitial(model, b));
+                initalCheckBox.Size = new IntPoint(8, 8);
+                initalCheckBox.SetLocationConfig(96, 50, CoordinateMode.ParentPercentage, true);
+                AddChild(initalCheckBox);
+            }
         }
 
 
@@ -48,7 +60,7 @@ namespace IAmACube
             var toRemove = this.GetThisAndAllBlocksAfter(block);
             RemoveBlocks(toRemove);
 
-            BlockLiftedFromThisCallback(toRemove, input);
+            BlocksLiftedFromThisCallback(this,toRemove, input);
         }
         public void DropBlocks(List<Block> blocks) => AddBlocks(blocks, _getMouseHoveringIndex());
         public List<Block> DetachAllBlocks()
@@ -94,7 +106,6 @@ namespace IAmACube
 
 
 
-        protected override bool _canStartDragging() => base._canStartDragging() & !IsInternal;
 
         private int _getMouseHoveringIndex()
         {
@@ -115,8 +126,16 @@ namespace IAmACube
         private Block _getMouseHoveringBlock() => Blocks.Where(b => b.MouseHovering).FirstOrDefault();
 
         private bool _manuallyDisposeBlockset;
-        private bool _empty => !Blocks.Any();
         private bool _mouseOverInternalBottom => (InternalBlocksetBottom != null && InternalBlocksetBottom.MouseHovering);
         private bool _mouseOverAnyBlock => Blocks.Any(b => b.MouseHovering);
+
+
+        private static void _tryMakeInitial(BlocksetModel model, bool isTrue)
+        {
+            if (isTrue)
+            {
+                BlocksetEditPane.Model.Initial = model;
+            }
+        }
     }
 }

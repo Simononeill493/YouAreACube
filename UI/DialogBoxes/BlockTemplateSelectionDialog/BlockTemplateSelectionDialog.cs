@@ -16,7 +16,7 @@ namespace IAmACube
             _model = model;
 
             _templateSearchMenu = new TemplateExplorerMenuInternal(this, kernel, CompleteSelection);
-            _templateSearchMenu.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
+            _templateSearchMenu.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, true);
             _templateSearchMenu.UpdateDrawLayerCascade(DrawLayer - (DrawLayers.MinLayerDistance * 10));
             AddChild(_templateSearchMenu);
         }

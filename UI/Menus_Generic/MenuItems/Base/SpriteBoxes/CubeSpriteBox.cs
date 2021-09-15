@@ -15,7 +15,7 @@ namespace IAmACube
             if(sprite==null) { sprite = BuiltInMenuSprites.BlankPixel; }
 
             _sprite = new SpriteMenuItem(this, sprite);
-            _sprite.SetLocationConfig(14, 14, CoordinateMode.ParentPercentageOffset);
+            _sprite.SetLocationConfig(14, 14, CoordinateMode.ParentPercentage);
             AddChild(_sprite);
         }
     }

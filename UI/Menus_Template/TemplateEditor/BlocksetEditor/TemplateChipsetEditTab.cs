@@ -21,11 +21,11 @@ namespace IAmACube
             _baseTemplate = baseTemplate;
 
             _searchPane = new BlockSearchPane(this);
-            _searchPane.SetLocationConfig(84, 50, CoordinateMode.ParentPercentageOffset, true);
+            _searchPane.SetLocationConfig(84, 50, CoordinateMode.ParentPercentage, true);
             AddChild(_searchPane);
 
             _editPane = new BlocksetEditPane(variableProvider,_searchPane);
-            _editPane.SetLocationConfig(4, 4, CoordinateMode.ParentPixelOffset, false);
+            _editPane.SetLocationConfig(4, 4, CoordinateMode.ParentPixel, false);
             _editPane.OpenSubMenuCallback = parent.OpenBlocksetEditDialog;
             AddChild(_editPane);
 

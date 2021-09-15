@@ -36,10 +36,10 @@ namespace IAmACube
             _getOptionsDefault = getOptions;
 
             SpriteName = BuiltInMenuSprites.BasicDropdown;
-            _textItem.SetLocationConfig(5, 20, CoordinateMode.ParentPercentageOffset, false);
+            _textItem.SetLocationConfig(5, 20, CoordinateMode.ParentPercentage, false);
 
             _list = new ListMenuItem<T>(ManualDrawLayer.Dropdown, GetBaseSize());
-            _list.SetLocationConfig(0, 100, CoordinateMode.ParentPercentageOffset);
+            _list.SetLocationConfig(0, 100, CoordinateMode.ParentPercentage);
             _list.Visible = false;
             _list.Enabled = false;
             _list.HoverHighlight = true;
@@ -47,7 +47,7 @@ namespace IAmACube
             AddChild(_list);
 
             var dropButton = new SpriteMenuItem(this, BuiltInMenuSprites.DropdownArrow);
-            dropButton.SetLocationConfig(92, 50, CoordinateMode.ParentPercentageOffset, true);
+            dropButton.SetLocationConfig(92, 50, CoordinateMode.ParentPercentage, true);
             AddChild(dropButton);
 
             this.OnMouseReleased += (i) => { Dropped = !Dropped; };

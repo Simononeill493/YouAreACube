@@ -19,8 +19,8 @@ namespace IAmACube
             newGameButton.OnMouseReleased += (i) => GoToNewGame();
             loadGameButton.OnMouseReleased += (i) => GoToLoadGame();
 
-            newGameButton.SetLocationConfig(50, 25, CoordinateMode.ParentPercentageOffset, centered: true);
-            loadGameButton.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            newGameButton.SetLocationConfig(50, 25, CoordinateMode.ParentPercentage, centered: true);
+            loadGameButton.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, centered: true);
 
             _addMenuItem(newGameButton);
             _addMenuItem(loadGameButton);

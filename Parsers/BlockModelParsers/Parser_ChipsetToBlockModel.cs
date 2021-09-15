@@ -17,7 +17,7 @@ namespace IAmACube
 
             foreach (var subChipset in chipset.GetThisAndAllChipsetsCascade())
             {
-                var blocksetModel = fullModel.CreateBlockset(subChipset.Name);
+                var blocksetModel = fullModel.CreateBlockset(subChipset.Name,!subChipset.Equals(chipset));
                 foreach (var chip in subChipset.Chips)
                 {
                     var blockModel = fullModel.CreateBlock(chip.Name, chip.GetBlockData());

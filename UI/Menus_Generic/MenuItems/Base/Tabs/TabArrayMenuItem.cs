@@ -48,7 +48,7 @@ namespace IAmACube
                 locationConfig.Y = (tabSize.Y + _buttonDistance) * (_countOfTabsInLine);
             }
 
-            tabButton.SetLocationConfig(locationConfig, CoordinateMode.ParentPixelOffset, false);
+            tabButton.SetLocationConfig(locationConfig, CoordinateMode.ParentPixel, false);
             _countOfTabsInLine++;
 
             return tabButton;

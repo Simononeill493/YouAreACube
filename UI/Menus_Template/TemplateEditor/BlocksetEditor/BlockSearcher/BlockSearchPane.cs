@@ -27,12 +27,12 @@ namespace IAmACube
             _chipPreviews = new List<BlockPreview>();
 
             var _searchBar = new SearchBarMenuItem(this,()=>_searchTerm,_searchTermChanged);
-            _searchBar.SetLocationConfig(50, 6, CoordinateMode.ParentPercentageOffset, true);
+            _searchBar.SetLocationConfig(50, 6, CoordinateMode.ParentPercentage, true);
             AddChild(_searchBar);
 
 
             var _dropdown = new DropdownMenuItem<ChipType>(this, () => _selectedChipType, (v) => { _selectedChipType = v; }, () => typeof(ChipType).GetEnumValues().Cast<ChipType>().ToList());
-            _dropdown.SetLocationConfig(50, 19, CoordinateMode.ParentPercentageOffset, true);
+            _dropdown.SetLocationConfig(50, 19, CoordinateMode.ParentPercentage, true);
             _dropdown.OnSelectedChanged += _chipTypeChanged;
             AddChild(_dropdown);
 
@@ -56,7 +56,7 @@ namespace IAmACube
             for (int i = 0; i < numChipsToShow; i++)
             {
                 var chipPreview = new BlockPreview(this, chips[i]);
-                chipPreview.SetLocationConfig(PreviewPixelXOffset, yOffset, CoordinateMode.ParentPixelOffset, false);
+                chipPreview.SetLocationConfig(PreviewPixelXOffset, yOffset, CoordinateMode.ParentPixel, false);
                 chipPreview.OnMousePressed += (input) => _createChipAndAddToEditPane(chipPreview, input);
                 _chipPreviews.Add(chipPreview);
 

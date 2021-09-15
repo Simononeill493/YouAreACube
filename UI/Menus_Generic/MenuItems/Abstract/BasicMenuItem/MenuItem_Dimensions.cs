@@ -40,15 +40,15 @@ namespace IAmACube
         {
             IntPoint location = _locationConfig.loc;
 
-            if (_locationConfig.mode == CoordinateMode.ParentPixelOffset)
+            if (_locationConfig.mode == CoordinateMode.ParentPixel)
             {
                 location = parentlocation + (location * Scale);
             }
-            if (_locationConfig.mode == CoordinateMode.VisualParentPixelOffset)
+            if (_locationConfig.mode == CoordinateMode.VisualParentPixel)
             {
                 location = VisualParent.ActualLocation + (location * Scale);
             }
-            else if (_locationConfig.mode == CoordinateMode.ParentPercentageOffset)
+            else if (_locationConfig.mode == CoordinateMode.ParentPercentage)
             {
                 int widthPercent = (int)(parentSize.X * (location.X / 100.0));
                 int heightPercent = (int)(parentSize.Y * (location.Y / 100.0));

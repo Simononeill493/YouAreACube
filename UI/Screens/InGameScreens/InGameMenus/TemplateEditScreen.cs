@@ -14,7 +14,7 @@ namespace IAmACube
         public TemplateEditScreen(Action<ScreenType> switchScreen,GameScreen gameScreen,CubeTemplate template) : base(ScreenType.TemplateEdit, switchScreen,gameScreen)
         {
             _templateEditMenu = new TemplateEditMenu(this, _gameScreen.Game.Kernel, template, _returnToTemplateExplorer);
-            _templateEditMenu.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            _templateEditMenu.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, centered: true);
             _addMenuItem(_templateEditMenu);
         }
 

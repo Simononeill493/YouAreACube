@@ -12,7 +12,7 @@ namespace IAmACube
         {
             SpriteName = BuiltInMenuSprites.TemplateListMenuSection_Extended;
 
-            _addButton("Select", 6, 141, CoordinateMode.ParentPixelOffset, false, (i) => { templateSelectedCallback(_templateList.Selected); });
+            _addButton("Select", 6, 141, CoordinateMode.ParentPixel, false, (i) => { templateSelectedCallback(_templateList.Selected); });
         }
 
         protected override void _setTemplateListToThisTemplateDict(TemplateVersionDictionary template)

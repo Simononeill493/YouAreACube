@@ -23,9 +23,9 @@ namespace IAmACube
             okButton.OnMouseReleased += (i) => NewGameClicked();
             cancelButton.OnMouseReleased += (i) => BackToTitleScreen();
 
-            textBox.SetLocationConfig(50, 40, CoordinateMode.ParentPercentageOffset, centered: true);
-            okButton.SetLocationConfig(25, 65, CoordinateMode.ParentPercentageOffset, centered: true);
-            cancelButton.SetLocationConfig(65, 65, CoordinateMode.ParentPercentageOffset, centered: true);
+            textBox.SetLocationConfig(50, 40, CoordinateMode.ParentPercentage, centered: true);
+            okButton.SetLocationConfig(25, 65, CoordinateMode.ParentPercentage, centered: true);
+            cancelButton.SetLocationConfig(65, 65, CoordinateMode.ParentPercentage, centered: true);
 
             _addMenuItem(textBox);
             _addMenuItem(okButton);

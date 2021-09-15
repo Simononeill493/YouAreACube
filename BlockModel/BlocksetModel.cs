@@ -10,10 +10,15 @@ namespace IAmACube
     class BlocksetModel
     {
         public string Name;
+        public bool Internal { get; }
+        public bool Initial { get; set; }
 
-        public BlocksetModel(string name)
+        public int ModeIndex = -1;
+
+        public BlocksetModel(string name,bool isInternal)
         {
             Name = name;
+            Internal = isInternal;
         }
 
         [JsonIgnore]
@@ -32,6 +37,5 @@ namespace IAmACube
         }
 
         public List<string> BlockNames => Blocks.Select(b=>b.Name).ToList();
-        //public List<BlocksetModel> GetSubBlocksets() => Blocks.SelectMany(b => b.SubBlocksets.Select(s=>s.Item2)).ToList();
     }
 }

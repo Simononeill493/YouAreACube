@@ -42,7 +42,7 @@ namespace IAmACube
 
             for (int i = 0; i < _boxes.Count; i++)
             {
-                _boxes[i].SetLocationConfig(new IntPoint(xOffset, yOffset), CoordinateMode.ParentPixelOffset, centered: false);
+                _boxes[i].SetLocationConfig(new IntPoint(xOffset, yOffset), CoordinateMode.ParentPixel, centered: false);
                 xOffset += _increment;
 
                 if ((i + 1) % _width == 0)

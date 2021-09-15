@@ -22,7 +22,7 @@ namespace IAmACube
             _text.Color = Color.White;
             _text.MultiplyScale(0.5f);
 
-            _text.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, true);
+            _text.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, true);
             AddChild(_text);
         }
     }

@@ -11,7 +11,7 @@ namespace IAmACube
         public TemplateSpriteSelectorTab(IHasDrawLayer parent,List<(string,CubeSpriteDataType)> sprites,Action<string,CubeSpriteDataType> spriteSelected) : base(parent)
         {
             var spritesMatrix = new SpriteBoxMatrix<SpriteSelectorSpriteBox>(this, 6, 6);
-            spritesMatrix.SetLocationConfig(0, 0, CoordinateMode.ParentPixelOffset, false);
+            spritesMatrix.SetLocationConfig(0, 0, CoordinateMode.ParentPixel, false);
             spritesMatrix.AddBoxes(_createSpriteBoxes(sprites,spriteSelected));
             spritesMatrix.PadToCapacity(_createSpriteBoxBlank);
             AddChild(spritesMatrix);

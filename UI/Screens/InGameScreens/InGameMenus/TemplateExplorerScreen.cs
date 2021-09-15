@@ -14,7 +14,7 @@ namespace IAmACube
         {
             var templateMenu = new TemplateExplorerMenuMain(this,_gameScreen.Game.Kernel, openTemplateForEditing);
             //templateMenu.MakeBoxes();
-            templateMenu.SetLocationConfig(50, 50, CoordinateMode.ParentPercentageOffset, centered: true);
+            templateMenu.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, centered: true);
 
             _addMenuItem(templateMenu);
         }

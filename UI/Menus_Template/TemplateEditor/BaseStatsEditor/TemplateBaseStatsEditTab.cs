@@ -14,24 +14,21 @@ namespace IAmACube
         private string health;
         private string energy;
         private string speed;
-        private CheckBoxMenuItem _activeCheckBox;
+        private bool active;
 
         public TemplateBaseStatsEditTab(IHasDrawLayer parent,CubeTemplate baseTemplate) : base(parent, BuiltInMenuSprites.LargeMenuRectangle)
         {
-            _addStaticTextItem("Name:", 20, 10, CoordinateMode.ParentPercentageOffset, true);
-            _addStaticTextItem("Health:", 20, 25, CoordinateMode.ParentPercentageOffset, true);
-            _addStaticTextItem("Energy:", 20, 40, CoordinateMode.ParentPercentageOffset, true);
-            _addStaticTextItem("Speed:", 20, 55, CoordinateMode.ParentPercentageOffset, true);
-            _addStaticTextItem("Active:", 20, 80, CoordinateMode.ParentPercentageOffset, true);
+            _addStaticTextItem("Name:", 20, 10, CoordinateMode.ParentPercentage, true);
+            _addStaticTextItem("Health:", 20, 25, CoordinateMode.ParentPercentage, true);
+            _addStaticTextItem("Energy:", 20, 40, CoordinateMode.ParentPercentage, true);
+            _addStaticTextItem("Speed:", 20, 55, CoordinateMode.ParentPercentage, true);
+            _addStaticTextItem("Active:", 20, 80, CoordinateMode.ParentPercentage, true);
 
-            _addTextBox(() => name, (s) => { name = s; }, 60, 10, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 15); ;
-            _addTextBox(() => health, (s) => { health = s; }, 60, 25, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 4);
-            _addTextBox(() => energy, (s) => { energy = s; }, 60, 40, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 4);
-            _addTextBox(() => speed, (s) => { speed = s; }, 60, 55, CoordinateMode.ParentPercentageOffset, true, editable: true, maxTextLength: 6);
-
-            _activeCheckBox = new CheckBoxMenuItem(this);
-            _activeCheckBox.SetLocationConfig(35, 80, CoordinateMode.ParentPercentageOffset, true);
-            AddChild(_activeCheckBox);
+            _addTextBox(() => name, (s) => { name = s; }, 60, 10, CoordinateMode.ParentPercentage, true, editable: true, maxTextLength: 15); ;
+            _addTextBox(() => health, (s) => { health = s; }, 60, 25, CoordinateMode.ParentPercentage, true, editable: true, maxTextLength: 4);
+            _addTextBox(() => energy, (s) => { energy = s; }, 60, 40, CoordinateMode.ParentPercentage, true, editable: true, maxTextLength: 4);
+            _addTextBox(() => speed, (s) => { speed = s; }, 60, 55, CoordinateMode.ParentPercentage, true, editable: true, maxTextLength: 6);
+            _addItem(new CheckBoxMenuItem(this, () => active, (b) => active = b), 35, 80, CoordinateMode.ParentPercentage, true);
 
             LoadFieldsForEditing(baseTemplate);
         }
@@ -42,7 +39,7 @@ namespace IAmACube
             health = template.MaxHealth.ToString();
             energy = template.MaxEnergy.ToString();
             speed = template.Speed.ToString();
-            _activeCheckBox.Set(template.Active);
+            active = template.Active;
         }
 
         public void AddEditedFieldsToTemplate(CubeTemplate template)
@@ -51,7 +48,7 @@ namespace IAmACube
             template.MaxHealth = int.Parse(health);
             template.MaxEnergy = int.Parse(energy);
             template.Speed = int.Parse(speed);
-            template.Active = _activeCheckBox.Checked;
+            template.Active = active;
         }
     }
 }

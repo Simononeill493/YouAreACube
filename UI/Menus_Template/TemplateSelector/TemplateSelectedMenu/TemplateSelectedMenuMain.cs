@@ -14,9 +14,9 @@ namespace IAmACube
         {
             _templateButtonPressCallback = templateButtonPressCallback;
 
-            _addButton("Set Main", 6, 107, CoordinateMode.ParentPixelOffset, false, (i) => { _buttonPressAction(TemplateSelectedAction.SetMain); });
-            _addButton("Clone", 6, 124, CoordinateMode.ParentPixelOffset, false, (i) => { _buttonPressAction(TemplateSelectedAction.Clone); });
-            _addButton("Edit", 6, 141, CoordinateMode.ParentPixelOffset, false, (i) => { _buttonPressAction(TemplateSelectedAction.Edit); });
+            _addButton("Set Main", 6, 107, CoordinateMode.ParentPixel, false, (i) => { _buttonPressAction(TemplateSelectedAction.SetMain); });
+            _addButton("Clone", 6, 124, CoordinateMode.ParentPixel, false, (i) => { _buttonPressAction(TemplateSelectedAction.Clone); });
+            _addButton("Edit", 6, 141, CoordinateMode.ParentPixel, false, (i) => { _buttonPressAction(TemplateSelectedAction.Edit); });
         }
 
         protected void _buttonPressAction(TemplateSelectedAction selectedAction)

@@ -73,7 +73,7 @@ namespace IAmACube
             foreach (var block in blockset.Blocks)
             {
                 block.SetBlocksetParent(blockset);
-                block.SetLocationConfig(offs, CoordinateMode.VisualParentPixelOffset);
+                block.SetLocationConfig(offs, CoordinateMode.VisualParentPixel);
                 offs.Y += block.GetBaseSize().Y;
             }
         }
@@ -83,10 +83,10 @@ namespace IAmACube
             if(switchSection.IsAnySectionActivated)
             {
                 var sizeY = switchSection.GetSizeWithoutSubBlockset().Y - 1;
-                switchSection.ActiveSection.SetLocationConfig(0, sizeY, CoordinateMode.VisualParentPixelOffset);
+                switchSection.ActiveSection.SetLocationConfig(0, sizeY, CoordinateMode.VisualParentPixel);
 
                 var blocksetY = switchSection.ActiveSection.GetSizeIncludingBlocks().Y - 1;
-                switchSection.SwitchSectionBottom.SetLocationConfig(0, sizeY + blocksetY, CoordinateMode.ParentPixelOffset);
+                switchSection.SwitchSectionBottom.SetLocationConfig(0, sizeY + blocksetY, CoordinateMode.ParentPixel);
             }
         }
 

@@ -11,7 +11,7 @@ namespace IAmACube
         public TemplateExplorerMenuInternal(IHasDrawLayer parentDrawLayer, Kernel kernel, Action<CubeTemplate> templateSelectedCallback) : base(parentDrawLayer, kernel)
         {
             templateSelectedMenu = new TemplateSelectedMenuInternal(this, templateSelectedCallback);
-            templateSelectedMenu.SetLocationConfig(65, 0, CoordinateMode.ParentPercentageOffset);
+            templateSelectedMenu.SetLocationConfig(65, 0, CoordinateMode.ParentPercentage);
             AddChild(templateSelectedMenu);
         }
     }
