@@ -18,6 +18,10 @@ namespace IAmACube
 
         public void AddApproachAction(Cube block, Cube target) => Actions.Add(new BlockAction(block, ActionType.ApproachBlock) { TargetBlock = target, MoveSpeed = block.Speed });
 
+        internal void AddModeChangeAction(Cube block, int modeNum)
+        {
+            Actions.Add(new BlockAction(block, ActionType.ModeChange) { ModeIndex = modeNum });
+        }
 
         public void AddApproachAction(Cube block, Tile target) => Actions.Add(new BlockAction(block, ActionType.ApproachTile) { TargetTile = target, MoveSpeed = block.Speed });
 

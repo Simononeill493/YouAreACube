@@ -48,6 +48,12 @@ namespace IAmACube
             return variables.Select(v => BlockInputOption.CreateMetaVariable(v.VariableNumber)).ToList();
         }
 
+        public static List<BlockInputOption> GetInputsFromChipsets(this FullModel fullModel)
+        {
+            var chips = fullModel.Blocksets.Values.Where(b=>!b.Internal);
+
+            return chips.Select(c => BlockInputOption.CreateChipset(c)).ToList();
+        }
 
     }
 }

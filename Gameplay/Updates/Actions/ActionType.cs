@@ -20,6 +20,7 @@ namespace IAmACube
         ApproachTile,
         ApproachBlock,
         CardinalSapEnergy,
-        RelativeSapEnergy
+        RelativeSapEnergy,
+        ModeChange
     }
 }

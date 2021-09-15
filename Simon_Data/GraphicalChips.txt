@@ -290,7 +290,12 @@
 		  "inputs":["RelativeDirection","CubeMode"],
 		},
 	  ]
+    },
+	{
+      "name":"ChangeMode",
+	  "datatype":"Chip",
+	  "inputs":["int"],
+	  "inputDisplayNames":["Mode"],
     }
-
   ]
 }

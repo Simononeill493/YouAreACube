@@ -22,6 +22,7 @@ namespace IAmACube
         public int EnergyAmount;
         public int Rotation;
         public int MoveSpeed;
+        public int ModeIndex;
 
         public CubeTemplate Template;
 

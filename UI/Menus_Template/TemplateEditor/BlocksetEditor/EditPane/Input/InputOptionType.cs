@@ -18,6 +18,7 @@
         Reference,
         Variable,
         MetaVariable,
+        Chipset,
         SubMenu,
         Unparseable
     }

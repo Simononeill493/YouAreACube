@@ -60,6 +60,7 @@
     <Compile Include="Gameplay\Chips\ChipsList\ActionChips\Sap\SapEnergyCardinalChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\AnimationChips\FlipVerticalChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\AnimationChips\FlipHorizontalChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\ChipChips\ChangeModeChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ControlChips\IfPercentageChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ControlChips\IIfChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Surroundings\GetActiveCubeInSectorChip.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="UI\Menus_Template\TemplateEditor\BaseStatsEditor\TemplateBaseStatsEditTab.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\BlockPositioningUtils.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\BlocksetEditPane_Pan.cs" />
+    <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\Dropdown\BlockInputDropdownChipsetSelector.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\Dropdown\BlockInputDropdownMetaVariable.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\InputCompareUtils.cs" />
     <Compile Include="BlockModel\BlockInputModel.cs" />

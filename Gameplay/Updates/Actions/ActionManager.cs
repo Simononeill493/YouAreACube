@@ -90,6 +90,9 @@ namespace IAmACube
                         var approachTileDir = action.Actor.Location.AbsoluteLocation.ApproachDirection(action.TargetTile.AbsoluteLocation);
                         _moveManager.TryStartMovement(action.Actor, approachTileDir, action.MoveSpeed);
                         break;
+                    case ActionType.ModeChange:
+                        action.Actor.ChipsetMode = action.ModeIndex;
+                        break;
                 }
             }
 

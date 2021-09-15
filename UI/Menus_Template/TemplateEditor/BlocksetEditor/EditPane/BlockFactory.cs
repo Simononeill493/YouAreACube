@@ -47,6 +47,10 @@ namespace IAmACube
             {
                 AddCheckVariableSetInputSections(block, data);
             }
+            else if (data.Name.Equals("ChangeMode"))
+            {
+                AddChangeModeInputSection(block, data);
+            }
             else
             {
                 AddDefaultInputSections(block, data);
@@ -60,7 +64,6 @@ namespace IAmACube
                 AddDefaultInputSection(block, data, index);
             }
         }
-
         public static void AddDefaultInputSection(Block block, BlockData data,int index)
         {
             var inputSection = MakeInputSection(block, data, index);
@@ -84,6 +87,14 @@ namespace IAmACube
             _addSection(block, inputSection2);
 
             dropdown2.SetInputTypeProvider(dropdown.GetTypesOfSelectedVariable);
+        }
+
+        public static void AddChangeModeInputSection(Block block, BlockData data)
+        {
+            var inputSection = MakeInputSection(block, data, 0);
+            var dropdown = MakeChipSelectorDropdown(block, inputSection, block.Model.Inputs[0]);
+            inputSection.AddChild(dropdown);
+            _addSection(block, inputSection);
         }
 
         public static void AddCheckVariableSetInputSections(Block block, BlockData data)
@@ -113,6 +124,14 @@ namespace IAmACube
             return dropdown;
         }
 
+        public static BlockInputDropdownChipsetSelector MakeChipSelectorDropdown(Block block, BlockInputSection inputSection, BlockInputModel model)
+        {
+            var dropdown = new BlockInputDropdownChipsetSelector(inputSection, model, () => model.DisplayValue);
+            dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentage, true);
+            dropdown.OnSelectedChanged += (o) => block.DropdownItemSelected(o, dropdown.Model);
+
+            return dropdown;
+        }
 
         public static void AddSwitchSections(Block block, BlockData data)
         {
