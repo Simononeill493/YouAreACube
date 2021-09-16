@@ -49,6 +49,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BlockData\BlockData_Mapping.cs" />
+    <Compile Include="BlockModel\BlockSpecialInputUtils.cs" />
     <Compile Include="Camera\CameraConfiguration.cs" />
     <Compile Include="Camera\CameraUtils.cs" />
     <Compile Include="Camera\FixedCamera.cs" />

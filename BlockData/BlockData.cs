@@ -34,7 +34,9 @@ namespace IAmACube
         private string[] _inputDisplayNames;
         private List<List<string>> _inputDataTypeOptions;
 
-        public BlockData(string name, ChipType dataType, string[] inputs, string output, List<BlockData> inputMappings, string[] inputDisplayNames)
+        public BlockSpecialInputType[] SpecialInputTypes { get; private set; }
+
+        public BlockData(string name, ChipType dataType, string[] inputs, string output, List<BlockData> inputMappings, string[] inputDisplayNames,BlockSpecialInputType[] specialInputTypes)
         {
             Name = name;
             ChipDataType = dataType;
@@ -43,6 +45,7 @@ namespace IAmACube
             InputMappings = inputMappings;
 
             _inputDisplayNames = inputDisplayNames;
+            SpecialInputTypes = specialInputTypes;
         }
 
         public void Init()
@@ -52,7 +55,7 @@ namespace IAmACube
             _initIOData();
             _initGenericFlags();
             _initSubMappings();
-
+            
             if(_inputDisplayNames == null)
             {
                 _inputDisplayNames = Inputs;
@@ -61,6 +64,11 @@ namespace IAmACube
             if(!IsGeneric)
             {
                 DefaultTypeArguments = null;
+            }
+
+            if(SpecialInputTypes==null)
+            {
+                SpecialInputTypes = Enumerable.Repeat(BlockSpecialInputType.None, NumInputs).ToArray();
             }
         }
         private void _initIOData()

@@ -51,9 +51,32 @@ namespace IAmACube
                 }
             }
 
+            foreach(var blockModel in fullModel.Blocks.Values)
+            {
+                //InputModelSpecialCases(blockModel);
+            }
+
             fullModel.Initial = fullModel.Blocksets[chipsetCollection.Initial.Name];
             return fullModel;
         }
+
+        public static void InputModelSpecialCases(BlockModel model)
+        {
+            throw new NotImplementedException();
+            /*if (model.ChipName.Equals("SetVariable"))
+            {
+                AddSetVariableInputSections(block, data);
+            }
+            else if (model.ChipName.Equals("IsVariableSet"))
+            {
+                AddCheckVariableSetInputSections(block, data);
+            }
+            else if (model.ChipName.Equals("ChangeMode"))
+            {
+                AddChangeModeInputSection(block, data);
+            }*/
+        }
+
 
         public static BlockInputModel CreateInputModel(ChipInputValue option, FullModel fullModel, TemplateVariableSet variables)
         {

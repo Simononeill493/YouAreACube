@@ -81,13 +81,15 @@
       "name":"SetVariable",
 	  "datatype":"General",
 	  "inputDisplayNames":["Variable","Set To"],
-	  "inputs":["int","Variable"]
+	  "inputs":["int","Variable"],
+	  "specialInputTypes":["MetaVariable","None"]
     },
 	{
       "name":"IsVariableSet",
 	  "datatype":"General",
 	  "inputDisplayNames":["Variable"],
 	  "inputs":["int"],
+	  "specialInputTypes":["MetaVariable"],
 	  "output":"bool"
     },
 	{
@@ -296,6 +298,7 @@
 	  "datatype":"Chip",
 	  "inputs":["int"],
 	  "inputDisplayNames":["Mode"],
+	  "specialInputTypes":["Chipset"]
     }
   ]
 }

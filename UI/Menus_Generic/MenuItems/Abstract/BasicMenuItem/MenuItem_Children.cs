@@ -12,7 +12,7 @@ namespace IAmACube
     {
         public MenuItem _parent;
 
-        private List<MenuItem> _children = new List<MenuItem>();
+        public List<MenuItem> _children = new List<MenuItem>();
         private List<MenuItem> _toAdd = new List<MenuItem>();
         private List<MenuItem> _toRemove = new List<MenuItem>();
 

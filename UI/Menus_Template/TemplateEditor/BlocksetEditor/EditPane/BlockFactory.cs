@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DropdownGenerator = System.Func<IAmACube.BlockInputSection, int, IAmACube.BlockInputDropdown>;
+using SectionAndDropdown = System.Tuple<IAmACube.BlockInputSection, IAmACube.BlockInputDropdown>;
 
 namespace IAmACube
 {
@@ -20,138 +20,121 @@ namespace IAmACube
             var block = new Block(model);
             var data = model.GetVisualBlockData();
 
-            AddBlockTop(block, data);
-            AddInputSections(block, data);
-            AddSwitchSections(block, data);
+            var blockTop = AddBlockTop(block, data);
+            var sections = AddInputSections(block, data);
+            var switchSection = AddSwitchSection(block, data);
 
+            ConfigureSpecificBlocks(block, data, sections);
             ConfigureBlockAppearance(block,data);
 
             return block;
         }
 
-        public static void AddBlockTop(Block block, BlockData data)
+        public static BlockTop AddBlockTop(Block block, BlockData data)
         {
             var blockTop = new BlockTop(block, data.Name);
             block.Top = blockTop;
 
             _addSection(block, blockTop);
+            return blockTop;
         }
 
-        public static void AddInputSections(Block block, BlockData data)
+        public static List<SectionAndDropdown> AddInputSections(Block block, BlockData data)
         {
-            if (data.Name.Equals("SetVariable"))
-            {
-                AddSetVariableInputSections(block, data);
-            }
-            else if (data.Name.Equals("IsVariableSet"))
-            {
-                AddCheckVariableSetInputSections(block, data);
-            }
-            else if (data.Name.Equals("ChangeMode"))
-            {
-                AddChangeModeInputSection(block, data);
-            }
-            else
-            {
-                AddDefaultInputSections(block, data);
-            }
-        }
-
-        public static void AddDefaultInputSections(Block block, BlockData data)
-        {
+            var sections = new List<SectionAndDropdown>();
             for (int index = 0; index < data.NumInputs; index++)
             {
-                AddDefaultInputSection(block, data, index);
+                var section = AddInputSection(block, data, index);
+                sections.Add(section);
             }
+
+            return sections;
         }
-        public static void AddDefaultInputSection(Block block, BlockData data,int index)
+        public static SectionAndDropdown AddInputSection(Block block, BlockData data, int index)
         {
             var inputSection = MakeInputSection(block, data, index);
-            var dropdown = MakeDefaultDropdown(block, inputSection, data.GetInputTypes(index), block.Model.Inputs[index]);
+            var dropdown = MakeDropdown(block,inputSection,block.Model.Inputs[index],data.GetInputTypes(index),data.SpecialInputTypes[index]);
             inputSection.AddChild(dropdown);
             _addSection(block, inputSection);
+
+            return new SectionAndDropdown(inputSection, dropdown);
         }
-
-        public static void AddSetVariableInputSections(Block block, BlockData data)
+        
+        public static BlockInputSection MakeInputSection(Block block, BlockData data, int index) => new BlockInputSection(_getDrawLayerForNewSection(block), data.GetInputDisplayName(index));
+        public static BlockInputDropdown MakeDropdown(Block block,BlockInputSection inputSection,BlockInputModel model,List<string> inputTypes,BlockSpecialInputType specialInputType)
         {
-            var inputSection = MakeInputSection(block, data, 0);
-            var inputSection2 = MakeInputSection(block, data, 1);
+            BlockInputDropdown dropdown = null;
+            switch (specialInputType)
+            {
+                case BlockSpecialInputType.None:
+                    dropdown = new BlockInputDropdown(inputSection, inputTypes, model, () => model.DisplayValue);
+                    break;
+                case BlockSpecialInputType.MetaVariable:
+                    dropdown = new BlockInputDropdownMetaVariable(inputSection, model, () => model.DisplayValue);
+                    break;
+                case BlockSpecialInputType.Chipset:
+                    dropdown = new BlockInputDropdownChipsetSelector(inputSection, model, () => model.DisplayValue);
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
 
-            var dropdown = MakeMetaVariableDropdown(block, inputSection, block.Model.Inputs[0]);
-            var dropdown2 = MakeDefaultDropdown(block, inputSection2, data.GetInputTypes(1), block.Model.Inputs[1]);
-
-            inputSection.AddChild(dropdown);
-            inputSection2.AddChild(dropdown2);
-
-            _addSection(block, inputSection);
-            _addSection(block, inputSection2);
-
-            dropdown2.SetInputTypeProvider(dropdown.GetTypesOfSelectedVariable);
-        }
-
-        public static void AddChangeModeInputSection(Block block, BlockData data)
-        {
-            var inputSection = MakeInputSection(block, data, 0);
-            var dropdown = MakeChipSelectorDropdown(block, inputSection, block.Model.Inputs[0]);
-            inputSection.AddChild(dropdown);
-            _addSection(block, inputSection);
-        }
-
-        public static void AddCheckVariableSetInputSections(Block block, BlockData data)
-        {
-            var inputSection = MakeInputSection(block, data, 0);
-            var dropdown = MakeMetaVariableDropdown(block, inputSection, block.Model.Inputs[0]);
-            inputSection.AddChild(dropdown);
-            _addSection(block, inputSection);
-        }
-
-        public static BlockInputSection MakeInputSection(Block block, BlockData data, int index) => new BlockInputSection(GetDrawLayerForNewSection(block), data.GetInputDisplayName(index));
-
-        public static BlockInputDropdown MakeDefaultDropdown(Block block,BlockInputSection inputSection, List<string> inputTypes, BlockInputModel model)
-        {
-            var dropdown = new BlockInputDropdown(inputSection, inputTypes, model, () => model.DisplayValue);
             dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentage, true);
             dropdown.OnSelectedChanged += (o) => block.DropdownItemSelected(o, dropdown.Model);
             return dropdown;
         }
 
-        public static BlockInputDropdownMetaVariable MakeMetaVariableDropdown(Block block,BlockInputSection inputSection, BlockInputModel model)
-        {
-            var dropdown = new BlockInputDropdownMetaVariable(inputSection, model, () => model.DisplayValue);
-            dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentage, true);
-            dropdown.OnSelectedChanged += (o) => block.DropdownItemSelected(o, dropdown.Model);
-
-            return dropdown;
-        }
-
-        public static BlockInputDropdownChipsetSelector MakeChipSelectorDropdown(Block block, BlockInputSection inputSection, BlockInputModel model)
-        {
-            var dropdown = new BlockInputDropdownChipsetSelector(inputSection, model, () => model.DisplayValue);
-            dropdown.SetLocationConfig(74, 50, CoordinateMode.ParentPercentage, true);
-            dropdown.OnSelectedChanged += (o) => block.DropdownItemSelected(o, dropdown.Model);
-
-            return dropdown;
-        }
-
-        public static void AddSwitchSections(Block block, BlockData data)
+        public static BlockSwitchSection AddSwitchSection(Block block, BlockData data)
         {
             if (BlockDataUtils.IsSwitchBlock(data))
             {
-                var switchSection = MakeSwitchSection(data, block.Model,GetDrawLayerForNewSection(block));
+                var switchSection = MakeSwitchSection(data, block.Model, _getDrawLayerForNewSection(block));
                 block.SwitchSection = switchSection;
                 _addSection(block, switchSection);
+
+                return switchSection;
+            }
+
+            return null;
+        }
+        public static BlockSwitchSection MakeSwitchSection(BlockData data, BlockModel model, IHasDrawLayer layer)
+        {
+            var switchSection = new BlockSwitchSection(layer, model, data.GetDefaultSwitchSections());
+            return switchSection;
+        }
+
+        public static void ConfigureSpecificBlocks(Block block, BlockData data, List<SectionAndDropdown> sections)
+        {
+            //TODO this is kind of awkward, go back to it later
+            if (data.Name.Equals("SetVariable"))
+            {
+                ConfigureSetVariableBlock(block,sections);
+            }
+        }
+        public static void ConfigureSetVariableBlock(Block block, List<SectionAndDropdown> sections)
+        {
+            var dropdown1 = (BlockInputDropdownMetaVariable)sections[0].Item2;
+            var dropdown2  = sections[1].Item2;
+
+            dropdown2.SetInputTypeProvider(dropdown1.GetTypesOfSelectedVariable);
+        }
+
+        public static void ConfigureBlockAppearance(Block block, BlockData data)
+        {
+            block.Sections.ForEach(s => s.ColorMask = data.GetColor());
+
+            if (block.Sections.Count > 1)
+            {
+                block.Sections.Last().SpriteName = BuiltInMenuSprites.BlockBottom;
             }
         }
 
 
 
-        public static BlockSwitchSection MakeSwitchSection(BlockData data, BlockModel model,IHasDrawLayer layer)
-        {
-            var switchSection = new BlockSwitchSection(layer,model,data.GetDefaultSwitchSections());
-            return switchSection;
-        }
 
-        public static IHasDrawLayer GetDrawLayerForNewSection(Block block) =>  ManualDrawLayer.InFrontOf(block, block.Sections.Count+1);
+
+
+        private static IHasDrawLayer _getDrawLayerForNewSection(Block block) =>  ManualDrawLayer.InFrontOf(block, block.Sections.Count+1);
 
         private static void _addSection(Block block, SpriteMenuItem section)
         {
@@ -160,20 +143,6 @@ namespace IAmACube
             section.SetLocationConfig(0, currentSize.Y, CoordinateMode.ParentPixel, false);
             block.AddChild(section);
             block.Sections.Add(section);
-        }
-
-        private static void ConfigureBlockAppearance(Block block, BlockData data)
-        {
-            block.Sections.ForEach(s => s.ColorMask = data.GetColor());
-            _setEndSection(block);
-        }
-
-        private static void _setEndSection(Block block)
-        {
-            if(block.Sections.Count>1)
-            {
-                block.Sections.Last().SpriteName = BuiltInMenuSprites.BlockBottom;
-            }
         }
     }
 }
