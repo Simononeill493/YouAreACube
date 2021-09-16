@@ -63,6 +63,7 @@ namespace IAmACube
 
         public void AddEditedChipsetToTemplate(CubeTemplate template)
         {
+            Model.Sort();
             TemplateParsingTester.TestParsingRoundTrip(template.Name, Model, VariableProvider.GetVariables());
             template.Chipsets = Model.ToChipsets();
         }

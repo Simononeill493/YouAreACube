@@ -4,18 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IAmACube.Gameplay.Chips.ChipsList.ChipChips
+namespace IAmACube
 {
-    namespace IAmACube
+    [Serializable()]
+    public class ChangeModeChip : InputPin1<int>
     {
-        [Serializable()]
-        class ChangeModeChip: InputPin1<int>
+        public override void Run(Cube actor, UserInput userInput, ActionsList actions)
         {
-            public override void Run(Cube actor, UserInput userInput, ActionsList actions)
-            {
-                var modeNum = ChipInput1(actor);
-                actions.AddModeChangeAction(actor, modeNum);
-            }
+            var modeNum = ChipInput1(actor);
+            actions.AddModeChangeAction(actor, modeNum);
         }
     }
 }
+

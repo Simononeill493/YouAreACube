@@ -12,6 +12,7 @@ namespace IAmACube
         public static Chipset TestPlayerChipset => MakePlayerChipset();
         public static Chipset TestBulletChipset => MakeBulletChipset();
         public static Chipset TestBulletV2Chipset => MakeSpinBulletChipset();
+        public static ChipsetCollection TestBulletV3ChipsetCollection => MakeModeSwitchBulletChipsetCollection();
 
         public static Chipset TestTrackerChipset => MakeTrackerChipset();
 
@@ -43,6 +44,11 @@ namespace IAmACube
             var bullet2 = ChipsetTemplates["Bullet"][0].Clone();
             bullet2.Chipsets = new ChipsetCollection(TestBulletV2Chipset);
             ChipsetTemplates["Bullet"][1] = bullet2;
+
+            var bullet3 = ChipsetTemplates["Bullet"][0].Clone();
+            bullet3.Chipsets = TestBulletV3ChipsetCollection;
+            ChipsetTemplates["Bullet"][2] = bullet3;
+
 
             var trackerTemplate = ChipsetTemplates["TrackerEnemy"][0];
             trackerTemplate.Variables.Dict[0] = new TemplateVariable(0, "target", InGameTypeUtils.InGameTypes[InGameTypeUtils.AnyCube]);
@@ -242,6 +248,35 @@ namespace IAmACube
 
             return new Chipset(zapSurfaceChip, moveForwardChip, rotationChip) { Name = "_Initial" };
         }
+
+
+        public static ChipsetCollection MakeModeSwitchBulletChipsetCollection()
+        {
+            var zapSurfaceChip = new ZapChip() { Name = "ZapSurfaceChip", InputValue1 = CubeMode.Surface };
+            var moveForwardChip = new MoveRelativeChip() { Name = "MoveRelative_1", InputValue1 = RelativeDirection.Forward};
+
+            var ifPercentage1Chip = new IfPercentageChip() { InputValue1 = 1, InputValue2 = 10,Name = "If1" };
+            ifPercentage1Chip.Yes = new Chipset(new ChangeModeChip() { InputValue1 = 1, Name = "ChangeMode1" }) { Name = "ChangeMode1Chipset" };
+            ifPercentage1Chip.No = Chipset.NoAction;
+
+            var chipset1 = new Chipset(zapSurfaceChip, moveForwardChip, ifPercentage1Chip) { Name = "InitialChipset" };
+
+            var zapSurface2Chip = new ZapChip() { Name = "ZapSurface2Chip", InputValue1 = CubeMode.Surface };
+            var getRandomChip = new RandomCardinalChip() { Name = "RandomCardinal" };
+            var moveRandomChip = new MoveCardinalChip() { Name = "MoveRandom", InputReference1 = getRandomChip };
+
+            var ifPercentage2Chip = new IfPercentageChip() { InputValue1 = 1, InputValue2 = 10, Name = "If2" };
+            ifPercentage2Chip.Yes = new Chipset(new ChangeModeChip() { InputValue1 = 0, Name = "ChangeMode2" }) { Name = "ChangeMode2Chipset" };
+            ifPercentage2Chip.No = Chipset.NoAction;
+
+            var chipset2 = new Chipset(zapSurface2Chip, getRandomChip, moveRandomChip, ifPercentage2Chip) { Name = "AlternateChipset" };
+
+            var chipsetCollection = new ChipsetCollection(chipset1);
+            chipsetCollection.Modes[1] = chipset2;
+
+            return chipsetCollection;
+        }
+
         public static Chipset MakeMouseFollowChipset()
         {
             var getMouseChip = new GetMouseHoverChip() { Name = "MouseHover_1" };

@@ -76,9 +76,10 @@ namespace IAmACube
                     chip.SetValueProperty(inputOption.Value, pin);
                     break;
                 case InputOptionType.Chipset:
-                    throw new NotImplementedException();
+                    chip.SetValueProperty(inputOption.Blockset.ModeIndex, pin);
+                    break;
                 default:
-                    throw new Exception();
+                    throw new NotImplementedException();
             }
         }
     }

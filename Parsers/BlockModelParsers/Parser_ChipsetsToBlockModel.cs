@@ -29,6 +29,8 @@ namespace IAmACube
                 }
             }
 
+            fullModel.Initial = fullModel.Blocksets[chipsetCollection.Initial.Name];
+
             foreach (var blockAndInputValues in inputValues)
             {
                 var blockModel = blockAndInputValues.Item1;
@@ -53,28 +55,50 @@ namespace IAmACube
 
             foreach(var blockModel in fullModel.Blocks.Values)
             {
-                //InputModelSpecialCases(blockModel);
+                InputModelSpecialCases(blockModel, fullModel.Blocksets.Values);
             }
 
-            fullModel.Initial = fullModel.Blocksets[chipsetCollection.Initial.Name];
+            fullModel.Sort();
             return fullModel;
         }
 
-        public static void InputModelSpecialCases(BlockModel model)
+        public static void Sort(this FullModel fullModel)
         {
-            throw new NotImplementedException();
-            /*if (model.ChipName.Equals("SetVariable"))
+            fullModel.Blocks = fullModel.Blocks.Values.OrderBy(b => b.Name).ToDictionary(b => b.Name);
+            fullModel.Blocksets = fullModel.Blocksets.Values.OrderBy(b => b.ModeIndex).ToDictionary(b => b.Name);
+        }
+
+        public static void InputModelSpecialCases(BlockModel model,IEnumerable<BlocksetModel> blocks)
+        {
+            var data = model.GetVisualBlockData();
+
+            for(int i =0;i<data.NumInputs;i++)
             {
-                AddSetVariableInputSections(block, data);
+                var blockInputModel = model.Inputs[i];
+
+                switch (data.SpecialInputTypes[i])
+                {
+                    case BlockSpecialInputType.None:
+                        continue;
+                    case BlockSpecialInputType.MetaVariable:
+                        var variableOption = BlockInputOption.CreateMetaVariable((int)blockInputModel.InputOption.Value);
+                        blockInputModel.InputOption = variableOption;
+                        break;
+                    case BlockSpecialInputType.Chipset:
+                        var matchingBlocksetModels = blocks.Where(b => b.ModeIndex == ((int)blockInputModel.InputOption.Value));
+                        if(matchingBlocksetModels.Count()!=1) 
+                        {
+                            throw new Exception();
+                        }
+
+                        var chipsetOption = BlockInputOption.CreateChipset(matchingBlocksetModels.First());
+                        blockInputModel.InputOption = chipsetOption;
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
+
             }
-            else if (model.ChipName.Equals("IsVariableSet"))
-            {
-                AddCheckVariableSetInputSections(block, data);
-            }
-            else if (model.ChipName.Equals("ChangeMode"))
-            {
-                AddChangeModeInputSection(block, data);
-            }*/
         }
 
 

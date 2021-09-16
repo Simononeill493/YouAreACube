@@ -15,9 +15,8 @@ namespace IAmACube
             get { return _initial; }
             set
             {
-                if(_initial!=null) { _initial.ModeIndex = _getNewModeIndex(); }
-                value.ModeIndex = 0;
                 _initial = value;
+                _updateModeIndexes();
             }
         }
         private BlocksetModel _initial;
@@ -37,12 +36,7 @@ namespace IAmACube
         {
             var blockset = new BlocksetModel(name,isInternal);
             Blocksets[name] = blockset;
-
-            if(!isInternal)
-            {
-                blockset.ModeIndex = _getNewModeIndex();
-            }
-
+            _updateModeIndexes();
             return blockset;
         }
 
@@ -58,7 +52,11 @@ namespace IAmACube
             block.Inputs.ForEach(i => InputParents[i] = block);
         }
 
-        public void DeleteBlockset(BlocksetModel blockset) => Blocksets.Remove(blockset.Name);
+        public void DeleteBlockset(BlocksetModel blockset)
+        {
+            Blocksets.Remove(blockset.Name);
+            _updateModeIndexes();
+        }
         public void DeleteBlocks(List<Block> blocks) => DeleteBlocks(blocks.Select(b => b.Model).ToList());
         public void DeleteBlocks(List<BlockModel> blocks)
         {
@@ -70,7 +68,19 @@ namespace IAmACube
         }
 
         public IEnumerable<BlocksetModel> GetModes() => Blocksets.Values.Where(v => !v.Internal);
-        private int _getNewModeIndex() => Math.Max(1,Blocksets.Values.Max(v => v.ModeIndex) + 1);
+        private void _updateModeIndexes()
+        {
+            var blocksets = GetModes().OrderBy(b => b.Name).ToList();
+            for(int i=0;i<blocksets.Count();i++)
+            {
+                blocksets[i].ModeIndex = i + 1;
+            }
+
+            if(Initial!=null)
+            {
+                Initial.ModeIndex = 0;
+            }
+        }
 
         public string InitialName => Initial.Name;
     }

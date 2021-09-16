@@ -10,10 +10,6 @@ namespace IAmACube
     {
         public BlockInputDropdownMetaVariable(IHasDrawLayer parent, BlockInputModel model, Func<string> textProvider) : base(parent, new List<string>(), model, textProvider)
         {
-            if(model.InputOption.InputOptionType == InputOptionType.Value)
-            {
-                model.InputOption.InputOptionType = InputOptionType.MetaVariable;
-            }
         }
 
         public override void PopulateItems()
