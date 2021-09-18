@@ -24,7 +24,7 @@ namespace IAmACube
 
         private int _currentOffset;
 
-        public BlockSwitchSection(IHasDrawLayer parent, BlockModel model, List<string> defaultSwitchSections) : base(parent, BuiltInMenuSprites.BlockBottom)
+        public BlockSwitchSection(IHasDrawLayer parent, BlockModel model, List<string> defaultSwitchSections) : base(parent, MenuSprites.BlockBottom)
         {
             Model = model;
             _defaultSwitchSections = defaultSwitchSections;
@@ -32,11 +32,11 @@ namespace IAmACube
 
             var leftButton = _addItem(new SwitchChipsetButton(this,0), 0, 0, CoordinateMode.ParentPixel);
             var rightButton = _addItem(new SwitchChipsetButton(this, 1), 70, 0, CoordinateMode.ParentPixel);
-            var switchArrowButtonLeft = _addSpriteItem(BuiltInMenuSprites.SwitchBlockSideArrow, 140, 0, CoordinateMode.ParentPixel, false);
-            var switchArrowButtonRight = _addSpriteItem(BuiltInMenuSprites.SwitchBlockSideArrow, 140 + switchArrowButtonLeft.GetBaseSize().X, 0, CoordinateMode.ParentPixel, false);
+            var switchArrowButtonLeft = _addSpriteItem(MenuSprites.SwitchBlockSideArrow, 140, 0, CoordinateMode.ParentPixel, false);
+            var switchArrowButtonRight = _addSpriteItem(MenuSprites.SwitchBlockSideArrow, 140 + switchArrowButtonLeft.GetBaseSize().X, 0, CoordinateMode.ParentPixel, false);
             var leftText = _addItem(new TextMenuItem(ManualDrawLayer.InFrontOf(this, 3), () => GetBlocksetName(0)), 35, 10, CoordinateMode.ParentPixel, true);
             var rightText = _addItem(new TextMenuItem(ManualDrawLayer.InFrontOf(this, 3), () => GetBlocksetName(1)), 105, 10, CoordinateMode.ParentPixel, true);
-            SwitchSectionBottom = _addSpriteItem(BuiltInMenuSprites.BlockGreyed, 0, 0, CoordinateMode.Absolute, false);
+            SwitchSectionBottom = _addSpriteItem(MenuSprites.BlockGreyed, 0, 0, CoordinateMode.Absolute, false);
 
             leftButton.OnMouseReleased += (i) => _buttonClicked(leftButton);
             rightButton.OnMouseReleased += (i) => _buttonClicked(rightButton);

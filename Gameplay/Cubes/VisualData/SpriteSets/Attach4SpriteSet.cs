@@ -32,7 +32,7 @@ namespace IAmACube
 
         public List<(string, string)> GetSpriteNamesAndPaths()
         {
-            var path = BuiltInTileSprites.TileAttach4Directory + '/' + _baseName + '/';
+            var path = Tilesets.TileAttach4Directory + '/' + _baseName + '/';
             var namesAndPaths = new List<(string, string)>();
 
             namesAndPaths.Add((path + sprite0, sprite0));

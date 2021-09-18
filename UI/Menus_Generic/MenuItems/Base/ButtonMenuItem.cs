@@ -10,7 +10,7 @@ namespace IAmACube
     {
         public ButtonMenuItem(IHasDrawLayer parentDrawLayer, string buttontext) : base(parentDrawLayer, buttontext)
         {
-            SpriteName = BuiltInMenuSprites.SmallRectangularButton;
+            SpriteName = MenuSprites.SmallRectangularButton;
         }
     }
 }

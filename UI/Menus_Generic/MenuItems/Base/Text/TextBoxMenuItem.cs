@@ -17,7 +17,7 @@ namespace IAmACube
 
         protected TextMenuItem _textItem;
 
-        public TextBoxMenuItem(IHasDrawLayer parentDrawLayer,Func<string> getText) : base(parentDrawLayer, BuiltInMenuSprites.BasicTextBox)
+        public TextBoxMenuItem(IHasDrawLayer parentDrawLayer,Func<string> getText) : base(parentDrawLayer, MenuSprites.BasicTextBox)
         {
             _textItem = new TextMenuItem(this, getText);
             _textItem.OnTextTyped += (s) => OnTextTyped?.Invoke(s);

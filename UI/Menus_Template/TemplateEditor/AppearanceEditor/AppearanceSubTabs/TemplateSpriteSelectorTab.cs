@@ -25,7 +25,7 @@ namespace IAmACube
         private SpriteSelectorSpriteBox _createSpriteBox(string sprite,CubeSpriteDataType spriteType, Action<string, CubeSpriteDataType> spriteSelected)
         {
             var box = new SpriteSelectorSpriteBox(this, sprite, spriteType, spriteSelected);
-            box.HighlightedSpriteName = BuiltInMenuSprites.SpriteBox_Highlighted;
+            box.HighlightedSpriteName = MenuSprites.SpriteBox_Highlighted;
 
             return box;
         }
@@ -33,7 +33,7 @@ namespace IAmACube
         private SpriteSelectorSpriteBox _createSpriteBoxBlank()
         {
             var box = new SpriteSelectorSpriteBox(this);
-            box.HighlightedSpriteName = BuiltInMenuSprites.SpriteBox_Highlighted;
+            box.HighlightedSpriteName = MenuSprites.SpriteBox_Highlighted;
 
             return box;
         }

@@ -7,14 +7,14 @@ using Microsoft.Xna.Framework.Input;
 
 namespace IAmACube
 {
-    class TitleScreen : MenuScreen
+    class MainMenuScreen : MenuScreen
     {
-        public TitleScreen(Action<ScreenType> switchScreen) : base(ScreenType.Title,switchScreen)
+        public MainMenuScreen(Action<ScreenType> switchScreen) : base(ScreenType.MainMenu,switchScreen)
         {
-            Background = BuiltInMenuSprites.TitleBackground;
+            Background = MenuSprites.TitleBackground;
 
-            var newGameButton = new SpriteMenuItem(this, BuiltInMenuSprites.MainMenuNewGameButton) { HighlightedSpriteName = BuiltInMenuSprites.MainMenuNewGameButton_Highlighted };
-            var loadGameButton = new SpriteMenuItem(this, BuiltInMenuSprites.MainMenuLoadGameButton) { HighlightedSpriteName = BuiltInMenuSprites.MainMenuLoadGameButton_Highlighted };
+            var newGameButton = new SpriteMenuItem(this, MenuSprites.MainMenuNewGameButton) { HighlightedSpriteName = MenuSprites.MainMenuNewGameButton_Highlighted };
+            var loadGameButton = new SpriteMenuItem(this, MenuSprites.MainMenuLoadGameButton) { HighlightedSpriteName = MenuSprites.MainMenuLoadGameButton_Highlighted };
 
             newGameButton.OnMouseReleased += (i) => GoToNewGame();
             loadGameButton.OnMouseReleased += (i) => GoToLoadGame();

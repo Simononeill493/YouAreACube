@@ -18,7 +18,7 @@ namespace IAmACube
 
         private MenuItem _bin;
 
-        public BlocksetEditPane(IVariableProvider variableProvider,MenuItem bin) : base(ManualDrawLayer.Create(DrawLayers.BackgroundLayer),BuiltInMenuSprites.BlocksetEditPane)
+        public BlocksetEditPane(IVariableProvider variableProvider,MenuItem bin) : base(ManualDrawLayer.Create(DrawLayers.BackgroundLayer),MenuSprites.BlocksetEditPane)
         {
             VariableProvider = variableProvider;
             _bin = bin;
@@ -26,12 +26,12 @@ namespace IAmACube
             Blocksets = new Dictionary<BlocksetModel, Blockset>();
             Blocks = new Dictionary<BlockModel, Block>();
 
-            var plusButton = new SpriteMenuItem(ManualDrawLayer.Create(DrawLayers.MenuBaseLayer), BuiltInMenuSprites.PlusButton);
+            var plusButton = new SpriteMenuItem(ManualDrawLayer.Create(DrawLayers.MenuBaseLayer), MenuSprites.PlusButton);
             plusButton.SetLocationConfig(GetBaseSize().X - 9, 0, CoordinateMode.ParentPixel, false);
             plusButton.OnMouseReleased += (i) => _changeChipScale(2);
             AddChild(plusButton);
 
-            var minusButton = new SpriteMenuItem(ManualDrawLayer.Create(DrawLayers.MenuBaseLayer), BuiltInMenuSprites.MinusButton_Partial);
+            var minusButton = new SpriteMenuItem(ManualDrawLayer.Create(DrawLayers.MenuBaseLayer), MenuSprites.MinusButton_Partial);
             minusButton.SetLocationConfig(GetBaseSize().X - 17, 0, CoordinateMode.ParentPixel, false);
             minusButton.OnMouseReleased += (i) => _changeChipScale(0.5f);
             AddChild(minusButton);

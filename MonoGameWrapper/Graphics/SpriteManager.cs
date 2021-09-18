@@ -12,8 +12,6 @@ namespace IAmACube
     {
         public static Dictionary<string, Texture2D> Sprites;
 
-
-
         private static bool _initialized = false;
         private static ContentManager _contentManager;
         private static SpriteFont _gameFont;
@@ -30,7 +28,7 @@ namespace IAmACube
         private static Dictionary<string, Texture2D> _loadSpritesDict()
         {
             var spritesDict = new Dictionary<string, Texture2D>();
-            foreach((string fullname,string friendlyName) in BuiltInSprites.AllSprites)
+            foreach((string fullname,string friendlyName) in IAmACube.Sprites.AllSprites)
             {
                 var sprite = _contentManager.Load<Texture2D>(fullname);
                 spritesDict[friendlyName] = sprite;

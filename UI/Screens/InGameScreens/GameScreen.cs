@@ -38,7 +38,11 @@ namespace IAmACube
             Game.Update(input);
             _currentCamera.Update(input);
         }
-        public override void Draw(DrawingInterface drawingInterface) => _currentCamera.Draw(drawingInterface,Game.World); 
+        public override void Draw(DrawingInterface drawingInterface)
+        {
+            base.Draw(drawingInterface);
+            _currentCamera.Draw(drawingInterface, Game.World);
+        }
 
         private void _readKeys(UserInput input)
         {

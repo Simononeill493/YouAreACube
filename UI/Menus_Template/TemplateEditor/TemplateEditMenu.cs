@@ -18,7 +18,7 @@ namespace IAmACube
         private CubeTemplate _baseTemplate;
         private Kernel _kernel;
 
-        public TemplateEditMenu(IHasDrawLayer parentDrawLayer, Kernel kernel, CubeTemplate baseTemplate, Action goBackToTemplateSelector) : base(parentDrawLayer, BuiltInMenuSprites.LargeMenuRectangle_BlocksetEditWindow)
+        public TemplateEditMenu(IHasDrawLayer parentDrawLayer, Kernel kernel, CubeTemplate baseTemplate, Action goBackToTemplateSelector) : base(parentDrawLayer, MenuSprites.LargeMenuRectangle_BlocksetEditWindow)
         {
             _goBackToTemplateSelector = goBackToTemplateSelector;
             _baseTemplate = baseTemplate;
@@ -41,7 +41,7 @@ namespace IAmACube
             AddChild(_appearanceEditTab);
 
             _tabs = new TabArrayMenuItem(this,MenuOrientation.Horizontal,10);
-            _tabs.SetLocationConfig(0, -SpriteManager.GetSpriteSize(BuiltInMenuSprites.BasicTabButton).Y, CoordinateMode.ParentPixel, false);
+            _tabs.SetLocationConfig(0, -SpriteManager.GetSpriteSize(MenuSprites.BasicTabButton).Y, CoordinateMode.ParentPixel, false);
             _tabs.AddTabButton("Stats", _statsEditTab);
             _tabs.AddTabButton("Variables", _variableEditTab);
             _tabs.AddTabButton("Chipset", _chipsetEditTab);

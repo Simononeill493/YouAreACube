@@ -6,7 +6,7 @@ namespace IAmACube
     {
         public int Index;
         public bool ButtonCurrentlyActive;
-        public SwitchChipsetButton(IHasDrawLayer parent,int index) : base(parent, BuiltInMenuSprites.IfBlockSwitchButton) 
+        public SwitchChipsetButton(IHasDrawLayer parent,int index) : base(parent, MenuSprites.IfBlockSwitchButton) 
         {
             Index = index;
         }

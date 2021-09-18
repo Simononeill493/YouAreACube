@@ -24,7 +24,7 @@ namespace IAmACube
         public Blockset(BlocksetModel model) : base(ManualDrawLayer.Create(DrawLayers.MenuBlockLayer), ()=>model.Name,(s)=>model.Name=s)
         {
             Model = model;
-            SpriteName = BuiltInMenuSprites.Blockset_TopHandle;
+            SpriteName = MenuSprites.Blockset_TopHandle;
 
             Editable = true;
             MaxTextLength = 50;

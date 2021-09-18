@@ -28,7 +28,7 @@ namespace IAmACube
 
         public static CubeSpriteDataAttach4 GenerateAttach4SpriteData(CubeTemplate template)
         {
-            var spriteSet = BuiltInTileSprites.Attach4Spritesets[template.Sprite];
+            var spriteSet = Tilesets.Attach4Spritesets[template.Sprite];
             return new CubeSpriteDataAttach4(spriteSet);
         }
 

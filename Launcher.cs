@@ -39,7 +39,7 @@ namespace IAmACube
         {
             Config.Init();
             ColorLookup.Init();
-            BuiltInSprites.Init();
+            Sprites.Init();
             RandomUtils.Init();
             DirectionUtils.Init();
             InGameTypeUtils.Init();

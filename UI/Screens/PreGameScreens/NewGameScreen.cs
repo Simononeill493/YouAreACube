@@ -14,14 +14,14 @@ namespace IAmACube
 
         public NewGameScreen(Action<ScreenType> switchScreen) : base(ScreenType.NewGame, switchScreen)
         {
-            Background = BuiltInMenuSprites.TitleBackground;
+            Background = MenuSprites.TitleBackground;
 
             textBox = new TextBoxMenuItem(this, ()=> SaveName, (s)=> { SaveName = s; }) { Editable = true, Focused = true };
-            var okButton = new SpriteMenuItem(this, BuiltInMenuSprites.MainMenuOkButton);
-            var cancelButton = new SpriteMenuItem(this, BuiltInMenuSprites.MainMenuCancelButton);
+            var okButton = new SpriteMenuItem(this, MenuSprites.MainMenuOkButton);
+            var cancelButton = new SpriteMenuItem(this, MenuSprites.MainMenuCancelButton);
 
             okButton.OnMouseReleased += (i) => NewGameClicked();
-            cancelButton.OnMouseReleased += (i) => BackToTitleScreen();
+            cancelButton.OnMouseReleased += (i) => BackToMainMenu();
 
             textBox.SetLocationConfig(50, 40, CoordinateMode.ParentPercentage, centered: true);
             okButton.SetLocationConfig(25, 65, CoordinateMode.ParentPercentage, centered: true);
@@ -38,7 +38,7 @@ namespace IAmACube
 
             if (input.IsKeyDown(Keys.Escape))
             {
-                BackToTitleScreen();
+                BackToMainMenu();
             }
         }
 
@@ -52,6 +52,6 @@ namespace IAmACube
             SwitchScreen(ScreenType.LoadGame);
         }
 
-        public void BackToTitleScreen() => SwitchScreen(ScreenType.Title);
+        public void BackToMainMenu() => SwitchScreen(ScreenType.MainMenu);
     }
 }

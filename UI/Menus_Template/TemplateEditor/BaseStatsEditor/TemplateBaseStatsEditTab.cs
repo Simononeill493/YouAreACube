@@ -16,7 +16,7 @@ namespace IAmACube
         private string speed;
         private bool active;
 
-        public TemplateBaseStatsEditTab(IHasDrawLayer parent,CubeTemplate baseTemplate) : base(parent, BuiltInMenuSprites.LargeMenuRectangle)
+        public TemplateBaseStatsEditTab(IHasDrawLayer parent,CubeTemplate baseTemplate) : base(parent, MenuSprites.LargeMenuRectangle)
         {
             _addStaticTextItem("Name:", 20, 10, CoordinateMode.ParentPercentage, true);
             _addStaticTextItem("Health:", 20, 25, CoordinateMode.ParentPercentage, true);

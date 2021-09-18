@@ -17,7 +17,7 @@ namespace IAmACube
         public LoadGameScreen(Action<ScreenType> switchScreen,Action<Kernel, World> loadSaveToScreen) : base(ScreenType.LoadGame,switchScreen)
         {
             _loadSaveToScreen = loadSaveToScreen;
-            Background = BuiltInMenuSprites.TitleBackground;
+            Background = MenuSprites.TitleBackground;
 
             _saves = Directory.GetFiles(ConfigFiles.SaveDirectory).Where(s => s.Contains(ConfigFiles.SaveWorldExtension)).ToList();
             _generateTextBoxes();
@@ -29,7 +29,7 @@ namespace IAmACube
 
             if (input.IsKeyDown(Keys.Escape))
             {
-                SwitchScreen(ScreenType.Title);
+                SwitchScreen(ScreenType.MainMenu);
             }
         }
 

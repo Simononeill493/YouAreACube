@@ -12,6 +12,8 @@ namespace IAmACube
         public readonly ScreenType ScreenType;
         protected Action<ScreenType> SwitchScreen;
 
+        protected int _drawTimer;
+
         public Screen(ScreenType screenType,Action<ScreenType> switchScreen)
         {
             ScreenType = screenType;
@@ -19,6 +21,9 @@ namespace IAmACube
         }
 
         public abstract void Update(UserInput input);
-        public abstract void Draw(DrawingInterface drawingInterface);
+        public virtual void Draw(DrawingInterface drawingInterface)
+        {
+            _drawTimer++;
+        }
     }
 }

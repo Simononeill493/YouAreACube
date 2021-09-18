@@ -9,7 +9,7 @@ namespace IAmACube
 {
     class BlockInputSection : SpriteMenuItem
     {
-        public BlockInputSection(IHasDrawLayer parent,string name): base(parent,BuiltInMenuSprites.BlockMiddle)
+        public BlockInputSection(IHasDrawLayer parent,string name): base(parent,MenuSprites.BlockMiddle)
         {
             var textItem = _addStaticTextItem(name, 4, 40, CoordinateMode.ParentPercentage, false);
             textItem.MultiplyScale(0.5f);

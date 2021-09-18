@@ -14,7 +14,7 @@ namespace IAmACube
 
         private List<TemplateVariableEditItem> _items;
 
-        public TemplateVariableEditTab(IHasDrawLayer parent, CubeTemplate baseTemplate) : base(parent, BuiltInMenuSprites.LargeMenuRectangle)
+        public TemplateVariableEditTab(IHasDrawLayer parent, CubeTemplate baseTemplate) : base(parent, MenuSprites.LargeMenuRectangle)
         {
             _items = new List<TemplateVariableEditItem>();
             _addVariableItems();

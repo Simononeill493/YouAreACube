@@ -132,9 +132,10 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Misc\FloatPoint.cs" />
     <Compile Include="MonoGameWrapper\Graphics\Color\ColorLookup.cs" />
-    <Compile Include="MonoGameWrapper\Graphics\SpriteLoading\BuiltInMenuSprites.cs" />
-    <Compile Include="MonoGameWrapper\Graphics\SpriteLoading\BuiltInSprites.cs" />
-    <Compile Include="MonoGameWrapper\Graphics\SpriteLoading\BuiltInTileSprites.cs" />
+    <Compile Include="MonoGameWrapper\Graphics\Sprites\MenuSprites.cs" />
+    <Compile Include="MonoGameWrapper\Graphics\Sprites\Sprites.cs" />
+    <Compile Include="MonoGameWrapper\Graphics\Sprites\Tilesets.cs" />
+    <Compile Include="MonoGameWrapper\Graphics\Sprites\TitleAnimationSprites.cs" />
     <Compile Include="MonoGameWrapper\MouseSystemData.cs" />
     <Compile Include="MonoGameWrapper\Sound\SoundInterface.cs" />
     <Compile Include="BlockData\BlockDataGenerationTester.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedMenu\TemplateSelectedMenuInternal.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedMenu\TemplateSelectedMenuMain.cs" />
     <Compile Include="UI\Screens\ScreenType.cs" />
+    <Compile Include="UI\Screens\SpecialScreens\TitleScreen.cs" />
     <Compile Include="UserInput\UserInput_Keyboard.cs" />
     <Compile Include="UserInput\UserInput_Mouse.cs" />
     <Compile Include="Parsers\TemplateParser.cs" />
@@ -287,7 +289,7 @@
     <Compile Include="UI\Screens\MenuScreen.cs" />
     <Compile Include="UI\Screens\PreGameScreens\NewGameScreen.cs" />
     <Compile Include="UI\Screens\Screen.cs" />
-    <Compile Include="UI\Screens\PreGameScreens\TitleScreen.cs" />
+    <Compile Include="UI\Screens\PreGameScreens\MainMenuScreen.cs" />
     <Compile Include="Gameplay\Templates\Templates.cs" />
     <Compile Include="Gameplay\Updates\Tick\WorldTickManager.cs" />
     <Compile Include="Gameplay\Cubes\HealthCubes\GroundCube.cs" />

@@ -10,9 +10,9 @@ namespace IAmACube
     {
         protected SpriteMenuItem _sprite;
 
-        public CubeSpriteBox(IHasDrawLayer parentDrawLayer,string sprite = null) : base(parentDrawLayer, BuiltInMenuSprites.SpriteBox)
+        public CubeSpriteBox(IHasDrawLayer parentDrawLayer,string sprite = null) : base(parentDrawLayer, MenuSprites.SpriteBox)
         {
-            if(sprite==null) { sprite = BuiltInMenuSprites.BlankPixel; }
+            if(sprite==null) { sprite = MenuSprites.BlankPixel; }
 
             _sprite = new SpriteMenuItem(this, sprite);
             _sprite.SetLocationConfig(14, 14, CoordinateMode.ParentPercentage);

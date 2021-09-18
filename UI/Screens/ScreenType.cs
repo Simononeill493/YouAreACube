@@ -3,6 +3,7 @@
     public enum ScreenType
     {
         Title,
+        MainMenu,
         NewGame,
         LoadGame,
         Game,

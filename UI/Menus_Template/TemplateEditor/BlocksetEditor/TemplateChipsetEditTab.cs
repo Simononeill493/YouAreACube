@@ -15,7 +15,7 @@ namespace IAmACube
         private BlocksetEditPane _editPane;
         private BlockSearchPane _searchPane;
 
-        public TemplateChipsetEditTab(TemplateEditMenu parent, Kernel kernel, CubeTemplate baseTemplate, IVariableProvider variableProvider) : base(parent, BuiltInMenuSprites.LargeMenuRectangle_BlocksetEditWindow)
+        public TemplateChipsetEditTab(TemplateEditMenu parent, Kernel kernel, CubeTemplate baseTemplate, IVariableProvider variableProvider) : base(parent, MenuSprites.LargeMenuRectangle_BlocksetEditWindow)
         {
             _kernel = kernel;
             _baseTemplate = baseTemplate;

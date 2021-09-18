@@ -1,4 +1,4 @@
-/Tiles
+/Main
 BasicPlayer
 Bullet
 ApproachEnemy

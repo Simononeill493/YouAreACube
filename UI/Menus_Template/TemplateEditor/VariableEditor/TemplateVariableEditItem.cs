@@ -31,10 +31,10 @@ namespace IAmACube
             _nameBox = new TextBoxMenuItem(this, () => _variableName, (v) => { _variableName = v; }) { Editable = true };
             _dataTypeDropdown = new DropdownMenuItem<InGameType>(this,()=>_selectedType,(v)=> { _selectedType = v; },()=> InGameTypeUtils.InGameTypes.Values.ToList());
 
-            _buttonRemove = new SpriteMenuItem(this, BuiltInMenuSprites.VariableMinusButton);
+            _buttonRemove = new SpriteMenuItem(this, MenuSprites.VariableMinusButton);
             _buttonRemove.OnMouseReleased +=(i) => DisableVariable();
 
-            _buttonAdd = new SpriteMenuItem(this, BuiltInMenuSprites.VariablePlusButton);
+            _buttonAdd = new SpriteMenuItem(this, MenuSprites.VariablePlusButton);
             _buttonAdd.OnMouseReleased += (i) => EnableVariable();
 
             _addItem(_number, 0, -SpriteManager.GetTextSize(_formattedVariableNumber).Y / 2, CoordinateMode.ParentPixel, false);

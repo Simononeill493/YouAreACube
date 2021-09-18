@@ -10,13 +10,13 @@ namespace IAmACube
     {
         private AppearanceEditSpriteBox _spriteBox;
 
-        public TemplateAppearanceEditTab(IHasDrawLayer parent, CubeTemplate baseTemplate) : base(parent, BuiltInMenuSprites.LargeMenuRectangle)
+        public TemplateAppearanceEditTab(IHasDrawLayer parent, CubeTemplate baseTemplate) : base(parent, MenuSprites.LargeMenuRectangle)
         {
-            var singleSpriteSelectorTab = new TemplateSpriteSelectorTab(this, BuiltInTileSprites.CanBeFullBodySprites, SpriteSelected);
+            var singleSpriteSelectorTab = new TemplateSpriteSelectorTab(this, Tilesets.CanBeFullBodySprites, SpriteSelected);
             singleSpriteSelectorTab.SetLocationConfig(20, 5, CoordinateMode.ParentPixel, false);
             AddChild(singleSpriteSelectorTab);
 
-            var appearanceEditTabs = new TabArrayMenuItem(this, MenuOrientation.Vertical, -1, BuiltInMenuSprites.AppearanceEditTab);
+            var appearanceEditTabs = new TabArrayMenuItem(this, MenuOrientation.Vertical, -1, MenuSprites.AppearanceEditTab);
             appearanceEditTabs.SetLocationConfig(0, 0, CoordinateMode.ParentPixel, false);
             appearanceEditTabs.AddTabButton("I", singleSpriteSelectorTab);//Individual
             appearanceEditTabs.AddTabButton("E", new ContainerMenuItem(this));

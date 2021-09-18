@@ -50,7 +50,7 @@
 /processorParam:Quality=Best
 /build:../Simon_Data/To_Import/Sounds/wind.wav;Sounds/wind.wav
 
-#begin ../Simon_Data/To_Import/Sprites/Attach4/Test4Pipe/Test4Pipe0.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/AppearanceEditOptionButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -60,9 +60,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Attach4/Test4Pipe/Test4Pipe0.png;Sprites/Attach4/Test4Pipe/Test4Pipe0.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/AppearanceEditOptionButton.png;Sprites/Static/Menu/AppearanceEditOptionButton.png
 
-#begin ../Simon_Data/To_Import/Sprites/Attach4/Test4Pipe/Test4Pipe1.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/AppearanceEditOptionButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -72,9 +72,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Attach4/Test4Pipe/Test4Pipe1.png;Sprites/Attach4/Test4Pipe/Test4Pipe1.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/AppearanceEditOptionButton.png;Sprites/Static/Menu/AppearanceEditOptionButton.png
 
-#begin ../Simon_Data/To_Import/Sprites/Attach4/Test4Pipe/Test4Pipe2_1.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/BlankPixel.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -84,9 +84,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Attach4/Test4Pipe/Test4Pipe2_1.png;Sprites/Attach4/Test4Pipe/Test4Pipe2_1.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/BlankPixel.png;Sprites/Static/Menu/BlankPixel.png
 
-#begin ../Simon_Data/To_Import/Sprites/Attach4/Test4Pipe/Test4Pipe2_2.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/BlankPixel.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -96,9 +96,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Attach4/Test4Pipe/Test4Pipe2_2.png;Sprites/Attach4/Test4Pipe/Test4Pipe2_2.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/BlankPixel.png;Sprites/Static/Menu/BlankPixel.png
 
-#begin ../Simon_Data/To_Import/Sprites/Attach4/Test4Pipe/Test4Pipe3.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/CancelButton.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -108,9 +108,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Attach4/Test4Pipe/Test4Pipe3.png;Sprites/Attach4/Test4Pipe/Test4Pipe3.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/CancelButton.PNG;Sprites/Static/Menu/CancelButton.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Attach4/Test4Pipe/Test4Pipe4.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/CancelButton.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -120,9 +120,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Attach4/Test4Pipe/Test4Pipe4.png;Sprites/Attach4/Test4Pipe/Test4Pipe4.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/CancelButton.PNG;Sprites/Static/Menu/CancelButton.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Bodies/Body1.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/ChipEditPane.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -132,9 +132,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Bodies/Body1.png;Sprites/Bodies/Body1.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/ChipEditPane.png;Sprites/Static/Menu/ChipEditPane.png
 
-#begin ../Simon_Data/To_Import/Sprites/Bodies/Body2.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/ChipEditPane.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -144,9 +144,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Bodies/Body2.png;Sprites/Bodies/Body2.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/ChipEditPane.png;Sprites/Static/Menu/ChipEditPane.png
 
-#begin ../Simon_Data/To_Import/Sprites/Bodies/Body3.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/ChipFull.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -156,9 +156,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Bodies/Body3.png;Sprites/Bodies/Body3.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/ChipFull.png;Sprites/Static/Menu/ChipFull.png
 
-#begin ../Simon_Data/To_Import/Sprites/Bodies/Body4.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/ChipFull.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -168,9 +168,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Bodies/Body4.png;Sprites/Bodies/Body4.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/ChipFull.png;Sprites/Static/Menu/ChipFull.png
 
-#begin ../Simon_Data/To_Import/Sprites/Bodies/Body5.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/ChipFullEnd.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -180,9 +180,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Bodies/Body5.png;Sprites/Bodies/Body5.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/ChipFullEnd.png;Sprites/Static/Menu/ChipFullEnd.png
 
-#begin ../Simon_Data/To_Import/Sprites/Bodies/Body6.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/ChipFullEnd.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -192,9 +192,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Bodies/Body6.png;Sprites/Bodies/Body6.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/ChipFullEnd.png;Sprites/Static/Menu/ChipFullEnd.png
 
-#begin ../Simon_Data/To_Import/Sprites/Eyes/Eyes1.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/ChipFullGreyed.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -204,9 +204,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Eyes/Eyes1.png;Sprites/Eyes/Eyes1.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/ChipFullGreyed.png;Sprites/Static/Menu/ChipFullGreyed.png
 
-#begin ../Simon_Data/To_Import/Sprites/Eyes/Eyes2.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/ChipFullGreyed.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -216,9 +216,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Eyes/Eyes2.png;Sprites/Eyes/Eyes2.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/ChipFullGreyed.png;Sprites/Static/Menu/ChipFullGreyed.png
 
-#begin ../Simon_Data/To_Import/Sprites/Eyes/Eyes3.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/ChipFullMiddle.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -228,9 +228,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Eyes/Eyes3.png;Sprites/Eyes/Eyes3.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/ChipFullMiddle.png;Sprites/Static/Menu/ChipFullMiddle.png
 
-#begin ../Simon_Data/To_Import/Sprites/Eyes/Eyes4.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/ChipFullMiddle.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -240,9 +240,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Eyes/Eyes4.png;Sprites/Eyes/Eyes4.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/ChipFullMiddle.png;Sprites/Static/Menu/ChipFullMiddle.png
 
-#begin ../Simon_Data/To_Import/Sprites/Eyes/Eyes5.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/ChipNumberBox.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -252,9 +252,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Eyes/Eyes5.png;Sprites/Eyes/Eyes5.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/ChipNumberBox.png;Sprites/Static/Menu/ChipNumberBox.png
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/AppearanceEditOptionButton.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/ChipNumberBox.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -264,9 +264,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/AppearanceEditOptionButton.png;Sprites/Menus/AppearanceEditOptionButton.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/ChipNumberBox.png;Sprites/Static/Menu/ChipNumberBox.png
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/BlankPixel.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/ChipSmall.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -276,9 +276,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/BlankPixel.png;Sprites/Menus/BlankPixel.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/ChipSmall.png;Sprites/Static/Menu/ChipSmall.png
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/CancelButton.PNG
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/ChipSmall.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -288,9 +288,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/CancelButton.PNG;Sprites/Menus/CancelButton.PNG
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/ChipSmall.png;Sprites/Static/Menu/ChipSmall.png
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/ChipEditPane.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/Dropdown.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -300,9 +300,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/ChipEditPane.png;Sprites/Menus/ChipEditPane.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/Dropdown.png;Sprites/Static/Menu/Dropdown.png
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/ChipFull.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/Dropdown.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -312,9 +312,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/ChipFull.png;Sprites/Menus/ChipFull.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/Dropdown.png;Sprites/Static/Menu/Dropdown.png
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/ChipFullEnd.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/DropdownArrow.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -324,9 +324,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/ChipFullEnd.png;Sprites/Menus/ChipFullEnd.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/DropdownArrow.png;Sprites/Static/Menu/DropdownArrow.png
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/ChipFullGreyed.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/DropdownArrow.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -336,9 +336,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/ChipFullGreyed.png;Sprites/Menus/ChipFullGreyed.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/DropdownArrow.png;Sprites/Static/Menu/DropdownArrow.png
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/ChipFullMiddle.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/EditPaneWindow.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -348,9 +348,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/ChipFullMiddle.png;Sprites/Menus/ChipFullMiddle.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/EditPaneWindow.PNG;Sprites/Static/Menu/EditPaneWindow.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/ChipNumberBox.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/EditPaneWindow.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -360,9 +360,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/ChipNumberBox.png;Sprites/Menus/ChipNumberBox.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/EditPaneWindow.PNG;Sprites/Static/Menu/EditPaneWindow.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/ChipSmall.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/EmptyButtonRectangleMedium.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -372,9 +372,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/ChipSmall.png;Sprites/Menus/ChipSmall.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/EmptyButtonRectangleMedium.PNG;Sprites/Static/Menu/EmptyButtonRectangleMedium.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/Dropdown.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/EmptyButtonRectangleMedium.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -384,9 +384,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/Dropdown.png;Sprites/Menus/Dropdown.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/EmptyButtonRectangleMedium.PNG;Sprites/Static/Menu/EmptyButtonRectangleMedium.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/DropdownArrow.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/EmptyButtonRectangleSmall.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -396,9 +396,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/DropdownArrow.png;Sprites/Menus/DropdownArrow.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/EmptyButtonRectangleSmall.PNG;Sprites/Static/Menu/EmptyButtonRectangleSmall.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/EditPaneWindow.PNG
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/EmptyButtonRectangleSmall.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -408,9 +408,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/EditPaneWindow.PNG;Sprites/Menus/EditPaneWindow.PNG
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/EmptyButtonRectangleSmall.PNG;Sprites/Static/Menu/EmptyButtonRectangleSmall.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/EmptyButtonRectangleMedium.PNG
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleFull.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -420,9 +420,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/EmptyButtonRectangleMedium.PNG;Sprites/Menus/EmptyButtonRectangleMedium.PNG
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleFull.PNG;Sprites/Static/Menu/EmptyMenuRectangleFull.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/EmptyButtonRectangleSmall.PNG
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleFull.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -432,9 +432,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/EmptyButtonRectangleSmall.PNG;Sprites/Menus/EmptyButtonRectangleSmall.PNG
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleFull.PNG;Sprites/Static/Menu/EmptyMenuRectangleFull.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/EmptyMenuRectangleFull.PNG
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleMedium.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -444,9 +444,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/EmptyMenuRectangleFull.PNG;Sprites/Menus/EmptyMenuRectangleFull.PNG
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleMedium.PNG;Sprites/Static/Menu/EmptyMenuRectangleMedium.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/EmptyMenuRectangleMedium.PNG
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleMedium.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -456,9 +456,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/EmptyMenuRectangleMedium.PNG;Sprites/Menus/EmptyMenuRectangleMedium.PNG
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleMedium.PNG;Sprites/Static/Menu/EmptyMenuRectangleMedium.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/EmptyMenuRectangleSection.PNG
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleSection.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -468,9 +468,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/EmptyMenuRectangleSection.PNG;Sprites/Menus/EmptyMenuRectangleSection.PNG
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleSection.PNG;Sprites/Static/Menu/EmptyMenuRectangleSection.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/EmptyMenuRectangleSection_Extended.PNG
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleSection.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -480,9 +480,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/EmptyMenuRectangleSection_Extended.PNG;Sprites/Menus/EmptyMenuRectangleSection_Extended.PNG
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleSection.PNG;Sprites/Static/Menu/EmptyMenuRectangleSection.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/EmptyMenuRectangleSmall.PNG
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleSection_Extended.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -492,9 +492,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/EmptyMenuRectangleSmall.PNG;Sprites/Menus/EmptyMenuRectangleSmall.PNG
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleSection_Extended.PNG;Sprites/Static/Menu/EmptyMenuRectangleSection_Extended.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/IfChipSwitchButton.bmp
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleSection_Extended.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -504,9 +504,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/IfChipSwitchButton.bmp;Sprites/Menus/IfChipSwitchButton.bmp
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleSection_Extended.PNG;Sprites/Static/Menu/EmptyMenuRectangleSection_Extended.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/LoadGameMenu.PNG
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleSmall.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -516,9 +516,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/LoadGameMenu.PNG;Sprites/Menus/LoadGameMenu.PNG
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleSmall.PNG;Sprites/Static/Menu/EmptyMenuRectangleSmall.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/LoadGameMenu_Highlight.PNG
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleSmall.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -528,9 +528,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/LoadGameMenu_Highlight.PNG;Sprites/Menus/LoadGameMenu_Highlight.PNG
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/EmptyMenuRectangleSmall.PNG;Sprites/Static/Menu/EmptyMenuRectangleSmall.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/MinusButton.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/IfChipSwitchButton.bmp
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -540,9 +540,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/MinusButton.png;Sprites/Menus/MinusButton.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/IfChipSwitchButton.bmp;Sprites/Static/Menu/IfChipSwitchButton.bmp
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/MinusButton_Partial.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/IfChipSwitchButton.bmp
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -552,9 +552,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/MinusButton_Partial.png;Sprites/Menus/MinusButton_Partial.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/IfChipSwitchButton.bmp;Sprites/Static/Menu/IfChipSwitchButton.bmp
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/NewGameMenu.PNG
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/LoadGameMenu.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -564,9 +564,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/NewGameMenu.PNG;Sprites/Menus/NewGameMenu.PNG
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/LoadGameMenu.PNG;Sprites/Static/Menu/LoadGameMenu.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/NewGameMenu_Highlight.PNG
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/LoadGameMenu.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -576,9 +576,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/NewGameMenu_Highlight.PNG;Sprites/Menus/NewGameMenu_Highlight.PNG
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/LoadGameMenu.PNG;Sprites/Static/Menu/LoadGameMenu.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/OkButton.PNG
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/LoadGameMenu_Highlight.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -588,9 +588,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/OkButton.PNG;Sprites/Menus/OkButton.PNG
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/LoadGameMenu_Highlight.PNG;Sprites/Static/Menu/LoadGameMenu_Highlight.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/PlusButton.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/LoadGameMenu_Highlight.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -600,9 +600,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/PlusButton.png;Sprites/Menus/PlusButton.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/LoadGameMenu_Highlight.PNG;Sprites/Static/Menu/LoadGameMenu_Highlight.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/RadioButtonChecked.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/MinusButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -612,9 +612,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/RadioButtonChecked.png;Sprites/Menus/RadioButtonChecked.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/MinusButton.png;Sprites/Static/Menu/MinusButton.png
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/RadioButtonUnchecked.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/MinusButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -624,9 +624,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/RadioButtonUnchecked.png;Sprites/Menus/RadioButtonUnchecked.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/MinusButton.png;Sprites/Static/Menu/MinusButton.png
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/SaveButton.PNG
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/MinusButton_Partial.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -636,9 +636,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/SaveButton.PNG;Sprites/Menus/SaveButton.PNG
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/MinusButton_Partial.png;Sprites/Static/Menu/MinusButton_Partial.png
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/SearchBar.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/MinusButton_Partial.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -648,9 +648,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/SearchBar.png;Sprites/Menus/SearchBar.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/MinusButton_Partial.png;Sprites/Static/Menu/MinusButton_Partial.png
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/SearchPane.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/NewGameMenu.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -660,9 +660,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/SearchPane.png;Sprites/Menus/SearchPane.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/NewGameMenu.PNG;Sprites/Static/Menu/NewGameMenu.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/SwitchChipSideArrow.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/NewGameMenu.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -672,9 +672,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/SwitchChipSideArrow.png;Sprites/Menus/SwitchChipSideArrow.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/NewGameMenu.PNG;Sprites/Static/Menu/NewGameMenu.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/TabButton.PNG
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/NewGameMenu_Highlight.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -684,9 +684,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/TabButton.PNG;Sprites/Menus/TabButton.PNG
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/NewGameMenu_Highlight.PNG;Sprites/Static/Menu/NewGameMenu_Highlight.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/TemplateItemContainer.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/NewGameMenu_Highlight.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -696,9 +696,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/TemplateItemContainer.png;Sprites/Menus/TemplateItemContainer.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/NewGameMenu_Highlight.PNG;Sprites/Static/Menu/NewGameMenu_Highlight.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/TemplateItemContainerHighlight.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/OkButton.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -708,9 +708,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/TemplateItemContainerHighlight.png;Sprites/Menus/TemplateItemContainerHighlight.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/OkButton.PNG;Sprites/Static/Menu/OkButton.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/TextBoxMenuRectangle.PNG
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/OkButton.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -720,9 +720,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/TextBoxMenuRectangle.PNG;Sprites/Menus/TextBoxMenuRectangle.PNG
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/OkButton.PNG;Sprites/Static/Menu/OkButton.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/TitleBackground.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/PlusButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -732,9 +732,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/TitleBackground.png;Sprites/Menus/TitleBackground.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/PlusButton.png;Sprites/Static/Menu/PlusButton.png
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/TopOfChipset.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/PlusButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -744,9 +744,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/TopOfChipset.png;Sprites/Menus/TopOfChipset.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/PlusButton.png;Sprites/Static/Menu/PlusButton.png
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/VariableMinusButton.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/RadioButtonChecked.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -756,9 +756,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/VariableMinusButton.png;Sprites/Menus/VariableMinusButton.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/RadioButtonChecked.png;Sprites/Static/Menu/RadioButtonChecked.png
 
-#begin ../Simon_Data/To_Import/Sprites/Menus/VariablePlusButton.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/RadioButtonChecked.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -768,9 +768,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Menus/VariablePlusButton.png;Sprites/Menus/VariablePlusButton.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/RadioButtonChecked.png;Sprites/Static/Menu/RadioButtonChecked.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/ApproachEnemy.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/RadioButtonUnchecked.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -780,9 +780,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/ApproachEnemy.png;Sprites/Tiles/ApproachEnemy.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/RadioButtonUnchecked.png;Sprites/Static/Menu/RadioButtonUnchecked.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/BasicEnemy.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/RadioButtonUnchecked.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -792,9 +792,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/BasicEnemy.png;Sprites/Tiles/BasicEnemy.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/RadioButtonUnchecked.png;Sprites/Static/Menu/RadioButtonUnchecked.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/BasicPlayer.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/SaveButton.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -804,9 +804,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/BasicPlayer.png;Sprites/Tiles/BasicPlayer.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/SaveButton.PNG;Sprites/Static/Menu/SaveButton.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/BigBullet.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/SaveButton.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -816,9 +816,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/BigBullet.png;Sprites/Tiles/BigBullet.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/SaveButton.PNG;Sprites/Static/Menu/SaveButton.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/Black.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/SearchBar.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -828,9 +828,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/Black.png;Sprites/Tiles/Black.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/SearchBar.png;Sprites/Static/Menu/SearchBar.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/Blank.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/SearchBar.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -840,9 +840,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/Blank.png;Sprites/Tiles/Blank.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/SearchBar.png;Sprites/Static/Menu/SearchBar.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/Bullet.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/SearchPane.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -852,9 +852,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/Bullet.png;Sprites/Tiles/Bullet.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/SearchPane.png;Sprites/Static/Menu/SearchPane.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/CrystalPurple.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/SearchPane.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -864,9 +864,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/CrystalPurple.png;Sprites/Tiles/CrystalPurple.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/SearchPane.png;Sprites/Static/Menu/SearchPane.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/DarkGrass.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/SwitchChipSideArrow.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -876,9 +876,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/DarkGrass.png;Sprites/Tiles/DarkGrass.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/SwitchChipSideArrow.png;Sprites/Static/Menu/SwitchChipSideArrow.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/FleeEnemy.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/SwitchChipSideArrow.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -888,9 +888,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/FleeEnemy.png;Sprites/Tiles/FleeEnemy.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/SwitchChipSideArrow.png;Sprites/Static/Menu/SwitchChipSideArrow.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/Grass.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/TabButton.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -900,9 +900,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/Grass.png;Sprites/Tiles/Grass.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/TabButton.PNG;Sprites/Static/Menu/TabButton.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/MiniBullet.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/TabButton.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -912,9 +912,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/MiniBullet.png;Sprites/Tiles/MiniBullet.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/TabButton.PNG;Sprites/Static/Menu/TabButton.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/MouseFollower.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/TemplateItemContainer.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -924,9 +924,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/MouseFollower.png;Sprites/Tiles/MouseFollower.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/TemplateItemContainer.png;Sprites/Static/Menu/TemplateItemContainer.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/Plants1.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/TemplateItemContainer.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -936,9 +936,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/Plants1.png;Sprites/Tiles/Plants1.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/TemplateItemContainer.png;Sprites/Static/Menu/TemplateItemContainer.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/PurpleGrass.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/TemplateItemContainerHighlight.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -948,9 +948,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/PurpleGrass.png;Sprites/Tiles/PurpleGrass.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/TemplateItemContainerHighlight.png;Sprites/Static/Menu/TemplateItemContainerHighlight.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/Rock1.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/TemplateItemContainerHighlight.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -960,9 +960,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/Rock1.png;Sprites/Tiles/Rock1.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/TemplateItemContainerHighlight.png;Sprites/Static/Menu/TemplateItemContainerHighlight.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/Rock2.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/TextBoxMenuRectangle.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -972,9 +972,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/Rock2.png;Sprites/Tiles/Rock2.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/TextBoxMenuRectangle.PNG;Sprites/Static/Menu/TextBoxMenuRectangle.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/ShootEnemy.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/TextBoxMenuRectangle.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -984,9 +984,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/ShootEnemy.png;Sprites/Tiles/ShootEnemy.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/TextBoxMenuRectangle.PNG;Sprites/Static/Menu/TextBoxMenuRectangle.PNG
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/Spinner.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/TitleBackground.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -996,9 +996,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/Spinner.png;Sprites/Tiles/Spinner.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/TitleBackground.png;Sprites/Static/Menu/TitleBackground.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/TrackerEnemy.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/TitleBackground.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1008,9 +1008,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/TrackerEnemy.png;Sprites/Tiles/TrackerEnemy.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/TitleBackground.png;Sprites/Static/Menu/TitleBackground.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tiles/Water.png
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/TopOfChipset.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1020,5 +1020,689 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tiles/Water.png;Sprites/Tiles/Water.png
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/TopOfChipset.png;Sprites/Static/Menu/TopOfChipset.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/TopOfChipset.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/TopOfChipset.png;Sprites/Static/Menu/TopOfChipset.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/VariableMinusButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/VariableMinusButton.png;Sprites/Static/Menu/VariableMinusButton.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/VariableMinusButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/VariableMinusButton.png;Sprites/Static/Menu/VariableMinusButton.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/VariablePlusButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/VariablePlusButton.png;Sprites/Static/Menu/VariablePlusButton.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/VariablePlusButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/VariablePlusButton.png;Sprites/Static/Menu/VariablePlusButton.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Title/Title_B.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Title/Title_B.png;Sprites/Static/Title/Title_B.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Title/Title_C.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Title/Title_C.png;Sprites/Static/Title/Title_C.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Title/Title_CharacterDefault.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Title/Title_CharacterDefault.png;Sprites/Static/Title/Title_CharacterDefault.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Title/Title_CharacterWink.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Title/Title_CharacterWink.png;Sprites/Static/Title/Title_CharacterWink.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Title/Title_DormantCube.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Title/Title_DormantCube.png;Sprites/Static/Title/Title_DormantCube.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Title/Title_E.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Title/Title_E.png;Sprites/Static/Title/Title_E.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Title/Title_Sleeper1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Title/Title_Sleeper1.png;Sprites/Static/Title/Title_Sleeper1.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Title/Title_Sleeper2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Title/Title_Sleeper2.png;Sprites/Static/Title/Title_Sleeper2.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Title/Title_Sleeper3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Title/Title_Sleeper3.png;Sprites/Static/Title/Title_Sleeper3.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Title/Title_Star.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Title/Title_Star.png;Sprites/Static/Title/Title_Star.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Title/Title_Star2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Title/Title_Star2.png;Sprites/Static/Title/Title_Star2.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Title/Title_U.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Title/Title_U.png;Sprites/Static/Title/Title_U.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Title/Title_VersionZero.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Title/Title_VersionZero.png;Sprites/Static/Title/Title_VersionZero.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Title/Title_Youarea.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Title/Title_Youarea.png;Sprites/Static/Title/Title_Youarea.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe0.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe0.png;Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe0.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe1.png;Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe1.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe2_1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe2_1.png;Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe2_1.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe2_2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe2_2.png;Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe2_2.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe3.png;Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe3.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe4.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe4.png;Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe4.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Bodies/Body1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Bodies/Body1.png;Sprites/Tilesets/Bodies/Body1.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Bodies/Body2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Bodies/Body2.png;Sprites/Tilesets/Bodies/Body2.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Bodies/Body3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Bodies/Body3.png;Sprites/Tilesets/Bodies/Body3.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Bodies/Body4.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Bodies/Body4.png;Sprites/Tilesets/Bodies/Body4.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Bodies/Body5.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Bodies/Body5.png;Sprites/Tilesets/Bodies/Body5.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Bodies/Body6.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Bodies/Body6.png;Sprites/Tilesets/Bodies/Body6.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Eyes/Eyes1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Eyes/Eyes1.png;Sprites/Tilesets/Eyes/Eyes1.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Eyes/Eyes2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Eyes/Eyes2.png;Sprites/Tilesets/Eyes/Eyes2.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Eyes/Eyes3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Eyes/Eyes3.png;Sprites/Tilesets/Eyes/Eyes3.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Eyes/Eyes4.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Eyes/Eyes4.png;Sprites/Tilesets/Eyes/Eyes4.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Eyes/Eyes5.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Eyes/Eyes5.png;Sprites/Tilesets/Eyes/Eyes5.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/ApproachEnemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/ApproachEnemy.png;Sprites/Tilesets/Main/ApproachEnemy.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/BasicEnemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/BasicEnemy.png;Sprites/Tilesets/Main/BasicEnemy.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/BasicPlayer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/BasicPlayer.png;Sprites/Tilesets/Main/BasicPlayer.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/BigBullet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/BigBullet.png;Sprites/Tilesets/Main/BigBullet.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/Black.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/Black.png;Sprites/Tilesets/Main/Black.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/Blank.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/Blank.png;Sprites/Tilesets/Main/Blank.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/Bullet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/Bullet.png;Sprites/Tilesets/Main/Bullet.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/CrystalPurple.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/CrystalPurple.png;Sprites/Tilesets/Main/CrystalPurple.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/DarkGrass.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/DarkGrass.png;Sprites/Tilesets/Main/DarkGrass.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/FleeEnemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/FleeEnemy.png;Sprites/Tilesets/Main/FleeEnemy.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/Grass.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/Grass.png;Sprites/Tilesets/Main/Grass.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/MiniBullet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/MiniBullet.png;Sprites/Tilesets/Main/MiniBullet.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/MouseFollower.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/MouseFollower.png;Sprites/Tilesets/Main/MouseFollower.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/Plants1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/Plants1.png;Sprites/Tilesets/Main/Plants1.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/PurpleGrass.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/PurpleGrass.png;Sprites/Tilesets/Main/PurpleGrass.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/Rock1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/Rock1.png;Sprites/Tilesets/Main/Rock1.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/Rock2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/Rock2.png;Sprites/Tilesets/Main/Rock2.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/ShootEnemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/ShootEnemy.png;Sprites/Tilesets/Main/ShootEnemy.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/Spinner.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/Spinner.png;Sprites/Tilesets/Main/Spinner.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/TrackerEnemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/TrackerEnemy.png;Sprites/Tilesets/Main/TrackerEnemy.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/Water.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/Water.png;Sprites/Tilesets/Main/Water.png
 

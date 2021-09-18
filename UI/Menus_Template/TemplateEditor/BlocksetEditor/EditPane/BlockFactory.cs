@@ -125,7 +125,7 @@ namespace IAmACube
 
             if (block.Sections.Count > 1)
             {
-                block.Sections.Last().SpriteName = BuiltInMenuSprites.BlockBottom;
+                block.Sections.Last().SpriteName = MenuSprites.BlockBottom;
             }
         }
 

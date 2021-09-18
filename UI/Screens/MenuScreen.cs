@@ -18,6 +18,8 @@ namespace IAmACube
             } 
         }
         private static int _scale = Config.DefaultMenuItemScale;
+        protected bool _manualResizeEnabled = true;
+
 
         public static MenuItem DraggedItem = null;
         public static bool IsUserDragging => (DraggedItem != null);
@@ -27,7 +29,7 @@ namespace IAmACube
         public string Background;
 
         private List<MenuItem> _menuItems = new List<MenuItem>();
-        private IntPoint _currentScreenDimensions;
+        protected IntPoint _currentScreenDimensions;
 
         public MenuScreen(ScreenType screenType, Action<ScreenType> switchScreen) : base(screenType, switchScreen)
         {
@@ -35,14 +37,15 @@ namespace IAmACube
             _setScaleToReccomended();
         }
 
+        protected virtual int _getReccomendedScale() => (_currentScreenDimensions.Min / 400) * 2;
         private void _setScaleToReccomended()
         {
-            var sc = (_currentScreenDimensions.Min / 400) * 2;
-            Scale = sc;
+            Scale = _getReccomendedScale();
         }
 
         public override void Draw(DrawingInterface drawingInterface)
         {
+            base.Draw(drawingInterface);
             if (Background != null)
             {
                 drawingInterface.DrawBackground(Background);
@@ -61,19 +64,22 @@ namespace IAmACube
                 item.UpdateLocationCascade(IntPoint.Zero, _currentScreenDimensions);
             }
 
-            if (input.ScrollDirection == 1)
+            if(_manualResizeEnabled)
             {
-                Scale += 2;
-                Console.WriteLine(Scale);
-                _updateAllItemPositions();
-            }
-            if (input.ScrollDirection == -1)
-            {
-                if (Scale > 2)
+                if (input.ScrollDirection == 1)
                 {
-                    Scale -= 2;
+                    Scale += 2;
                     Console.WriteLine(Scale);
                     _updateAllItemPositions();
+                }
+                if (input.ScrollDirection == -1)
+                {
+                    if (Scale > 2)
+                    {
+                        Scale -= 2;
+                        Console.WriteLine(Scale);
+                        _updateAllItemPositions();
+                    }
                 }
             }
 

@@ -22,7 +22,7 @@ namespace IAmACube
         private string _searchTerm = "";
         private ChipType _selectedChipType;
 
-        public BlockSearchPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, BuiltInMenuSprites.SearchPane)
+        public BlockSearchPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, MenuSprites.SearchPane)
         {
             _chipPreviews = new List<BlockPreview>();
 

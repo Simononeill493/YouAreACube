@@ -63,6 +63,9 @@ namespace IAmACube
                 case ScreenType.Title:
                     CurrentScreen = new TitleScreen(SwitchScreen);
                     break;
+                case ScreenType.MainMenu:
+                    CurrentScreen = new MainMenuScreen(SwitchScreen);
+                    break;
                 case ScreenType.NewGame:
                     CurrentScreen = new NewGameScreen(SwitchScreen);
                     break;
