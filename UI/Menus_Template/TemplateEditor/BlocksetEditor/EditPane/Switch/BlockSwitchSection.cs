@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class BlockSwitchSection : SpriteMenuItem
+    class BlockSwitchSection : SpriteScreenItem
     {
         public BlockModel Model;
         private List<string> _defaultSwitchSections;
 
         public bool IsAnySectionActivated => ActiveSection != null;
         public Blockset ActiveSection;
-        public SpriteMenuItem SwitchSectionBottom;
+        public SpriteScreenItem SwitchSectionBottom;
 
         public IEnumerable<Blockset> SubBlocksets => Model.SubBlocksets.Select(b => BlocksetEditPane.Blocksets[b.Item2]);
 

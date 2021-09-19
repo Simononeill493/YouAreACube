@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class TemplateChipsetEditTab : SpriteMenuItem
+    class TemplateChipsetEditTab : SpriteScreenItem
     {
         private CubeTemplate _baseTemplate;
         private Kernel _kernel;

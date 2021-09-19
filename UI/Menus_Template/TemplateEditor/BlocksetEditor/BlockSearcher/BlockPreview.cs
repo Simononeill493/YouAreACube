@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace IAmACube
 {
-    class BlockPreview : SpriteMenuItem
+    class BlockPreview : SpriteScreenItem
     {
         public BlockData Block;
         private TextMenuItem _text;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class BlockSearchPane : SpriteMenuItem
+    class BlockSearchPane : SpriteScreenItem
     {
         public const int MaxVisibleChips = 6;
         public const int PreviewPixelXOffset = 3;

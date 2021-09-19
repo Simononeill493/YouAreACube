@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class TemplateVariableEditTab : SpriteMenuItem, IVariableProvider
+    class TemplateVariableEditTab : SpriteScreenItem, IVariableProvider
     {
         public const int ItemBaseXOffset = 10;
         public const int ItemBaseYOffset = 15;

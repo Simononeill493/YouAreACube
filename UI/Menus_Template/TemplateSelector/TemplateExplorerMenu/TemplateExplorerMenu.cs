@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
 
-    abstract class TemplateExplorerMenu : SpriteMenuItem
+    abstract class TemplateExplorerMenu : SpriteScreenItem
     {
         protected const int DefaultItemsWidth = 6;
         protected const int DefaultItemsHeight = 6;

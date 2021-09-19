@@ -16,8 +16,8 @@ namespace IAmACube
         private TextBoxMenuItem _nameBox;
         private DropdownMenuItem<InGameType> _dataTypeDropdown;
 
-        private SpriteMenuItem _buttonRemove;
-        private SpriteMenuItem _buttonAdd;
+        private SpriteScreenItem _buttonRemove;
+        private SpriteScreenItem _buttonAdd;
 
         private string _variableName = "";
         private InGameType _selectedType;
@@ -31,10 +31,10 @@ namespace IAmACube
             _nameBox = new TextBoxMenuItem(this, () => _variableName, (v) => { _variableName = v; }) { Editable = true };
             _dataTypeDropdown = new DropdownMenuItem<InGameType>(this,()=>_selectedType,(v)=> { _selectedType = v; },()=> InGameTypeUtils.InGameTypes.Values.ToList());
 
-            _buttonRemove = new SpriteMenuItem(this, MenuSprites.VariableMinusButton);
+            _buttonRemove = new SpriteScreenItem(this, MenuSprites.VariableMinusButton);
             _buttonRemove.OnMouseReleased +=(i) => DisableVariable();
 
-            _buttonAdd = new SpriteMenuItem(this, MenuSprites.VariablePlusButton);
+            _buttonAdd = new SpriteScreenItem(this, MenuSprites.VariablePlusButton);
             _buttonAdd.OnMouseReleased += (i) => EnableVariable();
 
             _addItem(_number, 0, -SpriteManager.GetTextSize(_formattedVariableNumber).Y / 2, CoordinateMode.ParentPixel, false);

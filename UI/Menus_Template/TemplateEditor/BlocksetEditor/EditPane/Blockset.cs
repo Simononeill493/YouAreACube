@@ -13,7 +13,7 @@ namespace IAmACube
 
         public IEnumerable<Block> Blocks => Model.Blocks.Select(b=>BlocksetEditPane.Blocks[b]);
 
-        public MenuItem InternalBlocksetBottom;
+        public ScreenItem InternalBlocksetBottom;
         public bool ShouldDispose => (Empty & !IsInternal) | _manuallyDisposeBlockset;
         public bool Empty => !Blocks.Any();
 
@@ -70,7 +70,7 @@ namespace IAmACube
             return blocks;
         }
 
-        public void SetInitialDragState(MenuItem parent, UserInput input)
+        public void SetInitialDragState(ScreenItem parent, UserInput input)
         {
             SetLocationConfig(input.MousePos.X - (GetCurrentSize().X / 2), input.MousePos.Y - 2, CoordinateMode.Absolute);
             UpdateLocationCascade(parent);

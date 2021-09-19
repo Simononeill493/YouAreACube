@@ -136,7 +136,7 @@ namespace IAmACube
 
         private static IHasDrawLayer _getDrawLayerForNewSection(Block block) =>  ManualDrawLayer.InFrontOf(block, block.Sections.Count+1);
 
-        private static void _addSection(Block block, SpriteMenuItem section)
+        private static void _addSection(Block block, SpriteScreenItem section)
         {
             var currentSize = block.GetBaseSize();
 

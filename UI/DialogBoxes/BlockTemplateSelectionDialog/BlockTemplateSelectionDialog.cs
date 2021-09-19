@@ -11,7 +11,7 @@ namespace IAmACube
         TemplateExplorerMenu _templateSearchMenu;
         BlockInputModel _model;
 
-        public BlockTemplateSelectionDialog(IHasDrawLayer parentDrawLayer, MenuItem container, BlockInputModel model,Kernel kernel) : base(parentDrawLayer, container, MenuSprites.BlankPixel)
+        public BlockTemplateSelectionDialog(IHasDrawLayer parentDrawLayer, ScreenItem container, BlockInputModel model,Kernel kernel) : base(parentDrawLayer, container, MenuSprites.BlankPixel)
         {
             _model = model;
 

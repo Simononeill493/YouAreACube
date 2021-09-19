@@ -15,7 +15,9 @@ namespace IAmACube
         public static CardinalDirection RandomCardinal() => (CardinalDirection)R.Next(0, DirectionUtils.NumCardinalDirections);
         public static RelativeDirection RandomRelative() => (RelativeDirection)R.Next(0, DirectionUtils.NumRelativeDirections);
 
+        public static int RandomNumber(int lowerBoundInclusive,int upperBoundExclusive) => R.Next(lowerBoundInclusive, upperBoundExclusive);
         public static int RandomNumber(int upperBoundExclusive) => R.Next(0, upperBoundExclusive);
+
         public static List<T> GetShuffledList<T>(List<T> toShuffle) => toShuffle.OrderBy(x => R.Next()).ToList();
         public static List<T> GetShuffledList<T>(List<T> toShuffle, Random r) => toShuffle.OrderBy(x => r.Next()).ToList();
 

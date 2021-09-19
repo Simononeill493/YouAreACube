@@ -13,8 +13,8 @@ namespace IAmACube
         {
             Background = MenuSprites.TitleBackground;
 
-            var newGameButton = new SpriteMenuItem(this, MenuSprites.MainMenuNewGameButton) { HighlightedSpriteName = MenuSprites.MainMenuNewGameButton_Highlighted };
-            var loadGameButton = new SpriteMenuItem(this, MenuSprites.MainMenuLoadGameButton) { HighlightedSpriteName = MenuSprites.MainMenuLoadGameButton_Highlighted };
+            var newGameButton = new SpriteScreenItem(this, MenuSprites.MainMenuNewGameButton) { HighlightedSpriteName = MenuSprites.MainMenuNewGameButton_Highlighted };
+            var loadGameButton = new SpriteScreenItem(this, MenuSprites.MainMenuLoadGameButton) { HighlightedSpriteName = MenuSprites.MainMenuLoadGameButton_Highlighted };
 
             newGameButton.OnMouseReleased += (i) => GoToNewGame();
             loadGameButton.OnMouseReleased += (i) => GoToLoadGame();

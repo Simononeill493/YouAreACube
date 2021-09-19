@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class TemplateEditMenu : SpriteMenuItem
+    class TemplateEditMenu : SpriteScreenItem
     {
         private TabArrayMenuItem _tabs;
         private TemplateChipsetEditTab _chipsetEditTab;

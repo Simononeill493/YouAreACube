@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class TemplateBaseStatsEditTab :SpriteMenuItem
+    class TemplateBaseStatsEditTab :SpriteScreenItem
     {
         public string CurrentName => name;
 

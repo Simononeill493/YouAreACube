@@ -17,8 +17,8 @@ namespace IAmACube
             Background = MenuSprites.TitleBackground;
 
             textBox = new TextBoxMenuItem(this, ()=> SaveName, (s)=> { SaveName = s; }) { Editable = true, Focused = true };
-            var okButton = new SpriteMenuItem(this, MenuSprites.MainMenuOkButton);
-            var cancelButton = new SpriteMenuItem(this, MenuSprites.MainMenuCancelButton);
+            var okButton = new SpriteScreenItem(this, MenuSprites.MainMenuOkButton);
+            var cancelButton = new SpriteScreenItem(this, MenuSprites.MainMenuCancelButton);
 
             okButton.OnMouseReleased += (i) => NewGameClicked();
             cancelButton.OnMouseReleased += (i) => BackToMainMenu();

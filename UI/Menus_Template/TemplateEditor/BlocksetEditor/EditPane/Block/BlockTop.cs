@@ -2,7 +2,7 @@
 
 namespace IAmACube
 {
-    class BlockTop : SpriteMenuItem
+    class BlockTop : SpriteScreenItem
     {
         public BlockTop(IHasDrawLayer parent,string name) : base(parent,MenuSprites.Block)
         {

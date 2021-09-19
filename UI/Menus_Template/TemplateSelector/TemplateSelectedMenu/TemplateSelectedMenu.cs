@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace IAmACube
 {
 
-    abstract class TemplateSelectedMenu : SpriteMenuItem
+    abstract class TemplateSelectedMenu : SpriteScreenItem
     {
         protected TemplateVersionDictionary _template;
         protected ListMenuItem<CubeTemplate> _templateList;

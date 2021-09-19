@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    partial class BlocksetEditPane : SpriteMenuItem
+    partial class BlocksetEditPane : SpriteScreenItem
     {
         public static Dictionary<BlocksetModel, Blockset> Blocksets;
         public static Dictionary<BlockModel, Block> Blocks;
@@ -16,9 +16,9 @@ namespace IAmACube
 
         public Action<BlockInputOption, BlockInputModel> OpenSubMenuCallback;
 
-        private MenuItem _bin;
+        private ScreenItem _bin;
 
-        public BlocksetEditPane(IVariableProvider variableProvider,MenuItem bin) : base(ManualDrawLayer.Create(DrawLayers.BackgroundLayer),MenuSprites.BlocksetEditPane)
+        public BlocksetEditPane(IVariableProvider variableProvider,ScreenItem bin) : base(ManualDrawLayer.Create(DrawLayers.BackgroundLayer),MenuSprites.BlocksetEditPane)
         {
             VariableProvider = variableProvider;
             _bin = bin;
@@ -26,17 +26,17 @@ namespace IAmACube
             Blocksets = new Dictionary<BlocksetModel, Blockset>();
             Blocks = new Dictionary<BlockModel, Block>();
 
-            var plusButton = new SpriteMenuItem(ManualDrawLayer.Create(DrawLayers.MenuBaseLayer), MenuSprites.PlusButton);
+            var plusButton = new SpriteScreenItem(ManualDrawLayer.Create(DrawLayers.MenuBaseLayer), MenuSprites.PlusButton);
             plusButton.SetLocationConfig(GetBaseSize().X - 9, 0, CoordinateMode.ParentPixel, false);
             plusButton.OnMouseReleased += (i) => _changeChipScale(2);
             AddChild(plusButton);
 
-            var minusButton = new SpriteMenuItem(ManualDrawLayer.Create(DrawLayers.MenuBaseLayer), MenuSprites.MinusButton_Partial);
+            var minusButton = new SpriteScreenItem(ManualDrawLayer.Create(DrawLayers.MenuBaseLayer), MenuSprites.MinusButton_Partial);
             minusButton.SetLocationConfig(GetBaseSize().X - 17, 0, CoordinateMode.ParentPixel, false);
             minusButton.OnMouseReleased += (i) => _changeChipScale(0.5f);
             AddChild(minusButton);
 
-            _blockScaler = new MenuItemScaleProviderParent();
+            _blockScaler = new ScreenItemScaleProviderParent();
         }
 
         public override void Update(UserInput input)
@@ -257,7 +257,7 @@ namespace IAmACube
             }
         }
 
-        private MenuItemScaleProviderParent _blockScaler;
+        private ScreenItemScaleProviderParent _blockScaler;
         private float _blockScale { get => _blockScaler.Multiplier; set => _blockScaler.SetManualScale(value); }
 
         private void _changeChipScale(float multiplier)

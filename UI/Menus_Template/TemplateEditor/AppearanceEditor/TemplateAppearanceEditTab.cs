@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class TemplateAppearanceEditTab : SpriteMenuItem
+    class TemplateAppearanceEditTab : SpriteScreenItem
     {
         private AppearanceEditSpriteBox _spriteBox;
 

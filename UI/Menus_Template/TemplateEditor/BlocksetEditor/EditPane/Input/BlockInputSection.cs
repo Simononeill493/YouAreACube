@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class BlockInputSection : SpriteMenuItem
+    class BlockInputSection : SpriteScreenItem
     {
         public BlockInputSection(IHasDrawLayer parent,string name): base(parent,MenuSprites.BlockMiddle)
         {

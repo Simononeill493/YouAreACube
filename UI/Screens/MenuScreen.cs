@@ -20,15 +20,17 @@ namespace IAmACube
         private static int _scale = Config.DefaultMenuItemScale;
         protected bool _manualResizeEnabled = true;
 
+        public event Action<IntPoint> OnScreenSizeChanged;
 
-        public static MenuItem DraggedItem = null;
+
+        public static ScreenItem DraggedItem = null;
         public static bool IsUserDragging => (DraggedItem != null);
 
         public float DrawLayer { get; } = DrawLayers.MenuBaseLayer;
 
         public string Background;
 
-        private List<MenuItem> _menuItems = new List<MenuItem>();
+        private List<ScreenItem> _menuItems = new List<ScreenItem>();
         protected IntPoint _currentScreenDimensions;
 
         public MenuScreen(ScreenType screenType, Action<ScreenType> switchScreen) : base(screenType, switchScreen)
@@ -83,24 +85,26 @@ namespace IAmACube
                 }
             }
 
-            _refreshIfScreenSizeChanged();
+            _checkScreenSizeChanged();
         }
 
-        protected void _addMenuItem(MenuItem item)
+        protected void _addMenuItem(ScreenItem item)
         {
             _menuItems.Add(item);
-            item.ScaleProvider = new MenuItemScaleProviderMenuScreen();
+            item.ScaleProvider = new ScreenItemScaleProviderMenuScreen();
             item.UpdateLocationCascade(IntPoint.Zero, _currentScreenDimensions);
         }
         protected void _updateAllItemPositions() => _menuItems.ForEach(item => item.UpdateLocationCascade(IntPoint.Zero, _currentScreenDimensions));
 
-        private void _refreshIfScreenSizeChanged()
+        private void _checkScreenSizeChanged()
         {
             if (MonoGameWindow.CurrentSize != _currentScreenDimensions)
             {
                 _currentScreenDimensions = MonoGameWindow.CurrentSize;
                 _setScaleToReccomended();
                 _updateAllItemPositions();
+
+                OnScreenSizeChanged?.Invoke(_currentScreenDimensions);
             }
         }
     }

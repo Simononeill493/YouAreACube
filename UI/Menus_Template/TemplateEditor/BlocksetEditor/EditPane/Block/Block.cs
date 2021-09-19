@@ -11,7 +11,7 @@ namespace IAmACube
         public BlockModel Model;
 
         public BlockTop Top;
-        public List<SpriteMenuItem> Sections;
+        public List<SpriteScreenItem> Sections;
         public BlockSwitchSection SwitchSection;
 
         private Action<Block,UserInput> _draggedCallback;
@@ -22,7 +22,7 @@ namespace IAmACube
             Model = model;
 
             Draggable = true;
-            Sections = new List<SpriteMenuItem>();
+            Sections = new List<SpriteScreenItem>();
 
             OnStartDrag += _blockDragged;
         }

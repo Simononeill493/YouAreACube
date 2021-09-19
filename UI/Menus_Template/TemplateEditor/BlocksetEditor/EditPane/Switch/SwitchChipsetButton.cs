@@ -2,7 +2,7 @@
 
 namespace IAmACube
 {
-    public class SwitchChipsetButton : SpriteMenuItem
+    public class SwitchChipsetButton : SpriteScreenItem
     {
         public int Index;
         public bool ButtonCurrentlyActive;
