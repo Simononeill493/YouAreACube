@@ -16,8 +16,8 @@ namespace IAmACube
             title.SetLocationConfig(0, 0, CoordinateMode.Absolute, centered: false);
             _addMenuItem(title);
 
-            OnScreenSizeChanged += (s) => title.SetScatteredStars();
-            title.SetScatteredStars();
+            OnScreenSizeChanged += (s) => title.SetScatteredFloaters();
+            title.SetScatteredFloaters();
         }
 
         protected override int _getReccomendedScale() => Math.Max(base._getReccomendedScale() * 3, 4);

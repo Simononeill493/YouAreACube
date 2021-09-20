@@ -42,11 +42,11 @@ namespace IAmACube
         {
             var input = new UserInput(Mouse.GetState(), _previousInput.MouseState, Keyboard.GetState(), _previousInput.KeyboardState);
 
-            bool isFullScreenToggled = input.IsKeyJustPressed(Keys.F11);
+            /*bool isFullScreenToggled = input.IsKeyJustPressed(Keys.F11);
             if (isFullScreenToggled)
             {
                 _graphicsDeviceManager.ToggleFullScreen();
-            }
+            }*/
             _attachedConsoleManager.CheckWindowPositionAndUpdateConsole(Window.Position,false);
 
             _screenManager.Update(input);
