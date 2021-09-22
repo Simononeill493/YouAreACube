@@ -14,16 +14,8 @@ namespace IAmACube
         public InGameMenuScreen(ScreenType screenType,Action<ScreenType> switchScreen, GameScreen gameScreen) : base(screenType,switchScreen)
         {
             _gameScreen = gameScreen;
-        }
 
-        public override void Update(UserInput input)
-        {
-            base.Update(input);
-
-            if (input.IsKeyJustPressed(Keys.Tab))
-            {
-                _returnToGame();
-            }
+            AddKeyJustPressedEvent(Keys.Tab, (i) => _returnToGame());
         }
 
         protected void _returnToGame()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Input;
 
 namespace IAmACube
 {
@@ -18,6 +19,8 @@ namespace IAmACube
 
             OnScreenSizeChanged += (s) => title.SetScatteredFloaters();
             title.SetScatteredFloaters();
+
+            AddKeyJustReleasedEvent(Keys.Enter,(i)=>SwitchScreen(ScreenType.MainMenu));
         }
 
         protected override int _getReccomendedScale() => Math.Max(base._getReccomendedScale() * 3, 4);

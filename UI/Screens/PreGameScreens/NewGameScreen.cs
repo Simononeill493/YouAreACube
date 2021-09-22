@@ -30,16 +30,8 @@ namespace IAmACube
             _addMenuItem(textBox);
             _addMenuItem(okButton);
             _addMenuItem(cancelButton);
-        }
 
-        public override void Update(UserInput input)
-        {
-            base.Update(input);
-
-            if (input.IsKeyDown(Keys.Escape))
-            {
-                BackToMainMenu();
-            }
+            AddKeyJustReleasedEvent(Keys.Escape, (i) => BackToMainMenu());
         }
 
         public void NewGameClicked()

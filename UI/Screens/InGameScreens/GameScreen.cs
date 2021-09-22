@@ -28,11 +28,16 @@ namespace IAmACube
             //_currentCamera = _adminCamera;
             CameraConfiguration.DebugMode = true;
 #endif
+
+            AddKeyJustPressedEvent(Keys.M, (i) => _currentCamera = _adminCamera);
+            AddKeyJustPressedEvent(Keys.N, (i) => _currentCamera = _playerCamera);
+            AddKeyJustPressedEvent(Keys.Tab, (i) => SwitchScreen(ScreenType.TemplateExplorer));
+            AddKeyJustPressedEvent(Keys.Escape, (i) => _saveAndQuit());
         }
 
-        public override void Update(UserInput input)
+        public override void _update(UserInput input)
         {
-            _readKeys(input);
+            base._update(input);
             _currentCamera.AssignMouseHover(input, Game.World);
 
             Game.Update(input);
@@ -44,26 +49,6 @@ namespace IAmACube
             _currentCamera.Draw(drawingInterface, Game.World);
         }
 
-        private void _readKeys(UserInput input)
-        {
-            if(input.IsKeyJustPressed(Keys.M))
-            {
-                _currentCamera = _adminCamera;
-            }
-            if (input.IsKeyJustPressed(Keys.N))
-            {
-                _currentCamera = _playerCamera;
-            }
-            if (input.IsKeyJustPressed(Keys.Tab))
-            {
-                SwitchScreen(ScreenType.TemplateExplorer);
-            }
-            if (input.IsKeyJustPressed(Keys.Escape))
-            {
-                _saveAndQuit();
-                return;
-            }
-        }
         private void _saveAndQuit()
         {
             var (kernel, world) = Game.SaveAndQuit();

@@ -58,8 +58,10 @@ namespace IAmACube
                 item.Draw(drawingInterface);
             }
         }
-        public override void Update(UserInput input)
+        public override void _update(UserInput input)
         {
+            base._update(input);
+
             foreach (var item in _menuItems)
             {
                 item.Update(input);

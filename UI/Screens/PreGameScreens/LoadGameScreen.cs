@@ -21,16 +21,8 @@ namespace IAmACube
 
             _saves = Directory.GetFiles(ConfigFiles.SaveDirectory).Where(s => s.Contains(ConfigFiles.SaveWorldExtension)).ToList();
             _generateTextBoxes();
-        }
 
-        public override void Update(UserInput input)
-        {
-            base.Update(input);
-
-            if (input.IsKeyDown(Keys.Escape))
-            {
-                SwitchScreen(ScreenType.MainMenu);
-            }
+            AddKeyJustReleasedEvent(Keys.Escape, (i) => SwitchScreen(ScreenType.MainMenu));
         }
 
         public void ClickSaveFile(int saveNumber)

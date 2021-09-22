@@ -16,16 +16,9 @@ namespace IAmACube
             _templateEditMenu = new TemplateEditMenu(this, _gameScreen.Game.Kernel, template, _returnToTemplateExplorer);
             _templateEditMenu.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, centered: true);
             _addMenuItem(_templateEditMenu);
-        }
 
-        public override void Update(UserInput input)
-        {
-            base.Update(input);
 
-            if (input.IsKeyJustReleased(Keys.Escape))
-            {
-                _templateEditMenu.OpenQuitDialog();
-            }
+            AddKeyJustReleasedEvent(Keys.Escape, (i) => _templateEditMenu.OpenQuitDialog());
         }
 
         private void _returnToTemplateExplorer()

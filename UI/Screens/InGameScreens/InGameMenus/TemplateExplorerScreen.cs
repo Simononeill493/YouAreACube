@@ -17,16 +17,8 @@ namespace IAmACube
             templateMenu.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, centered: true);
 
             _addMenuItem(templateMenu);
-        }
 
-        public override void Update(UserInput input)
-        {
-            base.Update(input);
-
-            if (input.IsKeyJustPressed(Keys.Escape))
-            {
-                _returnToGame();
-            }
+            AddKeyJustReleasedEvent(Keys.Escape, (i) => _returnToGame());
         }
     }
 }
