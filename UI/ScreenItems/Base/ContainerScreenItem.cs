@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class ContainerMenuItem : ScreenItem
+    public class ContainerScreenItem : ScreenItem
     {
         public override IntPoint GetBaseSize() => IntPoint.One;
 
-        public ContainerMenuItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer) { }
+        public ContainerScreenItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer) { }
     }
 }

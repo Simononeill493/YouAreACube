@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace IAmACube
 {
-    public class SpriteScreenItem : AnimatedScreenItem<SpriteScreenItem>
+    public class SpriteScreenItem : ScreenItem
     {
         public string SpriteName { get { return _spriteName; } 
             set 

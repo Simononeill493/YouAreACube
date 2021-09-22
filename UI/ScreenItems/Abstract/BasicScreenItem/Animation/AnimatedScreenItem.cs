@@ -6,33 +6,22 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public abstract class AnimatedScreenItem<TAnimationType> : ScreenItem where TAnimationType : AnimatedScreenItem<TAnimationType>
+    public partial class ScreenItem
     {
-        private List<Animation<TAnimationType>> _animations;
+        private List<Animation> _animations = new List<Animation>();
 
-        public AnimatedScreenItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer)
-        {
-            _animations = new List<Animation<TAnimationType>>();
-        }
-
-        public void AddAnimation(Animation<TAnimationType> animation)
+        public void AddAnimation(Animation animation)
         {
             _animations.Add(animation);
         }
 
         protected void _updateAnimations()
         {
-            _animations.ForEach(a => a.Do((TAnimationType)this));
-        }
-
-        protected override void _drawSelf(DrawingInterface drawingInterface)
-        {
-            _updateAnimations();
-            base._drawSelf(drawingInterface);
+            _animations.ForEach(a => a.Do(this));
         }
     }
 
-    public abstract class Animation<T> where T : ScreenItem
+    public abstract class Animation
     {
         protected AnimationTrigger _trigger;
 
@@ -41,13 +30,22 @@ namespace IAmACube
             _trigger = trigger;
         }
 
-        public void Do(T item)
+        public void Do(ScreenItem item)
         {
-            if(_trigger.Tick())
+            if (_trigger.Tick())
             {
                 _do(item);
             }
         }
+
+        protected abstract void _do(ScreenItem item);
+    }
+
+    public abstract class Animation<T> : Animation where T : ScreenItem
+    {
+        public Animation(AnimationTrigger trigger) : base(trigger) { }
+
+        protected override void _do(ScreenItem item) => _do((T)item);
         protected abstract void _do(T item);
     }
 
@@ -141,7 +139,7 @@ namespace IAmACube
 
 
 
-    public class MovementAnimation<T> : Animation<T> where T : ScreenItem
+    public class MovementAnimation : Animation
     {
         private IntPoint _offset;
 
@@ -150,7 +148,7 @@ namespace IAmACube
             _offset = offset;
         }
 
-        protected override void _do(T item)
+        protected override void _do(ScreenItem item)
         {
             item.OffsetLocationConfig(_offset);
         }
@@ -158,10 +156,7 @@ namespace IAmACube
 
     public class FlipHorizAnimation : Animation<SpriteScreenItem>
     {
-
-        public FlipHorizAnimation(AnimationTrigger trigger) : base(trigger)
-        {
-        }
+        public FlipHorizAnimation(AnimationTrigger trigger) : base(trigger) { }
 
         protected override void _do(SpriteScreenItem item)
         {

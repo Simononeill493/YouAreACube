@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class SpriteBoxMatrix<TBox> : ContainerMenuItem where TBox : CubeSpriteBox
+    class SpriteBoxMatrix<TBox> : ContainerScreenItem where TBox : CubeSpriteBox
     {
         protected const int DefaultItemsIncrement = 3;
         //protected const int DefaultItemsIncrement = 25;

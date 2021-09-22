@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class TemplateSpriteSelectorTab : ContainerMenuItem
+    class TemplateSpriteSelectorTab : ContainerScreenItem
     {
         public TemplateSpriteSelectorTab(IHasDrawLayer parent,List<(string,CubeSpriteDataType)> sprites,Action<string,CubeSpriteDataType> spriteSelected) : base(parent)
         {

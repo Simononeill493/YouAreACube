@@ -13,6 +13,8 @@ namespace IAmACube
         public static void Init(int seed = 1) => R = new Random(seed);
 
         public static CardinalDirection RandomCardinal() => (CardinalDirection)R.Next(0, DirectionUtils.NumCardinalDirections);
+        public static CardinalDirection RandomCardinalNoDiagonals() => (CardinalDirection)(R.Next(0, 4)*2);
+
         public static RelativeDirection RandomRelative() => (RelativeDirection)R.Next(0, DirectionUtils.NumRelativeDirections);
 
         public static int RandomNumber(int lowerBoundInclusive,int upperBoundExclusive) => R.Next(lowerBoundInclusive, upperBoundExclusive);

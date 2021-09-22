@@ -25,7 +25,7 @@ namespace IAmACube
         }
         public static IntPoint WorldCoordsToInternalSectorCoords(IntPoint worldCoords,int sectorSize)
         {
-            var ret = new IntPoint(0, 0);
+            var ret = IntPoint.Zero;
 
             if (worldCoords.X >= 0)
             {

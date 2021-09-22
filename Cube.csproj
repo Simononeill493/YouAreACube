@@ -149,7 +149,7 @@
     <Compile Include="UI\ScreenItems\Abstract\BasicScreenItem\Scale\ScreenItemScaleProviderStatic.cs" />
     <Compile Include="UI\ScreenItems\Abstract\BasicScreenItem\ScreenItem_Drag.cs" />
     <Compile Include="UI\ScreenItems\Base\CheckBox\CheckBoxMenuItem.cs" />
-    <Compile Include="UI\ScreenItems\Base\ContainerMenuItem.cs" />
+    <Compile Include="UI\ScreenItems\Base\ContainerScreenItem.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\Dropdown\BlockInputDropdown.cs" />
     <Compile Include="UI\ScreenItems\Base\SpriteBoxes\SpriteBoxMatrix.cs" />
     <Compile Include="UI\ScreenItems\Base\Tabs\TabArrayMenuItem.cs" />
@@ -194,9 +194,11 @@
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedMenu\TemplateSelectedMenuMain.cs" />
     <Compile Include="UI\Screens\ScreenType.cs" />
     <Compile Include="UI\ScreenItems\Base\FullScreenMenuItem.cs" />
-    <Compile Include="UI\Screens\SpecialScreens\TitleScreen.cs" />
-    <Compile Include="UI\Screens\SpecialScreens\TitleScreenAnimationMenuItem.cs" />
-    <Compile Include="UI\Screens\SpecialScreens\TitleScreenCubeNameMenuItem.cs" />
+    <Compile Include="UI\Screens\SpecialScreens\TitleScreen\CubesFloater.cs" />
+    <Compile Include="UI\Screens\SpecialScreens\TitleScreen\TitleScreen.cs" />
+    <Compile Include="UI\Screens\SpecialScreens\TitleScreen\TitleScreenAnimationFloaterScroll.cs" />
+    <Compile Include="UI\Screens\SpecialScreens\TitleScreen\TitleScreenAnimationMenuItem.cs" />
+    <Compile Include="UI\Screens\SpecialScreens\TitleScreen\TitleScreenCubeNameMenuItem.cs" />
     <Compile Include="UserInput\UserInput_Keyboard.cs" />
     <Compile Include="UserInput\UserInput_Mouse.cs" />
     <Compile Include="Parsers\TemplateParser.cs" />

@@ -12,8 +12,13 @@ namespace IAmACube
         public static IntPoint Zero => new IntPoint(0, 0);
         public static IntPoint One => new IntPoint(1, 1);
 
-        public static IntPoint MinValue => new IntPoint(int.MinValue, int.MinValue);
+        public static IntPoint Up => new IntPoint(0, -1);
+        public static IntPoint Down => new IntPoint(0, 1);
+        public static IntPoint Left => new IntPoint(-1, 0);
+        public static IntPoint Right => new IntPoint(1, 0);
 
+        public static IntPoint MinValue => new IntPoint(int.MinValue, int.MinValue);
+        public static IntPoint MaxValue => new IntPoint(int.MaxValue, int.MaxValue);
 
         public int X;
         public int Y;

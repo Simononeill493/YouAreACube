@@ -46,10 +46,10 @@ namespace IAmACube
             };
             _XYOffsetDict = new Dictionary<CardinalDirection, IntPoint>
             {
-                [CardinalDirection.North] = new IntPoint(0, -1),
-                [CardinalDirection.South] = new IntPoint(0, 1),
-                [CardinalDirection.West] = new IntPoint(-1, 0),
-                [CardinalDirection.East] = new IntPoint(1, 0),
+                [CardinalDirection.North] = IntPoint.Up,
+                [CardinalDirection.South] = IntPoint.Down,
+                [CardinalDirection.West] = IntPoint.Left,
+                [CardinalDirection.East] = IntPoint.Right,
                 [CardinalDirection.NorthEast] = new IntPoint(1, -1),
                 [CardinalDirection.SouthEast] = new IntPoint(1, 1),
                 [CardinalDirection.NorthWest] = new IntPoint(-1, -1),

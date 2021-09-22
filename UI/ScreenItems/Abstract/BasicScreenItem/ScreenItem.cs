@@ -64,6 +64,7 @@ namespace IAmACube
                 DrawLayer -= DrawLayers.MenuDragOffset;
             }
 
+            _updateAnimations();
             _drawSelf(drawingInterface);
             _drawChildren(drawingInterface);
 

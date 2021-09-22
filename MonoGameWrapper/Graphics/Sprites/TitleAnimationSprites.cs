@@ -24,5 +24,7 @@ namespace IAmACube
         public static string StarTwinkle = "Title_Star2";
         public static string VersionBox = "Title_VersionZero";
         public static string YouAreA = "Title_Youarea";
+
+
     }
 }

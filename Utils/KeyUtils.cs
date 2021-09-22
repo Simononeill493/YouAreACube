@@ -14,43 +14,43 @@ namespace IAmACube
         {
             if (input.IsKeyDown(Keys.W))//up
             {
-                return new IntPoint(0, -1);
+                return IntPoint.Up;
             }
             if (input.IsKeyDown(Keys.S))//down
             {
-                return new IntPoint(0, 1);
+                return IntPoint.Down;
             }
             if (input.IsKeyDown(Keys.A))//left
             {
-                return new IntPoint(-1, 0);
+                return IntPoint.Left;
             }
             if (input.IsKeyDown(Keys.D))//right
             {
-                return new IntPoint(1, 0);
+                return IntPoint.Right;
             }
 
-            return new IntPoint(0, 0);
+            return IntPoint.Zero;
         }
         public static IntPoint GetRightKeypadDirection(UserInput input)
         {
             if (input.IsKeyDown(Keys.Home))//up
             {
-                return new IntPoint(0, -1);
+                return IntPoint.Up;
             }
             if (input.IsKeyDown(Keys.End))//down
             {
-                return new IntPoint(0, 1);
+                return IntPoint.Down;
             }
             if (input.IsKeyDown(Keys.Delete))//left
             {
-                return new IntPoint(-1, 0);
+                return IntPoint.Left;
             }
             if (input.IsKeyDown(Keys.PageDown))//right
             {
-                return new IntPoint(1, 0);
+                return IntPoint.Right;
             }
 
-            return new IntPoint(0, 0);
+            return IntPoint.Zero;
         }
 
 

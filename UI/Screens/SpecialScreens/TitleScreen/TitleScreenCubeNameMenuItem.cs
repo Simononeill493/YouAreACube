@@ -1,6 +1,6 @@
 ﻿namespace IAmACube
 {
-    public class TitleScreenCubeNameMenuItem : ContainerMenuItem
+    public class TitleScreenCubeNameMenuItem : ContainerScreenItem
     {
         public TitleScreenCubeNameMenuItem(IHasDrawLayer parent) : base(parent)
         {

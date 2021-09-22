@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class ListMenuItem<T> : ContainerMenuItem
+    public class ListMenuItem<T> : ContainerScreenItem
     {
         public T Selected
         {

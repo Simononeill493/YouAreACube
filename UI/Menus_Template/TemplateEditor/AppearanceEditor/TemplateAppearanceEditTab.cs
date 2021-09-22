@@ -19,10 +19,10 @@ namespace IAmACube
             var appearanceEditTabs = new TabArrayMenuItem(this, MenuOrientation.Vertical, -1, MenuSprites.AppearanceEditTab);
             appearanceEditTabs.SetLocationConfig(0, 0, CoordinateMode.ParentPixel, false);
             appearanceEditTabs.AddTabButton("I", singleSpriteSelectorTab);//Individual
-            appearanceEditTabs.AddTabButton("E", new ContainerMenuItem(this));
-            appearanceEditTabs.AddTabButton("B", new ContainerMenuItem(this));
-            appearanceEditTabs.AddTabButton("C", new ContainerMenuItem(this));//Color
-            appearanceEditTabs.AddTabButton("L", new ContainerMenuItem(this));//Load
+            appearanceEditTabs.AddTabButton("E", new ContainerScreenItem(this));
+            appearanceEditTabs.AddTabButton("B", new ContainerScreenItem(this));
+            appearanceEditTabs.AddTabButton("C", new ContainerScreenItem(this));//Color
+            appearanceEditTabs.AddTabButton("L", new ContainerScreenItem(this));//Load
             appearanceEditTabs.SwitchToFirstTab();
             AddChild(appearanceEditTabs);
 

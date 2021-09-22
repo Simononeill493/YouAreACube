@@ -11,6 +11,7 @@ namespace IAmACube
         public const float MinLayerDistance = 0.0001f;
 
         public const float BackgroundLayer = 1;
+        public const float BackgroundDecorationLayer = 0.99f;
 
         public const float TileLayer = 0.95f;
         public const float GroundLayer = 0.9f;

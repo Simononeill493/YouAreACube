@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace IAmACube
 {
-    class TemplateVariableEditItem : ContainerMenuItem
+    class TemplateVariableEditItem : ContainerScreenItem
     {
         public bool VariableEnabled;
         public int VariableNumber;

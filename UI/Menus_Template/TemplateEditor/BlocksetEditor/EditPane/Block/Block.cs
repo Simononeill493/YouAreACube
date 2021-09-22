@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class Block : ContainerMenuItem
+    class Block : ContainerScreenItem
     {
         public BlockModel Model;
 

@@ -17,6 +17,7 @@ Rock2
 Plants1
 Black
 CrystalPurple
+TitleBox
 
 /Eyes
 Eyes1
