@@ -18,6 +18,8 @@ Plants1
 Black
 CrystalPurple
 TitleBox
+CursorBuddy
+CursorBuddySad
 
 /Eyes
 Eyes1

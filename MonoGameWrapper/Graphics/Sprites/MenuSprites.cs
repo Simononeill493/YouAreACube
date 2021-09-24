@@ -49,6 +49,11 @@ namespace IAmACube
         public static string MainMenuLoadGameButton = "LoadGameMenu";
         public static string MainMenuLoadGameButton_Highlighted = "LoadGameMenu_Highlight";
 
+        public static string MainMenuDemoButton = "DemoGameMenu";
+        public static string MainMenuDemoButton_Highlighted = "DemoGameMenu_Highlight";
+
+        public static string MainMenuGreyedOutButton = "GreyedOutMainMenu";
+
         public static string Blockset_TopHandle = "TopOfChipset";
         public static string Block = "ChipFull";
         public static string BlockGreyed = "ChipFullGreyed";
