@@ -19,7 +19,7 @@ namespace IAmACube
 
         private int _scrollTick;
 
-        public TitleScreenAnimationFloaterScroll(TitleScreenAnimationMenuItem parent, Func<IntPoint> getScreenSizeBase) : base(parent, getScreenSizeBase)
+        public TitleScreenAnimationFloaterScroll(MenuScreen parent) : base(parent)
         {
             _r = new Random();
             _floaters = new List<ScreenItem>();
@@ -34,7 +34,6 @@ namespace IAmACube
             }
 
             _tickScroll();
-            Console.WriteLine(_scaledCubeSize);
         }
 
         private void _tickScroll()

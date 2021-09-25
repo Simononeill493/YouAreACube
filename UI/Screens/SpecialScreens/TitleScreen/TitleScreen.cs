@@ -13,7 +13,7 @@ namespace IAmACube
         {
             _manualResizeEnabled = false;
 
-            var title = new TitleScreenAnimationMenuItem(this,()=>(_currentScreenDimensions/Scale));
+            var title = new TitleScreenAnimationMenuItem(this);
             title.SetLocationConfig(0, 0, CoordinateMode.Absolute, centered: false);
             _addMenuItem(title);
 
@@ -21,6 +21,11 @@ namespace IAmACube
             title.SetScatteredFloaters();
 
             AddKeyJustReleasedEvent(Keys.Enter,(i)=>SwitchScreen(ScreenType.MainMenu));
+        }
+
+        private void _makeMainMenu()
+        {
+
         }
 
         protected override int _getReccomendedScale() => Math.Max(base._getReccomendedScale() * 3, 4);

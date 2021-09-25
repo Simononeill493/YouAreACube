@@ -54,6 +54,8 @@ namespace IAmACube
 
         public static string MainMenuGreyedOutButton = "GreyedOutMainMenu";
 
+        public static string MainMenuBox = "MainMenuBox";
+
         public static string Blockset_TopHandle = "TopOfChipset";
         public static string Block = "ChipFull";
         public static string BlockGreyed = "ChipFullGreyed";

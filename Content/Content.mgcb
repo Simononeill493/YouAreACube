@@ -362,6 +362,18 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Sprites/Static/Menu/LoadGameMenu_Highlight.PNG;Sprites/Static/Menu/LoadGameMenu_Highlight.PNG
 
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/MainMenuBox.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/MainMenuBox.png;Sprites/Static/Menu/MainMenuBox.png
+
 #begin ../Simon_Data/To_Import/Sprites/Static/Menu/MinusButton.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -7,11 +7,11 @@ namespace IAmACube
 {
     class TitleScreenAnimationMenuItem : FullScreenMenuItem
     {
-        private TitleScreenAnimationFloaterScroll _floaterContainer;
+        public static TitleScreenAnimationFloaterScroll _floaterContainer;
 
-        public TitleScreenAnimationMenuItem(IHasDrawLayer parent, Func<IntPoint> parentSizeProvider) : base(parent, parentSizeProvider)
+        public TitleScreenAnimationMenuItem(MenuScreen parent) : base(parent)
         {
-            _floaterContainer = new TitleScreenAnimationFloaterScroll(this, GetBaseSize);
+            _floaterContainer = new TitleScreenAnimationFloaterScroll(parent);
             _floaterContainer.SetLocationConfig(0, 0, CoordinateMode.Absolute, false);
             AddChild(_floaterContainer);
 

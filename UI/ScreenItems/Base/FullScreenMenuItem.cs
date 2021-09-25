@@ -5,10 +5,10 @@ namespace IAmACube
 {
     abstract class FullScreenMenuItem : ContainerScreenItem
     {
-        protected Func<IntPoint> _getFullScreenItemBaseSize;
-        public FullScreenMenuItem(IHasDrawLayer parent, Func<IntPoint> parentSizeProvider) : base(parent)
+        public Func<IntPoint> _getFullScreenBaseSize;
+        public FullScreenMenuItem(MenuScreen parent) : base(parent)
         {
-            _getFullScreenItemBaseSize = parentSizeProvider;
+            _getFullScreenBaseSize = () => (parent._currentScreenDimensions / Scale);
         }
 
         public override void Update(UserInput input)
@@ -22,7 +22,7 @@ namespace IAmACube
         protected virtual List<ScreenItem> _removeOffscreenChildren()
         {
             var toRemove = new List<ScreenItem>();
-            var curScreenSize = _getFullScreenItemBaseSize() * Scale;
+            var curScreenSize = _getFullScreenBaseSize() * Scale;
             foreach (var child in _children)
             {
                 var floaterSize = child.GetCurrentSize();
@@ -38,7 +38,7 @@ namespace IAmACube
         }
 
 
-        public override IntPoint GetBaseSize() => _getFullScreenItemBaseSize();
+        public override IntPoint GetBaseSize() => _getFullScreenBaseSize();
 
     }
 }

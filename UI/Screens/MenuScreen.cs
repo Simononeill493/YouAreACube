@@ -31,7 +31,7 @@ namespace IAmACube
         public string Background;
 
         private List<ScreenItem> _menuItems = new List<ScreenItem>();
-        protected IntPoint _currentScreenDimensions;
+        public IntPoint _currentScreenDimensions;
 
         public MenuScreen(ScreenType screenType, Action<ScreenType> switchScreen) : base(screenType, switchScreen)
         {
@@ -73,7 +73,6 @@ namespace IAmACube
                 if (input.ScrollDirection == 1)
                 {
                     Scale += 2;
-                    Console.WriteLine(Scale);
                     _updateAllItemPositions();
                 }
                 if (input.ScrollDirection == -1)
@@ -81,7 +80,6 @@ namespace IAmACube
                     if (Scale > 2)
                     {
                         Scale -= 2;
-                        Console.WriteLine(Scale);
                         _updateAllItemPositions();
                     }
                 }

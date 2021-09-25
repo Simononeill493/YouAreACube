@@ -98,7 +98,6 @@ namespace IAmACube
         public static bool CapsLock => (((ushort)GetKeyState(0x14)) & 0xffff) != 0;
         public static bool NumLock => (((ushort)GetKeyState(0x90)) & 0xffff) != 0;
         public static bool ScrollLock => (((ushort)GetKeyState(0x91)) & 0xffff) != 0;
-        public static bool Shift => (((ushort)GetKeyState(0x74)) & 0xffff) != 0;
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
         public static extern short GetKeyState(int keyCode);
