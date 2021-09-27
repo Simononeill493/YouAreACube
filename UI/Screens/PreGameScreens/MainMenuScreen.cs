@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace IAmACube
@@ -30,9 +31,12 @@ namespace IAmACube
         public const string CursorBuddy = "CursorBuddy";
         public const string CursorBuddySad = "CursorBuddySad";
 
+        private SpriteScreenItem _cursorBuddy;
         private Action<ScreenType> _parentSwitchScreen;
 
-        public MainMenuBox(MenuScreen parent,Action<ScreenType> parentSwitchScreen) : base(parent, MenuSprites.MainMenuBox)
+        private RectangleMenuItem _underConstructionBox;
+
+        public MainMenuBox(MenuScreen parent, Action<ScreenType> parentSwitchScreen) : base(parent, MenuSprites.MainMenuBox)
         {
             _parentSwitchScreen = parentSwitchScreen;
 
@@ -41,53 +45,65 @@ namespace IAmACube
             var newGameGreyOut = new SpriteScreenItem(ManualDrawLayer.InFrontOf(newGameButton), MenuSprites.MainMenuGreyedOutButton);
             var loadGameButton = new SpriteScreenItem(this, MenuSprites.MainMenuLoadGameButton) { HighlightedSpriteName = MenuSprites.MainMenuLoadGameButton_Highlighted };
             var loadGameGreyOut = new SpriteScreenItem(ManualDrawLayer.InFrontOf(loadGameButton), MenuSprites.MainMenuGreyedOutButton);
-            var cursorBuddy = new SpriteScreenItem(this, CursorBuddy) { VisualParent = demoButton };
+            _cursorBuddy = new SpriteScreenItem(this, CursorBuddy) { VisualParent = demoButton };
 
             demoButton.OnMouseReleased += DemoButtonClicked;
             newGameButton.OnMouseReleased += NewGameButtonClicked;
             loadGameButton.OnMouseReleased += LoadGameButtonClicked;
 
-            demoButton.OnMouseStartHover += (i) =>  _snapBuddyToButton(cursorBuddy,demoButton);
-            newGameButton.OnMouseStartHover += (i) => _snapBuddyToButton(cursorBuddy, newGameButton);
-            loadGameButton.OnMouseStartHover += (i) => _snapBuddyToButton(cursorBuddy, loadGameButton);
+            demoButton.OnMouseStartHover += (i) => _snapBuddyToButton(demoButton);
+            newGameButton.OnMouseStartHover += (i) => _snapBuddyToButton(newGameButton);
+            loadGameButton.OnMouseStartHover += (i) => _snapBuddyToButton(loadGameButton);
 
             demoButton.SetLocationConfig(35, 7, CoordinateMode.ParentPixel, centered: false);
             newGameButton.SetLocationConfig(35, 34, CoordinateMode.ParentPixel, centered: false);
             newGameGreyOut.SetLocationConfig(35, 34, CoordinateMode.ParentPixel, centered: false);
             loadGameButton.SetLocationConfig(35, 61, CoordinateMode.ParentPixel, centered: false);
             loadGameGreyOut.SetLocationConfig(35, 61, CoordinateMode.ParentPixel, centered: false);
-            cursorBuddy.SetLocationConfig(-27, 1, CoordinateMode.VisualParentPixel, centered: false);
+            _cursorBuddy.SetLocationConfig(-27, 1, CoordinateMode.VisualParentPixel, centered: false);
 
             AddChild(demoButton);
             AddChild(newGameButton);
-            //AddChild(newGameGreyOut);
+            AddChild(newGameGreyOut);
             AddChild(loadGameButton);
-            //AddChild(loadGameGreyOut);
-            AddChild(cursorBuddy);
+            AddChild(loadGameGreyOut);
+            AddChild(_cursorBuddy);
 
-            //demoButton.MultiplyScale(2.0f);
-            //newGameButton.MultiplyScale(2.0f);
-            //newGameGreyOut.MultiplyScale(2.0f);
-            //loadGameButton.MultiplyScale(2.0f);
-            //loadGameGreyOut.MultiplyScale(2.0f);
-            //cursorBuddy.MultiplyScale(2.0f);
+            _underConstructionBox = new RectangleMenuItem(this);
+            _underConstructionBox.Color = new Color(37,35,35);
+            _underConstructionBox.Size = new IntPoint(138, 9);
+            _underConstructionBox.SetLocationConfig(3, 84, CoordinateMode.ParentPixel, false);
+            AddChild(_underConstructionBox);
+
+            var text = new TextMenuItem(ManualDrawLayer.InFrontOf(_underConstructionBox), () => "Under construction!");
+            text.MultiplyScale(0.75f);
+            text.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, true);
+            text.Color = new Color(152, 123, 94);
+            _underConstructionBox.AddChild(text);
         }
 
-        private void _snapBuddyToButton(SpriteScreenItem buddy,SpriteScreenItem item)
+        private void _snapBuddyToButton(SpriteScreenItem item)
         {
-            buddy.VisualParent = item;
+            _cursorBuddy.VisualParent = item;
+            _cursorBuddy.SpriteName = CursorBuddy;
+            _underConstructionBox.Visible = false;
         }
 
         public void DemoButtonClicked(UserInput i)
         {
-            throw new NotImplementedException();
+            _parentSwitchScreen(ScreenType.DemoGame);
         }
 
         public void NewGameButtonClicked(UserInput i)
         {
             if(i.IsKeyDown(Keys.LeftShift))
             {
-                _parentSwitchScreen(ScreenType.NewGame);
+                _parentSwitchScreen(ScreenType.NewGameOpenWorld);
+            }
+            else
+            {
+                _cursorBuddy.SpriteName = CursorBuddySad;
+                _underConstructionBox.Visible = true;
             }
         }
 
@@ -95,7 +111,12 @@ namespace IAmACube
         {
             if (i.IsKeyDown(Keys.LeftShift))
             {
-                _parentSwitchScreen(ScreenType.LoadGame);
+                _parentSwitchScreen(ScreenType.LoadGameOpenWorld);
+            }
+            else
+            {
+                _cursorBuddy.SpriteName = CursorBuddySad;
+                _underConstructionBox.Visible = true;
             }
         }
     }

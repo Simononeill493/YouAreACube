@@ -18,6 +18,7 @@ Plants1
 Black
 CrystalPurple
 TitleBox
+TitleBoxGlowing
 CursorBuddy
 CursorBuddySad
 

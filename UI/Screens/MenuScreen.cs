@@ -22,7 +22,6 @@ namespace IAmACube
 
         public event Action<IntPoint> OnScreenSizeChanged;
 
-
         public static ScreenItem DraggedItem = null;
         public static bool IsUserDragging => (DraggedItem != null);
 

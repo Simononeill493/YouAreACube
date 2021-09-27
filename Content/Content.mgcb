@@ -1250,6 +1250,18 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Sprites/Tilesets/Main/TitleBox.png;Sprites/Tilesets/Main/TitleBox.png
 
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/TitleBoxGlowing.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/TitleBoxGlowing.png;Sprites/Tilesets/Main/TitleBoxGlowing.png
+
 #begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/TrackerEnemy.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -11,14 +11,10 @@ namespace IAmACube
         public static World World { get; set; }
         public Kernel Kernel { get; }
 
-        private SectorGenerator _sectorGenerator;
-
         public Game(Kernel kernel, World world)
         {
             Kernel = kernel;
             World = world;
-
-            _sectorGenerator = new SectorGenerator();
 
             _initializeSession();
         }
@@ -30,7 +26,6 @@ namespace IAmACube
             World.FocusOn(Kernel.Host);
             World.Tick(input);
 
-            //_sectorGenerator.GenerateAdjacentSectors(World);
             if (Config.KernelUnlimitedEnergy)
             {
                 Kernel.Host.AddEnergy(Kernel.Host.EnergyCap);
@@ -51,8 +46,6 @@ namespace IAmACube
             var hostTile = World.GetTile(Kernel.Host.Location.AbsoluteLocation);
             var liveHost = hostTile.Surface;
             Kernel.SetHost(liveHost);
-
-
         }
     }
 }

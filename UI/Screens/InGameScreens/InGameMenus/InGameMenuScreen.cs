@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public abstract class InGameMenuScreen : MenuScreen
+    abstract class InGameMenuScreen : MenuScreen
     {
         protected GameScreen _gameScreen;
 
@@ -21,7 +21,7 @@ namespace IAmACube
         protected void _returnToGame()
         {
             _gameScreen.Game.Kernel.UpdateCompanionTemplates();
-            SwitchScreen(ScreenType.Game);
+            SwitchScreen(ScreenType.OpenWorldGame);
         }
     }
 }

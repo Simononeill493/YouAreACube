@@ -192,6 +192,8 @@
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedAction.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedMenu\TemplateSelectedMenuInternal.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedMenu\TemplateSelectedMenuMain.cs" />
+    <Compile Include="UI\Screens\InGameScreens\DemoGame\DemoGameScreen.cs" />
+    <Compile Include="UI\Screens\InGameScreens\GameScreen.cs" />
     <Compile Include="UI\Screens\ScreenType.cs" />
     <Compile Include="UI\ScreenItems\Base\FullScreenMenuItem.cs" />
     <Compile Include="UI\Screens\SpecialScreens\TitleScreen\CubesFloater.cs" />
@@ -282,7 +284,7 @@
     <Compile Include="Utils\KeyUtils.cs" />
     <Compile Include="MonoGameWrapper\Graphics\SpriteManager.cs" />
     <Compile Include="Save\SaveManager.cs" />
-    <Compile Include="UI\Screens\InGameScreens\GameScreen.cs" />
+    <Compile Include="UI\Screens\InGameScreens\OpenWorldGame\OpenWorldGameScreen.cs" />
     <Compile Include="UI\Screens\PreGameScreens\LoadGameScreen.cs" />
     <Compile Include="Config\Config.cs" />
     <Compile Include="Gameplay\Direction\DirectionEnums\CardinalDirection.cs" />

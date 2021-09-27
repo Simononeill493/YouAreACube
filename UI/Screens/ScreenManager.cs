@@ -66,13 +66,13 @@ namespace IAmACube
                 case ScreenType.MainMenu:
                     CurrentScreen = new MainMenuScreen(SwitchScreen);
                     break;
-                case ScreenType.NewGame:
+                case ScreenType.NewGameOpenWorld:
                     CurrentScreen = new NewGameScreen(SwitchScreen);
                     break;
-                case ScreenType.LoadGame:
-                    CurrentScreen = new LoadGameScreen(SwitchScreen, LoadGameScreen);
+                case ScreenType.LoadGameOpenWorld:
+                    CurrentScreen = new LoadGameScreen(SwitchScreen, LoadOpenWorldGameScreen);
                     break;
-                case ScreenType.Game:
+                case ScreenType.OpenWorldGame:
                     if (CurrentGame == null)
                     {
                         Console.WriteLine("Warning: tried to open the game screen but no game was loaded.");
@@ -87,9 +87,14 @@ namespace IAmACube
                     break;
                 case ScreenType.TemplateEdit:
                     throw new NotImplementedException("Tried to switch to template edit screen without loading a template");
+                case ScreenType.DemoGame:
+                    CurrentGame = new DemoGameScreen(SwitchScreen);
+                    CurrentScreen = CurrentGame;
+                    break;
+
             }
         }
-        public void LoadGameScreen(Kernel kernel,World world) => CurrentGame = new GameScreen(SwitchScreen, kernel, world);
+        public void LoadOpenWorldGameScreen(Kernel kernel,World world) => CurrentGame = new OpenWorldGameScreen(SwitchScreen, kernel, world);
         public void LoadTemplateEditScreen(CubeTemplate template) => CurrentScreen = new TemplateEditScreen(SwitchScreen, CurrentGame, template);
 
 
@@ -98,16 +103,16 @@ namespace IAmACube
             var kernel = SaveManager.LoadKernel("test");
             var world = SaveManager.LoadWorld("test");
 
-            LoadGameScreen(kernel, world);
-            SwitchScreen(ScreenType.Game);
+            LoadOpenWorldGameScreen(kernel, world);
+            SwitchScreen(ScreenType.OpenWorldGame);
         }
 
         private void _autoGenerateAndLoadTestWorld()
         {
             var (kernel,world) = SaveManager.GenerateTestSave();
 
-            LoadGameScreen(kernel, world);
-            SwitchScreen(ScreenType.Game);
+            LoadOpenWorldGameScreen(kernel, world);
+            SwitchScreen(ScreenType.OpenWorldGame);
         }
 
     }

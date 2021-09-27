@@ -4,9 +4,10 @@
     {
         Title,
         MainMenu,
-        NewGame,
-        LoadGame,
-        Game,
+        NewGameOpenWorld,
+        LoadGameOpenWorld,
+        OpenWorldGame,
+        DemoGame,
         TemplateExplorer,
         TemplateEdit
     }

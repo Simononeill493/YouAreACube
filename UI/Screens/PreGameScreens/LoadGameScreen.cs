@@ -14,7 +14,7 @@ namespace IAmACube
         private List<string> _saves;
         private Action<Kernel, World> _loadSaveToScreen;
 
-        public LoadGameScreen(Action<ScreenType> switchScreen,Action<Kernel, World> loadSaveToScreen) : base(ScreenType.LoadGame,switchScreen)
+        public LoadGameScreen(Action<ScreenType> switchScreen,Action<Kernel, World> loadSaveToScreen) : base(ScreenType.LoadGameOpenWorld,switchScreen)
         {
             _loadSaveToScreen = loadSaveToScreen;
             Background = MenuSprites.TitleBackground;
@@ -33,7 +33,7 @@ namespace IAmACube
             var kernel = SaveManager.LoadKernel(world.Name);
 
             _loadSaveToScreen(kernel,world);
-            SwitchScreen(ScreenType.Game);
+            SwitchScreen(ScreenType.OpenWorldGame);
         }
 
         private void _generateTextBoxes()

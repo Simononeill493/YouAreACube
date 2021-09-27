@@ -6,6 +6,8 @@ namespace IAmACube
     public class CubesFloater : ContainerScreenItem
     {
         public const string SpriteName = "TitleBox";
+        public const string SpriteNameHighlight = "TitleBoxGlowing";
+
         private Dictionary<IntPoint, CubeFloater> _contents;
 
         private IntPoint _size;
@@ -37,10 +39,9 @@ namespace IAmACube
                 return;
             }
 
-
             var spriteSize = SpriteManager.GetSpriteSize(SpriteName);
 
-            var item = new CubeFloater(this, loc);
+            var item = new CubeFloater(this, loc) { HighlightedSpriteName = SpriteNameHighlight };
             item.SetLocationConfig(loc * spriteSize, CoordinateMode.ParentPixel, false);
             AddChild(item);
 

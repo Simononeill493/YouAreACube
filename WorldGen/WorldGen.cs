@@ -9,10 +9,18 @@ namespace IAmACube
 {
     class WorldGen
     {
-        public static World GenerateEmptyWorld(int seed)
+        public static World GenerateDemoWorld()
         {
-            var world = new World(seed, Config.DefaultSectorSize);
-            var centre = GetTestSector(world.Random,IntPoint.Zero,world.SectorSize,world.WorldKernel);
+            var world = new World(0, 10);
+            var centre = GetEmptyTestSector(IntPoint.Zero, world.SectorSize);
+            world.AddSector(centre);
+
+            return world;
+        }
+        public static World GenerateTestOpenWorld(int seed,int sectorSize)
+        {
+            var world = new World(seed, sectorSize);
+            var centre = GetFilledTestSector(world.Random,IntPoint.Zero,world.SectorSize,world.WorldKernel);
             //var centre = _getEmptySector(new IntPoint(0, 0), world.SectorSize);
 
             world.AddSector(centre);
@@ -36,12 +44,18 @@ namespace IAmACube
 
             return world;
         }
-        public static Sector GetTestSector(Random r, IntPoint coords, int sectorSize, Kernel worldKernel)
+        public static Sector GetFilledTestSector(Random r, IntPoint coords, int sectorSize, Kernel worldKernel)
         {
             var sector = _getEmptySector(coords, sectorSize);
 
             _testWorldGeneration(r, sector,worldKernel);
 
+            return sector;
+        }
+
+        public static Sector GetEmptyTestSector(IntPoint coords, int sectorSize)
+        {
+            var sector = _getEmptySector(coords, sectorSize);
             return sector;
         }
 

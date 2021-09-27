@@ -12,7 +12,7 @@ namespace IAmACube
         public string SaveName = "test";
         private TextBoxMenuItem textBox;
 
-        public NewGameScreen(Action<ScreenType> switchScreen) : base(ScreenType.NewGame, switchScreen)
+        public NewGameScreen(Action<ScreenType> switchScreen) : base(ScreenType.NewGameOpenWorld, switchScreen)
         {
             Background = MenuSprites.TitleBackground;
 
@@ -41,7 +41,7 @@ namespace IAmACube
             SaveManager.SaveKernel(kernel);
             SaveManager.SaveWorld(world);
 
-            SwitchScreen(ScreenType.LoadGame);
+            SwitchScreen(ScreenType.LoadGameOpenWorld);
         }
 
         public void BackToMainMenu() => SwitchScreen(ScreenType.MainMenu);

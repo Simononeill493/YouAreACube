@@ -19,7 +19,7 @@ namespace IAmACube
                     if (!sector.HasNeighbour(cardinal))
                     {
                         var coord = sector.AbsoluteLocation.GetAdjacentCoords(cardinal);
-                        var newSector = WorldGen.GetTestSector(world.Random,coord,world.SectorSize,world.WorldKernel);
+                        var newSector = WorldGen.GetFilledTestSector(world.Random,coord,world.SectorSize,world.WorldKernel);
                         world.AddSector(newSector);
                     }
                 }

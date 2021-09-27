@@ -21,6 +21,8 @@ namespace IAmACube
             title.SetScatteredFloaters();
 
             AddKeyJustReleasedEvent(Keys.Enter,(i)=>SwitchScreen(ScreenType.MainMenu));
+
+            
         }
 
         private void _makeMainMenu()
