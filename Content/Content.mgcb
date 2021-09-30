@@ -1118,6 +1118,18 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Sprites/Tilesets/Main/DarkGrass.png;Sprites/Tilesets/Main/DarkGrass.png
 
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoBuddy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoBuddy.png;Sprites/Tilesets/Main/DemoBuddy.png
+
 #begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/FleeEnemy.png
 /importer:TextureImporter
 /processor:TextureProcessor
