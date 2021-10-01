@@ -6,6 +6,7 @@
         MainMenu,
         NewGameOpenWorld,
         LoadGameOpenWorld,
+        PreDemo,
         OpenWorldGame,
         DemoGame,
         TemplateExplorer,

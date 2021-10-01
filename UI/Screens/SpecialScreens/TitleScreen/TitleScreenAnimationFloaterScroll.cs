@@ -98,7 +98,7 @@ namespace IAmACube
                 var cycleShort = _r.Next(40, 300);
                 var cycleLong = cycleShort + _r.Next(1, 60);
 
-                var twinkleAnimation = new SpriteCycleAnimation(Triggers.CyclicVaried(cycleShort, cycleLong), _twinkleSprites);
+                var twinkleAnimation = new SpriteCycleAnimation(Triggers.Instant,Tickers.CyclicVaried(cycleShort, cycleLong), _twinkleSprites);
                 floater.AddAnimation(twinkleAnimation);
                 floater.DrawLayer += DrawLayers.MinLayerDistance;
             }

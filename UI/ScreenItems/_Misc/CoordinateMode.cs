@@ -6,6 +6,7 @@
         Absolute,
         ParentPixel,
         ParentPercentage,
+        ParentAbsolute,
         VisualParentPixel
     }
 }

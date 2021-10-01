@@ -22,6 +22,14 @@ namespace IAmACube
         }
 
         public FloatPoint Absolute => new FloatPoint(Math.Abs(X), Math.Abs(Y));
+        public IntPoint ToOnes()
+        {
+            var x = X == 0 ? 0 : X > 0 ? 1 : -1;
+            var y = Y == 0 ? 0 : Y > 0 ? 1 : -1;
+
+            return new IntPoint(x, y);
+        }
+
         public IntPoint Ceiling => new IntPoint((int)Math.Ceiling(X), (int)Math.Ceiling(Y));
         public IntPoint Floor => new IntPoint((int)Math.Floor(X), (int)Math.Floor(Y));
         public IntPoint Round => new IntPoint((int)Math.Round(X), (int)Math.Round(Y));

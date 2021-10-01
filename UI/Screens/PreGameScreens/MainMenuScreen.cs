@@ -91,7 +91,7 @@ namespace IAmACube
 
         public void DemoButtonClicked(UserInput i)
         {
-            _parentSwitchScreen(ScreenType.DemoGame);
+            _parentSwitchScreen(ScreenType.PreDemo);
         }
 
         public void NewGameButtonClicked(UserInput i)

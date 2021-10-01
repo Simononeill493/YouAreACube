@@ -44,6 +44,10 @@ namespace IAmACube
             {
                 location = parentlocation + (location * Scale);
             }
+            if (_locationConfig.mode == CoordinateMode.ParentAbsolute)
+            {
+                location = parentlocation + location;
+            }
             if (_locationConfig.mode == CoordinateMode.VisualParentPixel)
             {
                 location = VisualParent.ActualLocation + (location * Scale);

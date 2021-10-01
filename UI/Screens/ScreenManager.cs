@@ -17,7 +17,7 @@ namespace IAmACube
 
         public void Init()
         {
-            CurrentScreen = new TitleScreen(SwitchScreen);
+            CurrentScreen = new PreDemoScreen(SwitchScreen);
             Initialized = true;
 
             //SoundInterface.PlayWind();
@@ -34,6 +34,10 @@ namespace IAmACube
             if (input.IsKeyJustReleased(Keys.PageUp))
             {
                 _autoLoadTestWorld();
+            }
+            if (input.IsKeyJustReleased(Keys.PageDown))
+            {
+                CurrentScreen = new PreDemoScreen(SwitchScreen);
             }
             if (input.IsKeyJustReleased(Keys.Pause))
             {
@@ -91,6 +95,10 @@ namespace IAmACube
                     CurrentGame = new DemoGameScreen(SwitchScreen);
                     CurrentScreen = CurrentGame;
                     break;
+                case ScreenType.PreDemo:
+                    CurrentScreen = new PreDemoScreen(SwitchScreen);
+                    break;
+
 
             }
         }

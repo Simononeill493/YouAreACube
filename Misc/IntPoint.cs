@@ -20,16 +20,24 @@ namespace IAmACube
         public static IntPoint MinValue => new IntPoint(int.MinValue, int.MinValue);
         public static IntPoint MaxValue => new IntPoint(int.MaxValue, int.MaxValue);
 
+
         public int X;
         public int Y;
 
-        public IntPoint(int x,int y)
+        public IntPoint(int x, int y)
         {
             X = x;
             Y = y;
         }
 
         public IntPoint Absolute => new IntPoint(Math.Abs(X), Math.Abs(Y));
+        public IntPoint ToOnes()
+        {
+            var x = X == 0 ? 0 : X > 0 ? 1 : -1;
+            var y = Y == 0 ? 0 : Y > 0 ? 1 : -1;
+
+            return new IntPoint(x, y);
+        }
 
         public static IntPoint operator +(IntPoint p) => p;
         public static IntPoint operator -(IntPoint p) => new IntPoint(-p.X,-p.Y);
@@ -48,6 +56,8 @@ namespace IAmACube
         public static IntPoint operator /(IntPoint p, int i) => new IntPoint(p.X / i, p.Y / i);
         public static FloatPoint operator *(IntPoint a, float b) => new FloatPoint(a.X * b, a.Y * b);
         public static FloatPoint operator /(IntPoint a, float b) => new FloatPoint(a.X / b, a.Y / b);
+
+        public FloatPoint ToFloat() => new FloatPoint(X, Y);
 
         public static bool operator ==(IntPoint a, IntPoint b)=>a.Equals(b);
         public static bool operator !=(IntPoint a, IntPoint b)=>!a.Equals(b);
