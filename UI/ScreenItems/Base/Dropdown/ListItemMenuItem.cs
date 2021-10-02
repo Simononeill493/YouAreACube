@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class ListItemMenuItem<T> : RectangleMenuItem
+    public class ListItemMenuItem<T> : RectangleScreenItem
     {
         public bool Selected
         {

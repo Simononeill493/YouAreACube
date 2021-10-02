@@ -34,7 +34,7 @@ namespace IAmACube
         private SpriteScreenItem _cursorBuddy;
         private Action<ScreenType> _parentSwitchScreen;
 
-        private RectangleMenuItem _underConstructionBox;
+        private RectangleScreenItem _underConstructionBox;
 
         public MainMenuBox(MenuScreen parent, Action<ScreenType> parentSwitchScreen) : base(parent, MenuSprites.MainMenuBox)
         {
@@ -69,7 +69,7 @@ namespace IAmACube
             AddChild(loadGameGreyOut);
             AddChild(_cursorBuddy);
 
-            _underConstructionBox = new RectangleMenuItem(this);
+            _underConstructionBox = new RectangleScreenItem(this);
             _underConstructionBox.Color = new Color(37,35,35);
             _underConstructionBox.Size = new IntPoint(138, 9);
             _underConstructionBox.SetLocationConfig(3, 84, CoordinateMode.ParentPixel, false);

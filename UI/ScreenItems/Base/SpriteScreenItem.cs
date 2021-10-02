@@ -21,6 +21,8 @@ namespace IAmACube
         public string HighlightedSpriteName;
 
         public Color ColorMask = Color.White;
+        public float Alpha = 1.0f;
+
         public bool FlipHorizontal;
         public bool FlipVertical;
 
@@ -34,7 +36,7 @@ namespace IAmACube
         protected override void _drawSelf(DrawingInterface drawingInterface)
         {
             base._drawSelf(drawingInterface);
-            drawingInterface.DrawSprite(_currentSprite, ActualLocation.X, ActualLocation.Y, Scale, DrawLayer, ColorMask, flipHorizontal: FlipHorizontal);
+            drawingInterface.DrawSprite(_currentSprite, ActualLocation.X, ActualLocation.Y, Scale, DrawLayer, ColorMask * Alpha, flipHorizontal: FlipHorizontal, flipVertical: FlipVertical);
         }
 
         public override IntPoint GetBaseSize() => _spriteSize;

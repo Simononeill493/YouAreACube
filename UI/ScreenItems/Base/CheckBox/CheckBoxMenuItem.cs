@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class CheckBoxMenuItem: RectangleMenuItem
+    class CheckBoxMenuItem: RectangleScreenItem
     {
         private Func<bool> _checkedProvider;
         private Action<bool> _onSet;

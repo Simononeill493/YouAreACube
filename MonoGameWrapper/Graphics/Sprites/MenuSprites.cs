@@ -65,5 +65,10 @@ namespace IAmACube
 
         public static string SwitchBlockSideArrow = "SwitchChipSideArrow";
         public static string IfBlockSwitchButton = "IfChipSwitchButton";
+
+        public static string DialogueEdge = "DialogueBoxEdge";
+        public static string DialoguePoint = "DialogueBoxPoint";
+
+
     }
 }

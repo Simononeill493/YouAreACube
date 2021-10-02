@@ -83,7 +83,14 @@ namespace IAmACube
             var horizontalScale = ViewportWidth / (float)backgroundSprite.Width;
             var verticallScale = ViewportHeight / (float)backgroundSprite.Height;
 
-            _spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), null,Color.White, 0, Vector2.Zero, new Vector2(horizontalScale, verticallScale), SpriteEffects.None, DrawLayers.BackgroundLayer); ;
+            _spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), null,Color.White, 0, Vector2.Zero, new Vector2(horizontalScale, verticallScale), SpriteEffects.None, DrawLayers.BackgroundLayer);
         }
+
+        public void DrawStretchedSprite(string spriteName,int x,int y,int stretchedWidth,int stretchedHeight,Color colorMask,float drawLayer)
+        {
+            var sprite = SpriteManager.GetSprite(spriteName);
+            _spriteBatch.Draw(sprite, new Vector2(x, y), null, colorMask, 0, Vector2.Zero, new Vector2(stretchedWidth, stretchedHeight), SpriteEffects.None, drawLayer); 
+        }
+
     }
 }

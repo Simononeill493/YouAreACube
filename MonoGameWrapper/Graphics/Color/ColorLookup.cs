@@ -16,6 +16,8 @@ namespace IAmACube
             ColorsDict = new Dictionary<XnaColors, Color>();
             ColorsDict[XnaColors.ClearColorMask] = Color.White;
             ColorsDict[XnaColors.DeadCubeColor] = new Color(128, 128, 128, 255);
+            ColorsDict[XnaColors.TransparentPink] = new Color(255, 0, 255, 255);
+
         }
     }
 
@@ -23,6 +25,7 @@ namespace IAmACube
     public enum XnaColors
     {
         ClearColorMask,
-        DeadCubeColor
+        DeadCubeColor,
+        TransparentPink
     }
 }

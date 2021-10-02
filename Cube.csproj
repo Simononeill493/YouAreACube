@@ -142,6 +142,7 @@
     <Compile Include="Testing\ChipsetCollection_SanityTesting.cs" />
     <Compile Include="Testing\Chipset_SanityTesting.cs" />
     <Compile Include="Testing\Chip_SanityTesting.cs" />
+    <Compile Include="UI\ScreenItems\Abstract\BasicScreenItem\Animation\Animations\FadeInAnimation.cs" />
     <Compile Include="UI\ScreenItems\Abstract\BasicScreenItem\Animation\Animations\MoveToPixelOffsetAnimation.cs" />
     <Compile Include="UI\ScreenItems\Abstract\BasicScreenItem\Animation\ScreenItem_Animation.cs" />
     <Compile Include="UI\ScreenItems\Abstract\BasicScreenItem\Animation\Animation.cs" />
@@ -260,7 +261,7 @@
     <Compile Include="UI\ScreenItems\Base\Dropdown\ListItemMenuItem.cs" />
     <Compile Include="UI\ScreenItems\Base\Dropdown\DropdownMenuItem.cs" />
     <Compile Include="UI\ScreenItems\_Misc\CoordinateMode.cs" />
-    <Compile Include="UI\ScreenItems\Base\RectangleMenuItem.cs" />
+    <Compile Include="UI\ScreenItems\Base\RectangleScreenItem.cs" />
     <Compile Include="UI\ScreenItems\Base\SpriteScreenItem.cs" />
     <Compile Include="UI\ScreenItems\Base\Text\TextMenuItem.cs" />
     <Compile Include="UI\ScreenItems\Base\ButtonMenuItem.cs" />
