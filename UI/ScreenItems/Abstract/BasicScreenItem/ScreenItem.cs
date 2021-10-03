@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public abstract partial class ScreenItem : IHasDrawLayer, IDisposable
+    abstract partial class ScreenItem : IHasDrawLayer, IDisposable
     {
         public bool Visible = true;
         public bool Enabled = true;

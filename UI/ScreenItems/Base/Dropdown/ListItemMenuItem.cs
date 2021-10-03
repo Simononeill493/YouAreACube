@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class ListItemMenuItem<T> : RectangleScreenItem
+    class ListItemMenuItem<T> : RectangleScreenItem
     {
         public bool Selected
         {
@@ -35,7 +35,7 @@ namespace IAmACube
         public Color HighlightColor;
         public Color HighlightTextColor;
 
-        private TextMenuItem _text;
+        private TextScreenItem _text;
         private Action<T> _selectedCallback;
 
         public ListItemMenuItem(IHasDrawLayer parentDrawLayer,T item,Action<T> itemSelected) : base(parentDrawLayer)
@@ -50,7 +50,7 @@ namespace IAmACube
 
             Item = item;
 
-            _text = new TextMenuItem(this, ()=>item.ToString());
+            _text = new TextScreenItem(this, ()=>item.ToString());
             _text.SetLocationConfig(5, 20, CoordinateMode.ParentPercentage, false);
             AddChild(_text);
 

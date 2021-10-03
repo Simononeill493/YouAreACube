@@ -7,8 +7,10 @@ using Microsoft.Xna.Framework;
 
 namespace IAmACube
 {
-    public class SpriteScreenItem : ScreenItem
+    class SpriteScreenItem : VisualScreenItem
     {
+        private string _currentSprite => (MouseHovering & (HighlightedSpriteName != null)) ? HighlightedSpriteName : SpriteName;
+
         public string SpriteName { get { return _spriteName; } 
             set 
             { 
@@ -20,14 +22,6 @@ namespace IAmACube
 
         public string HighlightedSpriteName;
 
-        public Color ColorMask = Color.White;
-        public float Alpha = 1.0f;
-
-        public bool FlipHorizontal;
-        public bool FlipVertical;
-
-        private string _currentSprite => (MouseHovering & (HighlightedSpriteName != null)) ? HighlightedSpriteName : SpriteName;
-
         public SpriteScreenItem(IHasDrawLayer parentDrawLayer,string spriteName) : base(parentDrawLayer)
         {
             SpriteName = spriteName;
@@ -36,7 +30,7 @@ namespace IAmACube
         protected override void _drawSelf(DrawingInterface drawingInterface)
         {
             base._drawSelf(drawingInterface);
-            drawingInterface.DrawSprite(_currentSprite, ActualLocation.X, ActualLocation.Y, Scale, DrawLayer, ColorMask * Alpha, flipHorizontal: FlipHorizontal, flipVertical: FlipVertical);
+            drawingInterface.DrawSprite(_currentSprite, ActualLocation.X, ActualLocation.Y, Scale, DrawLayer, Color * Alpha, flipHorizontal: FlipHorizontal, flipVertical: FlipVertical);
         }
 
         public override IntPoint GetBaseSize() => _spriteSize;

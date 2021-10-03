@@ -14,7 +14,7 @@ namespace IAmACube
         protected ListMenuItem<CubeTemplate> _templateList;
 
         protected TemplateBox _templatePicture;
-        protected TextMenuItem _templateName;
+        protected TextScreenItem _templateName;
 
         public TemplateSelectedMenu(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer,MenuSprites.TemplateListMenuSection)
         {
@@ -22,7 +22,7 @@ namespace IAmACube
             _templatePicture.SetLocationConfig(6, 8, CoordinateMode.ParentPixel);
             AddChild(_templatePicture);
 
-            _templateName = new TextMenuItem(this,()=>_template?.Name);
+            _templateName = new TextScreenItem(this,()=>_template?.Name);
             _templateName.SetLocationConfig(12, 65, CoordinateMode.ParentPixel);
             _templateName.MultiplyScale(0.5f);
             AddChild(_templateName);

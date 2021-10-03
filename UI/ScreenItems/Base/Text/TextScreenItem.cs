@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class TextMenuItem : ScreenItem
+    class TextScreenItem : ScreenItem
     {
         public string GetText()
         {
@@ -25,7 +25,7 @@ namespace IAmACube
         public Color Color = Config.DefaultTextColor;
         public event Action<string> OnTextTyped;
 
-        public TextMenuItem(IHasDrawLayer parentDrawLayer, Func<string> textProvider) : base(parentDrawLayer)
+        public TextScreenItem(IHasDrawLayer parentDrawLayer, Func<string> textProvider) : base(parentDrawLayer)
         {
             _textProvider = textProvider;
         }

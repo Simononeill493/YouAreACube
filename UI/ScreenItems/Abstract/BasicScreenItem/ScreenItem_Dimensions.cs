@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public abstract partial class ScreenItem : IHasDrawLayer
+    abstract partial class ScreenItem : IHasDrawLayer
     {
         public IntPoint ActualLocation { get; private set; }
 

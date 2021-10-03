@@ -121,7 +121,7 @@ namespace IAmACube
 
         public static void ConfigureBlockAppearance(Block block, BlockData data)
         {
-            block.Sections.ForEach(s => s.ColorMask = data.GetColor());
+            block.Sections.ForEach(s => s.Color = data.GetColor());
 
             if (block.Sections.Count > 1)
             {

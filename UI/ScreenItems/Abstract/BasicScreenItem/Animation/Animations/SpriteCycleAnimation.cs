@@ -2,7 +2,7 @@
 
 namespace IAmACube
 {
-    public class SpriteCycleAnimation : Animation<SpriteScreenItem>
+    class SpriteCycleAnimation : Animation<SpriteScreenItem>
     {
         private List<string> _sprites;
         private int _currentIndex;

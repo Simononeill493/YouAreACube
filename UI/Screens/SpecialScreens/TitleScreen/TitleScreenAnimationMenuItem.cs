@@ -32,7 +32,7 @@ namespace IAmACube
                 var youAreA = new SpriteScreenItem(this, TitleAnimationSprites.YouAreA);
                 youAreA.SetLocationConfig(50, 5, CoordinateMode.ParentPercentage, centered: true);
                 youAreA.MultiplyScale(0.25f);
-                youAreA.ColorMask = new Color(255, 255, 255, 0);
+                youAreA.Color = new Color(255, 255, 255, 0);
                 AddChild(youAreA);
 
                 var title = new TitleScreenCubeNameMenuItem(this);

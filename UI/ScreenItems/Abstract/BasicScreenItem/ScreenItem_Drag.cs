@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public partial class ScreenItem 
+    abstract partial class ScreenItem 
     {
         public event System.Action<UserInput> OnStartDrag;
         public event System.Action<UserInput> OnEndDrag;

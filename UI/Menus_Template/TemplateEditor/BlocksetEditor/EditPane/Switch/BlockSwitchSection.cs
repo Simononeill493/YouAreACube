@@ -34,8 +34,8 @@ namespace IAmACube
             var rightButton = _addItem(new SwitchChipsetButton(this, 1), 70, 0, CoordinateMode.ParentPixel);
             var switchArrowButtonLeft = _addSpriteItem(MenuSprites.SwitchBlockSideArrow, 140, 0, CoordinateMode.ParentPixel, false);
             var switchArrowButtonRight = _addSpriteItem(MenuSprites.SwitchBlockSideArrow, 140 + switchArrowButtonLeft.GetBaseSize().X, 0, CoordinateMode.ParentPixel, false);
-            var leftText = _addItem(new TextMenuItem(ManualDrawLayer.InFrontOf(this, 3), () => GetBlocksetName(0)), 35, 10, CoordinateMode.ParentPixel, true);
-            var rightText = _addItem(new TextMenuItem(ManualDrawLayer.InFrontOf(this, 3), () => GetBlocksetName(1)), 105, 10, CoordinateMode.ParentPixel, true);
+            var leftText = _addItem(new TextScreenItem(ManualDrawLayer.InFrontOf(this, 3), () => GetBlocksetName(0)), 35, 10, CoordinateMode.ParentPixel, true);
+            var rightText = _addItem(new TextScreenItem(ManualDrawLayer.InFrontOf(this, 3), () => GetBlocksetName(1)), 105, 10, CoordinateMode.ParentPixel, true);
             SwitchSectionBottom = _addSpriteItem(MenuSprites.BlockGreyed, 0, 0, CoordinateMode.Absolute, false);
 
             leftButton.OnMouseReleased += (i) => _buttonClicked(leftButton);

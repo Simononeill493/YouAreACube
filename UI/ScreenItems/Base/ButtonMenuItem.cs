@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class ButtonMenuItem : TextBoxMenuItem
+    class ButtonMenuItem : TextBoxMenuItem
     {
         public ButtonMenuItem(IHasDrawLayer parentDrawLayer, string buttontext) : base(parentDrawLayer, buttontext)
         {

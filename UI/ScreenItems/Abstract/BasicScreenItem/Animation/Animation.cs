@@ -1,6 +1,6 @@
 ﻿namespace IAmACube
 {
-    public abstract class Animation
+    abstract class Animation
     {
         private bool _triggered;
         private Trigger _trigger;
@@ -44,9 +44,12 @@
         protected abstract void _do(ScreenItem item);
     }
 
-   public abstract class Animation<T> : Animation where T : ScreenItem
+   abstract class Animation<T> : Animation where T : ScreenItem
    {
         public Animation(Trigger trigger, Ticker ticker) : base(trigger,ticker) { }
+
+        public override void Begin(ScreenItem item) => Begin((T)item);
+        public virtual void Begin(T item) { }
 
         protected override void _do(ScreenItem item) => _do((T)item);
         protected abstract void _do(T item);

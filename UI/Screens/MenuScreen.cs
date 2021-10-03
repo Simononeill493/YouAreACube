@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace IAmACube
 {
-    public abstract class MenuScreen : Screen, IHasDrawLayer
+    abstract class MenuScreen : Screen, IHasDrawLayer
     {
         public static int Scale { 
             get => _scale; 

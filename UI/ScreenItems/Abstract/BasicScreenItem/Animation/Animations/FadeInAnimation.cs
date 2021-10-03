@@ -6,15 +6,20 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class TextBoxFadeInAnimation : Animation<CorneredBox>
+    class FadeInAnimation : Animation<VisualScreenItem>
     {
         private float _increment;
-        public TextBoxFadeInAnimation(Trigger trigger, Ticker ticker,float increment) : base(trigger, ticker)
+        public FadeInAnimation(Trigger trigger, Ticker ticker,float increment) : base(trigger, ticker)
         {
             _increment = increment;
         }
 
-        protected override void _do(CorneredBox item)
+        public override void Begin(VisualScreenItem item)
+        {
+            item.Alpha = 0;
+        }
+
+        protected override void _do(VisualScreenItem item)
         {
             var newAlpha = item.Alpha + _increment;
             if(newAlpha>=1)

@@ -2,7 +2,7 @@
 
 namespace IAmACube
 {
-    public class SwitchChipsetButton : SpriteScreenItem
+    class SwitchChipsetButton : SpriteScreenItem
     {
         public int Index;
         public bool ButtonCurrentlyActive;
@@ -14,13 +14,13 @@ namespace IAmACube
         public void Activate()
         {
             ButtonCurrentlyActive = true;
-            ColorMask = Color.LightGray;
+            Color = Color.LightGray;
         }
 
         public void Deactivate()
         {
             ButtonCurrentlyActive = false;
-            ColorMask = Color.White;
+            Color = Color.White;
         }
     }
 }

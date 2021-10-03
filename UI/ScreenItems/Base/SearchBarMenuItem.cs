@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class SearchBarMenuItem : TextBoxMenuItem
+    class SearchBarMenuItem : TextBoxMenuItem
     {
         public SearchBarMenuItem(IHasDrawLayer parentDrawLayer, Func<string> getText, Action<string> setText) : base(parentDrawLayer,getText,setText)
         {

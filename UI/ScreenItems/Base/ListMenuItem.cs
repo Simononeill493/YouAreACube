@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class ListMenuItem<T> : ContainerScreenItem
+    class ListMenuItem<T> : ContainerScreenItem
     {
         public T Selected
         {
@@ -55,7 +55,7 @@ namespace IAmACube
             {
                 var listItem = new ListItemMenuItem<T>(this,item, _itemSelected);
                 listItem.Hoverable = _hoverHighlight;
-                listItem.Size = _listItemSize;
+                listItem.RectangleSizePixels = _listItemSize;
                 listItem.SetLocationConfig(0, yOffset, CoordinateMode.ParentPixel, false);
 
                 Items.Add(listItem);

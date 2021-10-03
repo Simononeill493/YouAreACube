@@ -10,7 +10,7 @@ namespace IAmACube
     {
         public TemplateSaveDialogOption SelectedDialogOption;
 
-        private TextMenuItem _versionText;
+        private TextScreenItem _versionText;
 
         private Action<TemplateSaveDialogOption, string> _saveTemplateCallback;
         private string _saveTextName;

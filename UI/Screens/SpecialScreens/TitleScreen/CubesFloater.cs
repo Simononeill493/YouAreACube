@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 namespace IAmACube
 {
-    public class CubesFloater : ContainerScreenItem
+    class CubesFloater : ContainerScreenItem
     {
         public const string SpriteName = "TitleBox";
         public const string SpriteNameHighlight = "TitleBoxGlowing";
@@ -57,7 +57,7 @@ namespace IAmACube
         }
     }
 
-    public class CubeFloater : SpriteScreenItem
+    class CubeFloater : SpriteScreenItem
     {
         public IntPoint Loc;
         public CubeFloater(IHasDrawLayer parent, IntPoint loc) : base(parent, CubesFloater.SpriteName)

@@ -2,7 +2,7 @@
 
 namespace IAmACube
 {
-    public abstract class ScreenItemScaleProvider
+    abstract class ScreenItemScaleProvider
     {
         public abstract int GetScale(ScreenItem item);
 

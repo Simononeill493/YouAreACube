@@ -39,7 +39,7 @@ namespace IAmACube
                 modeIndexText.MultiplyScale(0.5f);
 
                 var initalCheckBox = new CheckBoxMenuItem(this, () => model.Equals(BlocksetEditPane.Model.Initial), (b) => _tryMakeInitial(model, b));
-                initalCheckBox.Size = new IntPoint(8, 8);
+                initalCheckBox.RectangleSizePixels = new IntPoint(8, 8);
                 initalCheckBox.SetLocationConfig(96, 50, CoordinateMode.ParentPercentage, true);
                 AddChild(initalCheckBox);
             }

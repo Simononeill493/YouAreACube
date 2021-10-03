@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class TextBoxMenuItem : SpriteScreenItem
+    class TextBoxMenuItem : SpriteScreenItem
     {
         public event Action<string> OnTextTyped;
 
@@ -15,11 +15,11 @@ namespace IAmACube
         public virtual bool Editable { get; set; }
         public virtual bool Focused { get; set; }
 
-        protected TextMenuItem _textItem;
+        protected TextScreenItem _textItem;
 
         public TextBoxMenuItem(IHasDrawLayer parentDrawLayer,Func<string> getText) : base(parentDrawLayer, MenuSprites.BasicTextBox)
         {
-            _textItem = new TextMenuItem(this, getText);
+            _textItem = new TextScreenItem(this, getText);
             _textItem.OnTextTyped += (s) => OnTextTyped?.Invoke(s);
             _textItem.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, centered: true);
             AddChild(_textItem);

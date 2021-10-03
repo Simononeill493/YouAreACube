@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class ContainerScreenItem : ScreenItem
+    class ContainerScreenItem : ScreenItem
     {
         public override IntPoint GetBaseSize() => IntPoint.One;
 

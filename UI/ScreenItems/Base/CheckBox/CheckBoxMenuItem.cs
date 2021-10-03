@@ -16,7 +16,7 @@ namespace IAmACube
             _checkedProvider = checkedProvider;
             _onSet = onSet;
 
-            this.Size = new IntPoint(10, 10);
+            this.RectangleSizePixels = new IntPoint(10, 10);
             this.Color = Microsoft.Xna.Framework.Color.White;
             OnMouseReleased += (i) => { _onSet(!checkedProvider()); };
 

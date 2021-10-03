@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class DropdownMenuItem<T> : TextBoxMenuItem
+    class DropdownMenuItem<T> : TextBoxMenuItem
     {
         public event Action<T> OnSelectedChanged;
 

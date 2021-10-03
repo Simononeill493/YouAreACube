@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public abstract partial class ScreenItem : IHasDrawLayer
+    abstract partial class ScreenItem : IHasDrawLayer
     {
         public ScreenItem _parent;
 
@@ -79,10 +79,10 @@ namespace IAmACube
             return spriteItem;
         }
 
-        protected TextMenuItem _addStaticTextItem(string text, int x, int y, CoordinateMode mode, bool centered) => _addTextItem(() => text, x, y, mode, centered);
-        protected TextMenuItem _addTextItem(Func<string> textProvider, int x, int y, CoordinateMode mode, bool centered)
+        protected TextScreenItem _addStaticTextItem(string text, int x, int y, CoordinateMode mode, bool centered) => _addTextItem(() => text, x, y, mode, centered);
+        protected TextScreenItem _addTextItem(Func<string> textProvider, int x, int y, CoordinateMode mode, bool centered)
         {
-            var textItem = new TextMenuItem(this, textProvider);
+            var textItem = new TextScreenItem(this, textProvider);
             textItem.SetLocationConfig(x, y, mode, centered);
             AddChild(textItem);
             return textItem;

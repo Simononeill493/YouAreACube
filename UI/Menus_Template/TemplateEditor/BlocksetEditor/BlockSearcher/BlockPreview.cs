@@ -11,14 +11,14 @@ namespace IAmACube
     class BlockPreview : SpriteScreenItem
     {
         public BlockData Block;
-        private TextMenuItem _text;
+        private TextScreenItem _text;
 
         public BlockPreview(IHasDrawLayer parent, BlockData chip) : base(parent, MenuSprites.PreviewBlock)
         {
             Block = chip;
-            ColorMask = Block.ChipDataType.GetColor();
+            Color = Block.ChipDataType.GetColor();
 
-            _text = new TextMenuItem(this, ()=>chip.Name);
+            _text = new TextScreenItem(this, ()=>chip.Name);
             _text.Color = Color.White;
             _text.MultiplyScale(0.5f);
 

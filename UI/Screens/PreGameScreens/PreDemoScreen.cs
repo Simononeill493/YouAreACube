@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,102 +20,49 @@ namespace IAmACube
             buddy.MultiplyScale(4.0f);
             buddy.AddAnimation(new MoveToPixelOffsetAnimation(Triggers.Timed(120), Tickers.Cyclic(0), new IntPoint(0, -10)));
 
-            var dialogue = new CorneredBox(this, new IntPoint(80, 30));
-            dialogue.SetLocationConfig(-13, -20, CoordinateMode.ParentPixel, true);
+            var dialogue = new DialogueBox(this, new IntPoint(80, 30),60);
+            dialogue.SetLocationConfig(-13, -29, CoordinateMode.ParentPixel, true);
             dialogue.MultiplyScale(0.75f);
-            dialogue.AddAnimation(new TextBoxFadeInAnimation(Triggers.Timed(180), Tickers.Constant,0.01f));
+            dialogue.AddAnimation(new FadeInAnimation(Triggers.Timed(180), Tickers.Constant,0.08f));
+            dialogue.AddAnimation(new MovementAnimation(Triggers.Timed(180), Tickers.Cyclic(1),IntPoint.Down,3));
             buddy.AddChild(dialogue);
 
             var buddyHolder = new ContainerScreenItem(this);
             buddyHolder.SetLocationConfig(65, 100, CoordinateMode.ParentPercentage, false);
             buddyHolder.AddChild(buddy);
-            //buddyHolder.AddChild(dialogue);
             _addMenuItem(buddyHolder);
         }
     }
 
-    public class CorneredBox : RectangleScreenItem
+    class DialogueBox : CorneredBoxMenuItem
     {
-        public const string CornerSprite = "DialogueBoxEdge";
         public const string PointSprite = "DialogueBoxPoint";
 
-        public static Color LineColor = new Color(31, 82, 240);
-        public static Color BackgroundColor = new Color(210, 226, 255);
+        public override float Alpha { get => base.Alpha; set { base.Alpha = value; _point.Alpha = value; } }
+        private SpriteScreenItem _point;
 
-        private IntPoint _cornerSize;
-        public float Alpha
+        private List<TextScreenItem> _textItems;
+        private string _text1 = "";
+        private string _text2 = "";
+
+        public DialogueBox(IHasDrawLayer parent,IntPoint size,int pointOffset) :base(parent,size)
         {
-            get
-            {
-                return _alpha;
-            }
-            set
-            {
-                _alpha = value;
-                _corners.ForEach(c => c.Alpha = value);
-            }
-        }
-        private float _alpha;
+            _point = new SpriteScreenItem(ManualDrawLayer.InFrontOf(this,5), PointSprite);
+            _point.SetLocationConfig(pointOffset, size.Y-1, CoordinateMode.ParentPixel, false);
+            AddChild(_point);
 
-        private List<SpriteScreenItem> _corners = new List<SpriteScreenItem>();
+            _textItems = new List<TextScreenItem>();
+            var text1 = new TextScreenItem(this, () => _text1);
+            var text2 = new TextScreenItem(this, () => _text2);
 
-        public CorneredBox(IHasDrawLayer parent,IntPoint size) : base(parent)
-        {
-            Size = size;
-            _cornerSize = SpriteManager.GetSpriteSize(CornerSprite);
+            AddChild(text1);
+            AddChild(text2);
 
-            var topLeft = new SpriteScreenItem(this, CornerSprite);
-            topLeft.SetLocationConfig(0, 0, CoordinateMode.ParentPixel,centered: false);
-            AddChild(topLeft);
-
-            var topRight = new SpriteScreenItem(this, CornerSprite);
-            topRight.SetLocationConfig(Size.X- _cornerSize.X, 0, CoordinateMode.ParentPixel, centered: false);
-            topRight.FlipHorizontal = true;
-            AddChild(topRight);
-
-            var bottomLeft = new SpriteScreenItem(this, CornerSprite);
-            bottomLeft.SetLocationConfig(0, Size.Y - _cornerSize.Y, CoordinateMode.ParentPixel, centered: false);
-            bottomLeft.FlipVertical = true;
-            AddChild(bottomLeft);
-
-            var bottomRight = new SpriteScreenItem(this, CornerSprite);
-            bottomRight.SetLocationConfig(Size.X - _cornerSize.X, Size.Y - _cornerSize.Y, CoordinateMode.ParentPixel, centered: false);
-            bottomRight.FlipHorizontal = true;
-            bottomRight.FlipVertical = true;
-            AddChild(bottomRight);
-
-            _corners.Add(topLeft);
-            _corners.Add(topRight);
-            _corners.Add(bottomLeft);
-            _corners.Add(bottomRight);
+            _textItems.Add(text1);
+            _textItems.Add(text2);
 
             Alpha = 0;
         }
-
-
-        protected override void _drawSelf(DrawingInterface drawingInterface)
-        {
-            var scale = Scale;
-            var curSize = GetCurrentSize();
-            var cornerSizeCurrent = _cornerSize * scale;
-
-            var innerOffset = scale * 2;
-            drawingInterface.DrawRectangle(ActualLocation.X+(innerOffset), ActualLocation.Y+(innerOffset), ScaledWidth-(innerOffset * 2), ScaledHeight-(innerOffset * 2), DrawLayer, BackgroundColor*Alpha);
-
-            var afterCornerX = ActualLocation.X + cornerSizeCurrent.X;
-            var afterCornerY = ActualLocation.Y + cornerSizeCurrent.Y;
-
-            drawingInterface.DrawRectangle(afterCornerX,                                ActualLocation.Y,                           curSize.X - (cornerSizeCurrent.X*2),        scale, DrawLayer,LineColor * Alpha);
-            drawingInterface.DrawRectangle(afterCornerX,                                ActualLocation.Y + curSize.Y- scale,        curSize.X - (cornerSizeCurrent.X*2),        scale, DrawLayer, LineColor * Alpha);
-            drawingInterface.DrawRectangle(ActualLocation.X,                            afterCornerY,                               scale,                                      curSize.Y - (cornerSizeCurrent.Y*2), DrawLayer, LineColor * Alpha);
-            drawingInterface.DrawRectangle(ActualLocation.X + curSize.X - scale,        afterCornerY,                               scale, curSize.Y - (cornerSizeCurrent.Y*2), DrawLayer, LineColor * Alpha);
-
-            drawingInterface.DrawRectangle(afterCornerX,                                ActualLocation.Y + scale,                   curSize.X - (cornerSizeCurrent.X*2),        scale, DrawLayer, BackgroundColor * Alpha);
-            drawingInterface.DrawRectangle(afterCornerX,                                ActualLocation.Y + curSize.Y - (scale*2),   curSize.X - (cornerSizeCurrent.X*2),        scale, DrawLayer, BackgroundColor * Alpha);
-            drawingInterface.DrawRectangle(ActualLocation.X + scale,                    afterCornerY,                               scale,                                      curSize.Y - (cornerSizeCurrent.Y*2), DrawLayer, BackgroundColor * Alpha);
-            drawingInterface.DrawRectangle(ActualLocation.X + curSize.X - (scale*2),    afterCornerY,                               scale,                                      curSize.Y - (cornerSizeCurrent.Y*2), DrawLayer, BackgroundColor * Alpha);
-        }
-
-
     }
+
 }

@@ -12,7 +12,7 @@ namespace IAmACube
         public bool VariableEnabled;
         public int VariableNumber;
 
-        private TextMenuItem _number;
+        private TextScreenItem _number;
         private TextBoxMenuItem _nameBox;
         private DropdownMenuItem<InGameType> _dataTypeDropdown;
 
@@ -27,7 +27,7 @@ namespace IAmACube
         {
             VariableNumber = num;
 
-            _number = new TextMenuItem(this, ()=>_formattedVariableNumber);
+            _number = new TextScreenItem(this, ()=>_formattedVariableNumber);
             _nameBox = new TextBoxMenuItem(this, () => _variableName, (v) => { _variableName = v; }) { Editable = true };
             _dataTypeDropdown = new DropdownMenuItem<InGameType>(this,()=>_selectedType,(v)=> { _selectedType = v; },()=> InGameTypeUtils.InGameTypes.Values.ToList());
 
@@ -58,8 +58,8 @@ namespace IAmACube
         public void DisableVariable()
         {
             _number.Color = Color.Gray;
-            _nameBox.ColorMask = Color.Gray;
-            _dataTypeDropdown.ColorMask = Color.Gray;
+            _nameBox.Color = Color.Gray;
+            _dataTypeDropdown.Color = Color.Gray;
 
             _nameBox.Enabled = false;
             _dataTypeDropdown.Enabled = false;
@@ -76,8 +76,8 @@ namespace IAmACube
         public void EnableVariable()
         {
             _number.Color = Color.Black;
-            _nameBox.ColorMask = Color.White;
-            _dataTypeDropdown.ColorMask = Color.White;
+            _nameBox.Color = Color.White;
+            _dataTypeDropdown.Color = Color.White;
 
             _nameBox.Enabled = true;
             _dataTypeDropdown.Enabled = true;
