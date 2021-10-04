@@ -22,6 +22,8 @@ TitleBoxGlowing
 CursorBuddy
 CursorBuddySad
 DemoBuddy
+DemoBuddySmile
+RedDemoBuddy
 
 /Eyes
 Eyes1

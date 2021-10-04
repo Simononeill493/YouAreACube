@@ -209,6 +209,7 @@
     <Compile Include="UI\Screens\InGameScreens\DemoGame\DemoGameScreen.cs" />
     <Compile Include="UI\Screens\InGameScreens\GameScreen.cs" />
     <Compile Include="UI\ScreenItems\Base\CorneredBoxMenuItem.cs" />
+    <Compile Include="UI\ScreenItems\Base\TextDialogueBox.cs" />
     <Compile Include="UI\Screens\PreGameScreens\PreDemoScreen.cs" />
     <Compile Include="UI\Screens\ScreenType.cs" />
     <Compile Include="UI\ScreenItems\Base\FullScreenMenuItem.cs" />

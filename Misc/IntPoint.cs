@@ -64,6 +64,7 @@ namespace IAmACube
 
         public int Max => Math.Max(X, Y);
         public int Min => Math.Min(X, Y);
+        public int Product => X * Y;
 
 
         public int DistanceFrom(IntPoint other)

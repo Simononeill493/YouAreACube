@@ -10,7 +10,7 @@ namespace IAmACube
         public static Color LineColor = new Color(31, 82, 240);
         public static Color BackgroundColor = new Color(210, 226, 255);
 
-        private IntPoint _cornerSize;
+        protected IntPoint _cornerSize;
         public override float Alpha
         {
             get

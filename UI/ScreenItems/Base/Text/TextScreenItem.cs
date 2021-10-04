@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class TextScreenItem : ScreenItem
+    class TextScreenItem : VisualScreenItem
     {
         public string GetText()
         {
@@ -22,11 +22,11 @@ namespace IAmACube
         }
         private Func<string> _textProvider;
 
-        public Color Color = Config.DefaultTextColor;
         public event Action<string> OnTextTyped;
 
         public TextScreenItem(IHasDrawLayer parentDrawLayer, Func<string> textProvider) : base(parentDrawLayer)
         {
+            Color = Config.DefaultTextColor;
             _textProvider = textProvider;
         }
 
@@ -67,7 +67,7 @@ namespace IAmACube
 
         protected override void _drawSelf(DrawingInterface drawingInterface)
         {
-            drawingInterface.DrawText(GetText(), ActualLocation.X, ActualLocation.Y, Scale, DrawLayer, Color);
+            drawingInterface.DrawText(GetText(), ActualLocation.X, ActualLocation.Y, Scale, DrawLayer, Color * Alpha,false,FlipHorizontal,FlipVertical);
         }
 
         protected override bool _isMouseOver(UserInput input) => false;
