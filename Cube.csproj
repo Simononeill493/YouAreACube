@@ -241,6 +241,7 @@
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Block\BlockUtils.cs" />
     <Compile Include="Utils\InGameTypeUtils.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\BlocksetEditor\EditPane\Input\Dropdown\BlockDropdownUtils.cs" />
+    <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="WorldGen\AttachmentUtils.cs" />
     <Compile Include="WorldGen\SectorGenerator.cs" />
     <Compile Include="Misc\LocationWithNeighbors.cs" />
