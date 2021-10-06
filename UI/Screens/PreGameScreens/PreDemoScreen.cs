@@ -33,9 +33,7 @@ namespace IAmACube
             buddyHolder.AddChild(buddy);
             _addMenuItem(buddyHolder);
 
-            //dialogue.SetText_KeepWordsIntact("This is a test sentence. And another one, which should be properly split up.");
-            dialogue.SetText_KeepWordsIntact("A young man stands in his bedroom. It just so happens that today, the 13th of April, 2009, is this young man's birthday. Though it was thirteen years ago he was given life, it is only today he will be given a name!  What will the name of this young man be?");
-
+            dialogue.SetScenario(TestScenarioGenerator.GenerateTestScenario());
         }
     }
 

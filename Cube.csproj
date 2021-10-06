@@ -167,6 +167,7 @@
     <Compile Include="UI\ScreenItems\Base\SpriteBoxes\SpriteBoxMatrix.cs" />
     <Compile Include="UI\ScreenItems\Base\Tabs\TabArrayMenuItem.cs" />
     <Compile Include="UI\ScreenItems\Base\Tabs\TabButtonMenuItem.cs" />
+    <Compile Include="UI\ScreenItems\Base\TextDialogueBox\TextDialogueScenario.cs" />
     <Compile Include="UI\ScreenItems\Base\VisualScreenItem.cs" />
     <Compile Include="UI\ScreenItems\_Misc\MenuOrientation.cs" />
     <Compile Include="UI\Menus_Template\TemplateEditor\AppearanceEditor\AppearanceEditSpriteBox.cs" />
@@ -209,7 +210,7 @@
     <Compile Include="UI\Screens\InGameScreens\DemoGame\DemoGameScreen.cs" />
     <Compile Include="UI\Screens\InGameScreens\GameScreen.cs" />
     <Compile Include="UI\ScreenItems\Base\CorneredBoxMenuItem.cs" />
-    <Compile Include="UI\ScreenItems\Base\TextDialogueBox.cs" />
+    <Compile Include="UI\ScreenItems\Base\TextDialogueBox\TextDialogueBox.cs" />
     <Compile Include="UI\Screens\PreGameScreens\PreDemoScreen.cs" />
     <Compile Include="UI\Screens\ScreenType.cs" />
     <Compile Include="UI\ScreenItems\Base\FullScreenMenuItem.cs" />

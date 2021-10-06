@@ -18,5 +18,20 @@ namespace IAmACube
 
             return output;
         }
+
+        public static string SetStringToSize(string toSet,int targetSize)
+        {
+            if (toSet.Length > targetSize)
+            {
+                toSet = toSet.Substring(0, targetSize);
+            }
+            else if (toSet.Length < targetSize)
+            {
+                toSet += new string(' ', targetSize - toSet.Length);
+            }
+
+            return toSet;
+        }
+
     }
 }
