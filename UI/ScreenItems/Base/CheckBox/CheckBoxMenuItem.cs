@@ -17,7 +17,7 @@ namespace IAmACube
             _onSet = onSet;
 
             this.RectangleSizePixels = new IntPoint(10, 10);
-            this.Color = Microsoft.Xna.Framework.Color.White;
+            this.SetConstantColor(Microsoft.Xna.Framework.Color.White);
             OnMouseReleased += (i) => { _onSet(!checkedProvider()); };
 
             _addTextItem(_getCheckedString, 50, 50, CoordinateMode.ParentPercentage, centered: true);

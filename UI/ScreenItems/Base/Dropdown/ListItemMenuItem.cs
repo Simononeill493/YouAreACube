@@ -42,7 +42,7 @@ namespace IAmACube
         {
             _selectedCallback = itemSelected;
 
-            Color = Color.White;
+            SetConstantColor(Color.White);
             BaseTextColor = Color.Black;
 
             HighlightColor = Color.Navy;
@@ -83,15 +83,15 @@ namespace IAmACube
 
         public void Highlight()
         {
-            Color = Color.Navy;
-            _text.Color = Color.White;
+            SetConstantColor(Color.Navy);
+            _text.SetConstantColor(Color.White);
 
         }
 
         public void ResetColors()
         {
-            Color = Color.White;
-            _text.Color = BaseTextColor;
+            SetConstantColor(Color.White);
+            _text.SetConstantColor(BaseTextColor);
 
         }
     }

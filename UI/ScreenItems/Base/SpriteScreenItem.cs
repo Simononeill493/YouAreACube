@@ -30,7 +30,7 @@ namespace IAmACube
         protected override void _drawSelf(DrawingInterface drawingInterface)
         {
             base._drawSelf(drawingInterface);
-            drawingInterface.DrawSprite(_currentSprite, ActualLocation.X, ActualLocation.Y, Scale, DrawLayer, Color * Alpha, flipHorizontal: FlipHorizontal, flipVertical: FlipVertical);
+            drawingInterface.DrawSprite(_currentSprite, ActualLocation.X, ActualLocation.Y, Scale, DrawLayer, CurrentColor * Alpha, flipHorizontal: FlipHorizontal, flipVertical: FlipVertical);
         }
 
         public override IntPoint GetBaseSize() => _spriteSize;

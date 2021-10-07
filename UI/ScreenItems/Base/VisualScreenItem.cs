@@ -9,7 +9,17 @@ namespace IAmACube
 {
     abstract class VisualScreenItem : ScreenItem
     {
-        public Color Color = Color.White;
+        public Color CurrentColor => (MouseHovering) ? HighlightColor : DefaultColor;
+        public Color DefaultColor = GlobalDefaultColor;
+        public Color HighlightColor = GlobalDefaultColor;
+        public void SetConstantColor(Color color)
+        { 
+            DefaultColor = color;
+            HighlightColor = color;
+        }
+
+        public static Color GlobalDefaultColor = Color.White;
+
 
         public virtual float Alpha { get; set; } = 1.0f;
 
@@ -17,6 +27,8 @@ namespace IAmACube
         public bool FlipVertical;
 
         public VisualScreenItem(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer) { }
+
+
 
     }
 }

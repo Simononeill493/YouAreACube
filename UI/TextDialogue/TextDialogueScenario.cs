@@ -30,6 +30,11 @@ namespace IAmACube
             }
         }
 
+        public void SetUserInput()
+        {
+
+        }
+
         public void AddPage(TextDialoguePage page) => _pages[page.Id] = page;
         public void AddInitialPage(TextDialoguePage page)
         {

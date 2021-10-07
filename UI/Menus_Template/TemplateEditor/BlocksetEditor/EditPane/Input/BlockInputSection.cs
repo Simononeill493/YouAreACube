@@ -13,7 +13,7 @@ namespace IAmACube
         {
             var textItem = _addStaticTextItem(name, 4, 40, CoordinateMode.ParentPercentage, false);
             textItem.MultiplyScale(0.5f);
-            textItem.Color = Color.White;
+            textItem.SetConstantColor(Color.White);
         }
     }
 }

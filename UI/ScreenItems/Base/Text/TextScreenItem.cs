@@ -26,7 +26,9 @@ namespace IAmACube
 
         public TextScreenItem(IHasDrawLayer parentDrawLayer, Func<string> textProvider) : base(parentDrawLayer)
         {
-            Color = Config.DefaultTextColor;
+            DefaultColor = Config.DefaultTextColor;
+            HighlightColor = Config.DefaultTextColor;
+
             _textProvider = textProvider;
         }
 
@@ -67,7 +69,7 @@ namespace IAmACube
 
         protected override void _drawSelf(DrawingInterface drawingInterface)
         {
-            drawingInterface.DrawText(GetText(), ActualLocation.X, ActualLocation.Y, Scale, DrawLayer, Color * Alpha,false,FlipHorizontal,FlipVertical);
+            drawingInterface.DrawText(GetText(), ActualLocation.X, ActualLocation.Y, Scale, DrawLayer, CurrentColor * Alpha,false,FlipHorizontal,FlipVertical);
         }
 
         protected override bool _isMouseOver(UserInput input) => false;

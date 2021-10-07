@@ -12,6 +12,8 @@ namespace IAmACube
         public PreDemoScreen(Action<ScreenType> switchScreen) : base(ScreenType.PreDemo, switchScreen)
         {
             Background = MenuSprites.MainMenuBox;
+
+
             //_manualResizeEnabled = false;
 
             var buddy = new SpriteScreenItem(this, DemoBuddy);

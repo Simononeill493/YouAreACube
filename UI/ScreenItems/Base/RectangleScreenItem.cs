@@ -18,7 +18,7 @@ namespace IAmACube
 
         protected override void _drawSelf(DrawingInterface drawingInterface)
         {
-            drawingInterface.DrawRectangle(ActualLocation.X, ActualLocation.Y, ScaledWidth, ScaledHeight, DrawLayer, Color * Alpha);
+            drawingInterface.DrawRectangle(ActualLocation.X, ActualLocation.Y, ScaledWidth, ScaledHeight, DrawLayer, CurrentColor * Alpha);
         }
         public override IntPoint GetBaseSize() => RectangleSizePixels;
     }

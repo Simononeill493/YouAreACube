@@ -14,13 +14,13 @@ namespace IAmACube
         public void Activate()
         {
             ButtonCurrentlyActive = true;
-            Color = Color.LightGray;
+            SetConstantColor(Color.LightGray);
         }
 
         public void Deactivate()
         {
             ButtonCurrentlyActive = false;
-            Color = Color.White;
+            SetConstantColor(Color.White);
         }
     }
 }

@@ -16,10 +16,10 @@ namespace IAmACube
         public BlockPreview(IHasDrawLayer parent, BlockData chip) : base(parent, MenuSprites.PreviewBlock)
         {
             Block = chip;
-            Color = Block.ChipDataType.GetColor();
+            SetConstantColor(Block.ChipDataType.GetColor());
 
             _text = new TextScreenItem(this, ()=>chip.Name);
-            _text.Color = Color.White;
+            _text.SetConstantColor(Color.White);
             _text.MultiplyScale(0.5f);
 
             _text.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, true);

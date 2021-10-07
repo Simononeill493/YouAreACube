@@ -70,7 +70,7 @@ namespace IAmACube
             AddChild(_cursorBuddy);
 
             _underConstructionBox = new RectangleScreenItem(this);
-            _underConstructionBox.Color = new Color(37,35,35);
+            _underConstructionBox.SetConstantColor(new Color(37,35,35));
             _underConstructionBox.RectangleSizePixels = new IntPoint(138, 9);
             _underConstructionBox.SetLocationConfig(3, 84, CoordinateMode.ParentPixel, false);
             AddChild(_underConstructionBox);
@@ -78,7 +78,7 @@ namespace IAmACube
             var text = new TextScreenItem(ManualDrawLayer.InFrontOf(_underConstructionBox), () => "Under construction!");
             text.MultiplyScale(0.75f);
             text.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, true);
-            text.Color = new Color(152, 123, 94);
+            text.SetConstantColor(new Color(152, 123, 94));
             _underConstructionBox.AddChild(text);
         }
 

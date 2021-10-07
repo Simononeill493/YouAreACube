@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,8 +15,14 @@ namespace IAmACube
         public IntPoint TextBufferSize;
         private TextDialogueScenario _scenario;
 
+        public TextDialogueBoxUserInput _inputOverlay;
+
         public TextDialogueBox(IHasDrawLayer parent,IntPoint size,int pointOffset,float textScale = 0.5f) :base(parent,size)
         {
+            _inputOverlay = new TextDialogueBoxUserInput(this);
+            _inputOverlay.SetLocationConfig(IntPoint.Zero, CoordinateMode.ParentPixel, false);
+            AddChild(_inputOverlay);
+
             _point = new SpriteScreenItem(ManualDrawLayer.InFrontOf(this,5), MenuSprites.DialoguePoint);
             _point.SetLocationConfig(pointOffset, size.Y-1, CoordinateMode.ParentPixel, false);
             AddChild(_point);
@@ -68,5 +75,31 @@ namespace IAmACube
         }
 
         private string _getTextValue(int index) => _scenario.TextValuesCurrent[index];
+    }
+
+    class TextDialogueBoxUserInput : ContainerScreenItem
+    {
+        public TextDialogueBoxUserInput(TextDialogueBox parent) : base(parent)
+        {
+            _parent = parent;
+
+            var yes = new SpriteScreenItem(ManualDrawLayer.InFrontOf(this, 5), MenuSprites.DialogueYes);
+            yes.SetLocationConfig(30, 70, CoordinateMode.ParentPercentage, centered: true);
+            yes.DefaultColor = Color.White * 0.65f;
+            yes.HighlightColor = new Color(204,248,255,255);
+
+            AddChild(yes);
+
+            var no = new SpriteScreenItem(ManualDrawLayer.InFrontOf(this, 5), MenuSprites.DialogueNo);
+            no.SetLocationConfig(70, 70, CoordinateMode.ParentPercentage, centered: true);
+            no.DefaultColor = Color.White * 0.65f;
+            no.HighlightColor = new Color(204, 248, 255, 255);
+            AddChild(no);
+
+            yes.MultiplyScale(0.75f);
+            no.MultiplyScale(0.75f);
+        }
+
+        public override IntPoint GetBaseSize() => _parent.GetBaseSize();
     }
 }

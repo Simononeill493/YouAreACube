@@ -57,9 +57,9 @@ namespace IAmACube
 
         public void DisableVariable()
         {
-            _number.Color = Color.Gray;
-            _nameBox.Color = Color.Gray;
-            _dataTypeDropdown.Color = Color.Gray;
+            _number.SetConstantColor(Color.Gray);
+            _nameBox.SetConstantColor(Color.Gray);
+            _dataTypeDropdown.SetConstantColor(Color.Gray);
 
             _nameBox.Enabled = false;
             _dataTypeDropdown.Enabled = false;
@@ -75,9 +75,9 @@ namespace IAmACube
 
         public void EnableVariable()
         {
-            _number.Color = Color.Black;
-            _nameBox.Color = Color.White;
-            _dataTypeDropdown.Color = Color.White;
+            _number.SetConstantColor(Color.Black);
+            _nameBox.SetConstantColor(Color.White);
+            _dataTypeDropdown.SetConstantColor(Color.White);
 
             _nameBox.Enabled = true;
             _dataTypeDropdown.Enabled = true;
