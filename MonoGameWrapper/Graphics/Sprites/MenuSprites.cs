@@ -68,6 +68,8 @@ namespace IAmACube
 
         public static string DialogueEdge = "DialogueBoxEdge";
         public static string DialoguePoint = "DialogueBoxPoint";
+        public static string DialogueYes = "DialogueYes";
+        public static string DialogueNo = "DialogueNo";
 
 
     }

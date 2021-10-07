@@ -5,8 +5,6 @@ namespace IAmACube
 {
     class CorneredBoxMenuItem : RectangleScreenItem
     {
-        public const string CornerSprite = "DialogueBoxEdge";
-
         public static Color LineColor = new Color(31, 82, 240);
         public static Color BackgroundColor = new Color(210, 226, 255);
 
@@ -30,23 +28,23 @@ namespace IAmACube
         public CorneredBoxMenuItem(IHasDrawLayer parent,IntPoint size) : base(parent)
         {
             RectangleSizePixels = size;
-            _cornerSize = SpriteManager.GetSpriteSize(CornerSprite);
+            _cornerSize = SpriteManager.GetSpriteSize(MenuSprites.DialogueEdge);
 
-            var topLeft = new SpriteScreenItem(this, CornerSprite);
+            var topLeft = new SpriteScreenItem(this, MenuSprites.DialogueEdge);
             topLeft.SetLocationConfig(0, 0, CoordinateMode.ParentPixel,centered: false);
             AddChild(topLeft);
 
-            var topRight = new SpriteScreenItem(this, CornerSprite);
+            var topRight = new SpriteScreenItem(this, MenuSprites.DialogueEdge);
             topRight.SetLocationConfig(RectangleSizePixels.X- _cornerSize.X, 0, CoordinateMode.ParentPixel, centered: false);
             topRight.FlipHorizontal = true;
             AddChild(topRight);
 
-            var bottomLeft = new SpriteScreenItem(this, CornerSprite);
+            var bottomLeft = new SpriteScreenItem(this, MenuSprites.DialogueEdge);
             bottomLeft.SetLocationConfig(0, RectangleSizePixels.Y - _cornerSize.Y, CoordinateMode.ParentPixel, centered: false);
             bottomLeft.FlipVertical = true;
             AddChild(bottomLeft);
 
-            var bottomRight = new SpriteScreenItem(this, CornerSprite);
+            var bottomRight = new SpriteScreenItem(this, MenuSprites.DialogueEdge);
             bottomRight.SetLocationConfig(RectangleSizePixels.X - _cornerSize.X, RectangleSizePixels.Y - _cornerSize.Y, CoordinateMode.ParentPixel, centered: false);
             bottomRight.FlipHorizontal = true;
             bottomRight.FlipVertical = true;

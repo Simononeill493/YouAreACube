@@ -8,7 +8,6 @@ namespace IAmACube
     {
         public override float Alpha { get => base.Alpha; set { base.Alpha = value; _point.Alpha = value; _textItems.ForEach(i => i.Alpha = value); } }
 
-        public const string PointSprite = "DialogueBoxPoint";
         private SpriteScreenItem _point;
         private List<TextScreenItem> _textItems;
 
@@ -17,7 +16,7 @@ namespace IAmACube
 
         public TextDialogueBox(IHasDrawLayer parent,IntPoint size,int pointOffset,float textScale = 0.5f) :base(parent,size)
         {
-            _point = new SpriteScreenItem(ManualDrawLayer.InFrontOf(this,5), PointSprite);
+            _point = new SpriteScreenItem(ManualDrawLayer.InFrontOf(this,5), MenuSprites.DialoguePoint);
             _point.SetLocationConfig(pointOffset, size.Y-1, CoordinateMode.ParentPixel, false);
             AddChild(_point);
 

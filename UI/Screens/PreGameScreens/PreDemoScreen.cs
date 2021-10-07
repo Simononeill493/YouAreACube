@@ -19,7 +19,7 @@ namespace IAmACube
             buddy.MultiplyScale(4.0f);
             buddy.AddAnimation(new MoveToPixelOffsetAnimation(Triggers.Timed(120), Tickers.Cyclic(0), new IntPoint(0, -10)));
 
-            var dialogue = new TextDialogueBox(this, new IntPoint(140, 50), 63);
+            var dialogue = new TextDialogueBox(this, new IntPoint(105, 30), 72);
 
             dialogue.SetLocationConfig(-13, -29, CoordinateMode.ParentPixel, true);
             dialogue.MultiplyScale(0.75f);
@@ -29,7 +29,7 @@ namespace IAmACube
             buddy.AddChild(dialogue);
 
             var buddyHolder = new ContainerScreenItem(this);
-            buddyHolder.SetLocationConfig(65, 100, CoordinateMode.ParentPercentage, false);
+            buddyHolder.SetLocationConfig(63, 100, CoordinateMode.ParentPercentage, false);
             buddyHolder.AddChild(buddy);
             _addMenuItem(buddyHolder);
 

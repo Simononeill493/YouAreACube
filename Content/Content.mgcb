@@ -218,6 +218,30 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Sprites/Static/Menu/DialogueBoxPoint.png;Sprites/Static/Menu/DialogueBoxPoint.png
 
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/DialogueNo.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/DialogueNo.png;Sprites/Static/Menu/DialogueNo.png
+
+#begin ../Simon_Data/To_Import/Sprites/Static/Menu/DialogueYes.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Static/Menu/DialogueYes.png;Sprites/Static/Menu/DialogueYes.png
+
 #begin ../Simon_Data/To_Import/Sprites/Static/Menu/Dropdown.png
 /importer:TextureImporter
 /processor:TextureProcessor
