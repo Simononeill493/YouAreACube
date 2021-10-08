@@ -71,7 +71,8 @@ namespace IAmACube
         public override void Update(UserInput input)
         {
             base.Update(input);
-            _scenario?.Update(input);
+            _scenario?.Update(input, _inputOverlay);
+            _inputOverlay.SelectedOption = "";
         }
 
         private string _getTextValue(int index) => _scenario.TextValuesCurrent[index];
@@ -79,25 +80,33 @@ namespace IAmACube
 
     class TextDialogueBoxUserInput : ContainerScreenItem
     {
+        public string SelectedOption { get; set; }
+
+        public SpriteScreenItem Yes;
+        public SpriteScreenItem No;
+
         public TextDialogueBoxUserInput(TextDialogueBox parent) : base(parent)
         {
             _parent = parent;
 
-            var yes = new SpriteScreenItem(ManualDrawLayer.InFrontOf(this, 5), MenuSprites.DialogueYes);
-            yes.SetLocationConfig(30, 70, CoordinateMode.ParentPercentage, centered: true);
-            yes.DefaultColor = Color.White * 0.65f;
-            yes.HighlightColor = new Color(204,248,255,255);
+            Yes = new SpriteScreenItem(ManualDrawLayer.InFrontOf(this, 5), MenuSprites.DialogueYes);
+            Yes.SetLocationConfig(30, 70, CoordinateMode.ParentPercentage, centered: true);
+            Yes.DefaultColor = Color.White * 0.65f;
+            Yes.HighlightColor = new Color(204,248,255,255);
+            Yes.OnMouseReleased += (i) => SelectedOption = "Yes";
+            AddChild(Yes);
 
-            AddChild(yes);
+            No = new SpriteScreenItem(ManualDrawLayer.InFrontOf(this, 5), MenuSprites.DialogueNo);
+            No.SetLocationConfig(70, 70, CoordinateMode.ParentPercentage, centered: true);
+            No.DefaultColor = Color.White * 0.65f;
+            No.HighlightColor = new Color(204, 248, 255, 255);
+            No.OnMouseReleased += (i) => SelectedOption = "No";
+            AddChild(No);
 
-            var no = new SpriteScreenItem(ManualDrawLayer.InFrontOf(this, 5), MenuSprites.DialogueNo);
-            no.SetLocationConfig(70, 70, CoordinateMode.ParentPercentage, centered: true);
-            no.DefaultColor = Color.White * 0.65f;
-            no.HighlightColor = new Color(204, 248, 255, 255);
-            AddChild(no);
+            Yes.MultiplyScale(0.75f);
+            No.MultiplyScale(0.75f);
 
-            yes.MultiplyScale(0.75f);
-            no.MultiplyScale(0.75f);
+            SelectedOption = "";
         }
 
         public override IntPoint GetBaseSize() => _parent.GetBaseSize();

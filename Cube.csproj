@@ -167,8 +167,11 @@
     <Compile Include="UI\ScreenItems\Base\SpriteBoxes\SpriteBoxMatrix.cs" />
     <Compile Include="UI\ScreenItems\Base\Tabs\TabArrayMenuItem.cs" />
     <Compile Include="UI\ScreenItems\Base\Tabs\TabButtonMenuItem.cs" />
+    <Compile Include="UI\TextDialogue\DialogueTrigger.cs" />
     <Compile Include="UI\TextDialogue\TestScenarioGenerator.cs" />
     <Compile Include="UI\TextDialogue\TextDialogueGenerator.cs" />
+    <Compile Include="UI\TextDialogue\TextDialogueInput.cs" />
+    <Compile Include="UI\TextDialogue\TextDialoguePage.cs" />
     <Compile Include="UI\TextDialogue\TextDialogueScenario.cs" />
     <Compile Include="UI\ScreenItems\Base\VisualScreenItem.cs" />
     <Compile Include="UI\ScreenItems\_Misc\MenuOrientation.cs" />
@@ -221,6 +224,7 @@
     <Compile Include="UI\Screens\SpecialScreens\TitleScreen\TitleScreenAnimationFloaterScroll.cs" />
     <Compile Include="UI\Screens\SpecialScreens\TitleScreen\TitleScreenAnimationMenuItem.cs" />
     <Compile Include="UI\Screens\SpecialScreens\TitleScreen\TitleScreenCubeNameMenuItem.cs" />
+    <Compile Include="UI\TextDialogue\TextDialogueSentence.cs" />
     <Compile Include="UserInput\UserInput_Keyboard.cs" />
     <Compile Include="UserInput\UserInput_Mouse.cs" />
     <Compile Include="Parsers\TemplateParser.cs" />
