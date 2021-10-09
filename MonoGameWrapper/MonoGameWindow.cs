@@ -40,6 +40,11 @@ namespace IAmACube
 
         protected override void Update(GameTime gameTime)
         {
+            if(_close)
+            {
+                this.Close();
+            }
+
             var input = new UserInput(Mouse.GetState(), _previousInput.MouseState, Keyboard.GetState(), _previousInput.KeyboardState);
 
             /*bool isFullScreenToggled = input.IsKeyJustPressed(Keys.F11);
@@ -88,7 +93,7 @@ namespace IAmACube
         {
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            Exiting += WhenGameClosed;
+            //Exiting += (s,e) => ForceCloseGame();
             Window.AllowUserResizing = true;
 
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
@@ -105,10 +110,22 @@ namespace IAmACube
             _graphicsDeviceManager.PreferredBackBufferHeight = Config.ScreenDefaultHeight;
             _graphicsDeviceManager.ApplyChanges();
         }
-        private void WhenGameClosed(object sender, EventArgs e)
+        /*public static void ForceCloseGame()
         //Implemented to deal with a bug where window freezes when close button is clicked
         {
             Process.GetCurrentProcess().Kill();
+        }*/
+
+        public static void CloseGame()
+        {
+            _close = true;
         }
+        public void Close()
+        {
+            this.Exit();
+        }
+
+        static bool _close;
+
     }
 }

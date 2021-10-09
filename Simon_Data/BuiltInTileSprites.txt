@@ -23,6 +23,7 @@ CursorBuddy
 CursorBuddySad
 DemoBuddy
 DemoBuddySmile
+DemoBuddyQuestionEyes
 RedDemoBuddy
 
 /Eyes

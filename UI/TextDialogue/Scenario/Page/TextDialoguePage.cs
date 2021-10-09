@@ -5,13 +5,16 @@ namespace IAmACube
     abstract class TextDialoguePage
     {
         public string Id;
+        public List<string> Tags;
         public TextDialogueInput InputConfig;
         public List<DialogueTrigger> _triggers;
 
         public TextDialoguePage(string id)
         {
             Id = id;
+            Tags = new List<string>();
             InputConfig = new TextDialogueInputDefault();
+
             _triggers = new List<DialogueTrigger>();
         }
 
@@ -32,6 +35,8 @@ namespace IAmACube
 
             return null;
         }
+
+        public virtual void OpenPage() { }
 
         public void SetInputOverlay(TextDialogueBoxUserInput inputOverlay) => InputConfig.SetInputOverlay(inputOverlay);
         public abstract string[] GetLines(IntPoint bufferSize);

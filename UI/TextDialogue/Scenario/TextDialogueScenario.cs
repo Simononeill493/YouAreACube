@@ -12,6 +12,7 @@ namespace IAmACube
         private TextDialoguePage _initial;
 
         public string[] TextValuesCurrent;
+        public List<string> CurrentTags => _current.Tags;
 
         private TextDialogueBox _parent;
         private IntPoint _currentTextBufferSize => _parent.TextBufferSize;
@@ -55,6 +56,7 @@ namespace IAmACube
         private void _goToPage(string pageId)
         {
             _current = _pages[pageId];
+            _current.OpenPage();
             TextValuesCurrent = _current.GetLines(_currentTextBufferSize);
         }
     }
