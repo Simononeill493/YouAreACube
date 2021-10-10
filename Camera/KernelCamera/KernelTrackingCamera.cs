@@ -16,7 +16,7 @@ namespace IAmACube
 
         private ScrollBoundary _scrollBoundary;
 
-        public KernelTrackingCamera(Kernel kernel) : base(kernel)
+        public KernelTrackingCamera(Kernel kernel, World world = null) : base(kernel,world)
         {
             _config.Scale = 4;
             _config.UpdateScaling();

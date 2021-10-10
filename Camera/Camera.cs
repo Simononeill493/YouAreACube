@@ -11,35 +11,46 @@ namespace IAmACube
     public abstract class Camera
     {
         protected Kernel _kernel;
-        protected CameraConfiguration _config;
+        protected World _currentWorld;
         protected DrawingInterface _drawingInterface;
+        protected CameraConfiguration _config;
 
-        public Camera(Kernel kernel)
+        public Camera(Kernel kernel,World world = null)
         {
             _kernel = kernel;
             _config = new CameraConfiguration();
+
+            if(world!=null)
+            {
+                SetWorld(world);
+            }
+        }
+
+        public void SetWorld(World world)
+        {
+            _currentWorld = world;
         }
 
         public void Update(UserInput input)
         {
-            _config.HandleUserInput(input);
-            _config.UpdateScaling();
-
+            _config.Update(input, _currentWorld);
             _update(input);
+
             _config.RollOverGridOffsets();
         }
         protected abstract void _update(UserInput input);
 
 
-        public virtual void Draw(DrawingInterface drawingInterface, World world)
+        public virtual void Draw(DrawingInterface drawingInterface)
         {
             _drawingInterface = drawingInterface;
-            _drawTiles(world);
+
+            _drawTiles(_currentWorld);
             _drawMouseHoverPos();
 
             if (CameraConfiguration.DebugMode)
             {
-                _drawSectorBoundaries(world);
+                _drawSectorBoundaries(_currentWorld);
             }
         }
 
@@ -75,7 +86,6 @@ namespace IAmACube
         }
         protected void _drawSectorBoundaries(World world) => world.Focus.Neighbours.ForEach(s => _drawingInterface.DrawSectorGridOverlay(s.AbsoluteLocation,world.SectorSize, 3, _config));
 
-        public void AssignMouseHover(UserInput input, World world) => _config.AssignMouseHover(input, world);
         public void GetMouseHover(UserInput input) => _config.GetMouseHover(input);
     }
 }

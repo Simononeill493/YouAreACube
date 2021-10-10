@@ -79,7 +79,7 @@ namespace IAmACube
         public static int GenerateScaleFromMultiplier(float multiplier) => (int)(Screen.UniversalScale * multiplier);
 
         public IntPoint GetLocationOffset(IntPoint mousePos)=> mousePos - ActualLocation;
-        public IntPoint GetCurrentSize() => GetBaseSize() * Scale;
+        public virtual IntPoint GetCurrentSize() => GetBaseSize() * Scale;
         public abstract IntPoint GetBaseSize();
 
 

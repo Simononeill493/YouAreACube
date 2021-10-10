@@ -17,6 +17,13 @@ namespace IAmACube
         public IntPoint VisibleGrid = IntPoint.Zero;
         public IntPoint MouseHoverPosition = IntPoint.Zero;
 
+        public void Update(UserInput input, World world)
+        {
+            _assignMouseHover(input, world);
+            _handleUserInput(input);
+            UpdateScaling();
+        }
+
         public void UpdateScaling()
         {
             if (Scale < 1) { Console.WriteLine("Warning: Camera scale is set to less than 1 (" + Scale + ")."); }
@@ -83,7 +90,7 @@ namespace IAmACube
             return mouseDivided.Floor;
         }
 
-        public void HandleUserInput(UserInput input)
+        private void _handleUserInput(UserInput input)
         {
             PartialGridOffset += KeyUtils.GetRightKeypadDirection(input) * 15;
             ChangeScale(input.ScrollDirection);
@@ -93,7 +100,7 @@ namespace IAmACube
                 DebugMode = !DebugMode;
             }
         }
-        public void AssignMouseHover(UserInput input, World world)
+        private void _assignMouseHover(UserInput input, World world)
         {
             var mousePos = GetMouseHover(input);
             if (world.HasTile(mousePos))

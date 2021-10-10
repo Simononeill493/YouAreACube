@@ -16,6 +16,10 @@ namespace IAmACube
             _sectorGenerator = new SectorGenerator();
 
             AddKeyJustPressedEvent(Keys.Escape, (i) => _saveAndQuit());
+
+            var buddy = new SpriteScreenItem(ManualDrawLayer.Create(DrawLayers.HUDLayer), "CursorBuddy");
+            buddy.SetLocationConfig(10, 10, CoordinateMode.ParentPixel, false);
+            _addMenuItem(buddy);
         }
 
         public override void _update(UserInput input)

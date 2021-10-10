@@ -12,24 +12,31 @@ namespace IAmACube
         public Game Game;
         private bool _paused;
 
-        protected Camera _currentCamera;
+        protected CameraHolder _currentCamera;
         protected FixedCamera _adminCamera;
         protected KernelTrackingCamera _playerCamera;
 
         public GameScreen(ScreenType screenType,Action<ScreenType> switchScreen, Kernel kernel, World world) : base(screenType, switchScreen)
         {
+            _scrollButtonScaleEnabled = false;
+
             Game = _generateGame(kernel, world);
 
-            _adminCamera = new FixedCamera(kernel);
-            _playerCamera = new KernelTrackingCamera(kernel);
-            _currentCamera = _playerCamera;
+            _adminCamera = new FixedCamera(kernel,world);
+            _playerCamera = new KernelTrackingCamera(kernel,world);
+
+            _currentCamera = new CameraHolder(this, () => _currentScreenDimensions);
+            _currentCamera.SetLocationConfig(0,0, CoordinateMode.ParentAbsolute, false);
+            _addMenuItem(_currentCamera);
+
+            _currentCamera.Camera = _playerCamera;
 
 #if DEBUG
             //_currentCamera = _adminCamera;
             CameraConfiguration.DebugMode = true;
 #endif
-            AddKeyJustPressedEvent(Keys.M, (i) => _currentCamera = _adminCamera);
-            AddKeyJustPressedEvent(Keys.N, (i) => _currentCamera = _playerCamera);
+            AddKeyJustPressedEvent(Keys.M, (i) => _currentCamera.Camera = _adminCamera);
+            AddKeyJustPressedEvent(Keys.N, (i) => _currentCamera.Camera = _playerCamera);
             AddKeyJustPressedEvent(Keys.Tab, (i) => SwitchScreen(ScreenType.TemplateExplorer));
             AddKeyJustPressedEvent(Keys.Space, (i) => _paused = !_paused);
             AddKeyJustPressedEvent(Keys.OemPeriod, _moveOneFrame);
@@ -42,26 +49,18 @@ namespace IAmACube
         public override void _update(UserInput input)
         {
             base._update(input);
-            _currentCamera.AssignMouseHover(input, Game.World);
-
             if (!_paused)
             {
                 Game.Update(input);
             }
-            _currentCamera.Update(input);
         }
 
-        public override void Draw(DrawingInterface drawingInterface)
-        {
-            base.Draw(drawingInterface);
-            _currentCamera.Draw(drawingInterface, Game.World);
-        }
 
         protected void _moveOneFrame(UserInput input)
         {
             if(_paused)
             {
-                _currentCamera.AssignMouseHover(input, Game.World);
+                _currentCamera.Update(input);
                 Game.Update(input);
             }
         }

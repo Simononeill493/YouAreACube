@@ -29,7 +29,7 @@ namespace IAmACube
         public string Background;
         protected event Action<IntPoint> OnScreenSizeChanged;
         public IntPoint _currentScreenDimensions;
-        protected bool _manualResizeEnabled = true;
+        protected bool _scrollButtonScaleEnabled = true;
 
         public List<(Keys, Action<UserInput>)> _keysJustReleasedEvents;
         public List<(Keys, Action<UserInput>)> _keysJustPressedEvents;
@@ -70,7 +70,16 @@ namespace IAmACube
                 item.UpdateLocationCascade(IntPoint.Zero, _currentScreenDimensions);
             }
 
-            if (_manualResizeEnabled)
+            _scrollButtonScale(input);
+
+            _update(input);
+            _checkScreenSizeChanged();
+        }
+        public virtual void _update(UserInput input) { }
+
+        protected void _scrollButtonScale(UserInput input)
+        {
+            if (_scrollButtonScaleEnabled)
             {
                 if (input.ScrollDirection == 1)
                 {
@@ -86,11 +95,7 @@ namespace IAmACube
                     }
                 }
             }
-
-            _update(input);
-            _checkScreenSizeChanged();
         }
-        public virtual void _update(UserInput input) { }
 
         public virtual void Draw(DrawingInterface drawingInterface)
         {

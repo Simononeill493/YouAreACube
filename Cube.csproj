@@ -167,6 +167,7 @@
     <Compile Include="UI\ScreenItems\Base\SpriteBoxes\SpriteBoxMatrix.cs" />
     <Compile Include="UI\ScreenItems\Base\Tabs\TabArrayMenuItem.cs" />
     <Compile Include="UI\ScreenItems\Base\Tabs\TabButtonMenuItem.cs" />
+    <Compile Include="UI\Screens\InGameScreens\CameraHolder.cs" />
     <Compile Include="UI\TextDialogue\Scenario\Page\PageTrigger\DialogueTrigger.cs" />
     <Compile Include="UI\TextDialogue\Scenario\Page\TextDialoguePageCustomAction.cs" />
     <Compile Include="UI\TextDialogue\TestScenarioGenerator.cs" />

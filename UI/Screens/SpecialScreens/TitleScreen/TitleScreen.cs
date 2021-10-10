@@ -11,7 +11,7 @@ namespace IAmACube
     {
         public TitleScreen(Action<ScreenType> switchScreen) : base(ScreenType.Title, switchScreen)
         {
-            _manualResizeEnabled = false;
+            _scrollButtonScaleEnabled = false;
 
             var title = new TitleScreenAnimationMenuItem(this);
             title.SetLocationConfig(0, 0, CoordinateMode.Absolute, centered: false);
@@ -20,15 +20,19 @@ namespace IAmACube
             OnScreenSizeChanged += (s) => title.SetScatteredFloaters();
             title.SetScatteredFloaters();
 
-            AddKeyJustReleasedEvent(Keys.Enter,(i)=>SwitchScreen(ScreenType.MainMenu));
-
-            
+            AddKeyJustReleasedEvent(Keys.Enter,(i)=>GoToMainMenu());
         }
 
-        private void _makeMainMenu()
+        public override void _update(UserInput input)
         {
-
+            base._update(input);
+            if(input.MouseLeftJustReleased)
+            {
+                GoToMainMenu();
+            }
         }
+
+        public void GoToMainMenu() => SwitchScreen(ScreenType.MainMenu);
 
         protected override int _getReccomendedScale() => Math.Max(base._getReccomendedScale() * 3, 4);
     }

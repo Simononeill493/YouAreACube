@@ -8,7 +8,7 @@ namespace IAmACube
 {
     class FixedCamera : Camera
     {
-        public FixedCamera(Kernel kernel) : base(kernel) { }
+        public FixedCamera(Kernel kernel,World world = null) : base(kernel,world) { }
 
         protected override void _update(UserInput input) { }
 
