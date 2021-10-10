@@ -12,9 +12,7 @@ namespace IAmACube
 
         public PreDemoScreen(Action<ScreenType> switchScreen) : base(ScreenType.PreDemo, switchScreen)
         {
-            Background = MenuSprites.MainMenuBox;
-
-
+            //Background = MenuSprites.MainMenuBox;
             //_manualResizeEnabled = false;
 
             var buddy = new SpriteScreenItem(this, DemoBuddyDefault);
@@ -38,7 +36,7 @@ namespace IAmACube
             buddyHolder.AddChild(buddy);
             _addMenuItem(buddyHolder);
 
-            dialogue.SetScenario(TestScenarioGenerator.GenerateDemoScenario());
+            dialogue.SetScenario(TestScenarioGenerator.GeneratePreDemoScenario(()=>SwitchScreen(ScreenType.DemoGame)));
         }
 
         public Dictionary<string, string> GetBuddyFaces()

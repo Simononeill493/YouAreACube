@@ -110,11 +110,6 @@ namespace IAmACube
             _graphicsDeviceManager.PreferredBackBufferHeight = Config.ScreenDefaultHeight;
             _graphicsDeviceManager.ApplyChanges();
         }
-        /*public static void ForceCloseGame()
-        //Implemented to deal with a bug where window freezes when close button is clicked
-        {
-            Process.GetCurrentProcess().Kill();
-        }*/
 
         public static void CloseGame()
         {

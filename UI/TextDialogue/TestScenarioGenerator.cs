@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -6,7 +7,7 @@ namespace IAmACube
 {
     static class TestScenarioGenerator
     {
-        public static TextDialogueScenario GenerateDemoScenario()
+        public static TextDialogueScenario GeneratePreDemoScenario(Action startDemo)
         {
             var scenario = new TextDialogueScenario();
             var sentence1 = new TextDialoguePageSentence("initial", "Want to play the demo?");
@@ -15,8 +16,10 @@ namespace IAmACube
             var sentence4 = new TextDialoguePageSentence("um", "um,");
             var sentence5 = new TextDialoguePageSentence("bye!", "bye!") { Tags = TagGen.Make("Happy") };
             var closePc = new TextDialoguePageCustomAction("close", ()=> { MonoGameWindow.CloseGame(); }) { Tags = TagGen.Make("Happy") };
+            var start = new TextDialoguePageCustomAction("startDemo", startDemo) { Tags = TagGen.Make("Happy") };
 
             sentence1.AddYesNo("yesOption", "noOption");
+            sentence2.AddTrigger(new MouseClickTrigger("startDemo"));
             sentence3.AddTrigger(new MouseClickTrigger("um"));
             sentence4.AddTrigger(new MouseClickTrigger("bye!"));
             sentence5.AddTrigger(new MouseClickTrigger("close"));
@@ -27,6 +30,7 @@ namespace IAmACube
             scenario.AddPage(sentence4);
             scenario.AddPage(sentence5);
             scenario.AddPage(closePc);
+            scenario.AddPage(start);
 
             return scenario;
         }

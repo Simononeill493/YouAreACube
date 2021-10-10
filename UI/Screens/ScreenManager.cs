@@ -17,7 +17,9 @@ namespace IAmACube
 
         public void Init()
         {
-            CurrentScreen = new PreDemoScreen(SwitchScreen);
+            //CurrentScreen = new PreDemoScreen(SwitchScreen);
+            CurrentScreen = new TitleScreen(SwitchScreen);
+
             Initialized = true;
 
             //SoundInterface.PlayWind();
