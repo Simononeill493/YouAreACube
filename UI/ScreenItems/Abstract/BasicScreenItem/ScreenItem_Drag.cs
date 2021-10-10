@@ -41,7 +41,7 @@ namespace IAmACube
             return false;
         }
 
-        protected virtual bool _canStartDragging() => (Draggable & !Dragging & !MenuScreen.IsUserDragging);
+        protected virtual bool _canStartDragging() => (Draggable & !Dragging & !Screen.IsUserDragging);
 
         protected void _startDrag(UserInput input, IntPoint offset)
         {
@@ -49,7 +49,7 @@ namespace IAmACube
 
             SetDragStateCascade(true);
 
-            MenuScreen.DraggedItem = this;
+            Screen.DraggedItem = this;
             Dragging = true;
             _dragOffset = offset;
 
@@ -62,7 +62,7 @@ namespace IAmACube
 
             SetDragStateCascade(false);
 
-            MenuScreen.DraggedItem = null;
+            Screen.DraggedItem = null;
             Dragging = false;
 
             OnEndDrag?.Invoke(input);

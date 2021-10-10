@@ -253,7 +253,7 @@ namespace IAmACube
             var currentChipScale = _blockScaler.GetScale(this);
             if (currentChipScale < 2)
             {
-                _blockScale = 2.0f / MenuScreen.Scale;
+                _blockScale = 2.0f / Screen.UniversalScale;
             }
         }
 

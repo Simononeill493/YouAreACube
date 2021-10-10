@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace IAmACube
 {
-    class LoadGameScreen : MenuScreen
+    class LoadGameScreen : Screen
     {
         private List<string> _saves;
         private Action<Kernel, World> _loadSaveToScreen;

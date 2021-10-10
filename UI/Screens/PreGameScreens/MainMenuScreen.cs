@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace IAmACube
 {
-    class MainMenuScreen : MenuScreen
+    class MainMenuScreen : Screen
     {
         public MainMenuScreen(Action<ScreenType> switchScreen) : base(ScreenType.MainMenu, switchScreen)
         {
@@ -36,7 +36,7 @@ namespace IAmACube
 
         private RectangleScreenItem _underConstructionBox;
 
-        public MainMenuBox(MenuScreen parent, Action<ScreenType> parentSwitchScreen) : base(parent, MenuSprites.MainMenuBox)
+        public MainMenuBox(Screen parent, Action<ScreenType> parentSwitchScreen) : base(parent, MenuSprites.MainMenuBox)
         {
             _parentSwitchScreen = parentSwitchScreen;
 

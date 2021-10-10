@@ -323,7 +323,6 @@
     <Compile Include="MonoGameWrapper\MonoGameWindow.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="UI\ScreenItems\Abstract\BasicScreenItem\ScreenItem.cs" />
-    <Compile Include="UI\Screens\MenuScreen.cs" />
     <Compile Include="UI\Screens\PreGameScreens\NewGameScreen.cs" />
     <Compile Include="UI\Screens\Screen.cs" />
     <Compile Include="UI\Screens\PreGameScreens\MainMenuScreen.cs" />

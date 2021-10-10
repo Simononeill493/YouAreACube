@@ -9,7 +9,7 @@ namespace IAmACube
     {
         public static TitleScreenAnimationFloaterScroll _floaterContainer;
 
-        public TitleScreenAnimationMenuItem(MenuScreen parent) : base(parent)
+        public TitleScreenAnimationMenuItem(Screen parent) : base(parent)
         {
             _floaterContainer = new TitleScreenAnimationFloaterScroll(parent);
             _floaterContainer.SetLocationConfig(0, 0, CoordinateMode.Absolute, false);

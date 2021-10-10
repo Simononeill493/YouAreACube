@@ -62,7 +62,7 @@ namespace IAmACube
 
         public void SwitchScreen(ScreenType screenType)
         {
-            MenuScreen.DraggedItem = null;
+            Screen.DraggedItem = null;
 
             switch (screenType)
             {

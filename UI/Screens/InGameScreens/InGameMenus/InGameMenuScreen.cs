@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    abstract class InGameMenuScreen : MenuScreen
+    abstract class InGameMenuScreen : Screen
     {
         protected GameScreen _gameScreen;
 

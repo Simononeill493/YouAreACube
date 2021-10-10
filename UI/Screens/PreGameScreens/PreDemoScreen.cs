@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class PreDemoScreen : MenuScreen
+    class PreDemoScreen : Screen
     {
         public const string DemoBuddyDefault = "DemoBuddy";
 

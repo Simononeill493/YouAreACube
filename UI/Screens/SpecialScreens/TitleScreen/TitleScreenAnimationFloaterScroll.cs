@@ -19,7 +19,7 @@ namespace IAmACube
 
         private int _scrollTick;
 
-        public TitleScreenAnimationFloaterScroll(MenuScreen parent) : base(parent)
+        public TitleScreenAnimationFloaterScroll(Screen parent) : base(parent)
         {
             _r = new Random();
             _floaters = new List<ScreenItem>();

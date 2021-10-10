@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace IAmACube
 {
-    class TitleScreen : MenuScreen
+    class TitleScreen : Screen
     {
         public TitleScreen(Action<ScreenType> switchScreen) : base(ScreenType.Title, switchScreen)
         {

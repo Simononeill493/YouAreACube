@@ -6,7 +6,7 @@ namespace IAmACube
     abstract class FullScreenMenuItem : ContainerScreenItem
     {
         public Func<IntPoint> _getFullScreenBaseSize;
-        public FullScreenMenuItem(MenuScreen parent) : base(parent)
+        public FullScreenMenuItem(Screen parent) : base(parent)
         {
             _getFullScreenBaseSize = () => (parent._currentScreenDimensions / Scale);
         }

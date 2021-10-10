@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace IAmACube
 {
-    class NewGameScreen : MenuScreen
+    class NewGameScreen : Screen
     {
         public string SaveName = "test";
         private TextBoxMenuItem textBox;

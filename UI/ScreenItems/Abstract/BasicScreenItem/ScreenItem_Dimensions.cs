@@ -76,7 +76,7 @@ namespace IAmACube
             _children.ForEach(child => child.UpdateLocationCascade(ActualLocation, size));
         }
 
-        public static int GenerateScaleFromMultiplier(float multiplier) => (int)(MenuScreen.Scale * multiplier);
+        public static int GenerateScaleFromMultiplier(float multiplier) => (int)(Screen.UniversalScale * multiplier);
 
         public IntPoint GetLocationOffset(IntPoint mousePos)=> mousePos - ActualLocation;
         public IntPoint GetCurrentSize() => GetBaseSize() * Scale;
