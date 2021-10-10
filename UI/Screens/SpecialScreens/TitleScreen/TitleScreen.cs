@@ -23,9 +23,9 @@ namespace IAmACube
             AddKeyJustReleasedEvent(Keys.Enter,(i)=>GoToMainMenu());
         }
 
-        public override void _update(UserInput input)
+        public override void _postUpdate(UserInput input)
         {
-            base._update(input);
+            base._postUpdate(input);
             if(input.MouseLeftJustReleased)
             {
                 GoToMainMenu();

@@ -22,9 +22,9 @@ namespace IAmACube
             _addMenuItem(buddy);
         }
 
-        public override void _update(UserInput input)
+        public override void _postUpdate(UserInput input)
         {
-            base._update(input);
+            base._postUpdate(input);
             //_sectorGenerator.GenerateAdjacentSectors(Game.World);
         }
 

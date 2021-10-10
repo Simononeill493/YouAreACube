@@ -46,15 +46,13 @@ namespace IAmACube
 
         protected virtual Game _generateGame(Kernel kernel, World world) => new Game(kernel, world);
 
-        public override void _update(UserInput input)
+        protected override void _preUpdate(UserInput input)
         {
-            base._update(input);
             if (!_paused)
             {
                 Game.Update(input);
             }
         }
-
 
         protected void _moveOneFrame(UserInput input)
         {

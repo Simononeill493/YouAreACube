@@ -46,8 +46,12 @@ namespace IAmACube
             _setScaleToReccomended();
         }
 
+        protected virtual void _preUpdate(UserInput input) { }
+
         public void Update(UserInput input)
         {
+            _preUpdate(input);
+
             foreach(var keyEvent in _keysJustReleasedEvents)
             {
                 if(input.IsKeyJustReleased(keyEvent.Item1))
@@ -72,10 +76,10 @@ namespace IAmACube
 
             _scrollButtonScale(input);
 
-            _update(input);
+            _postUpdate(input);
             _checkScreenSizeChanged();
         }
-        public virtual void _update(UserInput input) { }
+        public virtual void _postUpdate(UserInput input) { }
 
         protected void _scrollButtonScale(UserInput input)
         {
