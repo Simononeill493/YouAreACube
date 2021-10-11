@@ -336,6 +336,7 @@
     <Compile Include="Gameplay\Tile\Tile.cs" />
     <Compile Include="Gameplay\World\World.cs" />
     <Compile Include="WorldGen\WorldGen.cs" />
+    <Compile Include="WorldGen\WorldGenFileLoader.cs" />
     <Compile Include="WorldGen\WorldGenGrid.cs" />
     <Compile Include="WorldGen\WorldGenGridPoint.cs" />
   </ItemGroup>

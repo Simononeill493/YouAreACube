@@ -94,12 +94,16 @@ namespace IAmACube
                 case ScreenType.TemplateEdit:
                     throw new NotImplementedException("Tried to switch to template edit screen without loading a template");
                 case ScreenType.DemoGame:
-                    CurrentGame = new DemoGameScreen(SwitchScreen);
+                    CurrentGame = DemoGameScreen.Generate(SwitchScreen);
                     CurrentScreen = CurrentGame;
                     break;
                 case ScreenType.PreDemo:
-                    CurrentScreen = new PreDemoScreen(SwitchScreen);
+                    //CurrentScreen = new PreDemoScreen(SwitchScreen);
+                    //break;
+                    CurrentGame = DemoGameScreen.Generate(SwitchScreen);
+                    CurrentScreen = CurrentGame;
                     break;
+
 
 
             }

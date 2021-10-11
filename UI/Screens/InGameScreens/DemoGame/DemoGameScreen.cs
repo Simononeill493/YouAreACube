@@ -9,16 +9,19 @@ namespace IAmACube
 {
     class DemoGameScreen : GameScreen
     {
-        public DemoGameScreen(Action<ScreenType> switchScreen) : base(ScreenType.DemoGame, switchScreen, new Kernel(), WorldGen.GenerateDemoWorld())
+        public static DemoGameScreen Generate(Action<ScreenType> switchScreen)
+        {
+            var (demoWorld, demoPlayer) = WorldGen.GenerateDemoWorld();
+            var demoKernel = new Kernel();
+            demoKernel.SetHost(demoPlayer);
+
+            return new DemoGameScreen(switchScreen, demoKernel, demoWorld);
+        }
+
+        public DemoGameScreen(Action<ScreenType> switchScreen,Kernel kernel,World demoWorld) : base(ScreenType.DemoGame, switchScreen, kernel,demoWorld)
         {
             AddKeyJustReleasedEvent(Keys.Escape, (i) => { SwitchScreen(ScreenType.MainMenu); });
         }
 
-        protected override Game _generateGame(Kernel kernel, World world)
-        {
-            SaveManager.AddKernelToWorld(kernel, world);
-
-            return base._generateGame(kernel, world);
-        }
     }
 }

@@ -9,13 +9,14 @@ namespace IAmACube
 {
     class WorldGen
     {
-        public static World GenerateDemoWorld()
+        public static (World,SurfaceCube) GenerateDemoWorld()
         {
-            var world = new World(0, 10);
-            var centre = GetEmptyTestSector(IntPoint.Zero, world.SectorSize);
+            var world = new World(0, 20);
+            var (centre,player) = WorldGenFileLoader.LoadDemoSector(world.WorldKernel);
             world.AddSector(centre);
+            world.FocusOn(player);
 
-            return world;
+            return (world,player);
         }
         public static World GenerateTestOpenWorld(int seed,int sectorSize)
         {
@@ -111,7 +112,7 @@ namespace IAmACube
         }
 
 
-        public static void AddPlayer(World world,SurfaceCube player)
+        public static void AddPlayerAtDefaultLocation(World world,SurfaceCube player)
         {
             var centre = world.GetSector(IntPoint.Zero);
             var tile = centre.TileGrid[0, 0];

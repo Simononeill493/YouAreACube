@@ -16,7 +16,7 @@ namespace IAmACube
             var kernel = GenerateTestKernel(name);
             var world = GenerateTestWorld(name);
 
-            AddKernelToWorld(kernel, world);
+            CreateAndAddKernelToWorld(kernel, world);
 
             return (kernel, world);
         }
@@ -39,13 +39,14 @@ namespace IAmACube
             return world;
         }
 
-        public static void AddKernelToWorld(Kernel kernel, World world)
+        public static void CreateAndAddKernelToWorld(Kernel kernel, World world)
         {
             var player = Templates.GenerateSurface("BasicPlayer", 0,kernel);
 
-            WorldGen.AddPlayer(world, player);
+            WorldGen.AddPlayerAtDefaultLocation(world, player);
             kernel.SetHost(player);
         }
+
 
 
         public static void SaveKernel(Kernel kernel) => FileUtils.SaveBinary(kernel, ConfigFiles.SaveDirectory, kernel.Name, ConfigFiles.SaveKernelExtension);

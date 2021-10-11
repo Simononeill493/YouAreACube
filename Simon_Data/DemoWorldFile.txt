@@ -1,0 +1,25 @@
+20,20
+xxxxxxxxxxxxxxxxxxxx
+x        xx        x
+x        xx  g     x
+x        xx        x
+x        xx        x
+x P      xx        x
+x        xx        x
+x        xx        x
+x        xx        x
+xxxx  xxxxxxxxxxx  x
+xxxx  xxxxxxxxxxx  x
+x        xx        x
+x                  x
+x        xx        x
+x        xx        x
+x        xx        x
+x        xx        x
+x                  x
+x        xx        x
+xxxxxxxxxxxxxxxxxxxx
+#
+x=BasicWall,0
+P=BasicPlayer,0
+g=BasicGoal,0

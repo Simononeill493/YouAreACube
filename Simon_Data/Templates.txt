@@ -105,5 +105,17 @@
 	  "spriteType":"Attach4",
 	  "maxHealth":100,
     },
+	{
+      "name":"BasicWall",
+      "sprite":"TitleBox",
+	  "spriteType":"SingleSprite",
+	  "maxHealth":10000,
+    },
+	{
+      "name":"BasicGoal",
+      "sprite":"Bullet",
+	  "spriteType":"SingleSprite",
+	  "maxHealth":1,
+    }
   ]
 }
