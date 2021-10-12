@@ -2,20 +2,36 @@
 
 namespace IAmACube
 {
-    class CameraHolder : ContainerScreenItem
+    class GameHolder : ContainerScreenItem
     {
         public Camera Camera;
+        public Game Game;
+
+        public bool Paused;
+
 
         private Func<IntPoint> _getSize;
-        public CameraHolder(IHasDrawLayer parent,Func<IntPoint> getSize) : base(parent)
+        public GameHolder(IHasDrawLayer parent,Func<IntPoint> getSize) : base(parent)
         {
             _getSize = getSize;
+
+            Paused = false;
         }
 
         public override void Update(UserInput input)
         {
             base.Update(input);
             Camera.Update(input);
+            if(!Paused)
+            {
+                Game.Update(input);
+            }
+        }
+
+        public void MoveFrameWhilePaused(UserInput input)
+        {
+            Camera.Update(input);
+            Game.Update(input);
         }
 
         protected override void _drawSelf(DrawingInterface drawingInterface)

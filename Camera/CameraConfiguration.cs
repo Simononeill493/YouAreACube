@@ -106,6 +106,7 @@ namespace IAmACube
             if (world.HasTile(mousePos))
             {
                 input.MouseHoverTile = world.GetTile(mousePos);
+                Console.WriteLine(input.MouseHoverTile.AbsoluteLocation);
             }
 
             MouseHoverPosition = input.MouseHoverTile.AbsoluteLocation;

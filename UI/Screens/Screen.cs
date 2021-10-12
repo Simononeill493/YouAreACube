@@ -46,12 +46,8 @@ namespace IAmACube
             _setScaleToReccomended();
         }
 
-        protected virtual void _preUpdate(UserInput input) { }
-
         public void Update(UserInput input)
         {
-            _preUpdate(input);
-
             foreach(var keyEvent in _keysJustReleasedEvents)
             {
                 if(input.IsKeyJustReleased(keyEvent.Item1))

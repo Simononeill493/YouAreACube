@@ -9,10 +9,7 @@ namespace IAmACube
 {
     abstract class GameScreen : Screen
     {
-        public Game Game;
-        private bool _paused;
-
-        protected CameraHolder _currentCamera;
+        public GameHolder _gameHolder;
         protected FixedCamera _adminCamera;
         protected KernelTrackingCamera _playerCamera;
 
@@ -20,48 +17,27 @@ namespace IAmACube
         {
             _scrollButtonScaleEnabled = false;
 
-            Game = _generateGame(kernel, world);
-
             _adminCamera = new FixedCamera(kernel,world);
             _playerCamera = new KernelTrackingCamera(kernel,world);
 
-            _currentCamera = new CameraHolder(this, () => _currentScreenDimensions);
-            _currentCamera.SetLocationConfig(0,0, CoordinateMode.ParentAbsolute, false);
-            _addMenuItem(_currentCamera);
+            _gameHolder = new GameHolder(this, () => _currentScreenDimensions);
+            _gameHolder.SetLocationConfig(0,0, CoordinateMode.ParentAbsolute, false);
+            _addMenuItem(_gameHolder);
 
-            _currentCamera.Camera = _playerCamera;
+            _gameHolder.Camera = _playerCamera;
+            _gameHolder.Game = _generateGame(kernel, world);
 
 #if DEBUG
             //_currentCamera = _adminCamera;
             CameraConfiguration.DebugMode = true;
 #endif
-            AddKeyJustPressedEvent(Keys.M, (i) => _currentCamera.Camera = _adminCamera);
-            AddKeyJustPressedEvent(Keys.N, (i) => _currentCamera.Camera = _playerCamera);
+            AddKeyJustPressedEvent(Keys.M, (i) => _gameHolder.Camera = _adminCamera);
+            AddKeyJustPressedEvent(Keys.N, (i) => _gameHolder.Camera = _playerCamera);
             AddKeyJustPressedEvent(Keys.Tab, (i) => SwitchScreen(ScreenType.TemplateExplorer));
-            AddKeyJustPressedEvent(Keys.Space, (i) => _paused = !_paused);
-            AddKeyJustPressedEvent(Keys.OemPeriod, _moveOneFrame);
-
-            _paused = false;
+            AddKeyJustPressedEvent(Keys.Space, (i) => _gameHolder.Paused = !_gameHolder.Paused);
+            AddKeyJustPressedEvent(Keys.OemPeriod, _gameHolder.MoveFrameWhilePaused);
         }
 
         protected virtual Game _generateGame(Kernel kernel, World world) => new Game(kernel, world);
-
-        protected override void _preUpdate(UserInput input)
-        {
-            if (!_paused)
-            {
-                Game.Update(input);
-            }
-        }
-
-        protected void _moveOneFrame(UserInput input)
-        {
-            if(_paused)
-            {
-                _currentCamera.Update(input);
-                Game.Update(input);
-            }
-        }
-
     }
 }

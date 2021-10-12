@@ -65,6 +65,7 @@ namespace IAmACube
         {
             var grid = new WorldGenGrid(worldKernel,sector.Size,r);
 
+            /*
             var purpleCrystals = CrystalDatabase.CrystalTemplates["Purple"];
             grid.AddRandom(CubeMode.Surface, purpleCrystals, 5);
 
@@ -83,22 +84,12 @@ namespace IAmACube
             grid.AddRandom(CubeMode.Surface, Templates.Database["ShootEnemy"][0], r.Next(4, 6));
             grid.AddRandom(CubeMode.Surface, Templates.Database["TrackerEnemy"][0], r.Next(5, 8));
 
-            grid.AddRandom(CubeMode.Surface, Templates.Database["ApproachEnemy"][0], r.Next(4, 6));
-            grid.AddRandom(CubeMode.Surface, Templates.Database["FleeEnemy"][0], r.Next(4, 6));
+            */
+            //grid.AddRandom(CubeMode.Surface, Templates.Database["ApproachEnemy"][0], r.Next(4, 6));
+            //grid.AddRandom(CubeMode.Surface, Templates.Database["FleeEnemy"][0], r.Next(4, 6));
             grid.AddRandom(CubeMode.Surface, Templates.Database["MouseFollower"][0], r.Next(4, 6));
-            grid.AddRandom(CubeMode.Surface, Templates.Database["Spinner"][0], r.Next(1, 3));
+            //grid.AddRandom(CubeMode.Surface, Templates.Database["Spinner"][0], r.Next(1, 3));
 
-            /*grid.AddRandom(BlockMode.Surface, rock, 16);
-            grid.AddToSide(BlockMode.Surface, rock, 1, 2);
-            grid.AddToSide(BlockMode.Surface, rock, 0.3, 2);
-            grid.AddToSide(BlockMode.Surface, rock, 0.2, 2);
-            grid.AddToSide(BlockMode.Surface, rock, 0.05, 2);*/
-
-            //grid.AddRandom(BlockMode.Surface, rock2, 5);
-            //grid.AddToSide(BlockMode.Surface, rock2, 0.1, 8);
-
-            //grid.AddRandom(r, BlockMode.Surface, "ShootEnemy", 0, 4);
-            //grid.AddRandom(r, BlockMode.Surface, "Rock2", 0, 128);
 
             grid.OverlayOnSector(sector);
             FillEnergyBarsForSector(sector);
