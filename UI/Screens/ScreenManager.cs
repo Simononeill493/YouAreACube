@@ -98,8 +98,8 @@ namespace IAmACube
                     CurrentScreen = CurrentGame;
                     break;
                 case ScreenType.PreDemo:
-                    //CurrentScreen = new PreDemoScreen(SwitchScreen);
-                    //break;
+                    CurrentScreen = new PreDemoScreen(SwitchScreen);
+                    break;
                     CurrentGame = DemoGameScreen.Generate(SwitchScreen);
                     CurrentScreen = CurrentGame;
                     break;

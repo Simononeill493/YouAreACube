@@ -11,15 +11,16 @@ namespace IAmACube
     {
         public static (World,SurfaceCube) GenerateDemoWorld()
         {
-            var world = new World(0, 20);
+            var world = new World(0, new IntPoint(10,10));
             var (centre,player) = WorldGenFileLoader.LoadDemoSector(world.WorldKernel);
             world.AddSector(centre);
             world.FocusOn(player);
 
             return (world,player);
         }
-        public static World GenerateTestOpenWorld(int seed,int sectorSize)
+        public static World GenerateTestOpenWorld(int seed)
         {
+            var sectorSize = new IntPoint(50,50);
             var world = new World(seed, sectorSize);
             var centre = GetFilledTestSector(world.Random,IntPoint.Zero,world.SectorSize,world.WorldKernel);
             //var centre = _getEmptySector(new IntPoint(0, 0), world.SectorSize);
@@ -45,7 +46,7 @@ namespace IAmACube
 
             return world;
         }
-        public static Sector GetFilledTestSector(Random r, IntPoint coords, int sectorSize, Kernel worldKernel)
+        public static Sector GetFilledTestSector(Random r, IntPoint coords, IntPoint sectorSize, Kernel worldKernel)
         {
             var sector = _getEmptySector(coords, sectorSize);
 
@@ -54,7 +55,7 @@ namespace IAmACube
             return sector;
         }
 
-        public static Sector GetEmptyTestSector(IntPoint coords, int sectorSize)
+        public static Sector GetEmptyTestSector(IntPoint coords, IntPoint sectorSize)
         {
             var sector = _getEmptySector(coords, sectorSize);
             return sector;
@@ -130,30 +131,28 @@ namespace IAmACube
         }
 
 
-        private static Sector _getEmptySector(IntPoint sectorOrigin,int sectorSize)
+        private static Sector _getEmptySector(IntPoint sectorOrigin,IntPoint sectorSize)
         {
             var (tiles,tilesFlattened) = _getInitializedGrid(sectorOrigin, sectorSize);
             AttachmentUtils.AttachTileGridToSelf(tiles, sectorSize);
 
-            var sector = new Sector(new IntPoint(sectorSize,sectorSize),sectorOrigin, tiles, tilesFlattened);
+            var sector = new Sector(sectorSize,sectorOrigin, tiles, tilesFlattened);
             return sector;
         }
-        private static (Tile[,] tiles, List<Tile> tilesFlattened) _getInitializedGrid(IntPoint sectorOrigin,int sectorSize)
+        private static (Tile[,] tiles, List<Tile> tilesFlattened) _getInitializedGrid(IntPoint sectorOrigin,IntPoint sectorSize)
         {
-            int xOrigin = sectorSize * sectorOrigin.X;
-            int yOrigin = sectorSize * sectorOrigin.Y;
+            var origin = sectorOrigin * sectorSize;
 
-            var tiles = new Tile[sectorSize, sectorSize];
+            var tiles = new Tile[sectorSize.X, sectorSize.Y];
             var tilesFlattened = new List<Tile>();
 
-            for (int i = 0; i < sectorSize; i++)
+            for (int i = 0; i < sectorSize.X; i++)
             {
-                for (int j = 0; j < sectorSize; j++)
+                for (int j = 0; j < sectorSize.Y; j++)
                 {
-                    var xOffs = i + xOrigin;
-                    var yOffs = j + yOrigin;
+                    var offs = origin + new IntPoint(i, j);
 
-                    var tile = new Tile(new IntPoint(i, j), new IntPoint(xOffs, yOffs), sectorOrigin, sectorSize);
+                    var tile = new Tile(new IntPoint(i, j), offs, sectorOrigin, sectorSize);
                     tiles[i, j] = tile;
 
                     tilesFlattened.Add(tile);

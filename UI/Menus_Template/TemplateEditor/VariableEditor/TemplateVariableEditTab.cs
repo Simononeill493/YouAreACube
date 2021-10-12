@@ -58,7 +58,7 @@ namespace IAmACube
             {
                 if(item.VariableEnabled)
                 {
-                    variableSet.Dict[item.VariableNumber] = item.MakeVariable();
+                    variableSet.Dict[item.VariableNumber] = item.GetVariable();
                 }
             }
 
@@ -68,7 +68,7 @@ namespace IAmACube
         public TemplateVariable GetVariable(int index)
         {
             var matching = _items.Where(i => i.VariableEnabled & i.VariableNumber == index).FirstOrDefault();
-            return matching?.MakeVariable();
+            return matching?.GetVariable();
         }
     }
 

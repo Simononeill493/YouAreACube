@@ -22,6 +22,7 @@ namespace IAmACube
         private BlocksetModel _initial;
         public Dictionary<string,BlocksetModel> Blocksets;
         public Dictionary<string,BlockModel> Blocks;
+
         [JsonIgnore]
         public Dictionary<BlockInputModel, BlockModel> InputParents;
 

@@ -99,16 +99,17 @@ namespace IAmACube
                 _primitive.DrawRectangle(drawPos.X, drawPos.Y + 8, (int)barCurrentLength, 8, DrawLayers.BlockInfoLayer_Front, Color.Red, false);
             }
         }
-        public void DrawSectorGridOverlay(IntPoint sector,int sectorSize,int gridLineThickness,CameraConfiguration _config)
+        public void DrawSectorGridOverlay(IntPoint sector,IntPoint sectorSize,int gridLineThickness,CameraConfiguration _config)
         {
+            throw new NotImplementedException();
             var sectorOrigin = sector * sectorSize * _config.TileSizePixels;
             var sectorOriginOffset = sectorOrigin - _config.PixelOffset;
-            var sectorSquareSize = _config.TileSizePixels * sectorSize;
+            var sectorSquareSize = sectorSize * _config.TileSizePixels;
 
-            DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y, gridLineThickness, sectorSquareSize, DrawLayers.GameSectorOverlayLayer, Color.Red);
-            DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y, sectorSquareSize, gridLineThickness, DrawLayers.GameSectorOverlayLayer, Color.Red);
-            DrawRectangle(sectorOriginOffset.X + sectorSquareSize, sectorOriginOffset.Y, gridLineThickness, sectorSquareSize, DrawLayers.GameSectorOverlayLayer, Color.Red);
-            DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y + sectorSquareSize, sectorSquareSize, gridLineThickness, DrawLayers.GameSectorOverlayLayer, Color.Red);
+            //DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y, gridLineThickness, sectorSquareSize, DrawLayers.GameSectorOverlayLayer, Color.Red);
+            //DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y, sectorSquareSize, gridLineThickness, DrawLayers.GameSectorOverlayLayer, Color.Red);
+            //DrawRectangle(sectorOriginOffset.X + sectorSquareSize, sectorOriginOffset.Y, gridLineThickness, sectorSquareSize, DrawLayers.GameSectorOverlayLayer, Color.Red);
+            //DrawRectangle(sectorOriginOffset.X, sectorOriginOffset.Y + sectorSquareSize, sectorSquareSize, gridLineThickness, DrawLayers.GameSectorOverlayLayer, Color.Red);
         }
     }
 }

@@ -10,7 +10,6 @@ namespace IAmACube
     class TemplateVariableEditItem : ContainerScreenItem
     {
         public bool VariableEnabled;
-        public int VariableNumber;
 
         private TextScreenItem _number;
         private TextBoxMenuItem _nameBox;
@@ -19,17 +18,18 @@ namespace IAmACube
         private SpriteScreenItem _buttonRemove;
         private SpriteScreenItem _buttonAdd;
 
-        private string _variableName = "";
-        private InGameType _selectedType;
-        private string _formattedVariableNumber => (VariableNumber + 1).ToString() + ":";
+        public int VariableNumber => _variable.VariableNumber;
+        private string _formattedVariableNumber => (_variable.VariableNumber + 1).ToString() + ":";
+
+        private TemplateVariable _variable;
 
         public TemplateVariableEditItem(IHasDrawLayer parent,int num) : base(parent)
         {
-            VariableNumber = num;
+            _variable = new TemplateVariable(num, "", null);
 
             _number = new TextScreenItem(this, ()=>_formattedVariableNumber);
-            _nameBox = new TextBoxMenuItem(this, () => _variableName, (v) => { _variableName = v; }) { Editable = true };
-            _dataTypeDropdown = new DropdownMenuItem<InGameType>(this,()=>_selectedType,(v)=> { _selectedType = v; },()=> InGameTypeUtils.InGameTypes.Values.ToList());
+            _nameBox = new TextBoxMenuItem(this, () => _variable.VariableName, (v) => { _variable.VariableName = v; }) { Editable = true };
+            _dataTypeDropdown = new DropdownMenuItem<InGameType>(this,()=>_variable.VariableType,(v)=> { _variable.VariableType = v; },()=> InGameTypeUtils.InGameTypes.Values.ToList());
 
             _buttonRemove = new SpriteScreenItem(this, MenuSprites.VariableMinusButton);
             _buttonRemove.OnMouseReleased +=(i) => DisableVariable();
@@ -48,8 +48,8 @@ namespace IAmACube
 
         public void SetData(TemplateVariable variable)
         {
-            _variableName = variable.VariableName;
-            _selectedType = variable.VariableType;
+            _variable.VariableName = variable.VariableName;
+            _variable.VariableType = variable.VariableType;
 
             EnableVariable();
         }
@@ -91,7 +91,7 @@ namespace IAmACube
             VariableEnabled = true;
         }
 
-        public TemplateVariable MakeVariable() => new TemplateVariable(VariableNumber, _variableName, _selectedType);
+        public TemplateVariable GetVariable() => _variable;
 
         public override IntPoint GetBaseSize()
         {

@@ -65,7 +65,7 @@ namespace IAmACube
         public static void Sort(this FullModel fullModel)
         {
             fullModel.Blocks = fullModel.Blocks.Values.OrderBy(b => b.Name).ToDictionary(b => b.Name);
-            fullModel.Blocksets = fullModel.Blocksets.Values.OrderBy(b => b.ModeIndex).ToDictionary(b => b.Name);
+            fullModel.Blocksets = fullModel.Blocksets.Values.OrderBy(b => b.ModeIndex).ThenBy(b=>b.Name).ToDictionary(b => b.Name);
         }
 
         public static void InputModelSpecialCases(BlockModel model,IEnumerable<BlocksetModel> blocks)

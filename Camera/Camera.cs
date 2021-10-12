@@ -50,7 +50,7 @@ namespace IAmACube
 
             if (CameraConfiguration.DebugMode)
             {
-                _drawSectorBoundaries(_currentWorld);
+                //_drawSectorBoundaries(_currentWorld);
             }
         }
 

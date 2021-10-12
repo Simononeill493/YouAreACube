@@ -31,7 +31,9 @@ namespace IAmACube
 
         public static World GenerateTestWorld(string name = "")
         {
-            var world = WorldGen.GenerateTestOpenWorld(1, Config.DefaultSectorSize);
+            //var world = WorldGen.GenerateTestOpenWorld(1, Config.DefaultSectorSize);
+            var world = WorldGen.GenerateTestOpenWorld(1);
+
             world.Name = name;
 
             //world.GetAllSectors().ForEach(s=> WorldGen.AddEntities(s,world.Random));

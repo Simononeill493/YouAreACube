@@ -21,9 +21,9 @@ namespace IAmACube
         public Random Random;
         private int _seed;
 
-        public int SectorSize;
+        public IntPoint SectorSize;
 
-        public World(int seed,int sectorSize)
+        public World(int seed,IntPoint sectorSize)
         {
             SectorSize = sectorSize;
             _seed = seed;

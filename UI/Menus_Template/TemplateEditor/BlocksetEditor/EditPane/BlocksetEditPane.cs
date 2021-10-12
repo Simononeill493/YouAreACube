@@ -131,7 +131,6 @@ namespace IAmACube
         {
             var newModel = Model.CreateBlockset(IDUtils.GenerateBlocksetID(),isInternal);
             var newBlockset = _makeBlocksetFromModel(newModel);
-
             return newBlockset;
         }
 

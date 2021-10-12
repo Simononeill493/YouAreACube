@@ -62,11 +62,11 @@ namespace IAmACube
             }
         }
 
-        public static void AttachTileGridToSelf(Tile[,] tiles, int size)
+        public static void AttachTileGridToSelf(Tile[,] tiles, IntPoint size)
         {
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < size.X; i++)
             {
-                for (int j = 0; j < size; j++)
+                for (int j = 0; j < size.Y; j++)
                 {
                     var tile = tiles[i, j];
                     _attachIfValid(tiles, tile, size, i, j - 1, CardinalDirection.North);
@@ -81,9 +81,9 @@ namespace IAmACube
             }
 
         }
-        private static void _attachIfValid(Tile[,] tiles, Tile tile, int size, int x, int y, CardinalDirection direction)
+        private static void _attachIfValid(Tile[,] tiles, Tile tile, IntPoint size, int x, int y, CardinalDirection direction)
         {
-            if (x > -1 & y > -1 & x < size & y < size)
+            if (x > -1 & y > -1 & x < size.X & y < size.Y)
             {
                 tile.Adjacent[direction] = tiles[x, y];
             }

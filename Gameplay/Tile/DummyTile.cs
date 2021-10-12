@@ -9,7 +9,7 @@ namespace IAmACube
     [Serializable()]
     class DummyTile : Tile
     {
-        public DummyTile() : base(IntPoint.MinValue, IntPoint.MinValue, IntPoint.MinValue,0) { }
+        public DummyTile() : base(IntPoint.MinValue, IntPoint.MinValue, IntPoint.MinValue,IntPoint.Zero) { }
 
         public override bool HasThisSurface(SurfaceCube surface) => true;
         public override bool HasThisGround(GroundCube ground) => true;

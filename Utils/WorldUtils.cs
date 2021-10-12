@@ -8,41 +8,41 @@ namespace IAmACube
 {
     class WorldUtils
     {
-        public static IntPoint WorldCoordsToSectorLocation(IntPoint worldCoords,int sectorSize)
+        public static IntPoint WorldCoordsToSectorLocation(IntPoint worldCoords,IntPoint sectorSize)
         {
-            var ret = new IntPoint(worldCoords.X / sectorSize, worldCoords.Y / sectorSize);
+            var ret = (worldCoords / sectorSize);
 
-            if (worldCoords.X < 0 & (-worldCoords.X % sectorSize != 0))
+            if (worldCoords.X < 0 & (-worldCoords.X % sectorSize.X != 0))
             {
                 ret.X -= 1;
             }
-            if (worldCoords.Y < 0 & (-worldCoords.Y % sectorSize != 0))
+            if (worldCoords.Y < 0 & (-worldCoords.Y % sectorSize.Y != 0))
             {
                 ret.Y -= 1;
             }
 
             return ret;
         }
-        public static IntPoint WorldCoordsToInternalSectorCoords(IntPoint worldCoords,int sectorSize)
+        public static IntPoint WorldCoordsToInternalSectorCoords(IntPoint worldCoords,IntPoint sectorSize)
         {
             var ret = IntPoint.Zero;
 
             if (worldCoords.X >= 0)
             {
-                ret.X = worldCoords.X % sectorSize;
+                ret.X = worldCoords.X % sectorSize.X;
             }
             else
             {
-                ret.X = (sectorSize - 1) - ((-worldCoords.X - 1) % sectorSize);
+                ret.X = (sectorSize.X - 1) - ((-worldCoords.X - 1) % sectorSize.X);
             }
 
             if (worldCoords.Y >= 0)
             {
-                ret.Y = worldCoords.Y % sectorSize;
+                ret.Y = worldCoords.Y % sectorSize.Y;
             }
             else
             {
-                ret.Y = (sectorSize - 1) - ((-worldCoords.Y - 1) % sectorSize);
+                ret.Y = (sectorSize.Y - 1) - ((-worldCoords.Y - 1) % sectorSize.Y);
             }
 
             return ret;

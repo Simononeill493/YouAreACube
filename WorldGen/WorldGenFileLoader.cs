@@ -45,7 +45,7 @@ namespace IAmACube
 
         public static Sector MakeSector(List<string> sectorPic, IntPoint size, Dictionary<char, CubeTemplate> descs,Kernel worldKernel)
         {
-            var sector = WorldGen.GetEmptyTestSector(IntPoint.Zero, size.Max);
+            var sector = WorldGen.GetEmptyTestSector(IntPoint.Zero, size);
             var worldGenGrid = new WorldGenGrid(worldKernel, size, new Random());
 
             for(int i=0; i<size.Y;i++)

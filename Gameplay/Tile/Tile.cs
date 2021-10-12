@@ -65,13 +65,13 @@ namespace IAmACube
         public bool IsEdge { get; private set; }
         public bool IsCorner { get; private set; }
 
-        public Tile(IntPoint sectorOffset,IntPoint worldOffset,IntPoint sectorID,int sectorSize) : base(worldOffset)
+        public Tile(IntPoint sectorOffset,IntPoint worldOffset,IntPoint sectorID,IntPoint sectorSize) : base(worldOffset)
         {
             LocationInSector = sectorOffset;
             SectorID = sectorID;
 
-            IsEdge = (LocationInSector.X == 0) | (LocationInSector.X == sectorSize - 1) | (LocationInSector.Y == 0) | (LocationInSector.Y == sectorSize - 1);
-            IsCorner = ((LocationInSector.X == 0) | (LocationInSector.X == sectorSize - 1)) & ((LocationInSector.Y == 0) | (LocationInSector.Y == sectorSize - 1));
+            IsEdge = (LocationInSector.X == 0) | (LocationInSector.X == sectorSize.X - 1) | (LocationInSector.Y == 0) | (LocationInSector.Y == sectorSize.Y - 1);
+            IsCorner = ((LocationInSector.X == 0) | (LocationInSector.X == sectorSize.X - 1)) & ((LocationInSector.Y == 0) | (LocationInSector.Y == sectorSize.Y - 1));
         }
 
         public bool ContainsBlockType(CubeMode blockType)
