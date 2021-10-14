@@ -33,5 +33,30 @@ namespace IAmACube
             return toSet;
         }
 
+
+        public static List<List<string>> Seperate(List<string> lines, string seperator)
+        {
+            var output = new List<List<string>>();
+            var currentList = new List<string>();
+
+            for (int i = 0; i < lines.Count; i++)
+            {
+                var line = lines[i];
+                if(line.Equals(seperator))
+                {
+                    output.Add(currentList);
+                    currentList = new List<string>();
+                }
+                else
+                {
+                    currentList.Add(line);
+                }
+            }
+
+            output.Add(currentList);
+
+            return output;
+        }
+
     }
 }

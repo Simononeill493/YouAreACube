@@ -18,7 +18,10 @@ namespace IAmACube
         public void Init()
         {
             //CurrentScreen = new PreDemoScreen(SwitchScreen);
-            CurrentScreen = new TitleScreen(SwitchScreen);
+            //CurrentScreen = new TitleScreen(SwitchScreen);
+
+            CurrentGame = DemoGameScreen.Generate(SwitchScreen);
+            CurrentScreen = CurrentGame;
 
             Initialized = true;
 
@@ -99,9 +102,6 @@ namespace IAmACube
                     break;
                 case ScreenType.PreDemo:
                     CurrentScreen = new PreDemoScreen(SwitchScreen);
-                    break;
-                    CurrentGame = DemoGameScreen.Generate(SwitchScreen);
-                    CurrentScreen = CurrentGame;
                     break;
 
 

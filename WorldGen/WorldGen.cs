@@ -11,9 +11,12 @@ namespace IAmACube
     {
         public static (World,SurfaceCube) GenerateDemoWorld()
         {
-            var world = new World(0, new IntPoint(10,10));
-            var (centre,player) = WorldGenFileLoader.LoadDemoSector(world.WorldKernel);
-            world.AddSector(centre);
+            var kernel = new WorldKernel();
+            var (sectorSize,sectors,player) = WorldGenFileLoader.LoadDemoSector(kernel);
+
+            var world = new World(0, sectorSize);
+            sectors.ForEach(s => world.AddSector(s));
+            world.SetWorldKernel(kernel);
             world.FocusOn(player);
 
             return (world,player);

@@ -11,12 +11,32 @@ namespace IAmACube
     {
         public const string DemoWorldFilePath = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data\DemoWorldFile.txt";
 
-        public static (Sector,SurfaceCube) LoadDemoSector(WorldKernel kernel)
+        public const string TopLevelSeperator = "-";
+        public const string SectorMetadataSeperator = "#";
+
+        public const char TemplateNameVsVersionSeperator = ',';
+        public const char SectorSizeXYSeperator = ',';
+        public const char TemplateSymbolVsTemplateSeperator = '=';
+        public const char WorldPicEmptySpace = ' ';
+
+        public static (IntPoint, List<Sector>, SurfaceCube) LoadDemoSector(WorldKernel kernel)
         {
             var lines = File.ReadAllLines(DemoWorldFilePath).ToList();
-            var sector = FromLines(lines, kernel);
-            var player = sector.GetPlayer();
-            return (sector,player);
+            var topLevelSeperated = StringUtils.Seperate(lines, TopLevelSeperator);
+
+            var sectorSize = IntPoint.Parse(topLevelSeperated[0][0]);
+
+            var sectors = topLevelSeperated.GetRange(1, topLevelSeperated.Count - 1);
+            var sectorsList = new List<Sector>();
+
+            foreach(var sectorLines in sectors)
+            {
+                var sector = SectorFromLines(sectorSize, sectorLines, kernel);
+                sectorsList.Add(sector);
+            }
+
+            var player = sectorsList.FirstOrDefault(s=>s.AbsoluteLocation.Equals(IntPoint.Zero)).GetPlayer();
+            return (sectorSize, sectorsList, player);
         }
 
         private static SurfaceCube GetPlayer(this Sector sector)
@@ -25,27 +45,27 @@ namespace IAmACube
             return (SurfaceCube)player;
         }
 
-        public static Sector FromLines(List<string> lines,Kernel worldKernel)
+        public static Sector SectorFromLines(IntPoint size,List<string> lines,Kernel worldKernel)
         {
-            var sectorSizeStr = lines[0].Split(',');
-            var sectorSize = new IntPoint(int.Parse(sectorSizeStr[0]), int.Parse(sectorSizeStr[1]));
+            var sections = StringUtils.Seperate(lines,SectorMetadataSeperator);
+            var location = IntPoint.Parse(sections[0][0]);
+            var sectorPic = sections[1];
+            var descsLines = sections[2];
 
-            var endOfSectorPic = lines.IndexOf("#");
-            if(endOfSectorPic!=sectorSize.Y+1)
+
+            if (sectorPic.Count != size.Y)
             {
                 throw new Exception("World picture is the wrong size.");
             }
 
-            var sectorPic = lines.GetRange(1, sectorSize.Y);
-            var surfaceDescs = lines.GetRange(endOfSectorPic+1, lines.Count - endOfSectorPic - 1);
-            var descs = DecodeSurfaceDescs(surfaceDescs);
+            var descs = DecodeSurfaceDescs(descsLines);
 
-            return MakeSector(sectorPic,sectorSize,descs,worldKernel);
+            return MakeSector(sectorPic, size,location, descs,worldKernel);
         }
 
-        public static Sector MakeSector(List<string> sectorPic, IntPoint size, Dictionary<char, CubeTemplate> descs,Kernel worldKernel)
+        public static Sector MakeSector(List<string> sectorPic, IntPoint size,IntPoint location, Dictionary<char, CubeTemplate> descs,Kernel worldKernel)
         {
-            var sector = WorldGen.GetEmptyTestSector(IntPoint.Zero, size);
+            var sector = WorldGen.GetEmptyTestSector(location, size);
             var worldGenGrid = new WorldGenGrid(worldKernel, size, new Random());
 
             for(int i=0; i<size.Y;i++)
@@ -56,7 +76,7 @@ namespace IAmACube
                 for(int j=0;j<size.X;j++)
                 {
                     var tile = line[j];
-                    if (tile != ' ')
+                    if (tile != WorldPicEmptySpace)
                     {
                         var template = descs[tile];
                         worldGenGrid.TilesGrid[j, i].Surface = template;
@@ -74,8 +94,8 @@ namespace IAmACube
             var output = new Dictionary<char, CubeTemplate>();
             foreach(var str in lines)
             {
-                var pair = str.Split('=');
-                var nameAndNumber = pair[1].Split(',');
+                var pair = str.Split(TemplateSymbolVsTemplateSeperator);
+                var nameAndNumber = pair[1].Split(TemplateNameVsVersionSeperator);
 
                 char symbol = pair[0][0];
                 string templateName = nameAndNumber[0];

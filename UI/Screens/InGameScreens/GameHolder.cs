@@ -21,17 +21,17 @@ namespace IAmACube
         public override void Update(UserInput input)
         {
             base.Update(input);
-            Camera.Update(input);
-            if(!Paused)
+            if (!Paused)
             {
                 Game.Update(input);
             }
+            Camera.Update(input);
         }
 
         public void MoveFrameWhilePaused(UserInput input)
         {
-            Camera.Update(input);
             Game.Update(input);
+            Camera.Update(input);
         }
 
         protected override void _drawSelf(DrawingInterface drawingInterface)

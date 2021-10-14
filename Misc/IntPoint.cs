@@ -113,5 +113,13 @@ namespace IAmACube
         }
         public bool InBoundsExclusive(int x, int y, int x2, int y2) => InBoundsInclusive(x + 1, y + 1, x2 - 1, y2 - 1);
         public bool InBoundsInclusive(int x, int y, int x2, int y2) => (X >= x) & (X <= x2) & (Y >= y) & (Y <= y2);
+
+        private const char ParsingXYSeperator = ',';
+             
+        public static IntPoint Parse(string s)
+        {
+            var splits = s.Split(ParsingXYSeperator);
+            return new IntPoint(int.Parse(splits[0]), int.Parse(splits[1]));
+        }
     }
 }

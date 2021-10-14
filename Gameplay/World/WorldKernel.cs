@@ -12,7 +12,7 @@ namespace IAmACube
         public override int Age => _ticker.WorldTicks;
         private WorldTicker _ticker;
 
-        public WorldKernel(WorldTicker ticker)
+        public void SetTicker(WorldTicker ticker)
         {
             _ticker = ticker;
         }
