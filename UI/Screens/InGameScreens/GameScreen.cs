@@ -29,7 +29,8 @@ namespace IAmACube
 
 #if DEBUG
             //_currentCamera = _adminCamera;
-            CameraConfiguration.DebugMode = true;
+            _adminCamera.SetDebugMode(true);
+            _playerCamera.SetDebugMode(false);
 #endif
             AddKeyJustPressedEvent(Keys.M, (i) => _gameHolder.Camera = _adminCamera);
             AddKeyJustPressedEvent(Keys.N, (i) => _gameHolder.Camera = _playerCamera);

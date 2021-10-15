@@ -5,7 +5,7 @@ namespace IAmACube
 {
     public class CameraConfiguration
     {
-        public static bool DebugMode = false;
+        public bool DebugMode = false;
 
         public int Scale = 1;
         public int TileSizePixels;
@@ -16,6 +16,9 @@ namespace IAmACube
 
         public IntPoint VisibleGrid = IntPoint.Zero;
         public IntPoint MouseHoverPosition = IntPoint.Zero;
+
+        public int MinViewRange = 8;
+        public int MaxViewRange = 20;
 
         public void Update(UserInput input, World world)
         {
@@ -60,8 +63,9 @@ namespace IAmACube
 
         public void ChangeScale(int offset)
         {
-            var currentViewRange = Math.Min(VisibleGrid.X, VisibleGrid.Y);
-            if (!DebugMode & (offset > 0 & currentViewRange < 8))
+            if(offset==0) { return; }
+
+            if (!DebugMode & ((offset > 0 & VisibleGrid.Min < MinViewRange) | (offset < 0 & VisibleGrid.Max > MaxViewRange)))
             {
                 return;
             }
@@ -106,7 +110,6 @@ namespace IAmACube
             if (world.HasTile(mousePos))
             {
                 input.MouseHoverTile = world.GetTile(mousePos);
-                Console.WriteLine(input.MouseHoverTile.AbsoluteLocation);
             }
 
             MouseHoverPosition = input.MouseHoverTile.AbsoluteLocation;

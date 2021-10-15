@@ -26,6 +26,10 @@ namespace IAmACube
             }
         }
 
+        public void SetScale(int scale) => _config.Scale = scale;
+
+        public void SetDebugMode(bool toSet) => _config.DebugMode = toSet;
+
         public void SetWorld(World world)
         {
             _currentWorld = world;
@@ -48,7 +52,7 @@ namespace IAmACube
             _drawTiles(_currentWorld);
             _drawMouseHoverPos();
 
-            if (CameraConfiguration.DebugMode)
+            if (_config.DebugMode)
             {
                 //_drawSectorBoundaries(_currentWorld);
             }

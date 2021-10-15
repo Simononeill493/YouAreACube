@@ -42,7 +42,7 @@ namespace IAmACube
                 DrawCube(tile.Ephemeral, drawPos, DrawLayers.EphemeralLayer, cameraConfig);
             }
 
-            if(CameraConfiguration.DebugMode)
+            if(cameraConfig.DebugMode)
             {
                 DrawTileDebugOverlay(tile, drawPos, cameraConfig);
             }

@@ -21,6 +21,8 @@ namespace IAmACube
         public DemoGameScreen(Action<ScreenType> switchScreen,Kernel kernel,World demoWorld) : base(ScreenType.DemoGame, switchScreen, kernel,demoWorld)
         {
             AddKeyJustReleasedEvent(Keys.Escape, (i) => { SwitchScreen(ScreenType.MainMenu); });
+
+            _playerCamera.SetScale(3);
         }
 
     }
