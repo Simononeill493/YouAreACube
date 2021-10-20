@@ -1,109 +1,104 @@
-20,20
+40,20
+#
+x=BasicWall,0
+P=BasicPlayer,0
+g=BasicGoal,0
 -
 0,0
 #
-xxxxxxxxxxxxxxxxxxxx
-x        xx        x
-x        xx  g      
-x        xx        x
-x        xx        x
-x P      xx        x
-x        xx        x
-x        xx        x
-x        xx        x
-xxxx  xxxxxxxxxxx  x
-xxxx  xxxxxxxxxxx  x
-x        xx        x
-x                  x
-x        xx        x
-x        xx        x
-x        xx        x
-x        xx        x
-x                  x
-x        xx        x
-xxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+x        xx                            x
+x        xx        x                   x
+x        xx        x                   x
+x                  x                   x
+x P      xx        x                   x
+x        xx                            x
+x        xx        x                   x
+x        xx        x                   x
+xxxx               x                   x
+xxxx  xxxxxxxxxxx  x                   x
+x        xx        x                   x
+x                                      x
+x        xx        x                   x
+x        xx        x                   x
+x        xx        x                   x
+x        xx                            x
+x                  x                   x
+x        xx        x                   x
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 #
-x=BasicWall,0
-P=BasicPlayer,0
-g=BasicGoal,0
 -
 1,0
 #
-xxxxxxxxxxxxxxxxxxxx
-x        xx        x
-         xx  g     x
-x        xx        x
-x        xx        x
-x P      xx        x
-x        xx        x
-x        xx        x
-x        xx        x
-xxxx  xxxxxxxxxxx  x
-xxxx  xxxxxxxxxxx  x
-x        xx        x
-x                  x
-x        xx        x
-x        xx        x
-x        xx        x
-x        xx        x
-x                  x
-x        xx        x
-xxxxxxxxxxxxxxxxxx x
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+x        xx                            x
+x        xx        x                   x
+x        xx        x                   x
+x                  x                   x
+x        xx        x                   x
+x        xx                            x
+x        xx        x                   x
+x        xx        x                   x
+xxxx               x                   x
+xxxx  xxxxxxxxxxx  x                   x
+x        xx        x                   x
+x                                      x
+x        xx        x                   x
+x        xx        x                   x
+x        xx        x                   x
+x        xx                            x
+x                  x                   x
+x        xx        x                   x
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 #
-x=BasicWall,0
-P=BasicPlayer,0
-g=BasicGoal,0
+x=Rock1,0
 -
 0,1
 #
-xxxxxxxxxxxxxxxxxxxx
-x        xx        x
-x        xx  g     x
-x        xx        x
-x        xx        x
-x P      xx        x
-x        xx        x
-x        xx        x
-x        xx        x
-xxxx  xxxxxxxxxxx  x
-xxxx  xxxxxxxxxxx  x
-x        xx         
-x                  x
-x        xx        x
-x        xx        x
-x        xx        x
-x        xx        x
-x                  x
-x        xx        x
-xxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+x        xx                            x
+x        xx        x                   x
+x        xx        x                   x
+x                  x                   x
+x        xx        x                   x
+x        xx                            x
+x        xx        x                   x
+x        xx        x                   x
+xxxx               x                   x
+xxxx  xxxxxxxxxxx  x                   x
+x        xx        x                   x
+x                                      x
+x        xx        x                   x
+x        xx        x                   x
+x        xx        x                   x
+x        xx                            x
+x                  x                   x
+x        xx        x                   x
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 #
-x=BasicWall,0
-P=BasicPlayer,0
-g=BasicGoal,0
+x=Rock2,0
 -
 1,1
 #
-xxxxxxxxxxxxxxxxxx x
-x        xx        x
-x        xx  g     x
-x        xx        x
-x        xx        x
-x P      xx        x
-x        xx        x
-x        xx        x
-x        xx        x
-xxxx  xxxxxxxxxxx  x
-xxxx  xxxxxxxxxxx  x
-         xx        x
-x                  x
-x        xx        x
-x        xx        x
-x        xx        x
-x        xx        x
-x                  x
-x        xx        x
-xxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+x        xx                            x
+x        xx        x                   x
+x        xx        x                   x
+x                  x                   x
+x        xx        x                   x
+x        xx                            x
+x        xx        x                   x
+x        xx        x                   x
+xxxx               x                   x
+xxxx  xxxxxxxxxxx  x                   x
+x        xx        x                   x
+x                                      x
+x        xx        x                   x
+x        xx        x                   x
+x        xx        x                   x
+x        xx                            x
+x                  x               g   x
+x        xx        x                   x
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 #
-x=BasicWall,0
-P=BasicPlayer,0
-g=BasicGoal,0
+x=Plants1,0

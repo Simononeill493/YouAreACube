@@ -12,7 +12,7 @@ namespace IAmACube
         public const string DemoWorldFilePath = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data\DemoWorldFile.txt";
 
         public const string TopLevelSeperator = "-";
-        public const string SectorMetadataSeperator = "#";
+        public const string Level2Seperator = "#";
 
         public const char TemplateNameVsVersionSeperator = ',';
         public const char SectorSizeXYSeperator = ',';
@@ -24,19 +24,28 @@ namespace IAmACube
             var lines = File.ReadAllLines(DemoWorldFilePath).ToList();
             var topLevelSeperated = StringUtils.Seperate(lines, TopLevelSeperator);
 
-            var sectorSize = IntPoint.Parse(topLevelSeperated[0][0]);
+            var (sectorSize,topLevelDescs) = ParseWorldMetaData(topLevelSeperated[0]);
 
             var sectors = topLevelSeperated.GetRange(1, topLevelSeperated.Count - 1);
             var sectorsList = new List<Sector>();
 
-            foreach(var sectorLines in sectors)
+            foreach (var sectorLines in sectors)
             {
-                var sector = SectorFromLines(sectorSize, sectorLines, kernel);
+                var sector = SectorFromLines(sectorSize, sectorLines, kernel,topLevelDescs);
                 sectorsList.Add(sector);
             }
 
-            var player = sectorsList.FirstOrDefault(s=>s.AbsoluteLocation.Equals(IntPoint.Zero)).GetPlayer();
+            var player = sectorsList.FirstOrDefault(s => s.AbsoluteLocation.Equals(IntPoint.Zero)).GetPlayer();
             return (sectorSize, sectorsList, player);
+        }
+
+        public static (IntPoint sectorSize, Dictionary<char, CubeTemplate> topLevelDescs) ParseWorldMetaData(List<string> lines)
+        {
+            var worldDataSeperated = StringUtils.Seperate(lines, Level2Seperator);
+            var sectorSize = IntPoint.Parse(worldDataSeperated[0][0]);
+            var surfaceDescs = DecodeSurfaceDescs(worldDataSeperated[1]);
+
+            return (sectorSize, surfaceDescs);
         }
 
         private static SurfaceCube GetPlayer(this Sector sector)
@@ -45,13 +54,12 @@ namespace IAmACube
             return (SurfaceCube)player;
         }
 
-        public static Sector SectorFromLines(IntPoint size,List<string> lines,Kernel worldKernel)
+        public static Sector SectorFromLines(IntPoint size,List<string> lines,Kernel worldKernel, Dictionary<char, CubeTemplate> topLevelDescs)
         {
-            var sections = StringUtils.Seperate(lines,SectorMetadataSeperator);
+            var sections = StringUtils.Seperate(lines,Level2Seperator);
             var location = IntPoint.Parse(sections[0][0]);
             var sectorPic = sections[1];
             var descsLines = sections[2];
-
 
             if (sectorPic.Count != size.Y)
             {
@@ -59,6 +67,13 @@ namespace IAmACube
             }
 
             var descs = DecodeSurfaceDescs(descsLines);
+            foreach(var kvp in topLevelDescs)
+            {
+                if(!descs.ContainsKey(kvp.Key))
+                {
+                    descs[kvp.Key] = kvp.Value;
+                }
+            }
 
             return MakeSector(sectorPic, size,location, descs,worldKernel);
         }

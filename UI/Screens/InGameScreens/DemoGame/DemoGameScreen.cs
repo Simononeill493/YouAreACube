@@ -22,7 +22,7 @@ namespace IAmACube
         {
             AddKeyJustReleasedEvent(Keys.Escape, (i) => { SwitchScreen(ScreenType.MainMenu); });
 
-            _playerCamera.SetScale(3);
+            _playerCamera.SetScale(6);
         }
 
     }

@@ -34,6 +34,12 @@ namespace IAmACube
             LoadAppearanceForEditing(baseTemplate);
         }
 
+        public override void Update(UserInput input)
+        {
+            base.Update(input);
+            Console.WriteLine(RandomUtils.RandomNumber(10) + " Enabled: " + Enabled + " Visible:" + Visible);
+        }
+
         public void SpriteSelected(string sprite, CubeSpriteDataType spriteType) => _spriteBox.SetSpriteToSingleSpriteType(sprite, spriteType);
 
         public void LoadAppearanceForEditing(CubeTemplate template)

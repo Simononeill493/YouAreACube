@@ -65,8 +65,7 @@ namespace IAmACube
         {
             var tabButton = new TabButtonMenuItem(this, tab, name,_buttonSprite);
             tabButton.OnMouseReleased += (i) => SwitchToTab(tabButton);
-            tab.Visible = false;
-            tab.Enabled = false;
+            tab.HideAndDisable();
 
             AddChild(tabButton);
             _tabButtons.Add(tabButton);
@@ -75,19 +74,14 @@ namespace IAmACube
             return tabButton;
         }
 
-
-
-
         public void SwitchToTab(TabButtonMenuItem tabButton)
         {
             if(_activeTab!=null)
             {
-                _activeTab.Tab.Visible = false;
-                _activeTab.Tab.Enabled = false;
+                _activeTab.Tab.HideAndDisable();
             }
 
-            tabButton.Tab.Visible = true;
-            tabButton.Tab.Enabled = true;
+            tabButton.Tab.ShowAndEnable();
             _activeTab = tabButton;
         }
 

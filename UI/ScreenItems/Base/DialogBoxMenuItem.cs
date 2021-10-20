@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace IAmACube
 {
     class DialogBoxMenuItem : SpriteScreenItem
@@ -12,12 +13,12 @@ namespace IAmACube
         private ScreenItem _container;
         public event Action OnClosed;
 
-        private List<ScreenItem> _pausedItems;
+        private Dictionary<ScreenItem,bool> _pausedItems;
 
         public DialogBoxMenuItem(IHasDrawLayer parentDrawLayer, ScreenItem container, string sprite) : base(parentDrawLayer, sprite)
         {
             _container = container;
-            _pausedItems = new List<ScreenItem>();
+            _pausedItems = new Dictionary<ScreenItem, bool>();
         }
 
         public void AddPausedItems(params ScreenItem[] items) => AddPausedItems(items.ToList());
@@ -25,8 +26,8 @@ namespace IAmACube
         {
             foreach(var item in items)
             {
+                _pausedItems[item] = item.Enabled;
                 item.Enabled = false;
-                _pausedItems.Add(item);
             }
         }
 
@@ -48,7 +49,7 @@ namespace IAmACube
 
         public void Close()
         {
-            _pausedItems.ForEach(item => item.Enabled = true);
+            _pausedItems.ToList().ForEach(kvp => kvp.Key.Enabled = kvp.Value);
             _container.RemoveChildAfterUpdate(this);
             OnClosed?.Invoke();
         }
