@@ -57,7 +57,7 @@ namespace IAmACube
         public override IntPoint GetBaseSize() => this.GetCurrentBlockSize();
         public bool IsHoveringOnBottom => Sections.Last().MouseHovering;
 
-        protected override bool _canStartDragging() => base._canStartDragging() & Top.MouseHovering;
+        protected override bool _canStartDragging() => base._canStartDragging() & BlocksetEditPane.MouseIsOverPane & Top.MouseHovering;
         private void _blockDragged(UserInput input) => _draggedCallback(this, input);
     }
 }

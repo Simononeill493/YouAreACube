@@ -25,7 +25,7 @@ namespace IAmACube
             _addMenuItem(_gameHolder);
 
             _gameHolder.Camera = _playerCamera;
-            _gameHolder.Game = _generateGame(kernel, world);
+            _gameHolder.CurrentGame = _generateGame(kernel, world);
 
 #if DEBUG
             //_currentCamera = _adminCamera;

@@ -5,7 +5,7 @@ namespace IAmACube
     class GameHolder : ContainerScreenItem
     {
         public Camera Camera;
-        public Game Game;
+        public Game CurrentGame;
 
         public bool Paused;
 
@@ -21,16 +21,19 @@ namespace IAmACube
         public override void Update(UserInput input)
         {
             base.Update(input);
+
+            _updateMouseHover(input);
             if (!Paused)
             {
-                Game.Update(input);
+                CurrentGame.Update(input);
             }
             Camera.Update(input);
         }
 
         public void MoveFrameWhilePaused(UserInput input)
         {
-            Game.Update(input);
+            _updateMouseHover(input);
+            CurrentGame.Update(input);
             Camera.Update(input);
         }
 
@@ -42,5 +45,7 @@ namespace IAmACube
 
         public override IntPoint GetBaseSize() => throw new NotImplementedException();
         public override IntPoint GetCurrentSize() => _getSize();
+
+        private void _updateMouseHover(UserInput input) => input.MouseHoverTile = Camera.GetMouseHoverTile(input.MousePos, Game.World);
     }
 }

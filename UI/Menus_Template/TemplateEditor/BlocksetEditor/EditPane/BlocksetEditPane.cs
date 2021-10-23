@@ -14,6 +14,8 @@ namespace IAmACube
         public static FullModel Model;
         public static IVariableProvider VariableProvider;
 
+        public static bool MouseIsOverPane;
+
         public Action<BlockInputOption, BlockInputModel> OpenSubMenuCallback;
 
         private ScreenItem _bin;
@@ -42,9 +44,10 @@ namespace IAmACube
         public override void Update(UserInput input)
         {
             base.Update(input);
-
             _cleanUpDisposedBlocksets();
             _checkForPan(input);
+
+            MouseIsOverPane = MouseHovering;
         }
 
         public void LoadChipsetForEditing(CubeTemplate template)
@@ -63,6 +66,16 @@ namespace IAmACube
 
         public void AddEditedChipsetToTemplate(CubeTemplate template)
         {
+            //todo this is a hack for convenience
+            if(Model.Initial==null)
+            {
+                var externals = Model.Blocksets.Where(m => !m.Value.Internal);
+                if(externals.Count()==1)
+                {
+                    Model.Initial = externals.First().Value;
+                }
+            }
+
             Model.Sort();
             TemplateParsingTester.TestParsingRoundTrip(template.Name, Model, VariableProvider.GetVariables());
             template.Chipsets = Model.ToChipsets();

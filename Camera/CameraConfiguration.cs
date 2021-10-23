@@ -20,11 +20,23 @@ namespace IAmACube
         public int MinViewRange = 8;
         public int MaxViewRange = 20;
 
-        public void Update(UserInput input, World world)
+        public void Update(UserInput input)
         {
-            _assignMouseHover(input, world);
+            MouseHoverPosition = input.MouseHoverTile.AbsoluteLocation;
+
             _handleUserInput(input);
             UpdateScaling();
+        }
+
+        public Tile GetMouseHoverTile(IntPoint mousePosAbsolute, World world)
+        {
+            var mouseTilePos = GetMouseHover(mousePosAbsolute);
+            if (world.HasTile(mouseTilePos))
+            {
+                return world.GetTile(mouseTilePos);
+            }
+
+            return Tile.Dummy;
         }
 
         public void UpdateScaling()
@@ -88,9 +100,9 @@ namespace IAmACube
 
         public IntPoint GetCameraCentre() => (VisibleGrid / 2 * TileSizePixels);
         public IntPoint GetPosOnScreen(Cube block) => CameraUtils.GetBlockOffsetFromOrigin(block, TileSizePixels) - PixelOffset;
-        public IntPoint GetMouseHover(UserInput input)
+        public IntPoint GetMouseHover(IntPoint mousePosAbsolute)
         {
-            var mouseDivided = (input.MousePos + PixelOffset) / (float)TileSizePixels;
+            var mouseDivided = (mousePosAbsolute + PixelOffset) / (float)TileSizePixels;
             return mouseDivided.Floor;
         }
 
@@ -104,15 +116,7 @@ namespace IAmACube
                 DebugMode = !DebugMode;
             }
         }
-        private void _assignMouseHover(UserInput input, World world)
-        {
-            var mousePos = GetMouseHover(input);
-            if (world.HasTile(mousePos))
-            {
-                input.MouseHoverTile = world.GetTile(mousePos);
-            }
 
-            MouseHoverPosition = input.MouseHoverTile.AbsoluteLocation;
-        }
+
     }
 }

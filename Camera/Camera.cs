@@ -37,7 +37,7 @@ namespace IAmACube
 
         public void Update(UserInput input)
         {
-            _config.Update(input, _currentWorld);
+            _config.Update(input);
             _update(input);
 
             _config.RollOverGridOffsets();
@@ -90,6 +90,6 @@ namespace IAmACube
         }
         protected void _drawSectorBoundaries(World world) => world.Focus.Neighbours.ForEach(s => _drawingInterface.DrawSectorGridOverlay(s.AbsoluteLocation,world.SectorSize, 3, _config));
 
-        public void GetMouseHover(UserInput input) => _config.GetMouseHover(input);
+        public Tile GetMouseHoverTile(IntPoint mousePosAbsolute, World world) => _config.GetMouseHoverTile(mousePosAbsolute,world);
     }
 }

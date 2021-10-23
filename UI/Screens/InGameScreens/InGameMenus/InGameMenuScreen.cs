@@ -20,7 +20,7 @@ namespace IAmACube
 
         protected void _returnToGame()
         {
-            _gameScreen._gameHolder.Game.Kernel.UpdateCompanionTemplates();
+            _gameScreen._gameHolder.CurrentGame.Kernel.UpdateCompanionTemplates();
             SwitchScreen(ScreenType.OpenWorldGame);
         }
     }

@@ -55,6 +55,11 @@ namespace IAmACube
 
         public void DeleteBlockset(BlocksetModel blockset)
         {
+            if (blockset == Initial)
+            {
+                Initial = null;
+            }
+
             Blocksets.Remove(blockset.Name);
             _updateModeIndexes();
         }
