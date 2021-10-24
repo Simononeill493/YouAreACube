@@ -25,7 +25,7 @@ namespace IAmACube
         public override void _postUpdate(UserInput input)
         {
             base._postUpdate(input);
-            _sectorGenerator.GenerateAdjacentSectors(Game.World);
+            //_sectorGenerator.GenerateAdjacentSectors(Game.World);
         }
 
         private void _saveAndQuit()
