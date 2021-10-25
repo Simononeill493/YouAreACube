@@ -1034,7 +1034,7 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Sprites/Tilesets/Eyes/Eyes5.png;Sprites/Tilesets/Eyes/Eyes5.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/ApproachEnemy.png
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/ApproachEnemy.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1044,9 +1044,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/ApproachEnemy.png;Sprites/Tilesets/Main/ApproachEnemy.png
+/build:../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/ApproachEnemy.png;Sprites/Tilesets/FaceCubes/ApproachEnemy.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/BasicEnemy.png
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/BasicEnemy.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1056,9 +1056,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/BasicEnemy.png;Sprites/Tilesets/Main/BasicEnemy.png
+/build:../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/BasicEnemy.png;Sprites/Tilesets/FaceCubes/BasicEnemy.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/BasicPlayer.png
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/BasicPlayer.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -1068,7 +1068,139 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/BasicPlayer.png;Sprites/Tilesets/Main/BasicPlayer.png
+/build:../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/BasicPlayer.png;Sprites/Tilesets/FaceCubes/BasicPlayer.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/CursorBuddy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/CursorBuddy.png;Sprites/Tilesets/FaceCubes/CursorBuddy.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/CursorBuddySad.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/CursorBuddySad.png;Sprites/Tilesets/FaceCubes/CursorBuddySad.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/DemoBuddy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/DemoBuddy.png;Sprites/Tilesets/FaceCubes/DemoBuddy.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/DemoBuddyQuestionEyes.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/DemoBuddyQuestionEyes.png;Sprites/Tilesets/FaceCubes/DemoBuddyQuestionEyes.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/DemoBuddySmile.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/DemoBuddySmile.png;Sprites/Tilesets/FaceCubes/DemoBuddySmile.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/FleeEnemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/FleeEnemy.png;Sprites/Tilesets/FaceCubes/FleeEnemy.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/MouseFollower.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/MouseFollower.png;Sprites/Tilesets/FaceCubes/MouseFollower.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/RedDemoBuddy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/RedDemoBuddy.png;Sprites/Tilesets/FaceCubes/RedDemoBuddy.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/ShootEnemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/ShootEnemy.png;Sprites/Tilesets/FaceCubes/ShootEnemy.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/Spinner.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/Spinner.png;Sprites/Tilesets/FaceCubes/Spinner.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/TrackerEnemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/FaceCubes/TrackerEnemy.png;Sprites/Tilesets/FaceCubes/TrackerEnemy.png
 
 #begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/BigBullet.png
 /importer:TextureImporter
@@ -1130,30 +1262,6 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Sprites/Tilesets/Main/CrystalPurple.png;Sprites/Tilesets/Main/CrystalPurple.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/CursorBuddy.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/CursorBuddy.png;Sprites/Tilesets/Main/CursorBuddy.png
-
-#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/CursorBuddySad.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/CursorBuddySad.png;Sprites/Tilesets/Main/CursorBuddySad.png
-
 #begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/DarkGrass.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1165,54 +1273,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Sprites/Tilesets/Main/DarkGrass.png;Sprites/Tilesets/Main/DarkGrass.png
-
-#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoBuddy.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoBuddy.png;Sprites/Tilesets/Main/DemoBuddy.png
-
-#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoBuddyQuestionEyes.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoBuddyQuestionEyes.png;Sprites/Tilesets/Main/DemoBuddyQuestionEyes.png
-
-#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoBuddySmile.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoBuddySmile.png;Sprites/Tilesets/Main/DemoBuddySmile.png
-
-#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/FleeEnemy.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/FleeEnemy.png;Sprites/Tilesets/Main/FleeEnemy.png
 
 #begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/Grass.png
 /importer:TextureImporter
@@ -1238,18 +1298,6 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Sprites/Tilesets/Main/MiniBullet.png;Sprites/Tilesets/Main/MiniBullet.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/MouseFollower.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/MouseFollower.png;Sprites/Tilesets/Main/MouseFollower.png
-
 #begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/Plants1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1273,18 +1321,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Sprites/Tilesets/Main/PurpleGrass.png;Sprites/Tilesets/Main/PurpleGrass.png
-
-#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/RedDemoBuddy.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/RedDemoBuddy.png;Sprites/Tilesets/Main/RedDemoBuddy.png
 
 #begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/Rock1.png
 /importer:TextureImporter
@@ -1310,30 +1346,6 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Sprites/Tilesets/Main/Rock2.png;Sprites/Tilesets/Main/Rock2.png
 
-#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/ShootEnemy.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/ShootEnemy.png;Sprites/Tilesets/Main/ShootEnemy.png
-
-#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/Spinner.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/Spinner.png;Sprites/Tilesets/Main/Spinner.png
-
 #begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/TitleBox.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1357,18 +1369,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Sprites/Tilesets/Main/TitleBoxGlowing.png;Sprites/Tilesets/Main/TitleBoxGlowing.png
-
-#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/TrackerEnemy.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/TrackerEnemy.png;Sprites/Tilesets/Main/TrackerEnemy.png
 
 #begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/Water.png
 /importer:TextureImporter

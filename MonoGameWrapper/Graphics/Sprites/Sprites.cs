@@ -11,14 +11,13 @@ namespace IAmACube
     {
         public static List<(string fullName, string friendlyName)> AllSprites;
 
-        public static string TileSpritesRootDirectory = "Sprites/Tilesets";
         public static string MenuSpritesDirectory = "Sprites/Static/Menu";
         public static string TitleSpritesDirectory = "Sprites/Static/Title";
 
         public static void Init()
         {
             AllSprites = new List<(string,string)>();
-            AllSprites.AddRange(Tilesets.LoadTilesets(TileSpritesRootDirectory));
+            AllSprites.AddRange(Tilesets.LoadTilesets());
 
             AllSprites.AddRange(LoadStaticSprites(MenuSpritesDirectory,typeof(MenuSprites)));
             AllSprites.AddRange(LoadStaticSprites(TitleSpritesDirectory, typeof(TitleAnimationSprites)));

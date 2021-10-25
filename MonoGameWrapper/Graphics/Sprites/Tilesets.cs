@@ -12,19 +12,20 @@ namespace IAmACube
         public const string TileEyesDirectory = "Sprites/Tilesets/Eyes";
         public const string TileBodiesDirectory = "Sprites/Tilesets/Bodies";
         public const string TileMainDirectory = "Sprites/Tilesets/Main";
+        public const string TileFaceCubesDirectory = "Sprites/Tilesets/FaceCubes";
         public const string TileAttach4Directory = "Sprites/Tilesets/Attach4";
 
-        //public static Dictionary<CubeSpriteDataType, List<string>> SpritesByType;
-        public static Dictionary<string, Attach4SpriteSet> Attach4Spritesets;
-
         public static List<string> GeneralSprites;
+        public static List<string> FaceCubes;
         public static List<string> EyeSprites;
         public static List<string> BodySprites;
         public static List<string> Attach4Sprites;
 
         public static List<(string, CubeSpriteDataType)> CanBeFullBodySprites;
+        public static Dictionary<string, Attach4SpriteSet> Attach4Spritesets;
 
-        public static List<(string,string)> LoadTilesets(string directory)
+
+        public static List<(string,string)> LoadTilesets()
         {
             var tileSprites = new List<(string fullName, string friendlyName)>();
             var tileSpritesDict = LoadSpritesFromFile();
@@ -33,6 +34,7 @@ namespace IAmACube
             EyeSprites = tileSpritesDict[TileEyesDirectory];
             BodySprites = tileSpritesDict[TileBodiesDirectory];
             GeneralSprites = tileSpritesDict[TileMainDirectory];
+            FaceCubes = tileSpritesDict[TileFaceCubesDirectory];
 
             Attach4Spritesets = MakeAttach4Spritesets(Attach4Sprites);
             var allAttach4NamesAndPaths = Attach4Spritesets.Values.SelectMany(a => a.GetSpriteNamesAndPaths());
@@ -40,9 +42,11 @@ namespace IAmACube
             tileSprites.AddRange(GetBothNames(EyeSprites, TileEyesDirectory));
             tileSprites.AddRange(GetBothNames(BodySprites, TileBodiesDirectory));
             tileSprites.AddRange(GetBothNames(GeneralSprites, TileMainDirectory));
+            tileSprites.AddRange(GetBothNames(FaceCubes, TileFaceCubesDirectory));
             tileSprites.AddRange(allAttach4NamesAndPaths);
 
             CanBeFullBodySprites = new List<(string, CubeSpriteDataType)>();
+            CanBeFullBodySprites.AddRange(FaceCubes.Select(s => (s, CubeSpriteDataType.SingleSprite)));
             CanBeFullBodySprites.AddRange(GeneralSprites.Select(s => (s, CubeSpriteDataType.SingleSprite)));
             CanBeFullBodySprites.AddRange(BodySprites.Select(s => (s, CubeSpriteDataType.SingleSprite)));
             CanBeFullBodySprites.AddRange(Attach4Sprites.Select(s => (s, CubeSpriteDataType.Attach4)));
@@ -79,7 +83,7 @@ namespace IAmACube
             {
                 if (spriteName[0].Equals('/'))
                 {
-                    spritePath = Sprites.TileSpritesRootDirectory + spriteName;
+                    spritePath = spriteName.Substring(1);
                     tileSpritesDict[spritePath] = new List<string>();
                     continue;
                 }

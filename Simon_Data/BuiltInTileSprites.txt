@@ -1,15 +1,8 @@
-/Main
-BasicPlayer
+/Sprites/Tilesets/Main
 Bullet
-ApproachEnemy
-FleeEnemy
-ShootEnemy
-TrackerEnemy
-MouseFollower
 Grass
 DarkGrass
 PurpleGrass
-Spinner
 MiniBullet
 BigBullet
 Rock1
@@ -19,21 +12,33 @@ Black
 CrystalPurple
 TitleBox
 TitleBoxGlowing
+
+
+/Sprites/Tilesets/FaceCubes
+ApproachEnemy
+BasicEnemy
+BasicPlayer
 CursorBuddy
 CursorBuddySad
 DemoBuddy
-DemoBuddySmile
 DemoBuddyQuestionEyes
+DemoBuddySmile
+FleeEnemy
+MouseFollower
 RedDemoBuddy
+ShootEnemy
+Spinner
+TrackerEnemy
 
-/Eyes
+
+/Sprites/Tilesets/Eyes
 Eyes1
 Eyes2
 Eyes3
 Eyes4
 Eyes5
 
-/Bodies
+/Sprites/Tilesets/Bodies
 Body1
 Body2
 Body3
@@ -41,5 +46,5 @@ Body4
 Body5
 Body6
 
-/Attach4
+/Sprites/Tilesets/Attach4
 Test4Pipe
