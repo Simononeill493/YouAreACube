@@ -106,10 +106,23 @@
 	  "maxHealth":100,
     },
 	{
+      "name":"WireBasic",
+      "sprite":"WireBasic",
+	  "spriteType":"Attach4",
+	  "maxHealth":100,
+    },
+
+	{
       "name":"BasicWall",
       "sprite":"TitleBox",
 	  "spriteType":"SingleSprite",
 	  "maxHealth":10000,
+    },
+	{
+      "name":"DemoWall",
+      "sprite":"DemoWall1_3",
+	  "spriteType":"SingleSprite",
+	  "maxHealth":100000,
     },
 	{
       "name":"BasicGoal",

@@ -27,7 +27,7 @@ namespace IAmACube
 
         public void DrawTile(Tile tile, IntPoint drawPos, CameraConfiguration cameraConfig)
         {
-            _primitive.DrawSprite(tile.Sprite, drawPos.X, drawPos.Y, cameraConfig.Scale, DrawLayers.TileLayer, Color.White, false, false, false);
+            _primitive.DrawSprite(tile.Sprite.CurrentSprite, drawPos.X, drawPos.Y, cameraConfig.Scale, DrawLayers.TileLayer, ColorLookup.ColorsDict[tile.Sprite.ColorMask], false, false, false);
 
             if (tile.HasGround)
             {

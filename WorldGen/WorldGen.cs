@@ -12,7 +12,7 @@ namespace IAmACube
         public static (World,SurfaceCube) GenerateDemoWorld()
         {
             var kernel = new WorldKernel();
-            var (sectorSize,sectors,player) = WorldGenFileLoader.LoadDemoSector(kernel);
+            var (sectorSize,sectors,player) = WorldGenFileLoader.LoadDemoSectors(kernel);
 
             var world = new World(0, sectorSize);
             sectors.ForEach(s => world.AddSector(s));

@@ -91,7 +91,14 @@ namespace IAmACube
 
         public void DemoButtonClicked(UserInput i)
         {
-            _parentSwitchScreen(ScreenType.PreDemo);
+            if (i.IsKeyDown(Keys.LeftShift))
+            {
+                _parentSwitchScreen(ScreenType.DemoGame);
+            }
+            else
+            {
+                _parentSwitchScreen(ScreenType.PreDemo);
+            }
         }
 
         public void NewGameButtonClicked(UserInput i)

@@ -12,6 +12,11 @@ Black
 CrystalPurple
 TitleBox
 TitleBoxGlowing
+DemoFloor1
+DemoFloor2
+DemoWall1_1
+DemoWall1_2
+DemoWall1_3
 
 
 /Sprites/Tilesets/FaceCubes
@@ -48,3 +53,4 @@ Body6
 
 /Sprites/Tilesets/Attach4
 Test4Pipe
+WireBasic

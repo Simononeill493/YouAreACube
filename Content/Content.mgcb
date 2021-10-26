@@ -902,6 +902,78 @@
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe4.png;Sprites/Tilesets/Attach4/Test4Pipe/Test4Pipe4.png
 
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Attach4/WireBasic/WireBasic0.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Attach4/WireBasic/WireBasic0.png;Sprites/Tilesets/Attach4/WireBasic/WireBasic0.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Attach4/WireBasic/WireBasic1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Attach4/WireBasic/WireBasic1.png;Sprites/Tilesets/Attach4/WireBasic/WireBasic1.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Attach4/WireBasic/WireBasic2_1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Attach4/WireBasic/WireBasic2_1.png;Sprites/Tilesets/Attach4/WireBasic/WireBasic2_1.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Attach4/WireBasic/WireBasic2_2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Attach4/WireBasic/WireBasic2_2.png;Sprites/Tilesets/Attach4/WireBasic/WireBasic2_2.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Attach4/WireBasic/WireBasic3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Attach4/WireBasic/WireBasic3.png;Sprites/Tilesets/Attach4/WireBasic/WireBasic3.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Attach4/WireBasic/WireBasic4.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Attach4/WireBasic/WireBasic4.png;Sprites/Tilesets/Attach4/WireBasic/WireBasic4.png
+
 #begin ../Simon_Data/To_Import/Sprites/Tilesets/Bodies/Body1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1273,6 +1345,66 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../Simon_Data/To_Import/Sprites/Tilesets/Main/DarkGrass.png;Sprites/Tilesets/Main/DarkGrass.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoFloor1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoFloor1.png;Sprites/Tilesets/Main/DemoFloor1.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoFloor2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoFloor2.png;Sprites/Tilesets/Main/DemoFloor2.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoWall1_1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoWall1_1.png;Sprites/Tilesets/Main/DemoWall1_1.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoWall1_2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoWall1_2.png;Sprites/Tilesets/Main/DemoWall1_2.png
+
+#begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoWall1_3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../Simon_Data/To_Import/Sprites/Tilesets/Main/DemoWall1_3.png;Sprites/Tilesets/Main/DemoWall1_3.png
 
 #begin ../Simon_Data/To_Import/Sprites/Tilesets/Main/Grass.png
 /importer:TextureImporter

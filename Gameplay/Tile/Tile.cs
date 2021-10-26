@@ -10,7 +10,8 @@ namespace IAmACube
     [Serializable()]
     public class Tile : LocationWithNeighbors<Tile>
     {
-        public string Sprite = "Grass";
+        public CubeSpriteData Sprite;
+
         public IntPoint LocationInSector { get; }
         public IntPoint SectorID { get; }
         public bool InSector(Sector sector) => sector.AbsoluteLocation.Equals(SectorID);
@@ -72,6 +73,8 @@ namespace IAmACube
 
             IsEdge = (LocationInSector.X == 0) | (LocationInSector.X == sectorSize.X - 1) | (LocationInSector.Y == 0) | (LocationInSector.Y == sectorSize.Y - 1);
             IsCorner = ((LocationInSector.X == 0) | (LocationInSector.X == sectorSize.X - 1)) & ((LocationInSector.Y == 0) | (LocationInSector.Y == sectorSize.Y - 1));
+
+            Sprite = new CubeSpriteDataSingle("Grass");
         }
 
         public bool ContainsBlockType(CubeMode blockType)

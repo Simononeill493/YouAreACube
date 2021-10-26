@@ -8,6 +8,7 @@ namespace IAmACube
         private Kernel _worldKernel;
 
         public string TileSprite;
+        public XnaColors TileSpriteMask = XnaColors.ClearColorMask;
 
         public CubeTemplate Surface;
         public CubeTemplate Ground;
@@ -71,7 +72,8 @@ namespace IAmACube
 
         public void OverlayOnTile(Sector s,Tile t)
         {
-            t.Sprite = TileSprite;
+            t.Sprite = new CubeSpriteDataSingle(TileSprite);
+            t.Sprite.ColorMask = TileSpriteMask;
 
             if (Surface != null)
             {

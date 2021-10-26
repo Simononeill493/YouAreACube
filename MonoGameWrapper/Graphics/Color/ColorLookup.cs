@@ -17,7 +17,7 @@ namespace IAmACube
             ColorsDict[XnaColors.ClearColorMask] = Color.White;
             ColorsDict[XnaColors.DeadCubeColor] = new Color(128, 128, 128, 255);
             ColorsDict[XnaColors.TransparentPink] = new Color(255, 0, 255, 255);
-
+            ColorsDict[XnaColors.DemoStageDarkGroundColor] = new Color(128, 128, 128, 255);
         }
     }
 
@@ -26,6 +26,7 @@ namespace IAmACube
     {
         ClearColorMask,
         DeadCubeColor,
-        TransparentPink
+        TransparentPink,
+        DemoStageDarkGroundColor
     }
 }

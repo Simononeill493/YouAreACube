@@ -17,6 +17,8 @@ namespace IAmACube
             return output;
         }
 
+        public bool Exists(string name, int version) => this.ContainsKey(name) && this[name].ContainsKey(version);
+
         public List<TemplateVersionDictionary> GetAllVersionLists() => Values.ToList();
     }
 }

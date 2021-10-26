@@ -45,6 +45,8 @@ namespace IAmACube
             }
         }
         private Dictionary<int, CubeTemplate> _dict;
+
+        public bool ContainsKey(int key) => _dict.ContainsKey(key);
         #endregion
     }
 }
