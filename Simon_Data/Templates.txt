@@ -2,11 +2,11 @@
   "blocks":
   [
 	{
-      "name":"BasicPlayer",
+      "name":"GodPlayer",
       "sprite":"BasicPlayer",
 	  "spriteType":"SingleSprite",
-	  "maxEnergy":1000,
-	  "maxHealth":10000,
+	  "maxEnergy":10000000,
+	  "maxHealth":10000000,
       "speed":3
     },
   	{

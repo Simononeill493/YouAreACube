@@ -64,6 +64,7 @@
     <Compile Include="Gameplay\Chips\ChipsList\ChipChips\ChangeModeChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ControlChips\IfPercentageChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\ControlChips\IIfChip.cs" />
+    <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Mouse\IsMouseDownChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Surroundings\GetActiveCubeInSectorChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Surroundings\GetTouchingCubeOfTypeChip.cs" />
     <Compile Include="Gameplay\Chips\ChipsList\DataGenerationChips\Surroundings\IsTouchingCubeOfType.cs" />

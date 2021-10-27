@@ -225,6 +225,13 @@
 	  "output":"Tile"
     },
 	{
+      "name":"IsMouseDown",
+	  "datatype":"Sense",
+	  "inputs":[],
+	  "output":"bool"
+    },
+
+	{
       "name":"RandomNum",
 	  "datatype":"Sense",
 	  "inputs":["int"],

@@ -83,7 +83,7 @@ namespace IAmACube
                         _moveManager.TryStartMovement(action.Actor, approachBlockDir, action.MoveSpeed);
                         break;
                     case ActionType.ApproachTile:
-                        if (action.Actor.Location.AbsoluteLocation == action.TargetTile.AbsoluteLocation)
+                        if (action.TargetTile==null || action.Actor.Location.AbsoluteLocation == action.TargetTile.AbsoluteLocation)
                         {
                             continue;
                         }

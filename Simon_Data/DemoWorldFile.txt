@@ -3,7 +3,7 @@
 groundSprite=DemoFloor1,DemoFloor2
 groundMask=DemoStageDarkGroundColor
 x=DemoWall,0
-P=BasicPlayer,0
+P=GodPlayer,0
 g=BasicGoal,0
 -
 0,0

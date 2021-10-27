@@ -26,7 +26,7 @@ namespace IAmACube
 
         public static void SetTestChipsets(TemplateDatabase ChipsetTemplates)
         {
-            ChipsetTemplates["BasicPlayer"][0].Chipsets = new ChipsetCollection(TestPlayerChipset);
+            ChipsetTemplates["GodPlayer"][0].Chipsets = new ChipsetCollection(TestPlayerChipset);
             ChipsetTemplates["Bullet"][0].Chipsets = new ChipsetCollection(TestBulletChipset);
             ChipsetTemplates["BigBullet"][0].Chipsets = new ChipsetCollection(TestBulletChipset);
 

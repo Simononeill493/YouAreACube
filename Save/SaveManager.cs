@@ -43,7 +43,7 @@ namespace IAmACube
 
         public static void CreateAndAddKernelToWorld(Kernel kernel, World world)
         {
-            var player = Templates.GenerateSurface("BasicPlayer", 0,kernel);
+            var player = Templates.GenerateSurface("GodPlayer", 0,kernel);
 
             WorldGen.AddPlayerAtDefaultLocation(world, player);
             kernel.SetHost(player);
