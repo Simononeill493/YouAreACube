@@ -42,9 +42,9 @@ namespace IAmACube
 
             _tabs = new TabArrayMenuItem(this,MenuOrientation.Horizontal,10);
             _tabs.SetLocationConfig(0, -SpriteManager.GetSpriteSize(MenuSprites.BasicTabButton).Y, CoordinateMode.ParentPixel, false);
+            _tabs.AddTabButton("Chipset", _chipsetEditTab);
             _tabs.AddTabButton("Stats", _statsEditTab);
             _tabs.AddTabButton("Variables", _variableEditTab);
-            _tabs.AddTabButton("Chipset", _chipsetEditTab);
             _tabs.AddTabButton("Appearance", _appearanceEditTab);
             _tabs.SwitchToFirstTab();
             AddChild(_tabs);

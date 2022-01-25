@@ -61,6 +61,6 @@ namespace IAmACube
         }
 
 
-        public static Chipset NoAction = new Chipset() { Name = IDUtils.GenerateBlocksetID() };
+        public static Chipset NoAction => new Chipset() { Name = IDUtils.GenerateBlocksetID() };
     }
 }

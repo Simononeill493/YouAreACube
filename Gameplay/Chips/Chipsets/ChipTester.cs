@@ -9,7 +9,9 @@ namespace IAmACube
 {
     class ChipTester
     {
-        public static Chipset TestPlayerChipset => MakePlayerChipset();
+        public static Chipset GodPlayerChipset => MakeGodPlayerChipset();
+        public static Chipset TutorialPlayerChipset => MakeTutorialPlayerChipset();
+
         public static Chipset TestBulletChipset => MakeBulletChipset();
         public static Chipset TestBulletV2Chipset => MakeSpinBulletChipset();
         public static ChipsetCollection TestBulletV3ChipsetCollection => MakeModeSwitchBulletChipsetCollection();
@@ -26,7 +28,9 @@ namespace IAmACube
 
         public static void SetTestChipsets(TemplateDatabase ChipsetTemplates)
         {
-            ChipsetTemplates["GodPlayer"][0].Chipsets = new ChipsetCollection(TestPlayerChipset);
+            ChipsetTemplates["GodPlayer"][0].Chipsets = new ChipsetCollection(GodPlayerChipset);
+            ChipsetTemplates["DemoPlayer"][0].Chipsets = new ChipsetCollection(TutorialPlayerChipset);
+
             ChipsetTemplates["Bullet"][0].Chipsets = new ChipsetCollection(TestBulletChipset);
             ChipsetTemplates["BigBullet"][0].Chipsets = new ChipsetCollection(TestBulletChipset);
 
@@ -186,9 +190,16 @@ namespace IAmACube
             return initialChipset;
         }
 
+        public static Chipset MakeTutorialPlayerChipset()
+        {
+            var ifUpPressed = new IfKeyPressedChip() { InputValue1 = Keys.Up, Name = "UpPressed" };
+            ifUpPressed.Yes = Chipset.NoAction;
+            ifUpPressed.No = Chipset.NoAction;
 
+            return new Chipset(ifUpPressed) { Name = "_Initial" };
+        }
 
-        public static Chipset MakePlayerChipset()
+        public static Chipset MakeGodPlayerChipset()
         {
             var keySwitch = new KeySwitchChip() { Name = "KeySwitch" };
             var bullet = new CubeTemplateMainPlaceholder("Bullet");

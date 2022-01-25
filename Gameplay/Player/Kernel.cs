@@ -16,6 +16,7 @@ namespace IAmACube
 
         public SurfaceCube Host { get; private set; }
         public HashSet<TemplateVersionDictionary> KnownTemplates { get; private set; }
+        public HashSet<BlockData> KnownBlocks { get; private set; }
         public List<Cube> Companions { get; private set; }
 
 
@@ -23,6 +24,8 @@ namespace IAmACube
         {
             Companions = new List<Cube>();
             KnownTemplates = new HashSet<TemplateVersionDictionary>();
+            KnownBlocks = new HashSet<BlockData>();
+            LearnAllBlocks();
         }
         public void InitializeSession()
         {
@@ -81,6 +84,14 @@ namespace IAmACube
 
                 }
             }
+        }
+
+
+
+        public void AddKnownBlock(BlockData block) => KnownBlocks.Add(block);
+        public void LearnAllBlocks()
+        {
+            BlockDataDatabase.BlockDataDict.ToList().ForEach(b => KnownBlocks.Add(b.Value));
         }
     }
 }

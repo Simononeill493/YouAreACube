@@ -8,7 +8,7 @@ namespace IAmACube
 {
     public static class BlockDataUtils
     {
-        public static bool IsIfBlock(this BlockData data) => data.Name.Equals("If") | data.Name.Equals("IfPercentage");
+        public static bool IsIfBlock(this BlockData data) => data.Name.Equals("If") | data.Name.Equals("IfPercentage") | data.Name.Equals("IfKeyPressed");
         public static bool IsSwitchBlock(this BlockData data) => IsIfBlock(data) | data.Name.Equals("KeySwitch");
 
         public static List<string> GetDefaultSwitchSections(this BlockData data)

@@ -8,6 +8,8 @@ namespace IAmACube
 {
     class BlockSearchPane : SpriteScreenItem
     {
+        private Kernel _kernel;
+
         public const int MaxVisibleChips = 6;
         public const int PreviewPixelXOffset = 3;
         public const int PreviewPixeYInit = 45;
@@ -22,8 +24,9 @@ namespace IAmACube
         private string _searchTerm = "";
         private ChipType _selectedChipType;
 
-        public BlockSearchPane(IHasDrawLayer parentDrawLayer) : base(parentDrawLayer, MenuSprites.SearchPane)
+        public BlockSearchPane(IHasDrawLayer parentDrawLayer, Kernel kernel) : base(parentDrawLayer, MenuSprites.SearchPane)
         {
+            _kernel = kernel;
             _chipPreviews = new List<BlockPreview>();
 
             var _searchBar = new SearchBarMenuItem(this,()=>_searchTerm,_searchTermChanged);
@@ -41,7 +44,7 @@ namespace IAmACube
         
         public void RefreshFilter()
         {
-            var filtered = BlockDataDatabase.SearchBaseBlocks(_searchTerm);
+            var filtered = _kernel.KnownBlocks.SearchBlocks(_searchTerm);
             filtered = filtered.Where(c => c.ChipDataType == _selectedChipType);
 
             _setPreviews(filtered.ToList());

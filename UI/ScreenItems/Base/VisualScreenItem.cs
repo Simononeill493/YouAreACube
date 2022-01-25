@@ -9,13 +9,19 @@ namespace IAmACube
 {
     abstract class VisualScreenItem : ScreenItem
     {
-        public Color CurrentColor => (MouseHovering) ? HighlightColor : DefaultColor;
+        public Color CurrentColor => (MouseHovering) ? (HighlightColor): DefaultColor;
         public Color DefaultColor = GlobalDefaultColor;
         public Color HighlightColor = GlobalDefaultColor;
+
         public void SetConstantColor(Color color)
         { 
             DefaultColor = color;
             HighlightColor = color;
+        }
+
+        public void ResetColor()
+        {
+            DefaultColor = GlobalDefaultColor;
         }
 
         public static Color GlobalDefaultColor = Color.White;

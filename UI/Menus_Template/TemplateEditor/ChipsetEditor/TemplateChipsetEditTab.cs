@@ -20,7 +20,7 @@ namespace IAmACube
             _kernel = kernel;
             _baseTemplate = baseTemplate;
 
-            _searchPane = new BlockSearchPane(this);
+            _searchPane = new BlockSearchPane(this,kernel);
             _searchPane.SetLocationConfig(84, 50, CoordinateMode.ParentPercentage, true);
             AddChild(_searchPane);
 

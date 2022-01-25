@@ -17,8 +17,6 @@ namespace IAmACube
             BaseBlockDataList = BlockDataDict.Values.Where(c => c.BaseMappingBlock == null);
         }
 
-        public static IEnumerable<BlockData> SearchBaseBlocks(string searchTerm) => BaseBlockDataList.Where(c => c.Name.ToLower().Contains(searchTerm.ToLower()));
-
         private static Dictionary<string, BlockData> _loadBlockDataDict()
         {
             var data = FileUtils.LoadJson(ConfigFiles.GraphicalChipsPath)["chips"];
@@ -36,5 +34,7 @@ namespace IAmACube
 
             return blockData;
         }
+
+        public static IEnumerable<BlockData> SearchBlocks(this IEnumerable<BlockData> blocks, string searchTerm) => blocks.Where(c => c.Name.ToLower().Contains(searchTerm.ToLower()));
     }
 }

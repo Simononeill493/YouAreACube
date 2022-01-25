@@ -50,7 +50,7 @@ namespace IAmACube
 
         private static SurfaceCube GetPlayer(this Sector sector)
         {
-            var player = sector.ActiveBlocks.Where(a => a.Template.Name.Equals("GodPlayer") & a.CubeMode == CubeMode.Surface).FirstOrDefault();
+            var player = sector.ActiveBlocks.Where(a => a.Template.Name.Contains("Player") & a.CubeMode == CubeMode.Surface).FirstOrDefault();
             return (SurfaceCube)player;
         }
 

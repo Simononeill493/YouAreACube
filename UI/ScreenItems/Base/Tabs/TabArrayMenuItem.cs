@@ -74,15 +74,12 @@ namespace IAmACube
             return tabButton;
         }
 
-        public void SwitchToTab(TabButtonMenuItem tabButton)
+        public void SwitchToTab(TabButtonMenuItem selectedTab)
         {
-            if(_activeTab!=null)
-            {
-                _activeTab.Tab.HideAndDisable();
-            }
+            _activeTab?.Deselect();
+            selectedTab.Select();
 
-            tabButton.Tab.ShowAndEnable();
-            _activeTab = tabButton;
+            _activeTab = selectedTab;
         }
 
         public void SwitchToFirstTab() => SwitchToTab(_tabButtons.First());

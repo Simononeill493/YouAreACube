@@ -9,6 +9,14 @@
 	  "maxHealth":10000000,
       "speed":3
     },
+	{
+      "name":"DemoPlayer",
+      "sprite":"BasicPlayer",
+	  "spriteType":"SingleSprite",
+	  "maxEnergy":100,
+	  "maxHealth":100,
+      "speed":10
+    },
   	{
       "name":"Bullet",
       "sprite":"Bullet",

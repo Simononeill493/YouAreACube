@@ -190,6 +190,11 @@
 	  "inputs":["bool"],
     },
 	{
+      "name":"IfKeyPressed",
+	  "datatype":"Control",
+	  "inputs":["Keys"],
+    },
+	{
       "name":"IfPercentage",
 	  "datatype":"Control",
 	  "inputs":["int","int"],
