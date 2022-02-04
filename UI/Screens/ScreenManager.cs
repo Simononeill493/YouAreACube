@@ -17,10 +17,12 @@ namespace IAmACube
 
         public void Init()
         {
+            //Config.SetGodMode();
+
             //CurrentScreen = new PreDemoScreen(SwitchScreen);
             //CurrentScreen = new TitleScreen(SwitchScreen);
 
-            CurrentGame = DemoGameScreen.Generate(SwitchScreen);
+            CurrentGame = TutorialGameScreen.Generate(SwitchScreen);
             CurrentScreen = CurrentGame;
 
             Initialized = true;
@@ -97,7 +99,7 @@ namespace IAmACube
                 case ScreenType.TemplateEdit:
                     throw new NotImplementedException("Tried to switch to template edit screen without loading a template");
                 case ScreenType.DemoGame:
-                    CurrentGame = DemoGameScreen.Generate(SwitchScreen);
+                    CurrentGame = TutorialGameScreen.Generate(SwitchScreen);
                     CurrentScreen = CurrentGame;
                     break;
                 case ScreenType.PreDemo:

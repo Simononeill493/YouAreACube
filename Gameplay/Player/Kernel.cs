@@ -25,7 +25,7 @@ namespace IAmACube
             Companions = new List<Cube>();
             KnownTemplates = new HashSet<TemplateVersionDictionary>();
             KnownBlocks = new HashSet<BlockData>();
-            LearnAllBlocks();
+            //LearnAllBlocks();
         }
         public void InitializeSession()
         {
@@ -34,6 +34,10 @@ namespace IAmACube
             if(Config.KernelLearnAllTemplates)
             {
                 LearnAllLoadedTemplates();
+            }
+            if (Config.KernelLearnAllBlocks)
+            {
+                LearnAllBlocks();
             }
         }
 
@@ -46,13 +50,17 @@ namespace IAmACube
                 Host.AddEnergy(1);
             }
 
-
             HostLoc = Host.Location.AbsoluteLocation;
         }
 
         public void SetHost(SurfaceCube block)
         {
-            Companions.Remove(Host);
+            if(Host!=null)
+            {
+                Host.Invincible = false;
+                Companions.Remove(Host);
+            }
+
             Host = block;
             Companions.Add(block);
 
@@ -61,6 +69,7 @@ namespace IAmACube
                 Host.Invincible = true;
             }
 
+            AddKnownTemplate(Host.Template.Versions);
         }
 
 

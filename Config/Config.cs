@@ -21,9 +21,18 @@ namespace IAmACube
 
         public static bool EnableFrameCounter = false;
 
-        public static bool KernelUnlimitedEnergy = true;
-        public static bool KernelHostInvincible = true;
-        public static bool KernelLearnAllTemplates = true;
+        public static bool KernelUnlimitedEnergy = false;
+        public static bool KernelHostInvincible = false;
+        public static bool KernelLearnAllTemplates = false;
+        public static bool KernelLearnAllBlocks = false;
+
+        public static void SetGodMode()
+        {
+            KernelUnlimitedEnergy = true;
+            KernelHostInvincible = true;
+            KernelLearnAllTemplates = true;
+            KernelLearnAllBlocks = true;
+        }
 
         public static int DefaultMenuItemScale = 4;
         public static Color DefaultTextColor = Color.Black;

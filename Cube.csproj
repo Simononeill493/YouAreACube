@@ -218,7 +218,7 @@
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedAction.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedMenu\TemplateSelectedMenuInternal.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedMenu\TemplateSelectedMenuMain.cs" />
-    <Compile Include="UI\Screens\InGameScreens\DemoGame\DemoGameScreen.cs" />
+    <Compile Include="UI\Screens\InGameScreens\DemoGame\TutorialGameScreen.cs" />
     <Compile Include="UI\Screens\InGameScreens\GameScreen.cs" />
     <Compile Include="UI\ScreenItems\Base\CorneredBoxMenuItem.cs" />
     <Compile Include="UI\TextDialogue\Box\TextDialogueBox.cs" />

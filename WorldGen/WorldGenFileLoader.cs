@@ -19,7 +19,7 @@ namespace IAmACube
         public const char MetadataKeyVsValueSeperator = '=';
         public const char WorldPicEmptySpace = ' ';
 
-        public static (IntPoint, List<Sector>, SurfaceCube) LoadDemoSectors(WorldKernel kernel)
+        public static (IntPoint, List<Sector>, SurfaceCube) LoadTutorialSectors(WorldKernel kernel)
         {
             var lines = File.ReadAllLines(DemoWorldFilePath).ToList();
             var topLevelSeperated = StringUtils.Seperate(lines, TopLevelSeperator);
