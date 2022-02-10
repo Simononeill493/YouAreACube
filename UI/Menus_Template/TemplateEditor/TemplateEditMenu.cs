@@ -57,6 +57,10 @@ namespace IAmACube
                 case InputOptionSubmenuType.TemplateSelect:
                     OpenTemplateSelectDialog(selectedModel);
                     return;
+                case InputOptionSubmenuType.KeyEntry:
+                    OpenKeyEntryDialog(selectedModel);
+                    return;
+
                 default:
                     throw new Exception();
             }
@@ -69,6 +73,15 @@ namespace IAmACube
             dialogBox.AddPausedItems(_tabs.Tabs);
             AddChildAfterUpdate(dialogBox);
         }
+
+        public void OpenKeyEntryDialog(BlockInputModel selectedModel)
+        {
+            var dialogBox = new KeyEntryDialog(ManualDrawLayer.Dialog, this, selectedModel);
+            dialogBox.SetLocationConfig(50, 50, CoordinateMode.ParentPercentage, true);
+            dialogBox.AddPausedItems(_tabs.Tabs);
+            AddChildAfterUpdate(dialogBox);
+        }
+
 
         public void OpenQuitDialog()
         {

@@ -58,7 +58,7 @@ namespace IAmACube
 
         public static void TestCode()
         {
-            var world = WorldGen.GenerateTutorialWorld();
+            var world = WorldGen.GenerateDemoWorld1();
         }
     }
 }

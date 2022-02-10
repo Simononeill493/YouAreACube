@@ -12,6 +12,7 @@ namespace IAmACube
         public static string LargeMenuRectangle = "EmptyMenuRectangleFull";
         public static string LargeMenuRectangle_BlocksetEditWindow = "EditPaneWindow";
 
+        public static string SmallMenuRectangle = "EmptyMenuRectangleSmall";
         public static string MediumMenuRectangle = "EmptyMenuRectangleFull";
         public static string BlankPixel = "BlankPixel";
         public static string BasicDropdown = "Dropdown";

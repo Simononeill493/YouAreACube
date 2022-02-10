@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,13 +16,22 @@ namespace IAmACube
             {
                 return GetDefaultItems(dataType.Split('|').ToList());
             }
-            if (InGameTypeUtils.IsDiscreteType(dataType))
+
+            if (dataType.Equals(nameof(CubeTemplate)))
             {
-                return _getBasicSelections(dataType).Cast<BlockInputOption>().ToList();
+                return new List<BlockInputOption>() { BlockInputOption.CreateSubMenu("Select Template...", InputOptionSubmenuType.TemplateSelect) };
             }
-            else if (dataType.Equals(nameof(CubeTemplate)))
+            else if (InGameTypeUtils.IsDiscreteType(dataType))
             {
-                return new List<BlockInputOption>() { BlockInputOption.CreateSubMenu("Select Template...",InputOptionSubmenuType.TemplateSelect) };
+                var output = new List<BlockInputOption>();
+                if (dataType.Equals(nameof(Keys)))
+                {
+                    output.Add(BlockInputOption.CreateSubMenu("Enter key...", InputOptionSubmenuType.KeyEntry));
+                }
+
+                output.AddRange(_getBasicSelections(dataType).Cast<BlockInputOption>().ToList());
+
+                return output;
             }
             else
             {

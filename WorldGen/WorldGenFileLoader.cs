@@ -9,7 +9,7 @@ namespace IAmACube
 {
     static class WorldGenFileLoader
     {
-        public const string DemoWorldFilePath = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data\DemoWorldFile.txt";
+        public const string DemoWorld1FilePath = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data\DemoWorldFile1.txt";
 
         public const string TopLevelSeperator = "-";
         public const string Level2Seperator = "#";
@@ -19,9 +19,9 @@ namespace IAmACube
         public const char MetadataKeyVsValueSeperator = '=';
         public const char WorldPicEmptySpace = ' ';
 
-        public static (IntPoint, List<Sector>, SurfaceCube) LoadTutorialSectors(WorldKernel kernel)
+        public static (IntPoint, List<Sector>, SurfaceCube) LoadDemoSectors1(WorldKernel kernel)
         {
-            var lines = File.ReadAllLines(DemoWorldFilePath).ToList();
+            var lines = File.ReadAllLines(DemoWorld1FilePath).ToList();
             var topLevelSeperated = StringUtils.Seperate(lines, TopLevelSeperator);
 
             var (sectorSize,metaData) = ParseWorldMetaData(topLevelSeperated[0]);

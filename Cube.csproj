@@ -157,6 +157,7 @@
     <Compile Include="UI\Animation\Animations\SpriteCycleAnimation.cs" />
     <Compile Include="UI\Animation\Tickers\Tickers.cs" />
     <Compile Include="UI\Animation\Tickers\VaryingCyclicTicker.cs" />
+    <Compile Include="UI\DialogBoxes\KeyEntryDialog\KeyEntryDialog.cs" />
     <Compile Include="UI\ScreenItems\Abstract\BasicScreenItem\Scale\ScreenItemScaleProvider.cs" />
     <Compile Include="UI\ScreenItems\Abstract\BasicScreenItem\Scale\ScreenItemScaleProviderMenuScreen.cs" />
     <Compile Include="UI\ScreenItems\Abstract\BasicScreenItem\Scale\ScreenItemScaleProviderParent.cs" />
@@ -218,7 +219,7 @@
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedAction.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedMenu\TemplateSelectedMenuInternal.cs" />
     <Compile Include="UI\Menus_Template\TemplateSelector\TemplateSelectedMenu\TemplateSelectedMenuMain.cs" />
-    <Compile Include="UI\Screens\InGameScreens\DemoGame\TutorialGameScreen.cs" />
+    <Compile Include="UI\Screens\InGameScreens\DemoGame\DemoGameScreen.cs" />
     <Compile Include="UI\Screens\InGameScreens\GameScreen.cs" />
     <Compile Include="UI\ScreenItems\Base\CorneredBoxMenuItem.cs" />
     <Compile Include="UI\TextDialogue\Box\TextDialogueBox.cs" />

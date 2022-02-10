@@ -1,0 +1,38 @@
+27,27
+#
+groundSprite=DemoFloor1,DemoFloor2
+groundMask=DemoStageDarkGroundColor
+x=DemoWall,0
+P=DemoPlayer,0
+g=BasicGoal,0
+-
+0,0
+#
+         xxxxxxxxx         
+         x x   x x         
+xxxxxxxxxx x g x xxxxxxxxxx
+x        x x   x x        x
+x        x xx xx x        x
+x        x       x        x
+x      xxxxxx xxxxxx      x
+x      x           x      x
+x  xxxxx           xxxx   x
+x  x                  x   x
+x  x                  x   x
+x  xxxxxxxxxxxxxxxxx  x   x
+x      x           x  x   x
+x      x           x  x   x
+xxxxx  x           x  x   x
+x   x  x           x  x   x
+x   x  x           x  x   x
+x   x  x     P     x  x   x
+x   x  x           x  x   x
+x   x  x           x  x   x
+x   x  x           x  x   x
+x   x  x           x  x   x
+x   x  x           x  x   x
+x   x  xxxxxx xxxxxx  x   x
+x                         x
+x                         x
+xxxxxxxxxxxxxxxxxxxxxxxxxxx
+#

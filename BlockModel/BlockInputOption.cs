@@ -104,7 +104,8 @@ namespace IAmACube
 
     public enum InputOptionSubmenuType
     {
-        TemplateSelect
+        TemplateSelect,
+        KeyEntry
     }
 
 }

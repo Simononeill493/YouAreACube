@@ -9,10 +9,10 @@ namespace IAmACube
 {
     class WorldGen
     {
-        public static (World,SurfaceCube) GenerateTutorialWorld()
+        public static (World,SurfaceCube) GenerateDemoWorld1()
         {
             var kernel = new WorldKernel();
-            var (sectorSize,sectors,player) = WorldGenFileLoader.LoadTutorialSectors(kernel);
+            var (sectorSize,sectors,player) = WorldGenFileLoader.LoadDemoSectors1(kernel);
 
             var world = new World(0, sectorSize);
             sectors.ForEach(s => world.AddSector(s));

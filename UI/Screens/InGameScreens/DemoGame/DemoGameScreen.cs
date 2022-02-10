@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class TutorialGameScreen : GameScreen
+    class DemoGameScreen : GameScreen
     {
-        public static TutorialGameScreen Generate(Action<ScreenType> switchScreen)
+        public static DemoGameScreen Generate(Action<ScreenType> switchScreen)
         {
-            var (tutorialWorld, tutorialPlayer) = WorldGen.GenerateTutorialWorld();
+            var (demoWorld1, demoPlayer) = WorldGen.GenerateDemoWorld1();
             var tutorialKernel = new Kernel();
-            tutorialKernel.SetHost(tutorialPlayer);
+            tutorialKernel.SetHost(demoPlayer);
 
             tutorialKernel.AddKnownBlock(BlockDataDatabase.BlockDataDict["Move"]);
             tutorialKernel.AddKnownBlock(BlockDataDatabase.BlockDataDict["IfKeyPressed"]);
 
-            return new TutorialGameScreen(switchScreen, tutorialKernel, tutorialWorld);
+            return new DemoGameScreen(switchScreen, tutorialKernel, demoWorld1);
         }
 
-        public TutorialGameScreen(Action<ScreenType> switchScreen,Kernel kernel,World demoWorld) : base(ScreenType.DemoGame, switchScreen, kernel,demoWorld)
+        public DemoGameScreen(Action<ScreenType> switchScreen,Kernel kernel,World demoWorld) : base(ScreenType.DemoGame, switchScreen, kernel,demoWorld)
         {
             AddKeyJustReleasedEvent(Keys.Escape, (i) => { SwitchScreen(ScreenType.MainMenu); });
 
