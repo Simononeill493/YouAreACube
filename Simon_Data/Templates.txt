@@ -128,7 +128,7 @@
     },
 	{
       "name":"DemoWall",
-      "sprite":"DemoWall1_3",
+      "sprite":"WhiteWall",
 	  "spriteType":"SingleSprite",
 	  "maxHealth":100000,
     },

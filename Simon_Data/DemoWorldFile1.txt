@@ -1,7 +1,8 @@
 27,27
 #
-groundSprite=DemoFloor1,DemoFloor2
+groundSprite=TitleBoxGlowing,DemoWall1_3
 groundMask=DemoStageDarkGroundColor
+surfaceMask=PaleYellow
 x=DemoWall,0
 P=DemoPlayer,0
 g=BasicGoal,0

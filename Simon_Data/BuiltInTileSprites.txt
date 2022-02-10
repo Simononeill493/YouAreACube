@@ -17,6 +17,7 @@ DemoFloor2
 DemoWall1_1
 DemoWall1_2
 DemoWall1_3
+WhiteWall
 
 
 /Sprites/Tilesets/FaceCubes

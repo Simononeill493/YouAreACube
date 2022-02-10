@@ -95,6 +95,13 @@ namespace IAmACube
                 groundMask = (XnaColors)Enum.Parse(typeof(XnaColors),metaData["groundMask"]);
             }
 
+            var surfaceMask = XnaColors.ClearColorMask;
+            if (metaData.ContainsKey("surfaceMask"))
+            {
+                surfaceMask = (XnaColors)Enum.Parse(typeof(XnaColors), metaData["surfaceMask"]);
+            }
+
+
 
             for (int i=0; i<size.Y;i++)
             {
@@ -114,6 +121,8 @@ namespace IAmACube
 
                     tile.TileSprite = groundSprites.GetRandom();
                     tile.TileSpriteMask = groundMask;
+
+                    tile.SurfaceMask = surfaceMask;
                 }
             }
 

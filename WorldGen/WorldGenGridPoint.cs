@@ -9,6 +9,7 @@ namespace IAmACube
 
         public string TileSprite;
         public XnaColors TileSpriteMask = XnaColors.ClearColorMask;
+        public XnaColors SurfaceMask = XnaColors.ClearColorMask;
 
         public CubeTemplate Surface;
         public CubeTemplate Ground;
@@ -79,6 +80,7 @@ namespace IAmACube
             {
                 var block = Surface.GenerateSurface(_worldKernel);
                 block.EnterLocation(t);
+                block.SpriteData.ColorMask = SurfaceMask;
                 s.AddBlockToSector(block);
             }
 
