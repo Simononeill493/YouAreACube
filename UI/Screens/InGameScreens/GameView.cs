@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    abstract class GameView : ScreenItem
+    //DELETEME
+
+    /*abstract class GameView : ScreenItem
     {
         public Game Game;
         private bool _paused;
@@ -92,5 +94,5 @@ namespace IAmACube
 
         public override IntPoint GetBaseSize() => GetSize();
 
-    }
+    }*/
 }

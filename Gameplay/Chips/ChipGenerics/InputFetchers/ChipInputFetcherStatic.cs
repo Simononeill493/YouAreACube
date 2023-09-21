@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    public class ChipInputFetcherStatic<TInputType> : IChipInputFetcher<TInputType>
+    //DELETEME
+
+    /*public class ChipInputFetcherStatic<TInputType> : IChipInputFetcher<TInputType>
     {
         private TInputType _input;
 
@@ -18,7 +20,7 @@ namespace IAmACube
         }
 
         public TInputType Value => _input;
-        public string AsString =>_input.ToString()
+        public string AsString => _input.ToString();
     }
 
     public static class ChipInputStatic
@@ -51,5 +53,5 @@ namespace IAmACube
             return genericInstance;
 
         }
-    }
+    }*/
 }

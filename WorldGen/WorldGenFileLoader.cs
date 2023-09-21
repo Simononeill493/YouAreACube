@@ -9,7 +9,7 @@ namespace IAmACube
 {
     static class WorldGenFileLoader
     {
-        public const string DemoWorld1FilePath = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data\DemoWorldFile1.txt";
+        public const string DemoWorld1FilePath = @"C:\Users\Simon\source\repos\Cube\Cube\Simon_Data\DemoWorldFile1.txt";
 
         public const string TopLevelSeperator = "-";
         public const string Level2Seperator = "#";

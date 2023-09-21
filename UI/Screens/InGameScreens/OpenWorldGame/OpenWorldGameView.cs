@@ -7,7 +7,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace IAmACube
 {
-    class OpenWorldGameView : GameView
+    //DELETEME
+    /*class OpenWorldGameView : GameView
     {
         private SectorGenerator _sectorGenerator;
 
@@ -36,5 +37,5 @@ namespace IAmACube
 
             _switchScreen(ScreenType.LoadGameOpenWorld);
         }
-    }
+    }*/
 }

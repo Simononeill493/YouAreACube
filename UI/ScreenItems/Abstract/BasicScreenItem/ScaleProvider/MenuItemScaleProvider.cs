@@ -2,7 +2,9 @@
 
 namespace IAmACube
 {
-    public abstract class MenuItemScaleProvider
+    //DELETEME
+
+    /*public abstract class MenuItemScaleProvider
     {
         public abstract int GetScale(MenuItem item);
 
@@ -29,5 +31,5 @@ namespace IAmACube
             _manualMultiplier = toSetTo;
         }
 
-    }
+    }*/
 }

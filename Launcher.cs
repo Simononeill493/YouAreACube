@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Windows.Forms;
 using System.Linq;
 using System.IO;
@@ -22,7 +22,7 @@ namespace IAmACube
             {
                 Run();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 var path = Directory.GetCurrentDirectory();
                 var exceptionLogPath = Path.Combine(path, "Cube_exception_log.txt");

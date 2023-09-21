@@ -7,7 +7,7 @@ namespace IAmACube
 {
     public static class ConfigFiles
     {
-        public static string ConfigFileDefaultLocation = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data";
+        public static string ConfigFileDefaultLocation = @"C:\Users\Simon\source\repos\Cube\Cube\Simon_Data";
         public static string ConfigFileName = @"Config.txt";
 
         public static string SaveDirectoryDefaultLocation = @"C:\Users\Simon\Desktop\Cube\Cube";
@@ -15,13 +15,13 @@ namespace IAmACube
         public static string SaveWorldExtension = ".cubeworld";
         public static string SaveKernelExtension = ".cubekernel";
 
-        public static string TemplatesFileDefaultLocation = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data";
+        public static string TemplatesFileDefaultLocation = @"C:\Users\Simon\source\repos\Cube\Cube\Simon_Data";
         public static string TemplatesFileName = @"templates.txt";
 
-        public static string GraphicalChipsFileDefaultLocation = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data";
+        public static string GraphicalChipsFileDefaultLocation = @"C:\Users\Simon\source\repos\Cube\Cube\Simon_Data";
         public static string GraphicalChipsFileName = @"GraphicalChips.txt";
 
-        public static string TileSpritesFileDefaultLocation = @"C:\Users\Simon\Desktop\Cube\Cube\Simon_Data";
+        public static string TileSpritesFileDefaultLocation = @"C:\Users\Simon\source\repos\Cube\Cube\Simon_Data";
         public static string TileSpritesFileName = @"BuiltInTileSprites.txt";
 
         public static string TemplatesPath;

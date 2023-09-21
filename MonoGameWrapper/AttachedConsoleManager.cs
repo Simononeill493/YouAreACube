@@ -19,7 +19,7 @@ namespace IAmACube
             _graphicsDevice = graphicsDevice;
             _lastRecordedPosition = firstPosition;
 
-            Console.CursorVisible = false;
+            //Console.CursorVisible = false;
         }
 
         public void ConsoleMoveEventHandler(object sender, EventArgs e) => MoveConsoleToWindow();

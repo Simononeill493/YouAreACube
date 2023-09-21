@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace IAmACube
 {
-    class DemoGameView : GameView
+    //DELETEME
+
+    /*class DemoGameView : GameView
     {
         public DemoGameView(IHasDrawLayer parent,Action<ScreenType> switchScreen) : base(parent, switchScreen, new Kernel(), WorldGen.GenerateDemoWorld())
         {
@@ -29,5 +31,5 @@ namespace IAmACube
 
             return base._generateGame(kernel, world);
         }
-    }
+    }*/
 }
