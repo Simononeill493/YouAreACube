@@ -10,6 +10,9 @@ namespace IAmACube
 {
     class Config
     {
+        public const string RootDataPath = @"C:\Users\Simon\source\repos\Cube\Cube\Simon_Data";
+
+
         public const int NumChipInputPins = 3;
 
         public static int ScreenDefaultWidth = 1280;

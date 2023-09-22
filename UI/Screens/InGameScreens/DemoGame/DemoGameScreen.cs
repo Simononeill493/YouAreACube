@@ -12,6 +12,7 @@ namespace IAmACube
         public static DemoGameScreen Generate(Action<ScreenType> switchScreen)
         {
             var (demoWorld1, demoPlayer) = WorldGen.GenerateDemoWorld1();
+
             var tutorialKernel = new Kernel();
             tutorialKernel.SetHost(demoPlayer);
 

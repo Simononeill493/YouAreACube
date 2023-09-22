@@ -4,7 +4,7 @@ groundSprite=TitleBoxGlowing,DemoWall1_3
 groundMask=DemoStageDarkGroundColor
 surfaceMask=PaleYellow
 x=DemoWall,0
-P=DemoPlayer,0
+P=GodPlayer,0
 g=BasicGoal,0
 -
 0,0

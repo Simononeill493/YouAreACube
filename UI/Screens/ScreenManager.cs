@@ -17,13 +17,13 @@ namespace IAmACube
 
         public void Init()
         {
-            //Config.SetGodMode();
+            Config.SetGodMode();
 
             //CurrentScreen = new PreDemoScreen(SwitchScreen);
-            //CurrentScreen = new TitleScreen(SwitchScreen);
+            CurrentScreen = new TitleScreen(SwitchScreen);
 
-            CurrentGame = DemoGameScreen.Generate(SwitchScreen);
-            CurrentScreen = CurrentGame;
+            //CurrentGame = DemoGameScreen.Generate(SwitchScreen);
+            //CurrentScreen = CurrentGame;
 
             Initialized = true;
 
